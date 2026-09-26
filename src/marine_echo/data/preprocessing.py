@@ -6,6 +6,8 @@ counts into Sv or establish whether environmental inputs apply to a deployment.
 
 from __future__ import annotations
 
+import hashlib
+import json
 from dataclasses import dataclass
 
 import numpy as np
@@ -31,15 +33,20 @@ class BinnedAcoustics:
     configuration_ids: tuple[str | None, ...]
     configuration_boundary: NDArray[np.bool_]
     source_file_ids: tuple[frozenset[str], ...]
+    raw_ping_times: NDArray[np.datetime64]
     dataset_id: str
     deployment_id: str
     instrument_id: str
     calibration_report_sha256: str
+    config_sha256: str
+    split_sha256: str
+    processing_sha256: str
     availability_policy: str
 
 
 @dataclass(frozen=True)
 class AcousticWindow:
+    row_id: str
     cutoff: np.datetime64
     partition: str
     context_linear: NDArray[np.float64]
@@ -48,6 +55,17 @@ class AcousticWindow:
     target_index_db: NDArray[np.float64]
     target_support: NDArray[np.float64]
     source_file_ids: frozenset[str]
+    dataset_id: str
+    deployment_id: str
+    instrument_id: str
+    calibration_report_sha256: str
+    config_sha256: str
+    split_sha256: str
+    processing_sha256: str
+
+
+def valid_sha256(value: str) -> bool:
+    return len(value) == 64 and all(character in "0123456789abcdef" for character in value)
 
 
 def _time_ns(values: NDArray[np.datetime64], name: str) -> NDArray[np.datetime64]:
@@ -71,6 +89,9 @@ def aggregate_calibrated_pings(
     instrument_id: str,
     calibration_status: str,
     calibration_report_sha256: str,
+    config_sha256: str,
+    split_sha256: str,
+    processing_sha256: str,
     ping_available_times: NDArray[np.datetime64] | None = None,
     availability_policy: str = "zero_latency_replay",
 ) -> BinnedAcoustics:
@@ -81,10 +102,18 @@ def aggregate_calibrated_pings(
     """
     if calibration_status != "VERIFIED_PHYSICAL_SV":
         raise ValueError("Input lacks verified physical calibration to sv.")
-    if len(calibration_report_sha256) != 64 or any(
-        character not in "0123456789abcdef" for character in calibration_report_sha256
+    if not all(
+        valid_sha256(digest)
+        for digest in (
+            calibration_report_sha256,
+            config_sha256,
+            split_sha256,
+            processing_sha256,
+        )
     ):
-        raise ValueError("A SHA-256 calibration report identity is required.")
+        raise ValueError(
+            "SHA-256 calibration, config, split and processing identities are required."
+        )
     if not all((dataset_id, deployment_id, instrument_id)):
         raise ValueError("Dataset, deployment and instrument identities are required.")
     times = _time_ns(ping_times, "ping_times")
@@ -109,10 +138,7 @@ def aggregate_calibrated_pings(
         or range_edges_m[0] < 0
     ):
         raise ValueError("Physical range edges must be finite and increasing.")
-    if (
-        supported_range.shape != (frequencies, ranges)
-        or supported_range.dtype.kind != "b"
-    ):
+    if supported_range.shape != (frequencies, ranges) or supported_range.dtype.kind != "b":
         raise ValueError("Frequency-specific physical range support is required.")
     if valid_mask.dtype.kind != "b" or not np.isfinite(sv_linear[valid_mask]).all():
         raise ValueError("Valid calibrated sv values must be finite.")
@@ -121,10 +147,10 @@ def aggregate_calibrated_pings(
     if (
         len(configuration_ids) != pings
         or len(source_file_ids) != pings
-        or not all(configuration_ids)
-        or not all(source_file_ids)
+        or not all(valid_sha256(item) for item in configuration_ids)
+        or not all(valid_sha256(item) for item in source_file_ids)
     ):
-        raise ValueError("Every ping requires a configuration and source identity.")
+        raise ValueError("Every ping requires SHA-256 configuration and source identities.")
     if availability_policy not in ("measured", "zero_latency_replay"):
         raise ValueError("An explicit availability policy is required.")
     if ping_available_times is None:
@@ -143,9 +169,7 @@ def aggregate_calibrated_pings(
     count = last - first + 1
     if count > _MAX_BINS_PER_BATCH:
         raise ValueError("A bounded aggregation batch may cover at most 32 hours.")
-    starts = (np.arange(first, last + 1, dtype=np.int64) * _BIN_MINUTES).astype(
-        "datetime64[m]"
-    )
+    starts = (np.arange(first, last + 1, dtype=np.int64) * _BIN_MINUTES).astype("datetime64[m]")
     ends = starts + np.timedelta64(_BIN_MINUTES, "m")
     binned = np.full((count, frequencies, ranges), np.nan, dtype=np.float64)
     masks = np.zeros((count, frequencies, ranges), dtype=bool)
@@ -172,11 +196,7 @@ def aggregate_calibrated_pings(
     db = np.full_like(binned, np.nan)
     db[masks] = 10.0 * np.log10(np.maximum(binned[masks], _DB_FLOOR))
     boundaries = np.array(
-        [False]
-        + [
-            configurations[index] != configurations[index - 1]
-            for index in range(1, count)
-        ],
+        [False] + [configurations[index] != configurations[index - 1] for index in range(1, count)],
         dtype=bool,
     )
     return BinnedAcoustics(
@@ -193,10 +213,14 @@ def aggregate_calibrated_pings(
         configuration_ids=tuple(configurations),
         configuration_boundary=boundaries,
         source_file_ids=tuple(sources),
+        raw_ping_times=times.copy(),
         dataset_id=dataset_id,
         deployment_id=deployment_id,
         instrument_id=instrument_id,
         calibration_report_sha256=calibration_report_sha256,
+        config_sha256=config_sha256,
+        split_sha256=split_sha256,
+        processing_sha256=processing_sha256,
         availability_policy=availability_policy,
     )
 
@@ -212,6 +236,10 @@ def build_window(
     expected_dataset_id: str,
     expected_deployment_id: str,
     expected_instrument_id: str,
+    expected_calibration_report_sha256: str,
+    expected_config_sha256: str,
+    expected_split_sha256: str,
+    expected_processing_sha256: str,
     analysis_frequency_hz: int,
     analysis_range_m: tuple[float, float],
     context_bins: int = 96,
@@ -221,20 +249,22 @@ def build_window(
     """Select a complete split-contained window and its supported future indices."""
     if partition not in ("train", "validation", "calibration", "test"):
         raise ValueError("A declared chronological partition is required.")
+    if partition == "test":
+        raise ValueError("Protected test truth requires a separately reviewed R2 evaluation path.")
     if (
         series.dataset_id != expected_dataset_id
         or series.deployment_id != expected_deployment_id
         or series.instrument_id != expected_instrument_id
+        or series.calibration_report_sha256 != expected_calibration_report_sha256
+        or series.config_sha256 != expected_config_sha256
+        or series.split_sha256 != expected_split_sha256
+        or series.processing_sha256 != expected_processing_sha256
     ):
-        raise ValueError("Source identity differs from the split manifest.")
+        raise ValueError("Source identity or provenance hash differs from the split manifest.")
     if not allowed_source_file_ids:
         raise ValueError("A split-specific source allowlist is required.")
-    if context_bins <= 0 or not horizons or any(h not in (1, 3, 6) for h in horizons):
-        raise ValueError(
-            "Context length or horizon differs from the declared protocol."
-        )
-    if not 0 < minimum_target_support <= 1:
-        raise ValueError("Target support threshold is invalid.")
+    if context_bins != 96 or horizons != (1, 3, 6) or minimum_target_support != 0.8:
+        raise ValueError("Window geometry and target support must match the frozen protocol.")
     cutoff_ns = np.datetime64(cutoff, "ns")
     start_ns = np.datetime64(split_start, "ns")
     end_ns = np.datetime64(split_end, "ns")
@@ -244,12 +274,10 @@ def build_window(
     target_end = cutoff_ns + max(horizons) * np.timedelta64(1, "h")
     if context_start < start_ns or target_end > end_ns:
         raise ValueError("Window crosses its chronological split boundary.")
-    context = np.flatnonzero(
-        (series.bin_end > context_start) & (series.bin_end <= cutoff_ns)
+    context = np.flatnonzero((series.bin_end > context_start) & (series.bin_end <= cutoff_ns))
+    expected_context_ends = context_start + np.arange(1, context_bins + 1) * np.timedelta64(
+        _BIN_MINUTES, "m"
     )
-    expected_context_ends = context_start + np.arange(
-        1, context_bins + 1
-    ) * np.timedelta64(_BIN_MINUTES, "m")
     if len(context) != context_bins or not np.array_equal(
         series.bin_end[context], expected_context_ends
     ):
@@ -264,9 +292,7 @@ def build_window(
         if len(indices) != 4 or series.bin_end[indices[-1]] != interval_end:
             raise ValueError("Target has missing time bins.")
         target_groups.append(indices)
-    extent = np.flatnonzero(
-        (series.bin_end > context_start) & (series.bin_end <= target_end)
-    )
+    extent = np.flatnonzero((series.bin_end > context_start) & (series.bin_end <= target_end))
     if (
         any(series.configuration_ids[index] is None for index in extent)
         or len({series.configuration_ids[index] for index in extent}) != 1
@@ -285,9 +311,10 @@ def build_window(
     if (
         not len(ranges)
         or lower >= upper
-        or not series.supported_range[channel[0], ranges].all()
+        or not (series.range_edges_m == lower).any()
+        or not (series.range_edges_m == upper).any()
     ):
-        raise ValueError("Analysis band includes unsupported physical range.")
+        raise ValueError("Analysis band must match exact range edges and have support.")
     # A bin is input only if it was available at the issue time. The future
     # target is read separately and cannot influence context construction.
     available_context = (~np.isnat(series.available_time[context])) & (
@@ -295,8 +322,8 @@ def build_window(
     )
     context_mask = series.valid_mask[context] & available_context[:, None, None]
     context_linear = np.where(context_mask, series.sv_linear[context], np.nan)
-    if not context_mask.any():
-        raise ValueError("No context was available at forecast issue time.")
+    if not context_mask[:, channel[0], :][:, ranges].any(axis=1).all():
+        raise ValueError("A primary context bin is missing or unavailable at issue time.")
     widths = np.diff(series.range_edges_m)[ranges]
     targets: list[float] = []
     support_fractions: list[float] = []
@@ -308,12 +335,28 @@ def build_window(
         support = float(weights[mask].sum() / denominator)
         if support < minimum_target_support:
             raise ValueError("Target support is below the frozen threshold.")
-        targets.append(
-            float((values[mask] * weights[mask]).sum() / weights[mask].sum())
-        )
+        targets.append(float((values[mask] * weights[mask]).sum() / weights[mask].sum()))
         support_fractions.append(support)
     linear = np.array(targets, dtype=np.float64)
+    row_identity = {
+        "dataset_id": series.dataset_id,
+        "deployment_id": series.deployment_id,
+        "instrument_id": series.instrument_id,
+        "calibration_report_sha256": series.calibration_report_sha256,
+        "config_sha256": series.config_sha256,
+        "split_sha256": series.split_sha256,
+        "processing_sha256": series.processing_sha256,
+        "partition": partition,
+        "cutoff_utc": np.datetime_as_string(cutoff_ns, unit="ns"),
+        "source_file_ids": sorted(sources),
+        "analysis_frequency_hz": analysis_frequency_hz,
+        "analysis_range_m": analysis_range_m,
+    }
+    row_id = hashlib.sha256(
+        json.dumps(row_identity, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    ).hexdigest()
     return AcousticWindow(
+        row_id=row_id,
         cutoff=cutoff_ns,
         partition=partition,
         context_linear=context_linear,
@@ -322,4 +365,11 @@ def build_window(
         target_index_db=10.0 * np.log10(np.maximum(linear, _DB_FLOOR)),
         target_support=np.array(support_fractions, dtype=np.float64),
         source_file_ids=sources,
+        dataset_id=series.dataset_id,
+        deployment_id=series.deployment_id,
+        instrument_id=series.instrument_id,
+        calibration_report_sha256=series.calibration_report_sha256,
+        config_sha256=series.config_sha256,
+        split_sha256=series.split_sha256,
+        processing_sha256=series.processing_sha256,
     )

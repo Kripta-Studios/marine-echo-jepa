@@ -1,0 +1,24 @@
+T06 canonical store final focused GREEN evidence, 2026-09-26
+
+Python 3.12 virtual environment: existing ../marine-echo-jepa/.venv.
+No package installation, network access or GPU process.
+
+Test invocation used the existing main package initializer and inserted the
+isolated core data-package path before importing the two modules. It asserted
+both module.__file__ paths end in marine-echo-jepa-core/src/marine_echo/data/
+preprocessing.py and canonical_store.py, respectively.
+
+Exact PowerShell test command (working directory marine-echo-jepa-core):
+& '..\marine-echo-jepa\.venv\Scripts\python.exe' -c "import marine_echo.data,importlib,pytest; p='C:/Users/'+chr(193)+'lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa-core'; marine_echo.data.__path__.insert(0,p+'/src/marine_echo/data'); m=importlib.import_module('marine_echo.data.preprocessing'); n=importlib.import_module('marine_echo.data.canonical_store'); assert m.__file__.replace(chr(92),'/').endswith('marine-echo-jepa-core/src/marine_echo/data/preprocessing.py'); assert n.__file__.replace(chr(92),'/').endswith('marine-echo-jepa-core/src/marine_echo/data/canonical_store.py'); print('Core modules:',m.__file__,n.__file__); raise SystemExit(pytest.main([p+'/tests/scientific/test_preprocessing.py',p+'/tests/scientific/test_canonical_store.py','-q']))"
+Exit status: 0. 12 passed in 3.36 seconds.
+
+Ruff check with ../marine-echo-jepa/pyproject.toml: exit 0, All checks passed.
+Ruff format --check with the same config: exit 0, 4 files already formatted.
+Mypy with MYPYPATH=src, --no-incremental, --explicit-package-bases,
+--namespace-packages and the same config: exit 0, 2 source files checked.
+Git diff --check: exit 0, no output.
+
+The tests use small declared synthetic calibrated arrays and a synthetic
+calibration-report fixture. The audit asserts that opening either sv_linear or
+sv_db from NPZ would fail, including for the test partition. No real acoustic
+values, final-test outcomes, eligible-day result or model benchmark were run.

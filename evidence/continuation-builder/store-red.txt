@@ -1,0 +1,15 @@
+T06 canonical store focused RED evidence, 2026-09-26
+
+Command: existing main Python 3.12 environment, pytest with the core data-package
+path inserted to test the isolated worktree's modules.
+
+Initial canonical-store run after the first implementation:
+Exit status: 1. 4 failed, 8 passed in 3.01 seconds.
+Failure: CanonicalStore._manifest rejected every written manifest because the
+serialized source_file_ids tuple became a JSON list; in-memory identity comparison
+still expected a tuple. Resume and audit could not proceed.
+
+Fix: normalize StoreIdentity to JSON-compatible form before writing and comparing
+the manifest. The later focused run passed all twelve tests.
+
+This is real execution evidence, not an acoustic-data or benchmark run.
