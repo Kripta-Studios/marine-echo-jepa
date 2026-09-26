@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -279,6 +280,8 @@ def audit_support_map(root: Path) -> dict[str, Any]:
             )
         ):
             raise ValueError("Unexpected TRAIN count, denominator, time, or grid schema")
+        if np.any(valid > observed[:, None, None]):
+            raise ValueError("Valid ping count exceeds observed ping count")
         valid_days.append(valid)
         effective_days.append(effective)
     valid_all = np.stack(valid_days)
@@ -327,11 +330,19 @@ def main() -> int:
     path = ROOT / _OUTPUT
     if path.parent.is_symlink() or path.parent.is_junction() or not path.parent.is_dir():
         raise ValueError("Unlinked existing evidence directory required")
-    with path.open("x", encoding="utf-8") as stream:
-        json.dump(result, stream, indent=2, allow_nan=False)
-        stream.write("\n")
-        stream.flush()
-        os.fsync(stream.fileno())
+    descriptor, temporary_name = tempfile.mkstemp(
+        prefix=".train_support_map-", suffix=".tmp", dir=path.parent
+    )
+    temporary = Path(temporary_name)
+    try:
+        with os.fdopen(descriptor, "w", encoding="utf-8") as stream:
+            json.dump(result, stream, indent=2, allow_nan=False)
+            stream.write("\n")
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.link(temporary, path)
+    finally:
+        temporary.unlink(missing_ok=True)
     print(json.dumps({"status": result["status"], "path": _OUTPUT}))
     return 0
 

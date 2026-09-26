@@ -1,0 +1,54 @@
+FF                                                                       [100%]
+================================== FAILURES ===================================
+_ test_count_audit_rejects_valid_count_above_observed_even_if_below_effective _
+
+tmp_path = WindowsPath('C:/Users/Álvaro Schwiedop/AppData/Local/Temp/pytest-of-Álvaro Schwiedop/pytest-3731/test_count_audit_rejects_valid0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002533F77F500>
+
+    def test_count_audit_rejects_valid_count_above_observed_even_if_below_effective(
+        tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        module, days, paths = _complete_synthetic_audit(tmp_path, monkeypatch)
+        shard = paths(tmp_path, days[0])[2]
+        with np.load(shard, allow_pickle=False) as data:
+            fields = {name: data[name] for name in data.files}
+        fields["valid_ping_count"][0, 0, 0] = 48
+        fields["observed_ping_count"][0] = 47
+        np.savez_compressed(shard, **fields)
+        monkeypatch.setattr(sys.modules["train_census_v2"], "verify_completed", lambda *args: None)
+>       with pytest.raises(ValueError, match="observed"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\unit\test_train_support_map.py:355: Failed
+________ test_failed_serialization_leaves_no_final_or_temporary_report ________
+
+tmp_path = WindowsPath('C:/Users/Álvaro Schwiedop/AppData/Local/Temp/pytest-of-Álvaro Schwiedop/pytest-3731/test_failed_serialization_leav0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000253423AE300>
+
+    def test_failed_serialization_leaves_no_final_or_temporary_report(
+        tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        module = _module()
+        output = tmp_path / module._OUTPUT
+        output.parent.mkdir(parents=True)
+        monkeypatch.setattr(module, "ROOT", tmp_path)
+        monkeypatch.setattr(module, "audit_support_map", lambda root: {"status": "SYNTHETIC"})
+    
+        def fail_after_partial_write(result, stream, **kwargs):
+            stream.write('{"status":"partial')
+            raise OSError("Synthetic serialization failure")
+    
+        monkeypatch.setattr(module.json, "dump", fail_after_partial_write)
+        with pytest.raises(OSError, match="Synthetic serialization failure"):
+            module.main()
+>       assert not output.exists()
+E       AssertionError: assert not True
+E        +  where True = exists()
+E        +    where exists = WindowsPath('C:/Users/Álvaro Schwiedop/AppData/Local/Temp/pytest-of-Álvaro Schwiedop/pytest-3731/test_failed_serialization_leav0/evidence/continuation/train_support_map.json').exists
+
+tests\unit\test_train_support_map.py:375: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_train_support_map.py::test_count_audit_rejects_valid_count_above_observed_even_if_below_effective
+FAILED tests/unit/test_train_support_map.py::test_failed_serialization_leaves_no_final_or_temporary_report
+2 failed, 11 deselected in 7.89s

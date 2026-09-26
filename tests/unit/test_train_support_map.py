@@ -339,3 +339,59 @@ def test_count_audit_rejects_reordered_frequency_grid_even_with_valid_counts(
     monkeypatch.setattr(sys.modules["train_census_v2"], "verify_completed", lambda *args: None)
     with pytest.raises(ValueError, match="grid schema"):
         module.audit_support_map(tmp_path)
+
+
+def test_count_audit_rejects_valid_count_above_observed_even_if_below_effective(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    module, days, paths = _complete_synthetic_audit(tmp_path, monkeypatch)
+    shard = paths(tmp_path, days[0])[2]
+    with np.load(shard, allow_pickle=False) as data:
+        fields = {name: data[name] for name in data.files}
+    fields["valid_ping_count"][0, 0, 0] = 48
+    fields["observed_ping_count"][0] = 47
+    np.savez_compressed(shard, **fields)
+    monkeypatch.setattr(sys.modules["train_census_v2"], "verify_completed", lambda *args: None)
+    with pytest.raises(ValueError, match="observed"):
+        module.audit_support_map(tmp_path)
+
+
+def test_failed_serialization_leaves_no_final_or_temporary_report(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    module = _module()
+    output = tmp_path / module._OUTPUT
+    output.parent.mkdir(parents=True)
+    monkeypatch.setattr(module, "ROOT", tmp_path)
+    monkeypatch.setattr(module, "audit_support_map", lambda root: {"status": "SYNTHETIC"})
+
+    def fail_after_partial_write(result, stream, **kwargs):
+        stream.write('{"status":"partial')
+        raise OSError("Synthetic serialization failure")
+
+    monkeypatch.setattr(module.json, "dump", fail_after_partial_write)
+    with pytest.raises(OSError, match="Synthetic serialization failure"):
+        module.main()
+    assert not output.exists()
+    assert not list(output.parent.glob(".train_support_map-*.tmp"))
+
+
+def test_main_publishes_complete_report_once_without_temporary_file(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    module = _module()
+    output = tmp_path / module._OUTPUT
+    output.parent.mkdir(parents=True)
+    monkeypatch.setattr(module, "ROOT", tmp_path)
+    monkeypatch.setattr(
+        module,
+        "audit_support_map",
+        lambda root: {"status": "TRAIN_QC_ONLY_NOT_BENCHMARK", "cells": [{"valid_ping_count": 0}]},
+    )
+    assert module.main() == 0
+    first = output.read_bytes()
+    assert json.loads(first)["cells"] == [{"valid_ping_count": 0}]
+    assert not list(output.parent.glob(".train_support_map-*.tmp"))
+    with pytest.raises(FileExistsError):
+        module.main()
+    assert output.read_bytes() == first
