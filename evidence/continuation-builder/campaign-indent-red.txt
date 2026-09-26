@@ -1,0 +1,58 @@
+C:\Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa-core/src/marine_echo/training\campaign.py
+FF                                                                       [100%]
+================================== FAILURES ===================================
+______ test_resume_checks_earlier_attempt_number_in_two_attempt_history _______
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3681/test_resume_checks_earlier_att0')
+
+    def test_resume_checks_earlier_attempt_number_in_two_attempt_history(tmp_path: Path) -> None:
+        executors = _executors([])
+        original = executors["direct"]
+        failed = False
+    
+        def fail_once(slot, context):
+            nonlocal failed
+            if slot.run_id == "direct-seed13" and not failed:
+                failed = True
+                raise RuntimeError("fixture retry")
+            return original(slot, context)
+    
+        executors["direct"] = fail_once
+        kwargs = {
+            "root": tmp_path / "campaign", "trainer_lock": tmp_path / "trainer.lock",
+            "config": _config(tmp_path), "identity": _identity(), "executors": executors,
+        }
+        run_campaign(**kwargs)
+        run_campaign(**kwargs)
+        path = tmp_path / "campaign/campaign.json"
+        ledger = json.loads(path.read_text(encoding="utf-8"))
+        ledger["runs"]["direct-seed13"]["attempts"][0]["number"] = True
+        path.write_text(json.dumps(ledger), encoding="utf-8")
+>       with pytest.raises(ValueError, match="attempt"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\integration\test_campaign_scheduler.py:442: Failed
+______________ test_resume_checks_completed_attempt_updates_type ______________
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3681/test_resume_checks_completed_a0')
+
+    def test_resume_checks_completed_attempt_updates_type(tmp_path: Path) -> None:
+        kwargs = {
+            "root": tmp_path / "campaign", "trainer_lock": tmp_path / "trainer.lock",
+            "config": _config(tmp_path), "identity": _identity(), "executors": _executors([]),
+        }
+        run_campaign(**kwargs)
+        path = tmp_path / "campaign/campaign.json"
+        ledger = json.loads(path.read_text(encoding="utf-8"))
+        ledger["runs"]["persistence-seed7"]["attempts"][0]["updates"] = True
+        path.write_text(json.dumps(ledger), encoding="utf-8")
+>       with pytest.raises(ValueError, match="attempt"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\integration\test_campaign_scheduler.py:456: Failed
+=========================== short test summary info ===========================
+FAILED tests/integration/test_campaign_scheduler.py::test_resume_checks_earlier_attempt_number_in_two_attempt_history
+FAILED tests/integration/test_campaign_scheduler.py::test_resume_checks_completed_attempt_updates_type
+2 failed in 0.70s

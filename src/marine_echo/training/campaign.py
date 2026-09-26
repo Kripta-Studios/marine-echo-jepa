@@ -310,13 +310,13 @@ def _verify_completed(ledger: dict[str, Any], slots: tuple[CampaignSlot, ...], r
                     "reusable_seed7",
                 },
             }.get(status)
-        if (
-            expected_keys is None
-            or set(attempt) != expected_keys
-            or type(attempt["number"]) is not int
-            or attempt["number"] != index
-        ):
-            raise ValueError("Campaign attempt schema differs from recorded execution.")
+            if (
+                expected_keys is None
+                or set(attempt) != expected_keys
+                or type(attempt["number"]) is not int
+                or attempt["number"] != index
+            ):
+                raise ValueError("Campaign attempt schema differs from recorded execution.")
             if status == "RUNNING_FIXTURE" and index != len(attempts):
                 raise ValueError("Campaign attempt history has an unfinished earlier attempt.")
             if status == "COMPLETED_FIXTURE" and index != len(attempts):

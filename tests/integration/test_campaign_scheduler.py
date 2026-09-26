@@ -414,3 +414,50 @@ def test_interrupted_ledger_publishes_exact_count_before_resume(tmp_path: Path) 
         resumed["runs"]["direct-development0-seed7"]["attempts"][0]["status"]
         == "INTERRUPTED_FIXTURE"
     )
+
+
+def test_resume_checks_earlier_attempt_number_in_two_attempt_history(tmp_path: Path) -> None:
+    executors = _executors([])
+    original = executors["direct"]
+    failed = False
+
+    def fail_once(slot, context):
+        nonlocal failed
+        if slot.run_id == "direct-seed13" and not failed:
+            failed = True
+            raise RuntimeError("fixture retry")
+        return original(slot, context)
+
+    executors["direct"] = fail_once
+    kwargs = {
+        "root": tmp_path / "campaign",
+        "trainer_lock": tmp_path / "trainer.lock",
+        "config": _config(tmp_path),
+        "identity": _identity(),
+        "executors": executors,
+    }
+    run_campaign(**kwargs)
+    run_campaign(**kwargs)
+    path = tmp_path / "campaign/campaign.json"
+    ledger = json.loads(path.read_text(encoding="utf-8"))
+    ledger["runs"]["direct-seed13"]["attempts"][0]["number"] = True
+    path.write_text(json.dumps(ledger), encoding="utf-8")
+    with pytest.raises(ValueError, match="attempt"):
+        run_campaign(**kwargs)
+
+
+def test_resume_checks_completed_attempt_updates_type(tmp_path: Path) -> None:
+    kwargs = {
+        "root": tmp_path / "campaign",
+        "trainer_lock": tmp_path / "trainer.lock",
+        "config": _config(tmp_path),
+        "identity": _identity(),
+        "executors": _executors([]),
+    }
+    run_campaign(**kwargs)
+    path = tmp_path / "campaign/campaign.json"
+    ledger = json.loads(path.read_text(encoding="utf-8"))
+    ledger["runs"]["persistence-seed7"]["attempts"][0]["updates"] = True
+    path.write_text(json.dumps(ledger), encoding="utf-8")
+    with pytest.raises(ValueError, match="attempt"):
+        run_campaign(**kwargs)

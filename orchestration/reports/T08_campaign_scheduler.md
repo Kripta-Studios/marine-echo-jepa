@@ -19,6 +19,8 @@ The second independent review found two more partial-ledger gaps. The follow-up 
 
 The third read-only review found Boolean attempt number 1 and partial completion count/status tampering were still accepted. Attempt numbers now require exact integers. Every atomic ledger publication recomputes completed fixture slots and COMPLETE/PARTIAL status; resume verifies these against the actual 25 run states, even for a partial ledger. A synthetic interrupted callback confirms that a four-success, one-running ledger is resumable with the exact persisted count. This follow-up also awaits independent review; fixture evidence cannot promote a real campaign.
 
+The review of that follow-up caught a material indentation regression: the per-attempt schema check had moved outside its loop, leaving detailed attempt validation unreachable. It was reproduced with a two-attempt history whose first attempt number was changed and a completed attempt whose update count was changed to Boolean. The validation block is now inside the loop, and both cases fail closed. The preceding 24-pass log does not establish this corrected behavior; only the subsequent 26-pass log does. Independent review remains pending.
+
 ## RED/GREEN and resources
 
 - RED `evidence/continuation-builder/campaign-red.txt`: module collection failed before `campaign.py` existed, exit 2.
@@ -27,6 +29,7 @@ The third read-only review found Boolean attempt number 1 and partial completion
 - Reviewer-fix RED `campaign-review-red.txt`: 8 expected failures exposed ledger tampering, lock replacement deletion, and loose result types. `campaign-config-red.txt`: a selected-run configuration mutation was accepted. Reviewer-fix GREEN `campaign-review-green.txt`: 14 fixture integration tests passed in 14.78 seconds with core `module.__file__` asserted. `campaign-review-mypy.txt`: the module passed mypy. Main-config Ruff and diff checks exited 0.
 - Second reviewer RED `campaign-state-red.txt`: 6 expected failures for impossible partial-ledger history and bool/int confusion. GREEN `campaign-state-green.txt`: 20 fixture tests passed in 16.53 seconds with core module path asserted. `campaign-state-mypy.txt`: mypy passed. Main-config Ruff and diff checks exited 0. No real benchmark or test values were used.
 - Third reviewer RED `campaign-count-red.txt`: 3 expected failures for Boolean attempt number and inconsistent partial count/status. GREEN `campaign-count-green.txt`: 24 fixture tests passed in 4.64 seconds with core module path asserted. `campaign-count-mypy.txt`: mypy passed. Main-config Ruff and diff checks exited 0.
+- Indentation-regression RED `campaign-indent-red.txt`: 2 expected failures showed first-attempt and completed-attempt tampering were accepted. GREEN `campaign-indent-green.txt`: 26 fixture tests passed in 45.56 seconds with core import path asserted. `campaign-indent-mypy.txt`: mypy passed; main-config Ruff and diff checks exited 0.
 - GPU/network: unused. Paid/committed infrastructure: USD 0. Process peak RAM was not measured for the small JSON fixture harness.
 
 ## Review request
