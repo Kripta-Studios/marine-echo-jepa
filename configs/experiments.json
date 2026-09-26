@@ -1,0 +1,116 @@
+{
+  "schema_version": "1.0",
+  "protocol_id": "acoustic_v1_preimplementation",
+  "status": "NOT_FROZEN",
+  "partitions": {
+    "train": 0.6,
+    "validation": 0.15,
+    "calibration": 0.1,
+    "test": 0.15
+  },
+  "split_basis": "full_UTC_calendar_days_from_catalog",
+  "window_full_partition_containment": true,
+  "context_hours": 24,
+  "max_target_hours": 6,
+  "eligibility": {
+    "minimum_usable_days": 90,
+    "minimum_calibration_days": 12,
+    "minimum_test_days": 20,
+    "minimum_target_support": 0.8
+  },
+  "seeds": [
+    7,
+    13,
+    23
+  ],
+  "families": [
+    "persistence",
+    "seasonal",
+    "ridge",
+    "hist_gradient_boosting",
+    "direct",
+    "ema_jepa",
+    "shared_sigreg"
+  ],
+  "hybrid_candidates": [
+    "ema_jepa_plus_raw",
+    "shared_sigreg_plus_raw"
+  ],
+  "control_seed": 7,
+  "controls": [
+    "random_encoder",
+    "shuffled_future"
+  ],
+  "max_learned_configs_per_family": 2,
+  "max_updates_per_phase": 3000,
+  "max_tree_configs": 8,
+  "primary_metric": "daily_mean_pinball_db",
+  "quantiles": [
+    0.05,
+    0.25,
+    0.5,
+    0.75,
+    0.95
+  ],
+  "bootstrap": {
+    "block_hours": 48,
+    "draws": 2000,
+    "seed": 20260926,
+    "paired": true
+  },
+  "value_gate": {
+    "minimum_relative_primary_improvement": 0.05,
+    "paired_95pct_interval_favours_candidate": true,
+    "max_horizon_relative_deterioration": 0.1
+  },
+  "final_test": {
+    "evaluate_only_after_review": "R2",
+    "selection_forbidden": true,
+    "predictions_immutable": true
+  },
+  "commercial_validation": "NOT_EVALUATED",
+  "training_defaults": {
+    "optimizer": "AdamW",
+    "learning_rate": 0.0003,
+    "weight_decay": 0.0001,
+    "betas": [
+      0.9,
+      0.95
+    ],
+    "gradient_clip_norm": 1.0,
+    "warmup_updates": 150,
+    "validation_every_updates": 250,
+    "early_stopping_validation_checks": 4,
+    "minimum_updates_before_early_stopping": 1000,
+    "checkpoint_every_updates": 250,
+    "ema_decay": 0.99,
+    "direct_validation_grid": [
+      {
+        "learning_rate": 0.0003
+      },
+      {
+        "learning_rate": 0.001
+      }
+    ],
+    "ema_jepa_validation_grid": [
+      {
+        "representation_regularizer_weight": 0.03
+      },
+      {
+        "representation_regularizer_weight": 0.1
+      }
+    ],
+    "shared_sigreg_validation_grid": [
+      {
+        "sigreg_weight": 0.04
+      },
+      {
+        "sigreg_weight": 0.1
+      }
+    ],
+    "sigreg_random_projections": 64,
+    "sigreg_quadrature_points": 17,
+    "conventional_max_openmp_threads": 4,
+    "profile_head": "train_only_multioutput_ridge_or_compact_decoder"
+  }
+}

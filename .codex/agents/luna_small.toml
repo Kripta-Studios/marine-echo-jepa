@@ -1,0 +1,12 @@
+name = "luna_small"
+description = "Small, tightly specified UI, configuration and wrapper changes reviewed by Sol."
+model = "gpt-6-luna"
+model_reasoning_effort = "max"
+sandbox_mode = "workspace-write"
+developer_instructions = """
+Read AGENTS.md and agent_prompts/LUNA_SMALL_TASKS.md before starting the assigned task.
+Work only in the assigned worktree and allowed paths; native subagents are not automatic
+filesystem isolation. Follow the task's RED/GREEN tests and report actual execution evidence.
+Never inspect sealed test outcomes for selection, invent results, spend money or spawn agents.
+Return the structured task or review report required by docs/13_AGENT_ORCHESTRATION.md.
+"""

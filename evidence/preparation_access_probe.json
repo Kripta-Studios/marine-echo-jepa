@@ -1,0 +1,34 @@
+{
+  "checked_at": "2026-09-26T12:03:52.995482+00:00",
+  "purpose": "Prefix/metadata access only; not parsing, calibration or full download.",
+  "results": [
+    {
+      "url": "https://doi.pangaea.de/10.1594/PANGAEA.949811?format=html",
+      "full_download_verified": false,
+      "status": "ACCESS_NOT_VERIFIED",
+      "error": "<urlopen error [Errno -3] Temporary failure in name resolution>",
+      "elapsed_seconds": 0.01
+    },
+    {
+      "url": "https://download.pangaea.de/dataset/949811/files/readme.txt",
+      "full_download_verified": false,
+      "status": "ACCESS_NOT_VERIFIED",
+      "error": "<urlopen error [Errno -3] Temporary failure in name resolution>",
+      "elapsed_seconds": 5.011
+    },
+    {
+      "url": "https://download.pangaea.de/dataset/949811/files/azfp55170-bioacoustics.zip",
+      "full_download_verified": false,
+      "status": "ACCESS_NOT_VERIFIED",
+      "error": "<urlopen error [Errno -3] Temporary failure in name resolution>",
+      "elapsed_seconds": 0.007
+    },
+    {
+      "url": "https://rawdata.oceanobservatories.org/files/CE04OSPS/PC01B/ZPLSCB102/2017/08/",
+      "full_download_verified": false,
+      "status": "ACCESS_NOT_VERIFIED",
+      "error": "<urlopen error [Errno -3] Temporary failure in name resolution>",
+      "elapsed_seconds": 5.011
+    }
+  ]
+}

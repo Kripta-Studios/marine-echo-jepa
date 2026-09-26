@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0",
+  "prepared_at": "2026-09-26",
+  "active_dataset": "mosaic_azfp_down_2020",
+  "allowed_hosts": [
+    "doi.pangaea.de",
+    "doi.org",
+    "download.pangaea.de",
+    "rawdata.oceanobservatories.org",
+    "echopype-examples.readthedocs.io"
+  ],
+  "max_total_raw_gib": 40,
+  "max_single_download_gib": 8,
+  "max_expanded_gib": 80,
+  "download_verified": false,
+  "datasets": [
+    {
+      "id": "mosaic_azfp_down_2020",
+      "role": "primary",
+      "domain": "Arctic ice-tethered research deployment",
+      "data_kind": "public_real",
+      "catalog_url": "https://doi.pangaea.de/10.1594/PANGAEA.949811?format=html",
+      "license": "CC-BY-4.0",
+      "sonar_model": "AZFP",
+      "orientation": "downward",
+      "frequencies_hz": [
+        38000,
+        125000,
+        200000,
+        455000
+      ],
+      "start": "2020-02-16T12:26:44Z",
+      "end": "2020-08-02T10:56:00Z",
+      "catalog_duration_days": 168,
+      "download_items": [
+        {
+          "name": "readme.txt",
+          "url": "https://download.pangaea.de/dataset/949811/files/readme.txt",
+          "publisher_sha256": null,
+          "probe_only": true
+        },
+        {
+          "name": "azfp55170-bioacoustics.zip",
+          "url": "https://download.pangaea.de/dataset/949811/files/azfp55170-bioacoustics.zip",
+          "publisher_sha256": null,
+          "catalog_size_bytes_approx": 4400000000
+        },
+        {
+          "name": "iridium-msgs.txt",
+          "url": "https://download.pangaea.de/dataset/949811/files/iridium-msgs.txt",
+          "publisher_sha256": null
+        },
+        {
+          "name": "xeos-rover-mosaicdown-transponder-16feb-02aug2020.csv",
+          "url": "https://download.pangaea.de/dataset/949811/files/xeos-rover-mosaicdown-transponder-16feb-02aug2020.csv",
+          "publisher_sha256": null
+        }
+      ],
+      "calibration_status": "NOT_VERIFIED",
+      "availability_policy": "record_actual_or_explicit_zero_latency_replay_assumption"
+    },
+    {
+      "id": "ooi_ce04osps_ek60_2017",
+      "role": "fallback",
+      "domain": "OOI coastal moored upward echosounder",
+      "data_kind": "public_real",
+      "license": "OOI_source_and_NSF_acknowledgment_verify_policy",
+      "sonar_model": "EK60",
+      "orientation": "upward",
+      "frequencies_hz": [
+        38000,
+        120000,
+        200000
+      ],
+      "example_url": "https://echopype-examples.readthedocs.io/en/latest/OOI_eclipse.html",
+      "inventory_url": "https://rawdata.oceanobservatories.org/files/CE04OSPS/PC01B/ZPLSCB102/2017/08/",
+      "first_day_to_probe": "2017-08-21",
+      "extended_date_range": null,
+      "calibration_status": "NOT_VERIFIED",
+      "warning": "Example alone is insufficient. Inventory adjacent same-deployment dates and re-freeze protocol before training."
+    }
+  ]
+}

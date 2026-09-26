@@ -1,0 +1,23 @@
+{
+  "currency": "USD",
+  "hard_total_ceiling": 500,
+  "stop_new_paid_jobs_at_spent_plus_committed": 400,
+  "protected_reserve": 100,
+  "allocation_ceiling": {
+    "gpu": 250,
+    "storage_transfer": 75,
+    "contingency": 75,
+    "protected_reserve": 100
+  },
+  "cloud_provisioning_authorized": false,
+  "public_deployment_authorized": false,
+  "llm_costs_included": false,
+  "reference_rates_checked": "2026-09-26",
+  "reference_rates_not_quotes": {
+    "runpod_rtx4090_per_hour": 0.74,
+    "runpod_rtx5090_per_hour": 0.99
+  },
+  "paid": 0,
+  "committed": 0,
+  "note": "Initial ledger; no resources have been purchased. Update actual provider costs, not estimates alone."
+}

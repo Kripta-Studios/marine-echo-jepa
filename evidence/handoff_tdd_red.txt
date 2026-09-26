@@ -1,0 +1,39 @@
+test_archive (unittest.loader._FailedTest.test_archive) ... ERROR
+test_contracts (unittest.loader._FailedTest.test_contracts) ... ERROR
+
+======================================================================
+ERROR: test_archive (unittest.loader._FailedTest.test_archive)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_archive
+Traceback (most recent call last):
+  File "/usr/lib/python3.13/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "/usr/lib/python3.13/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+    ~~~~~~~~~~^^^^^^
+  File "/mnt/data/marine-echo-jepa/tests_handoff/test_archive.py", line 6, in <module>
+    from tools.archive_guard import validate_zip_metadata
+ModuleNotFoundError: No module named 'tools.archive_guard'
+
+
+======================================================================
+ERROR: test_contracts (unittest.loader._FailedTest.test_contracts)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_contracts
+Traceback (most recent call last):
+  File "/usr/lib/python3.13/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "/usr/lib/python3.13/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+    ~~~~~~~~~~^^^^^^
+  File "/mnt/data/marine-echo-jepa/tests_handoff/test_contracts.py", line 7, in <module>
+    from tools.reference_contracts import (
+        linear_mean_db, pinball, target_intervals, validate_forecast, validate_task_dag,
+    )
+ModuleNotFoundError: No module named 'tools.reference_contracts'
+
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.000s
+
+FAILED (errors=2)

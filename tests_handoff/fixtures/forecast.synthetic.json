@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0",
+  "dataset_id": "synthetic_contract_fixture",
+  "domain": "Synthetic unit test only",
+  "data_kind": "synthetic_fixture",
+  "mode": "synthetic_fixture",
+  "prediction_cutoff": "2020-03-01T12:00:00Z",
+  "last_observation_at": "2020-03-01T11:45:00Z",
+  "observation_age_hours": 0.25,
+  "range_convention": "range_from_transducer_m",
+  "calibrated": false,
+  "units": "synthetic_dB",
+  "support_fraction": 1.0,
+  "status": "ok",
+  "reasons": [],
+  "model_id": "synthetic_fixture_not_a_trained_model",
+  "checkpoint_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "preprocessing_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+  "split_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+  "evidence_id": "synthetic_contract_test_only",
+  "scope_disclaimer": "Synthetic unit-test values; no real data, trained model or commercial performance.",
+  "forecasts": [
+    {
+      "horizon_hours": 1,
+      "target_start": "2020-03-01T12:00:00Z",
+      "target_end": "2020-03-01T13:00:00Z",
+      "quantiles": {
+        "0.05": -80.0,
+        "0.25": -75.0,
+        "0.5": -70.0,
+        "0.75": -65.0,
+        "0.95": -60.0
+      }
+    },
+    {
+      "horizon_hours": 3,
+      "target_start": "2020-03-01T14:00:00Z",
+      "target_end": "2020-03-01T15:00:00Z",
+      "quantiles": {
+        "0.05": -80.0,
+        "0.25": -75.0,
+        "0.5": -70.0,
+        "0.75": -65.0,
+        "0.95": -60.0
+      }
+    },
+    {
+      "horizon_hours": 6,
+      "target_start": "2020-03-01T17:00:00Z",
+      "target_end": "2020-03-01T18:00:00Z",
+      "quantiles": {
+        "0.05": -80.0,
+        "0.25": -75.0,
+        "0.5": -70.0,
+        "0.75": -65.0,
+        "0.95": -60.0
+      }
+    }
+  ]
+}
