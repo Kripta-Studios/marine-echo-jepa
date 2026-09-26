@@ -1,0 +1,284 @@
+C:\Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa-core/src/marine_echo/data\preprocessing.py
+FFFF                                                                     [100%]
+================================== FAILURES ===================================
+________ test_context_fractional_ping_support_fails_below_48_of_60[1] _________
+
+count = 1
+
+    @pytest.mark.parametrize("count", [1, 47])
+    def test_context_fractional_ping_support_fails_below_48_of_60(count: int) -> None:
+>       series = _dense_window(context_valid=count)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\scientific\test_preprocessing.py:86: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\scientific\test_preprocessing.py:60: in _dense_window
+    return _pings(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+times = ['2020-01-01T00:00:00.000000000', '2020-01-01T00:00:15.000000000', '2020-01-01T00:00:30.000000000', '2020-01-01T00:00:45.000000000', '2020-01-01T00:01:00.000000000', '2020-01-01T00:01:15.000000000', ...]
+values = array([[[1.e-06, 1.e-06]],
+
+       [[1.e-06, 1.e-06]],
+
+       [[1.e-06, 1.e-06]],
+
+       ...,
+
+       [[1.e-06, 1.e-06]],
+
+       [[1.e-06, 1.e-06]],
+
+       [[1.e-06, 1.e-06]]], shape=(7200, 1, 2))
+overrides = {'valid_mask': array([[[ True,  True]],
+
+       [[False, False]],
+
+       [[False, False]],
+
+       ...,
+
+       [[ Tr...60, 60, 60, 60, 60, 60, 60, 60,
+       60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60,
+       60])}
+
+    def _pings(times: list[str], values: np.ndarray, **overrides: object):
+        quarter_ids = np.array(times, dtype="datetime64[m]").astype(np.int64) // 15
+        arguments = {
+            "ping_times": np.array(times, dtype="datetime64[ns]"),
+            "sv_linear": values,
+            "valid_mask": np.ones(values.shape, dtype=bool),
+            "frequency_hz": np.array([38000, 125000][: values.shape[1]]),
+            "range_edges_m": np.array([0.0, 2.0, 4.0]),
+            "supported_range": np.ones(values.shape[1:], dtype=bool),
+            "configuration_ids": ["xml-a"] * len(times),
+            "source_file_ids": ["train-file"] * len(times),
+            "dataset_id": "synthetic-calibrated",
+            "deployment_id": "synthetic-deployment",
+            "instrument_id": "synthetic-instrument",
+            "calibration_status": "VERIFIED_PHYSICAL_SV",
+            "calibration_report_sha256": "a" * 64,
+            "config_sha256": "b" * 64,
+            "split_sha256": "c" * 64,
+            "processing_sha256": "d" * 64,
+            "expected_ping_count": np.ones(int(quarter_ids[-1] - quarter_ids[0] + 1), dtype=np.int64),
+        }
+        arguments.update(overrides)
+        arguments["configuration_ids"] = [_digest(value) for value in arguments["configuration_ids"]]
+        arguments["source_file_ids"] = [_digest(value) for value in arguments["source_file_ids"]]
+>       return aggregate_calibrated_pings(**arguments)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: aggregate_calibrated_pings() got an unexpected keyword argument 'expected_ping_count'
+
+tests\scientific\test_preprocessing.py:39: TypeError
+________ test_context_fractional_ping_support_fails_below_48_of_60[47] ________
+
+count = 47
+
+    @pytest.mark.parametrize("count", [1, 47])
+    def test_context_fractional_ping_support_fails_below_48_of_60(count: int) -> None:
+>       series = _dense_window(context_valid=count)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\scientific\test_preprocessing.py:86: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\scientific\test_preprocessing.py:60: in _dense_window
+    return _pings(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+times = ['2020-01-01T00:00:00.000000000', '2020-01-01T00:00:15.000000000', '2020-01-01T00:00:30.000000000', '2020-01-01T00:00:45.000000000', '2020-01-01T00:01:00.000000000', '2020-01-01T00:01:15.000000000', ...]
+values = array([[[1.e-06, 1.e-06]],
+
+       [[1.e-06, 1.e-06]],
+
+       [[1.e-06, 1.e-06]],
+
+       ...,
+
+       [[1.e-06, 1.e-06]],
+
+       [[1.e-06, 1.e-06]],
+
+       [[1.e-06, 1.e-06]]], shape=(7200, 1, 2))
+overrides = {'valid_mask': array([[[ True,  True]],
+
+       [[ True,  True]],
+
+       [[ True,  True]],
+
+       ...,
+
+       [[ Tr...60, 60, 60, 60, 60, 60, 60, 60,
+       60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60,
+       60])}
+
+    def _pings(times: list[str], values: np.ndarray, **overrides: object):
+        quarter_ids = np.array(times, dtype="datetime64[m]").astype(np.int64) // 15
+        arguments = {
+            "ping_times": np.array(times, dtype="datetime64[ns]"),
+            "sv_linear": values,
+            "valid_mask": np.ones(values.shape, dtype=bool),
+            "frequency_hz": np.array([38000, 125000][: values.shape[1]]),
+            "range_edges_m": np.array([0.0, 2.0, 4.0]),
+            "supported_range": np.ones(values.shape[1:], dtype=bool),
+            "configuration_ids": ["xml-a"] * len(times),
+            "source_file_ids": ["train-file"] * len(times),
+            "dataset_id": "synthetic-calibrated",
+            "deployment_id": "synthetic-deployment",
+            "instrument_id": "synthetic-instrument",
+            "calibration_status": "VERIFIED_PHYSICAL_SV",
+            "calibration_report_sha256": "a" * 64,
+            "config_sha256": "b" * 64,
+            "split_sha256": "c" * 64,
+            "processing_sha256": "d" * 64,
+            "expected_ping_count": np.ones(int(quarter_ids[-1] - quarter_ids[0] + 1), dtype=np.int64),
+        }
+        arguments.update(overrides)
+        arguments["configuration_ids"] = [_digest(value) for value in arguments["configuration_ids"]]
+        arguments["source_file_ids"] = [_digest(value) for value in arguments["source_file_ids"]]
+>       return aggregate_calibrated_pings(**arguments)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: aggregate_calibrated_pings() got an unexpected keyword argument 'expected_ping_count'
+
+tests\scientific\test_preprocessing.py:39: TypeError
+___________ test_target_fractional_ping_support_47_fails_48_passes ____________
+
+    def test_target_fractional_ping_support_47_fails_48_passes() -> None:
+>       insufficient = _dense_window(target_valid=47)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\scientific\test_preprocessing.py:94: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\scientific\test_preprocessing.py:60: in _dense_window
+    return _pings(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+times = ['2020-01-01T00:00:00.000000000', '2020-01-01T00:00:15.000000000', '2020-01-01T00:00:30.000000000', '2020-01-01T00:00:45.000000000', '2020-01-01T00:01:00.000000000', '2020-01-01T00:01:15.000000000', ...]
+values = array([[[1.e-06, 1.e-06]],
+
+       [[1.e-06, 1.e-06]],
+
+       [[1.e-06, 1.e-06]],
+
+       ...,
+
+       [[1.e-06, 1.e-06]],
+
+       [[1.e-06, 1.e-06]],
+
+       [[1.e-06, 1.e-06]]], shape=(7200, 1, 2))
+overrides = {'valid_mask': array([[[ True,  True]],
+
+       [[ True,  True]],
+
+       [[ True,  True]],
+
+       ...,
+
+       [[ Tr...60, 60, 60, 60, 60, 60, 60, 60,
+       60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60,
+       60])}
+
+    def _pings(times: list[str], values: np.ndarray, **overrides: object):
+        quarter_ids = np.array(times, dtype="datetime64[m]").astype(np.int64) // 15
+        arguments = {
+            "ping_times": np.array(times, dtype="datetime64[ns]"),
+            "sv_linear": values,
+            "valid_mask": np.ones(values.shape, dtype=bool),
+            "frequency_hz": np.array([38000, 125000][: values.shape[1]]),
+            "range_edges_m": np.array([0.0, 2.0, 4.0]),
+            "supported_range": np.ones(values.shape[1:], dtype=bool),
+            "configuration_ids": ["xml-a"] * len(times),
+            "source_file_ids": ["train-file"] * len(times),
+            "dataset_id": "synthetic-calibrated",
+            "deployment_id": "synthetic-deployment",
+            "instrument_id": "synthetic-instrument",
+            "calibration_status": "VERIFIED_PHYSICAL_SV",
+            "calibration_report_sha256": "a" * 64,
+            "config_sha256": "b" * 64,
+            "split_sha256": "c" * 64,
+            "processing_sha256": "d" * 64,
+            "expected_ping_count": np.ones(int(quarter_ids[-1] - quarter_ids[0] + 1), dtype=np.int64),
+        }
+        arguments.update(overrides)
+        arguments["configuration_ids"] = [_digest(value) for value in arguments["configuration_ids"]]
+        arguments["source_file_ids"] = [_digest(value) for value in arguments["source_file_ids"]]
+>       return aggregate_calibrated_pings(**arguments)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: aggregate_calibrated_pings() got an unexpected keyword argument 'expected_ping_count'
+
+tests\scientific\test_preprocessing.py:39: TypeError
+__________ test_target_linear_mean_weights_unequal_valid_ping_counts __________
+
+    def test_target_linear_mean_weights_unequal_valid_ping_counts() -> None:
+>       series = _dense_window(target_valid=48, unequal_target=True)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\scientific\test_preprocessing.py:103: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\scientific\test_preprocessing.py:60: in _dense_window
+    return _pings(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+times = ['2020-01-01T00:00:00.000000000', '2020-01-01T00:00:15.000000000', '2020-01-01T00:00:30.000000000', '2020-01-01T00:00:45.000000000', '2020-01-01T00:01:00.000000000', '2020-01-01T00:01:15.000000000', ...]
+values = array([[[1.e-06, 1.e-06]],
+
+       [[1.e-06, 1.e-06]],
+
+       [[1.e-06, 1.e-06]],
+
+       ...,
+
+       [[1.e-06, 1.e-06]],
+
+       [[1.e-06, 1.e-06]],
+
+       [[1.e-06, 1.e-06]]], shape=(7200, 1, 2))
+overrides = {'valid_mask': array([[[ True,  True]],
+
+       [[ True,  True]],
+
+       [[ True,  True]],
+
+       ...,
+
+       [[ Tr...60, 60, 60, 60, 60, 60, 60, 60,
+       60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60,
+       60])}
+
+    def _pings(times: list[str], values: np.ndarray, **overrides: object):
+        quarter_ids = np.array(times, dtype="datetime64[m]").astype(np.int64) // 15
+        arguments = {
+            "ping_times": np.array(times, dtype="datetime64[ns]"),
+            "sv_linear": values,
+            "valid_mask": np.ones(values.shape, dtype=bool),
+            "frequency_hz": np.array([38000, 125000][: values.shape[1]]),
+            "range_edges_m": np.array([0.0, 2.0, 4.0]),
+            "supported_range": np.ones(values.shape[1:], dtype=bool),
+            "configuration_ids": ["xml-a"] * len(times),
+            "source_file_ids": ["train-file"] * len(times),
+            "dataset_id": "synthetic-calibrated",
+            "deployment_id": "synthetic-deployment",
+            "instrument_id": "synthetic-instrument",
+            "calibration_status": "VERIFIED_PHYSICAL_SV",
+            "calibration_report_sha256": "a" * 64,
+            "config_sha256": "b" * 64,
+            "split_sha256": "c" * 64,
+            "processing_sha256": "d" * 64,
+            "expected_ping_count": np.ones(int(quarter_ids[-1] - quarter_ids[0] + 1), dtype=np.int64),
+        }
+        arguments.update(overrides)
+        arguments["configuration_ids"] = [_digest(value) for value in arguments["configuration_ids"]]
+        arguments["source_file_ids"] = [_digest(value) for value in arguments["source_file_ids"]]
+>       return aggregate_calibrated_pings(**arguments)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: aggregate_calibrated_pings() got an unexpected keyword argument 'expected_ping_count'
+
+tests\scientific\test_preprocessing.py:39: TypeError
+=========================== short test summary info ===========================
+FAILED tests/scientific/test_preprocessing.py::test_context_fractional_ping_support_fails_below_48_of_60[1]
+FAILED tests/scientific/test_preprocessing.py::test_context_fractional_ping_support_fails_below_48_of_60[47]
+FAILED tests/scientific/test_preprocessing.py::test_target_fractional_ping_support_47_fails_48_passes
+FAILED tests/scientific/test_preprocessing.py::test_target_linear_mean_weights_unequal_valid_ping_counts
+4 failed, 6 deselected in 0.18s
+exit=1

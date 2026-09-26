@@ -98,6 +98,10 @@ class DayMetadata:
     replay_available_time: NDArray[np.datetime64]
     valid_mask: NDArray[np.bool_]
     ping_count: NDArray[np.int64]
+    expected_ping_count: NDArray[np.int64]
+    support_denominator_ping_count: NDArray[np.int64]
+    excess_ping_count: NDArray[np.int64]
+    valid_ping_count: NDArray[np.int64]
     frequency_hz: NDArray[np.int64]
     range_edges_m: NDArray[np.float64]
     supported_range: NDArray[np.bool_]
@@ -130,6 +134,10 @@ def _series_digest(series: BinnedAcoustics) -> str:
         series.sv_db,
         series.valid_mask,
         series.ping_count,
+        series.expected_ping_count,
+        series.support_denominator_ping_count,
+        series.excess_ping_count,
+        series.valid_ping_count,
         series.frequency_hz,
         series.range_edges_m,
         series.supported_range,
@@ -206,7 +214,7 @@ class CanonicalStore:
             _atomic_json(
                 self.manifest_path,
                 {
-                    "schema_version": "1.0",
+                    "schema_version": "2.0",
                     "promotion_status": PROMOTION_STATUS,
                     "identity": _identity_document(identity),
                     "shards": {},
@@ -218,7 +226,7 @@ class CanonicalStore:
             raise ValueError("Calibration manifest changed after store initialization.")
         document = json.loads(self.manifest_path.read_text(encoding="utf-8"))
         if (
-            document.get("schema_version") != "1.0"
+            document.get("schema_version") != "2.0"
             or document.get("promotion_status") != PROMOTION_STATUS
             or document.get("identity") != _identity_document(self.identity)
             or not isinstance(document.get("shards"), dict)
@@ -255,6 +263,10 @@ class CanonicalStore:
             or len(series.observed_available_time) != n
             or len(series.replay_available_time) != n
             or len(series.ping_count) != n
+            or len(series.expected_ping_count) != n
+            or len(series.support_denominator_ping_count) != n
+            or len(series.excess_ping_count) != n
+            or series.valid_ping_count.shape != series.sv_linear.shape
             or len(series.configuration_ids) != n
             or len(series.configuration_boundary) != n
             or len(series.source_file_ids) != n
@@ -279,6 +291,26 @@ class CanonicalStore:
         day = str(days[0])
         if series.ping_count.dtype.kind not in "iu" or (series.ping_count < 0).any():
             raise ValueError("Ping counts must be nonnegative integers.")
+        if (
+            series.expected_ping_count.dtype.kind not in "iu"
+            or (series.expected_ping_count <= 0).any()
+            or series.support_denominator_ping_count.dtype.kind not in "iu"
+            or series.excess_ping_count.dtype.kind not in "iu"
+            or series.valid_ping_count.dtype.kind not in "iu"
+            or (series.valid_ping_count < 0).any()
+            or not np.array_equal(
+                series.support_denominator_ping_count,
+                np.maximum(series.expected_ping_count, series.ping_count),
+            )
+            or not np.array_equal(
+                series.excess_ping_count,
+                np.maximum(series.ping_count - series.expected_ping_count, 0),
+            )
+            or (series.valid_ping_count > series.ping_count[:, None, None]).any()
+            or not np.array_equal(series.valid_mask, series.valid_ping_count > 0)
+            or (series.valid_ping_count[:, ~series.supported_range] != 0).any()
+        ):
+            raise ValueError("Expected, observed and valid ping support counts are inconsistent.")
         if (
             len(series.raw_ping_times) != int(series.ping_count.sum())
             or np.isnat(series.raw_ping_times).any()
@@ -392,6 +424,10 @@ class CanonicalStore:
                     sv_db=series.sv_db,
                     valid_mask=series.valid_mask,
                     ping_count=series.ping_count,
+                    expected_ping_count=series.expected_ping_count,
+                    support_denominator_ping_count=series.support_denominator_ping_count,
+                    excess_ping_count=series.excess_ping_count,
+                    valid_ping_count=series.valid_ping_count,
                     frequency_hz=series.frequency_hz,
                     range_edges_m=series.range_edges_m,
                     supported_range=series.supported_range,
@@ -444,7 +480,7 @@ class CanonicalStore:
                 for day, entry in sorted(manifest["shards"].items())
                 if entry["partition"] == "test"
             },
-            "fields": ["timestamps", "masks", "availability", "provenance"],
+            "fields": ["timestamps", "masks", "ping_support_counts", "availability", "provenance"],
             "availability_basis": availability_basis,
             "test_metadata_opened": True,
             "test_acoustic_values_opened": False,
@@ -497,7 +533,7 @@ class CanonicalStore:
                     or recorded.get("split_sha256") != self.identity.split_sha256
                     or recorded.get("test_shard_sha256") != expected_shards
                     or recorded.get("fields")
-                    != ["timestamps", "masks", "availability", "provenance"]
+                    != ["timestamps", "masks", "ping_support_counts", "availability", "provenance"]
                     or recorded.get("availability_basis") != availability_basis
                     or recorded.get("test_metadata_opened") is not True
                     or recorded.get("test_acoustic_values_opened") is not False
@@ -517,6 +553,10 @@ class CanonicalStore:
                 replay_available_time=loaded["replay_available_time"],
                 valid_mask=loaded["valid_mask"],
                 ping_count=loaded["ping_count"],
+                expected_ping_count=loaded["expected_ping_count"],
+                support_denominator_ping_count=loaded["support_denominator_ping_count"],
+                excess_ping_count=loaded["excess_ping_count"],
+                valid_ping_count=loaded["valid_ping_count"],
                 frequency_hz=loaded["frequency_hz"],
                 range_edges_m=loaded["range_edges_m"],
                 supported_range=loaded["supported_range"],
@@ -543,6 +583,10 @@ class CanonicalStore:
                 sv_db=loaded["sv_db"],
                 valid_mask=meta.valid_mask,
                 ping_count=meta.ping_count,
+                expected_ping_count=meta.expected_ping_count,
+                support_denominator_ping_count=meta.support_denominator_ping_count,
+                excess_ping_count=meta.excess_ping_count,
+                valid_ping_count=meta.valid_ping_count,
                 frequency_hz=meta.frequency_hz,
                 range_edges_m=meta.range_edges_m,
                 supported_range=meta.supported_range,
@@ -656,7 +700,10 @@ def audit_eligibility(
                 for item in shards
             ]
         )
-        masks = np.concatenate([item.valid_mask for item in shards])
+        counts = np.concatenate([item.valid_ping_count for item in shards])
+        denominator_counts = np.concatenate(
+            [item.support_denominator_ping_count for item in shards]
+        )
         configs = list(chain.from_iterable(item.configuration_ids for item in shards))
         if np.any(np.diff(ends) <= np.timedelta64(0, "ns")):
             raise ValueError("Chronological bin timestamps are not unique and increasing.")
@@ -695,7 +742,11 @@ def audit_eligibility(
             context = extent[:96]
             if not np.all((~np.isnat(available[context])) & (available[context] <= cutoff)):
                 continue
-            if not masks[context, channel[0], :][:, ranges].any(axis=1).all():
+            context_counts = counts[np.ix_(context, channel, ranges)][:, 0, :]
+            context_support = (context_counts * widths).sum(axis=1) / (
+                denominator_counts[context] * widths.sum()
+            )
+            if np.any(context_support < 0.8):
                 continue
             supported = True
             for horizon in (1, 3, 6):
@@ -704,9 +755,12 @@ def audit_eligibility(
                 if len(target) != 4:
                     supported = False
                     break
-                target_mask = masks[np.ix_(target, channel, ranges)][:, 0, :]
-                weights = np.broadcast_to(widths, target_mask.shape)
-                if float(weights[target_mask].sum() / weights.sum()) < 0.8:
+                target_counts = counts[np.ix_(target, channel, ranges)][:, 0, :]
+                support = float(
+                    (target_counts * widths).sum()
+                    / (denominator_counts[target].sum() * widths.sum())
+                )
+                if support < 0.8:
                     supported = False
                     break
             if supported:
@@ -725,7 +779,7 @@ def audit_eligibility(
         "before_qc_days": before_qc,
         "after_qc_days": after_qc,
         "eligible_windows": eligible_windows,
-        "protected_partition_inspection": "timestamps_masks_provenance_only",
+        "protected_partition_inspection": "timestamps_masks_ping_counts_provenance_only",
         "test_metadata_opened": exposure_record is not None,
         "test_acoustic_values_opened": False,
         "test_outcomes_opened": False,

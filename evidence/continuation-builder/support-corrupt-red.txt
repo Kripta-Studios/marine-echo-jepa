@@ -1,0 +1,19 @@
+C:\Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa-core/src/marine_echo/data\preprocessing.py
+F                                                                        [100%]
+================================== FAILURES ===================================
+____________ test_window_rejects_corrupt_fractional_count_metadata ____________
+
+    def test_window_rejects_corrupt_fractional_count_metadata() -> None:
+        series = _dense_window()
+        corrupt = replace(
+            series,
+            support_denominator_ping_count=np.ones_like(series.support_denominator_ping_count),
+        )
+>       with pytest.raises(ValueError, match="ping support counts"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\scientific\test_preprocessing.py:122: Failed
+=========================== short test summary info ===========================
+FAILED tests/scientific/test_preprocessing.py::test_window_rejects_corrupt_fractional_count_metadata
+1 failed in 0.16s

@@ -115,6 +115,10 @@ class CanonicalWindowAdapter:
                 "sv_db",
                 "valid_mask",
                 "ping_count",
+                "expected_ping_count",
+                "support_denominator_ping_count",
+                "excess_ping_count",
+                "valid_ping_count",
                 "configuration_boundary",
                 "raw_ping_times",
             )
@@ -192,6 +196,7 @@ class CanonicalWindowAdapter:
                 if str(error) not in (
                     "Window crosses a configuration boundary or missing segment.",
                     "A primary context bin is missing or unavailable at issue time.",
+                    "A primary context bin has insufficient available ping support.",
                     "Target support is below the frozen threshold.",
                 ):
                     raise

@@ -49,6 +49,7 @@ def _series(day: str, source: str = "train-a", *, support: np.ndarray | None = N
         ping_times=times.astype("datetime64[ns]"),
         sv_linear=values,
         valid_mask=np.ones(values.shape, dtype=bool),
+        expected_ping_count=np.ones(96, dtype=np.int64),
         frequency_hz=np.array([38000]),
         range_edges_m=np.arange(ranges + 1, dtype=float) * 2,
         supported_range=np.ones((1, ranges), dtype=bool) if support is None else support,
@@ -162,11 +163,21 @@ def test_store_rejects_corrupted_series_and_wrong_source(tmp_path: Path) -> None
         )
     with pytest.raises(ValueError, match="source"):
         store.write_day(_series("2020-01-01", "unregistered"), partition="train")
-    with pytest.raises(ValueError, match="bin counts"):
+    with pytest.raises(ValueError, match="ping support counts"):
         altered_counts = series.ping_count.copy()
         altered_counts[0] = 0
         altered_counts[1] = 2
         store.write_day(replace(series, ping_count=altered_counts), partition="train")
+    with pytest.raises(ValueError, match="ping support counts"):
+        store.write_day(
+            replace(series, valid_ping_count=series.valid_ping_count.astype(float)),
+            partition="train",
+        )
+    with pytest.raises(ValueError, match="ping support counts"):
+        store.write_day(
+            replace(series, support_denominator_ping_count=np.full(96, 2)),
+            partition="train",
+        )
     with pytest.raises(ValueError, match="integer"):
         store.write_day(
             replace(series, ping_count=series.ping_count.astype(float)), partition="train"
@@ -211,7 +222,9 @@ def test_audit_uses_test_masks_only_and_keeps_frozen_minima(tmp_path: Path, monk
     assert result["required_days"] == {"overall": 90, "calibration": 12, "test": 20}
     assert result["before_qc_days"] == {part: 3 for part in bounds}
     assert result["after_qc_days"]["train"] >= 1
-    assert result["protected_partition_inspection"] == "timestamps_masks_provenance_only"
+    assert (
+        result["protected_partition_inspection"] == "timestamps_masks_ping_counts_provenance_only"
+    )
     assert result["test_outcomes_opened"] is False
     assert result["test_metadata_opened"] is True
     assert result["availability_basis"] == "zero_latency_replay"
@@ -260,6 +273,12 @@ def test_original_band_denominator_and_off_grid_band() -> None:
         sv_db=np.concatenate([day.sv_db, next_day.sv_db]),
         valid_mask=np.concatenate([day.valid_mask, next_day.valid_mask]),
         ping_count=np.concatenate([day.ping_count, next_day.ping_count]),
+        expected_ping_count=np.concatenate([day.expected_ping_count, next_day.expected_ping_count]),
+        support_denominator_ping_count=np.concatenate(
+            [day.support_denominator_ping_count, next_day.support_denominator_ping_count]
+        ),
+        excess_ping_count=np.concatenate([day.excess_ping_count, next_day.excess_ping_count]),
+        valid_ping_count=np.concatenate([day.valid_ping_count, next_day.valid_ping_count]),
         configuration_ids=day.configuration_ids + next_day.configuration_ids,
         configuration_boundary=np.concatenate(
             [day.configuration_boundary, next_day.configuration_boundary]
@@ -337,7 +356,13 @@ def test_test_metadata_exposure_is_durable_before_loading(tmp_path: Path, monkey
                 ).hexdigest()
             )
             assert evidence["test_acoustic_values_opened"] is False
-            assert evidence["fields"] == ["timestamps", "masks", "availability", "provenance"]
+            assert evidence["fields"] == [
+                "timestamps",
+                "masks",
+                "ping_support_counts",
+                "availability",
+                "provenance",
+            ]
         return original(day, **kwargs)
 
     monkeypatch.setattr(store, "load_day_metadata", inspect)
@@ -448,3 +473,59 @@ def test_unknown_measured_availability_cannot_be_eligible(tmp_path: Path) -> Non
     )
     assert result["after_qc_days"] == {part: 0 for part in bounds}
     assert result["availability_claim"] == "observed_only"
+
+
+def test_replay_audit_rejects_one_of_sixty_ping_support(tmp_path: Path) -> None:
+    bounds = _bounds()
+    sources = tuple(f"train-{day}" for day in range(3))
+    store = CanonicalStore(
+        tmp_path / "canonical",
+        _identity(sources, bounds),
+        calibration_manifest=_calibration_path(tmp_path),
+    )
+    for offset in range(3):
+        series = _series(f"2020-01-0{offset + 1}", f"train-{offset}")
+        store.write_day(
+            replace(
+                series,
+                expected_ping_count=np.full(96, 60, dtype=np.int64),
+                support_denominator_ping_count=np.full(96, 60, dtype=np.int64),
+            ),
+            partition="train",
+        )
+    result = audit_eligibility(
+        store,
+        bounds,
+        analysis_frequency_hz=38000,
+        analysis_range_m=(0.0, 4.0),
+        availability_basis="zero_latency_replay",
+    )
+    assert result["before_qc_days"]["train"] == 3
+    assert result["after_qc_days"]["train"] == 0
+
+
+def test_fractional_support_manifest_schema_and_negative_counts_fail_closed(tmp_path: Path) -> None:
+    store = CanonicalStore(
+        tmp_path / "canonical",
+        _identity(("train-a",)),
+        calibration_manifest=_calibration_path(tmp_path),
+    )
+    series = _series("2020-01-01", "train-a")
+    with pytest.raises(ValueError, match="support counts"):
+        store.write_day(
+            replace(
+                series,
+                valid_ping_count=np.where(series.valid_mask, -1, 0).astype(np.int64),
+                valid_mask=np.zeros_like(series.valid_mask),
+                sv_linear=np.full_like(series.sv_linear, np.nan),
+                sv_db=np.full_like(series.sv_db, np.nan),
+            ),
+            partition="train",
+        )
+    manifest = tmp_path / "canonical/processing_manifest.json"
+    document = json.loads(manifest.read_text(encoding="utf-8"))
+    assert document["schema_version"] == "2.0"
+    document["schema_version"] = "1.0"
+    manifest.write_text(json.dumps(document), encoding="utf-8")
+    with pytest.raises(ValueError, match="schema"):
+        store._manifest()

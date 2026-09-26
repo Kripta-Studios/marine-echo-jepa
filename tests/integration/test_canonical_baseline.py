@@ -75,6 +75,7 @@ def _store(tmp_path: Path, *, altered_future: bool = False) -> CanonicalStore:
                 ping_times=times.astype("datetime64[ns]"),
                 sv_linear=values,
                 valid_mask=np.ones(values.shape, dtype=bool),
+                expected_ping_count=np.ones(96, dtype=np.int64),
                 frequency_hz=np.array([38000, 125000, 200000, 455000]),
                 range_edges_m=np.arange(65, dtype=float) * 2,
                 supported_range=np.ones((4, 64), dtype=bool),

@@ -28,6 +28,10 @@ class BinnedAcoustics:
     sv_db: NDArray[np.float64]
     valid_mask: NDArray[np.bool_]
     ping_count: NDArray[np.int64]
+    expected_ping_count: NDArray[np.int64]
+    support_denominator_ping_count: NDArray[np.int64]
+    excess_ping_count: NDArray[np.int64]
+    valid_ping_count: NDArray[np.int64]
     frequency_hz: NDArray[np.int64]
     range_edges_m: NDArray[np.float64]
     supported_range: NDArray[np.bool_]
@@ -81,6 +85,7 @@ def aggregate_calibrated_pings(
     ping_times: NDArray[np.datetime64],
     sv_linear: NDArray[np.float64],
     valid_mask: NDArray[np.bool_],
+    expected_ping_count: NDArray[np.int64],
     frequency_hz: NDArray[np.int64],
     range_edges_m: NDArray[np.float64],
     supported_range: NDArray[np.bool_],
@@ -174,6 +179,14 @@ def aggregate_calibrated_pings(
     count = last - first + 1
     if count > _MAX_BINS_PER_BATCH:
         raise ValueError("A bounded aggregation batch may cover at most 32 hours.")
+    if (
+        expected_ping_count.shape != (count,)
+        or expected_ping_count.dtype.kind not in "iu"
+        or (expected_ping_count <= 0).any()
+    ):
+        raise ValueError(
+            "Config-derived positive integer expected ping counts are required per bin."
+        )
     starts = (np.arange(first, last + 1, dtype=np.int64) * _BIN_MINUTES).astype("datetime64[m]")
     ends = starts + np.timedelta64(_BIN_MINUTES, "m")
     binned = np.full((count, frequencies, ranges), np.nan, dtype=np.float64)
@@ -181,6 +194,7 @@ def aggregate_calibrated_pings(
     observed_availability = np.full(count, np.datetime64("NaT", "ns"), dtype="datetime64[ns]")
     replay_availability = np.full(count, np.datetime64("NaT", "ns"), dtype="datetime64[ns]")
     ping_counts = np.zeros(count, dtype=np.int64)
+    valid_ping_counts = np.zeros((count, frequencies, ranges), dtype=np.int64)
     configurations: list[str | None] = []
     sources: list[frozenset[str]] = []
     for offset, quarter in enumerate(range(first, last + 1)):
@@ -198,6 +212,7 @@ def aggregate_calibrated_pings(
             continue
         selected_valid = valid_mask[indices] & supported_range[None, :, :]
         support = selected_valid.sum(axis=0)
+        valid_ping_counts[offset] = support
         total = np.where(selected_valid, sv_linear[indices], 0.0).sum(axis=0)
         np.divide(total, support, out=binned[offset], where=support > 0)
         masks[offset] = support > 0
@@ -216,6 +231,10 @@ def aggregate_calibrated_pings(
         sv_db=db,
         valid_mask=masks,
         ping_count=ping_counts,
+        expected_ping_count=expected_ping_count.copy(),
+        support_denominator_ping_count=np.maximum(expected_ping_count, ping_counts),
+        excess_ping_count=np.maximum(ping_counts - expected_ping_count, 0),
+        valid_ping_count=valid_ping_counts,
         frequency_hz=frequency_hz.copy(),
         range_edges_m=range_edges_m.copy(),
         supported_range=supported_range.copy(),
@@ -308,6 +327,34 @@ def build_window(
         target_groups.append(indices)
     extent = np.flatnonzero((series.bin_end > context_start) & (series.bin_end <= target_end))
     if (
+        series.valid_ping_count.shape != series.valid_mask.shape
+        or any(
+            values.shape != series.ping_count.shape
+            for values in (
+                series.expected_ping_count,
+                series.support_denominator_ping_count,
+                series.excess_ping_count,
+            )
+        )
+        or (series.expected_ping_count[extent] <= 0).any()
+        or (series.ping_count[extent] < 0).any()
+        or (series.valid_ping_count[extent] < 0).any()
+        or (series.valid_ping_count[extent] > series.ping_count[extent, None, None]).any()
+        or not np.array_equal(
+            series.support_denominator_ping_count[extent],
+            np.maximum(series.expected_ping_count[extent], series.ping_count[extent]),
+        )
+        or not np.array_equal(
+            series.excess_ping_count[extent],
+            np.maximum(series.ping_count[extent] - series.expected_ping_count[extent], 0),
+        )
+        or not np.array_equal(
+            series.valid_mask[extent],
+            series.valid_ping_count[extent] > 0,
+        )
+    ):
+        raise ValueError("Canonical ping support counts are inconsistent.")
+    if (
         any(series.configuration_ids[index] is None for index in extent)
         or len({series.configuration_ids[index] for index in extent}) != 1
     ):
@@ -341,20 +388,24 @@ def build_window(
     )
     context_mask = series.valid_mask[context] & available_context[:, None, None]
     context_linear = np.where(context_mask, series.sv_linear[context], np.nan)
-    if not context_mask[:, channel[0], :][:, ranges].any(axis=1).all():
-        raise ValueError("A primary context bin is missing or unavailable at issue time.")
     widths = np.diff(series.range_edges_m)[ranges]
+    context_counts = series.valid_ping_count[np.ix_(context, channel, ranges)][:, 0, :]
+    context_support = (context_counts * widths).sum(axis=1) / (
+        series.support_denominator_ping_count[context] * widths.sum()
+    )
+    if not available_context.all() or np.any(context_support < 0.8):
+        raise ValueError("A primary context bin has insufficient available ping support.")
     targets: list[float] = []
     support_fractions: list[float] = []
     for indices in target_groups:
         values = series.sv_linear[np.ix_(indices, channel, ranges)][:, 0, :]
-        mask = series.valid_mask[np.ix_(indices, channel, ranges)][:, 0, :]
-        weights = np.broadcast_to(widths, mask.shape)
-        denominator = float(weights.sum())
-        support = float(weights[mask].sum() / denominator)
+        counts = series.valid_ping_count[np.ix_(indices, channel, ranges)][:, 0, :]
+        weights = counts * widths
+        denominator = float(series.support_denominator_ping_count[indices].sum() * widths.sum())
+        support = float(weights.sum() / denominator)
         if support < minimum_target_support:
             raise ValueError("Target support is below the frozen threshold.")
-        targets.append(float((values[mask] * weights[mask]).sum() / weights[mask].sum()))
+        targets.append(float((values[counts > 0] * weights[counts > 0]).sum() / weights.sum()))
         support_fractions.append(support)
     linear = np.array(targets, dtype=np.float64)
     row_identity = {
