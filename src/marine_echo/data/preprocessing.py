@@ -279,9 +279,9 @@ def build_window(
         raise ValueError("A split-specific source allowlist is required.")
     if context_bins != 96 or horizons != (1, 3, 6) or minimum_target_support != 0.8:
         raise ValueError("Window geometry and target support must match the frozen protocol.")
-    cutoff_ns = np.datetime64(cutoff, "ns")
-    start_ns = np.datetime64(split_start, "ns")
-    end_ns = np.datetime64(split_end, "ns")
+    cutoff_ns = cutoff.astype("datetime64[ns]")
+    start_ns = split_start.astype("datetime64[ns]")
+    end_ns = split_end.astype("datetime64[ns]")
     if np.isnat(cutoff_ns) or np.isnat(start_ns) or np.isnat(end_ns):
         raise ValueError("Finite UTC bin and split timestamps are required.")
     context_start = cutoff_ns - context_bins * np.timedelta64(_BIN_MINUTES, "m")
