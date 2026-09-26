@@ -1,0 +1,74 @@
+{
+  "checked_at": "2026-09-26T15:11:59.612204+00:00",
+  "dataset_id": "ooi_ce04osps_ek60_2017",
+  "purpose": "one_file_calibration_feasibility_only",
+  "primary_dataset_unchanged": true,
+  "source_url": "https://rawdata.oceanobservatories.org/files/CE04OSPS/PC01B/ZPLSCB102/2017/08/21/OOI-D20170821-T000000.raw",
+  "path": "data\\raw\\ooi\\diagnostic\\OOI-D20170821-T000000.raw",
+  "bytes": 52436316,
+  "sha256": "27248617a52ace72f1d4a39d3d4c3d1e350316f842ed4e0446013a04ce399f7c",
+  "adjacent_inventory": [
+    {
+      "day": "2017-08-20",
+      "files": [
+        "OOI-D20170820-T000000.raw",
+        "OOI-D20170820-T013841.raw",
+        "OOI-D20170820-T031743.raw",
+        "OOI-D20170820-T045644.raw",
+        "OOI-D20170820-T063550.raw",
+        "OOI-D20170820-T081451.raw",
+        "OOI-D20170820-T095354.raw",
+        "OOI-D20170820-T113306.raw",
+        "OOI-D20170820-T131207.raw",
+        "OOI-D20170820-T145109.raw",
+        "OOI-D20170820-T163010.raw",
+        "OOI-D20170820-T180922.raw",
+        "OOI-D20170820-T194823.raw",
+        "OOI-D20170820-T212724.raw",
+        "OOI-D20170820-T230626.raw"
+      ]
+    },
+    {
+      "day": "2017-08-21",
+      "files": [
+        "OOI-D20170821-T000000.raw",
+        "OOI-D20170821-T013914.raw",
+        "OOI-D20170821-T031816.raw",
+        "OOI-D20170821-T045717.raw",
+        "OOI-D20170821-T063618.raw",
+        "OOI-D20170821-T081522.raw",
+        "OOI-D20170821-T095435.raw",
+        "OOI-D20170821-T113343.raw",
+        "OOI-D20170821-T131245.raw",
+        "OOI-D20170821-T145147.raw",
+        "OOI-D20170821-T163049.raw",
+        "OOI-D20170821-T180952.raw",
+        "OOI-D20170821-T194853.raw",
+        "OOI-D20170821-T212802.raw",
+        "OOI-D20170821-T230706.raw"
+      ]
+    },
+    {
+      "day": "2017-08-22",
+      "files": [
+        "OOI-D20170822-T000000.raw",
+        "OOI-D20170822-T013902.raw",
+        "OOI-D20170822-T031804.raw",
+        "OOI-D20170822-T045705.raw",
+        "OOI-D20170822-T063606.raw",
+        "OOI-D20170822-T081508.raw",
+        "OOI-D20170822-T095414.raw",
+        "OOI-D20170822-T113315.raw",
+        "OOI-D20170822-T131217.raw",
+        "OOI-D20170822-T145118.raw",
+        "OOI-D20170822-T163019.raw",
+        "OOI-D20170822-T180922.raw",
+        "OOI-D20170822-T194823.raw",
+        "OOI-D20170822-T212734.raw",
+        "OOI-D20170822-T230642.raw"
+      ]
+    }
+  ],
+  "benchmark_eligible": false,
+  "reason": "One diagnostic file cannot establish full-day support or required chronological partitions."
+}

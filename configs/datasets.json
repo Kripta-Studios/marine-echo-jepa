@@ -34,6 +34,12 @@
       "catalog_duration_days": 168,
       "download_items": [
         {
+          "name": "POPE306-308-mosaic-manual.pdf",
+          "url": "https://download.pangaea.de/dataset/949811/files/POPE306-308-mosaic-manual.pdf",
+          "publisher_sha256": null,
+          "local_source_policy": "Register and verify the existing immutable local file before any download."
+        },
+        {
           "name": "readme.txt",
           "url": "https://download.pangaea.de/dataset/949811/files/readme.txt",
           "publisher_sha256": null,

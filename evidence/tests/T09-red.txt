@@ -1,0 +1,138 @@
+FFFFFFFF.                                                                [100%]
+================================== FAILURES ===================================
+__________________________ test_health_and_read_only __________________________
+
+catalog = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3568/test_health_and_read_only0')
+
+    def test_health_and_read_only(catalog: Path) -> None:
+        client = TestClient(create_app(catalog))
+>       assert client.get("/health").json()["ready"] is True
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'ready'
+
+tests\api\test_readonly_api.py:38: KeyError
+______________________ test_past_payload_excludes_future ______________________
+
+catalog = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3568/test_past_payload_excludes_fut0')
+
+    def test_past_payload_excludes_future(catalog: Path) -> None:
+        client = TestClient(create_app(catalog))
+        response = client.get("/api/v1/datasets/test_real/observations", params={
+            "start": "2020-02-17T00:00:00Z", "end": "2020-02-17T02:00:00Z",
+            "cutoff": "2020-02-17T00:30:00Z",
+        })
+>       assert response.status_code == 200
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tests\api\test_readonly_api.py:49: AssertionError
+_____________________ test_reject_bad_time_bounds[query0] _____________________
+
+catalog = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3568/test_reject_bad_time_bounds_qu0')
+query = {'start': '2020-02-17', 'end': '2020-02-18'}
+
+    @pytest.mark.parametrize("query", [
+        {"start": "2020-02-17", "end": "2020-02-18"},
+        {"start": "2020-02-17T00:00:00Z", "end": "2020-03-18T00:00:00Z"},
+    ])
+    def test_reject_bad_time_bounds(catalog: Path, query: dict[str, str]) -> None:
+        client = TestClient(create_app(catalog))
+>       assert client.get("/api/v1/datasets/test_real/observations", params=query).status_code == 422
+E       AssertionError: assert 404 == 422
+E        +  where 404 = <Response [404 Not Found]>.status_code
+E        +    where <Response [404 Not Found]> = get('/api/v1/datasets/test_real/observations', params={'start': '2020-02-17', 'end': '2020-02-18'})
+E        +      where get = <starlette.testclient.TestClient object at 0x00000223DAB17920>.get
+
+tests\api\test_readonly_api.py:60: AssertionError
+_____________________ test_reject_bad_time_bounds[query1] _____________________
+
+catalog = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3568/test_reject_bad_time_bounds_qu1')
+query = {'start': '2020-02-17T00:00:00Z', 'end': '2020-03-18T00:00:00Z'}
+
+    @pytest.mark.parametrize("query", [
+        {"start": "2020-02-17", "end": "2020-02-18"},
+        {"start": "2020-02-17T00:00:00Z", "end": "2020-03-18T00:00:00Z"},
+    ])
+    def test_reject_bad_time_bounds(catalog: Path, query: dict[str, str]) -> None:
+        client = TestClient(create_app(catalog))
+>       assert client.get("/api/v1/datasets/test_real/observations", params=query).status_code == 422
+E       AssertionError: assert 404 == 422
+E        +  where 404 = <Response [404 Not Found]>.status_code
+E        +    where <Response [404 Not Found]> = get('/api/v1/datasets/test_real/observations', params={'start': '2020-02-17T00:00:00Z', 'end': '2020-03-18T00:00:00Z'})
+E        +      where get = <starlette.testclient.TestClient object at 0x00000223DABA4710>.get
+
+tests\api\test_readonly_api.py:60: AssertionError
+________________________ test_corruption_fails_closed _________________________
+
+catalog = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3568/test_corruption_fails_closed0')
+
+    def test_corruption_fails_closed(catalog: Path) -> None:
+        (catalog / "observations.json").write_text("{}")
+        client = TestClient(create_app(catalog))
+>       assert client.get("/health").status_code == 503
+E       AssertionError: assert 404 == 503
+E        +  where 404 = <Response [404 Not Found]>.status_code
+E        +    where <Response [404 Not Found]> = get('/health')
+E        +      where get = <starlette.testclient.TestClient object at 0x00000223DABA98E0>.get
+
+tests\api\test_readonly_api.py:66: AssertionError
+__________________________ test_path_escape_rejected __________________________
+
+catalog = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3568/test_path_escape_rejected0')
+
+    def test_path_escape_rejected(catalog: Path) -> None:
+        body = json.loads((catalog / "catalog.json").read_text())
+        body["artifacts"]["obs"]["path"] = "../secret.json"
+        (catalog / "catalog.json").write_text(json.dumps(body))
+>       assert TestClient(create_app(catalog)).get("/health").status_code == 503
+E       AssertionError: assert 404 == 503
+E        +  where 404 = <Response [404 Not Found]>.status_code
+E        +    where <Response [404 Not Found]> = get('/health')
+E        +      where get = <starlette.testclient.TestClient object at 0x00000223DABA9D00>.get
+E        +        where <starlette.testclient.TestClient object at 0x00000223DABA9D00> = TestClient(<fastapi.applications.FastAPI object at 0x00000223DABA9160>)
+E        +          where <fastapi.applications.FastAPI object at 0x00000223DABA9160> = create_app(WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3568/test_path_escape_rejected0'))
+
+tests\api\test_readonly_api.py:74: AssertionError
+_______________ test_unexecuted_model_and_extra_fields_rejected _______________
+
+catalog = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3568/test_unexecuted_model_and_extr0')
+
+    def test_unexecuted_model_and_extra_fields_rejected(catalog: Path) -> None:
+        client = TestClient(create_app(catalog))
+        request = {"dataset_id": "test_real", "model_id": "direct", "cutoff": "2020-02-17T00:30:00Z", "mode": "cached_replay"}
+>       assert client.post("/api/v1/forecast", json=request).status_code == 503
+E       AssertionError: assert 404 == 503
+E        +  where 404 = <Response [404 Not Found]>.status_code
+E        +    where <Response [404 Not Found]> = post('/api/v1/forecast', json={'dataset_id': 'test_real', 'model_id': 'direct', 'cutoff': '2020-02-17T00:30:00Z', 'mode': 'cached_replay'})
+E        +      where post = <starlette.testclient.TestClient object at 0x00000223DABB1310>.post
+
+tests\api\test_readonly_api.py:80: AssertionError
+_________________ test_reject_external_origins_and_large_body _________________
+
+catalog = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3568/test_reject_external_origins_a0')
+
+    def test_reject_external_origins_and_large_body(catalog: Path) -> None:
+        client = TestClient(create_app(catalog))
+>       assert client.get("/health", headers={"Origin": "https://evil.example"}).status_code == 403
+E       AssertionError: assert 404 == 403
+E        +  where 404 = <Response [404 Not Found]>.status_code
+E        +    where <Response [404 Not Found]> = get('/health', headers={'Origin': 'https://evil.example'})
+E        +      where get = <starlette.testclient.TestClient object at 0x00000223DABABE90>.get
+
+tests\api\test_readonly_api.py:87: AssertionError
+============================== warnings summary ===============================
+.venv\Lib\site-packages\fastapi\testclient.py:1
+  C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/api/test_readonly_api.py::test_health_and_read_only - KeyError: ...
+FAILED tests/api/test_readonly_api.py::test_past_payload_excludes_future - as...
+FAILED tests/api/test_readonly_api.py::test_reject_bad_time_bounds[query0] - ...
+FAILED tests/api/test_readonly_api.py::test_reject_bad_time_bounds[query1] - ...
+FAILED tests/api/test_readonly_api.py::test_corruption_fails_closed - Asserti...
+FAILED tests/api/test_readonly_api.py::test_path_escape_rejected - AssertionE...
+FAILED tests/api/test_readonly_api.py::test_unexecuted_model_and_extra_fields_rejected
+FAILED tests/api/test_readonly_api.py::test_reject_external_origins_and_large_body
+8 failed, 1 passed, 1 warning in 29.22s

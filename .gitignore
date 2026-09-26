@@ -1,4 +1,7 @@
 .venv/
+.runtime/
+web/test-results/
+web/playwright-report/
 __pycache__/
 *.py[cod]
 .pytest_cache/

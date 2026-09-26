@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "state": "PREFLIGHT_RUNNING",
+  "dataset_id": "mosaic_azfp_down_2020",
+  "source_policy": "immutable_existing_local_files_no_redownload_if_valid",
+  "gpu_owner": null,
+  "runs": [],
+  "gates": {
+    "G0_DATA": "NOT_RUN",
+    "G1_ENGINEERING": "NOT_RUN",
+    "G2_EXPERIMENT": "NOT_RUN",
+    "G3_INCREMENTAL_VALUE": "NOT_EVALUATED",
+    "commercial_validation": "NOT_EVALUATED"
+  },
+  "infrastructure_paid_usd": 0,
+  "infrastructure_committed_usd": 0,
+  "cloud_authorized": false
+}
