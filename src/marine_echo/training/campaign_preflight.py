@@ -17,9 +17,10 @@ _PATHS = {
     "r0": "orchestration/reviews/R0.json",
     "r1": "orchestration/reviews/R1.json",
     "continuation": "orchestration/reviews/R0-R1-continuation-20260926.json",
-    "census_execution": "evidence/continuation/train_census_execution.json",
-    "census_eligibility": "evidence/continuation/train_census_eligibility.json",
+    "census_execution": "evidence/continuation/train_census_v2_execution.json",
+    "census_eligibility": "evidence/continuation/train_census_v2_eligibility.json",
     "target_contract": "evidence/continuation/target_only_bound_contract.json",
+    "target_input_contract": "evidence/continuation/target_only_bound_v2_input_contract.json",
     "target_bound": "evidence/continuation/target_only_bound.json",
     "canonical": "data/processed/canonical/processing_manifest.json",
     "registry": "reports/active/training_registry.json",
@@ -123,6 +124,9 @@ def inspect_campaign_preflight(root: Path) -> dict[str, Any]:
             and execution.get("status") == "COMPLETE_TRAIN_CENSUS_NOT_BENCHMARK"
             and eligibility.get("execution_report_sha256") == execution_sha
             and eligibility.get("method_identity") == identity
+            and eligibility.get("status") == "TRAIN_CENSUS_COMPLETE_STRICT_CONTEXT_CANDIDATE_ONLY"
+            and eligibility.get("global_ineligibility_conclusion")
+            == "NOT_ESTABLISHED_TARGET_ONLY_BOUND_REQUIRED"
             and execution.get("held_out_acoustic_payloads_processed") is False
             and type(execution.get("completed_benchmark_runs")) is int
             and execution.get("completed_benchmark_runs") == 0
@@ -130,13 +134,18 @@ def inspect_campaign_preflight(root: Path) -> dict[str, Any]:
             and type(eligibility.get("completed_benchmark_runs")) is int
             and eligibility.get("completed_benchmark_runs") == 0
             and eligibility.get("benchmark_eligible") is False
+            and type(eligibility.get("processed_train_calendar_days")) is int
             and eligibility.get("processed_train_calendar_days") == 100
             and type(eligibility.get("unresolved_train_days")) is int
             and eligibility.get("unresolved_train_days") == 0
+            and type(eligibility.get("minimum_overall_days")) is int
             and eligibility.get("minimum_overall_days") == 90
             and type(eligibility.get("eligible_train_cutoff_days")) is int
-            and type(eligibility.get("overall_eligible_day_upper_bound")) is int
-            and eligibility["overall_eligible_day_upper_bound"]
+            and 0 <= eligibility["eligible_train_cutoff_days"] <= 100
+            and type(eligibility.get("unmeasured_nontrain_day_upper_bound")) is int
+            and eligibility["unmeasured_nontrain_day_upper_bound"] == 67
+            and type(eligibility.get("strict_context_policy_day_upper_bound")) is int
+            and eligibility["strict_context_policy_day_upper_bound"]
             == eligibility["eligible_train_cutoff_days"] + 67
         )
         if not strict_integrity:
@@ -146,6 +155,7 @@ def inspect_campaign_preflight(root: Path) -> dict[str, Any]:
         blockers.append("TARGET_ONLY_BOUND_MISSING")
     else:
         contract_sha = hashes.get(_PATHS["target_contract"])
+        input_contract_sha = hashes.get(_PATHS["target_input_contract"])
         code_sha = hashes.get("tools/target_only_bound.py")
         strict_sha = hashes.get(_PATHS["census_eligibility"])
         target_days = target.get("target_supported_train_anchor_days_upper_bound")
@@ -154,9 +164,12 @@ def inspect_campaign_preflight(root: Path) -> dict[str, Any]:
             strict_integrity
             and bound_protocol == protocol_sha
             and contract_sha is not None
+            and input_contract_sha is not None
             and code_sha is not None
             and strict_sha is not None
             and target.get("contract_sha256") == contract_sha
+            and target.get("input_contract_sha256") == input_contract_sha
+            and target.get("census_generation") == "census-v2"
             and target.get("code_sha256") == code_sha
             and target.get("execution_report_sha256") == execution_sha
             and target.get("strict_context_report_sha256") == strict_sha

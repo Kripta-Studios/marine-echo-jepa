@@ -28,7 +28,7 @@ def _case(tmp_path: Path) -> Path:
     )
     _write(
         tmp_path,
-        "evidence/continuation/train_census_execution.json",
+        "evidence/continuation/train_census_v2_execution.json",
         {
             "status": "RUNNING_TRAIN_ONLY_CENSUS",
             "days": {},
@@ -71,7 +71,7 @@ def test_preflight_rejects_unbound_completed_census_and_impossible_day_bound(
 ) -> None:
     root = _case(tmp_path)
     protocol = root / "reports/active/protocol.json"
-    execution = root / "evidence/continuation/train_census_execution.json"
+    execution = root / "evidence/continuation/train_census_v2_execution.json"
     execution_doc = json.loads(execution.read_text())
     execution_doc.update(
         status="COMPLETE_TRAIN_CENSUS_NOT_BENCHMARK",
@@ -82,15 +82,17 @@ def test_preflight_rejects_unbound_completed_census_and_impossible_day_bound(
     execution.write_text(json.dumps(execution_doc), encoding="utf-8")
     _write(
         root,
-        "evidence/continuation/train_census_eligibility.json",
+        "evidence/continuation/train_census_v2_eligibility.json",
         {
-            "status": "TRAIN_CENSUS_COMPLETE_D1_INELIGIBLE_UPPER_BOUND",
+            "status": "TRAIN_CENSUS_COMPLETE_STRICT_CONTEXT_CANDIDATE_ONLY",
+            "global_ineligibility_conclusion": "NOT_ESTABLISHED_TARGET_ONLY_BOUND_REQUIRED",
             "execution_report_sha256": hashlib.sha256(execution.read_bytes()).hexdigest(),
             "method_identity": execution_doc["identity"],
             "processed_train_calendar_days": 100,
             "unresolved_train_days": 0,
             "eligible_train_cutoff_days": 0,
-            "overall_eligible_day_upper_bound": 67,
+            "unmeasured_nontrain_day_upper_bound": 67,
+            "strict_context_policy_day_upper_bound": 67,
             "minimum_overall_days": 90,
             "held_out_acoustic_payloads_processed": False,
             "completed_benchmark_runs": 0,
@@ -160,22 +162,25 @@ def test_preflight_never_opens_npz_and_rejects_linked_evidence(tmp_path: Path) -
 def test_only_bound_target_report_can_support_d1_disposition(tmp_path: Path) -> None:
     root = _case(tmp_path)
     protocol = root / "reports/active/protocol.json"
-    execution = root / "evidence/continuation/train_census_execution.json"
+    execution = root / "evidence/continuation/train_census_v2_execution.json"
     identity = {"bindings": {"protocol_sha256": hashlib.sha256(protocol.read_bytes()).hexdigest()}}
     execution_doc = json.loads(execution.read_text(encoding="utf-8"))
     execution_doc.update(status="COMPLETE_TRAIN_CENSUS_NOT_BENCHMARK", identity=identity)
     execution.write_text(json.dumps(execution_doc), encoding="utf-8")
-    strict = root / "evidence/continuation/train_census_eligibility.json"
+    strict = root / "evidence/continuation/train_census_v2_eligibility.json"
     _write(
         root,
-        "evidence/continuation/train_census_eligibility.json",
+        "evidence/continuation/train_census_v2_eligibility.json",
         {
+            "status": "TRAIN_CENSUS_COMPLETE_STRICT_CONTEXT_CANDIDATE_ONLY",
+            "global_ineligibility_conclusion": "NOT_ESTABLISHED_TARGET_ONLY_BOUND_REQUIRED",
             "execution_report_sha256": hashlib.sha256(execution.read_bytes()).hexdigest(),
             "method_identity": identity,
             "processed_train_calendar_days": 100,
             "unresolved_train_days": 0,
             "eligible_train_cutoff_days": 0,
-            "overall_eligible_day_upper_bound": 67,
+            "unmeasured_nontrain_day_upper_bound": 67,
+            "strict_context_policy_day_upper_bound": 67,
             "minimum_overall_days": 90,
             "held_out_acoustic_payloads_processed": False,
             "completed_benchmark_runs": 0,
@@ -191,28 +196,33 @@ def test_only_bound_target_report_can_support_d1_disposition(tmp_path: Path) -> 
             "benchmark_eligible": False,
         },
     )
+    input_contract = root / "evidence/continuation/target_only_bound_v2_input_contract.json"
+    _write(
+        root,
+        "evidence/continuation/target_only_bound_v2_input_contract.json",
+        {"id": "synthetic-test-v2-input", "execution_path": "train_census_v2_execution.json"},
+    )
     code = root / "tools/target_only_bound.py"
     code.parent.mkdir(parents=True, exist_ok=True)
     code.write_text("# synthetic fixture source\n", encoding="utf-8")
-    _write(
-        root,
-        "evidence/continuation/target_only_bound.json",
-        {
-            "status": "D1_INELIGIBLE_TARGET_SUPPORT_UPPER_BOUND",
-            "contract_sha256": hashlib.sha256(contract.read_bytes()).hexdigest(),
-            "code_sha256": hashlib.sha256(code.read_bytes()).hexdigest(),
-            "execution_report_sha256": hashlib.sha256(execution.read_bytes()).hexdigest(),
-            "strict_context_report_sha256": hashlib.sha256(strict.read_bytes()).hexdigest(),
-            "processed_train_calendar_days": 100,
-            "target_supported_train_anchor_days_upper_bound": 0,
-            "overall_eligible_day_upper_bound": 67,
-            "minimum_overall_days": 90,
-            "unmeasured_nontrain_day_upper_bound": 67,
-            "held_out_acoustic_payloads_processed": False,
-            "completed_benchmark_runs": 0,
-            "benchmark_eligible": False,
-        },
-    )
+    target_doc = {
+        "status": "D1_INELIGIBLE_TARGET_SUPPORT_UPPER_BOUND",
+        "contract_sha256": hashlib.sha256(contract.read_bytes()).hexdigest(),
+        "input_contract_sha256": hashlib.sha256(input_contract.read_bytes()).hexdigest(),
+        "census_generation": "census-v2",
+        "code_sha256": hashlib.sha256(code.read_bytes()).hexdigest(),
+        "execution_report_sha256": hashlib.sha256(execution.read_bytes()).hexdigest(),
+        "strict_context_report_sha256": hashlib.sha256(strict.read_bytes()).hexdigest(),
+        "processed_train_calendar_days": 100,
+        "target_supported_train_anchor_days_upper_bound": 0,
+        "overall_eligible_day_upper_bound": 67,
+        "minimum_overall_days": 90,
+        "unmeasured_nontrain_day_upper_bound": 67,
+        "held_out_acoustic_payloads_processed": False,
+        "completed_benchmark_runs": 0,
+        "benchmark_eligible": False,
+    }
+    _write(root, "evidence/continuation/target_only_bound.json", target_doc)
     result = inspect_campaign_preflight(root)
     assert "D1_MINIMUM_IMPOSSIBLE" in result["blockers"]
     target = root / "evidence/continuation/target_only_bound.json"
@@ -222,12 +232,24 @@ def test_only_bound_target_report_can_support_d1_disposition(tmp_path: Path) -> 
     changed = inspect_campaign_preflight(root)
     assert "TARGET_ONLY_BOUND_UNVERIFIED" in changed["blockers"]
     assert "D1_MINIMUM_IMPOSSIBLE" not in changed["blockers"]
+    for key, value in (
+        ("input_contract_sha256", "f" * 64),
+        ("census_generation", "census-v1"),
+    ):
+        _write(root, "evidence/continuation/target_only_bound.json", target_doc | {key: value})
+        changed = inspect_campaign_preflight(root)
+        assert "TARGET_ONLY_BOUND_UNVERIFIED" in changed["blockers"]
+        assert "D1_MINIMUM_IMPOSSIBLE" not in changed["blockers"]
+    assert (
+        result["evidence_sha256"]["evidence/continuation/target_only_bound_v2_input_contract.json"]
+        == hashlib.sha256(input_contract.read_bytes()).hexdigest()
+    )
 
 
 def test_unknown_protocol_and_boolean_census_counters_fail_closed(tmp_path: Path) -> None:
     root = _case(tmp_path)
     _write(root, "reports/active/protocol.json", {"status": "UNKNOWN", "test_opened": False})
-    execution = root / "evidence/continuation/train_census_execution.json"
+    execution = root / "evidence/continuation/train_census_v2_execution.json"
     document = json.loads(execution.read_text(encoding="utf-8"))
     document["completed_benchmark_runs"] = False
     execution.write_text(json.dumps(document), encoding="utf-8")
@@ -238,11 +260,87 @@ def test_unknown_protocol_and_boolean_census_counters_fail_closed(tmp_path: Path
 
 def test_malformed_census_binding_remains_a_blocked_diagnostic(tmp_path: Path) -> None:
     root = _case(tmp_path)
-    execution = root / "evidence/continuation/train_census_execution.json"
+    execution = root / "evidence/continuation/train_census_v2_execution.json"
     document = json.loads(execution.read_text(encoding="utf-8"))
     document["identity"] = {"bindings": None}
     execution.write_text(json.dumps(document), encoding="utf-8")
-    _write(root, "evidence/continuation/train_census_eligibility.json", {})
+    _write(root, "evidence/continuation/train_census_v2_eligibility.json", {})
     result = inspect_campaign_preflight(root)
     assert result["status"] == "BLOCKED"
     assert "CENSUS_INTEGRITY_UNVERIFIED" in result["blockers"]
+
+
+def test_completed_v1_artifacts_cannot_substitute_for_missing_v2(tmp_path: Path) -> None:
+    root = _case(tmp_path)
+    protocol = root / "reports/active/protocol.json"
+    v2_execution = root / "evidence/continuation/train_census_v2_execution.json"
+    v2_execution.unlink()
+    identity = {"bindings": {"protocol_sha256": hashlib.sha256(protocol.read_bytes()).hexdigest()}}
+    _write(
+        root,
+        "evidence/continuation/train_census_execution.json",
+        {
+            "status": "COMPLETE_TRAIN_CENSUS_NOT_BENCHMARK",
+            "identity": identity,
+            "held_out_acoustic_payloads_processed": False,
+            "completed_benchmark_runs": 0,
+        },
+    )
+    _write(
+        root,
+        "evidence/continuation/train_census_eligibility.json",
+        {
+            "status": "TRAIN_CENSUS_COMPLETE_D1_INELIGIBLE_UPPER_BOUND",
+            "eligible_train_cutoff_days": 0,
+            "overall_eligible_day_upper_bound": 67,
+        },
+    )
+    result = inspect_campaign_preflight(root)
+    assert "CENSUS_INCOMPLETE" in result["blockers"]
+    assert "CENSUS_ELIGIBILITY_MISSING" in result["blockers"]
+    assert "D1_MINIMUM_IMPOSSIBLE" not in result["blockers"]
+    assert "evidence/continuation/train_census_execution.json" not in result["evidence_sha256"]
+
+
+def test_strict_v2_report_cannot_claim_global_ineligibility(tmp_path: Path) -> None:
+    root = _case(tmp_path)
+    execution = root / "evidence/continuation/train_census_v2_execution.json"
+    identity = {
+        "bindings": {
+            "protocol_sha256": hashlib.sha256(
+                (root / "reports/active/protocol.json").read_bytes()
+            ).hexdigest()
+        }
+    }
+    document = json.loads(execution.read_text(encoding="utf-8"))
+    document.update(status="COMPLETE_TRAIN_CENSUS_NOT_BENCHMARK", identity=identity)
+    execution.write_text(json.dumps(document), encoding="utf-8")
+    strict_path = "evidence/continuation/train_census_v2_eligibility.json"
+    strict = {
+        "status": "TRAIN_CENSUS_COMPLETE_STRICT_CONTEXT_CANDIDATE_ONLY",
+        "global_ineligibility_conclusion": "NOT_ESTABLISHED_TARGET_ONLY_BOUND_REQUIRED",
+        "execution_report_sha256": hashlib.sha256(execution.read_bytes()).hexdigest(),
+        "method_identity": identity,
+        "processed_train_calendar_days": 100,
+        "unresolved_train_days": 0,
+        "eligible_train_cutoff_days": 0,
+        "unmeasured_nontrain_day_upper_bound": 67,
+        "strict_context_policy_day_upper_bound": 67,
+        "minimum_overall_days": 90,
+        "held_out_acoustic_payloads_processed": False,
+        "completed_benchmark_runs": 0,
+        "benchmark_eligible": False,
+    }
+    _write(root, strict_path, strict)
+    result = inspect_campaign_preflight(root)
+    assert "CENSUS_INTEGRITY_UNVERIFIED" not in result["blockers"]
+    assert "D1_MINIMUM_IMPOSSIBLE" not in result["blockers"]
+    for key, value in (
+        ("status", "TRAIN_CENSUS_COMPLETE_D1_INELIGIBLE_UPPER_BOUND"),
+        ("global_ineligibility_conclusion", "ESTABLISHED"),
+        ("strict_context_policy_day_upper_bound", 66),
+    ):
+        _write(root, strict_path, strict | {key: value})
+        changed = inspect_campaign_preflight(root)
+        assert "CENSUS_INTEGRITY_UNVERIFIED" in changed["blockers"]
+        assert "D1_MINIMUM_IMPOSSIBLE" not in changed["blockers"]
