@@ -239,10 +239,17 @@ def _verify_completed(ledger: dict[str, Any], slots: tuple[CampaignSlot, ...], r
     if (
         type(ledger["fixture_completed_slots"]) is not int
         or not 0 <= ledger["fixture_completed_slots"] <= 25
+        or type(ledger["completed_benchmark_runs"]) is not int
         or ledger["completed_benchmark_runs"] != 0
+        or type(ledger["test_opened"]) is not bool
+        or ledger["test_opened"] is not False
         or ledger["status"] not in ("PARTIAL_FIXTURE", "COMPLETE_FIXTURE")
         or not isinstance(ledger["selected_configs"], dict)
         or not set(ledger["selected_configs"]).issubset(LEARNED)
+        or any(
+            type(choice) is not int or choice not in (0, 1)
+            for choice in ledger["selected_configs"].values()
+        )
     ):
         raise ValueError("Campaign ledger counters or selection schema are invalid.")
     run_keys = {
@@ -271,7 +278,13 @@ def _verify_completed(ledger: dict[str, Any], slots: tuple[CampaignSlot, ...], r
             or len(run["attempts"]) > MAX_ATTEMPTS
         ):
             raise ValueError("Campaign ledger fixed run fields differ from the plan.")
-        if slot.phase in ("baseline", "development") and run["configuration"] != slot.configuration:
+        if slot.phase == "baseline" and run["configuration"] is not None:
+            raise ValueError("Campaign ledger fixed configuration differs from the plan.")
+        if slot.phase == "development" and (
+            type(run["configuration"]) is not int or run["configuration"] != slot.configuration
+        ):
+            raise ValueError("Campaign ledger fixed configuration differs from the plan.")
+        if slot.phase == "hybrid" and run["configuration"] is not None:
             raise ValueError("Campaign ledger fixed configuration differs from the plan.")
         attempts = run["attempts"]
         for index, attempt in enumerate(attempts, 1):
@@ -294,6 +307,8 @@ def _verify_completed(ledger: dict[str, Any], slots: tuple[CampaignSlot, ...], r
                 raise ValueError("Campaign attempt schema differs from recorded execution.")
             if status == "RUNNING_FIXTURE" and index != len(attempts):
                 raise ValueError("Campaign attempt history has an unfinished earlier attempt.")
+            if status == "COMPLETED_FIXTURE" and index != len(attempts):
+                raise ValueError("Campaign attempt history has an earlier completed attempt.")
             if status == "COMPLETED_FIXTURE":
                 artifact = Path(attempt["artifact"])
                 if (
@@ -327,6 +342,23 @@ def _verify_completed(ledger: dict[str, Any], slots: tuple[CampaignSlot, ...], r
             raise ValueError("Campaign ledger run status is invalid.")
         if status == "PENDING" and attempts:
             raise ValueError("Campaign ledger pending run has completed attempts.")
+        if status == "WAITING_DEPENDENCY" and attempts:
+            raise ValueError("Campaign ledger waiting run cannot retain attempts.")
+        if status == "BLOCKED_EXECUTOR" and any(
+            attempt["status"] not in ("FAILED_FIXTURE", "INTERRUPTED_FIXTURE")
+            for attempt in attempts
+        ):
+            raise ValueError("Campaign ledger executor block has incompatible attempts.")
+        if (
+            any(attempt["status"] == "RUNNING_FIXTURE" for attempt in attempts)
+            and status != "RUNNING_FIXTURE"
+        ):
+            raise ValueError("Campaign running attempt differs from run status.")
+        if (
+            any(attempt["status"] == "COMPLETED_FIXTURE" for attempt in attempts)
+            and status != "COMPLETED_FIXTURE"
+        ):
+            raise ValueError("Campaign completed attempt differs from run status.")
         if status == "RUNNING_FIXTURE" and (
             not attempts or attempts[-1]["status"] != "RUNNING_FIXTURE"
         ):
@@ -335,6 +367,8 @@ def _verify_completed(ledger: dict[str, Any], slots: tuple[CampaignSlot, ...], r
             not attempts or attempts[-1]["status"] not in ("FAILED_FIXTURE", "INTERRUPTED_FIXTURE")
         ):
             raise ValueError("Campaign ledger failure status differs from its final attempt.")
+        if status == "BLOCKED_ATTEMPT_LIMIT" and len(attempts) != MAX_ATTEMPTS:
+            raise ValueError("Campaign ledger attempt limit differs from the budget.")
         if status not in SUCCESS and any(
             run[key] is not None
             for key in ("artifact", "artifact_sha256", "validation_metric", "reuse_of")
@@ -391,9 +425,11 @@ def _verify_completed(ledger: dict[str, Any], slots: tuple[CampaignSlot, ...], r
             continue
         run = ledger["runs"][slot.run_id]
         if run["status"] in SUCCESS or run["attempts"]:
-            if slot.family not in ledger["selected_configs"] or run[
-                "configuration"
-            ] != calculated.get(slot.family):
+            if (
+                slot.family not in ledger["selected_configs"]
+                or run["configuration"] != calculated.get(slot.family)
+                or type(run["configuration"]) is not int
+            ):
                 raise ValueError("Campaign ledger selected configuration differs from validation.")
         elif run["configuration"] is not None:
             raise ValueError("Campaign ledger unattempted configuration is invalid.")

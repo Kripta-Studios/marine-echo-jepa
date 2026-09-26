@@ -298,3 +298,58 @@ def test_executor_rejects_non_strict_result_types(
         executors=executors,
     )
     assert ledger["runs"]["persistence-seed7"]["status"] == "FAILED_FIXTURE"
+
+
+def test_partial_ledger_cannot_hide_completed_attempt_as_waiting(tmp_path: Path) -> None:
+    executors = _executors([])
+    del executors["direct"]
+    kwargs = {
+        "root": tmp_path / "campaign",
+        "trainer_lock": tmp_path / "trainer.lock",
+        "config": _config(tmp_path),
+        "identity": _identity(),
+        "executors": executors,
+    }
+    ledger = run_campaign(**kwargs)
+    assert ledger["status"] == "PARTIAL_FIXTURE"
+    path = tmp_path / "campaign/campaign.json"
+    ledger["runs"]["persistence-seed7"].update(
+        status="WAITING_DEPENDENCY",
+        artifact=None,
+        artifact_sha256=None,
+        validation_metric=None,
+        reuse_of=None,
+    )
+    path.write_text(json.dumps(ledger), encoding="utf-8")
+    with pytest.raises(ValueError, match="attempt|waiting|ledger"):
+        run_campaign(**kwargs)
+
+
+@pytest.mark.parametrize(
+    "mutation",
+    ["selection_bool", "development_bool", "hybrid_bool", "benchmark_bool", "test_opened_int"],
+)
+def test_resume_rejects_boolean_numeric_tamper(tmp_path: Path, mutation: str) -> None:
+    kwargs = {
+        "root": tmp_path / "campaign",
+        "trainer_lock": tmp_path / "trainer.lock",
+        "config": _config(tmp_path),
+        "identity": _identity(),
+        "executors": _executors([]),
+    }
+    run_campaign(**kwargs)
+    path = tmp_path / "campaign/campaign.json"
+    ledger = json.loads(path.read_text(encoding="utf-8"))
+    if mutation == "selection_bool":
+        ledger["selected_configs"]["direct"] = True
+    elif mutation == "development_bool":
+        ledger["runs"]["direct-development1-seed7"]["configuration"] = True
+    elif mutation == "hybrid_bool":
+        ledger["runs"]["ema_jepa_plus_raw-seed7"]["configuration"] = True
+    elif mutation == "benchmark_bool":
+        ledger["completed_benchmark_runs"] = False
+    else:
+        ledger["test_opened"] = 0
+    path.write_text(json.dumps(ledger), encoding="utf-8")
+    with pytest.raises(ValueError, match="ledger|configuration|selection|provenance"):
+        run_campaign(**kwargs)
