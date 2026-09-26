@@ -1,0 +1,323 @@
+C:\Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa-core/src/marine_echo/training\campaign.py
+....FFFFF.FFF                                                            [100%]
+================================== FAILURES ===================================
+____________ test_resume_rejects_tampered_ledger_fields[selection] ____________
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3666/test_resume_rejects_tampered_l0')
+mutation = 'selection'
+
+    @pytest.mark.parametrize(
+        "mutation",
+        [
+            "selection",
+            "dependencies",
+            "family",
+            "attempt_metric",
+            "reuse_flag",
+            "completed_to_pending",
+        ],
+    )
+    def test_resume_rejects_tampered_ledger_fields(tmp_path: Path, mutation: str) -> None:
+        kwargs = {
+            "root": tmp_path / "campaign",
+            "trainer_lock": tmp_path / "trainer.lock",
+            "config": _config(tmp_path),
+            "identity": _identity(),
+            "executors": _executors([]),
+        }
+        run_campaign(**kwargs)
+        path = tmp_path / "campaign/campaign.json"
+        ledger = json.loads(path.read_text(encoding="utf-8"))
+        run = ledger["runs"]["direct-development1-seed7"]
+        if mutation == "selection":
+            ledger["selected_configs"]["direct"] = 0
+        elif mutation == "dependencies":
+            ledger["runs"]["direct-seed13"]["dependencies"] = []
+        elif mutation == "family":
+            run["family"] = "ema_jepa"
+        elif mutation == "attempt_metric":
+            run["attempts"][-1]["validation_metric"] = 999.0
+        elif mutation == "reuse_flag":
+            run["attempts"][-1]["reusable_seed7"] = False
+        else:
+            run["status"] = "PENDING"
+        path.write_text(json.dumps(ledger), encoding="utf-8")
+>       with pytest.raises(ValueError, match="ledger|attempt|selection|reuse"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\integration\test_campaign_scheduler.py:251: Failed
+__________ test_resume_rejects_tampered_ledger_fields[dependencies] ___________
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3666/test_resume_rejects_tampered_l1')
+mutation = 'dependencies'
+
+    @pytest.mark.parametrize(
+        "mutation",
+        [
+            "selection",
+            "dependencies",
+            "family",
+            "attempt_metric",
+            "reuse_flag",
+            "completed_to_pending",
+        ],
+    )
+    def test_resume_rejects_tampered_ledger_fields(tmp_path: Path, mutation: str) -> None:
+        kwargs = {
+            "root": tmp_path / "campaign",
+            "trainer_lock": tmp_path / "trainer.lock",
+            "config": _config(tmp_path),
+            "identity": _identity(),
+            "executors": _executors([]),
+        }
+        run_campaign(**kwargs)
+        path = tmp_path / "campaign/campaign.json"
+        ledger = json.loads(path.read_text(encoding="utf-8"))
+        run = ledger["runs"]["direct-development1-seed7"]
+        if mutation == "selection":
+            ledger["selected_configs"]["direct"] = 0
+        elif mutation == "dependencies":
+            ledger["runs"]["direct-seed13"]["dependencies"] = []
+        elif mutation == "family":
+            run["family"] = "ema_jepa"
+        elif mutation == "attempt_metric":
+            run["attempts"][-1]["validation_metric"] = 999.0
+        elif mutation == "reuse_flag":
+            run["attempts"][-1]["reusable_seed7"] = False
+        else:
+            run["status"] = "PENDING"
+        path.write_text(json.dumps(ledger), encoding="utf-8")
+>       with pytest.raises(ValueError, match="ledger|attempt|selection|reuse"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\integration\test_campaign_scheduler.py:251: Failed
+_____________ test_resume_rejects_tampered_ledger_fields[family] ______________
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3666/test_resume_rejects_tampered_l2')
+mutation = 'family'
+
+    @pytest.mark.parametrize(
+        "mutation",
+        [
+            "selection",
+            "dependencies",
+            "family",
+            "attempt_metric",
+            "reuse_flag",
+            "completed_to_pending",
+        ],
+    )
+    def test_resume_rejects_tampered_ledger_fields(tmp_path: Path, mutation: str) -> None:
+        kwargs = {
+            "root": tmp_path / "campaign",
+            "trainer_lock": tmp_path / "trainer.lock",
+            "config": _config(tmp_path),
+            "identity": _identity(),
+            "executors": _executors([]),
+        }
+        run_campaign(**kwargs)
+        path = tmp_path / "campaign/campaign.json"
+        ledger = json.loads(path.read_text(encoding="utf-8"))
+        run = ledger["runs"]["direct-development1-seed7"]
+        if mutation == "selection":
+            ledger["selected_configs"]["direct"] = 0
+        elif mutation == "dependencies":
+            ledger["runs"]["direct-seed13"]["dependencies"] = []
+        elif mutation == "family":
+            run["family"] = "ema_jepa"
+        elif mutation == "attempt_metric":
+            run["attempts"][-1]["validation_metric"] = 999.0
+        elif mutation == "reuse_flag":
+            run["attempts"][-1]["reusable_seed7"] = False
+        else:
+            run["status"] = "PENDING"
+        path.write_text(json.dumps(ledger), encoding="utf-8")
+>       with pytest.raises(ValueError, match="ledger|attempt|selection|reuse"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\integration\test_campaign_scheduler.py:251: Failed
+_________ test_resume_rejects_tampered_ledger_fields[attempt_metric] __________
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3666/test_resume_rejects_tampered_l3')
+mutation = 'attempt_metric'
+
+    @pytest.mark.parametrize(
+        "mutation",
+        [
+            "selection",
+            "dependencies",
+            "family",
+            "attempt_metric",
+            "reuse_flag",
+            "completed_to_pending",
+        ],
+    )
+    def test_resume_rejects_tampered_ledger_fields(tmp_path: Path, mutation: str) -> None:
+        kwargs = {
+            "root": tmp_path / "campaign",
+            "trainer_lock": tmp_path / "trainer.lock",
+            "config": _config(tmp_path),
+            "identity": _identity(),
+            "executors": _executors([]),
+        }
+        run_campaign(**kwargs)
+        path = tmp_path / "campaign/campaign.json"
+        ledger = json.loads(path.read_text(encoding="utf-8"))
+        run = ledger["runs"]["direct-development1-seed7"]
+        if mutation == "selection":
+            ledger["selected_configs"]["direct"] = 0
+        elif mutation == "dependencies":
+            ledger["runs"]["direct-seed13"]["dependencies"] = []
+        elif mutation == "family":
+            run["family"] = "ema_jepa"
+        elif mutation == "attempt_metric":
+            run["attempts"][-1]["validation_metric"] = 999.0
+        elif mutation == "reuse_flag":
+            run["attempts"][-1]["reusable_seed7"] = False
+        else:
+            run["status"] = "PENDING"
+        path.write_text(json.dumps(ledger), encoding="utf-8")
+>       with pytest.raises(ValueError, match="ledger|attempt|selection|reuse"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\integration\test_campaign_scheduler.py:251: Failed
+___________ test_resume_rejects_tampered_ledger_fields[reuse_flag] ____________
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3666/test_resume_rejects_tampered_l4')
+mutation = 'reuse_flag'
+
+    @pytest.mark.parametrize(
+        "mutation",
+        [
+            "selection",
+            "dependencies",
+            "family",
+            "attempt_metric",
+            "reuse_flag",
+            "completed_to_pending",
+        ],
+    )
+    def test_resume_rejects_tampered_ledger_fields(tmp_path: Path, mutation: str) -> None:
+        kwargs = {
+            "root": tmp_path / "campaign",
+            "trainer_lock": tmp_path / "trainer.lock",
+            "config": _config(tmp_path),
+            "identity": _identity(),
+            "executors": _executors([]),
+        }
+        run_campaign(**kwargs)
+        path = tmp_path / "campaign/campaign.json"
+        ledger = json.loads(path.read_text(encoding="utf-8"))
+        run = ledger["runs"]["direct-development1-seed7"]
+        if mutation == "selection":
+            ledger["selected_configs"]["direct"] = 0
+        elif mutation == "dependencies":
+            ledger["runs"]["direct-seed13"]["dependencies"] = []
+        elif mutation == "family":
+            run["family"] = "ema_jepa"
+        elif mutation == "attempt_metric":
+            run["attempts"][-1]["validation_metric"] = 999.0
+        elif mutation == "reuse_flag":
+            run["attempts"][-1]["reusable_seed7"] = False
+        else:
+            run["status"] = "PENDING"
+        path.write_text(json.dumps(ledger), encoding="utf-8")
+>       with pytest.raises(ValueError, match="ledger|attempt|selection|reuse"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\integration\test_campaign_scheduler.py:251: Failed
+___________________ test_replaced_trainer_lock_is_preserved ___________________
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3666/test_replaced_trainer_lock_is_0')
+
+    def test_replaced_trainer_lock_is_preserved(tmp_path: Path) -> None:
+        lock = tmp_path / "trainer.lock"
+        executors = _executors([])
+        original = executors["persistence"]
+    
+        def replace_lock(slot, context):
+            lock.unlink()
+            lock.write_text("replacement", encoding="utf-8")
+            return original(slot, context)
+    
+        executors["persistence"] = replace_lock
+>       with pytest.raises(ValueError, match="lock ownership"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\integration\test_campaign_scheduler.py:266: Failed
+____ test_executor_rejects_non_strict_result_types[validation_metric-True] ____
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3666/test_executor_rejects_non_stri0')
+field = 'validation_metric', value = True
+
+    @pytest.mark.parametrize("field,value", [("validation_metric", True), ("reusable_seed7", 1)])
+    def test_executor_rejects_non_strict_result_types(tmp_path: Path, field: str, value: object) -> None:
+        from dataclasses import replace
+    
+        executors = _executors([])
+        original = executors["persistence"]
+    
+        def invalid(slot, context):
+            return replace(original(slot, context), **{field: value})
+    
+        executors["persistence"] = invalid
+        ledger = run_campaign(
+            root=tmp_path / "campaign",
+            trainer_lock=tmp_path / "trainer.lock",
+            config=_config(tmp_path),
+            identity=_identity(),
+            executors=executors,
+        )
+>       assert ledger["runs"]["persistence-seed7"]["status"] == "FAILED_FIXTURE"
+E       AssertionError: assert 'COMPLETED_FIXTURE' == 'FAILED_FIXTURE'
+E         
+E         - FAILED_FIXTURE
+E         + COMPLETED_FIXTURE
+
+tests\integration\test_campaign_scheduler.py:295: AssertionError
+_______ test_executor_rejects_non_strict_result_types[reusable_seed7-1] _______
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3666/test_executor_rejects_non_stri1')
+field = 'reusable_seed7', value = 1
+
+    @pytest.mark.parametrize("field,value", [("validation_metric", True), ("reusable_seed7", 1)])
+    def test_executor_rejects_non_strict_result_types(tmp_path: Path, field: str, value: object) -> None:
+        from dataclasses import replace
+    
+        executors = _executors([])
+        original = executors["persistence"]
+    
+        def invalid(slot, context):
+            return replace(original(slot, context), **{field: value})
+    
+        executors["persistence"] = invalid
+        ledger = run_campaign(
+            root=tmp_path / "campaign",
+            trainer_lock=tmp_path / "trainer.lock",
+            config=_config(tmp_path),
+            identity=_identity(),
+            executors=executors,
+        )
+>       assert ledger["runs"]["persistence-seed7"]["status"] == "FAILED_FIXTURE"
+E       AssertionError: assert 'COMPLETED_FIXTURE' == 'FAILED_FIXTURE'
+E         
+E         - FAILED_FIXTURE
+E         + COMPLETED_FIXTURE
+
+tests\integration\test_campaign_scheduler.py:295: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/integration/test_campaign_scheduler.py::test_resume_rejects_tampered_ledger_fields[selection]
+FAILED tests/integration/test_campaign_scheduler.py::test_resume_rejects_tampered_ledger_fields[dependencies]
+FAILED tests/integration/test_campaign_scheduler.py::test_resume_rejects_tampered_ledger_fields[family]
+FAILED tests/integration/test_campaign_scheduler.py::test_resume_rejects_tampered_ledger_fields[attempt_metric]
+FAILED tests/integration/test_campaign_scheduler.py::test_resume_rejects_tampered_ledger_fields[reuse_flag]
+FAILED tests/integration/test_campaign_scheduler.py::test_replaced_trainer_lock_is_preserved
+FAILED tests/integration/test_campaign_scheduler.py::test_executor_rejects_non_strict_result_types[validation_metric-True]
+FAILED tests/integration/test_campaign_scheduler.py::test_executor_rejects_non_strict_result_types[reusable_seed7-1]
+8 failed, 5 passed in 2.17s

@@ -13,11 +13,14 @@ Both development configurations must complete before a learned family's validati
 
 The existing `run_steps` function is an in-memory bounded trainer, not a complete executor. Real direct/JEPA adapters still need train-only day-shard batches and future/profile targets, optimizer/model/checkpoint creation, validation checkpoints and selection, three-seed retraining, hybrid train-only embeddings, random-encoder and shuffled-future control execution, budgets/resources telemetry and immutable prediction artifacts. B0-B3 have a fixture-only runner but no R0/R1-promoted real-corpus adapter. This scheduler has no CLI wiring; the existing `complete-p0` command must continue to report `NOT_IMPLEMENTED` for real campaign execution. The scheduler's local fixture ledger is separate from the production run registry.
 
+After the independent review's `REQUEST_CHANGES`, resume validation now checks exact top-level and per-run schemas, fixed family/phase/seed/dependencies/configuration fields, attempt sequence/status/schema/metric/artifact hashes, final attempt versus run fields, explicit seed-7 reuse, and recomputed selected configurations. Successful fixture resumption cannot accept a changed winning configuration or a completed-to-pending edit. Executor metrics reject Booleans, and the reuse flag must be a Boolean. The lock contains PID plus a unique token; the scheduler checks ownership during slot execution and only unlinks its own regular, unlinked lock. A replacement is preserved and reported as ownership loss. These changes require a new independent review verdict; the earlier veto is not treated as approval.
+
 ## RED/GREEN and resources
 
 - RED `evidence/continuation-builder/campaign-red.txt`: module collection failed before `campaign.py` existed, exit 2.
 - GREEN `evidence/continuation-builder/campaign-green.txt`: 4 fixture integration tests passed in 3.48 seconds, exit 0, with imported core module path asserted. They cover exact slot count/order, validation selection, seed-7 reuse, verified resume, missing-executor behavior, preserved failure/retry attempts, one-trainer lock, artifact tamper, changed config and real-scope refusal.
 - Ruff format/check, mypy for the new module, and `git diff --check` passed in the isolated core worktree. Main integration must rerun standard package checks and independent review.
+- Reviewer-fix RED `campaign-review-red.txt`: 8 expected failures exposed ledger tampering, lock replacement deletion, and loose result types. `campaign-config-red.txt`: a selected-run configuration mutation was accepted. Reviewer-fix GREEN `campaign-review-green.txt`: 14 fixture integration tests passed in 14.78 seconds with core `module.__file__` asserted. `campaign-review-mypy.txt`: the module passed mypy. Main-config Ruff and diff checks exited 0.
 - GPU/network: unused. Paid/committed infrastructure: USD 0. Process peak RAM was not measured for the small JSON fixture harness.
 
 ## Review request

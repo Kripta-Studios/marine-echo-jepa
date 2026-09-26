@@ -210,3 +210,91 @@ def test_tamper_lock_config_and_real_scope_fail_closed(tmp_path: Path) -> None:
                 ),
             }
         )
+
+
+@pytest.mark.parametrize(
+    "mutation",
+    [
+        "selection",
+        "dependencies",
+        "family",
+        "attempt_metric",
+        "reuse_flag",
+        "selected_configuration",
+        "completed_to_pending",
+    ],
+)
+def test_resume_rejects_tampered_ledger_fields(tmp_path: Path, mutation: str) -> None:
+    kwargs = {
+        "root": tmp_path / "campaign",
+        "trainer_lock": tmp_path / "trainer.lock",
+        "config": _config(tmp_path),
+        "identity": _identity(),
+        "executors": _executors([]),
+    }
+    run_campaign(**kwargs)
+    path = tmp_path / "campaign/campaign.json"
+    ledger = json.loads(path.read_text(encoding="utf-8"))
+    run = ledger["runs"]["direct-development1-seed7"]
+    if mutation == "selection":
+        ledger["selected_configs"]["direct"] = 0
+    elif mutation == "dependencies":
+        ledger["runs"]["direct-seed13"]["dependencies"] = []
+    elif mutation == "family":
+        run["family"] = "ema_jepa"
+    elif mutation == "attempt_metric":
+        run["attempts"][-1]["validation_metric"] = 999.0
+    elif mutation == "reuse_flag":
+        run["attempts"][-1]["reusable_seed7"] = False
+    elif mutation == "selected_configuration":
+        ledger["runs"]["direct-seed13"]["configuration"] = 0
+    else:
+        run["status"] = "PENDING"
+    path.write_text(json.dumps(ledger), encoding="utf-8")
+    with pytest.raises(ValueError, match="ledger|attempt|selection|reuse"):
+        run_campaign(**kwargs)
+
+
+def test_replaced_trainer_lock_is_preserved(tmp_path: Path) -> None:
+    lock = tmp_path / "trainer.lock"
+    executors = _executors([])
+    original = executors["persistence"]
+
+    def replace_lock(slot, context):
+        lock.unlink()
+        lock.write_text("replacement", encoding="utf-8")
+        return original(slot, context)
+
+    executors["persistence"] = replace_lock
+    with pytest.raises(ValueError, match="lock ownership"):
+        run_campaign(
+            root=tmp_path / "campaign",
+            trainer_lock=lock,
+            config=_config(tmp_path),
+            identity=_identity(),
+            executors=executors,
+        )
+    assert lock.read_text(encoding="utf-8") == "replacement"
+
+
+@pytest.mark.parametrize("field,value", [("validation_metric", True), ("reusable_seed7", 1)])
+def test_executor_rejects_non_strict_result_types(
+    tmp_path: Path, field: str, value: object
+) -> None:
+    from dataclasses import replace
+
+    executors = _executors([])
+    original = executors["persistence"]
+
+    def invalid(slot, context):
+        return replace(original(slot, context), **{field: value})
+
+    executors["persistence"] = invalid
+    ledger = run_campaign(
+        root=tmp_path / "campaign",
+        trainer_lock=tmp_path / "trainer.lock",
+        config=_config(tmp_path),
+        identity=_identity(),
+        executors=executors,
+    )
+    assert ledger["runs"]["persistence-seed7"]["status"] == "FAILED_FIXTURE"
