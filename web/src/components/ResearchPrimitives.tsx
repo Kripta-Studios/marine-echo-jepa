@@ -74,11 +74,19 @@ export function ReadoutGrid({ fields, className }: ReadoutGridProps) {
     <dl className={classes}>
       {fields.map((field) => {
         const missing =
-          field.value === undefined || field.value === null || field.value === "";
+          field.value === undefined ||
+          field.value === null ||
+          field.value === "";
         return (
           <div className="readout" key={field.label}>
             <dt>{field.label}</dt>
-            <dd>{missing ? <span className="muted-value">Not supplied</span> : field.value}</dd>
+            <dd>
+              {missing ? (
+                <span className="muted-value">Not supplied</span>
+              ) : (
+                field.value
+              )}
+            </dd>
             {field.note ? <p className="readout__note">{field.note}</p> : null}
           </div>
         );
@@ -107,7 +115,9 @@ export function PageHeading({
         <h2>{title}</h2>
         <p className="page-heading__description">{description}</p>
       </div>
-      {trailing ? <div className="page-heading__trailing">{trailing}</div> : null}
+      {trailing ? (
+        <div className="page-heading__trailing">{trailing}</div>
+      ) : null}
     </header>
   );
 }

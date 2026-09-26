@@ -68,7 +68,44 @@ def verify_seal(protocol_path: Path, seal_path: Path) -> dict[str, Any]:
         raise ValueError("Independent R2 approval is required before test evaluation.")
     if digest_file(protocol_path) != seal["protocol_sha256"]:
         raise ValueError("Protocol changed after freeze.")
-    for entry in seal["files"]:
-        if digest_file(Path(entry["path"])) != entry["sha256"]:
+    required = {
+        "source_inventory",
+        "split",
+        "preprocessing",
+        "checkpoint",
+        "eligibility",
+        "calibration",
+        "statistics",
+        "review",
+    }
+    entries = seal.get("files", [])
+    if not entries or not required.issubset({e.get("role") for e in entries}):
+        raise ValueError("Seal lacks required provenance, checkpoint or review artifacts.")
+    root = seal_path.parent.resolve()
+    seen: set[str] = set()
+    for entry in entries:
+        relative = Path(entry["path"])
+        target = root / relative
+        if (
+            relative.is_absolute()
+            or ".." in relative.parts
+            or not target.resolve().is_relative_to(root)
+            or target.is_symlink()
+        ):
+            raise ValueError("Frozen artifacts must be unlinked files inside the seal directory.")
+        if str(relative).casefold() in seen:
+            raise ValueError("Duplicate frozen artifact.")
+        seen.add(str(relative).casefold())
+        if digest_file(target) != entry["sha256"]:
             raise ValueError("Frozen artifact changed.")
+        if entry["role"] == "review":
+            review = json.loads(target.read_text(encoding="utf-8"))
+            if (
+                review.get("review_id") != "R2"
+                or review.get("verdict") != "APPROVED"
+                or review.get("session") != seal.get("review_session")
+                or not str(review.get("session", "")).startswith("/root/review")
+                or review.get("unresolved_material_findings") != []
+            ):
+                raise ValueError("Independent R2 review evidence is missing or inconsistent.")
     return seal

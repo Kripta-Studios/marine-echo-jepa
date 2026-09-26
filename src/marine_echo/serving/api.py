@@ -10,6 +10,16 @@ from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.responses import JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, ConfigDict, field_validator
+from starlette.middleware.trustedhost import TrustedHostMiddleware
+
+from marine_echo.contracts.forecast import Forecast
+
+
+def strict_json(payload: str | bytes) -> Any:
+    def invalid_constant(value: str) -> None:
+        raise ValueError("Nonfinite JSON constant rejected.")
+
+    return json.loads(payload, parse_constant=invalid_constant)
 
 
 def utc(value: str) -> datetime:
@@ -46,7 +56,10 @@ class ArtifactStore:
             catalog_path = self.root / "catalog.json"
             if catalog_path.is_symlink() or catalog_path.stat().st_size > 2_000_000:
                 raise ValueError("Invalid catalog.")
-            self.catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
+            self.catalog = strict_json(catalog_path.read_text(encoding="utf-8"))
+            if len(self.catalog["artifacts"]) > 100:
+                raise ValueError("Artifact count limit exceeded.")
+            total = 0
             for key, entry in self.catalog["artifacts"].items():
                 relative = Path(entry["path"])
                 candidate = self.root / relative
@@ -61,6 +74,10 @@ class ArtifactStore:
                 if candidate.stat().st_size > 32_000_000:
                     raise ValueError("Artifact size limit exceeded.")
                 payload = candidate.read_bytes()
+                total += len(payload)
+                if total > 128_000_000:
+                    raise ValueError("Aggregate artifact size limit exceeded.")
+                strict_json(payload)
                 if hashlib.sha256(payload).hexdigest() != entry["sha256"]:
                     raise ValueError("Artifact integrity mismatch.")
                 self.payloads[key] = payload
@@ -75,12 +92,15 @@ class ArtifactStore:
         self.require_ready()
         if key not in self.payloads or (kind and self.catalog["artifacts"][key]["kind"] != kind):
             raise HTTPException(404, "Unknown artifact ID.")
-        return json.loads(self.payloads[key])
+        return strict_json(self.payloads[key])
 
 
 def create_app(artifact_root: Path, web_root: Path | None = None) -> FastAPI:
     store = ArtifactStore(artifact_root)
     app = FastAPI(title="Marine Echo JEPA", version="0.1.0", docs_url=None, redoc_url=None)
+    app.add_middleware(
+        TrustedHostMiddleware, allowed_hosts=["127.0.0.1", "localhost", "[::1]", "testserver"]
+    )
 
     @app.middleware("http")
     async def boundary(request: Request, call_next: Any) -> Response:
@@ -141,12 +161,16 @@ def create_app(artifact_root: Path, web_root: Path | None = None) -> FastAPI:
             begin, finish = utc(start), utc(end)
             if not timedelta(0) < finish - begin <= timedelta(hours=48):
                 raise ValueError("Request a positive interval of at most 48 hours.")
-            if cutoff:
-                finish = min(finish, utc(cutoff))
+            cutoff_time = utc(cutoff) if cutoff else finish
         except ValueError as exc:
             raise HTTPException(422, str(exc)) from exc
         data = store.json(dataset["observations_id"], "observations")
-        selected = [row for row in data["rows"] if begin <= utc(row["event_time_utc"]) < finish]
+        selected = [
+            row
+            for row in data["rows"]
+            if begin <= utc(row["event_time_utc"]) < finish
+            and utc(row["event_time_utc"]) <= cutoff_time
+        ]
         if len(selected) > limit:
             raise HTTPException(422, "Too many observations; request a shorter interval.")
         return {**data, "rows": selected}
@@ -178,7 +202,22 @@ def create_app(artifact_root: Path, web_root: Path | None = None) -> FastAPI:
             raise HTTPException(
                 503, "No verified cached forecast exists at this cutoff and observation age."
             )
-        return store.json(entry, "forecast")
+        try:
+            result = Forecast.model_validate(store.json(entry, "forecast"))
+            if (
+                result.dataset_id != body.dataset_id
+                or result.model_id != body.model_id
+                or utc(result.prediction_cutoff) != utc(body.cutoff)
+                or result.mode != body.mode
+                or result.observation_age_hours != body.observation_age_hours
+            ):
+                raise ValueError("Forecast request and artifact identity disagree.")
+            for key in ("checkpoint_sha256", "preprocessing_sha256", "split_sha256"):
+                if getattr(result, key) != model.get(key):
+                    raise ValueError("Forecast provenance mismatch.")
+            return result.model_dump()
+        except ValueError as exc:
+            raise HTTPException(409, "Forecast schema or protocol identity mismatch.") from exc
 
     @app.get("/api/v1/evidence/{evidence_id}")
     def evidence(evidence_id: str) -> Any:

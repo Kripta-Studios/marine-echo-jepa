@@ -52,11 +52,19 @@ def test_cuda_direct_ema_shared_backward_and_checkpoint(tmp_path: Path) -> None:
     config = ModelConfig(width=32, layers=1, heads=4)
     results: dict[str, object] = {}
     for family in ("direct", "ema_jepa", "shared_sigreg"):
-        model = (DirectForecaster(config) if family == "direct" else TemporalJEPA(config, mode="ema" if family == "ema_jepa" else "shared_sigreg")).cuda()
-        optimizer = torch.optim.AdamW((parameter for parameter in model.parameters() if parameter.requires_grad), lr=3e-4)
+        model = (
+            DirectForecaster(config)
+            if family == "direct"
+            else TemporalJEPA(config, mode="ema" if family == "ema_jepa" else "shared_sigreg")
+        ).cuda()
+        optimizer = torch.optim.AdamW(
+            (parameter for parameter in model.parameters() if parameter.requires_grad), lr=3e-4
+        )
         torch.cuda.reset_peak_memory_stats()
         start = time.perf_counter()
-        loss = run_steps(model, optimizer, [batch], family=family, start_step=0, updates=1, partition="train")
+        loss = run_steps(
+            model, optimizer, [batch], family=family, start_step=0, updates=1, partition="train"
+        )
         torch.cuda.synchronize()
         result = {
             "loss": loss[0],
@@ -71,7 +79,10 @@ def test_cuda_direct_ema_shared_backward_and_checkpoint(tmp_path: Path) -> None:
             save_checkpoint(checkpoint, model, optimizer, step=1, protocol_sha256="a" * 64)
             restored = DirectForecaster(config).cuda()
             restored_optimizer = torch.optim.AdamW(restored.parameters(), lr=3e-4)
-            assert load_checkpoint(checkpoint, restored, restored_optimizer, protocol_sha256="a" * 64) == 1
+            assert (
+                load_checkpoint(checkpoint, restored, restored_optimizer, protocol_sha256="a" * 64)
+                == 1
+            )
         results[family] = result
         del model, optimizer
         torch.cuda.empty_cache()
@@ -88,7 +99,9 @@ def test_cuda_direct_ema_shared_backward_and_checkpoint(tmp_path: Path) -> None:
     )
 
 
-@pytest.mark.skipif(os.environ.get("MARINE_ECHO_PROFILE_GPU") != "1", reason="Opt-in bounded GPU profile")
+@pytest.mark.skipif(
+    os.environ.get("MARINE_ECHO_PROFILE_GPU") != "1", reason="Opt-in bounded GPU profile"
+)
 def test_cuda_direct_100_update_profile() -> None:
     assert torch.cuda.is_available(), "The requested local GPU is unavailable."
     torch.manual_seed(13)
@@ -103,7 +116,15 @@ def test_cuda_direct_100_update_profile() -> None:
     start = time.perf_counter()
     for step in range(100):
         step_start = time.perf_counter()
-        run_steps(model, optimizer, [batch], family="direct", start_step=step, updates=1, partition="train")
+        run_steps(
+            model,
+            optimizer,
+            [batch],
+            family="direct",
+            start_step=step,
+            updates=1,
+            partition="train",
+        )
         torch.cuda.synchronize()
         step_seconds.append(time.perf_counter() - step_start)
         process_peak = max(process_peak, _process_tree_rss())

@@ -1,0 +1,6 @@
+Success: no issues found in 14 source files
+ 
+Success: no issues found in 9 source files
+ 
+
+{"name": "mypy", "command": ["C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe", "tools/check_types.py"], "exit_code": 0, "seconds": 5.140999999995984, "peak_process_tree_rss_gib": 0.22038650512695312, "log": "evidence\\tests\\final\\mypy.log"}

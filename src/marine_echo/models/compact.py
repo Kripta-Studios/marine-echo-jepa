@@ -86,12 +86,8 @@ class AcousticEncoder(nn.Module):
         if not torch.isfinite(values[mask]).all():
             raise ValueError("Valid acoustic input contains a non-finite value.")
         masked = torch.where(mask, values, torch.zeros_like(values))
-        patches = masked.reshape(batch, times // 4, 4, frequencies, 8, 8).permute(
-            0, 1, 4, 2, 3, 5
-        )
-        patch_mask = mask.reshape(batch, times // 4, 4, frequencies, 8, 8).permute(
-            0, 1, 4, 2, 3, 5
-        )
+        patches = masked.reshape(batch, times // 4, 4, frequencies, 8, 8).permute(0, 1, 4, 2, 3, 5)
+        patch_mask = mask.reshape(batch, times // 4, 4, frequencies, 8, 8).permute(0, 1, 4, 2, 3, 5)
         patch_valid = patch_mask.any(dim=(3, 4, 5)).reshape(batch, -1)
         features = torch.cat(
             (
@@ -109,9 +105,7 @@ class AcousticEncoder(nn.Module):
         tokens = tokens.reshape(batch, -1, self.config.width)
         padding = ~patch_valid
         padding[~patch_valid.any(dim=1), 0] = False
-        encoded = self.final_norm(
-            self.transformer(tokens, src_key_padding_mask=padding)
-        )
+        encoded = self.final_norm(self.transformer(tokens, src_key_padding_mask=padding))
         return encoded, patch_valid
 
 
@@ -124,9 +118,7 @@ class HorizonPredictor(nn.Module):
         )
         self.norm = nn.LayerNorm(config.width)
 
-    def forward(
-        self, context: torch.Tensor, context_valid: torch.Tensor
-    ) -> torch.Tensor:
+    def forward(self, context: torch.Tensor, context_valid: torch.Tensor) -> torch.Tensor:
         query = self.query.reshape(1, 24, -1).expand(context.shape[0], -1, -1)
         padding = ~context_valid.clone()
         padding[~context_valid.any(dim=1), 0] = False
@@ -142,9 +134,7 @@ class ForecastHead(nn.Module):
         self.scalar = nn.Linear(width, 5)
         self.profile = nn.Linear(width, 4 * 8)
 
-    def forward(
-        self, predicted: torch.Tensor, eligible: torch.Tensor
-    ) -> ForecastOutput:
+    def forward(self, predicted: torch.Tensor, eligible: torch.Tensor) -> ForecastOutput:
         raw = self.scalar(predicted.mean(dim=2))
         quantiles = torch.cat(
             (
@@ -170,9 +160,7 @@ class DirectForecaster(nn.Module):
         self.predictor = HorizonPredictor(config)
         self.head = ForecastHead(config.width)
 
-    def forward(
-        self, context: torch.Tensor, context_mask: torch.Tensor
-    ) -> ForecastOutput:
+    def forward(self, context: torch.Tensor, context_mask: torch.Tensor) -> ForecastOutput:
         tokens, valid = self.encoder(context, context_mask)
         predicted = self.predictor(tokens, valid)
         return self.head(predicted, valid.any(dim=1))
@@ -206,9 +194,7 @@ class TemporalJEPA(nn.Module):
     def update_teacher(self, momentum: float = 0.996) -> None:
         if self.mode != "ema" or not 0.0 <= momentum < 1.0:
             raise ValueError("EMA update requires EMA mode and momentum in [0,1).")
-        for teacher, student in zip(
-            self.target_encoder.parameters(), self.encoder.parameters()
-        ):
+        for teacher, student in zip(self.target_encoder.parameters(), self.encoder.parameters()):
             teacher.lerp_(student, 1.0 - momentum)
 
     def encode_future(
@@ -258,8 +244,6 @@ class TemporalJEPA(nn.Module):
             eligible=sample_valid,
         )
 
-    def forecast(
-        self, context: torch.Tensor, context_mask: torch.Tensor
-    ) -> ForecastOutput:
+    def forecast(self, context: torch.Tensor, context_mask: torch.Tensor) -> ForecastOutput:
         encoded, valid = self.encoder(context, context_mask)
         return self.head(self.predictor(encoded, valid), valid.any(dim=1))

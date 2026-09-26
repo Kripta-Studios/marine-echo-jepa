@@ -1,0 +1,15 @@
+
+> marine-echo-web@0.1.0 test:run
+> vitest run
+
+
+ RUN  v5.0.2 C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/web
+
+
+ Test Files  2 passed (2)
+      Tests  2 passed (2)
+   Start at  21:12:04
+   Duration  187ms (transform 59%, import 26%, worker 8%, tests 6%)
+
+
+{"name": "web-test-run", "command": ["C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.runtime\\node_modules\\node\\bin\\node.exe", "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js", "run", "test:run"], "exit_code": 0, "seconds": 1.0310000000026776, "peak_process_tree_rss_gib": 0.21976852416992188, "log": "evidence\\tests\\final\\web-test-run.log"}

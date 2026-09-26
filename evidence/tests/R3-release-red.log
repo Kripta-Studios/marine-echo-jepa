@@ -1,0 +1,41 @@
+F.                                                                       [100%]
+================================== FAILURES ===================================
+_______ test_release_rejects_existing_directory_before_reading_sources ________
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3590/test_release_rejects_existing_0')
+
+    def test_release_rejects_existing_directory_before_reading_sources(tmp_path: Path) -> None:
+        output = tmp_path / "published"
+        output.mkdir()
+        (output / "stale.js").write_text("old")
+        with pytest.raises(FileExistsError):
+>           build_diagnostic(tmp_path / "missing-source", output)
+
+tests\unit\test_release_publish.py:13: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\marine_echo\serving\release.py:83: in build_diagnostic
+    (root / "data/manifests/mosaic_azfp_down_2020/source_inventory.json").read_text(
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3590/test_release_rejects_existing_0/missing-source/data/manifests/mosaic_azfp_down_2020/source_inventory.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\�lvaro Schwiedop\\AppData\\Local\\Temp\\pytest-of-�lvaro Schwiedop\\pytest-3590\\test_release_rejects_existing_0\\missing-source\\data\\manifests\\mosaic_azfp_down_2020\\source_inventory.json'
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:1013: FileNotFoundError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_release_publish.py::test_release_rejects_existing_directory_before_reading_sources
+1 failed, 1 passed in 4.20s

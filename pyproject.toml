@@ -18,7 +18,14 @@ data = ["echopype==0.11.1", "pypdf==6.19.0"]
 train = ["torch==2.11.0"]
 
 [dependency-groups]
-dev = ["pytest==9.1.1", "pytest-cov==7.1.0", "ruff==0.16.9", "mypy==2.3.1", "httpx==0.28.1"]
+dev = [
+    "pytest==9.1.1",
+    "pytest-cov==7.1.0",
+    "ruff==0.16.9",
+    "mypy==2.3.1",
+    "httpx==0.28.1",
+    "types-psutil==7.2.2.20260906",
+]
 
 [project.scripts]
 marine-echo = "marine_echo.serving.cli:app"
@@ -49,3 +56,7 @@ python_version = "3.12"
 check_untyped_defs = true
 disallow_untyped_defs = true
 warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+module = ["sklearn.*"]
+ignore_missing_imports = true

@@ -1,18 +1,286 @@
 {
   "schema_version": "1.0",
-  "state": "PREFLIGHT_RUNNING",
+  "state": "P0_INCOMPLETE_NATIVE_AGENT_QUOTA_BLOCK",
   "dataset_id": "mosaic_azfp_down_2020",
   "source_policy": "immutable_existing_local_files_no_redownload_if_valid",
   "gpu_owner": null,
-  "runs": [],
+  "runs": [
+    {
+      "run_id": "persistence-seed7",
+      "family": "persistence",
+      "seed": 7,
+      "phase": "selected",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "MOSAiC environmental profiles were found, but instrument geometry, environmental applicability and independent calibration review remain unresolved. No eligible physical-unit benchmark corpus exists.",
+      "updates": 0
+    },
+    {
+      "run_id": "seasonal-seed7",
+      "family": "seasonal",
+      "seed": 7,
+      "phase": "selected",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "MOSAiC environmental profiles were found, but instrument geometry, environmental applicability and independent calibration review remain unresolved. No eligible physical-unit benchmark corpus exists.",
+      "updates": 0
+    },
+    {
+      "run_id": "ridge-seed7",
+      "family": "ridge",
+      "seed": 7,
+      "phase": "selected",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "MOSAiC environmental profiles were found, but instrument geometry, environmental applicability and independent calibration review remain unresolved. No eligible physical-unit benchmark corpus exists.",
+      "updates": 0
+    },
+    {
+      "run_id": "hist_gradient_boosting-seed7",
+      "family": "hist_gradient_boosting",
+      "seed": 7,
+      "phase": "selected",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "MOSAiC environmental profiles were found, but instrument geometry, environmental applicability and independent calibration review remain unresolved. No eligible physical-unit benchmark corpus exists.",
+      "updates": 0
+    },
+    {
+      "run_id": "direct-seed7",
+      "family": "direct",
+      "seed": 7,
+      "phase": "selected",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "MOSAiC environmental profiles were found, but instrument geometry, environmental applicability and independent calibration review remain unresolved. No eligible physical-unit benchmark corpus exists.",
+      "updates": 0
+    },
+    {
+      "run_id": "direct-seed13",
+      "family": "direct",
+      "seed": 13,
+      "phase": "selected",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "MOSAiC environmental profiles were found, but instrument geometry, environmental applicability and independent calibration review remain unresolved. No eligible physical-unit benchmark corpus exists.",
+      "updates": 0
+    },
+    {
+      "run_id": "direct-seed23",
+      "family": "direct",
+      "seed": 23,
+      "phase": "selected",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "MOSAiC environmental profiles were found, but instrument geometry, environmental applicability and independent calibration review remain unresolved. No eligible physical-unit benchmark corpus exists.",
+      "updates": 0
+    },
+    {
+      "run_id": "ema_jepa-seed7",
+      "family": "ema_jepa",
+      "seed": 7,
+      "phase": "selected",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "MOSAiC environmental profiles were found, but instrument geometry, environmental applicability and independent calibration review remain unresolved. No eligible physical-unit benchmark corpus exists.",
+      "updates": 0
+    },
+    {
+      "run_id": "ema_jepa-seed13",
+      "family": "ema_jepa",
+      "seed": 13,
+      "phase": "selected",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "MOSAiC environmental profiles were found, but instrument geometry, environmental applicability and independent calibration review remain unresolved. No eligible physical-unit benchmark corpus exists.",
+      "updates": 0
+    },
+    {
+      "run_id": "ema_jepa-seed23",
+      "family": "ema_jepa",
+      "seed": 23,
+      "phase": "selected",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "MOSAiC environmental profiles were found, but instrument geometry, environmental applicability and independent calibration review remain unresolved. No eligible physical-unit benchmark corpus exists.",
+      "updates": 0
+    },
+    {
+      "run_id": "shared_sigreg-seed7",
+      "family": "shared_sigreg",
+      "seed": 7,
+      "phase": "selected",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "MOSAiC environmental profiles were found, but instrument geometry, environmental applicability and independent calibration review remain unresolved. No eligible physical-unit benchmark corpus exists.",
+      "updates": 0
+    },
+    {
+      "run_id": "shared_sigreg-seed13",
+      "family": "shared_sigreg",
+      "seed": 13,
+      "phase": "selected",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "MOSAiC environmental profiles were found, but instrument geometry, environmental applicability and independent calibration review remain unresolved. No eligible physical-unit benchmark corpus exists.",
+      "updates": 0
+    },
+    {
+      "run_id": "shared_sigreg-seed23",
+      "family": "shared_sigreg",
+      "seed": 23,
+      "phase": "selected",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "MOSAiC environmental profiles were found, but instrument geometry, environmental applicability and independent calibration review remain unresolved. No eligible physical-unit benchmark corpus exists.",
+      "updates": 0
+    },
+    {
+      "run_id": "ema_jepa_plus_raw-seed7",
+      "family": "ema_jepa_plus_raw",
+      "seed": 7,
+      "phase": "selected",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "MOSAiC environmental profiles were found, but instrument geometry, environmental applicability and independent calibration review remain unresolved. No eligible physical-unit benchmark corpus exists.",
+      "updates": 0
+    },
+    {
+      "run_id": "shared_sigreg_plus_raw-seed7",
+      "family": "shared_sigreg_plus_raw",
+      "seed": 7,
+      "phase": "selected",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "MOSAiC environmental profiles were found, but instrument geometry, environmental applicability and independent calibration review remain unresolved. No eligible physical-unit benchmark corpus exists.",
+      "updates": 0
+    },
+    {
+      "run_id": "direct-development0-seed7",
+      "family": "direct",
+      "seed": 7,
+      "phase": "development",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "MOSAiC environmental profiles were found, but instrument geometry, environmental applicability and independent calibration review remain unresolved. No eligible physical-unit benchmark corpus exists.",
+      "updates": 0
+    },
+    {
+      "run_id": "direct-development1-seed7",
+      "family": "direct",
+      "seed": 7,
+      "phase": "development",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "MOSAiC environmental profiles were found, but instrument geometry, environmental applicability and independent calibration review remain unresolved. No eligible physical-unit benchmark corpus exists.",
+      "updates": 0
+    },
+    {
+      "run_id": "ema_jepa-development0-seed7",
+      "family": "ema_jepa",
+      "seed": 7,
+      "phase": "development",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "MOSAiC environmental profiles were found, but instrument geometry, environmental applicability and independent calibration review remain unresolved. No eligible physical-unit benchmark corpus exists.",
+      "updates": 0
+    },
+    {
+      "run_id": "ema_jepa-development1-seed7",
+      "family": "ema_jepa",
+      "seed": 7,
+      "phase": "development",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "MOSAiC environmental profiles were found, but instrument geometry, environmental applicability and independent calibration review remain unresolved. No eligible physical-unit benchmark corpus exists.",
+      "updates": 0
+    },
+    {
+      "run_id": "shared_sigreg-development0-seed7",
+      "family": "shared_sigreg",
+      "seed": 7,
+      "phase": "development",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "MOSAiC environmental profiles were found, but instrument geometry, environmental applicability and independent calibration review remain unresolved. No eligible physical-unit benchmark corpus exists.",
+      "updates": 0
+    },
+    {
+      "run_id": "shared_sigreg-development1-seed7",
+      "family": "shared_sigreg",
+      "seed": 7,
+      "phase": "development",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "MOSAiC environmental profiles were found, but instrument geometry, environmental applicability and independent calibration review remain unresolved. No eligible physical-unit benchmark corpus exists.",
+      "updates": 0
+    },
+    {
+      "run_id": "ema_jepa-random_encoder-seed7",
+      "family": "ema_jepa",
+      "seed": 7,
+      "phase": "random_encoder",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "MOSAiC environmental profiles were found, but instrument geometry, environmental applicability and independent calibration review remain unresolved. No eligible physical-unit benchmark corpus exists.",
+      "updates": 0
+    },
+    {
+      "run_id": "ema_jepa-shuffled_future-seed7",
+      "family": "ema_jepa",
+      "seed": 7,
+      "phase": "shuffled_future",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "MOSAiC environmental profiles were found, but instrument geometry, environmental applicability and independent calibration review remain unresolved. No eligible physical-unit benchmark corpus exists.",
+      "updates": 0
+    },
+    {
+      "run_id": "shared_sigreg-random_encoder-seed7",
+      "family": "shared_sigreg",
+      "seed": 7,
+      "phase": "random_encoder",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "MOSAiC environmental profiles were found, but instrument geometry, environmental applicability and independent calibration review remain unresolved. No eligible physical-unit benchmark corpus exists.",
+      "updates": 0
+    },
+    {
+      "run_id": "shared_sigreg-shuffled_future-seed7",
+      "family": "shared_sigreg",
+      "seed": 7,
+      "phase": "shuffled_future",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "MOSAiC environmental profiles were found, but instrument geometry, environmental applicability and independent calibration review remain unresolved. No eligible physical-unit benchmark corpus exists.",
+      "updates": 0
+    }
+  ],
   "gates": {
-    "G0_DATA": "NOT_RUN",
-    "G1_ENGINEERING": "NOT_RUN",
-    "G2_EXPERIMENT": "NOT_RUN",
+    "G0_DATA": "BLOCKED_ENVIRONMENTAL_APPLICABILITY_AND_REVIEW",
+    "G1_ENGINEERING": "TESTED_DIAGNOSTIC_PENDING_INDEPENDENT_REVIEW",
+    "G2_EXPERIMENT": "BLOCKED_NOT_RUN",
     "G3_INCREMENTAL_VALUE": "NOT_EVALUATED",
     "commercial_validation": "NOT_EVALUATED"
   },
   "infrastructure_paid_usd": 0,
   "infrastructure_committed_usd": 0,
-  "cloud_authorized": false
+  "cloud_authorized": false,
+  "active_processes": [
+    {
+      "pid": 47628,
+      "purpose": "loopback diagnostic server 8765"
+    }
+  ],
+  "blockers": [
+    "All three required native agents returned usage-limit errors on 2026-09-26; no silent model substitution.",
+    "Environmental sources downloaded; scientific applicability and serial conflict remain unresolved.",
+    "Complete P0 training/evaluation orchestration is not implemented."
+  ],
+  "software_evidence": {
+    "app_checks": "evidence/tests/final/checks.json",
+    "gpu_checks": "evidence/models/main-integrated-tests.log",
+    "resource_profile": "evidence/models/gpu_100_updates.json",
+    "fresh_browser": "evidence/tests/R3-browser-fresh.log"
+  }
 }

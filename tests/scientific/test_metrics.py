@@ -10,16 +10,31 @@ def test_pinball_hand_calculation_and_abstention_denominator() -> None:
     pred = np.full((2, 3, 5), 8.0)
     np.testing.assert_allclose(pinball(truth, pred)[0, 0], [0.1, 0.5, 1, 1.5, 1.9])
     pred[1] = np.nan
-    result = daily_metrics(truth, pred, np.array(["day1", "day2"]))
+    result = daily_metrics(
+        truth, pred, np.array(["2020-01-01", "2020-01-02"], dtype="datetime64[D]")
+    )
     assert result["prediction_coverage"] == 0.5
     assert result["eligible_rows"] == 2
-    assert result["daily_mean_pinball_db"] == 1
+    assert result["daily_mean_pinball_db"] is None
+    common = daily_metrics(
+        truth,
+        pred,
+        np.array(["2020-01-01", "2020-01-02"], dtype="datetime64[D]"),
+        shared_support=np.array([True, False]),
+    )
+    assert common["daily_mean_pinball_db"] == 1
 
 
 def test_days_have_equal_weight() -> None:
     truth = np.array([[0.0], [0.0], [10.0]])
     pred = np.zeros((3, 1, 5))
-    result = daily_metrics(truth, pred, np.array(["a", "a", "b"]))
+    result = daily_metrics(
+        truth,
+        pred,
+        np.array(
+            ["2020-01-01T00:00", "2020-01-01T01:00", "2020-01-02T00:00"], dtype="datetime64[m]"
+        ),
+    )
     assert result["daily_mean_pinball_db"] == 2.5
 
 

@@ -1,0 +1,138 @@
+[
+  {
+    "name": "ruff-format",
+    "command": [
+      "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+      "-m",
+      "ruff",
+      "format",
+      "--check",
+      "src",
+      "tests"
+    ],
+    "exit_code": 0,
+    "seconds": 0.5160000000032596,
+    "peak_process_tree_rss_gib": 0.006870269775390625,
+    "log": "evidence\\tests\\final\\ruff-format.log"
+  },
+  {
+    "name": "ruff-check",
+    "command": [
+      "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+      "-m",
+      "ruff",
+      "check",
+      "src",
+      "tests"
+    ],
+    "exit_code": 0,
+    "seconds": 0.5149999999994179,
+    "peak_process_tree_rss_gib": 0.00691986083984375,
+    "log": "evidence\\tests\\final\\ruff-check.log"
+  },
+  {
+    "name": "mypy",
+    "command": [
+      "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+      "tools/check_types.py"
+    ],
+    "exit_code": 0,
+    "seconds": 5.140999999995984,
+    "peak_process_tree_rss_gib": 0.22038650512695312,
+    "log": "evidence\\tests\\final\\mypy.log"
+  },
+  {
+    "name": "pytest",
+    "command": [
+      "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "tests/unit",
+      "tests/integration",
+      "tests/scientific",
+      "tests/api",
+      "tests/security",
+      "--ignore=tests/unit/test_models_forecast.py",
+      "--ignore=tests/unit/test_models_hybrid.py",
+      "--ignore=tests/scientific/test_model_gradients.py",
+      "--ignore=tests/scientific/test_model_controls.py",
+      "--ignore=tests/scientific/test_model_collapse.py",
+      "--ignore=tests/integration/test_training_resume.py",
+      "--ignore=tests/integration/test_training_gpu.py",
+      "--cov=marine_echo.contracts",
+      "--cov=marine_echo.evaluation",
+      "--cov=marine_echo.serving.api",
+      "--cov-report=term-missing",
+      "-q"
+    ],
+    "exit_code": 0,
+    "seconds": 7.687000000005355,
+    "peak_process_tree_rss_gib": 0.2526588439941406,
+    "log": "evidence\\tests\\final\\pytest.log"
+  },
+  {
+    "name": "web-format-check",
+    "command": [
+      "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.runtime\\node_modules\\node\\bin\\node.exe",
+      "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+      "run",
+      "format:check"
+    ],
+    "exit_code": 0,
+    "seconds": 1.0319999999992433,
+    "peak_process_tree_rss_gib": 0.16003036499023438,
+    "log": "evidence\\tests\\final\\web-format-check.log"
+  },
+  {
+    "name": "web-lint",
+    "command": [
+      "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.runtime\\node_modules\\node\\bin\\node.exe",
+      "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+      "run",
+      "lint"
+    ],
+    "exit_code": 0,
+    "seconds": 1.5469999999986612,
+    "peak_process_tree_rss_gib": 0.16640090942382812,
+    "log": "evidence\\tests\\final\\web-lint.log"
+  },
+  {
+    "name": "web-typecheck",
+    "command": [
+      "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.runtime\\node_modules\\node\\bin\\node.exe",
+      "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+      "run",
+      "typecheck"
+    ],
+    "exit_code": 0,
+    "seconds": 1.5619999999980791,
+    "peak_process_tree_rss_gib": 0.3357200622558594,
+    "log": "evidence\\tests\\final\\web-typecheck.log"
+  },
+  {
+    "name": "web-test-run",
+    "command": [
+      "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.runtime\\node_modules\\node\\bin\\node.exe",
+      "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+      "run",
+      "test:run"
+    ],
+    "exit_code": 0,
+    "seconds": 1.0310000000026776,
+    "peak_process_tree_rss_gib": 0.21976852416992188,
+    "log": "evidence\\tests\\final\\web-test-run.log"
+  },
+  {
+    "name": "web-build",
+    "command": [
+      "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.runtime\\node_modules\\node\\bin\\node.exe",
+      "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+      "run",
+      "build"
+    ],
+    "exit_code": 0,
+    "seconds": 2.0780000000013388,
+    "peak_process_tree_rss_gib": 0.333251953125,
+    "log": "evidence\\tests\\final\\web-build.log"
+  }
+]

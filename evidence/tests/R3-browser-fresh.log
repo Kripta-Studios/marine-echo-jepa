@@ -1,0 +1,11 @@
+
+Running 4 tests using 1 worker
+
+(node:45108) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests\offline.spec.ts:4:1 › offline real replay, unavailable forecast, reveal, evidence and export (1.5s)
+  ✓  2 tests\offline.spec.ts:51:1 › malformed cutoff recovers and every sample group is accessible (280ms)
+  ✓  3 tests\offline.spec.ts:61:1 › changing cutoff cancels pending reveal without leaking stale data or errors (994ms)
+  ✓  4 tests\offline.spec.ts:78:1 › mobile fits, keyboard focus and refresh preserve cutoff (347ms)
+
+  4 passed (4.9s)

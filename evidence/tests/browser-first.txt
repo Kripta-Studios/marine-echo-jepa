@@ -1,0 +1,35 @@
+
+Running 2 tests using 1 worker
+
+(node:44992) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 web\tests\offline.spec.ts:3:1 › offline real replay, unavailable forecast, reveal, evidence and export (30.2s)
+(node:22364) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  2 web\tests\offline.spec.ts:49:1 › mobile fits, keyboard focus and refresh preserve cutoff (2.1s)
+
+
+  1) web\tests\offline.spec.ts:3:1 › offline real replay, unavailable forecast, reveal, evidence and export 
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for getByRole('link', { name: /02 Forecast comparison/ })
+
+
+      30 |   expect(forecasts[0]).toEqual(forecasts[1]);
+      31 |   expect(Object.keys(forecasts[0])).toEqual(['dataset_id','model_id','cutoff','observation_age_hours','mode']);
+    > 32 |   await page.getByRole('link', {name:/02 Forecast comparison/}).click();
+         |                                                                 ^
+      33 |   await expect(page.getByRole('heading', {name:'Compare forecasts'})).toBeVisible();
+      34 |   await page.getByRole('link', {name:/03 Observation freshness/}).click();
+      35 |   await expect(page.getByText('Predefined age mask · replay simulation')).toBeVisible();
+        at C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\web\tests\offline.spec.ts:32:65
+
+    Error Context: web\test-results\offline-offline-real-repla-2bf53--reveal-evidence-and-export\error-context.md
+
+  1 failed
+    web\tests\offline.spec.ts:3:1 › offline real replay, unavailable forecast, reveal, evidence and export 
+  1 passed (39.7s)
+EXIT_CODE=1

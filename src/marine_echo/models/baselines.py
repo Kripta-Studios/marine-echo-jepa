@@ -52,16 +52,10 @@ def linear_average_db(
     return float(result) if np.ndim(result) == 0 else result
 
 
-def _check_context(
-    values: NDArray[np.float64], mask: NDArray[np.bool_], units: str
-) -> None:
+def _check_context(values: NDArray[np.float64], mask: NDArray[np.bool_], units: str) -> None:
     if units != "sv_db":
         raise ValueError("Physical baselines require calibrated sv_db input.")
-    if (
-        values.ndim != 4
-        or values.shape[1:] != (96, 4, 64)
-        or mask.shape != values.shape
-    ):
+    if values.ndim != 4 or values.shape[1:] != (96, 4, 64) or mask.shape != values.shape:
         raise ValueError("Expected [N,96,4,64] values and mask.")
     if not np.isfinite(values[mask]).all():
         raise ValueError("Valid acoustic values must be finite.")
@@ -124,9 +118,7 @@ class _FixedBaseline:
             raise RuntimeError("Fit the training residual distribution first.")
         point = self.predict_point(values, mask, units=units)
         quantiles = point[..., None] + self._residual[None, :, :]
-        return BaselineForecast(
-            quantiles=np.sort(quantiles, axis=-1), eligible=np.isfinite(point)
-        )
+        return BaselineForecast(quantiles=np.sort(quantiles, axis=-1), eligible=np.isfinite(point))
 
 
 class PersistenceBaseline(_FixedBaseline):
@@ -148,9 +140,7 @@ class PersistenceBaseline(_FixedBaseline):
         _check_context(values, mask, units)
         point = np.full((len(values), 3), np.nan)
         for sample in range(len(values)):
-            valid_bins = np.flatnonzero(
-                mask[sample, -self.max_age_bins :, 0, _BAND].any(axis=1)
-            )
+            valid_bins = np.flatnonzero(mask[sample, -self.max_age_bins :, 0, _BAND].any(axis=1))
             if not valid_bins.size:
                 continue
             positions = (96 - self.max_age_bins + valid_bins[-4:]).astype(np.int64)
@@ -239,9 +229,7 @@ class RidgeQuantileBaseline:
         residuals = []
         for horizon, model in enumerate(self.models):
             model.fit(x, target[:, horizon])
-            residuals.append(
-                np.quantile(target[:, horizon] - model.predict(x), QUANTILES)
-            )
+            residuals.append(np.quantile(target[:, horizon] - model.predict(x), QUANTILES))
         self.residual = np.stack(residuals)
         return self
 
@@ -257,9 +245,7 @@ class RidgeQuantileBaseline:
         x = engineered_history(values, mask, units=units)
         median = np.stack([model.predict(x) for model in self.models], axis=1)
         quantiles = np.sort(median[..., None] + self.residual[None, :, :], axis=-1)
-        return BaselineForecast(
-            quantiles=quantiles, eligible=np.ones((len(values), 3), dtype=bool)
-        )
+        return BaselineForecast(quantiles=quantiles, eligible=np.ones((len(values), 3), dtype=bool))
 
 
 class TreeQuantileBaseline:
@@ -317,9 +303,9 @@ class TreeQuantileBaseline:
         if not self._fitted:
             raise RuntimeError("Fit tree on train first.")
         x = self.imputer.transform(engineered_history(values, mask, units=units))
-        quantiles = np.stack(
-            [model.predict(x) for model in self.models], axis=1
-        ).reshape(len(values), 3, 5)
+        quantiles = np.stack([model.predict(x) for model in self.models], axis=1).reshape(
+            len(values), 3, 5
+        )
         return BaselineForecast(
             quantiles=np.sort(quantiles, axis=-1),
             eligible=np.ones((len(values), 3), dtype=bool),

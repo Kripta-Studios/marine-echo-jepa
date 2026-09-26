@@ -10,24 +10,24 @@
   "families": {
     "direct": {
       "loss": 1.1389344930648804,
-      "seconds": 2.3725644999976794,
+      "seconds": 0.988814000003913,
       "peak_allocated_bytes": 20019712,
       "peak_reserved_bytes": 25165824,
-      "observed_process_tree_rss_bytes": 1998127104
+      "observed_process_tree_rss_bytes": 2021466112
     },
     "ema_jepa": {
       "loss": 2.023463726043701,
-      "seconds": 0.09558979999928852,
+      "seconds": 0.02126240000507096,
       "peak_allocated_bytes": 20628992,
       "peak_reserved_bytes": 25165824,
-      "observed_process_tree_rss_bytes": 2004361216
+      "observed_process_tree_rss_bytes": 2027667456
     },
     "shared_sigreg": {
       "loss": 2.7512285709381104,
-      "seconds": 0.14617310000176076,
+      "seconds": 0.03860310000163736,
       "peak_allocated_bytes": 22748672,
       "peak_reserved_bytes": 27262976,
-      "observed_process_tree_rss_bytes": 2019954688
+      "observed_process_tree_rss_bytes": 2043756544
     }
   }
 }

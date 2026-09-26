@@ -1,0 +1,8 @@
+
+> marine-echo-web@0.1.0 format:check
+> prettier --check src
+
+Checking formatting...
+All matched files use Prettier code style!
+
+{"name": "web-format-check", "command": ["C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.runtime\\node_modules\\node\\bin\\node.exe", "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js", "run", "format:check"], "exit_code": 0, "seconds": 1.0319999999992433, "peak_process_tree_rss_gib": 0.16003036499023438, "log": "evidence\\tests\\final\\web-format-check.log"}

@@ -35,9 +35,7 @@ def supervised_loss(forecast: ForecastOutput, batch: TrainBatch) -> torch.Tensor
         or batch.target_profile is None
         or batch.target_profile_mask is None
     ):
-        raise ValueError(
-            "Direct training requires scalar and profile targets with masks."
-        )
+        raise ValueError("Direct training requires scalar and profile targets with masks.")
     if (
         batch.target_index.shape != forecast.quantiles.shape[:2]
         or batch.target_profile.shape != forecast.profile.shape
@@ -55,9 +53,7 @@ def supervised_loss(forecast: ForecastOutput, batch: TrainBatch) -> torch.Tensor
     if profile_valid.any():
         if not torch.isfinite(batch.target_profile[profile_valid]).all():
             raise ValueError("Eligible profile target is non-finite.")
-        profile_loss = (
-            (forecast.profile - batch.target_profile).square()[profile_valid].mean()
-        )
+        profile_loss = (forecast.profile - batch.target_profile).square()[profile_valid].mean()
     else:
         profile_loss = scalar_loss.new_zeros(())
     return scalar_loss + 0.1 * profile_loss
@@ -83,14 +79,9 @@ def run_steps(
         raise ValueError("Optimizer updates may read training batches only.")
     if any(batch.source_file_ids for batch in batches) and (
         allowed_train_file_ids is None
-        or any(
-            not set(batch.source_file_ids).issubset(allowed_train_file_ids)
-            for batch in batches
-        )
+        or any(not set(batch.source_file_ids).issubset(allowed_train_file_ids) for batch in batches)
     ):
-        raise ValueError(
-            "A batch includes source files outside the frozen train allowlist."
-        )
+        raise ValueError("A batch includes source files outside the frozen train allowlist.")
     if start_step < 0 or updates <= 0 or start_step + updates > 3_000:
         raise ValueError("Update count exceeds the bounded phase cap.")
     if family == "direct" and not isinstance(model, DirectForecaster):
@@ -144,9 +135,7 @@ def save_checkpoint(
     ):
         raise ValueError("Checkpoint step or protocol digest is invalid.")
     path.parent.mkdir(parents=True, exist_ok=True)
-    handle, staged_name = tempfile.mkstemp(
-        prefix=path.name + ".stage.", dir=path.parent
-    )
+    handle, staged_name = tempfile.mkstemp(prefix=path.name + ".stage.", dir=path.parent)
     os.close(handle)
     staged = Path(staged_name)
     try:
@@ -158,9 +147,7 @@ def save_checkpoint(
                 "model": model.state_dict(),
                 "optimizer": optimizer.state_dict(),
                 "rng_cpu": torch.get_rng_state(),
-                "rng_cuda": torch.cuda.get_rng_state_all()
-                if torch.cuda.is_available()
-                else [],
+                "rng_cuda": torch.cuda.get_rng_state_all() if torch.cuda.is_available() else [],
             },
             staged,
         )

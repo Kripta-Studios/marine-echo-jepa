@@ -1,0 +1,18 @@
+src\marine_echo\models\sigreg.py:13: error: Cannot find implementation or library stub for module named "torch"  [import-not-found]
+src\marine_echo\models\diagnostics.py:5: error: Cannot find implementation or library stub for module named "torch"  [import-not-found]
+src\marine_echo\models\baselines.py:14: error: Skipping analyzing "sklearn.ensemble": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+src\marine_echo\models\baselines.py:14: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+src\marine_echo\models\baselines.py:15: error: Skipping analyzing "sklearn.impute": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+src\marine_echo\models\baselines.py:16: error: Skipping analyzing "sklearn.linear_model": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+src\marine_echo\models\baselines.py:17: error: Skipping analyzing "sklearn.pipeline": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+src\marine_echo\models\baselines.py:18: error: Skipping analyzing "sklearn.preprocessing": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+src\marine_echo\models\compact.py:9: error: Cannot find implementation or library stub for module named "torch"  [import-not-found]
+src\marine_echo\models\compact.py:11: error: Cannot find implementation or library stub for module named "torch.nn"  [import-not-found]
+src\marine_echo\training\loop.py:11: error: Cannot find implementation or library stub for module named "torch"  [import-not-found]
+src\marine_echo\models\hybrid.py:6: error: Cannot find implementation or library stub for module named "torch"  [import-not-found]
+src\marine_echo\models\hybrid.py:8: error: Skipping analyzing "sklearn.ensemble": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+src\marine_echo\models\hybrid.py:9: error: Skipping analyzing "sklearn.impute": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+src\marine_echo\models\hybrid.py:10: error: Skipping analyzing "sklearn.linear_model": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+src\marine_echo\models\hybrid.py:11: error: Skipping analyzing "sklearn.pipeline": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+src\marine_echo\models\hybrid.py:12: error: Skipping analyzing "sklearn.preprocessing": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+Found 16 errors in 6 files (checked 24 source files)

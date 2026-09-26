@@ -1,0 +1,1173 @@
+{
+  "status": "APPLICABILITY_AUDIT_ONLY_NOT_CALIBRATION",
+  "doi": "10.18739/A21J9790B",
+  "gps_device_filter": "MOSAICdown",
+  "gps_records": 448,
+  "profile_days_in_deployment": 165,
+  "temperature_semantics": "Conservative Temperature, not in-situ temperature",
+  "salinity_semantics": "Absolute Salinity g/kg, not Practical Salinity",
+  "time_semantics": "MATLAB serial day converted by ordinal minus 366 days; daily averages may include later observations",
+  "limitations": [
+    "Locations represent the compiled profile source, not proof of acoustic instrument co-location.",
+    "No maximum spatial separation or time interpolation rule has been scientifically accepted.",
+    "Daily retrospective environmental corrections must not become future predictor inputs.",
+    "Do not pass Conservative Temperature or Absolute Salinity directly to formulas expecting in-situ T or Practical S."
+  ],
+  "days": [
+    {
+      "date_utc": "2020-02-17T00:00:00+00:00",
+      "nearest_gps_hours": 352.0094447222021,
+      "distance_km": 174.05839794661765,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-02-18T00:00:00+00:00",
+      "nearest_gps_hours": 328.0094447222021,
+      "distance_km": 168.43536441538095,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-02-19T00:00:00+00:00",
+      "nearest_gps_hours": 304.0094447222021,
+      "distance_km": 155.5817459998144,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-02-20T00:00:00+00:00",
+      "nearest_gps_hours": 280.0094447222021,
+      "distance_km": 134.6879638756387,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-02-21T00:00:00+00:00",
+      "nearest_gps_hours": 256.0094447222021,
+      "distance_km": 123.45169348510336,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-02-22T00:00:00+00:00",
+      "nearest_gps_hours": 232.0094447222021,
+      "distance_km": 117.18839978680128,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-02-23T00:00:00+00:00",
+      "nearest_gps_hours": 208.0094447222021,
+      "distance_km": 111.10677415282014,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-02-24T00:00:00+00:00",
+      "nearest_gps_hours": 184.0094447222021,
+      "distance_km": 98.95431046589346,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-02-25T00:00:00+00:00",
+      "nearest_gps_hours": 160.0094447222021,
+      "distance_km": 76.11506827522491,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-02-26T00:00:00+00:00",
+      "nearest_gps_hours": 136.0094447222021,
+      "distance_km": 55.676010048771836,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-02-27T00:00:00+00:00",
+      "nearest_gps_hours": 112.00944472220209,
+      "distance_km": 40.37865906096748,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-02-28T00:00:00+00:00",
+      "nearest_gps_hours": 88.00944472220209,
+      "distance_km": 28.1503343864314,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-02-29T00:00:00+00:00",
+      "nearest_gps_hours": 64.00944472220209,
+      "distance_km": 17.868904817121248,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-03-01T00:00:00+00:00",
+      "nearest_gps_hours": 40.00944472220209,
+      "distance_km": 9.59978733440209,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-03-02T00:00:00+00:00",
+      "nearest_gps_hours": 16.00944472220209,
+      "distance_km": 5.4777975382112025,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-03-03T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 2.0768537328908176,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-03-04T00:00:00+00:00",
+      "nearest_gps_hours": 0.009722499979866876,
+      "distance_km": 2.0729703539570417,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-03-05T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 2.071939732843223,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-03-06T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 2.0744225054539736,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-03-07T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 2.0799880707721887,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-03-08T00:00:00+00:00",
+      "nearest_gps_hours": 15.989999722242356,
+      "distance_km": 4.173989199115804,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-03-09T00:00:00+00:00",
+      "nearest_gps_hours": 39.98999972224235,
+      "distance_km": 14.095670930545216,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-03-10T00:00:00+00:00",
+      "nearest_gps_hours": 63.98999972224235,
+      "distance_km": 29.46196286294343,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-03-11T00:00:00+00:00",
+      "nearest_gps_hours": 87.98999972224236,
+      "distance_km": 42.109577124627094,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-03-12T00:00:00+00:00",
+      "nearest_gps_hours": 111.98999972224236,
+      "distance_km": 52.22602843854245,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-03-13T00:00:00+00:00",
+      "nearest_gps_hours": 135.98999972224235,
+      "distance_km": 76.3865166516922,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-03-14T00:00:00+00:00",
+      "nearest_gps_hours": 159.98999972224235,
+      "distance_km": 104.91914197790388,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-03-15T00:00:00+00:00",
+      "nearest_gps_hours": 183.98999972224235,
+      "distance_km": 115.42760623729676,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-03-16T00:00:00+00:00",
+      "nearest_gps_hours": 207.98999972224235,
+      "distance_km": 134.9035653409041,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-03-17T00:00:00+00:00",
+      "nearest_gps_hours": 231.98999972224235,
+      "distance_km": 153.1107995665148,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-03-18T00:00:00+00:00",
+      "nearest_gps_hours": 255.98999972224235,
+      "distance_km": 163.55592801808774,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-03-19T00:00:00+00:00",
+      "nearest_gps_hours": 279.9899997222424,
+      "distance_km": 174.06141592777553,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-03-20T00:00:00+00:00",
+      "nearest_gps_hours": 303.9899997222424,
+      "distance_km": 192.72986741917018,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-03-21T00:00:00+00:00",
+      "nearest_gps_hours": 327.9899997222424,
+      "distance_km": 207.39214906001524,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-03-22T00:00:00+00:00",
+      "nearest_gps_hours": 322.6766669444243,
+      "distance_km": 176.22840132254493,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-03-23T00:00:00+00:00",
+      "nearest_gps_hours": 298.6766669444243,
+      "distance_km": 174.6397792195967,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-03-24T00:00:00+00:00",
+      "nearest_gps_hours": 274.6766669444243,
+      "distance_km": 172.50855712592767,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-03-25T00:00:00+00:00",
+      "nearest_gps_hours": 250.6766669444243,
+      "distance_km": 167.2316926547897,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-03-26T00:00:00+00:00",
+      "nearest_gps_hours": 226.6766669444243,
+      "distance_km": 154.64924187713825,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-03-27T00:00:00+00:00",
+      "nearest_gps_hours": 202.6766669444243,
+      "distance_km": 139.7973588114882,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-03-28T00:00:00+00:00",
+      "nearest_gps_hours": 178.6766669444243,
+      "distance_km": 115.32516401254705,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-03-29T00:00:00+00:00",
+      "nearest_gps_hours": 154.6766669444243,
+      "distance_km": 92.3788294179898,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-03-30T00:00:00+00:00",
+      "nearest_gps_hours": 130.6766669444243,
+      "distance_km": 79.78254656113495,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-03-31T00:00:00+00:00",
+      "nearest_gps_hours": 106.67666694442431,
+      "distance_km": 76.42205562110392,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-04-01T00:00:00+00:00",
+      "nearest_gps_hours": 82.67666694442431,
+      "distance_km": 63.47045581741018,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-04-02T00:00:00+00:00",
+      "nearest_gps_hours": 58.67666694442431,
+      "distance_km": 47.81593559499389,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-04-03T00:00:00+00:00",
+      "nearest_gps_hours": 34.67666694442431,
+      "distance_km": 25.228794921419194,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-04-04T00:00:00+00:00",
+      "nearest_gps_hours": 10.676666944424312,
+      "distance_km": 6.8201359769922,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-04-05T00:00:00+00:00",
+      "nearest_gps_hours": 0.009722499979866876,
+      "distance_km": 2.247994215030427,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-04-06T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 2.2445140714862166,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-04-07T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 2.2616524697867493,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-04-08T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 2.247024198513896,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-04-09T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 2.2451128106289353,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-04-10T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 2.248680963884918,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-04-11T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 2.2485822593709193,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-04-12T00:00:00+00:00",
+      "nearest_gps_hours": 0.009722499979866876,
+      "distance_km": 2.2468372098153795,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-04-13T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 2.237765266023241,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-04-14T00:00:00+00:00",
+      "nearest_gps_hours": 0.010278055535422432,
+      "distance_km": 2.2386991829661578,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-04-15T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 2.246207980416281,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-04-16T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 2.2464080039126015,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-04-17T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 2.2335010833024835,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-04-18T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 2.2486467285245593,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-04-19T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 2.240979446906809,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-04-20T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 2.2537628655977064,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-04-21T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 2.261495593511294,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-04-22T00:00:00+00:00",
+      "nearest_gps_hours": 0.016389166646533542,
+      "distance_km": 2.2669779224066,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-04-23T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 2.252773867787132,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-04-24T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 2.2434269437629277,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-04-25T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 2.2529408134218527,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-04-26T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 2.6418614722834337,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-04-27T00:00:00+00:00",
+      "nearest_gps_hours": 0.009722499979866876,
+      "distance_km": 2.2456390420200023,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-04-28T00:00:00+00:00",
+      "nearest_gps_hours": 0.009722499979866876,
+      "distance_km": 2.237165849991874,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-04-29T00:00:00+00:00",
+      "nearest_gps_hours": 0.010278055535422432,
+      "distance_km": 2.2417020613140712,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-04-30T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 2.2682795233909347,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-05-01T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 2.2635050997128348,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-05-02T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 2.2461748374694888,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-05-03T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 2.2396829467628616,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-05-04T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 2.1883894177784216,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-05-05T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 2.18828830627676,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-05-06T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 2.1935819317822656,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-05-07T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 2.150667587341522,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-05-08T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 2.1630313396169494,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-05-09T00:00:00+00:00",
+      "nearest_gps_hours": 0.009722499979866876,
+      "distance_km": 2.169450645176498,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-05-10T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 2.164445439004529,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-05-11T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 2.1706850600199643,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-05-12T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 2.1676746210717877,
+      "valid_10_100m_levels": 90,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-05-13T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 2.267602403647358,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-05-14T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 2.3073112928444126,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-05-15T00:00:00+00:00",
+      "nearest_gps_hours": 0.009722499979866876,
+      "distance_km": 2.0569677901102605,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-05-16T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 2.1288383905427968,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-05-17T00:00:00+00:00",
+      "nearest_gps_hours": 0.010278055535422432,
+      "distance_km": 2.0478541402178063,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-05-18T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 2.0591260751130296,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-05-19T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 2.039506165189314,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-05-20T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 2.025661079542945,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-05-21T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 2.0282001305190267,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-05-22T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 2.016936431760977,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-05-23T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 2.035800758331753,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-05-24T00:00:00+00:00",
+      "nearest_gps_hours": 0.009722499979866876,
+      "distance_km": 2.02705246168153,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-05-25T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 2.0271281367465823,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-05-26T00:00:00+00:00",
+      "nearest_gps_hours": 0.009722499979866876,
+      "distance_km": 2.027040948535819,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-05-27T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 2.0162304588225983,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-05-28T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 2.0073068204703697,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-05-29T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 2.0112078702861904,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-05-30T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 2.0178715829347675,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-05-31T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 1.9778247066713068,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-06-01T00:00:00+00:00",
+      "nearest_gps_hours": 0.009722499979866876,
+      "distance_km": 2.014736333041626,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-06-02T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 2.0040351434373256,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-06-03T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 2.024708429563662,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-06-04T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 2.022159900523162,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-06-05T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 2.0274358476900245,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-06-06T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 2.0340415535870977,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-06-07T00:00:00+00:00",
+      "nearest_gps_hours": 0.010833611090977987,
+      "distance_km": 2.0223408064241197,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-06-08T00:00:00+00:00",
+      "nearest_gps_hours": 0.009722499979866876,
+      "distance_km": 2.022453289292533,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-06-09T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 2.0119070927198415,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-06-10T00:00:00+00:00",
+      "nearest_gps_hours": 0.01055583331320021,
+      "distance_km": 2.011944486790421,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-06-11T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 2.02630609391878,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-06-12T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 1.9645139210751699,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-06-13T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 1.8730887879163154,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-06-14T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 1.2845732410573636,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-06-15T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 1.2597219677284632,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-06-16T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 1.3106768103985302,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-06-17T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 1.341407389929691,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-06-18T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 1.326595225504897,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-06-19T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 1.3127424239389949,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-06-20T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 1.2953730769929563,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-06-21T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 0.45095540270035606,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-06-22T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 0.44836932389233786,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-06-23T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 0.4337656559346221,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-06-24T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 0.42828816244621465,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-06-25T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 0.41711470568585896,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-06-26T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 0.5185009411026925,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-06-27T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 0.7530422242391853,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-06-28T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 0.9743054392333913,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-06-29T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 0.9563031184685059,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-06-30T00:00:00+00:00",
+      "nearest_gps_hours": 0.009722499979866876,
+      "distance_km": 0.9613922848653059,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-07-01T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 1.070239214148795,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-07-02T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 0.9898249779463753,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-07-03T00:00:00+00:00",
+      "nearest_gps_hours": 0.009722499979866876,
+      "distance_km": 1.107227430529978,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-07-04T00:00:00+00:00",
+      "nearest_gps_hours": 0.009722499979866876,
+      "distance_km": 0.9619479229171451,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-07-05T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 0.9690159390358718,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-07-06T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 0.9102216212580375,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-07-07T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 0.8713920664296392,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-07-08T00:00:00+00:00",
+      "nearest_gps_hours": 0.010278055535422432,
+      "distance_km": 0.8494366518622817,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-07-09T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 0.805435646837291,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-07-10T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 0.7743221563240977,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-07-11T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 0.7616354508092139,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-07-12T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 0.6986696879824094,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-07-13T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 0.2869739524073445,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-07-14T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 0.38053087898032467,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-07-15T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 0.4315174536425078,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-07-16T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 0.5295471177268738,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-07-17T00:00:00+00:00",
+      "nearest_gps_hours": 0.009722499979866876,
+      "distance_km": 0.6031595723637508,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-07-18T00:00:00+00:00",
+      "nearest_gps_hours": 0.009722499979866876,
+      "distance_km": 6.553476769167055,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-07-19T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 4.758691688566779,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-07-20T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 13.114088050790148,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-07-21T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 17.09734895265236,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-07-22T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 17.408246425968283,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-07-23T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 14.880419686324764,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-07-24T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 23.33049629589502,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-07-25T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 17.28155240447153,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-07-26T00:00:00+00:00",
+      "nearest_gps_hours": 0.009444722202089098,
+      "distance_km": 63.30750061627362,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-07-27T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 88.71988885984845,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-07-28T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 95.6147644918173,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-07-29T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 83.57044437688829,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    },
+    {
+      "date_utc": "2020-07-30T00:00:00+00:00",
+      "nearest_gps_hours": 0.010000277757644654,
+      "distance_km": 70.70285891621205,
+      "valid_10_100m_levels": 91,
+      "requested_10_100m_levels": 91
+    }
+  ]
+}

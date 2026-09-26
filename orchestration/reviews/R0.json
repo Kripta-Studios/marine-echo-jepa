@@ -1,0 +1,13 @@
+{
+  "review_id": "R0",
+  "session": "/root/review",
+  "model_binding": "independent_reviewer: gpt-5.6-sol, high (native tool-exposed role; no separate provider attestation)",
+  "verdict": "BLOCKED",
+  "archive_verdict": "APPROVED",
+  "inspected_commit": "e945951984b126856a9dc202d98da3858cdbcaab",
+  "executed_by_reviewer": ["Five local source sizes and SHA-256 hashes", "ZIP metadata guard: 3744 members, 10169592780 expanded bytes", "Full ZIP CRC: no bad member, 384.927 seconds", "XML/DPL inventory and filename-hour gap audit", "Manual text inspection; not visual rendering"],
+  "inspected_builder_logs": ["Full extraction exit 0; 663.51 seconds", "Idempotent full CRC/SHA reuse check exit 0", "17 tests passed, no skips, exit 0", "ruff and mypy passed"],
+  "unresolved_material_findings": ["Missing justified AZFP seawater environmental inputs and absorption; physical D06/G0 blocked", "Manual downward AZFP serial 55169 conflicts with archive XML/DPL serial 55170", "OOI full fallback RESOURCE_PLAN_BLOCKED under raw-data/disk budget", "Canonical full-chunk calibrated preprocessing and scientific window QC not completed"],
+  "limitations": ["No publisher authenticity signature/checksum", "No measured extraction process-tree peak RAM", "Manual contains operational credentials and must not be redistributed"],
+  "test_outcomes_inspected": false
+}

@@ -18,11 +18,7 @@ def separated_train_permutation(
     This is a diagnostic association-breaking control, not an alternative
     chronological split. An infeasible requested gap fails visibly.
     """
-    if (
-        len(anchor_times) != len(partitions)
-        or len(anchor_times) < 2
-        or len(anchor_times) > 4096
-    ):
+    if len(anchor_times) != len(partitions) or len(anchor_times) < 2 or len(anchor_times) > 4096:
         raise ValueError("Control batch size or partition metadata is invalid.")
     if set(partitions) != {"train"}:
         raise ValueError("Control permutation may read training rows only.")
@@ -37,12 +33,8 @@ def separated_train_permutation(
     for offset in generator.permutation(np.arange(1, len(anchor_times))):
         permutation = (indices + offset) % len(anchor_times)
         gaps = np.abs(
-            (anchor_times[permutation] - anchor_times)
-            .astype("timedelta64[s]")
-            .astype(np.int64)
+            (anchor_times[permutation] - anchor_times).astype("timedelta64[s]").astype(np.int64)
         )
         if np.all(gaps >= minimum_gap_hours * 3600):
             return permutation.astype(np.int64)
-    raise ValueError(
-        "No bounded circular control permutation satisfies the temporal gap."
-    )
+    raise ValueError("No bounded circular control permutation satisfies the temporal gap.")

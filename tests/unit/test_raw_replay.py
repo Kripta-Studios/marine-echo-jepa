@@ -9,9 +9,7 @@ from marine_echo.data.raw_replay import aggregate_raw_count_file
 
 
 def test_bin_boundary_and_sample_means() -> None:
-    times = np.array(
-        ["2020-02-17T00:14:59", "2020-02-17T00:15:00"], dtype="datetime64[s]"
-    )
+    times = np.array(["2020-02-17T00:14:59", "2020-02-17T00:15:00"], dtype="datetime64[s]")
     counts = np.array([[[2.0, 4.0, 6.0, 8.0], [10.0, 12.0, 14.0, 16.0]]])
     rows = aggregate_raw_count_file(times, counts, sample_bins=2)
     assert [row["bin_start_utc"] for row in rows] == [

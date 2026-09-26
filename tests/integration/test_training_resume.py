@@ -59,17 +59,10 @@ def test_resume_matches_uninterrupted_cpu_updates(tmp_path: Path) -> None:
         partition="train",
     )
     checkpoint = tmp_path / "step_2.pt"
-    save_checkpoint(
-        checkpoint, partial, second_optimizer, step=2, protocol_sha256="a" * 64
-    )
+    save_checkpoint(checkpoint, partial, second_optimizer, step=2, protocol_sha256="a" * 64)
     resumed = DirectForecaster(config)
     resumed_optimizer = torch.optim.AdamW(resumed.parameters(), lr=1e-3)
-    assert (
-        load_checkpoint(
-            checkpoint, resumed, resumed_optimizer, protocol_sha256="a" * 64
-        )
-        == 2
-    )
+    assert load_checkpoint(checkpoint, resumed, resumed_optimizer, protocol_sha256="a" * 64) == 2
     run_steps(
         resumed,
         resumed_optimizer,
@@ -82,9 +75,7 @@ def test_resume_matches_uninterrupted_cpu_updates(tmp_path: Path) -> None:
     for key, reference in continuous.state_dict().items():
         assert torch.equal(reference, resumed.state_dict()[key]), key
     with pytest.raises(ValueError):
-        load_checkpoint(
-            checkpoint, resumed, resumed_optimizer, protocol_sha256="b" * 64
-        )
+        load_checkpoint(checkpoint, resumed, resumed_optimizer, protocol_sha256="b" * 64)
 
 
 def test_fixed_synthetic_microoverfit_and_train_guard() -> None:
@@ -93,9 +84,7 @@ def test_fixed_synthetic_microoverfit_and_train_guard() -> None:
     model = DirectForecaster(ModelConfig(width=16, layers=1, heads=4))
     optimizer = torch.optim.AdamW(model.parameters(), lr=1e-3)
     batch = _batch()
-    first = float(
-        supervised_loss(model(batch.context, batch.context_mask), batch).item()
-    )
+    first = float(supervised_loss(model(batch.context, batch.context_mask), batch).item())
     with pytest.raises(ValueError):
         run_steps(
             model,
@@ -115,9 +104,7 @@ def test_fixed_synthetic_microoverfit_and_train_guard() -> None:
         updates=20,
         partition="train",
     )
-    last = float(
-        supervised_loss(model(batch.context, batch.context_mask), batch).item()
-    )
+    last = float(supervised_loss(model(batch.context, batch.context_mask), batch).item())
     assert last < first
 
 

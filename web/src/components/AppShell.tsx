@@ -14,7 +14,8 @@ export interface AppScreen {
   content: ReactNode;
 }
 
-export type DataOrigin = "public-data" | "cached-replay" | "synthetic-fixture" | "unavailable";
+export type DataOrigin =
+  "public-data" | "cached-replay" | "synthetic-fixture" | "unavailable";
 
 export interface ShellProvenance {
   sourceLabel?: string;
@@ -35,7 +36,11 @@ export interface AppShellProps {
   context?: ShellContext;
 }
 
-const routeItems: ReadonlyArray<{ id: AppRoute; label: string; number: string }> = [
+const routeItems: ReadonlyArray<{
+  id: AppRoute;
+  label: string;
+  number: string;
+}> = [
   { id: "deployment-replay", label: "Deployment replay", number: "01" },
   { id: "forecast-comparison", label: "Forecast comparison", number: "02" },
   { id: "observation-freshness", label: "Observation freshness", number: "03" },
@@ -53,11 +58,15 @@ function routeFromLocation(): AppRoute {
 
 function originLabel(origin: DataOrigin | undefined): string {
   switch (origin) {
-    case "public-data": return "Public data";
-    case "cached-replay": return "Cached replay";
-    case "synthetic-fixture": return "Synthetic fixture";
+    case "public-data":
+      return "Public data";
+    case "cached-replay":
+      return "Cached replay";
+    case "synthetic-fixture":
+      return "Synthetic fixture";
     case "unavailable":
-    default: return "Source pending";
+    default:
+      return "Source pending";
   }
 }
 
@@ -82,25 +91,50 @@ export function AppShell({ screens, provenance, context }: AppShellProps) {
         if (compactMenu) compactMenu.open = false;
       }}
     >
-      <span className="primary-nav__number" aria-hidden="true">{route.number}</span>
+      <span className="primary-nav__number" aria-hidden="true">
+        {route.number}
+      </span>
       <span>{route.label}</span>
-      <span className="primary-nav__arrow" aria-hidden="true">↗</span>
+      <span className="primary-nav__arrow" aria-hidden="true">
+        ↗
+      </span>
     </a>
   ));
 
   return (
     <div className="marine-app">
-      <a className="skip-link" href="#main">Skip to main content</a>
+      <a className="skip-link" href="#main">
+        Skip to main content
+      </a>
       <aside className="desktop-rail" aria-label="Application navigation">
-        <a className="brand-lockup" href="#deployment-replay" aria-label="Marine Echo JEPA home">
-          <span className="brand-mark" aria-hidden="true"><i /><i /><i /></span>
-          <span><strong>Marine Echo</strong><small>JEPA / FIELD NOTE 01</small></span>
+        <a
+          className="brand-lockup"
+          href="#deployment-replay"
+          aria-label="Marine Echo JEPA home"
+        >
+          <span className="brand-mark" aria-hidden="true">
+            <i />
+            <i />
+            <i />
+          </span>
+          <span>
+            <strong>Marine Echo</strong>
+            <small>JEPA / FIELD NOTE 01</small>
+          </span>
         </a>
         <div className="rail-label">Research workspace</div>
-        <nav className="primary-nav" aria-label="Research screens">{links}</nav>
+        <nav className="primary-nav" aria-label="Research screens">
+          {links}
+        </nav>
         <div className="rail-bottom">
-          <span className="rail-coordinate" aria-hidden="true">ARCTIC / PUBLIC STUDY</span>
-          <p>Acoustic forecasting<br />and evidence review</p>
+          <span className="rail-coordinate" aria-hidden="true">
+            ARCTIC / PUBLIC STUDY
+          </span>
+          <p>
+            Acoustic forecasting
+            <br />
+            and evidence review
+          </p>
           <span className="rail-dot" aria-hidden="true" />
         </div>
       </aside>
@@ -108,32 +142,63 @@ export function AppShell({ screens, provenance, context }: AppShellProps) {
       <div className="workspace">
         <header className="topbar">
           <div className="topbar__brand">
-            <span className="brand-mark brand-mark--small" aria-hidden="true"><i /><i /><i /></span>
+            <span className="brand-mark brand-mark--small" aria-hidden="true">
+              <i />
+              <i />
+              <i />
+            </span>
             <span>Marine Echo JEPA</span>
           </div>
           <div className="topbar__identity">
             <p>Public-data research demonstrator</p>
-            <span className="origin-badge" data-origin={provenance?.origin ?? "unavailable"}>
+            <span
+              className="origin-badge"
+              data-origin={provenance?.origin ?? "unavailable"}
+            >
               <span className="origin-badge__dot" aria-hidden="true" />
               {originLabel(provenance?.origin)}
             </span>
           </div>
           <div className="provenance-bar" aria-label="Dataset provenance">
-            <div><span className="topbar-label">Source</span><strong>{provenance?.sourceLabel || "Not verified"}</strong></div>
-            <div><span className="topbar-label">Dataset</span><strong>{provenance?.datasetLabel || "Not selected"}</strong></div>
-            <div><span className="topbar-label">Integrity</span><strong>{provenance?.verificationLabel || "Not checked"}</strong></div>
+            <div>
+              <span className="topbar-label">Source</span>
+              <strong>{provenance?.sourceLabel || "Not verified"}</strong>
+            </div>
+            <div>
+              <span className="topbar-label">Dataset</span>
+              <strong>{provenance?.datasetLabel || "Not selected"}</strong>
+            </div>
+            <div>
+              <span className="topbar-label">Integrity</span>
+              <strong>{provenance?.verificationLabel || "Not checked"}</strong>
+            </div>
           </div>
           <div className="compact-provenance" aria-label="Dataset provenance">
-            <div><span>Source</span><strong>{provenance?.sourceLabel || "Not verified"}</strong></div>
-            <div><span>Dataset</span><strong>{provenance?.datasetLabel || "Not selected"}</strong></div>
-            <div><span>Integrity</span><strong>{provenance?.verificationLabel || "Not checked"}</strong></div>
+            <div>
+              <span>Source</span>
+              <strong>{provenance?.sourceLabel || "Not verified"}</strong>
+            </div>
+            <div>
+              <span>Dataset</span>
+              <strong>{provenance?.datasetLabel || "Not selected"}</strong>
+            </div>
+            <div>
+              <span>Integrity</span>
+              <strong>{provenance?.verificationLabel || "Not checked"}</strong>
+            </div>
           </div>
           <details className="mobile-navigation">
             <summary aria-label="Open research screens">
-              <span className="mobile-navigation__bars" aria-hidden="true"><i /><i /><i /></span>
+              <span className="mobile-navigation__bars" aria-hidden="true">
+                <i />
+                <i />
+                <i />
+              </span>
               <span>Sections</span>
             </summary>
-            <nav className="primary-nav" aria-label="Research screens">{links}</nav>
+            <nav className="primary-nav" aria-label="Research screens">
+              {links}
+            </nav>
           </details>
         </header>
 
@@ -146,21 +211,37 @@ export function AppShell({ screens, provenance, context }: AppShellProps) {
         <main className="main-content" id="main" tabIndex={-1}>
           <div className="page-meta">
             <div>
-              <p className="eyebrow">{activeScreen.eyebrow || "MARINE ECHO / RESEARCH"}</p>
+              <p className="eyebrow">
+                {activeScreen.eyebrow || "MARINE ECHO / RESEARCH"}
+              </p>
               <h1>{activeScreen.title}</h1>
             </div>
             <div className="desktop-context" aria-label="Replay context">
               <ContextItem label="Cutoff" value={context?.cutoffLabel} />
               <ContextItem label="Mode" value={context?.modeLabel} />
-              <ContextItem label="Uncertainty" value={context?.uncertaintyLabel} />
+              <ContextItem
+                label="Uncertainty"
+                value={context?.uncertaintyLabel}
+              />
             </div>
           </div>
           <div className="persistent-notice" role="note">
-            <span className="persistent-notice__mark" aria-hidden="true">!</span>
-            <p>Arctic research deployment. Not tuna, catch or Marine Instruments validation.</p>
+            <span className="persistent-notice__mark" aria-hidden="true">
+              !
+            </span>
+            <p>
+              Arctic research deployment. Not tuna, catch or Marine Instruments
+              validation.
+            </p>
           </div>
-          <section className="active-screen" id={activeRoute} aria-labelledby="screen-title">
-            <span id="screen-title" className="visually-hidden">{activeScreen.title}</span>
+          <section
+            className="active-screen"
+            id={activeRoute}
+            aria-labelledby="screen-title"
+          >
+            <span id="screen-title" className="visually-hidden">
+              {activeScreen.title}
+            </span>
             {activeScreen.content}
           </section>
           <footer className="app-footer">

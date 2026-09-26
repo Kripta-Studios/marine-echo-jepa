@@ -30,11 +30,11 @@ def main() -> int:
         "benchmark_eligible": False, "primary_dataset_unchanged": True,
         "physical_unit_benchmark_promotion": "BLOCKED_NO_ELIGIBLE_FALLBACK_CORPUS_OR_PROTOCOL",
     }
-    output = root / "outputs/ooi_diagnostic.nc"
+    output = root / "outputs/ooi_diagnostic_scipy.nc"
     output.parent.mkdir(parents=True, exist_ok=True)
-    sv.isel(ping_time=slice(0, 8)).to_netcdf(output)
+    sv[["Sv", "frequency_nominal"]].isel(ping_time=slice(0, 8)).to_netcdf(output, engine="scipy")
     import xarray as xr
-    with xr.open_dataset(output) as restored:
+    with xr.open_dataset(output, engine="scipy") as restored:
         report["roundtrip_equal"] = bool(np.allclose(restored["Sv"], sv["Sv"].isel(ping_time=slice(0, 8)), equal_nan=True))
     (root / "evidence/data/ooi_calibration.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(report, indent=2))

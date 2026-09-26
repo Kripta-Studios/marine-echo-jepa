@@ -1,0 +1,7 @@
+b'Traceback (most recent call last):\r\n  File "C:\\Users\\\xc1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\mypy\\pyinfo.py", line 25, in <module>\r\n    import sysconfig\r\n  File "C:\\Users\\\xc1lvaro Schwiedop\\AppData\\Roaming\\uv\\python\\cpython-3.12-windows-x86_64-none\\Lib\\sysconfig.py", line 5, in <module>\r\n    import threading\r\n  File "C:\\Users\\\xc1lvaro Schwiedop\\AppData\\Roaming\\uv\\python\\cpython-3.12-windows-x86_64-none\\Lib\\threading.py", line 36, in <module>\r\n    _daemon_threads_allowed = _thread.daemon_threads_allowed\r\n                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\nAttributeError: module \'_thread\' has no attribute \'daemon_threads_allowed\'\r\n'
+b''
+error: INTERNAL ERROR -- Please try using mypy master on GitHub:
+https://mypy.readthedocs.io/en/stable/common_issues.html#using-a-development-mypy-build
+If this issue continues with mypy master, please report a bug at https://github.com/python/mypy/issues
+version: 2.3.1
+note: please use --show-traceback to print a traceback when reporting a bug

@@ -7,7 +7,11 @@ import pytest
 import torch
 
 from marine_echo.models.compact import ModelConfig, TemporalJEPA
-from marine_echo.models.hybrid import FrozenLatentRidge, RawLatentTreeQuantiles, frozen_context_features
+from marine_echo.models.hybrid import (
+    FrozenLatentRidge,
+    RawLatentTreeQuantiles,
+    frozen_context_features,
+)
 
 
 def test_frozen_latents_and_hybrid_heads_are_train_only() -> None:

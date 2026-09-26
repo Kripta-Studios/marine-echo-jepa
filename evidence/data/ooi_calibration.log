@@ -1,0 +1,50 @@
+Traceback (most recent call last):
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\.venv\Lib\site-packages\xarray\backends\file_manager.py", line 219, in _acquire_with_cache_info
+    file = self._cache[self._key]
+           ~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\.venv\Lib\site-packages\xarray\backends\lru_cache.py", line 56, in __getitem__
+    value = self._cache[key]
+            ~~~~~~~~~~~^^^^^
+KeyError: [<class 'netCDF4._netCDF4.Dataset'>, ('C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\ooi_diagnostic.nc',), 'a', (('clobber', True), ('diskless', False), ('format', 'NETCDF4'), ('persist', False)), 'cdf22db0-ba70-4d5a-96a0-95e33404720a']
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tools\calibrate_ooi_diagnostic.py", line 45, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tools\calibrate_ooi_diagnostic.py", line 35, in main
+    sv.isel(ping_time=slice(0, 8)).to_netcdf(output)
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\.venv\Lib\site-packages\xarray\core\dataset.py", line 2187, in to_netcdf
+    return to_netcdf(  # type: ignore[return-value]  # mypy cannot resolve the overloads:(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\.venv\Lib\site-packages\xarray\backends\writers.py", line 422, in to_netcdf
+    store = get_writable_netcdf_store(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\.venv\Lib\site-packages\xarray\backends\writers.py", line 78, in get_writable_netcdf_store
+    return store_open(target, mode=mode, format=format, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\.venv\Lib\site-packages\xarray\backends\netCDF4_.py", line 529, in open
+    return cls(manager, group=group, mode=mode, lock=lock, autoclose=autoclose)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\.venv\Lib\site-packages\xarray\backends\netCDF4_.py", line 429, in __init__
+    self.format = self.ds.data_model
+                  ^^^^^^^
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\.venv\Lib\site-packages\xarray\backends\netCDF4_.py", line 538, in ds
+    return self._acquire()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\.venv\Lib\site-packages\xarray\backends\netCDF4_.py", line 532, in _acquire
+    with self._manager.acquire_context(needs_lock) as root:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\�lvaro Schwiedop\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\.venv\Lib\site-packages\xarray\backends\file_manager.py", line 207, in acquire_context
+    file, cached = self._acquire_with_cache_info(needs_lock)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\.venv\Lib\site-packages\xarray\backends\file_manager.py", line 225, in _acquire_with_cache_info
+    file = self._opener(*self._args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "src/netCDF4/_netCDF4.pyx", line 2521, in netCDF4._netCDF4.Dataset.__init__
+  File "src/netCDF4/_netCDF4.pyx", line 2158, in netCDF4._netCDF4._ensure_nc_success
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\ooi_diagnostic.nc'

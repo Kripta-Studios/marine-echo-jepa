@@ -49,7 +49,8 @@ export function DeploymentReplayPage({
   outcomeRevealed = false,
   revealedOutcome,
 }: DeploymentReplayPageProps) {
-  const plotAvailable = (state === "success" || state === "partial") && plot != null;
+  const plotAvailable =
+    (state === "success" || state === "partial") && plot != null;
 
   return (
     <div className="screen-stack">
@@ -57,7 +58,12 @@ export function DeploymentReplayPage({
         eyebrow="01 / PAST-ONLY INPUT"
         title="Replay a real acoustic window"
         description="Move the prediction cutoff through available observations. Playback changes the replay cutoff, never a buoy clock."
-        trailing={<span className="mode-chip"><i aria-hidden="true" />{modeLabel || "Mode not supplied"}</span>}
+        trailing={
+          <span className="mode-chip">
+            <i aria-hidden="true" />
+            {modeLabel || "Mode not supplied"}
+          </span>
+        }
       />
 
       <section className="panel replay-panel" aria-labelledby="replay-title">
@@ -66,7 +72,12 @@ export function DeploymentReplayPage({
           eyebrow="ACOUSTIC WINDOW"
           title="Deployment replay"
           description="Use the timestamp and instrument context supplied with the selected source."
-          action={<span className="timestamp-chip"><span>Prediction cutoff</span><strong>{cutoffLabel || "Not supplied"}</strong></span>}
+          action={
+            <span className="timestamp-chip">
+              <span>Prediction cutoff</span>
+              <strong>{cutoffLabel || "Not supplied"}</strong>
+            </span>
+          }
         />
 
         <div className="replay-settings" aria-label="Replay settings">
@@ -80,30 +91,71 @@ export function DeploymentReplayPage({
           />
         </div>
 
-        <div className="visualization-frame" role="region" aria-label="Acoustic replay">
+        <div
+          className="visualization-frame"
+          role="region"
+          aria-label="Acoustic replay"
+        >
           {plotAvailable ? (
             <div className="visualization-frame__content">{plot}</div>
           ) : (
             <div className="visualization-placeholder">
-              <div className="placeholder-ruler" aria-hidden="true"><i /><i /><i /><i /></div>
+              <div className="placeholder-ruler" aria-hidden="true">
+                <i />
+                <i />
+                <i />
+                <i />
+              </div>
               <div className="placeholder-center">
-                <span className="signal-glyph" aria-hidden="true"><i /><i /><i /></span>
+                <span className="signal-glyph" aria-hidden="true">
+                  <i />
+                  <i />
+                  <i />
+                </span>
                 <ResearchStateNotice
                   state={state}
-                  title={state === "success" ? "Replay view not supplied" : undefined}
-                  message={state === "success" ? "No visualization payload was provided." : stateMessage}
+                  title={
+                    state === "success" ? "Replay view not supplied" : undefined
+                  }
+                  message={
+                    state === "success"
+                      ? "No visualization payload was provided."
+                      : stateMessage
+                  }
                 />
               </div>
-              <span className="placeholder-unit">Intensity unit follows verified source metadata</span>
+              <span className="placeholder-unit">
+                Intensity unit follows verified source metadata
+              </span>
             </div>
           )}
         </div>
 
         <div className="legend-row" aria-label="Replay legend">
-          <span><i className="legend-swatch legend-swatch--observed" aria-hidden="true" />Observed</span>
-          <span><i className="legend-swatch legend-swatch--forecast" aria-hidden="true" />Forecast</span>
-          <span><i className="legend-swatch legend-swatch--missing" aria-hidden="true" />Missing</span>
-          <span className="legend-unit">Raw counts remain counts; dB requires verified calibration.</span>
+          <span>
+            <i
+              className="legend-swatch legend-swatch--observed"
+              aria-hidden="true"
+            />
+            Observed
+          </span>
+          <span>
+            <i
+              className="legend-swatch legend-swatch--forecast"
+              aria-hidden="true"
+            />
+            Forecast
+          </span>
+          <span>
+            <i
+              className="legend-swatch legend-swatch--missing"
+              aria-hidden="true"
+            />
+            Missing
+          </span>
+          <span className="legend-unit">
+            Raw counts remain counts; dB requires verified calibration.
+          </span>
         </div>
 
         <div className="replay-actions">
@@ -125,11 +177,16 @@ export function DeploymentReplayPage({
               Reveal observed outcome
             </button>
           </div>
-          <p>Observed outcomes stay separate until the reveal action is enabled.</p>
+          <p>
+            Observed outcomes stay separate until the reveal action is enabled.
+          </p>
         </div>
 
         {outcomeRevealed ? (
-          <section className="revealed-panel" aria-label="Revealed observed outcome">
+          <section
+            className="revealed-panel"
+            aria-label="Revealed observed outcome"
+          >
             <SectionHeading
               eyebrow="REVEALED AFTER FORECAST"
               title="Observed outcome"
@@ -154,13 +211,25 @@ export function DeploymentReplayPage({
         />
         <ReadoutGrid
           fields={[
-            { label: "Last available observation", value: metadata?.find((item) => item.label === "Last available observation")?.value },
-            { label: "Valid support", value: metadata?.find((item) => item.label === "Valid support")?.value },
+            {
+              label: "Last available observation",
+              value: metadata?.find(
+                (item) => item.label === "Last available observation",
+              )?.value,
+            },
+            {
+              label: "Valid support",
+              value: metadata?.find((item) => item.label === "Valid support")
+                ?.value,
+            },
             { label: "Calibration status", value: calibrationLabel },
             { label: "Selected model", value: modelLabel },
             { label: "Uncertainty", value: uncertaintyLabel },
             ...(metadata ?? []).filter(
-              (item) => !["Last available observation", "Valid support"].includes(item.label),
+              (item) =>
+                !["Last available observation", "Valid support"].includes(
+                  item.label,
+                ),
             ),
           ]}
         />
@@ -216,7 +285,12 @@ export function ForecastComparisonPage({
         title="Compare forecasts"
         description="Compare the candidate with the strongest supported reference at each declared horizon."
         trailing={
-          <button className="text-button" type="button" onClick={onOpenProtocol} disabled={!onOpenProtocol}>
+          <button
+            className="text-button"
+            type="button"
+            onClick={onOpenProtocol}
+            disabled={!onOpenProtocol}
+          >
             Experiment protocol <span aria-hidden="true">↗</span>
           </button>
         }
@@ -228,17 +302,41 @@ export function ForecastComparisonPage({
           eyebrow="ACOUSTIC-INDEX FORECAST"
           title="Median and empirical 90% interval"
           description="The interval and unit labels come from the frozen evaluation report."
-          action={<span className="unit-chip">Acoustic-index units required</span>}
+          action={
+            <span className="unit-chip">Acoustic-index units required</span>
+          }
         />
         <div className="model-compare-strip" aria-label="Model comparison">
-          <div><span className="compare-key compare-key--reference" aria-hidden="true" /><span>Strongest reference</span><strong>{strongestReferenceLabel || "Not selected"}</strong></div>
-          <div><span className="compare-key compare-key--candidate" aria-hidden="true" /><span>JEPA candidate</span><strong>{candidateLabel || "Not selected"}</strong></div>
+          <div>
+            <span
+              className="compare-key compare-key--reference"
+              aria-hidden="true"
+            />
+            <span>Strongest reference</span>
+            <strong>{strongestReferenceLabel || "Not selected"}</strong>
+          </div>
+          <div>
+            <span
+              className="compare-key compare-key--candidate"
+              aria-hidden="true"
+            />
+            <span>JEPA candidate</span>
+            <strong>{candidateLabel || "Not selected"}</strong>
+          </div>
         </div>
 
-        <div className="comparison-plot" role="region" aria-label="Forecast comparison chart">
+        <div
+          className="comparison-plot"
+          role="region"
+          aria-label="Forecast comparison chart"
+        >
           {chart ?? (
             <div className="empty-chart">
-              <div className="empty-chart__axis" aria-hidden="true"><i /><i /><i /></div>
+              <div className="empty-chart__axis" aria-hidden="true">
+                <i />
+                <i />
+                <i />
+              </div>
               <ResearchStateNotice state={state} message={stateMessage} />
             </div>
           )}
@@ -280,7 +378,8 @@ export function ForecastComparisonPage({
           </details>
         )}
         <p className="aggregation-note">
-          Window aggregation formula: {aggregationFormula || "Not supplied with the evaluation artifact."}
+          Window aggregation formula:{" "}
+          {aggregationFormula || "Not supplied with the evaluation artifact."}
         </p>
       </section>
 
@@ -335,12 +434,18 @@ export function ObservationFreshnessPage({
         eyebrow="03 / INPUT AVAILABILITY"
         title="Test observation freshness"
         description="Select an observation age or documented dropout scenario and inspect the replay response."
-        trailing={<span className="simulation-badge"><span aria-hidden="true">↻</span>Replay simulation</span>}
+        trailing={
+          <span className="simulation-badge">
+            <span aria-hidden="true">↻</span>Replay simulation
+          </span>
+        }
       />
 
       <section className="panel freshness-panel">
         <div className="freshness-controls">
-          <label className="field-label" htmlFor="freshness-scenario">Observation age / dropout scenario</label>
+          <label className="field-label" htmlFor="freshness-scenario">
+            Observation age / dropout scenario
+          </label>
           <select
             id="freshness-scenario"
             value={selectedAge ?? ""}
@@ -349,23 +454,37 @@ export function ObservationFreshnessPage({
           >
             <option value="">Select a documented scenario</option>
             {(options ?? []).map((option) => (
-              <option value={option.value} key={option.value}>{option.label}</option>
+              <option value={option.value} key={option.value}>
+                {option.label}
+              </option>
             ))}
           </select>
-          <p className="field-help">Scenarios must come from the experiment manifest; no new mask is generated here.</p>
+          <p className="field-help">
+            Scenarios must come from the experiment manifest; no new mask is
+            generated here.
+          </p>
         </div>
 
         <div className="freshness-summary">
           <div>
             <p className="eyebrow">SELECTED REPLAY</p>
             <h3>{scenarioLabel || "No scenario selected"}</h3>
-            <p>Input availability, model response, uncertainty and quality reasons belong to the same replay record.</p>
+            <p>
+              Input availability, model response, uncertainty and quality
+              reasons belong to the same replay record.
+            </p>
           </div>
-          <span className="freshness-stamp">SIMULATED<br />AVAILABILITY</span>
+          <span className="freshness-stamp">
+            SIMULATED
+            <br />
+            AVAILABILITY
+          </span>
         </div>
 
         <div className="freshness-output">
-          {scenarioOutput ?? <ResearchStateNotice state={state} message={stateMessage} />}
+          {scenarioOutput ?? (
+            <ResearchStateNotice state={state} message={stateMessage} />
+          )}
         </div>
 
         <section className="quality-panel" aria-labelledby="quality-title">
@@ -377,7 +496,9 @@ export function ObservationFreshnessPage({
           />
           {qualityReasons?.length ? (
             <ul className="quality-list">
-              {qualityReasons.map((reason, index) => <li key={index}>{reason}</li>)}
+              {qualityReasons.map((reason, index) => (
+                <li key={index}>{reason}</li>
+              ))}
             </ul>
           ) : (
             <p className="muted-copy">No quality reasons supplied.</p>
@@ -387,14 +508,18 @@ export function ObservationFreshnessPage({
         <div className="refresh-rule">
           <div>
             <p className="eyebrow">SUGGESTED REFRESH</p>
-            <p>{suggestedRefreshRule || "No validation-fitted refresh rule supplied."}</p>
+            <p>
+              {suggestedRefreshRule ||
+                "No validation-fitted refresh rule supplied."}
+            </p>
           </div>
           <span aria-hidden="true">⌁</span>
         </div>
       </section>
 
       <p className="boundary-note">
-        This replay is not an optimized satellite schedule, a biological intervention or evidence of fuel savings.
+        This replay is not an optimized satellite schedule, a biological
+        intervention or evidence of fuel savings.
       </p>
     </div>
   );
@@ -444,7 +569,9 @@ export function ExperimentLabPage({
         description="A missing run stays not executed. A scientific rejection is a result, not a software error."
         trailing={
           protocolHref ? (
-            <a className="text-button" href={protocolHref}>Frozen protocol <span aria-hidden="true">↗</span></a>
+            <a className="text-button" href={protocolHref}>
+              Frozen protocol <span aria-hidden="true">↗</span>
+            </a>
           ) : (
             <span className="unit-chip">Protocol link not supplied</span>
           )
@@ -453,12 +580,19 @@ export function ExperimentLabPage({
 
       <section className="panel experiment-panel">
         <div className="experiment-toolbar">
-          <div><p className="eyebrow">REPORT VIEW</p><h3>Run outcomes</h3></div>
+          <div>
+            <p className="eyebrow">REPORT VIEW</p>
+            <h3>Run outcomes</h3>
+          </div>
           <label className="scope-filter">
             <span>Report split</span>
             <select
               value={selectedScope ?? "validation"}
-              onChange={(event) => onScopeChange?.(event.currentTarget.value as ExperimentReportScope)}
+              onChange={(event) =>
+                onScopeChange?.(
+                  event.currentTarget.value as ExperimentReportScope,
+                )
+              }
               disabled={!onScopeChange}
             >
               <option value="validation">Validation</option>
@@ -469,7 +603,11 @@ export function ExperimentLabPage({
         </div>
 
         <ResearchStateNotice state={state} message={stateMessage} />
-        <div className="experiment-table-scroll" tabIndex={0} aria-label="Scrollable experiment results table">
+        <div
+          className="experiment-table-scroll"
+          tabIndex={0}
+          aria-label="Scrollable experiment results table"
+        >
           <table className="experiment-table">
             <thead>
               <tr>
@@ -485,20 +623,26 @@ export function ExperimentLabPage({
               </tr>
             </thead>
             <tbody>
-              {rows?.length ? rows.map((row) => (
-                <tr key={row.id}>
-                  <th scope="row">{row.family}</th>
-                  <td>{row.seedCount || "Not reported"}</td>
-                  <td>{row.primaryLoss || "Not reported"}</td>
-                  <td>{row.mae || "Not reported"}</td>
-                  <td>{row.coverage90 || "Not reported"}</td>
-                  <td>{row.intervalWidth || "Not reported"}</td>
-                  <td>{row.sampleAndDayCounts || "Not reported"}</td>
-                  <td>{row.trainingCost || "Not reported"}</td>
-                  <td>{row.outcome || "Not reported"}</td>
+              {rows?.length ? (
+                rows.map((row) => (
+                  <tr key={row.id}>
+                    <th scope="row">{row.family}</th>
+                    <td>{row.seedCount || "Not reported"}</td>
+                    <td>{row.primaryLoss || "Not reported"}</td>
+                    <td>{row.mae || "Not reported"}</td>
+                    <td>{row.coverage90 || "Not reported"}</td>
+                    <td>{row.intervalWidth || "Not reported"}</td>
+                    <td>{row.sampleAndDayCounts || "Not reported"}</td>
+                    <td>{row.trainingCost || "Not reported"}</td>
+                    <td>{row.outcome || "Not reported"}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td className="empty-table-cell" colSpan={9}>
+                    No run rows supplied for this report split.
+                  </td>
                 </tr>
-              )) : (
-                <tr><td className="empty-table-cell" colSpan={9}>No run rows supplied for this report split.</td></tr>
               )}
             </tbody>
           </table>
@@ -509,10 +653,16 @@ export function ExperimentLabPage({
         <SectionHeading
           eyebrow="PAIRED COMPARISON"
           title="Difference with uncertainty"
-          description={"Confidence interval method: " + (confidenceIntervalMethod || "Not supplied")}
+          description={
+            "Confidence interval method: " +
+            (confidenceIntervalMethod || "Not supplied")
+          }
         />
         {pairedDifferenceChart ?? (
-          <ResearchStateNotice state="not-executed" message="No paired-difference report was supplied." />
+          <ResearchStateNotice
+            state="not-executed"
+            message="No paired-difference report was supplied."
+          />
         )}
       </section>
     </div>
@@ -590,9 +740,30 @@ export function EvidenceTransferPage({
             ))}
           </dl>
           <div className="export-actions">
-            <button className="button button--secondary" type="button" onClick={onExportCsv} disabled={!csvAvailable || !onExportCsv}>Export CSV</button>
-            <button className="button button--secondary" type="button" onClick={onExportJson} disabled={!jsonAvailable || !onExportJson}>Export JSON</button>
-            <button className="button button--quiet" type="button" onClick={onOpenReport} disabled={!reportAvailable || !onOpenReport}>Local report <span aria-hidden="true">↗</span></button>
+            <button
+              className="button button--secondary"
+              type="button"
+              onClick={onExportCsv}
+              disabled={!csvAvailable || !onExportCsv}
+            >
+              Export CSV
+            </button>
+            <button
+              className="button button--secondary"
+              type="button"
+              onClick={onExportJson}
+              disabled={!jsonAvailable || !onExportJson}
+            >
+              Export JSON
+            </button>
+            <button
+              className="button button--quiet"
+              type="button"
+              onClick={onOpenReport}
+              disabled={!reportAvailable || !onOpenReport}
+            >
+              Local report <span aria-hidden="true">↗</span>
+            </button>
           </div>
         </section>
 
@@ -619,7 +790,8 @@ export function EvidenceTransferPage({
             />
           )}
           <p className="transfer-boundary">
-            Public-data results do not establish tuna biomass, species, catch, fuel savings or Marine production integration.
+            Public-data results do not establish tuna biomass, species, catch,
+            fuel savings or Marine production integration.
           </p>
         </section>
       </div>

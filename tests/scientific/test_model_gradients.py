@@ -21,9 +21,7 @@ def _inputs() -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
 
 def test_ema_teacher_is_frozen_and_shared_target_receives_gradient() -> None:
     args = _inputs()
-    ema = TemporalJEPA(
-        ModelConfig(width=32, layers=1, heads=4), mode="ema", sigreg_weight=0.0
-    )
+    ema = TemporalJEPA(ModelConfig(width=32, layers=1, heads=4), mode="ema", sigreg_weight=0.0)
     ema_out = ema.objective(*args)
     ema_out.loss.backward()
     assert ema_out.target.requires_grad is False

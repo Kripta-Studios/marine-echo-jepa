@@ -1,0 +1,12 @@
+{
+  "review_id": "R1",
+  "session": "/root/review",
+  "verdict": "REQUEST_CHANGES",
+  "review_mode": "Read-only source and logs; reviewer did not execute pytest",
+  "clean_log_inspected": "evidence/tests/R1-green.txt: 23 passed, exit 0",
+  "resolved_helper_findings": ["Empty seal and unsafe file paths", "Implicit per-model deletion of hard rows/days", "Duplicate bootstrap anchors", "Spoofed HTTP Host", "Nonfinite JSON and aggregate artifact caps", "Inclusive observation cutoff"],
+  "unresolved_material_findings": ["AVAILABLE cached response-side tests still required", "Final evaluation must bind one sealed shared row-ID support mask across models", "L03/L05 helpers do not enforce source/split identities", "Actual calibrated pipeline/window invariants remain blocked by R0"],
+  "earlier_abnormal_logs": "T06-green.txt and engineering-first.txt emitted Windows WMI 0x8007000e; preserved and not clean-green evidence",
+  "scientific_freeze_approved": false,
+  "test_outcomes_inspected": false
+}

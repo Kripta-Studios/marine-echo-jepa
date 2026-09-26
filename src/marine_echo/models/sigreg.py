@@ -17,9 +17,12 @@ from torch import nn
 class SlicedEppsPulley(nn.Module):
     """Gaussian goodness-of-fit over seeded random one-dimensional projections."""
 
-    def __init__(
-        self, num_slices: int = 128, t_max: float = 3.0, n_points: int = 17
-    ) -> None:
+    global_step: torch.Tensor
+    t: torch.Tensor
+    phi: torch.Tensor
+    weights: torch.Tensor
+
+    def __init__(self, num_slices: int = 128, t_max: float = 3.0, n_points: int = 17) -> None:
         super().__init__()
         if num_slices <= 0 or n_points < 3 or n_points % 2 != 1 or t_max <= 0:
             raise ValueError("Invalid SIGReg quadrature or projection configuration.")
@@ -49,15 +52,11 @@ class SlicedEppsPulley(nn.Module):
                 dtype=embeddings.dtype,
                 generator=generator,
             )
-            directions = directions / directions.norm(dim=0, keepdim=True).clamp_min(
-                1e-12
-            )
+            directions = directions / directions.norm(dim=0, keepdim=True).clamp_min(1e-12)
             self.global_step.add_(1)
         projected = embeddings @ directions
         frequencies = projected.unsqueeze(-1) * self.t.to(dtype=embeddings.dtype)
         cosine = frequencies.cos().mean(dim=0)
         sine = frequencies.sin().mean(dim=0)
         error = (cosine - self.phi.to(dtype=embeddings.dtype)).square() + sine.square()
-        return (
-            (error @ self.weights.to(dtype=embeddings.dtype)) * embeddings.shape[0]
-        ).mean()
+        return ((error @ self.weights.to(dtype=embeddings.dtype)) * embeddings.shape[0]).mean()

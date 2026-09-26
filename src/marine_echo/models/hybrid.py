@@ -11,7 +11,7 @@ from sklearn.linear_model import Ridge
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
-from .baselines import BaselineForecast, HORIZONS, QUANTILES, engineered_history
+from .baselines import HORIZONS, QUANTILES, BaselineForecast, engineered_history
 from .compact import TemporalJEPA
 
 
@@ -34,16 +34,26 @@ def frozen_context_features(
     try:
         with torch.no_grad():
             for start in range(0, len(values), batch_size):
-                context = torch.as_tensor(values[start : start + batch_size], dtype=torch.float32, device=device)
-                valid = torch.as_tensor(mask[start : start + batch_size], dtype=torch.bool, device=device)
+                context = torch.as_tensor(
+                    values[start : start + batch_size], dtype=torch.float32, device=device
+                )
+                valid = torch.as_tensor(
+                    mask[start : start + batch_size], dtype=torch.bool, device=device
+                )
                 tokens, token_valid = model.encoder(context, valid)
                 weighted = torch.where(token_valid[..., None], tokens, torch.zeros_like(tokens))
                 current = weighted.sum(dim=1) / token_valid.sum(dim=1, keepdim=True).clamp_min(1)
                 future = model.predictor(tokens, token_valid).mean(dim=2).flatten(start_dim=1)
-                features.append(torch.cat((current, future), dim=1).cpu().numpy().astype(np.float64))
+                features.append(
+                    torch.cat((current, future), dim=1).cpu().numpy().astype(np.float64)
+                )
     finally:
         model.train(was_training)
-    return np.concatenate(features, axis=0) if features else np.empty((0, 4 * model.encoder.config.width))
+    return (
+        np.concatenate(features, axis=0)
+        if features
+        else np.empty((0, 4 * model.encoder.config.width))
+    )
 
 
 class FrozenLatentRidge:
@@ -52,14 +62,22 @@ class FrozenLatentRidge:
     def __init__(self, encoder: TemporalJEPA, alpha: float = 10.0) -> None:
         self.encoder = encoder
         self.models = [
-            make_pipeline(SimpleImputer(strategy="median", keep_empty_features=True), StandardScaler(), Ridge(alpha=alpha))
+            make_pipeline(
+                SimpleImputer(strategy="median", keep_empty_features=True),
+                StandardScaler(),
+                Ridge(alpha=alpha),
+            )
             for _ in HORIZONS
         ]
         self.residual: NDArray[np.float64] | None = None
 
     def fit(
-        self, values: NDArray[np.float64], mask: NDArray[np.bool_],
-        targets: NDArray[np.float64], *, partition: str,
+        self,
+        values: NDArray[np.float64],
+        mask: NDArray[np.bool_],
+        targets: NDArray[np.float64],
+        *,
+        partition: str,
     ) -> FrozenLatentRidge:
         if partition != "train":
             raise ValueError("Downstream ridge may fit training targets only.")
@@ -78,8 +96,10 @@ class FrozenLatentRidge:
             raise RuntimeError("Fit on training windows first.")
         x = frozen_context_features(self.encoder, values, mask)
         medians = np.stack([model.predict(x) for model in self.models], axis=1)
-        eligible = mask.any(axis=(1, 2, 3))[:, None].repeat(3, axis=1)
-        return BaselineForecast(np.sort(medians[..., None] + self.residual[None, :, :], axis=-1), eligible)
+        eligible = np.asarray(mask.any(axis=(1, 2, 3)))[:, None].repeat(3, axis=1)
+        return BaselineForecast(
+            np.sort(medians[..., None] + self.residual[None, :, :], axis=-1), eligible
+        )
 
 
 class RawLatentTreeQuantiles:
@@ -90,21 +110,33 @@ class RawLatentTreeQuantiles:
         self.imputer = SimpleImputer(strategy="median", keep_empty_features=True)
         self.models = [
             HistGradientBoostingRegressor(
-                loss="quantile", quantile=quantile, max_iter=max_iter,
-                max_leaf_nodes=15, min_samples_leaf=8, learning_rate=0.05, random_state=7,
+                loss="quantile",
+                quantile=quantile,
+                max_iter=max_iter,
+                max_leaf_nodes=15,
+                min_samples_leaf=8,
+                learning_rate=0.05,
+                random_state=7,
             )
-            for _ in HORIZONS for quantile in QUANTILES
+            for _ in HORIZONS
+            for quantile in QUANTILES
         ]
         self._fitted = False
 
-    def _features(self, values: NDArray[np.float64], mask: NDArray[np.bool_]) -> NDArray[np.float64]:
+    def _features(
+        self, values: NDArray[np.float64], mask: NDArray[np.bool_]
+    ) -> NDArray[np.float64]:
         raw = engineered_history(values, mask, units="sv_db")
         latent = frozen_context_features(self.encoder, values, mask)
         return np.concatenate((raw, latent), axis=1)
 
     def fit(
-        self, values: NDArray[np.float64], mask: NDArray[np.bool_],
-        targets: NDArray[np.float64], *, partition: str,
+        self,
+        values: NDArray[np.float64],
+        mask: NDArray[np.bool_],
+        targets: NDArray[np.float64],
+        *,
+        partition: str,
     ) -> RawLatentTreeQuantiles:
         if partition != "train":
             raise ValueError("Hybrid heads may fit training targets only.")
@@ -120,6 +152,8 @@ class RawLatentTreeQuantiles:
         if not self._fitted:
             raise RuntimeError("Fit hybrid on training windows first.")
         x = self.imputer.transform(self._features(values, mask))
-        predictions = np.stack([model.predict(x) for model in self.models], axis=1).reshape(len(values), 3, 5)
-        eligible = mask.any(axis=(1, 2, 3))[:, None].repeat(3, axis=1)
+        predictions = np.stack([model.predict(x) for model in self.models], axis=1).reshape(
+            len(values), 3, 5
+        )
+        eligible = np.asarray(mask.any(axis=(1, 2, 3)))[:, None].repeat(3, axis=1)
         return BaselineForecast(np.sort(predictions, axis=-1), eligible)

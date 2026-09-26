@@ -1,0 +1,6 @@
+
+> marine-echo-web@0.1.0 typecheck
+> tsc --noEmit
+
+
+{"name": "web-typecheck", "command": ["C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.runtime\\node_modules\\node\\bin\\node.exe", "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js", "run", "typecheck"], "exit_code": 0, "seconds": 1.5619999999980791, "peak_process_tree_rss_gib": 0.3357200622558594, "log": "evidence\\tests\\final\\web-typecheck.log"}

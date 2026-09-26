@@ -1,0 +1,1 @@
+"""Strict versioned interchange contracts."""

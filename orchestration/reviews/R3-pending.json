@@ -1,0 +1,12 @@
+{
+  "review_id": "R3",
+  "verdict": "BLOCKED_SERVICE_USAGE_LIMIT",
+  "record_author": "/root",
+  "independent_session": "/root/review",
+  "approval": false,
+  "scope": "Coordinator checkpoint, not a reviewer signature",
+  "earlier_findings": ["Atomic publication", "Complete package hashes and relocation", "Fresh browser server", "Cancellation and URL validation", "Canvas row sizing and accessible values", "Exact run registry"],
+  "coordinator_fixes": ["Fresh-directory staging and rename", "Cutoff whitelist and abort filtering", "64 accessible sample groups", "25-run registry", "Fresh-server browser regressions"],
+  "requires_independent_recheck": true,
+  "test_outcomes_opened": false
+}

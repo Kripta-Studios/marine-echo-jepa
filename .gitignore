@@ -1,5 +1,13 @@
 .venv/
 .runtime/
+.coverage
+release/wheelhouse/
+release/src/
+release/requirements-locks/
+release/evidence/
+release/demo/
+release/demo-*/
+release/meeting-*/
 web/test-results/
 web/playwright-report/
 __pycache__/

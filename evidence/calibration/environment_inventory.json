@@ -1,0 +1,14 @@
+[
+  {
+    "name": "MOSAiC_dailyaverage_skalars.nc",
+    "size": 79914,
+    "sha256": "1eb6b087e78dd98a65841b497a5d68641cb18446c63095d9056aebdda7bbdf47",
+    "url": "https://cn.dataone.org/cn/v2/resolve/urn:uuid:25bd9f3b-1857-4197-8e2c-23b47f45450d"
+  },
+  {
+    "name": "MOSAiC_daily_profiles.nc",
+    "size": 46548009,
+    "sha256": "f54c7365df191c5348966d319af5ebacfcf80a1d89e6275634b585a3905e9682",
+    "url": "https://cn.dataone.org/cn/v2/resolve/urn:uuid:51441ef0-6587-4d74-ba13-e17c4f12ac6c"
+  }
+]

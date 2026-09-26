@@ -1,0 +1,4 @@
+[WebServer] ".." no se reconoce como un comando interno o externo,
+[WebServer] programa o archivo por lotes ejecutable.
+Error: Process from config.webServer was not able to start. Exit code: 1
+

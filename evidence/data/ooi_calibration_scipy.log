@@ -1,0 +1,31 @@
+{
+  "dataset_id": "ooi_ce04osps_ek60_2017",
+  "source_sha256": "27248617a52ace72f1d4a39d3d4c3d1e350316f842ed4e0446013a04ce399f7c",
+  "echopype_version": "0.11.1",
+  "status": "CALIBRATION_CODE_PATH_EXECUTED",
+  "calibration_basis": "EK60 instrument and indicative environment fields recorded in raw CON0/data, interpreted by pinned Echopype; no independent field calibration claim",
+  "environment_variables": [
+    "absorption_indicative",
+    "sound_speed_indicative",
+    "frequency_nominal"
+  ],
+  "frequencies_hz": [
+    38000.0,
+    120000.0,
+    200000.0
+  ],
+  "shape": [
+    3,
+    5924,
+    1072
+  ],
+  "finite_fraction": 0.99708927089737,
+  "min_sv_db": -157.29645566475762,
+  "max_sv_db": 18.748630526981017,
+  "elapsed_seconds": 9.4529999999977,
+  "process_rss_gib": 0.7752571105957031,
+  "benchmark_eligible": false,
+  "primary_dataset_unchanged": true,
+  "physical_unit_benchmark_promotion": "BLOCKED_NO_ELIGIBLE_FALLBACK_CORPUS_OR_PROTOCOL",
+  "roundtrip_equal": true
+}

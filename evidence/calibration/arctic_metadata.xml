@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eml:eml xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.2" packageId="urn:uuid:42ea0ddb-357c-4621-b9a1-b69cd3b90510" xsi:schemaLocation="https://eml.ecoinformatics.org/eml-2.2.0 https://eml.ecoinformatics.org/eml-2.2.0/eml.xsd" system="knb">
+  <dataset id="urn-uuid-6cb0b4df-949f-484e-9685-64abe69ae07a">
+    <title>The Eurasian Arctic Ocean along the MOSAiC drift (2019-2020): Core hydrographic parameters</title>
+    <creator id="4826647363873678">
+      <individualName>
+        <givenName>Kirstin</givenName>
+        <surName>Schulz</surName>
+      </individualName>
+      <organizationName>Oden Institute for Computational Engineering and Sciences, The University of Texas at Austin, Austin, TX, United States</organizationName>
+      <positionName>Research Associate</positionName>
+      <electronicMailAddress>kiki.schulz@utexas.edu</electronicMailAddress>
+      <userId directory="https://orcid.org">https://orcid.org/0000-0001-8404-944X</userId>
+    </creator>
+    <creator id="1708853795639159">
+      <individualName>
+        <givenName>Zoe</givenName>
+        <surName>Koenig</surName>
+      </individualName>
+      <organizationName>UiT The Arctic University of Norway, Tromsø, Norway</organizationName>
+      <electronicMailAddress>zoe.c.koenig@uit.no</electronicMailAddress>
+    </creator>
+    <creator id="8230292126582173">
+      <individualName>
+        <givenName>Morven</givenName>
+        <surName>Muilwijk</surName>
+      </individualName>
+      <organizationName>Norwegian Polar Institute, Fram Centre, Tromsø, Norway</organizationName>
+      <electronicMailAddress>morven.muilwijk@npolar.no</electronicMailAddress>
+    </creator>
+    <pubDate>2023</pubDate>
+    <abstract>
+      <para>The Multidisciplinary drifting Observatory for the Study of the Arctic Climate (MOSAiC, 2019/2020), a year-long drift with the Arctic sea ice, has provided the scientific community with an unprecedented, multidisciplinary dataset from the Eurasian Arctic Ocean, covering from high atmosphere to deep ocean across all seasons. However, the heterogeneity of data and the superposition of spatial and temporal variability intrinsic to a drift campaign complicate the interpretation of observations. Here, we compile a quality-controlled dataset with best coverage and derived parameters, and provide daily average values of: drift speed, friction velocity, ocean temperature and salinity (full profiles and surface), mixed layer depth, mixing layer depth, heat flux over the halocline and thermocline. The presented core parameters offer valuable context for interdisciplinary research, fostering an improved understanding of the complex, coupled Arctic System. Results based on this dataset are described in Schulz, Koenig, Muilwijk et al.: "The Eurasian Arctic Ocean along the MOSAiC drift (2019-2020): An interdisciplinary perspective on properties and processes" (Elementa: Science of the Anthropocene, tentatively submitted September 2023). When using the parameter in this data set, we strongly advise to also cite the respective original data sets, linked in the description of methods here.</para>
+    </abstract>
+    <keywordSet>
+      <keyword>Arctic Ocean</keyword>
+      <keyword>Multidisciplinary drifting Observatory for the Study of the Arctic Climate (MOSAiC)</keyword>
+      <keyword>Hydrography</keyword>
+      <keywordThesaurus>None</keywordThesaurus>
+    </keywordSet>
+    <intellectualRights>
+      <para>This work is dedicated to the public domain under the Creative Commons Universal 1.0 Public Domain Dedication. To view a copy of this dedication, visit https://creativecommons.org/publicdomain/zero/1.0/.</para>
+    </intellectualRights>
+    <coverage>
+      <geographicCoverage>
+        <geographicDescription>Eurasian Arctic Ocean</geographicDescription>
+        <boundingCoordinates>
+          <westBoundingCoordinate>170</westBoundingCoordinate>
+          <eastBoundingCoordinate>-10</eastBoundingCoordinate>
+          <northBoundingCoordinate>78</northBoundingCoordinate>
+          <southBoundingCoordinate>78</southBoundingCoordinate>
+        </boundingCoordinates>
+      </geographicCoverage>
+      <temporalCoverage>
+        <rangeOfDates>
+          <beginDate>
+            <calendarDate>2019-09-01</calendarDate>
+          </beginDate>
+          <endDate>
+            <calendarDate>2020-10-01</calendarDate>
+          </endDate>
+        </rangeOfDates>
+      </temporalCoverage>
+    </coverage>
+    <annotation>
+      <propertyURI label="theme">http://www.w3.org/ns/dcat#theme</propertyURI>
+      <valueURI label="Oceanography">https://purl.dataone.org/odo/ADCAD_00040</valueURI>
+    </annotation>
+    <annotation>
+      <propertyURI label="hasBasis">https://purl.dataone.org/odo/MOSAIC_00000034</propertyURI>
+      <valueURI label="Polarstern">https://purl.dataone.org/odo/MOSAIC_00000030</valueURI>
+    </annotation>
+    <annotation>
+      <propertyURI label="hasProjectLabel">https://purl.dataone.org/odo/MOSAIC_00000025</propertyURI>
+      <valueURI label="MOSAiC20192020">https://purl.dataone.org/odo/MOSAIC_00000023</valueURI>
+    </annotation>
+    <annotation>
+      <propertyURI label="isPartOfCampaign">https://purl.dataone.org/odo/MOSAIC_00000032</propertyURI>
+      <valueURI label="PS122/3">https://purl.dataone.org/odo/MOSAIC_00000019</valueURI>
+    </annotation>
+    <annotation>
+      <propertyURI label="isPartOfCampaign">https://purl.dataone.org/odo/MOSAIC_00000032</propertyURI>
+      <valueURI label="PS122/2">https://purl.dataone.org/odo/MOSAIC_00000018</valueURI>
+    </annotation>
+    <annotation>
+      <propertyURI label="isPartOfCampaign">https://purl.dataone.org/odo/MOSAIC_00000032</propertyURI>
+      <valueURI label="PS122/1">https://purl.dataone.org/odo/MOSAIC_00000017</valueURI>
+    </annotation>
+    <annotation>
+      <propertyURI label="isPartOfCampaign">https://purl.dataone.org/odo/MOSAIC_00000032</propertyURI>
+      <valueURI label="PS122/4">https://purl.dataone.org/odo/MOSAIC_00000008</valueURI>
+    </annotation>
+    <annotation>
+      <propertyURI label="isPartOfCampaign">https://purl.dataone.org/odo/MOSAIC_00000032</propertyURI>
+      <valueURI label="PS122/5">https://purl.dataone.org/odo/MOSAIC_00000005</valueURI>
+    </annotation>
+    <annotation>
+      <propertyURI label="Data Sensitivity Category">http://purl.dataone.org/odo/SENSO_00000005</propertyURI>
+      <valueURI label="Non-sensitive data">http://purl.dataone.org/odo/SENSO_00000002</valueURI>
+    </annotation>
+    <contact id="1341815152219560">
+      <individualName>
+        <givenName>Kirstin</givenName>
+        <surName>Schulz</surName>
+      </individualName>
+      <organizationName>Oden Institute for Computational Engineering and Sciences, The University of Texas at Austin, Austin, TX, United States</organizationName>
+      <positionName>Research Associate</positionName>
+      <electronicMailAddress>kiki.schulz@utexas.edu</electronicMailAddress>
+      <userId directory="https://orcid.org">https://orcid.org/0000-0001-8404-944X</userId>
+    </contact>
+    <publisher>
+      <organizationName>NSF Arctic Data Center</organizationName>
+      <electronicMailAddress>support@arcticdata.io</electronicMailAddress>
+      <onlineUrl>http://arcticdata.io</onlineUrl>
+      <userId directory="https://www.wikidata.org/">Q77285095</userId>
+    </publisher>
+    <methods>
+      <methodStep>
+        <description>
+          <section>
+            <title>Ethical Research Practices</title>
+            <para>Data usage is in line with the MOSAiC data policy</para>
+          </section>
+        </description>
+      </methodStep>
+      <methodStep>
+        <description>
+          <para>A set of in total 2,434 vertical temperature and salinity profiles were compiled, including data from the microstructure profiler (MSS) operated in Ocean City, i.e., a sampling site in the Central Observatory (CO) on the main floe (1,665 profiles, 0-350~meters, https://doi.org/10.1594/PANGAEA.939816), the Ocean City CTD (121 profiles, down to maximum 1000~m, https://doi.pangaea.de/10.1594/PANGAEA.959966), and the Polarstern CTD (134 profiles, excluding those during transit, ttps://doi.pangaea.de/10.1594/PANGAEA.959963). During the drift interruption, and on days without any MSS or CTD casts, we use profiles from the ice-tethered profilers ITP94 and ITP111 (down to 1000~m depth, 428 profiles in total, https://www2.whoi.edu/site/itp/), and daily mean data at five discrete depths (10, 25, 50, 75, 100~m) from a CTD chain on the Pacific Gyre buoy O4 (86 days, https://doi.org/10.1594/PANGAEA.940320), all deployed near the CO at the start of the drift. Data from all instruments are converted to Conservative Temperature and Absolute Salinity, quality-controlled and cross-calibrated where necessary (see associated publication). Drift track and speed are obtained from the Polarstern navigation records, and complemented with data from a GPS buoy ("CO1", ttps://doi.org/10.1594/PANGAEA.937204) that remained on the floe when sampling was interrupted in spring.</para>
+        </description>
+      </methodStep>
+      <methodStep>
+        <description>
+          <para>From the drift velocity, we calculate the ice friction velocity u* based on the Rossby similarity (see Appendix), as already done in Kawaguchi, 2022.</para>
+          <para>We calculate the mixed layer depth, i.e., the vertical extent of the surface layer with uniform temperature, salinity, and hence density, as the first depth where the potential density anomaly increases by more than 0.04 kilograms per meter cubed compared to the surface (4-15~m) mean value (or, 0.06 kg/m3 if the increase in density at the base of the mixed layer is more gradual). We omit giving mixed layer depth estimates in the presence of strong upper (0-10~m) ocean stratification (i.e., when there is no classical mixed layer, conditions frequently found during melt season), or when mixed layer depth estimates based on different density thresholds (0.04 to 0.08 kg/m3) are very variable (i.e., the base of the mixed layer is not well defined). Surface salinity and temperature are calculated as the average over 4-15~m depth.</para>
+          <para>From the dissipation rate of turbulent kinetic energy, we calculate the depth of the surface active mixing layer, i.e., the depth range where turbulence is elevated due to friction at the ocean-sea ice interface. We calculate turbulent vertical heat fluxes over the thermocline and halocline.</para>
+        </description>
+      </methodStep>
+      <sampling>
+        <studyExtent>
+          <description>
+            <para>The MOSAiC drift started in September 2019, using the icebreaker Polarstern as a drifting platform frozen into the Arctic sea ice, with measurements conducted from the same ice floe and surrounding sites during five cruise legs. On-site sampling was interrupted between May 15 to June 27, 2020, due to the unavailability of a second icebreaker during the COVID-19 pandemic to perform personnel exchange and resupply, but resumed on the exact same floe. At the end of July, the flow broke in the marginal ice zone in Fram Strait, and after relocation north, a second floe was chosen close to the previous drift track to sample the freeze-up period. In the following, we will briefly summarize the different datasets and methods used in this study.</para>
+          </description>
+        </studyExtent>
+        <samplingDescription>
+          <para>No sampling description provided.</para>
+        </samplingDescription>
+      </sampling>
+    </methods>
+    <project>
+      <title>Collaborative Research: Research Networking Activities in Support of Sustained Coordinated Observations of Arctic Change</title>
+      <title>Collaborative Research: AccelNet: Accelerating discoveries at Greenlands marine margins through international collaboration</title>
+      <personnel>
+        <individualName>
+          <givenName>William G</givenName>
+          <surName>Ambrose</surName>
+        </individualName>
+        <role>principalInvestigator</role>
+      </personnel>
+      <personnel>
+        <individualName>
+          <givenName>An T</givenName>
+          <surName>Nguyen</surName>
+        </individualName>
+        <role>principalInvestigator</role>
+      </personnel>
+      <award>
+        <funderName>National Science Foundation</funderName>
+        <funderIdentifier>https://doi.org/10.13039/100000001</funderIdentifier>
+        <awardNumber>1936506</awardNumber>
+        <title>Collaborative Research: Research Networking Activities in Support of Sustained Coordinated Observations of Arctic Change</title>
+        <awardUrl>https://www.nsf.gov/awardsearch/showAward?AWD_ID=1936506</awardUrl>
+      </award>
+      <award>
+        <funderName>National Science Foundation</funderName>
+        <funderIdentifier>https://doi.org/10.13039/100000001</funderIdentifier>
+        <awardNumber>2020387</awardNumber>
+        <title>Collaborative Research: AccelNet: Accelerating discoveries at Greenlands marine margins through international collaboration</title>
+        <awardUrl>https://www.nsf.gov/awardsearch/showAward?AWD_ID=2020387</awardUrl>
+      </award>
+    </project>
+    <dataTable id="urn-uuid-25bd9f3b-1857-4197-8e2c-23b47f45450d" system="https://tools.ietf.org/html/rfc4122">
+      <entityName>MOSAiC_dailyaverage_skalars.nc</entityName>
+      <entityDescription>Daily averages of surface drift speed, friction velocity, ocean temperature and salinity, mixed layer depth, mixing layer depth, and heat flux over the halocline and thermocline.</entityDescription>
+      <physical>
+        <objectName>MOSAiC_dailyaverage_skalars.nc</objectName>
+        <size unit="bytes">79914</size>
+        <authentication method="MD5">ddfc3484547347559f827034bc684253</authentication>
+        <dataFormat>
+          <externallyDefinedFormat>
+            <formatName>netCDF-3</formatName>
+          </externallyDefinedFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url function="download">https://cn.dataone.org/cn/v2/resolve/urn:uuid:25bd9f3b-1857-4197-8e2c-23b47f45450d</url>
+          </online>
+        </distribution>
+      </physical>
+      <attributeList>
+        <attribute id="Ml5qNB4TeUKTsm7LJtX4fMXTcUAUrU">
+          <attributeName>day</attributeName>
+          <attributeDefinition>Date and time of measurement in days since the start of the year 0 (UTC)</attributeDefinition>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>nominalDay</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="contains measurements of type">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType</propertyURI>
+            <valueURI label="date and time of measurement">http://purl.dataone.org/odo/ECSO_00002043</valueURI>
+          </annotation>
+        </attribute>
+        <attribute id="7Banl2L21acGv5c1vvbOxdRvof4RM8">
+          <attributeName>latitude</attributeName>
+          <attributeDefinition>Latitude coordinate of measurement</attributeDefinition>
+          <measurementScale>
+            <interval>
+              <unit>
+                <standardUnit>degree</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </interval>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="contains measurements of type">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType</propertyURI>
+            <valueURI label="latitude coordinate">http://purl.dataone.org/odo/ECSO_00002130</valueURI>
+          </annotation>
+        </attribute>
+        <attribute id="Ly5ngnnUzeVn4vxxlwXM5WNOS1I1ZP">
+          <attributeName>longitude</attributeName>
+          <attributeDefinition>Longitude coordinate of measurement</attributeDefinition>
+          <measurementScale>
+            <interval>
+              <unit>
+                <standardUnit>degree</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </interval>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="contains measurements of type">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType</propertyURI>
+            <valueURI label="longitude coordinate">http://purl.dataone.org/odo/ECSO_00002132</valueURI>
+          </annotation>
+        </attribute>
+        <attribute id="RSFfJSIzzMAwEHTPAPCtmGKpD8g1ZQ">
+          <attributeName>depth</attributeName>
+          <attributeDefinition>Water depth in meters</attributeDefinition>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>meter</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="contains measurements of type">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType</propertyURI>
+            <valueURI label="Water Depth">http://purl.dataone.org/odo/ECSO_00001203</valueURI>
+          </annotation>
+        </attribute>
+        <attribute id="TJEnJPrx9xWg4oaa6ng65x5h0CuE1F">
+          <attributeName>SST</attributeName>
+          <attributeDefinition>Sea surface conservative temperature</attributeDefinition>
+          <measurementScale>
+            <interval>
+              <unit>
+                <standardUnit>celsius</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </interval>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="contains measurements of type">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType</propertyURI>
+            <valueURI label="sea surface temperature">http://purl.dataone.org/odo/ECSO_00001523</valueURI>
+          </annotation>
+        </attribute>
+        <attribute id="GeVF03OTRE0DvtBkxii8Hn8sR3XpM5">
+          <attributeName>SSS</attributeName>
+          <attributeDefinition>Sea surface absolute salinity</attributeDefinition>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <customUnit>gramPerKilogram</customUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="contains measurements of type">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType</propertyURI>
+            <valueURI label="sea surface salinity">http://purl.dataone.org/odo/ECSO_00001658</valueURI>
+          </annotation>
+        </attribute>
+        <attribute id="54TamDXIb5gU0CksduiydP6mxTTa6B">
+          <attributeName>MLD</attributeName>
+          <attributeDefinition>Mixed layer depth in meters</attributeDefinition>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>meter</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>-99999</code>
+            <codeExplanation>Mixed layer depth estimates are omitted in the presence of strong upper (0-10~m) ocean stratification (i.e., when there is no classical mixed layer, conditions frequently found during melt season), or when mixed layer depth estimates based on different density thresholds (0.04 to 0.08 kg/m3) are very variable (i.e., the base of the mixed layer is not well defined).</codeExplanation>
+          </missingValueCode>
+          <annotation>
+            <propertyURI label="contains measurements of type">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType</propertyURI>
+            <valueURI label="Depth">http://purl.dataone.org/odo/ECSO_00001250</valueURI>
+          </annotation>
+        </attribute>
+        <attribute id="wnWxncb6sui3g6kIExSkRuNk3asrWu">
+          <attributeName>SSTf</attributeName>
+          <attributeDefinition>Surface freezing temperature</attributeDefinition>
+          <measurementScale>
+            <interval>
+              <unit>
+                <standardUnit>celsius</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </interval>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="contains measurements of type">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType</propertyURI>
+            <valueURI label="Temperature Measurement Type">http://purl.dataone.org/odo/ECSO_00001104</valueURI>
+          </annotation>
+        </attribute>
+        <attribute id="Qf7E75Mis07FDIFHqNn2LtJMRnzdkt">
+          <attributeName>uice</attributeName>
+          <attributeDefinition>Sea ice drift velocity</attributeDefinition>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>meterPerSecond</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="contains measurements of type">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType</propertyURI>
+            <valueURI label="velocity">http://purl.dataone.org/odo/ECSO_00001543</valueURI>
+          </annotation>
+        </attribute>
+        <attribute id="B5I1SpsTutpcTsAV6GlLlrc1LUpXiP">
+          <attributeName>ustar</attributeName>
+          <attributeDefinition>Friction velocity</attributeDefinition>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>meterPerSecond</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="contains measurements of type">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType</propertyURI>
+            <valueURI label="friction velocity">http://purl.dataone.org/odo/ECSO_00001546</valueURI>
+          </annotation>
+        </attribute>
+        <attribute id="MScDTpwBzcRdmDp40f3kq6PsuU97OJ">
+          <attributeName>mixL</attributeName>
+          <attributeDefinition>Mixing layer depth</attributeDefinition>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>meter</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="contains measurements of type">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType</propertyURI>
+            <valueURI label="Depth">http://purl.dataone.org/odo/ECSO_00001250</valueURI>
+          </annotation>
+        </attribute>
+        <attribute id="haGx170HH40hWzqsuHFPTiWxhLn7BC">
+          <attributeName>Fh_halo</attributeName>
+          <attributeDefinition>Heat flux over halocline</attributeDefinition>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>wattPerMeterSquared</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="contains measurements of type">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType</propertyURI>
+            <valueURI label="Flux Measurement Type">http://purl.dataone.org/odo/ECSO_00000514</valueURI>
+          </annotation>
+        </attribute>
+        <attribute id="DOV1kT1OtBXumm6aR0KdPnOCWgNOMF">
+          <attributeName>Fh_thermo</attributeName>
+          <attributeDefinition>Heat flux over thermocline</attributeDefinition>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>wattPerMeterSquared</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="contains measurements of type">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType</propertyURI>
+            <valueURI label="Flux Measurement Type">http://purl.dataone.org/odo/ECSO_00000514</valueURI>
+          </annotation>
+        </attribute>
+      </attributeList>
+    </dataTable>
+    <dataTable id="urn-uuid-51441ef0-6587-4d74-ba13-e17c4f12ac6c" system="https://tools.ietf.org/html/rfc4122">
+      <entityName>MOSAiC_daily_profiles.nc</entityName>
+      <entityDescription>Full depth profiles of water temperature and salinity.</entityDescription>
+      <physical>
+        <objectName>MOSAiC_daily_profiles.nc</objectName>
+        <size unit="bytes">46548009</size>
+        <authentication method="MD5">651173eadaa7efdd0911d2a44e19aab6</authentication>
+        <dataFormat>
+          <externallyDefinedFormat>
+            <formatName>netCDF-3</formatName>
+          </externallyDefinedFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url function="download">https://cn.dataone.org/cn/v2/resolve/urn:uuid:51441ef0-6587-4d74-ba13-e17c4f12ac6c</url>
+          </online>
+        </distribution>
+      </physical>
+      <attributeList>
+        <attribute id="1t6pDdTt2Z1QETHNenVuZT29ErLyLb">
+          <attributeName>time</attributeName>
+          <attributeDefinition>Date and time of measurement in days since the start of the year 0 (UTC)</attributeDefinition>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>nominalDay</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="contains measurements of type">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType</propertyURI>
+            <valueURI label="date and time of measurement">http://purl.dataone.org/odo/ECSO_00002043</valueURI>
+          </annotation>
+        </attribute>
+        <attribute id="xNwf5PsmOwcIhlxXg0do5qEHy5Q22B">
+          <attributeName>latitude</attributeName>
+          <attributeDefinition>Latitude coordinate of measurement</attributeDefinition>
+          <measurementScale>
+            <interval>
+              <unit>
+                <standardUnit>degree</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </interval>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="contains measurements of type">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType</propertyURI>
+            <valueURI label="latitude coordinate">http://purl.dataone.org/odo/ECSO_00002130</valueURI>
+          </annotation>
+        </attribute>
+        <attribute id="cBCBWBlNwqbciHfK55HkDWobdu2ZeR">
+          <attributeName>longitude</attributeName>
+          <attributeDefinition>Longitude coordinate of measurement</attributeDefinition>
+          <measurementScale>
+            <interval>
+              <unit>
+                <standardUnit>degree</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </interval>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="contains measurements of type">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType</propertyURI>
+            <valueURI label="longitude coordinate">http://purl.dataone.org/odo/ECSO_00002132</valueURI>
+          </annotation>
+        </attribute>
+        <attribute id="IdeEf9ZTrHafobHsE3PidLuVwOmvRb">
+          <attributeName>depth</attributeName>
+          <attributeDefinition>Depth of measurement in meters</attributeDefinition>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>meter</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="contains measurements of type">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType</propertyURI>
+            <valueURI label="Depth">http://purl.dataone.org/odo/ECSO_00001250</valueURI>
+          </annotation>
+        </attribute>
+        <attribute id="xWfVg9XyLtJoo90Qg3RXyiRuffxO4b">
+          <attributeName>temperature</attributeName>
+          <attributeDefinition>Conservative water temperature</attributeDefinition>
+          <measurementScale>
+            <interval>
+              <unit>
+                <standardUnit>celsius</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </interval>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="contains measurements of type">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType</propertyURI>
+            <valueURI label="Seawater Temperature">http://purl.dataone.org/odo/ECSO_00001226</valueURI>
+          </annotation>
+        </attribute>
+        <attribute id="s2BiWhTlxR9ZJdypS5iugwbENxNJqX">
+          <attributeName>salinity</attributeName>
+          <attributeDefinition>Absolute water salinity</attributeDefinition>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <customUnit>gramPerKilogram</customUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="contains measurements of type">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType</propertyURI>
+            <valueURI label="Water Salinity">http://purl.dataone.org/odo/ECSO_00001164</valueURI>
+          </annotation>
+        </attribute>
+        <attribute id="X2Mgw10ignsfdk0Wld0gzHekPqvFbI">
+          <attributeName>watermass</attributeName>
+          <attributeDefinition>Water mass categorical variable</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>1</code>
+                    <definition>surface mixed layer (ML)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>2</code>
+                    <definition>halocline layer (HAL)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>3</code>
+                    <definition>Arctic Atlantic Water (AAW)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>4</code>
+                    <definition>Atlantic Water (AW)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>5</code>
+                    <definition>Upper Polar Deep Water (UPDW)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>6</code>
+                    <definition>Eurasian Basin Deep Water (EBDW)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>7</code>
+                    <definition>Eurasian Basin Bottom Water (EBBW)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>8</code>
+                    <definition>Arctic Intermediate Water (AIW)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>9</code>
+                    <definition>Nordic Sea Deep Water (NSDW)</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="contains measurements of type">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType</propertyURI>
+            <valueURI label="seawater depth - categorical">http://purl.dataone.org/odo/ECSO_00002609</valueURI>
+          </annotation>
+        </attribute>
+      </attributeList>
+    </dataTable>
+  </dataset>
+  <additionalMetadata>
+    <metadata>
+      <unitList>
+        <unit id="gramPerKilogram" abbreviation="g/kg" multiplierToSI=".001" name="gramPerKilogram" parentSI="gramPerGram" unitType="massPerMass">
+          <description>gram per kilogram</description>
+        </unit>
+      </unitList>
+    </metadata>
+  </additionalMetadata>
+</eml:eml>
