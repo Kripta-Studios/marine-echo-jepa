@@ -1,0 +1,62 @@
+FFFF                                                                     [100%]
+================================== FAILURES ===================================
+___________________ test_plot_rejects_missing_result_review ___________________
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3733/test_plot_rejects_missing_resu0')
+
+    def test_plot_rejects_missing_result_review(tmp_path: Path) -> None:
+        with pytest.raises(FileNotFoundError):
+>           plot.verified_report(tmp_path)
+            ^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module 'support_plot' has no attribute 'verified_report'
+
+tests\unit\test_support_plot.py:18: AttributeError
+___________ test_plot_publication_failure_leaves_no_final_artifact ____________
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3733/test_plot_publication_failure_0')
+
+    def test_plot_publication_failure_leaves_no_final_artifact(tmp_path: Path) -> None:
+        def failing_renderer(path: Path) -> None:
+            path.write_bytes(b"partial synthetic test image")
+            raise OSError("simulated rendering failure")
+    
+        target = tmp_path / "figure"
+        with pytest.raises(OSError, match="simulated"):
+>           plot.publish_figure(target, {}, failing_renderer)
+            ^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module 'support_plot' has no attribute 'publish_figure'
+
+tests\unit\test_support_plot.py:28: AttributeError
+____________________ test_plot_preserves_existing_artifact ____________________
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3733/test_plot_preserves_existing_a0')
+
+    def test_plot_preserves_existing_artifact(tmp_path: Path) -> None:
+        target = tmp_path / "figure"
+        target.mkdir()
+        marker = target / "retained.txt"
+        marker.write_text("existing")
+        with pytest.raises(FileExistsError):
+>           plot.publish_figure(target, {}, lambda path: path.write_bytes(b"replacement"))
+            ^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module 'support_plot' has no attribute 'publish_figure'
+
+tests\unit\test_support_plot.py:39: AttributeError
+_______________ test_plot_manifest_failure_does_not_publish_png _______________
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3733/test_plot_manifest_failure_doe0')
+
+    def test_plot_manifest_failure_does_not_publish_png(tmp_path: Path) -> None:
+        target = tmp_path / "figure"
+        with pytest.raises(ValueError):
+>           plot.publish_figure(target, {"invalid": float("nan")}, lambda path: path.write_bytes(b"fixture"))
+            ^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module 'support_plot' has no attribute 'publish_figure'
+
+tests\unit\test_support_plot.py:46: AttributeError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_support_plot.py::test_plot_rejects_missing_result_review
+FAILED tests/unit/test_support_plot.py::test_plot_publication_failure_leaves_no_final_artifact
+FAILED tests/unit/test_support_plot.py::test_plot_preserves_existing_artifact
+FAILED tests/unit/test_support_plot.py::test_plot_manifest_failure_does_not_publish_png
+4 failed in 3.46s

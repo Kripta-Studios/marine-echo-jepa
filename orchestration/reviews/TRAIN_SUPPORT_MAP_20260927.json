@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "review_id": "TRAIN_SUPPORT_MAP_20260927",
+  "reviewer_session": "/root/continuation_review",
+  "disposition": "APPROVE_TRAIN_SUPPORT_MAP_METHOD",
+  "reviewed_contract_sha256": "43781ca5e2b00cab52c0729cde0d969a53a985622f39d4dfe0ecc71616d9f32f",
+  "reviewed_code_sha256": "b75c44b849c56d0cdaab096796ad9dc70dcee5a2128fbdb8ef6edfaaf0efef86",
+  "reviewed_test_sha256": "5d345a3842002073913e46009a290a9aec4f595592bf28d930acb3b870e8e0ae",
+  "green_log_sha256": "8b870e4d88575b0974ee1db52d8b0e96fdc268909cbabbf8f1b979a7192606bb",
+  "scope": "Exact complete census-v2 TRAIN ping-count support map only; no Sv values, held-out payloads, benchmark, target amendment, band selection, corpus promotion, or model claim",
+  "conditions": [
+    "Execute only after the exact completed v2 census, strict report, and original v2 target-only report pass all built-in lineage checks",
+    "Preserve the exclusive report and all source hashes; any code or contract change requires new independent review",
+    "Interpret every cell as descriptive TRAIN QC support only"
+  ]
+}

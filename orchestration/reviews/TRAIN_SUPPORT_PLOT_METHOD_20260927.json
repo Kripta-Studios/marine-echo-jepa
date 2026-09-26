@@ -1,0 +1,20 @@
+{
+  "record_type": "COORDINATOR_TRANSCRIPTION_OF_DISTINCT_REVIEWER_MESSAGE",
+  "reviewer_session": "/root/continuation_review",
+  "disposition": "APPROVED_PROSPECTIVE_COUNT_MAP_PLOT_ONLY",
+  "reviewed_code_sha256": "03f26fbd0a143f166c272afd93afe311b1786cef90c270fad64d304540a190bd",
+  "reviewed_test_sha256": "fafc9c839c42a1789604d9c2f6f59c536b3c428d7d3f60c186e2a3e03c38587d",
+  "green_log_sha256": "61b4d470fdd42b1654ac807742369ce8830ac158f81555afd87a92d20997dca6",
+  "scope": "All 100 TRAIN days, four native frequencies and 64 range cells; daily count ratios, fixed 0\u20131 scale, no ranking/cropping/Sv/model metrics.",
+  "condition": "Do not execute until independently accepted actual support-map report SHA and exact plot-code SHA are recorded in TRAIN_SUPPORT_MAP_RESULT_20260927.json. Actual rendering and visual inspection remain NOT_RUN.",
+  "publication": "Windows no-replace directory rename of staged, fsynced PNG and provenance; synthetic rendering/manifest/race failures preserve prior output and clean own stage.",
+  "not_approved": [
+    "R0",
+    "R1",
+    "R2",
+    "target amendment",
+    "band selection",
+    "benchmark",
+    "release"
+  ]
+}

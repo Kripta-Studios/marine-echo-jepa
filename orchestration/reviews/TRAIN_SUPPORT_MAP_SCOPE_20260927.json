@@ -1,0 +1,22 @@
+{
+  "record_type": "COORDINATOR_TRANSCRIPTION_OF_DISTINCT_REVIEWER_MESSAGE",
+  "reviewer_session": "/root/continuation_review",
+  "disposition": "APPROVE_BOUNDED_TRAIN_SUPPORT_MAP_SCOPE_ONLY",
+  "basis": [
+    "docs/03_ACOUSTIC_DATA_CONTRACT.md allows exact grid and band to freeze after TRAIN-only metadata/QC, before validation comparison.",
+    "docs/06_EXPERIMENT_PROTOCOL.md preserves primary 38 kHz and unchanged 80% target support and 90/12/20 day requirements."
+  ],
+  "sequence": [
+    "Complete and preserve original 10–100 m census and target-only disposition.",
+    "Audit every native frequency and all 64 range bins under unchanged calibration/QC; report full map without ranking or model scores.",
+    "Any 38 kHz range amendment needs a physical/product rationale and independent approval, not an interval chosen to maximize eligible days.",
+    "Freeze any accepted amendment prospectively in a new protocol and ADR before held-out support processing or model comparison."
+  ],
+  "limits": [
+    "No specific alternate band or frequency is justified yet.",
+    "Frequency substitution is a more material amended/exploratory target and cannot silently replace original confirmatory P0.",
+    "No threshold weakening, favorable-band sweep, held-out payload access, R0/R1 approval or corpus promotion.",
+    "If no scientifically meaningful band exists, preserve D1 ineligibility."
+  ],
+  "code_review": "PENDING_IMPLEMENTATION"
+}
