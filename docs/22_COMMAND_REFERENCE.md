@@ -55,3 +55,47 @@ wrapping tested commands after those commands exist. Do not ship an empty stub a
 Frontend package scripts must expose format:check, lint, typecheck, test:run, build and test:e2e.
 Release README must include the actual supported lock/env and startup commands, not a generic
 Docker instruction that was never executed on Windows.
+
+
+## Current continuation commands and limits
+
+Use the existing project `.venv` for the acoustic data/app path. The existing separate CUDA
+environment is retained for model software; these commands do not install or replace either.
+The original interface above remains the acceptance contract, not a statement that every
+scientific command has been completed.
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Continue-Local.ps1 -Stage TrainCensus
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Continue-Local.ps1 -Stage Eligibility
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Continue-Local.ps1 -Stage Campaign
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Continue-Local.ps1 -Stage Checks
+```
+
+`TrainCensus` is the independently reviewed TRAIN-only, one-process acoustic coverage census.
+The repaired v2 generation preserves the failed v1 generation and compares all previously
+completed arrays exactly. It resumes only matching completed days and stops on failure or
+resource limits. It neither trains a model nor opens held-out acoustic data.
+
+`Eligibility` requires the complete exact census and applies the separately reviewed generous
+target-only support bound. A successful command means the calculation completed, not that
+the dataset passed the90-day gate. Read its explicit disposition.
+
+`Campaign` performs a read-only prerequisite inspection and preserves the existing registry.
+It exits2 while the real canonical corpus, R0/R1 and real executor adapters are unavailable.
+The synthetic25-slot scheduler tests do not implement the real campaign. No command here
+approves R2 or freezes/opens the final test. `Checks` runs software/browser/offline tests;
+passing them does not change the scientific gates.
+
+
+The separately reviewed, count-only full TRAIN support map runs only after both
+preceding stages complete. It validates its exact independent method-review record,
+all 100 daily artifacts and the original-band target-only result. It refuses to
+overwrite its output and cannot select or approve a replacement target:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/Continue-Local.ps1 -Stage SupportMap
+```
+
+The optional full-map figure additionally requires independent acceptance of the
+actual map bytes and exact plotting code. Neither command starts a model or opens
+held-out acoustic payloads.

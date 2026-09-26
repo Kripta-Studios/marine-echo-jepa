@@ -42,6 +42,10 @@ def test_blocked_campaign_does_not_overwrite_existing_evidence(tmp_path, monkeyp
     )
     assert result.exit_code == 2
     assert registry.read_bytes() == original
+    report = json.loads(result.stdout)
+    assert report["preflight"]["can_execute"] is False
+    assert report["preflight"]["new_benchmark_runs"] == 0
+    assert "REAL_EXECUTOR_MISSING" in report["preflight"]["blockers"]
 
 
 @pytest.mark.parametrize("status", ["FAILED", "RUNNING", "COMPLETED_SYNTHETIC_FIXTURE"])

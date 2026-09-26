@@ -1,0 +1,293 @@
+{
+  "operation": "complete-p0",
+  "status": "BLOCKED",
+  "reason": "No eligible independently reviewed physical-unit corpus or completed benchmark is available. Calibration assumptions and TRAIN-only QC evidence do not authorize forecasts.",
+  "executor_status": "NOT_IMPLEMENTED",
+  "existing_registry_preserved": true,
+  "registry": {
+    "schema_version": "1.0",
+    "protocol_id": "acoustic_v1_preimplementation",
+    "status": "BLOCKED",
+    "runs": [
+      {
+        "run_id": "persistence-seed7",
+        "family": "persistence",
+        "seed": 7,
+        "phase": "selected",
+        "status": "BLOCKED",
+        "metrics": null,
+        "reason": "Primary environmental calibration provenance is unresolved (ADR0002). No eligible physical-unit benchmark corpus exists.",
+        "updates": 0
+      },
+      {
+        "run_id": "seasonal-seed7",
+        "family": "seasonal",
+        "seed": 7,
+        "phase": "selected",
+        "status": "BLOCKED",
+        "metrics": null,
+        "reason": "Primary environmental calibration provenance is unresolved (ADR0002). No eligible physical-unit benchmark corpus exists.",
+        "updates": 0
+      },
+      {
+        "run_id": "ridge-seed7",
+        "family": "ridge",
+        "seed": 7,
+        "phase": "selected",
+        "status": "BLOCKED",
+        "metrics": null,
+        "reason": "Primary environmental calibration provenance is unresolved (ADR0002). No eligible physical-unit benchmark corpus exists.",
+        "updates": 0
+      },
+      {
+        "run_id": "hist_gradient_boosting-seed7",
+        "family": "hist_gradient_boosting",
+        "seed": 7,
+        "phase": "selected",
+        "status": "BLOCKED",
+        "metrics": null,
+        "reason": "Primary environmental calibration provenance is unresolved (ADR0002). No eligible physical-unit benchmark corpus exists.",
+        "updates": 0
+      },
+      {
+        "run_id": "direct-seed7",
+        "family": "direct",
+        "seed": 7,
+        "phase": "selected",
+        "status": "BLOCKED",
+        "metrics": null,
+        "reason": "Primary environmental calibration provenance is unresolved (ADR0002). No eligible physical-unit benchmark corpus exists.",
+        "updates": 0
+      },
+      {
+        "run_id": "direct-seed13",
+        "family": "direct",
+        "seed": 13,
+        "phase": "selected",
+        "status": "BLOCKED",
+        "metrics": null,
+        "reason": "Primary environmental calibration provenance is unresolved (ADR0002). No eligible physical-unit benchmark corpus exists.",
+        "updates": 0
+      },
+      {
+        "run_id": "direct-seed23",
+        "family": "direct",
+        "seed": 23,
+        "phase": "selected",
+        "status": "BLOCKED",
+        "metrics": null,
+        "reason": "Primary environmental calibration provenance is unresolved (ADR0002). No eligible physical-unit benchmark corpus exists.",
+        "updates": 0
+      },
+      {
+        "run_id": "ema_jepa-seed7",
+        "family": "ema_jepa",
+        "seed": 7,
+        "phase": "selected",
+        "status": "BLOCKED",
+        "metrics": null,
+        "reason": "Primary environmental calibration provenance is unresolved (ADR0002). No eligible physical-unit benchmark corpus exists.",
+        "updates": 0
+      },
+      {
+        "run_id": "ema_jepa-seed13",
+        "family": "ema_jepa",
+        "seed": 13,
+        "phase": "selected",
+        "status": "BLOCKED",
+        "metrics": null,
+        "reason": "Primary environmental calibration provenance is unresolved (ADR0002). No eligible physical-unit benchmark corpus exists.",
+        "updates": 0
+      },
+      {
+        "run_id": "ema_jepa-seed23",
+        "family": "ema_jepa",
+        "seed": 23,
+        "phase": "selected",
+        "status": "BLOCKED",
+        "metrics": null,
+        "reason": "Primary environmental calibration provenance is unresolved (ADR0002). No eligible physical-unit benchmark corpus exists.",
+        "updates": 0
+      },
+      {
+        "run_id": "shared_sigreg-seed7",
+        "family": "shared_sigreg",
+        "seed": 7,
+        "phase": "selected",
+        "status": "BLOCKED",
+        "metrics": null,
+        "reason": "Primary environmental calibration provenance is unresolved (ADR0002). No eligible physical-unit benchmark corpus exists.",
+        "updates": 0
+      },
+      {
+        "run_id": "shared_sigreg-seed13",
+        "family": "shared_sigreg",
+        "seed": 13,
+        "phase": "selected",
+        "status": "BLOCKED",
+        "metrics": null,
+        "reason": "Primary environmental calibration provenance is unresolved (ADR0002). No eligible physical-unit benchmark corpus exists.",
+        "updates": 0
+      },
+      {
+        "run_id": "shared_sigreg-seed23",
+        "family": "shared_sigreg",
+        "seed": 23,
+        "phase": "selected",
+        "status": "BLOCKED",
+        "metrics": null,
+        "reason": "Primary environmental calibration provenance is unresolved (ADR0002). No eligible physical-unit benchmark corpus exists.",
+        "updates": 0
+      },
+      {
+        "run_id": "ema_jepa_plus_raw-seed7",
+        "family": "ema_jepa_plus_raw",
+        "seed": 7,
+        "phase": "selected",
+        "status": "BLOCKED",
+        "metrics": null,
+        "reason": "Primary environmental calibration provenance is unresolved (ADR0002). No eligible physical-unit benchmark corpus exists.",
+        "updates": 0
+      },
+      {
+        "run_id": "shared_sigreg_plus_raw-seed7",
+        "family": "shared_sigreg_plus_raw",
+        "seed": 7,
+        "phase": "selected",
+        "status": "BLOCKED",
+        "metrics": null,
+        "reason": "Primary environmental calibration provenance is unresolved (ADR0002). No eligible physical-unit benchmark corpus exists.",
+        "updates": 0
+      },
+      {
+        "run_id": "direct-development0-seed7",
+        "family": "direct",
+        "seed": 7,
+        "phase": "development",
+        "status": "BLOCKED",
+        "metrics": null,
+        "reason": "Primary environmental calibration provenance is unresolved (ADR0002). No eligible physical-unit benchmark corpus exists.",
+        "updates": 0
+      },
+      {
+        "run_id": "direct-development1-seed7",
+        "family": "direct",
+        "seed": 7,
+        "phase": "development",
+        "status": "BLOCKED",
+        "metrics": null,
+        "reason": "Primary environmental calibration provenance is unresolved (ADR0002). No eligible physical-unit benchmark corpus exists.",
+        "updates": 0
+      },
+      {
+        "run_id": "ema_jepa-development0-seed7",
+        "family": "ema_jepa",
+        "seed": 7,
+        "phase": "development",
+        "status": "BLOCKED",
+        "metrics": null,
+        "reason": "Primary environmental calibration provenance is unresolved (ADR0002). No eligible physical-unit benchmark corpus exists.",
+        "updates": 0
+      },
+      {
+        "run_id": "ema_jepa-development1-seed7",
+        "family": "ema_jepa",
+        "seed": 7,
+        "phase": "development",
+        "status": "BLOCKED",
+        "metrics": null,
+        "reason": "Primary environmental calibration provenance is unresolved (ADR0002). No eligible physical-unit benchmark corpus exists.",
+        "updates": 0
+      },
+      {
+        "run_id": "shared_sigreg-development0-seed7",
+        "family": "shared_sigreg",
+        "seed": 7,
+        "phase": "development",
+        "status": "BLOCKED",
+        "metrics": null,
+        "reason": "Primary environmental calibration provenance is unresolved (ADR0002). No eligible physical-unit benchmark corpus exists.",
+        "updates": 0
+      },
+      {
+        "run_id": "shared_sigreg-development1-seed7",
+        "family": "shared_sigreg",
+        "seed": 7,
+        "phase": "development",
+        "status": "BLOCKED",
+        "metrics": null,
+        "reason": "Primary environmental calibration provenance is unresolved (ADR0002). No eligible physical-unit benchmark corpus exists.",
+        "updates": 0
+      },
+      {
+        "run_id": "ema_jepa-random_encoder-seed7",
+        "family": "ema_jepa",
+        "seed": 7,
+        "phase": "random_encoder",
+        "status": "BLOCKED",
+        "metrics": null,
+        "reason": "Primary environmental calibration provenance is unresolved (ADR0002). No eligible physical-unit benchmark corpus exists.",
+        "updates": 0
+      },
+      {
+        "run_id": "ema_jepa-shuffled_future-seed7",
+        "family": "ema_jepa",
+        "seed": 7,
+        "phase": "shuffled_future",
+        "status": "BLOCKED",
+        "metrics": null,
+        "reason": "Primary environmental calibration provenance is unresolved (ADR0002). No eligible physical-unit benchmark corpus exists.",
+        "updates": 0
+      },
+      {
+        "run_id": "shared_sigreg-random_encoder-seed7",
+        "family": "shared_sigreg",
+        "seed": 7,
+        "phase": "random_encoder",
+        "status": "BLOCKED",
+        "metrics": null,
+        "reason": "Primary environmental calibration provenance is unresolved (ADR0002). No eligible physical-unit benchmark corpus exists.",
+        "updates": 0
+      },
+      {
+        "run_id": "shared_sigreg-shuffled_future-seed7",
+        "family": "shared_sigreg",
+        "seed": 7,
+        "phase": "shuffled_future",
+        "status": "BLOCKED",
+        "metrics": null,
+        "reason": "Primary environmental calibration provenance is unresolved (ADR0002). No eligible physical-unit benchmark corpus exists.",
+        "updates": 0
+      }
+    ],
+    "completed_benchmark_runs": 0,
+    "test_opened": false
+  },
+  "preflight": {
+    "status": "BLOCKED",
+    "can_execute": false,
+    "executor_status": "REAL_EXECUTOR_MISSING",
+    "new_benchmark_runs": 0,
+    "test_acoustic_values_opened_by_preflight": false,
+    "blockers": [
+      "PROTOCOL_NOT_REVIEWED",
+      "R0_NOT_APPROVED",
+      "R1_NOT_APPROVED",
+      "CENSUS_INCOMPLETE",
+      "CENSUS_ELIGIBILITY_MISSING",
+      "TARGET_ONLY_BOUND_MISSING",
+      "REAL_CORPUS_INTERFACE_MISSING",
+      "REAL_EXECUTOR_MISSING"
+    ],
+    "evidence_sha256": {
+      "reports/active/protocol.json": "8473ecb568d7c102521e7118197a2bbe61426df9d02a0ed7b73933f49ca7815b",
+      "orchestration/reviews/R0.json": "fc5b9855393920b79099e69082f4a3421a058dbdd6b3f64fac977cdd38398a81",
+      "orchestration/reviews/R1.json": "d13ac4b867e90ea6b684de3ad52036aadfd65d6d1f8540fe451dfd2f26a3e55a",
+      "orchestration/reviews/R0-R1-continuation-20260926.json": "a0dcc10866f3e5da8cc123b74fb74e6f13ff26897e8134827286167b4581e65d",
+      "evidence/continuation/train_census_execution.json": "43c6c3d62bb836f13d3f5b854f4a55bb27a02aed908d66faf36c64640397e24b",
+      "evidence/continuation/target_only_bound_contract.json": "774f7bcac90ca275eb486d243a5b3a20488814c1d1de2060bc8a188322dd769f",
+      "reports/active/training_registry.json": "6061823100962ded061123814acb8b20688c42f699036a590ca3afadd323fd69",
+      "tools/target_only_bound.py": "c2a558391536c84aaf5b410dd8058a8a5dc5dcb5d68523b5614d9b717b491b4a"
+    }
+  }
+}

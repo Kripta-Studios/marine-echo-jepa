@@ -1,6 +1,6 @@
 [CmdletBinding()]
 param(
-    [ValidateSet('Audit', 'Checks', 'Campaign')]
+    [ValidateSet('Audit', 'Checks', 'TrainCensus', 'Eligibility', 'SupportMap', 'Campaign')]
     [string]$Stage = 'Audit'
 )
 $ErrorActionPreference = 'Stop'
@@ -23,6 +23,21 @@ if ($Stage -eq 'Audit') {
 
 if ($Stage -eq 'Checks') {
     & $Python tools/check_continuation.py --browser
+    exit $LASTEXITCODE
+}
+
+if ($Stage -eq 'TrainCensus') {
+    & $Python tools/train_census_v2.py
+    exit $LASTEXITCODE
+}
+
+if ($Stage -eq 'Eligibility') {
+    & $Python tools/target_only_bound.py
+    exit $LASTEXITCODE
+}
+
+if ($Stage -eq 'SupportMap') {
+    & $Python tools/train_support_map.py
     exit $LASTEXITCODE
 }
 

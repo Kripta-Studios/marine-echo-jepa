@@ -167,6 +167,9 @@ def complete_p0(protocol: str = "active", resume: bool = False) -> None:
     """
     if protocol != "active":
         raise typer.BadParameter("Only the explicit active protocol is registered.")
+    from marine_echo.training.campaign_preflight import inspect_campaign_preflight
+
+    preflight = inspect_campaign_preflight(root_path())
     path = Path("reports/active/training_registry.json")
     if path.exists():
         registry = json.loads(path.read_text(encoding="utf-8"))
@@ -178,6 +181,7 @@ def complete_p0(protocol: str = "active", resume: bool = False) -> None:
                 "executor_status": "NOT_IMPLEMENTED",
                 "existing_registry_preserved": True,
                 "registry": registry,
+                "preflight": preflight,
             }
         )
     else:
@@ -185,7 +189,14 @@ def complete_p0(protocol: str = "active", resume: bool = False) -> None:
         path.parent.mkdir(parents=True, exist_ok=True)
         with path.open("x", encoding="utf-8") as stream:
             stream.write(json.dumps(registry, indent=2) + "\n")
-        emit({"status": "BLOCKED", "executor_status": "NOT_IMPLEMENTED", "registry": registry})
+        emit(
+            {
+                "status": "BLOCKED",
+                "executor_status": "NOT_IMPLEMENTED",
+                "registry": registry,
+                "preflight": preflight,
+            }
+        )
     raise typer.Exit(2)
 
 
