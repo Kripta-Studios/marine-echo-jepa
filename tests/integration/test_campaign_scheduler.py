@@ -221,6 +221,7 @@ def test_tamper_lock_config_and_real_scope_fail_closed(tmp_path: Path) -> None:
         "attempt_metric",
         "reuse_flag",
         "selected_configuration",
+        "attempt_number_bool",
         "completed_to_pending",
     ],
 )
@@ -248,6 +249,8 @@ def test_resume_rejects_tampered_ledger_fields(tmp_path: Path, mutation: str) ->
         run["attempts"][-1]["reusable_seed7"] = False
     elif mutation == "selected_configuration":
         ledger["runs"]["direct-seed13"]["configuration"] = 0
+    elif mutation == "attempt_number_bool":
+        run["attempts"][-1]["number"] = True
     else:
         run["status"] = "PENDING"
     path.write_text(json.dumps(ledger), encoding="utf-8")
@@ -353,3 +356,61 @@ def test_resume_rejects_boolean_numeric_tamper(tmp_path: Path, mutation: str) ->
     path.write_text(json.dumps(ledger), encoding="utf-8")
     with pytest.raises(ValueError, match="ledger|configuration|selection|provenance"):
         run_campaign(**kwargs)
+
+
+@pytest.mark.parametrize("mutation", ["counter_mismatch", "complete_as_partial"])
+def test_resume_requires_exact_completion_count_and_status(tmp_path: Path, mutation: str) -> None:
+    executors = _executors([])
+    if mutation == "counter_mismatch":
+        del executors["direct"]
+    kwargs = {
+        "root": tmp_path / "campaign",
+        "trainer_lock": tmp_path / "trainer.lock",
+        "config": _config(tmp_path),
+        "identity": _identity(),
+        "executors": executors,
+    }
+    run_campaign(**kwargs)
+    path = tmp_path / "campaign/campaign.json"
+    ledger = json.loads(path.read_text(encoding="utf-8"))
+    if mutation == "counter_mismatch":
+        ledger["fixture_completed_slots"] -= 1
+    else:
+        ledger["status"] = "PARTIAL_FIXTURE"
+    path.write_text(json.dumps(ledger), encoding="utf-8")
+    with pytest.raises(ValueError, match="ledger|count|status"):
+        run_campaign(**kwargs)
+
+
+def test_interrupted_ledger_publishes_exact_count_before_resume(tmp_path: Path) -> None:
+    executors = _executors([])
+    original = executors["direct"]
+    interrupted = False
+
+    def interrupt_once(slot, context):
+        nonlocal interrupted
+        if slot.run_id == "direct-development0-seed7" and not interrupted:
+            interrupted = True
+            raise KeyboardInterrupt
+        return original(slot, context)
+
+    executors["direct"] = interrupt_once
+    kwargs = {
+        "root": tmp_path / "campaign",
+        "trainer_lock": tmp_path / "trainer.lock",
+        "config": _config(tmp_path),
+        "identity": _identity(),
+        "executors": executors,
+    }
+    with pytest.raises(KeyboardInterrupt):
+        run_campaign(**kwargs)
+    ledger = json.loads((tmp_path / "campaign/campaign.json").read_text(encoding="utf-8"))
+    assert ledger["fixture_completed_slots"] == 4
+    assert ledger["status"] == "PARTIAL_FIXTURE"
+    assert ledger["runs"]["direct-development0-seed7"]["status"] == "RUNNING_FIXTURE"
+    resumed = run_campaign(**kwargs)
+    assert resumed["fixture_completed_slots"] == 25
+    assert (
+        resumed["runs"]["direct-development0-seed7"]["attempts"][0]["status"]
+        == "INTERRUPTED_FIXTURE"
+    )

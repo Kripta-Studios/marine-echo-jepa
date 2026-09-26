@@ -1,0 +1,3 @@
+C:\Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa-core/src/marine_echo/training\campaign.py
+........................                                                 [100%]
+24 passed in 4.64s

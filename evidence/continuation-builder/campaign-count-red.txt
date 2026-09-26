@@ -1,0 +1,119 @@
+......F.FF                                                               [100%]
+================================== FAILURES ===================================
+_______ test_resume_rejects_tampered_ledger_fields[attempt_number_bool] _______
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3677/test_resume_rejects_tampered_l6')
+mutation = 'attempt_number_bool'
+
+    @pytest.mark.parametrize(
+        "mutation",
+        [
+            "selection",
+            "dependencies",
+            "family",
+            "attempt_metric",
+            "reuse_flag",
+            "selected_configuration",
+            "attempt_number_bool",
+            "completed_to_pending",
+        ],
+    )
+    def test_resume_rejects_tampered_ledger_fields(tmp_path: Path, mutation: str) -> None:
+        kwargs = {
+            "root": tmp_path / "campaign",
+            "trainer_lock": tmp_path / "trainer.lock",
+            "config": _config(tmp_path),
+            "identity": _identity(),
+            "executors": _executors([]),
+        }
+        run_campaign(**kwargs)
+        path = tmp_path / "campaign/campaign.json"
+        ledger = json.loads(path.read_text(encoding="utf-8"))
+        run = ledger["runs"]["direct-development1-seed7"]
+        if mutation == "selection":
+            ledger["selected_configs"]["direct"] = 0
+        elif mutation == "dependencies":
+            ledger["runs"]["direct-seed13"]["dependencies"] = []
+        elif mutation == "family":
+            run["family"] = "ema_jepa"
+        elif mutation == "attempt_metric":
+            run["attempts"][-1]["validation_metric"] = 999.0
+        elif mutation == "reuse_flag":
+            run["attempts"][-1]["reusable_seed7"] = False
+        elif mutation == "selected_configuration":
+            ledger["runs"]["direct-seed13"]["configuration"] = 0
+        elif mutation == "attempt_number_bool":
+            run["attempts"][-1]["number"] = True
+        else:
+            run["status"] = "PENDING"
+        path.write_text(json.dumps(ledger), encoding="utf-8")
+>       with pytest.raises(ValueError, match="ledger|attempt|selection|reuse"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\integration\test_campaign_scheduler.py:257: Failed
+__ test_resume_requires_exact_completion_count_and_status[counter_mismatch] ___
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3677/test_resume_requires_exact_com0')
+mutation = 'counter_mismatch'
+
+    @pytest.mark.parametrize("mutation", ["counter_mismatch", "complete_as_partial"])
+    def test_resume_requires_exact_completion_count_and_status(tmp_path: Path, mutation: str) -> None:
+        executors = _executors([])
+        if mutation == "counter_mismatch":
+            del executors["direct"]
+        kwargs = {
+            "root": tmp_path / "campaign",
+            "trainer_lock": tmp_path / "trainer.lock",
+            "config": _config(tmp_path),
+            "identity": _identity(),
+            "executors": executors,
+        }
+        run_campaign(**kwargs)
+        path = tmp_path / "campaign/campaign.json"
+        ledger = json.loads(path.read_text(encoding="utf-8"))
+        if mutation == "counter_mismatch":
+            ledger["fixture_completed_slots"] -= 1
+        else:
+            ledger["status"] = "PARTIAL_FIXTURE"
+        path.write_text(json.dumps(ledger), encoding="utf-8")
+>       with pytest.raises(ValueError, match="ledger|count|status"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\integration\test_campaign_scheduler.py:381: Failed
+_ test_resume_requires_exact_completion_count_and_status[complete_as_partial] _
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3677/test_resume_requires_exact_com1')
+mutation = 'complete_as_partial'
+
+    @pytest.mark.parametrize("mutation", ["counter_mismatch", "complete_as_partial"])
+    def test_resume_requires_exact_completion_count_and_status(tmp_path: Path, mutation: str) -> None:
+        executors = _executors([])
+        if mutation == "counter_mismatch":
+            del executors["direct"]
+        kwargs = {
+            "root": tmp_path / "campaign",
+            "trainer_lock": tmp_path / "trainer.lock",
+            "config": _config(tmp_path),
+            "identity": _identity(),
+            "executors": executors,
+        }
+        run_campaign(**kwargs)
+        path = tmp_path / "campaign/campaign.json"
+        ledger = json.loads(path.read_text(encoding="utf-8"))
+        if mutation == "counter_mismatch":
+            ledger["fixture_completed_slots"] -= 1
+        else:
+            ledger["status"] = "PARTIAL_FIXTURE"
+        path.write_text(json.dumps(ledger), encoding="utf-8")
+>       with pytest.raises(ValueError, match="ledger|count|status"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\integration\test_campaign_scheduler.py:381: Failed
+=========================== short test summary info ===========================
+FAILED tests/integration/test_campaign_scheduler.py::test_resume_rejects_tampered_ledger_fields[attempt_number_bool]
+FAILED tests/integration/test_campaign_scheduler.py::test_resume_requires_exact_completion_count_and_status[counter_mismatch]
+FAILED tests/integration/test_campaign_scheduler.py::test_resume_requires_exact_completion_count_and_status[complete_as_partial]
+3 failed, 7 passed in 2.17s

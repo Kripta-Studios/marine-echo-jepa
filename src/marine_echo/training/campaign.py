@@ -205,6 +205,13 @@ def _new_ledger(
     }
 
 
+def _publish_ledger(path: Path, ledger: dict[str, Any]) -> None:
+    completed = sum(run["status"] in SUCCESS for run in ledger["runs"].values())
+    ledger["fixture_completed_slots"] = completed
+    ledger["status"] = "COMPLETE_FIXTURE" if completed == 25 else "PARTIAL_FIXTURE"
+    _atomic_json(path, ledger)
+
+
 def _valid_metric(value: Any) -> bool:
     return type(value) in (float, int) and bool(np.isfinite(value)) and value >= 0
 
@@ -303,8 +310,13 @@ def _verify_completed(ledger: dict[str, Any], slots: tuple[CampaignSlot, ...], r
                     "reusable_seed7",
                 },
             }.get(status)
-            if expected_keys is None or set(attempt) != expected_keys or attempt["number"] != index:
-                raise ValueError("Campaign attempt schema differs from recorded execution.")
+        if (
+            expected_keys is None
+            or set(attempt) != expected_keys
+            or type(attempt["number"]) is not int
+            or attempt["number"] != index
+        ):
+            raise ValueError("Campaign attempt schema differs from recorded execution.")
             if status == "RUNNING_FIXTURE" and index != len(attempts):
                 raise ValueError("Campaign attempt history has an unfinished earlier attempt.")
             if status == "COMPLETED_FIXTURE" and index != len(attempts):
@@ -433,12 +445,13 @@ def _verify_completed(ledger: dict[str, Any], slots: tuple[CampaignSlot, ...], r
                 raise ValueError("Campaign ledger selected configuration differs from validation.")
         elif run["configuration"] is not None:
             raise ValueError("Campaign ledger unattempted configuration is invalid.")
-    if ledger["status"] == "COMPLETE_FIXTURE" and (
-        set(ledger["selected_configs"]) != set(calculated)
-        or sum(run["status"] in SUCCESS for run in ledger["runs"].values()) != 25
-        or ledger["fixture_completed_slots"] != 25
+    completed = sum(run["status"] in SUCCESS for run in ledger["runs"].values())
+    if (
+        ledger["fixture_completed_slots"] != completed
+        or ledger["status"] != ("COMPLETE_FIXTURE" if completed == 25 else "PARTIAL_FIXTURE")
+        or (completed == 25 and set(ledger["selected_configs"]) != set(calculated))
     ):
-        raise ValueError("Campaign complete ledger counts or selection differ from plan.")
+        raise ValueError("Campaign ledger completion count, status or selection differs from plan.")
 
 
 def _selection(ledger: dict[str, Any], family: str) -> int | None:
@@ -492,7 +505,7 @@ def _execute(
     run["configuration"] = (
         slot.configuration if slot.phase == "development" else selected_configuration
     )
-    _atomic_json(ledger_path, ledger)
+    _publish_ledger(ledger_path, ledger)
     try:
         result = executor(
             slot,
@@ -544,7 +557,7 @@ def _execute(
     except Exception as error:  # noqa: BLE001 - record executor failures without losing attempts
         attempt.update({"status": "FAILED_FIXTURE", "reason": f"{type(error).__name__}: {error}"})
         run["status"] = "FAILED_FIXTURE"
-    _atomic_json(ledger_path, ledger)
+    _publish_ledger(ledger_path, ledger)
 
 
 def run_campaign(
@@ -599,7 +612,7 @@ def run_campaign(
             _verify_completed(ledger, slots, root)
         else:
             ledger = expected
-            _atomic_json(ledger_path, ledger)
+            _publish_ledger(ledger_path, ledger)
         for slot in slots:
             if not _owns_lock(trainer_lock, lock_content):
                 raise ValueError("Campaign trainer lock ownership was lost; replacement preserved.")
@@ -609,7 +622,7 @@ def run_campaign(
             if run["status"] == "RUNNING_FIXTURE":
                 run["attempts"][-1]["status"] = "INTERRUPTED_FIXTURE"
                 run["status"] = "FAILED_FIXTURE"
-                _atomic_json(ledger_path, ledger)
+                _publish_ledger(ledger_path, ledger)
             if len(run["attempts"]) >= MAX_ATTEMPTS:
                 run["status"] = "BLOCKED_ATTEMPT_LIMIT"
                 continue
@@ -628,21 +641,14 @@ def run_campaign(
             if selected_configuration is not None and _reuse_seed7(
                 ledger, slot, selected_configuration
             ):
-                _atomic_json(ledger_path, ledger)
+                _publish_ledger(ledger_path, ledger)
                 continue
             executor = executors.get(slot.family)
             if executor is None:
                 run["status"] = "BLOCKED_EXECUTOR"
                 continue
             _execute(ledger, slot, executor, root, ledger_path, selected_configuration)
-        ledger["fixture_completed_slots"] = sum(
-            run["status"] in SUCCESS for run in ledger["runs"].values()
-        )
-        ledger["completed_benchmark_runs"] = 0
-        ledger["status"] = (
-            "COMPLETE_FIXTURE" if ledger["fixture_completed_slots"] == 25 else "PARTIAL_FIXTURE"
-        )
-        _atomic_json(ledger_path, ledger)
+        _publish_ledger(ledger_path, ledger)
         return ledger
     finally:
         if not _owns_lock(trainer_lock, lock_content):
