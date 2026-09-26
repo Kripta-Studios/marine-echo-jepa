@@ -2,7 +2,7 @@
 
 Status: T02 real access and parsing **partially complete; physical calibration blocked**. T05 transactional local ZIP extraction **implemented and executed**; canonical calibrated shards and D02/D03/D05 remain pending. This increment is not a completed P0 experiment.
 
-Dependencies: T01 runtime preflight was supplied by the leader. Session `/root/core`, configured native role `sol_builder` in `.codex/agents/sol_builder.toml` (`gpt-6-sol`, effort `high`); no independent provider-side binding attestation is exposed. Branch `impl/core`, isolated worktree `marine-echo-jepa-core`. Commit: recorded in Git after this report is written.
+Dependencies: T01 runtime preflight was supplied by the leader. Session `/root/core`, configured native role `sol_builder` in `.codex/agents/sol_builder.toml` (`gpt-6-sol`, effort `high`); no independent provider-side binding attestation is exposed. Branch `impl/core`, isolated worktree `marine-echo-jepa-core`. Implementation commit: `e945951984b126856a9dc202d98da3858cdbcaab`.
 
 Owned paths: `src/marine_echo/data/`, `tests/security/`, `tests/unit/`, `tests/integration/`, `tools/local_data*.py`, `data/manifests/`, `evidence/data/`, this report. No raw source file was modified or downloaded.
 
