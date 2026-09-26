@@ -1,0 +1,24 @@
+C:\Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa-core/src/marine_echo/training\data_adapter.py
+F                                                                        [100%]
+================================== FAILURES ===================================
+_________________ test_adapter_rejects_manifest_source_tamper _________________
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3639/test_adapter_rejects_manifest_0')
+
+    def test_adapter_rejects_manifest_source_tamper(tmp_path: Path) -> None:
+        store = _store(tmp_path)
+        manifest_path = tmp_path / "canonical/processing_manifest.json"
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        extra = manifest["shards"]["2020-01-03"]["source_file_ids"][0]
+        manifest["shards"]["2020-01-01"]["source_file_ids"].append(extra)
+        manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+        adapter = CanonicalWindowAdapter(store, _bounds(), fixture_only=True)
+>       with pytest.raises(ValueError, match="source provenance"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\integration\test_canonical_baseline.py:173: Failed
+=========================== short test summary info ===========================
+FAILED tests/integration/test_canonical_baseline.py::test_adapter_rejects_manifest_source_tamper
+1 failed, 5 deselected in 17.54s
+exit=1

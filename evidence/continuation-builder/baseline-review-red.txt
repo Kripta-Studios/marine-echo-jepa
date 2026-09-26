@@ -1,0 +1,79 @@
+C:\Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa-core/src/marine_echo/training\data_adapter.py
+FFF                                                                      [100%]
+================================== FAILURES ===================================
+___ test_adapter_rejects_train_test_source_registration_without_test_values ___
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3641/test_adapter_rejects_train_tes0')
+
+    def test_adapter_rejects_train_test_source_registration_without_test_values(tmp_path: Path) -> None:
+        store = _store(tmp_path)
+        manifest_path = tmp_path / "canonical/processing_manifest.json"
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        train_source = manifest["shards"]["2020-01-01"]["source_file_ids"][0]
+        manifest["shards"]["2020-01-08"]["source_file_ids"].append(train_source)
+        manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+>       with pytest.raises(ValueError, match="across partitions"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\integration\test_canonical_baseline.py:172: Failed
+____ test_adapter_rejects_grid_incompatible_with_fixed_baselines[reorder] _____
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3641/test_adapter_rejects_grid_inco0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002CA07BF4710>
+mutation = 'reorder'
+
+    @pytest.mark.parametrize("mutation", ["reorder", "irregular"])
+    def test_adapter_rejects_grid_incompatible_with_fixed_baselines(
+        tmp_path: Path, monkeypatch, mutation: str
+    ) -> None:
+        adapter = CanonicalWindowAdapter(_store(tmp_path), _bounds(), fixture_only=True)
+        original = adapter.store.load_day
+    
+        def altered(day: str):
+            series = original(day)
+            if mutation == "reorder":
+                return replace(series, frequency_hz=np.array([125000, 38000, 200000, 455000]))
+            edges = series.range_edges_m.copy()
+            edges[10] += 0.5
+            return replace(series, range_edges_m=edges)
+    
+        monkeypatch.setattr(adapter.store, "load_day", altered)
+>       with pytest.raises(ValueError, match="fixed baseline grid"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\integration\test_canonical_baseline.py:192: Failed
+___ test_adapter_rejects_grid_incompatible_with_fixed_baselines[irregular] ____
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3641/test_adapter_rejects_grid_inco1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002CA07CBC140>
+mutation = 'irregular'
+
+    @pytest.mark.parametrize("mutation", ["reorder", "irregular"])
+    def test_adapter_rejects_grid_incompatible_with_fixed_baselines(
+        tmp_path: Path, monkeypatch, mutation: str
+    ) -> None:
+        adapter = CanonicalWindowAdapter(_store(tmp_path), _bounds(), fixture_only=True)
+        original = adapter.store.load_day
+    
+        def altered(day: str):
+            series = original(day)
+            if mutation == "reorder":
+                return replace(series, frequency_hz=np.array([125000, 38000, 200000, 455000]))
+            edges = series.range_edges_m.copy()
+            edges[10] += 0.5
+            return replace(series, range_edges_m=edges)
+    
+        monkeypatch.setattr(adapter.store, "load_day", altered)
+>       with pytest.raises(ValueError, match="fixed baseline grid"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\integration\test_canonical_baseline.py:192: Failed
+=========================== short test summary info ===========================
+FAILED tests/integration/test_canonical_baseline.py::test_adapter_rejects_train_test_source_registration_without_test_values
+FAILED tests/integration/test_canonical_baseline.py::test_adapter_rejects_grid_incompatible_with_fixed_baselines[reorder]
+FAILED tests/integration/test_canonical_baseline.py::test_adapter_rejects_grid_incompatible_with_fixed_baselines[irregular]
+3 failed, 6 deselected in 19.09s
+exit=1

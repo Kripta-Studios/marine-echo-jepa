@@ -147,7 +147,7 @@ def test_adapter_rejects_cross_day_grid_mutation(tmp_path: Path, monkeypatch) ->
         return series
 
     monkeypatch.setattr(adapter.store, "load_day", altered)
-    with pytest.raises(ValueError, match="grids or provenance"):
+    with pytest.raises(ValueError, match="fixed baseline grid"):
         adapter.materialize("train", max_windows=128)
 
 
@@ -158,8 +158,51 @@ def test_adapter_rejects_cross_partition_source_registration(tmp_path: Path) -> 
     train_source = manifest["shards"]["2020-01-01"]["source_file_ids"][0]
     manifest["shards"]["2020-01-04"]["source_file_ids"].append(train_source)
     manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
-    with pytest.raises(ValueError, match="across train and validation"):
+    with pytest.raises(ValueError, match="across partitions"):
         CanonicalWindowAdapter(store, _bounds(), fixture_only=True)
+
+
+def test_adapter_rejects_train_test_source_registration_without_test_values(tmp_path: Path) -> None:
+    store = _store(tmp_path)
+    manifest_path = tmp_path / "canonical/processing_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    train_source = manifest["shards"]["2020-01-01"]["source_file_ids"][0]
+    manifest["shards"]["2020-01-08"]["source_file_ids"].append(train_source)
+    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+    with pytest.raises(ValueError, match="across partitions"):
+        CanonicalWindowAdapter(store, _bounds(), fixture_only=True)
+
+
+@pytest.mark.parametrize("mutation", ["reorder", "irregular"])
+def test_adapter_rejects_grid_incompatible_with_fixed_baselines(
+    tmp_path: Path, monkeypatch, mutation: str
+) -> None:
+    adapter = CanonicalWindowAdapter(_store(tmp_path), _bounds(), fixture_only=True)
+    original = adapter.store.load_day
+
+    def altered(day: str):
+        series = original(day)
+        if mutation == "reorder":
+            return replace(series, frequency_hz=np.array([125000, 38000, 200000, 455000]))
+        edges = series.range_edges_m.copy()
+        edges[10] += 0.5
+        return replace(series, range_edges_m=edges)
+
+    monkeypatch.setattr(adapter.store, "load_day", altered)
+    with pytest.raises(ValueError, match="fixed baseline grid"):
+        adapter.materialize("train", max_windows=128)
+
+
+def test_adapter_rejects_manifest_source_tamper(tmp_path: Path) -> None:
+    store = _store(tmp_path)
+    manifest_path = tmp_path / "canonical/processing_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    extra = manifest["shards"]["2020-01-03"]["source_file_ids"][0]
+    manifest["shards"]["2020-01-01"]["source_file_ids"].append(extra)
+    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+    adapter = CanonicalWindowAdapter(store, _bounds(), fixture_only=True)
+    with pytest.raises(ValueError, match="source provenance"):
+        adapter.materialize("train", max_windows=128)
 
 
 def test_four_baselines_write_immutable_fitted_predictions_from_synthetic_rows(
@@ -182,4 +225,38 @@ def test_four_baselines_write_immutable_fitted_predictions_from_synthetic_rows(
     prediction = output / "ridge" / "validation_predictions.npz"
     prediction.write_bytes(prediction.read_bytes() + b"tampered")
     with pytest.raises(ValueError, match="checksum"):
+        run_baselines(adapter, output, max_windows=128, tree_max_iter=12)
+
+
+def test_baseline_resume_rejects_run_manifest_tamper(tmp_path: Path) -> None:
+    adapter = CanonicalWindowAdapter(_store(tmp_path), _bounds(), fixture_only=True)
+    output = tmp_path / "runs"
+    run_baselines(adapter, output, max_windows=128, tree_max_iter=12)
+    path = output / "persistence/run.json"
+    original = json.loads(path.read_text(encoding="utf-8"))
+    for change in (
+        {"status": "COMPLETED_PUBLIC_BENCHMARK"},
+        {"metrics": {**original["metrics"], "daily_mean_pinball_db": 0.0}},
+        {"validation_rows": 0},
+    ):
+        path.write_text(json.dumps({**original, **change}), encoding="utf-8")
+        with pytest.raises(ValueError, match="resume"):
+            run_baselines(adapter, output, max_windows=128, tree_max_iter=12)
+    path.write_text(json.dumps(original), encoding="utf-8")
+
+
+def test_baseline_resume_rejects_prediction_rows_even_with_updated_checksum(tmp_path: Path) -> None:
+    adapter = CanonicalWindowAdapter(_store(tmp_path), _bounds(), fixture_only=True)
+    output = tmp_path / "runs"
+    run_baselines(adapter, output, max_windows=128, tree_max_iter=12)
+    prediction = output / "persistence/validation_predictions.npz"
+    with np.load(prediction, allow_pickle=False) as loaded:
+        arrays = {name: loaded[name] for name in loaded.files}
+    arrays["row_ids"][0] = "f" * 64
+    np.savez_compressed(prediction, **arrays)
+    manifest = output / "persistence/run.json"
+    document = json.loads(manifest.read_text(encoding="utf-8"))
+    document["prediction_sha256"] = hashlib.sha256(prediction.read_bytes()).hexdigest()
+    manifest.write_text(json.dumps(document), encoding="utf-8")
+    with pytest.raises(ValueError, match="prediction artifact"):
         run_baselines(adapter, output, max_windows=128, tree_max_iter=12)

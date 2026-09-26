@@ -53,12 +53,10 @@ class CanonicalWindowAdapter:
         seen_sources: dict[str, str] = {}
         for entry in manifest["shards"].values():
             partition = entry["partition"]
-            if partition not in ("train", "validation"):
-                continue
             for source in entry["source_file_ids"]:
                 previous = seen_sources.setdefault(source, partition)
                 if previous != partition:
-                    raise ValueError("A raw source is registered across train and validation.")
+                    raise ValueError("A raw source is registered across partitions.")
         self.store = store
         self.bounds = bounds
         self.availability_basis = availability_basis
@@ -70,6 +68,12 @@ class CanonicalWindowAdapter:
             self.cache.move_to_end(day)
             return self.cache[day]
         series = self.store.load_day(day)
+        if not np.array_equal(
+            series.frequency_hz, np.array([38000, 125000, 200000, 455000])
+        ) or not np.array_equal(series.range_edges_m, np.arange(65, dtype=float) * 2):
+            raise ValueError(
+                "Canonical channel order or range edges differ from fixed baseline grid."
+            )
         self.cache[day] = series
         if len(self.cache) > 3:
             self.cache.popitem(last=False)
@@ -157,7 +161,14 @@ class CanonicalWindowAdapter:
             ]
             if any(day not in registered for day in required):
                 continue
-            series = self._join([self._day(day) for day in required])
+            days = []
+            for day in required:
+                loaded = self._day(day)
+                actual_sources = set().union(*loaded.source_file_ids)
+                if actual_sources != set(registered[day]["source_file_ids"]):
+                    raise ValueError("Canonical day source provenance differs from the manifest.")
+                days.append(loaded)
+            series = self._join(days)
             try:
                 window = build_window(
                     series,

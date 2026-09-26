@@ -105,6 +105,74 @@ def _prediction_artifact(
         staging.unlink(missing_ok=True)
 
 
+def _verify_resume(
+    saved: dict[str, Any],
+    prediction_path: Path,
+    *,
+    family: str,
+    provenance: dict[str, Any],
+    train: WindowBatch,
+    validation: WindowBatch,
+) -> None:
+    if (
+        set(saved)
+        != {
+            "schema_version",
+            "status",
+            "family",
+            "partition",
+            "metrics",
+            "provenance",
+            "prediction_sha256",
+            "train_rows",
+            "validation_rows",
+        }
+        or saved.get("schema_version") != "1.0"
+        or saved.get("status") != "COMPLETED_SYNTHETIC_FIXTURE"
+        or saved.get("family") != family
+        or saved.get("partition") != "validation"
+        or saved.get("train_rows") != len(train.row_ids)
+        or saved.get("validation_rows") != len(validation.row_ids)
+        or saved.get("provenance") != provenance
+    ):
+        raise ValueError("Baseline resume manifest schema or provenance differs.")
+    if _sha256(prediction_path) != saved.get("prediction_sha256"):
+        raise ValueError("Baseline prediction checksum differs from saved run.")
+    with np.load(prediction_path, allow_pickle=False) as loaded:
+        if set(loaded.files) != {
+            "row_ids",
+            "cutoffs",
+            "truth_db",
+            "quantiles",
+            "eligible",
+            "target_support",
+        }:
+            raise ValueError("Baseline prediction artifact fields differ from the run contract.")
+        quantiles = loaded["quantiles"]
+        eligible = loaded["eligible"]
+        if (
+            quantiles.shape != (len(validation.row_ids), 3, 5)
+            or quantiles.dtype.kind != "f"
+            or eligible.shape != (len(validation.row_ids), 3)
+            or eligible.dtype.kind != "b"
+            or loaded["truth_db"].dtype.kind != "f"
+            or loaded["target_support"].dtype.kind != "f"
+            or loaded["cutoffs"].dtype.kind != "M"
+            or loaded["row_ids"].dtype.kind != "U"
+            or not np.array_equal(loaded["row_ids"], np.array(validation.row_ids))
+            or not np.array_equal(loaded["cutoffs"], validation.cutoffs)
+            or not np.array_equal(loaded["truth_db"], validation.target_db)
+            or not np.array_equal(loaded["target_support"], validation.target_support)
+            or not np.array_equal(eligible, np.isfinite(quantiles).all(axis=-1))
+            or not np.all(np.isnan(quantiles[~eligible]))
+            or not np.all(np.diff(quantiles[eligible], axis=-1) >= 0)
+        ):
+            raise ValueError("Baseline prediction artifact does not match validation rows.")
+        metrics = daily_metrics(validation.target_db, quantiles, validation.cutoffs)
+    if saved.get("metrics") != metrics:
+        raise ValueError("Baseline resume metrics differ from saved predictions.")
+
+
 def run_baselines(
     adapter: CanonicalWindowAdapter,
     output: Path,
@@ -158,10 +226,14 @@ def run_baselines(
             raise FileExistsError("Incomplete or unregistered baseline artifact exists.")
         if manifest_path.is_file():
             saved = json.loads(manifest_path.read_text(encoding="utf-8"))
-            if saved.get("provenance") != provenance or saved.get("family") != family:
-                raise ValueError("Baseline resume provenance differs from saved run.")
-            if _sha256(prediction_path) != saved.get("prediction_sha256"):
-                raise ValueError("Baseline prediction checksum differs from saved run.")
+            _verify_resume(
+                saved,
+                prediction_path,
+                family=family,
+                provenance=provenance,
+                train=train,
+                validation=validation,
+            )
             results[family] = {**saved, "disposition": "SKIPPED_VERIFIED"}
             continue
         family_dir.mkdir(parents=False, exist_ok=False)

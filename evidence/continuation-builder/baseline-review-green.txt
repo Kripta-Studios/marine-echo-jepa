@@ -1,4 +1,4 @@
 C:\Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa-core/src/marine_echo/training\data_adapter.py C:\Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa-core/src/marine_echo/evaluation\baseline_runner.py
-......                                                                   [100%]
-6 passed in 17.25s
+...........                                                              [100%]
+11 passed in 36.43s
 exit=0

@@ -1,0 +1,51 @@
+C:\Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa-core/src/marine_echo/evaluation\baseline_runner.py
+FF                                                                       [100%]
+================================== FAILURES ===================================
+______________ test_baseline_resume_rejects_run_manifest_tamper _______________
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3642/test_baseline_resume_rejects_r0')
+
+    def test_baseline_resume_rejects_run_manifest_tamper(tmp_path: Path) -> None:
+        adapter = CanonicalWindowAdapter(_store(tmp_path), _bounds(), fixture_only=True)
+        output = tmp_path / "runs"
+        run_baselines(adapter, output, max_windows=128, tree_max_iter=12)
+        path = output / "persistence/run.json"
+        original = json.loads(path.read_text(encoding="utf-8"))
+        for change in (
+            {"status": "COMPLETED_PUBLIC_BENCHMARK"},
+            {"metrics": {**original["metrics"], "daily_mean_pinball_db": 0.0}},
+            {"validation_rows": 0},
+        ):
+            path.write_text(json.dumps({**original, **change}), encoding="utf-8")
+>           with pytest.raises(ValueError, match="resume"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests\integration\test_canonical_baseline.py:243: Failed
+___ test_baseline_resume_rejects_prediction_rows_even_with_updated_checksum ___
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3642/test_baseline_resume_rejects_p0')
+
+    def test_baseline_resume_rejects_prediction_rows_even_with_updated_checksum(tmp_path: Path) -> None:
+        adapter = CanonicalWindowAdapter(_store(tmp_path), _bounds(), fixture_only=True)
+        output = tmp_path / "runs"
+        run_baselines(adapter, output, max_windows=128, tree_max_iter=12)
+        prediction = output / "persistence/validation_predictions.npz"
+        with np.load(prediction, allow_pickle=False) as loaded:
+            arrays = {name: loaded[name] for name in loaded.files}
+        arrays["row_ids"][0] = "f" * 64
+        np.savez_compressed(prediction, **arrays)
+        manifest = output / "persistence/run.json"
+        document = json.loads(manifest.read_text(encoding="utf-8"))
+        document["prediction_sha256"] = hashlib.sha256(prediction.read_bytes()).hexdigest()
+        manifest.write_text(json.dumps(document), encoding="utf-8")
+>       with pytest.raises(ValueError, match="prediction artifact"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\integration\test_canonical_baseline.py:261: Failed
+=========================== short test summary info ===========================
+FAILED tests/integration/test_canonical_baseline.py::test_baseline_resume_rejects_run_manifest_tamper
+FAILED tests/integration/test_canonical_baseline.py::test_baseline_resume_rejects_prediction_rows_even_with_updated_checksum
+2 failed, 9 deselected in 15.43s
+exit=1
