@@ -393,6 +393,37 @@ def test_test_metadata_read_aborts_when_exposure_cannot_be_published(tmp_path: P
         store.load_day_metadata("2020-01-10")
 
 
+def test_test_metadata_exposure_rejects_linked_container(tmp_path: Path, monkeypatch) -> None:
+    store = CanonicalStore(
+        tmp_path / "canonical",
+        _identity(("test-a",)),
+        calibration_manifest=_calibration_path(tmp_path),
+    )
+    store.write_day(_series("2020-01-10", "test-a"), partition="test")
+    container = tmp_path / "canonical/exposure"
+    container.mkdir()
+    original = Path.is_junction
+    monkeypatch.setattr(Path, "is_junction", lambda path: path == container or original(path))
+    with pytest.raises(ValueError, match="exposure container"):
+        store.load_day_metadata("2020-01-10")
+    assert list(container.iterdir()) == []
+
+
+def test_test_metadata_exposure_reuse_requires_exact_schema(tmp_path: Path) -> None:
+    store = CanonicalStore(
+        tmp_path / "canonical",
+        _identity(("test-a",)),
+        calibration_manifest=_calibration_path(tmp_path),
+    )
+    store.write_day(_series("2020-01-10", "test-a"), partition="test")
+    record = store._record_test_metadata_exposure(store._manifest(), availability_basis="measured")
+    contents = json.loads(record.read_text(encoding="utf-8"))
+    contents["fields"] = ["timestamps"]
+    record.write_text(json.dumps(contents), encoding="utf-8")
+    with pytest.raises(ValueError, match="does not bind"):
+        store.load_day_metadata("2020-01-10", exposure_record=record, availability_basis="measured")
+
+
 def test_unknown_measured_availability_cannot_be_eligible(tmp_path: Path) -> None:
     bounds = _bounds()
     sources = tuple(f"{part}-{day}" for part in bounds for day in range(3))

@@ -429,6 +429,8 @@ class CanonicalStore:
     ) -> Path:
         directory = self.root / "exposure"
         directory.mkdir(parents=True, exist_ok=True)
+        if directory.is_symlink() or directory.is_junction() or not directory.is_dir():
+            raise ValueError("Test metadata exposure container is linked or invalid.")
         path = directory / f"test-metadata-{uuid.uuid4().hex}.json"
         record = {
             "schema_version": "1.0",
@@ -473,7 +475,10 @@ class CanonicalStore:
             else:
                 if (
                     exposure_record.parent != self.root / "exposure"
+                    or exposure_record.parent.is_symlink()
+                    or exposure_record.parent.is_junction()
                     or exposure_record.is_symlink()
+                    or exposure_record.is_junction()
                     or not exposure_record.is_file()
                 ):
                     raise ValueError("Durable test metadata exposure record is missing.")
@@ -484,13 +489,19 @@ class CanonicalStore:
                     if shard["partition"] == "test"
                 }
                 if (
-                    recorded.get("event") != "TEST_METADATA_MASKS_INSPECTED"
+                    recorded.get("schema_version") != "1.0"
+                    or recorded.get("event") != "TEST_METADATA_MASKS_INSPECTED"
+                    or recorded.get("recorded_before_npz_access") is not True
                     or recorded.get("processing_manifest_sha256")
                     != _sha256_file(self.manifest_path)
                     or recorded.get("split_sha256") != self.identity.split_sha256
                     or recorded.get("test_shard_sha256") != expected_shards
+                    or recorded.get("fields")
+                    != ["timestamps", "masks", "availability", "provenance"]
                     or recorded.get("availability_basis") != availability_basis
+                    or recorded.get("test_metadata_opened") is not True
                     or recorded.get("test_acoustic_values_opened") is not False
+                    or recorded.get("promotion_status") != PROMOTION_STATUS
                 ):
                     raise ValueError("Test metadata exposure record does not bind this audit.")
         path = self._verified_entry(day, entry)

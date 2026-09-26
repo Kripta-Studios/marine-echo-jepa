@@ -1,0 +1,4 @@
+C:\Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa-core/src/marine_echo/data\canonical_store.py
+...................                                                      [100%]
+19 passed in 4.41s
+exit=0

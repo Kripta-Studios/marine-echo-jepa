@@ -1,0 +1,49 @@
+C:\Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa-core/src/marine_echo/data\canonical_store.py
+FF                                                                       [100%]
+================================== FAILURES ===================================
+____________ test_test_metadata_exposure_rejects_linked_container _____________
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3628/test_test_metadata_exposure_re0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000016C67A7F410>
+
+    def test_test_metadata_exposure_rejects_linked_container(tmp_path: Path, monkeypatch) -> None:
+        store = CanonicalStore(
+            tmp_path / "canonical", _identity(("test-a",)),
+            calibration_manifest=_calibration_path(tmp_path),
+        )
+        store.write_day(_series("2020-01-10", "test-a"), partition="test")
+        container = tmp_path / "canonical/exposure"
+        container.mkdir()
+        original = Path.is_junction
+        monkeypatch.setattr(Path, "is_junction", lambda path: path == container or original(path))
+>       with pytest.raises(ValueError, match="exposure container"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\scientific\test_canonical_store.py:406: Failed
+___________ test_test_metadata_exposure_reuse_requires_exact_schema ___________
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3628/test_test_metadata_exposure_re1')
+
+    def test_test_metadata_exposure_reuse_requires_exact_schema(tmp_path: Path) -> None:
+        store = CanonicalStore(
+            tmp_path / "canonical", _identity(("test-a",)),
+            calibration_manifest=_calibration_path(tmp_path),
+        )
+        store.write_day(_series("2020-01-10", "test-a"), partition="test")
+        record = store._record_test_metadata_exposure(
+            store._manifest(), availability_basis="measured"
+        )
+        contents = json.loads(record.read_text(encoding="utf-8"))
+        contents["fields"] = ["timestamps"]
+        record.write_text(json.dumps(contents), encoding="utf-8")
+>       with pytest.raises(ValueError, match="does not bind"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\scientific\test_canonical_store.py:423: Failed
+=========================== short test summary info ===========================
+FAILED tests/scientific/test_canonical_store.py::test_test_metadata_exposure_rejects_linked_container
+FAILED tests/scientific/test_canonical_store.py::test_test_metadata_exposure_reuse_requires_exact_schema
+2 failed, 11 deselected in 1.15s
+exit=1
