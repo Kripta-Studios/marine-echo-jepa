@@ -1,0 +1,162 @@
+FFFFFF                                                                   [100%]
+================================== FAILURES ===================================
+_______ test_full_grid_count_map_preserves_boundary_and_daily_variation _______
+
+    def test_full_grid_count_map_preserves_boundary_and_daily_variation() -> None:
+>       module = _module()
+                 ^^^^^^^^^
+
+tests\unit\test_train_support_map.py:27: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\unit\test_train_support_map.py:15: in _module
+    spec.loader.exec_module(module)
+<frozen importlib._bootstrap_external>:995: in exec_module
+    ???
+<frozen importlib._bootstrap_external>:1132: in get_code
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_frozen_importlib_external.SourceFileLoader object at 0x000002C67FF0E060>
+path = 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\tools\\train_support_map.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\tools\\train_support_map.py'
+
+<frozen importlib._bootstrap_external>:1190: FileNotFoundError
+_____________ test_count_map_rejects_invalid_count_arrays[float] ______________
+
+corrupt = 'float'
+
+    @pytest.mark.parametrize("corrupt", ["float", "negative", "exceeds_denominator", "bad_shape"])
+    def test_count_map_rejects_invalid_count_arrays(corrupt: str) -> None:
+>       module = _module()
+                 ^^^^^^^^^
+
+tests\unit\test_train_support_map.py:58: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\unit\test_train_support_map.py:15: in _module
+    spec.loader.exec_module(module)
+<frozen importlib._bootstrap_external>:995: in exec_module
+    ???
+<frozen importlib._bootstrap_external>:1132: in get_code
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_frozen_importlib_external.SourceFileLoader object at 0x000002C67FF0DB20>
+path = 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\tools\\train_support_map.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\tools\\train_support_map.py'
+
+<frozen importlib._bootstrap_external>:1190: FileNotFoundError
+____________ test_count_map_rejects_invalid_count_arrays[negative] ____________
+
+corrupt = 'negative'
+
+    @pytest.mark.parametrize("corrupt", ["float", "negative", "exceeds_denominator", "bad_shape"])
+    def test_count_map_rejects_invalid_count_arrays(corrupt: str) -> None:
+>       module = _module()
+                 ^^^^^^^^^
+
+tests\unit\test_train_support_map.py:58: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\unit\test_train_support_map.py:15: in _module
+    spec.loader.exec_module(module)
+<frozen importlib._bootstrap_external>:995: in exec_module
+    ???
+<frozen importlib._bootstrap_external>:1132: in get_code
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_frozen_importlib_external.SourceFileLoader object at 0x000002C67FF0E360>
+path = 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\tools\\train_support_map.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\tools\\train_support_map.py'
+
+<frozen importlib._bootstrap_external>:1190: FileNotFoundError
+______ test_count_map_rejects_invalid_count_arrays[exceeds_denominator] _______
+
+corrupt = 'exceeds_denominator'
+
+    @pytest.mark.parametrize("corrupt", ["float", "negative", "exceeds_denominator", "bad_shape"])
+    def test_count_map_rejects_invalid_count_arrays(corrupt: str) -> None:
+>       module = _module()
+                 ^^^^^^^^^
+
+tests\unit\test_train_support_map.py:58: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\unit\test_train_support_map.py:15: in _module
+    spec.loader.exec_module(module)
+<frozen importlib._bootstrap_external>:995: in exec_module
+    ???
+<frozen importlib._bootstrap_external>:1132: in get_code
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_frozen_importlib_external.SourceFileLoader object at 0x000002C67FF0EF90>
+path = 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\tools\\train_support_map.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\tools\\train_support_map.py'
+
+<frozen importlib._bootstrap_external>:1190: FileNotFoundError
+___________ test_count_map_rejects_invalid_count_arrays[bad_shape] ____________
+
+corrupt = 'bad_shape'
+
+    @pytest.mark.parametrize("corrupt", ["float", "negative", "exceeds_denominator", "bad_shape"])
+    def test_count_map_rejects_invalid_count_arrays(corrupt: str) -> None:
+>       module = _module()
+                 ^^^^^^^^^
+
+tests\unit\test_train_support_map.py:58: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\unit\test_train_support_map.py:15: in _module
+    spec.loader.exec_module(module)
+<frozen importlib._bootstrap_external>:995: in exec_module
+    ???
+<frozen importlib._bootstrap_external>:1132: in get_code
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_frozen_importlib_external.SourceFileLoader object at 0x000002C67FF0FB30>
+path = 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\tools\\train_support_map.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\tools\\train_support_map.py'
+
+<frozen importlib._bootstrap_external>:1190: FileNotFoundError
+______ test_audit_refuses_missing_complete_v2_evidence_before_npz_access ______
+
+tmp_path = WindowsPath('C:/Users/Álvaro Schwiedop/AppData/Local/Temp/pytest-of-Álvaro Schwiedop/pytest-3719/test_audit_refuses_missing_com0')
+
+    def test_audit_refuses_missing_complete_v2_evidence_before_npz_access(tmp_path: Path) -> None:
+>       module = _module()
+                 ^^^^^^^^^
+
+tests\unit\test_train_support_map.py:73: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\unit\test_train_support_map.py:15: in _module
+    spec.loader.exec_module(module)
+<frozen importlib._bootstrap_external>:995: in exec_module
+    ???
+<frozen importlib._bootstrap_external>:1132: in get_code
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_frozen_importlib_external.SourceFileLoader object at 0x000002C67FFAC4A0>
+path = 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\tools\\train_support_map.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\tools\\train_support_map.py'
+
+<frozen importlib._bootstrap_external>:1190: FileNotFoundError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_train_support_map.py::test_full_grid_count_map_preserves_boundary_and_daily_variation
+FAILED tests/unit/test_train_support_map.py::test_count_map_rejects_invalid_count_arrays[float]
+FAILED tests/unit/test_train_support_map.py::test_count_map_rejects_invalid_count_arrays[negative]
+FAILED tests/unit/test_train_support_map.py::test_count_map_rejects_invalid_count_arrays[exceeds_denominator]
+FAILED tests/unit/test_train_support_map.py::test_count_map_rejects_invalid_count_arrays[bad_shape]
+FAILED tests/unit/test_train_support_map.py::test_audit_refuses_missing_complete_v2_evidence_before_npz_access
+6 failed in 1.61s

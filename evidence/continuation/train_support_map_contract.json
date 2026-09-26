@@ -1,0 +1,13 @@
+{
+  "id": "complete-train-native-grid-support-map-v1",
+  "status": "PROPOSED_PENDING_INDEPENDENT_REVIEW",
+  "scope": "Read-only TRAIN QC coverage audit after completed and lineage-verified census-v2 and original target-only bound. Not a benchmark, corpus promotion, target amendment, or band selection.",
+  "calendar": "Exactly 100 UTC days, 2020-02-17 inclusive to 2020-05-27 exclusive",
+  "grid": "Four ordered native frequencies 38000, 125000, 200000, 455000 Hz by all 64 nonoverlapping 2 m range cells from 0 to 128 m",
+  "inputs": "Only verified census-v2 NPZ count, denominator, timestamp, and grid arrays; no Sv arrays or held-out partitions",
+  "support": "Effective count is max(nominal expected, observed unique pings) for each 15-minute bin. Each cell fraction is total valid count / total effective count. A cell-bin meets 80 percent when 5 * valid >= 4 * effective; this is descriptive QC only.",
+  "daily": "Emit every date's 4x64 valid and effective counts. For every cell emit total valid/effective counts, overall fraction, count of 15-minute bins at least 80 percent, UTC days with any such bin, and maximum/median daily support fraction.",
+  "integrity": "Require independent method review of this exact contract and code, complete exact v2 ledger/calendar, v2 strict report, original v2 target-only report, pinned source/protocol/review hashes, and every daily manifest/configuration/shard checksum. Recompute original target-only report totals from counts without using them to select cells.",
+  "output": "Exclusive new evidence/continuation/train_support_map.json with status TRAIN_QC_ONLY_NOT_BENCHMARK, full fixed-order map, dates, count arrays, and source hashes. Never overwrite prior output.",
+  "prohibitions": "No range/frequency ranking, model metrics, test/calibration data, Sv values or images, changed QC/calibration, target eligibility claim per cell, or campaign execution."
+}
