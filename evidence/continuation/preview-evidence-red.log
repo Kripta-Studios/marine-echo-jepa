@@ -1,0 +1,39 @@
+F..                                                                      [100%]
+================================== FAILURES ===================================
+________ test_working_preview_preserves_registry_and_current_evidence _________
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3694/test_working_preview_preserves0')
+
+    def test_working_preview_preserves_registry_and_current_evidence(tmp_path: Path) -> None:
+        root = Path(__file__).resolve().parents[2]
+        for name in (
+            "configs/experiments.json",
+            "data/manifests/mosaic_azfp_down_2020/source_inventory.json",
+            "evidence/data/diagnostic_raw_replay_2020-02-17.json",
+            "reports/active/protocol.json",
+        ):
+            target = tmp_path / name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(root / name, target)
+        (tmp_path / "web/dist").mkdir(parents=True)
+        (tmp_path / "web/dist/index.html").write_text("<html>Test fixture</html>")
+        registry = {"completed_benchmark_runs": 0, "test_opened": True, "runs": [{"run_id": "direct-seed7", "status": "FAILED", "updates": 2, "failure_log": "preserved.log"}]}
+        (tmp_path / "reports/active/training_registry.json").write_text(json.dumps(registry))
+        summary = {"schema_version": "1.0", "evidence_scope": "TRAIN_QC_ONLY_NOT_BENCHMARK", "limitations": ["Test fixture scope only"], "forecast_unavailability_reason": "No eligible reviewed corpus or completed benchmark."}
+        (tmp_path / "evidence/continuation").mkdir()
+        (tmp_path / "evidence/continuation/public_summary.json").write_text(json.dumps(summary))
+        output = tmp_path / "preview"
+        build_diagnostic(tmp_path, output)
+        catalog = json.loads((output / "artifacts/catalog.json").read_text())
+        evidence = json.loads((output / "artifacts/research.json").read_text())
+>       assert catalog["experiments"] == registry["runs"]
+E       AssertionError: assert [{'run_id': '...d', ...}, ...] == [{'run_id': '...eserved.log'}]
+E         
+E         At index 0 diff: {'run_id': 'persistence-seed7', 'family': 'persistence', 'seed': 7, 'phase': 'selected', 'status': 'BLOCKED', 'metrics': None, 'reason': 'MOSAiC environmental profiles were found, but instrument geometry, environmental applicability and independent calibration review remain unresolved. No eligible physical-unit benchmark corpus exists.', 'updates': 0} != {'run_id': 'direct-seed7', 'status': 'FAILED', 'updates': 2, 'failure_log': 'preserved.log'}
+E         Left contains 24 more items, first extra item: {'run_id': 'seasonal-seed7', 'family': 'seasonal', 'seed': 7, 'phase': 'selected', ...}
+E         Use -v to get more diff
+
+tests\unit\test_release_publish.py:32: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_release_publish.py::test_working_preview_preserves_registry_and_current_evidence
+1 failed, 2 passed in 0.74s

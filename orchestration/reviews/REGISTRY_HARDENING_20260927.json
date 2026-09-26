@@ -1,0 +1,38 @@
+{
+  "record_type": "COORDINATOR_TRANSCRIPTION_OF_DISTINCT_REVIEWER_MESSAGE",
+  "reviewer_session": "/root/continuation_review",
+  "disposition": "APPROVED_REGISTRY_HARDENING_SOFTWARE_ONLY",
+  "hashes": {
+    "src/marine_echo/serving/release.py": "c948ac09f1969b23f5d7d75ea5f5f1249ae78408499c52275f65be749e5c8608",
+    "tests/unit/test_release_publish.py": "d6bdebfaaa0b316ed9836f4f83f01771b5bdba5b2a007ba12ff72f3dc8348683",
+    "evidence/continuation/preview-registry-status-red.log": "b824389eac6af11e47302cd827efebd0345220cdff38fd2296e12027fcb7b570",
+    "evidence/continuation/preview-registry-status-green.log": "6c3967e3ac8c66df333222f99b947858e3feeb7ed84683d28a18893df5ddfb5d",
+    "evidence/continuation/preview-registry-types.log": "66336fcc30b74d2cce9b00dd2fc1bc515a4a7a6a77093fd1a92e1b4edafc3e12"
+  },
+  "resolved_findings": [
+    "Reject empty/duplicate/drifting configured run inventories and bool-as-integer counters.",
+    "Preserve failed and attempted rows without classifying them as NOT_RUN.",
+    "Require nonempty top-level status; only BLOCKED/NOT_RUN can yield BLOCKED_NOT_RUN."
+  ],
+  "evidence": {
+    "initial_red": "5 failed, 3 passed",
+    "initial_green": "41 passed, 1 warning, 7.24 s",
+    "top_status_red": "2 failed, 8 passed",
+    "top_status_green": "43 passed, 1 warning, 7.49 s",
+    "ruff": "PASS",
+    "mypy": "exit 0: 21 and 12 source files passed"
+  },
+  "remaining": [
+    "Normal-release completed-row/counter consistency validator",
+    "Actual working artifact/public summary hash review",
+    "Changed browser suite against actual artifact"
+  ],
+  "not_approved": [
+    "R0",
+    "R1",
+    "R2",
+    "R3",
+    "normal release",
+    "benchmarks"
+  ]
+}

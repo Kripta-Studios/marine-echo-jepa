@@ -1,0 +1,56 @@
+F..                                                                      [100%]
+================================== FAILURES ===================================
+________ test_working_preview_preserves_registry_and_current_evidence _________
+
+tmp_path = WindowsPath('C:/Users/Álvaro Schwiedop/AppData/Local/Temp/pytest-of-Álvaro Schwiedop/pytest-3712/test_working_preview_preserves0')
+
+    def test_working_preview_preserves_registry_and_current_evidence(tmp_path: Path) -> None:
+        root = Path(__file__).resolve().parents[2]
+        for name in (
+            "configs/experiments.json",
+            "data/manifests/mosaic_azfp_down_2020/source_inventory.json",
+            "evidence/data/diagnostic_raw_replay_2020-02-17.json",
+            "reports/active/protocol.json",
+        ):
+            target = tmp_path / name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(root / name, target)
+        (tmp_path / "web/dist").mkdir(parents=True)
+        (tmp_path / "web/dist/index.html").write_text("<html>Test fixture</html>")
+        registry = {
+            "completed_benchmark_runs": 0,
+            "test_opened": True,
+            "runs": [
+                {
+                    "run_id": "direct-seed7",
+                    "status": "FAILED",
+                    "updates": 2,
+                    "failure_log": "preserved.log",
+                }
+            ],
+        }
+        (tmp_path / "reports/active/training_registry.json").write_text(json.dumps(registry))
+        summary = {
+            "schema_version": "1.0",
+            "evidence_scope": "TRAIN_QC_ONLY_NOT_BENCHMARK",
+            "limitations": ["Test fixture scope only"],
+            "forecast_unavailability_reason": "No eligible reviewed corpus or completed benchmark.",
+        }
+        (tmp_path / "evidence/continuation").mkdir()
+        (tmp_path / "evidence/continuation/public_summary.json").write_text(json.dumps(summary))
+        output = tmp_path / "preview"
+        build_diagnostic(tmp_path, output)
+        catalog = json.loads((output / "artifacts/catalog.json").read_text())
+        evidence = json.loads((output / "artifacts/research.json").read_text())
+        assert catalog["experiments"] == registry["runs"]
+        assert evidence["run_registry"] == registry
+>       assert evidence["gates"]["G2_EXPERIMENT"] == "INCOMPLETE_RECORDED_ATTEMPTS"
+E       AssertionError: assert 'BLOCKED_NOT_RUN' == 'INCOMPLETE_RECORDED_ATTEMPTS'
+E         
+E         - INCOMPLETE_RECORDED_ATTEMPTS
+E         + BLOCKED_NOT_RUN
+
+tests\unit\test_release_publish.py:50: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_release_publish.py::test_working_preview_preserves_registry_and_current_evidence
+1 failed, 2 passed in 0.88s

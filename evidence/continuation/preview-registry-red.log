@@ -1,0 +1,59 @@
+.FFFFF..                                                                 [100%]
+================================== FAILURES ===================================
+_______ test_registry_validation_rejects_false_unattempted_claim[empty] _______
+
+corruption = 'empty'
+
+    @pytest.mark.parametrize("corruption", ["empty", "boolean_count", "boolean_updates", "duplicate", "identity"])
+    def test_registry_validation_rejects_false_unattempted_claim(corruption: str) -> None:
+>       from marine_echo.serving.release import validate_recorded_registry
+E       ImportError: cannot import name 'validate_recorded_registry' from 'marine_echo.serving.release' (C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\src\marine_echo\serving\release.py)
+
+tests\unit\test_release_publish.py:50: ImportError
+___ test_registry_validation_rejects_false_unattempted_claim[boolean_count] ___
+
+corruption = 'boolean_count'
+
+    @pytest.mark.parametrize("corruption", ["empty", "boolean_count", "boolean_updates", "duplicate", "identity"])
+    def test_registry_validation_rejects_false_unattempted_claim(corruption: str) -> None:
+>       from marine_echo.serving.release import validate_recorded_registry
+E       ImportError: cannot import name 'validate_recorded_registry' from 'marine_echo.serving.release' (C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\src\marine_echo\serving\release.py)
+
+tests\unit\test_release_publish.py:50: ImportError
+__ test_registry_validation_rejects_false_unattempted_claim[boolean_updates] __
+
+corruption = 'boolean_updates'
+
+    @pytest.mark.parametrize("corruption", ["empty", "boolean_count", "boolean_updates", "duplicate", "identity"])
+    def test_registry_validation_rejects_false_unattempted_claim(corruption: str) -> None:
+>       from marine_echo.serving.release import validate_recorded_registry
+E       ImportError: cannot import name 'validate_recorded_registry' from 'marine_echo.serving.release' (C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\src\marine_echo\serving\release.py)
+
+tests\unit\test_release_publish.py:50: ImportError
+_____ test_registry_validation_rejects_false_unattempted_claim[duplicate] _____
+
+corruption = 'duplicate'
+
+    @pytest.mark.parametrize("corruption", ["empty", "boolean_count", "boolean_updates", "duplicate", "identity"])
+    def test_registry_validation_rejects_false_unattempted_claim(corruption: str) -> None:
+>       from marine_echo.serving.release import validate_recorded_registry
+E       ImportError: cannot import name 'validate_recorded_registry' from 'marine_echo.serving.release' (C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\src\marine_echo\serving\release.py)
+
+tests\unit\test_release_publish.py:50: ImportError
+_____ test_registry_validation_rejects_false_unattempted_claim[identity] ______
+
+corruption = 'identity'
+
+    @pytest.mark.parametrize("corruption", ["empty", "boolean_count", "boolean_updates", "duplicate", "identity"])
+    def test_registry_validation_rejects_false_unattempted_claim(corruption: str) -> None:
+>       from marine_echo.serving.release import validate_recorded_registry
+E       ImportError: cannot import name 'validate_recorded_registry' from 'marine_echo.serving.release' (C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\src\marine_echo\serving\release.py)
+
+tests\unit\test_release_publish.py:50: ImportError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_release_publish.py::test_registry_validation_rejects_false_unattempted_claim[empty]
+FAILED tests/unit/test_release_publish.py::test_registry_validation_rejects_false_unattempted_claim[boolean_count]
+FAILED tests/unit/test_release_publish.py::test_registry_validation_rejects_false_unattempted_claim[boolean_updates]
+FAILED tests/unit/test_release_publish.py::test_registry_validation_rejects_false_unattempted_claim[duplicate]
+FAILED tests/unit/test_release_publish.py::test_registry_validation_rejects_false_unattempted_claim[identity]
+5 failed, 3 passed in 7.82s

@@ -47,6 +47,7 @@ export interface Model {
 }
 export interface Evidence {
   title: string;
+  forecast_unavailability_reason?: string;
   limitations: string[];
   source_files: { name: string; bytes: number; sha256: string }[];
   gates: Record<string, string>;

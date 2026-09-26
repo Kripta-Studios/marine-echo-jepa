@@ -1,0 +1,37 @@
+{
+  "record_type": "COORDINATOR_TRANSCRIPTION_OF_DISTINCT_REVIEWER_MESSAGE",
+  "reviewer_session": "/root/continuation_review",
+  "disposition": "APPROVED_WORKING_PREVIEW_SOFTWARE_DELTA_ONLY",
+  "reviewed_sha256": {
+    "src/marine_echo/serving/release.py": "9d5e6e157b34673cb1afd0b2d3c13ca26484576aec636948ddfe4bc30bf0c72c",
+    "tests/unit/test_release_publish.py": "675dc22ef2846639b384d0e55f0ab6b2e326b465038902b8dd31ce66d819cbc4",
+    "web/playwright.config.ts": "3c9bf1e4e26471f8964487759dcd23606310c91c88128092ca1e10571ee0777c",
+    "web/tests/offline.spec.ts": "7cffcfb10d906a359f39bef69c57cd4f7c99da9f97b752940fb9c28519cfece6",
+    "reports/active/training_registry.json": "6061823100962ded061123814acb8b20688c42f699036a590ca3afadd323fd69"
+  },
+  "findings": [
+    "G2 distinguishes genuinely unattempted rows from recorded failures, updates and attempt evidence.",
+    "Full existing registry is preserved, including exposure and failed attempt fields.",
+    "Playwright can target a new working artifact and verifies actual unavailable model statuses.",
+    "Optional summary cannot promote forecast or experiment availability."
+  ],
+  "evidence": [
+    "preview-gate-red.log: one expected failure",
+    "preview-gate-green.log: 27 passed in 4.29 seconds",
+    "checks-20260926T225032Z/checks.json: eleven commands exit zero; changed browser suite not included"
+  ],
+  "outstanding": [
+    "Actual final summary and artifact hashes/content review",
+    "Browser/offline execution against new artifact",
+    "Strict registry validation before normal release; subsequent implementation is a separate review"
+  ],
+  "not_approved": [
+    "R0",
+    "R1",
+    "R2",
+    "R3",
+    "normal release",
+    "benchmark",
+    "held-out evaluation"
+  ]
+}

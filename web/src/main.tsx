@@ -22,13 +22,13 @@ import { RawEchogram } from "./charts/RawEchogram";
 import { safeCutoff } from "./api/cutoff";
 import "./styles/integration.css";
 
-const blocked =
-  "Physical-unit forecasts are unavailable. Environmental profiles have been found, but calibration applicability and the manual/archive instrument serial discrepancy remain unresolved. Required model experiments have not run.";
-
 function App() {
   const [datasets, setDatasets] = useState<Dataset[]>([]);
   const [models, setModels] = useState<Model[]>([]);
   const [evidence, setEvidence] = useState<Evidence | null>(null);
+  const blocked =
+    evidence?.forecast_unavailability_reason ??
+    "Physical-unit forecasts are unavailable. No eligible independently reviewed corpus or completed benchmark is available. See the loaded evidence report for its scope and limitations.";
   const [error, setError] = useState("");
   const [past, setPast] = useState<Observations | null>(null);
   const [future, setFuture] = useState<Observations | null>(null);

@@ -36,7 +36,10 @@ test('offline real replay, unavailable forecast, reveal, evidence and export', a
   await page.getByRole('link', {name:/Observation freshness/}).click();
   await expect(page.getByText('Predefined age mask · replay simulation')).toBeVisible();
   await page.getByRole('link', {name:/Experiment lab/}).click();
-  await expect(page.getByRole('cell', {name:'NOT_RUN'}).first()).toBeVisible();
+  const recordedModels = await (await page.request.get('/api/v1/models')).json();
+  expect(recordedModels.length).toBeGreaterThan(0);
+  expect(recordedModels.every((model: {status: string}) => model.status !== 'AVAILABLE')).toBe(true);
+  await expect(page.getByRole('cell', {name:recordedModels[0].status, exact:true}).first()).toBeVisible();
   await expect(page.getByText('Required run registry (25 runs)')).toBeVisible();
   await page.getByRole('link', {name:/Evidence & transfer/}).click();
   await expect(page.getByText('ENGINEERING_DEMO_ONLY', {exact:true})).toBeVisible();
