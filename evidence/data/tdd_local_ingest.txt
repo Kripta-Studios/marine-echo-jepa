@@ -1,0 +1,47 @@
+T02/T05 local ingestion RED/GREEN evidence, 2026-09-26, Windows
+
+Interpreter: main repository .venv/Scripts/python.exe, Python 3.12, Echopype 0.11.1.
+Worktree: marine-echo-jepa-core, branch impl/core.
+
+RED 1
+Command: PYTHONPATH=src python -m pytest tests/security/test_local_archive.py -q
+Exit: 1
+Result: collection failed with ModuleNotFoundError: marine_echo (target module absent).
+
+GREEN 1
+Same command after implementation.
+Exit: 0
+Result: 9 passed in 0.68s.
+
+RED 2 (independent reviewer findings)
+Same command after adding adversarial manifest path, symlink and concurrent-source-change tests.
+Exit: 1
+Result: 3 failed, 9 passed in 4.27s. The three new tests all failed because the original code incorrectly accepted the attacks.
+
+GREEN 2
+Same command after path, symlink and source-stability fixes.
+Exit: 0
+Result: 12 passed in 4.43s.
+
+RED 3 (independent reviewer finding)
+Command: PYTHONPATH=src python -m pytest tests/security/test_local_archive.py::test_manifest_rewrite_cannot_approve_tampered_member -q
+Exit: 1
+Result: 1 failed in 3.08s. A changed same-length extracted file and rewritten manifest SHA were incorrectly accepted.
+
+REGRESSION FOUND DURING GREEN 3
+Command: PYTHONPATH=src MARINE_ECHO_REAL_AZFP_HOUR=outputs/first_hour python -m pytest tests/security/test_local_archive.py tests/integration/test_real_azfp_probe.py -q
+Exit: 1
+Result: 1 failed, 13 passed, 2 warnings in 21.81s. Idempotence compared a set with a dict instead of the dict's keys. Corrected.
+
+RED 4
+Command: PYTHONPATH=src python -m pytest tests/unit/test_raw_replay.py -q
+Exit: 2
+Result: collection failed with ModuleNotFoundError: marine_echo.data.raw_replay (target module absent).
+
+FINAL GREEN
+Command: PYTHONPATH=src MARINE_ECHO_REAL_AZFP_HOUR=outputs/first_hour MARINE_ECHO_REAL_AZFP_ZIP=<immutable local archive> python -m pytest tests/security/test_local_archive.py tests/unit/test_raw_replay.py tests/integration/test_real_azfp_probe.py -q
+Exit: 0
+Result: 17 passed, 2 upstream flox/NumPy deprecation warnings in 20.39s. No skips.
+
+Ruff check: exit 0, All checks passed.
+Mypy src/marine_echo/data: exit 0, Success: no issues found in 3 source files.

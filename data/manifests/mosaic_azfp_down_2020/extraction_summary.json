@@ -1,0 +1,9 @@
+{
+  "archive_name": "azfp55170-bioacoustics.zip",
+  "archive_bytes": 4676515350,
+  "archive_sha256": "bc9cf56bd92e7dd1c83cfca6d296585a832e13e27635c04f14ff864bf2831ab9",
+  "members": 3744,
+  "expanded_bytes": 10169592780,
+  "destination": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\data\\raw\\pangaea\\mosaic_azfp_down_2020_extracted",
+  "integrity_scope": "local_sha256_and_zip_crc_only_publisher_signature_unavailable"
+}

@@ -1,0 +1,14 @@
+{
+  "dataset_id": "mosaic_azfp_down_2020",
+  "archive_sha256": "bc9cf56bd92e7dd1c83cfca6d296585a832e13e27635c04f14ff864bf2831ab9",
+  "window_start_utc": "2020-02-17T00:00:00Z",
+  "window_end_utc": "2020-02-19T00:00:00Z",
+  "scope": "ZIP filename metadata only; decoded ping-time coverage not asserted",
+  "archive_files": 85,
+  "hour_stems_present": 46,
+  "hour_stems_with_two_chunks": 39,
+  "hour_stems_with_one_chunk": 7,
+  "suffix_counts": {"01A": 46, "01B": 39},
+  "hour_stems_absent": ["20021822", "20021823"],
+  "implication": "Same-hour suffixes and absent stems require decoded timestamp checks before canonical binning or windows."
+}

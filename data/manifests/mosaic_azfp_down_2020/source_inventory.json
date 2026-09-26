@@ -1,0 +1,31 @@
+{
+  "source_dir": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\data\\raw\\pangaea\\949811",
+  "files": [
+    {
+      "name": "azfp55170-bioacoustics.zip",
+      "bytes": 4676515350,
+      "sha256": "bc9cf56bd92e7dd1c83cfca6d296585a832e13e27635c04f14ff864bf2831ab9"
+    },
+    {
+      "name": "iridium-msgs.txt",
+      "bytes": 206050,
+      "sha256": "44096a09096aa3bed2cfb6253948152c39a6bc4f3b8e495ba100069c08eb5d6a"
+    },
+    {
+      "name": "POPE306-308-mosaic-manual.pdf",
+      "bytes": 705497,
+      "sha256": "d491cb47ad5d569c60a057751eb741eba2acc8f9075460c9b7e6fe9efe48c2bf"
+    },
+    {
+      "name": "readme.txt",
+      "bytes": 1779,
+      "sha256": "16b9fc8dc0d76b2631aa60c3dccb0ca89e6d8942c8c8fb0376be68bccbbae5fb"
+    },
+    {
+      "name": "xeos-rover-mosaicdown-transponder-16feb-02aug2020.csv",
+      "bytes": 135837,
+      "sha256": "031e563c1d8aa2b851997f5f239ace571561b12a58c98eaecc56676b0efdc946"
+    }
+  ],
+  "integrity_scope": "local_sha256_only_publisher_signature_unavailable"
+}
