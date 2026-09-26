@@ -7,14 +7,14 @@ Independent final approval is blocked by the native-agent service usage limit.
 On this Windows 11 machine, extract the ZIP to a new folder and run:
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\Run-Demo.ps 1 -Port 8765
+powershell -NoProfile -ExecutionPolicy Bypass -File .\Run-Demo.ps1 -Port 8765
 ```
 
 Open http://127.0.0.1:8765. Stop with Ctrl+C. The application binds to loopback only.
 There are no external assets, login, telemetry or hosted services. Forecast requests return
 an explicit unavailable status; revealing later measurements does not change model inputs.
 
-Prerequisites: Windows x 64, `uv`, and an already installed or uv-cached Python 3.12. The
+Prerequisites: Windows x64, `uv`, and an already installed or uv-cached Python 3.12. The
 launcher uses `--offline` and the packaged wheelhouse to create its local environment. It
 does not download Python or packages. First dependency installation is separate from normal
 cold startup. If another process owns the port, choose a different port. Do not stop unrelated

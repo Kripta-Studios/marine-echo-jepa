@@ -266,12 +266,7 @@
   "infrastructure_paid_usd": 0,
   "infrastructure_committed_usd": 0,
   "cloud_authorized": false,
-  "active_processes": [
-    {
-      "pid": 47628,
-      "purpose": "loopback diagnostic server 8765"
-    }
-  ],
+  "active_processes": [],
   "blockers": [
     "All three required native agents returned usage-limit errors on 2026-09-26; no silent model substitution.",
     "Environmental sources downloaded; scientific applicability and serial conflict remain unresolved.",
@@ -282,5 +277,10 @@
     "gpu_checks": "evidence/models/main-integrated-tests.log",
     "resource_profile": "evidence/models/gpu_100_updates.json",
     "fresh_browser": "evidence/tests/R3-browser-fresh.log"
+  },
+  "release": {
+    "status": "REVISED_PORTABLE_VERIFICATION_IN_PROGRESS",
+    "first_package_navigation_p95_ms": 432.6116,
+    "fixed_fresh_server_navigation_p95_ms": 192.3582
   }
 }

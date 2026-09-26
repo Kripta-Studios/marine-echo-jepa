@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { resolve } from 'node:path';
+import { writeFileSync } from 'node:fs';
 
 test('offline real replay, unavailable forecast, reveal, evidence and export', async ({page}) => {
   const external: string[] = [];
@@ -85,4 +86,21 @@ test('mobile fits, keyboard focus and refresh preserve cutoff', async ({page}) =
   await page.reload();
   await expect(page.getByLabel('Prediction cutoff (UTC)')).toHaveValue('2020-02-17T18:00:00Z');
   await page.screenshot({path:resolve(import.meta.dirname, '../../evidence/browser/mobile.png'),fullPage:true});
+});
+
+test('bounded replay navigation meets the declared latency target', async ({page}) => {
+  await page.goto('/');
+  await expect(page.getByRole('img', {name:/Observed before cutoff/})).toBeVisible();
+  const samples: number[] = [];
+  for (let i = 0; i < 20; i++) {
+    const hour = i % 2 ? 18 : 6;
+    const started = performance.now();
+    await page.getByLabel('Prediction cutoff (UTC)').selectOption(`2020-02-17T${String(hour).padStart(2,'0')}:00:00Z`);
+    await expect(page.getByRole('img', {name:`Observed before cutoff: ${hour*4} observed time bins; raw counts, sample-index axis. Accessible table below.`,exact:true})).toBeVisible();
+    samples.push(performance.now()-started);
+  }
+  const sorted = [...samples].sort((a,b) => a-b);
+  const p95 = sorted[Math.ceil(.95*sorted.length)-1];
+  writeFileSync(resolve(import.meta.dirname,'../../evidence/browser/navigation-latency.json'),JSON.stringify({metric:'UI cutoff change through rendered observation canvas',samples_ms:samples,p95_ms:p95,target_ms:300,live_forecast_latency:null,live_forecast_status:'NOT_RUN_NO_MODEL'},null,2));
+  expect(p95).toBeLessThanOrEqual(300);
 });

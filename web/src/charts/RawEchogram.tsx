@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { ObservationRow } from "../api/client";
 
 export function RawEchogram({
@@ -11,6 +11,7 @@ export function RawEchogram({
   label: string;
 }) {
   const canvas = useRef<HTMLCanvasElement>(null);
+  const [tableOpen, setTableOpen] = useState(false);
   useEffect(() => {
     const ctx = canvas.current?.getContext("2d");
     if (!ctx || !canvas.current) return;
@@ -54,34 +55,36 @@ export function RawEchogram({
         Fixed colour scale: 0–65,535 digitizer counts. Grey cells are missing.
         Vertical groups represent instrument samples, not metres or depth.
       </p>
-      <details>
+      <details onToggle={(event) => setTableOpen(event.currentTarget.open)}>
         <summary>Accessible observation table ({rows.length} bins)</summary>
-        <div className="table-scroll">
-          <table>
-            <thead>
-              <tr>
-                <th>UTC bin end</th>
-                <th>Pings</th>
-                {Array.from({ length: 64 }, (_, group) => (
-                  <th key={group}>Group {group} · raw counts</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((row) => (
-                <tr key={row.event_time_utc}>
-                  <td>{row.event_time_utc}</td>
-                  <td>{row.ping_count}</td>
+        {tableOpen && (
+          <div className="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>UTC bin end</th>
+                  <th>Pings</th>
                   {Array.from({ length: 64 }, (_, group) => (
-                    <td key={group}>
-                      {row.counts[channel]?.[group]?.toFixed(1) ?? "Missing"}
-                    </td>
+                    <th key={group}>Group {group} · raw counts</th>
                   ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {rows.map((row) => (
+                  <tr key={row.event_time_utc}>
+                    <td>{row.event_time_utc}</td>
+                    <td>{row.ping_count}</td>
+                    {Array.from({ length: 64 }, (_, group) => (
+                      <td key={group}>
+                        {row.counts[channel]?.[group]?.toFixed(1) ?? "Missing"}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </details>
     </div>
   );

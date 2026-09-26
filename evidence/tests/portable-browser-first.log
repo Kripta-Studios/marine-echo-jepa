@@ -1,0 +1,33 @@
+[WebServer] Checked 6 packages in 52ms
+
+Running 5 tests using 1 worker
+
+(node:45840) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests\offline.spec.ts:5:1 › offline real replay, unavailable forecast, reveal, evidence and export (8.2s)
+  ✓  2 tests\offline.spec.ts:52:1 › malformed cutoff recovers and every sample group is accessible (1.8s)
+  ✓  3 tests\offline.spec.ts:62:1 › changing cutoff cancels pending reveal without leaking stale data or errors (3.1s)
+  ✓  4 tests\offline.spec.ts:79:1 › mobile fits, keyboard focus and refresh preserve cutoff (3.0s)
+  ✘  5 tests\offline.spec.ts:91:1 › bounded replay navigation meets the declared latency target (8.7s)
+
+
+  1) tests\offline.spec.ts:91:1 › bounded replay navigation meets the declared latency target ──────
+
+    Error: expect(received).toBeLessThanOrEqual(expected)
+
+    Expected: <= 300
+    Received:    432.6116000000002
+
+      103 |   const p95 = sorted[Math.ceil(.95*sorted.length)-1];
+      104 |   writeFileSync(resolve(import.meta.dirname,'../../evidence/browser/navigation-latency.json'),JSON.stringify({metric:'UI cutoff change through rendered observation canvas',samples_ms:samples,p95_ms:p95,target_ms:300,live_forecast_latency:null,live_forecast_status:'NOT_RUN_NO_MODEL'},null,2));
+    > 105 |   expect(p95).toBeLessThanOrEqual(300);
+          |               ^
+      106 | });
+      107 |
+        at C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\web\tests\offline.spec.ts:105:15
+
+    Error Context: test-results\offline-bounded-replay-nav-763ac-the-declared-latency-target\error-context.md
+
+  1 failed
+    tests\offline.spec.ts:91:1 › bounded replay navigation meets the declared latency target ───────
+  4 passed (38.2s)

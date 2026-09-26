@@ -9,12 +9,13 @@ from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
 output = Path(sys.argv[1]).resolve()
+demo_source = sys.argv[2] if len(sys.argv) > 2 else "release/demo-20260926"
 if output.exists():
     raise FileExistsError("Choose a new package directory; published files are immutable.")
 output.mkdir(parents=True)
 for name in ["README_RUN.md", "REPORT.md", "DATA_CARD.md", "MODEL_CARD.md", "LIMITATIONS.md", "MARINE_DATA_REQUEST.md", "THIRD_PARTY_NOTICES.md", "requirements-app.txt", "Run-Demo.ps1", "Verify-Release.py"]:
     shutil.copy2(root / "release" / name, output / name)
-for source, target in [("release/demo-20260926", "demo"), ("release/wheelhouse", "wheelhouse"), ("src", "src"), ("references/licenses", "licenses"), ("orchestration", "orchestration"), ("evidence/tests", "evidence/test_logs"), ("evidence/browser", "evidence/browser"), ("evidence/models", "evidence/models"), ("evidence/runtime", "evidence/runtime"), ("evidence/calibration", "evidence/calibration"), ("reports/active", "evidence/active"), ("data/manifests/mosaic_azfp_down_2020", "evidence/source_manifest")]:
+for source, target in [(demo_source, "demo"), ("release/wheelhouse", "wheelhouse"), ("src", "src"), ("references/licenses", "licenses"), ("orchestration", "orchestration"), ("evidence/tests", "evidence/test_logs"), ("evidence/browser", "evidence/browser"), ("evidence/models", "evidence/models"), ("evidence/runtime", "evidence/runtime"), ("evidence/calibration", "evidence/calibration"), ("reports/active", "evidence/active"), ("data/manifests/mosaic_azfp_down_2020", "evidence/source_manifest")]:
     shutil.copytree(root / source, output / target, ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
 locks = output / "requirements-locks"
 locks.mkdir()
