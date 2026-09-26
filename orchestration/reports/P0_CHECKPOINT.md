@@ -46,3 +46,7 @@ unavailable due to service quota. Coordinator verification is not independent re
 
 Portable packaging and relocated checks are recorded in release validation sidecars. The
 engineering diagnostic is not the requested completed forecasting MVP. Continue from STATUS.md.
+
+## Final engineering package evidence
+
+The revised portable archive passed SHA-256 verification, deliberate corruption rejection, restoration, fresh offline installation, cold startup and all five browser tests after relocation. Navigation p95: 185 ms; cold startup: 7.55 s; first offline setup plus start: 25.69 s. Archive and evidence hashes are in release/SHA256SUMS and release/VALIDATION.json. No calibrated forecasting result or independent final approval is claimed. Model red-stage logs were not durably delivered before the native-agent quota interruption, so complete TDD evidence is not claimed.

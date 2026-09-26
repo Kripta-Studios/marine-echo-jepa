@@ -1,0 +1,37 @@
+All packaged file hashes verified.
+
+Release integrity failed: demo/artifacts/catalog.json
+
+All packaged file hashes verified.
+
+{
+  "archive_sha256": "df02ff06cbbb05d967f8c157423c0c76b2acf66ddb16f1a1fcfbe36a710a5cc3",
+  "relocated": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.runtime\\meeting-relocated-20260926-r2",
+  "network_policy": "uv offline/no-index; browser separately denies all non-loopback requests",
+  "steps": [
+    {
+      "phase": "first_offline_install_and_start",
+      "seconds": 25.69275650000054,
+      "health": {
+        "ready": true,
+        "version": "0.1.0",
+        "release_class": "ENGINEERING_DEMO_ONLY"
+      }
+    },
+    {
+      "phase": "cold_start_existing_environment",
+      "seconds": 7.546795800000837,
+      "health": {
+        "ready": true,
+        "version": "0.1.0",
+        "release_class": "ENGINEERING_DEMO_ONLY"
+      }
+    }
+  ],
+  "integrity_clean_corrupt_restored": [
+    0,
+    2,
+    0
+  ],
+  "status": "PASS_ENGINEERING_DIAGNOSTIC_ONLY"
+}

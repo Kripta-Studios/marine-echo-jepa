@@ -383,7 +383,7 @@
       ],
       "role": "sol_builder",
       "priority": "P0",
-      "status": "IN_PROGRESS",
+      "status": "REVIEW",
       "allowed_paths": [
         "scripts/",
         "web/",
@@ -395,7 +395,7 @@
         "offline browser logs"
       ],
       "required_tests": "W02 W03 R01",
-      "actual_commit": null,
+      "actual_commit": "b45b7ec808e9d189e0047dc9fadd94900a3ecf73",
       "report": "orchestration/reports/P0_CHECKPOINT.md"
     },
     {
@@ -450,7 +450,7 @@
       ],
       "role": "leader",
       "priority": "P0",
-      "status": "IN_PROGRESS",
+      "status": "REVIEW",
       "allowed_paths": [
         "release/",
         "orchestration/"
@@ -461,7 +461,7 @@
         "limitations"
       ],
       "required_tests": "R01 R02",
-      "actual_commit": null,
+      "actual_commit": "b45b7ec808e9d189e0047dc9fadd94900a3ecf73",
       "report": "orchestration/reports/P0_CHECKPOINT.md"
     },
     {

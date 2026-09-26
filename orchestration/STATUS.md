@@ -19,7 +19,7 @@ Core model suite: 17 passed including CUDA profile; integrated rerun: 16 passed,
 skip of the already executed 100-update profile. Peak GPU reserved memory: 100 MiB.
 The first copied package passed functional tests but failed navigation p95 (433 ms).
 Lazy rendering of the closed accessibility table fixed the observed issue: fresh-server
-p95 192 ms. The revised portable package is undergoing its own copied-release verification.
+p95 192 ms. The revised package passed all 5 copied-release browser tests: navigation p95 185 ms and cold start 7.55 s. Integrity corruption detection and offline installation also passed. See release/VALIDATION.json.
 
 Native independent R3 and Sol review of Luna drafts remain blocked by the service quota.
 No substitute model or independent approval is claimed. Resume the configured agents when
@@ -28,6 +28,8 @@ access returns. Existing source branches/worktrees and reports preserve their wo
 GPU owner: none. No training is running. The old owned preview server was stopped.
 Cloud unauthorized; infrastructure paid/committed: USD 0.
 
-Safe next step: finish revised package verification; resume native review when service access
+Safe next step: resume native review when service access
 returns; validate prospective environmental matching, TEOS-10 conversion and instrument geometry;
 complete canonical pipeline and experiment orchestration, then follow frozen protocol/review gates.
+
+Delivered diagnostic: release/meeting-20260926-r2.zip. Source revision b45b7ec; SHA-256 and validation sidecar are in release/. No owned training or app server is left running.

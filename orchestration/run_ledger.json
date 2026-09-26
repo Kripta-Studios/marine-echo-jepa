@@ -258,7 +258,7 @@
   ],
   "gates": {
     "G0_DATA": "BLOCKED_ENVIRONMENTAL_APPLICABILITY_AND_REVIEW",
-    "G1_ENGINEERING": "TESTED_DIAGNOSTIC_PENDING_INDEPENDENT_REVIEW",
+    "G1_ENGINEERING": "DIAGNOSTIC_TESTS_PASS_INDEPENDENT_REVIEW_BLOCKED",
     "G2_EXPERIMENT": "BLOCKED_NOT_RUN",
     "G3_INCREMENTAL_VALUE": "NOT_EVALUATED",
     "commercial_validation": "NOT_EVALUATED"
@@ -279,8 +279,13 @@
     "fresh_browser": "evidence/tests/R3-browser-fresh.log"
   },
   "release": {
-    "status": "REVISED_PORTABLE_VERIFICATION_IN_PROGRESS",
-    "first_package_navigation_p95_ms": 432.6116,
-    "fixed_fresh_server_navigation_p95_ms": 192.3582
+    "status": "ENGINEERING_DIAGNOSTIC_TESTED_P0_INCOMPLETE",
+    "archive_sha256": "df02ff06cbbb05d967f8c157423c0c76b2acf66ddb16f1a1fcfbe36a710a5cc3",
+    "source_commit": "b45b7ec808e9d189e0047dc9fadd94900a3ecf73",
+    "validation": "release/VALIDATION.json",
+    "browser_passed": 5,
+    "navigation_p95_ms": 185.14210000000094,
+    "cold_start_seconds": 7.546795800000837,
+    "independent_approval": false
   }
 }
