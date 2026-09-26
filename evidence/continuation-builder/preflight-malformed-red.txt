@@ -1,0 +1,95 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_________ test_malformed_census_binding_remains_a_blocked_diagnostic __________
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3695/test_malformed_census_binding_0')
+
+    def test_malformed_census_binding_remains_a_blocked_diagnostic(tmp_path: Path) -> None:
+        root = _case(tmp_path)
+        execution = root / "evidence/continuation/train_census_execution.json"
+        document = json.loads(execution.read_text(encoding="utf-8"))
+        document["identity"] = {"bindings": None}
+        execution.write_text(json.dumps(document), encoding="utf-8")
+        _write(root, "evidence/continuation/train_census_eligibility.json", {})
+>       result = inspect_campaign_preflight(root)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\integration\test_campaign_preflight.py:246: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+root = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3695/test_malformed_census_binding_0')
+
+    def inspect_campaign_preflight(root: Path) -> dict[str, Any]:
+        """Inspect fixed JSON evidence only; return a permanently blocked diagnostic.
+    
+        A future real adapter needs a separate reviewed promotion contract. No
+        combination of caller-authored approval flags can make this function run a
+        model or return an execution-ready decision.
+        """
+        if root.is_symlink() or root.is_junction() or not root.is_dir():
+            raise ValueError("Campaign evidence root must be an unlinked local directory.")
+        hashes: dict[str, str] = {}
+        blockers: list[str] = []
+        evidence = {
+            key: _read_evidence(root, relative, hashes, blockers) for key, relative in _PATHS.items()
+        }
+        code_path = root / "tools/target_only_bound.py"
+        if code_path.is_file() and not code_path.is_symlink() and not code_path.is_junction():
+            if code_path.stat().st_size <= _MAX_JSON_BYTES:
+                hashes["tools/target_only_bound.py"] = hashlib.sha256(
+                    code_path.read_bytes()
+                ).hexdigest()
+            else:
+                blockers.append("OVERSIZED_EVIDENCE")
+        elif code_path.is_symlink() or code_path.is_junction():
+            blockers.append("LINKED_EVIDENCE")
+        protocol = evidence["protocol"]
+        if protocol is None or protocol.get("status") == "DRAFT_REQUIRES_R1_AND_R2":
+            blockers.append("PROTOCOL_NOT_REVIEWED")
+        else:
+            blockers.append("PROTOCOL_STATUS_UNVERIFIED")
+        if protocol is not None and protocol.get("test_opened") is not False:
+            blockers.append("PROTECTED_EXPOSURE_REVIEW_REQUIRED")
+        r0, r1, continuation = evidence["r0"], evidence["r1"], evidence["continuation"]
+        if (
+            r0 is None
+            or r0.get("verdict") != "APPROVED"
+            or (continuation is None or continuation.get("R0") != "APPROVED")
+        ):
+            blockers.append("R0_NOT_APPROVED")
+        if (
+            r1 is None
+            or r1.get("verdict") != "APPROVED"
+            or (continuation is None or continuation.get("R1") != "APPROVED")
+        ):
+            blockers.append("R1_NOT_APPROVED")
+        execution = evidence["census_execution"]
+        eligibility = evidence["census_eligibility"]
+        if execution is None or execution.get("status") != "COMPLETE_TRAIN_CENSUS_NOT_BENCHMARK":
+            blockers.append("CENSUS_INCOMPLETE")
+        if execution is not None and (
+            type(execution.get("completed_benchmark_runs")) is not int
+            or execution.get("completed_benchmark_runs") != 0
+            or execution.get("held_out_acoustic_payloads_processed") is not False
+        ):
+            blockers.append("CENSUS_INTEGRITY_UNVERIFIED")
+        if eligibility is None:
+            blockers.append("CENSUS_ELIGIBILITY_MISSING")
+        protocol_sha = hashes.get(_PATHS["protocol"])
+        execution_sha = hashes.get(_PATHS["census_execution"])
+        bound_protocol: str | None = None
+        strict_integrity = False
+        if execution is not None and eligibility is not None:
+            identity = execution.get("identity")
+            bound_protocol = (
+>               identity.get("bindings", {}).get("protocol_sha256")
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                if isinstance(identity, dict)
+                else None
+            )
+E           AttributeError: 'NoneType' object has no attribute 'get'
+
+src\marine_echo\training\campaign_preflight.py:118: AttributeError
+=========================== short test summary info ===========================
+FAILED tests/integration/test_campaign_preflight.py::test_malformed_census_binding_remains_a_blocked_diagnostic
+1 failed in 0.22s

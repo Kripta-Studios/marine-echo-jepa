@@ -1,0 +1,117 @@
+.F..FF                                                                   [100%]
+================================== FAILURES ===================================
+__ test_preflight_rejects_unbound_completed_census_and_impossible_day_bound ___
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3690/test_preflight_rejects_unbound0')
+
+    def test_preflight_rejects_unbound_completed_census_and_impossible_day_bound(
+        tmp_path: Path,
+    ) -> None:
+        root = _case(tmp_path)
+        protocol = root / "reports/active/protocol.json"
+        execution = root / "evidence/continuation/train_census_execution.json"
+        execution_doc = json.loads(execution.read_text())
+        execution_doc.update(
+            status="COMPLETE_TRAIN_CENSUS_NOT_BENCHMARK",
+            identity={
+                "bindings": {"protocol_sha256": hashlib.sha256(protocol.read_bytes()).hexdigest()}
+            },
+        )
+        execution.write_text(json.dumps(execution_doc), encoding="utf-8")
+        _write(
+            root,
+            "evidence/continuation/train_census_eligibility.json",
+            {
+                "status": "TRAIN_CENSUS_COMPLETE_D1_INELIGIBLE_UPPER_BOUND",
+                "execution_report_sha256": hashlib.sha256(execution.read_bytes()).hexdigest(),
+                "method_identity": execution_doc["identity"],
+                "processed_train_calendar_days": 100,
+                "unresolved_train_days": 0,
+                "eligible_train_cutoff_days": 0,
+                "overall_eligible_day_upper_bound": 67,
+                "minimum_overall_days": 90,
+                "held_out_acoustic_payloads_processed": False,
+                "completed_benchmark_runs": 0,
+                "benchmark_eligible": False,
+            },
+        )
+        result = inspect_campaign_preflight(root)
+>       assert "TARGET_ONLY_BOUND_MISSING" in result["blockers"]
+E       AssertionError: assert 'TARGET_ONLY_BOUND_MISSING' in ['PROTOCOL_NOT_REVIEWED', 'R0_NOT_APPROVED', 'R1_NOT_APPROVED', 'D1_MINIMUM_IMPOSSIBLE', 'REAL_CORPUS_INTERFACE_MISSING', 'REAL_EXECUTOR_MISSING']
+
+tests\integration\test_campaign_preflight.py:101: AssertionError
+__________ test_only_bound_target_report_can_support_d1_disposition ___________
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3690/test_only_bound_target_report_0')
+
+    def test_only_bound_target_report_can_support_d1_disposition(tmp_path: Path) -> None:
+        root = _case(tmp_path)
+        protocol = root / "reports/active/protocol.json"
+        execution = root / "evidence/continuation/train_census_execution.json"
+        identity = {"bindings": {"protocol_sha256": hashlib.sha256(protocol.read_bytes()).hexdigest()}}
+        execution_doc = json.loads(execution.read_text(encoding="utf-8"))
+        execution_doc.update(status="COMPLETE_TRAIN_CENSUS_NOT_BENCHMARK", identity=identity)
+        execution.write_text(json.dumps(execution_doc), encoding="utf-8")
+        strict = root / "evidence/continuation/train_census_eligibility.json"
+        _write(root, "evidence/continuation/train_census_eligibility.json", {
+            "execution_report_sha256": hashlib.sha256(execution.read_bytes()).hexdigest(),
+            "method_identity": identity, "processed_train_calendar_days": 100,
+            "unresolved_train_days": 0, "eligible_train_cutoff_days": 0,
+            "overall_eligible_day_upper_bound": 67, "minimum_overall_days": 90,
+            "held_out_acoustic_payloads_processed": False, "completed_benchmark_runs": 0,
+            "benchmark_eligible": False,
+        })
+        contract = root / "evidence/continuation/target_only_bound_contract.json"
+        _write(root, "evidence/continuation/target_only_bound_contract.json", {
+            "id": "synthetic-test-target-only", "benchmark_eligible": False,
+        })
+        code = root / "tools/target_only_bound.py"
+        code.parent.mkdir(parents=True, exist_ok=True)
+        code.write_text("# synthetic fixture source\n", encoding="utf-8")
+        _write(root, "evidence/continuation/target_only_bound.json", {
+            "status": "D1_INELIGIBLE_TARGET_SUPPORT_UPPER_BOUND",
+            "contract_sha256": hashlib.sha256(contract.read_bytes()).hexdigest(),
+            "code_sha256": hashlib.sha256(code.read_bytes()).hexdigest(),
+            "execution_report_sha256": hashlib.sha256(execution.read_bytes()).hexdigest(),
+            "strict_context_report_sha256": hashlib.sha256(strict.read_bytes()).hexdigest(),
+            "processed_train_calendar_days": 100,
+            "target_supported_train_anchor_days_upper_bound": 0,
+            "overall_eligible_day_upper_bound": 67,
+            "minimum_overall_days": 90,
+            "unmeasured_nontrain_day_upper_bound": 67,
+            "held_out_acoustic_payloads_processed": False,
+            "completed_benchmark_runs": 0,
+            "benchmark_eligible": False,
+        })
+        result = inspect_campaign_preflight(root)
+        assert "D1_MINIMUM_IMPOSSIBLE" in result["blockers"]
+        target = root / "evidence/continuation/target_only_bound.json"
+        content = json.loads(target.read_text(encoding="utf-8"))
+        content["strict_context_report_sha256"] = "f" * 64
+        target.write_text(json.dumps(content), encoding="utf-8")
+        changed = inspect_campaign_preflight(root)
+>       assert "TARGET_ONLY_BOUND_UNVERIFIED" in changed["blockers"]
+E       AssertionError: assert 'TARGET_ONLY_BOUND_UNVERIFIED' in ['PROTOCOL_NOT_REVIEWED', 'R0_NOT_APPROVED', 'R1_NOT_APPROVED', 'D1_MINIMUM_IMPOSSIBLE', 'REAL_CORPUS_INTERFACE_MISSING', 'REAL_EXECUTOR_MISSING']
+
+tests\integration\test_campaign_preflight.py:206: AssertionError
+________ test_unknown_protocol_and_boolean_census_counters_fail_closed ________
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3690/test_unknown_protocol_and_bool0')
+
+    def test_unknown_protocol_and_boolean_census_counters_fail_closed(tmp_path: Path) -> None:
+        root = _case(tmp_path)
+        _write(root, "reports/active/protocol.json", {"status": "UNKNOWN", "test_opened": False})
+        execution = root / "evidence/continuation/train_census_execution.json"
+        document = json.loads(execution.read_text(encoding="utf-8"))
+        document["completed_benchmark_runs"] = False
+        execution.write_text(json.dumps(document), encoding="utf-8")
+        result = inspect_campaign_preflight(root)
+>       assert "PROTOCOL_STATUS_UNVERIFIED" in result["blockers"]
+E       AssertionError: assert 'PROTOCOL_STATUS_UNVERIFIED' in ['R0_NOT_APPROVED', 'R1_NOT_APPROVED', 'CENSUS_INCOMPLETE', 'CENSUS_ELIGIBILITY_MISSING', 'REAL_CORPUS_INTERFACE_MISSING', 'REAL_EXECUTOR_MISSING']
+
+tests\integration\test_campaign_preflight.py:218: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/integration/test_campaign_preflight.py::test_preflight_rejects_unbound_completed_census_and_impossible_day_bound
+FAILED tests/integration/test_campaign_preflight.py::test_only_bound_target_report_can_support_d1_disposition
+FAILED tests/integration/test_campaign_preflight.py::test_unknown_protocol_and_boolean_census_counters_fail_closed
+3 failed, 3 passed in 1.08s
