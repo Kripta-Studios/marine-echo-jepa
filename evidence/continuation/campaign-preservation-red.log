@@ -1,0 +1,112 @@
+FFFF                                                                     [100%]
+================================== FAILURES ===================================
+_____ test_blocked_campaign_does_not_overwrite_existing_evidence[FAILED] ______
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3607/test_blocked_campaign_does_not0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002334A254920>
+status = 'FAILED'
+
+    @pytest.mark.parametrize("status", ["FAILED", "RUNNING", "BLOCKED", "COMPLETED"])
+    def test_blocked_campaign_does_not_overwrite_existing_evidence(tmp_path, monkeypatch, status):
+        (tmp_path / "configs").mkdir()
+        (tmp_path / "configs/experiments.json").write_bytes((ROOT / "configs/experiments.json").read_bytes())
+        registry = tmp_path / "reports/active/training_registry.json"
+        registry.parent.mkdir(parents=True)
+        registry.write_text(json.dumps({"completed_benchmark_runs": 0, "test_opened": True,
+                                         "runs": [{"run_id": "direct-seed7", "status": status,
+                                                   "updates": 5, "failure_log": "preserve.log"}]}))
+        original = registry.read_bytes()
+        monkeypatch.chdir(tmp_path)
+        result = CliRunner().invoke(app, ["experiment", "complete-p0", "--protocol", "active", "--resume"])
+        assert result.exit_code == 2
+>       assert registry.read_bytes() == original
+E       assert b'{\r\n  "sch...alse\r\n}\r\n' == b'{"completed...serve.log"}]}'
+E         
+E         At index 1 diff: b'\r' != b'"'
+E         Use -v to get more diff
+
+C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tests\unit\test_campaign_checkpoint.py:27: AssertionError
+_____ test_blocked_campaign_does_not_overwrite_existing_evidence[RUNNING] _____
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3607/test_blocked_campaign_does_not1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002334A257380>
+status = 'RUNNING'
+
+    @pytest.mark.parametrize("status", ["FAILED", "RUNNING", "BLOCKED", "COMPLETED"])
+    def test_blocked_campaign_does_not_overwrite_existing_evidence(tmp_path, monkeypatch, status):
+        (tmp_path / "configs").mkdir()
+        (tmp_path / "configs/experiments.json").write_bytes((ROOT / "configs/experiments.json").read_bytes())
+        registry = tmp_path / "reports/active/training_registry.json"
+        registry.parent.mkdir(parents=True)
+        registry.write_text(json.dumps({"completed_benchmark_runs": 0, "test_opened": True,
+                                         "runs": [{"run_id": "direct-seed7", "status": status,
+                                                   "updates": 5, "failure_log": "preserve.log"}]}))
+        original = registry.read_bytes()
+        monkeypatch.chdir(tmp_path)
+        result = CliRunner().invoke(app, ["experiment", "complete-p0", "--protocol", "active", "--resume"])
+        assert result.exit_code == 2
+>       assert registry.read_bytes() == original
+E       assert b'{\r\n  "sch...alse\r\n}\r\n' == b'{"completed...serve.log"}]}'
+E         
+E         At index 1 diff: b'\r' != b'"'
+E         Use -v to get more diff
+
+C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tests\unit\test_campaign_checkpoint.py:27: AssertionError
+_____ test_blocked_campaign_does_not_overwrite_existing_evidence[BLOCKED] _____
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3607/test_blocked_campaign_does_not2')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002334A2CA690>
+status = 'BLOCKED'
+
+    @pytest.mark.parametrize("status", ["FAILED", "RUNNING", "BLOCKED", "COMPLETED"])
+    def test_blocked_campaign_does_not_overwrite_existing_evidence(tmp_path, monkeypatch, status):
+        (tmp_path / "configs").mkdir()
+        (tmp_path / "configs/experiments.json").write_bytes((ROOT / "configs/experiments.json").read_bytes())
+        registry = tmp_path / "reports/active/training_registry.json"
+        registry.parent.mkdir(parents=True)
+        registry.write_text(json.dumps({"completed_benchmark_runs": 0, "test_opened": True,
+                                         "runs": [{"run_id": "direct-seed7", "status": status,
+                                                   "updates": 5, "failure_log": "preserve.log"}]}))
+        original = registry.read_bytes()
+        monkeypatch.chdir(tmp_path)
+        result = CliRunner().invoke(app, ["experiment", "complete-p0", "--protocol", "active", "--resume"])
+        assert result.exit_code == 2
+>       assert registry.read_bytes() == original
+E       assert b'{\r\n  "sch...alse\r\n}\r\n' == b'{"completed...serve.log"}]}'
+E         
+E         At index 1 diff: b'\r' != b'"'
+E         Use -v to get more diff
+
+C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tests\unit\test_campaign_checkpoint.py:27: AssertionError
+____ test_blocked_campaign_does_not_overwrite_existing_evidence[COMPLETED] ____
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3607/test_blocked_campaign_does_not3')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002334A2C8BF0>
+status = 'COMPLETED'
+
+    @pytest.mark.parametrize("status", ["FAILED", "RUNNING", "BLOCKED", "COMPLETED"])
+    def test_blocked_campaign_does_not_overwrite_existing_evidence(tmp_path, monkeypatch, status):
+        (tmp_path / "configs").mkdir()
+        (tmp_path / "configs/experiments.json").write_bytes((ROOT / "configs/experiments.json").read_bytes())
+        registry = tmp_path / "reports/active/training_registry.json"
+        registry.parent.mkdir(parents=True)
+        registry.write_text(json.dumps({"completed_benchmark_runs": 0, "test_opened": True,
+                                         "runs": [{"run_id": "direct-seed7", "status": status,
+                                                   "updates": 5, "failure_log": "preserve.log"}]}))
+        original = registry.read_bytes()
+        monkeypatch.chdir(tmp_path)
+        result = CliRunner().invoke(app, ["experiment", "complete-p0", "--protocol", "active", "--resume"])
+        assert result.exit_code == 2
+>       assert registry.read_bytes() == original
+E       assert b'{\r\n  "sch...alse\r\n}\r\n' == b'{"completed...serve.log"}]}'
+E         
+E         At index 1 diff: b'\r' != b'"'
+E         Use -v to get more diff
+
+C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tests\unit\test_campaign_checkpoint.py:27: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_campaign_checkpoint.py::test_blocked_campaign_does_not_overwrite_existing_evidence[FAILED]
+FAILED tests/unit/test_campaign_checkpoint.py::test_blocked_campaign_does_not_overwrite_existing_evidence[RUNNING]
+FAILED tests/unit/test_campaign_checkpoint.py::test_blocked_campaign_does_not_overwrite_existing_evidence[BLOCKED]
+FAILED tests/unit/test_campaign_checkpoint.py::test_blocked_campaign_does_not_overwrite_existing_evidence[COMPLETED]
+4 failed in 3.36s

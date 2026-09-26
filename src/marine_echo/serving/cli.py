@@ -160,16 +160,32 @@ def train(family: str, seed: int = 7, protocol: str = "active") -> None:
 
 @experiment.command("complete-p0")
 def complete_p0(protocol: str = "active", resume: bool = False) -> None:
-    """Materialize every required run's blocked state without inventing failed metrics."""
-    registry = run_registry(root_path())
+    """Report the current campaign blocker without replacing attempt or exposure evidence.
+
+    The scientific executor is not implemented while corpus/protocol approval is absent.
+    This checkpoint operation must never be reported as a completed finite campaign.
+    """
+    if protocol != "active":
+        raise typer.BadParameter("Only the explicit active protocol is registered.")
     path = Path("reports/active/training_registry.json")
-    path.parent.mkdir(parents=True, exist_ok=True)
-    if path.exists() and json.loads(path.read_text()).get("completed_benchmark_runs", 0):
-        raise typer.BadParameter(
-            "Existing completed evidence cannot be replaced with a blocked registry."
+    if path.exists():
+        registry = json.loads(path.read_text(encoding="utf-8"))
+        emit(
+            {
+                "operation": "complete-p0",
+                "status": "BLOCKED",
+                "reason": REASON,
+                "executor_status": "NOT_IMPLEMENTED",
+                "existing_registry_preserved": True,
+                "registry": registry,
+            }
         )
-    path.write_text(json.dumps(registry, indent=2) + "\n", encoding="utf-8")
-    emit(registry)
+    else:
+        registry = run_registry(root_path())
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with path.open("x", encoding="utf-8") as stream:
+            stream.write(json.dumps(registry, indent=2) + "\n")
+        emit({"status": "BLOCKED", "executor_status": "NOT_IMPLEMENTED", "registry": registry})
     raise typer.Exit(2)
 
 

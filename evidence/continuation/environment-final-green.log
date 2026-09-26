@@ -1,0 +1,30 @@
+.........F.........                                                      [100%]
+================================== FAILURES ===================================
+_____ test_published_teos_salinity_temperature_and_sound_speed_references _____
+
+    def test_published_teos_salinity_temperature_and_sound_speed_references():
+        # Independent tabulated examples: teos-10.org/pubs/gsw/html/gsw_{z_from_p,
+        # SP_from_SA,t_from_CT,sound_speed}.html. Sound-speed example uses different CT.
+        depths = [9.9445834469453, 49.7180897012550, 124.2726219409978]
+        sa = [34.7118, 34.8915, 35.0256]
+        converted = seawater_properties(depths, sa, [28.8099, 28.4392, 22.7862], 4, 188)
+        np.testing.assert_allclose(converted["pressure_dbar"], [10, 50, 125], atol=1e-9)
+>       np.testing.assert_allclose(converted["practical_salinity"],
+                                   [34.548721553448317, 34.727477488096639, 34.860554877708005], atol=2e-8)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-07, atol=2e-08
+E       
+E       Mismatched elements: 3 / 3 (100%)
+E       Mismatch at indices:
+E        [0]: 34.5487062320727 (ACTUAL), 34.54872155344832 (DESIRED)
+E        [1]: 34.727446020731016 (ACTUAL), 34.72747748809664 (DESIRED)
+E        [2]: 34.860480717730574 (ACTUAL), 34.860554877708005 (DESIRED)
+E       Max absolute difference among violations: 7.41599774e-05
+E       Max relative difference among violations: 2.1273321e-06
+E        ACTUAL: array([34.548706, 34.727446, 34.860481])
+E        DESIRED: array([34.548722, 34.727477, 34.860555])
+
+tests\scientific\test_environment.py:89: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/scientific/test_environment.py::test_published_teos_salinity_temperature_and_sound_speed_references
+1 failed, 18 passed in 1.51s

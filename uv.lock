@@ -612,6 +612,23 @@ wheels = [
 ]
 
 [[package]]
+name = "gsw"
+version = "3.6.23"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/48/dc/1d4dbe5569f299968aa6f6745c105cccc0cf700ae22717c422fb095e6b6b/gsw-3.6.23.tar.gz", hash = "sha256:d14a734addfc96445ae84c800ad642d453ff174d48d6c30c0879a4425185b82a", size = 2706350, upload-time = "2026-06-21T15:07:10.84Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/22/fe/3acd7274f19c8641b6891d3bc0d87872166b9aeb1a41fe75b522690d9c45/gsw-3.6.23-cp311-abi3-macosx_10_9_x86_64.whl", hash = "sha256:756fdf57432ff10d08bd3af9a0c97f8899c8a50b3e444b67b17984e10fbfcf38", size = 2223257, upload-time = "2026-06-21T15:06:59.585Z" },
+    { url = "https://files.pythonhosted.org/packages/6e/cd/1ce4f60b69a4ad9a95287f4f03d4846c7e3763a6de93883e218f75c169c7/gsw-3.6.23-cp311-abi3-macosx_11_0_arm64.whl", hash = "sha256:9906645d8d3a897cbd90cc58373ea3ba239a4db63708039b1a11c2dbc4b2e408", size = 2265358, upload-time = "2026-06-21T15:07:01.736Z" },
+    { url = "https://files.pythonhosted.org/packages/f8/eb/ea5936ec1a20795194318c0885ab46288175b9cb9fbf3ab0d7c65055b9e9/gsw-3.6.23-cp311-abi3-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:ca81546bdba98a0e4af6e9b738cdaa6f96de23348b8bccb8c2f3221ef166df8b", size = 2396517, upload-time = "2026-06-21T15:07:03.652Z" },
+    { url = "https://files.pythonhosted.org/packages/61/91/cc7b4a4429e596d6ff7fe6cfa8f7e2162d54a5c9b083b24cb2dcbe58db83/gsw-3.6.23-cp311-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:a67daf2fe608a8fbcc88b5aef962d1f6afe79a1af2d763e29f6bbfef051b096b", size = 2437844, upload-time = "2026-06-21T15:07:05.313Z" },
+    { url = "https://files.pythonhosted.org/packages/e7/ac/57f9df6b2fc6ffc4ba101fe31f0247b7100e0fe1b52edbd3e5d384c726a1/gsw-3.6.23-cp311-abi3-pyemscripten_2026_0_wasm32.whl", hash = "sha256:870a0e0246072ac63cb0359e9c994c98cf0607c1d8c27598e871c7bbc8464505", size = 2120219, upload-time = "2026-06-21T15:07:07.026Z" },
+    { url = "https://files.pythonhosted.org/packages/95/92/f1f4dd4cebf6a56396057e4c3722e15d9cb84505f03fd520164065e4c89c/gsw-3.6.23-cp311-abi3-win_amd64.whl", hash = "sha256:b74b5234c44c0a380547aa4e68177dc8cd077c63c58a66acb448b2eece74f7f9", size = 2183657, upload-time = "2026-06-21T15:07:08.532Z" },
+]
+
+[[package]]
 name = "h11"
 version = "0.16.0"
 source = { registry = "https://pypi.org/simple" }
@@ -762,6 +779,7 @@ dependencies = [
 [package.optional-dependencies]
 data = [
     { name = "echopype" },
+    { name = "gsw" },
     { name = "pypdf" },
 ]
 train = [
@@ -782,6 +800,7 @@ dev = [
 requires-dist = [
     { name = "echopype", marker = "extra == 'data'", specifier = "==0.11.1" },
     { name = "fastapi", specifier = "==0.141.1" },
+    { name = "gsw", marker = "extra == 'data'", specifier = "==3.6.23" },
     { name = "numpy", specifier = "==2.5.3" },
     { name = "psutil", specifier = "==7.2.2" },
     { name = "pyarrow", specifier = "==25.0.1" },

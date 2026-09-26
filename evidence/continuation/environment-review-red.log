@@ -1,0 +1,42 @@
+......FF.........F                                                       [100%]
+================================== FAILURES ===================================
+________ test_impossible_availability_and_nonboolean_quality_rejected _________
+
+    def test_impossible_availability_and_nonboolean_quality_rejected():
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\scientific\test_environment.py:59: Failed
+_____________ test_ambiguous_contemporaneous_sources_fail_closed ______________
+
+    def test_ambiguous_contemporaneous_sources_fail_closed():
+>       with pytest.raises(ValueError, match="Ambiguous"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\scientific\test_environment.py:66: Failed
+_ test_iridium_invalid_fix_or_ambiguous_coordinate_rejected[1 65 3 2020-8-2 17:10:0 79.5 6.6 -2 -36.0 0 service] _
+
+line = '1 65 3 2020-8-2 17:10:0 79.5 6.6 -2 -36.0 0 service'
+
+    @pytest.mark.parametrize(
+        "line",
+        [
+            "0 65 3 2020-8-2 17:10:0 79 6.6 -2 -36.0 0 service",
+            "1 65 3 2020-8-2 17:10:0 79 60.6 -2 -36.0 0 service",
+        "1 65 3 2020-8-2 17:10:0 79 6.6 -2 36.0 0 service",
+        "1 65 3 2020-8-2 17:10:0 79.5 6.6 -2 -36.0 0 service",
+        ],
+    )
+    def test_iridium_invalid_fix_or_ambiguous_coordinate_rejected(line):
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\scientific\test_environment.py:114: Failed
+=========================== short test summary info ===========================
+FAILED tests/scientific/test_environment.py::test_impossible_availability_and_nonboolean_quality_rejected
+FAILED tests/scientific/test_environment.py::test_ambiguous_contemporaneous_sources_fail_closed
+FAILED tests/scientific/test_environment.py::test_iridium_invalid_fix_or_ambiguous_coordinate_rejected[1 65 3 2020-8-2 17:10:0 79.5 6.6 -2 -36.0 0 service]
+3 failed, 15 passed in 1.49s
