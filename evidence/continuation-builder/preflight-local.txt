@@ -1,0 +1,21 @@
+{
+  "status": "BLOCKED",
+  "blockers": [
+    "PROTOCOL_NOT_REVIEWED",
+    "R0_NOT_APPROVED",
+    "R1_NOT_APPROVED",
+    "CENSUS_INCOMPLETE",
+    "CENSUS_ELIGIBILITY_MISSING",
+    "REAL_CORPUS_INTERFACE_MISSING",
+    "REAL_EXECUTOR_MISSING"
+  ],
+  "evidence_sha256": {
+    "reports/active/protocol.json": "8473ecb568d7c102521e7118197a2bbe61426df9d02a0ed7b73933f49ca7815b",
+    "orchestration/reviews/R0.json": "fc5b9855393920b79099e69082f4a3421a058dbdd6b3f64fac977cdd38398a81",
+    "orchestration/reviews/R1.json": "d13ac4b867e90ea6b684de3ad52036aadfd65d6d1f8540fe451dfd2f26a3e55a",
+    "orchestration/reviews/R0-R1-continuation-20260926.json": "a0dcc10866f3e5da8cc123b74fb74e6f13ff26897e8134827286167b4581e65d",
+    "evidence/continuation/train_census_execution.json": "a6c744da6b04f3b17034eb64a59535e078998c35aeca602cf173f9469f7a4e55",
+    "reports/active/training_registry.json": "6061823100962ded061123814acb8b20688c42f699036a590ca3afadd323fd69"
+  },
+  "test_acoustic_values_opened_by_preflight": false
+}
