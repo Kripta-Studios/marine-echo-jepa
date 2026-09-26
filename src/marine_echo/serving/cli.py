@@ -206,15 +206,40 @@ def evaluate(partition: str = "test", protocol: str = "active") -> None:
 
 @app.command()
 def report(protocol: str = "active") -> None:
+    if protocol != "active":
+        raise typer.BadParameter("Only the explicit active protocol is registered.")
+    registry_path = Path("reports/active/training_registry.json")
+    registry = (
+        json.loads(registry_path.read_text(encoding="utf-8"))
+        if registry_path.exists()
+        else run_registry(root_path())
+    )
+    unattempted_fields = {
+        "run_id",
+        "family",
+        "seed",
+        "phase",
+        "status",
+        "reason",
+        "updates",
+        "metrics",
+    }
+    unattempted = all(
+        run.get("status") in {"BLOCKED", "NOT_RUN"}
+        and run.get("updates", 0) == 0
+        and run.get("metrics") is None
+        and not any(value for key, value in run.items() if key not in unattempted_fields)
+        for run in registry["runs"]
+    )
     emit(
         {
             "release_class": "ENGINEERING_DEMO_ONLY",
             "G0_DATA": "BLOCKED",
-            "G2_EXPERIMENT": "NOT_RUN",
+            "G2_EXPERIMENT": "NOT_RUN" if unattempted else "INCOMPLETE",
             "G3_INCREMENTAL_VALUE": "NOT_EVALUATED",
             "commercial_validation": "NOT_EVALUATED",
             "reason": REASON,
-            "registry": run_registry(root_path()),
+            "registry": registry,
         }
     )
 

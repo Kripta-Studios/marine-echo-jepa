@@ -42,3 +42,19 @@ def test_blocked_campaign_does_not_overwrite_existing_evidence(tmp_path, monkeyp
     )
     assert result.exit_code == 2
     assert registry.read_bytes() == original
+
+
+@pytest.mark.parametrize("status", ["FAILED", "RUNNING", "COMPLETED_SYNTHETIC_FIXTURE"])
+def test_report_uses_recorded_attempts_and_exposure(tmp_path, monkeypatch, status):
+    registry = tmp_path / "reports/active/training_registry.json"
+    registry.parent.mkdir(parents=True)
+    document = {
+        "test_opened": True,
+        "runs": [{"run_id": "control-seed7", "status": status, "failure_log": "failure.log"}],
+    }
+    registry.write_text(json.dumps(document))
+    monkeypatch.chdir(tmp_path)
+    result = CliRunner().invoke(app, ["report", "--protocol", "active"])
+    assert result.exit_code == 0
+    assert json.loads(result.stdout)["registry"] == document
+    assert json.loads(result.stdout)["G2_EXPERIMENT"] == "INCOMPLETE"

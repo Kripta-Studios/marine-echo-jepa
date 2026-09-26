@@ -1,0 +1,85 @@
+....FFF                                                                  [100%]
+================================== FAILURES ===================================
+___________ test_report_uses_recorded_attempts_and_exposure[FAILED] ___________
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3645/test_report_uses_recorded_atte0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000022D5E637E60>
+status = 'FAILED'
+
+    @pytest.mark.parametrize("status", ["FAILED", "RUNNING", "COMPLETED_SYNTHETIC_FIXTURE"])
+    def test_report_uses_recorded_attempts_and_exposure(tmp_path, monkeypatch, status):
+        registry = tmp_path / "reports/active/training_registry.json"
+        registry.parent.mkdir(parents=True)
+        document = {
+            "test_opened": True,
+            "runs": [{"run_id": "control-seed7", "status": status, "failure_log": "failure.log"}],
+        }
+        registry.write_text(json.dumps(document))
+        monkeypatch.chdir(tmp_path)
+        result = CliRunner().invoke(app, ["report", "--protocol", "active"])
+        assert result.exit_code == 0
+        assert json.loads(result.stdout)["registry"] == document
+>       assert json.loads(result.stdout)["G2_EXPERIMENT"] == "INCOMPLETE"
+E       AssertionError: assert 'NOT_RUN' == 'INCOMPLETE'
+E         
+E         - INCOMPLETE
+E         + NOT_RUN
+
+C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tests\unit\test_campaign_checkpoint.py:60: AssertionError
+__________ test_report_uses_recorded_attempts_and_exposure[RUNNING] ___________
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3645/test_report_uses_recorded_atte1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000022D5E636450>
+status = 'RUNNING'
+
+    @pytest.mark.parametrize("status", ["FAILED", "RUNNING", "COMPLETED_SYNTHETIC_FIXTURE"])
+    def test_report_uses_recorded_attempts_and_exposure(tmp_path, monkeypatch, status):
+        registry = tmp_path / "reports/active/training_registry.json"
+        registry.parent.mkdir(parents=True)
+        document = {
+            "test_opened": True,
+            "runs": [{"run_id": "control-seed7", "status": status, "failure_log": "failure.log"}],
+        }
+        registry.write_text(json.dumps(document))
+        monkeypatch.chdir(tmp_path)
+        result = CliRunner().invoke(app, ["report", "--protocol", "active"])
+        assert result.exit_code == 0
+        assert json.loads(result.stdout)["registry"] == document
+>       assert json.loads(result.stdout)["G2_EXPERIMENT"] == "INCOMPLETE"
+E       AssertionError: assert 'NOT_RUN' == 'INCOMPLETE'
+E         
+E         - INCOMPLETE
+E         + NOT_RUN
+
+C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tests\unit\test_campaign_checkpoint.py:60: AssertionError
+_ test_report_uses_recorded_attempts_and_exposure[COMPLETED_SYNTHETIC_FIXTURE] _
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3645/test_report_uses_recorded_atte2')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000022D5E660BF0>
+status = 'COMPLETED_SYNTHETIC_FIXTURE'
+
+    @pytest.mark.parametrize("status", ["FAILED", "RUNNING", "COMPLETED_SYNTHETIC_FIXTURE"])
+    def test_report_uses_recorded_attempts_and_exposure(tmp_path, monkeypatch, status):
+        registry = tmp_path / "reports/active/training_registry.json"
+        registry.parent.mkdir(parents=True)
+        document = {
+            "test_opened": True,
+            "runs": [{"run_id": "control-seed7", "status": status, "failure_log": "failure.log"}],
+        }
+        registry.write_text(json.dumps(document))
+        monkeypatch.chdir(tmp_path)
+        result = CliRunner().invoke(app, ["report", "--protocol", "active"])
+        assert result.exit_code == 0
+        assert json.loads(result.stdout)["registry"] == document
+>       assert json.loads(result.stdout)["G2_EXPERIMENT"] == "INCOMPLETE"
+E       AssertionError: assert 'NOT_RUN' == 'INCOMPLETE'
+E         
+E         - INCOMPLETE
+E         + NOT_RUN
+
+C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tests\unit\test_campaign_checkpoint.py:60: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_campaign_checkpoint.py::test_report_uses_recorded_attempts_and_exposure[FAILED]
+FAILED tests/unit/test_campaign_checkpoint.py::test_report_uses_recorded_attempts_and_exposure[RUNNING]
+FAILED tests/unit/test_campaign_checkpoint.py::test_report_uses_recorded_attempts_and_exposure[COMPLETED_SYNTHETIC_FIXTURE]
+3 failed, 4 passed in 3.12s

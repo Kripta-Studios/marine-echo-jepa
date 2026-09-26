@@ -1,0 +1,25 @@
+....F                                                                    [100%]
+================================== FAILURES ===================================
+_______________ test_report_uses_recorded_attempts_and_exposure _______________
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3637/test_report_uses_recorded_atte0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000028661DA7320>
+
+    def test_report_uses_recorded_attempts_and_exposure(tmp_path, monkeypatch):
+        registry = tmp_path / "reports/active/training_registry.json"
+        registry.parent.mkdir(parents=True)
+        document = {
+            "test_opened": True,
+            "runs": [{"run_id": "control-seed7", "status": "FAILED", "failure_log": "failure.log"}],
+        }
+        registry.write_text(json.dumps(document))
+        monkeypatch.chdir(tmp_path)
+        result = CliRunner().invoke(app, ["report", "--protocol", "active"])
+>       assert result.exit_code == 0
+E       AssertionError: assert 1 == 0
+E        +  where 1 = <Result FileNotFoundError(2, 'No such file or directory')>.exit_code
+
+C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tests\unit\test_campaign_checkpoint.py:57: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_campaign_checkpoint.py::test_report_uses_recorded_attempts_and_exposure
+1 failed, 4 passed in 4.04s
