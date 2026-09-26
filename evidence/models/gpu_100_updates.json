@@ -1,0 +1,22 @@
+{
+  "status": "SOFTWARE_RESOURCE_PROFILE_ONLY",
+  "data": "synthetic_fixture",
+  "family": "direct",
+  "torch": "2.11.0+cu128",
+  "device": "NVIDIA GeForce RTX 5070 Ti Laptop GPU",
+  "capability": [
+    12,
+    0
+  ],
+  "batch_size": 16,
+  "width": 96,
+  "layers": 3,
+  "updates": 100,
+  "elapsed_seconds": 16.87353280000025,
+  "seconds_per_update_mean": 0.1687353280000025,
+  "seconds_per_update_max": 0.16615660000024945,
+  "peak_allocated_bytes": 85839872,
+  "peak_reserved_bytes": 104857600,
+  "observed_process_tree_rss_peak_bytes": 2022563840,
+  "estimated_3000_update_seconds_at_profile_mean": 506.20598400000745
+}

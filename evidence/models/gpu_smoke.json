@@ -1,0 +1,33 @@
+{
+  "status": "SOFTWARE_SMOKE_ONLY",
+  "data": "synthetic_fixture",
+  "torch": "2.11.0+cu128",
+  "device": "NVIDIA GeForce RTX 5070 Ti Laptop GPU",
+  "capability": [
+    12,
+    0
+  ],
+  "families": {
+    "direct": {
+      "loss": 1.1389344930648804,
+      "seconds": 2.3725644999976794,
+      "peak_allocated_bytes": 20019712,
+      "peak_reserved_bytes": 25165824,
+      "observed_process_tree_rss_bytes": 1998127104
+    },
+    "ema_jepa": {
+      "loss": 2.023463726043701,
+      "seconds": 0.09558979999928852,
+      "peak_allocated_bytes": 20628992,
+      "peak_reserved_bytes": 25165824,
+      "observed_process_tree_rss_bytes": 2004361216
+    },
+    "shared_sigreg": {
+      "loss": 2.7512285709381104,
+      "seconds": 0.14617310000176076,
+      "peak_allocated_bytes": 22748672,
+      "peak_reserved_bytes": 27262976,
+      "observed_process_tree_rss_bytes": 2019954688
+    }
+  }
+}
