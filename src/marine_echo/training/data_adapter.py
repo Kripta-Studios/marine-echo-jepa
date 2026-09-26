@@ -149,7 +149,8 @@ class CanonicalWindowAdapter:
         for cutoff in np.arange(
             first_cutoff, last_cutoff + np.timedelta64(1, "h"), np.timedelta64(1, "h")
         ):
-            first_day = (cutoff - np.timedelta64(24, "h")).astype("datetime64[D]")
+            first_ns = int(cutoff.astype("datetime64[ns]").astype("int64")) - 86_400_000_000_000
+            first_day = np.datetime64(first_ns, "ns").astype("datetime64[D]")
             last_ns = int(cutoff.astype("datetime64[ns]").astype("int64")) + 21_600_000_000_000 - 1
             last_day = np.datetime64(last_ns, "ns").astype("datetime64[D]")
             required = [

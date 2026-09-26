@@ -1,4 +1,4 @@
 C:\Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa-core/src/marine_echo/data\preprocessing.py C:\Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa-core/src/marine_echo/training\data_adapter.py
 .................                                                        [100%]
-17 passed in 43.77s
+17 passed in 44.11s
 exit=0
