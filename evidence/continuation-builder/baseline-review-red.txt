@@ -29,7 +29,7 @@ mutation = 'reorder'
     ) -> None:
         adapter = CanonicalWindowAdapter(_store(tmp_path), _bounds(), fixture_only=True)
         original = adapter.store.load_day
-    
+
         def altered(day: str):
             series = original(day)
             if mutation == "reorder":
@@ -37,7 +37,7 @@ mutation = 'reorder'
             edges = series.range_edges_m.copy()
             edges[10] += 0.5
             return replace(series, range_edges_m=edges)
-    
+
         monkeypatch.setattr(adapter.store, "load_day", altered)
 >       with pytest.raises(ValueError, match="fixed baseline grid"):
              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -56,7 +56,7 @@ mutation = 'irregular'
     ) -> None:
         adapter = CanonicalWindowAdapter(_store(tmp_path), _bounds(), fixture_only=True)
         original = adapter.store.load_day
-    
+
         def altered(day: str):
             series = original(day)
             if mutation == "reorder":
@@ -64,7 +64,7 @@ mutation = 'irregular'
             edges = series.range_edges_m.copy()
             edges[10] += 0.5
             return replace(series, range_edges_m=edges)
-    
+
         monkeypatch.setattr(adapter.store, "load_day", altered)
 >       with pytest.raises(ValueError, match="fixed baseline grid"):
              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
