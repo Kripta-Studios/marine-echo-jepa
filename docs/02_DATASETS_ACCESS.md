@@ -105,3 +105,31 @@ The source manual is retained locally. It contains operational credential-like s
 must not be copied into release payloads or public evidence. No credentials were used.
 The certificate may be retained for local verification; redistribution requires a documented
 license decision. No new OOI downloads, cloud resources, contacts or dataset substitutions occurred.
+
+
+OOI fallback follow-up (27 September): anonymous metadata access still worked for the fixed
+2017 example week. The independent reviewer used the existing HDF5 reader with an8MiB cap;
+164478 bytes across three range requests exposed metadata/coordinates only, not Sv values.
+The full product is contiguous uncompressed float32. Exact extraction of all three channels
+at10–100m for the inspected day is484075560 bytes; extrapolating134 such days is60.4113GiB,
+above the40GiB total raw-data cap. Seven daily HEAD sizes are similar. This is a checked-week
+resource estimate, not proof about every possible future date range. The extended D2 range,
+calibration lineage and separate protocol remain unfrozen. The small averaged product uses
+median Sv and gap interpolation, so it cannot supply the unchanged linear-mean/support contract.
+No fallback switch or bulk download occurred. See `evidence/continuation/ooi_fallback_disposition.json`
+for exact entity, code-version and use-policy references.
+
+
+The final bounded OOI metadata check located deployment4 (29 July2017 to17 July2018),
+refdes CE04OSPS-PC01B-05-ZPLSCB102, asset ATOSU-63259-00002, sensor depth193m and
+water depth574m in the official asset-management repository. No matching external
+calibration entry exists in the inspected complete tree; the available00003 entry
+is for a different asset and must not be substituted. A1,496-byte CON0-only read of
+the existing21August raw file, through pinned Echopype, recovered embedded
+38/120/200kHz acquisition coefficients. It did not establish asset/certificate
+mapping, environmental provenance, or generation lineage for the20August FullNC.
+No sample datagram or new acoustic payload was read. Discovery stopped after this
+bounded check. D2 remains resource-plan and calibration-provenance blocked within
+the current protocol, without asserting that every conceivable representation is
+impossible. A single-channel representation would require its own material
+input/protocol amendment and does not solve the unresolved lineage.

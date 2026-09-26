@@ -1,0 +1,26 @@
+{
+  "scope": "Bounded primary-literature context before complete TRAIN support-map inspection; no replacement target selected.",
+  "sources": [
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9849409/",
+      "title": "Under-ice observations by trawls and multi-frequency acoustics in the Central Arctic Ocean reveals abundance and composition of pelagic fauna",
+      "access": "Search-index article text retrieved; direct open returned browser challenge, not bypassed.",
+      "relevance": "Reported Arctic layers span different depth intervals, including 10–100 m. Does not establish a fixed narrower band for this instrument/deployment."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8674288/",
+      "title": "Sea-ice derived meltwater stratification slows the biological carbon pump: results from continuous observations",
+      "access": "Search-index article text retrieved; direct open returned browser challenge, not bypassed.",
+      "relevance": "Different upward-looking AZFP deployment used 15–100, 30–100 and 50–100 m averages. Does not calibrate or justify an outcome-selected narrow layer here."
+    },
+    {
+      "url": "https://zenodo.org/records/8124371",
+      "title": "MOSAiC - AZFP multifrequency analysis",
+      "access": "Public metadata page opened, no acoustic CSV downloaded.",
+      "relevance": "Linked to PANGAEA954939, not current PANGAEA949811. Related publication concerns a later September deployment with 67/125/200/455 kHz. Excluded as direct calibration authority or authorized fallback."
+    }
+  ],
+  "conclusion": "These sources do not yet justify a particular replacement 38 kHz band. Preserve original target result and obtain independent review of complete support map before any prospective amendment.",
+  "acoustic_payloads_downloaded": false,
+  "test_seal_claim": false
+}

@@ -127,3 +127,66 @@ The complete3March TRAIN day has now been visualized for QC, and this additional
 recorded. No validation, interval-calibration or test acoustic outcome was visualized. Automated
 protected-test QC may only follow exact QC-code/threshold review and must record machine
 payload processing separately from human outcome access. R2 remains a separate future gate.
+
+
+## Preserved parser failure and prospective census v2
+
+The first complete-TRAIN census stopped on 4 March after 16 successful days.
+The source-verified 13,244-byte file `20030416.01A` contains one ping. Pinned
+Echopype 0.11.1 skipped its normal unique-header reduction for that case and
+then called `.astype` on the resulting frequency list. This was a parser
+compatibility failure, not evidence of zero acoustic support for that day.
+
+A local, version/hash-pinned parser subclass now applies the same upstream
+header reduction for a singleton. It restores the temporary parser binding
+on success and error, preserves the upstream parser for multi-ping files,
+and does not modify installed dependencies or duplicate raw pings. Distinct
+independent review approved the compatibility repair and a new full census
+under `census-v2`. The scientific calibration and QC rules are unchanged.
+Every one of the prior 16 successful daily NPZs must compare exactly, including
+all keys, dtypes, shapes and values, against its v2 counterpart. Original
+failure, logs, outputs and executed-source hashes remain preserved.
+
+The strict-context census is explicitly a candidate diagnostic. Its 80%
+per-context-bin rule was not frozen by the original protocol, so it cannot
+alone establish global ineligibility. A separately reviewed target-only bound
+ignores all context-quality/configuration restrictions and counts necessary
+hourly future-target support. Only that generous bound can establish that
+fewer than 90 overall days are possible under the original 10–100 m target.
+
+## Authorized full TRAIN support map, no target amendment yet
+
+Docs03 explicitly makes the exact range band a proposal to freeze after
+TRAIN metadata/QC and before validation comparisons. The independent reviewer
+confirmed that this window remains open because no model comparison or
+held-out acoustic outcome inspection has occurred in this continuation.
+After preserving the original-band census and target-only result, one complete
+map across all four native frequencies and all 64 range bins is permitted.
+It must report the entire map under unchanged QC, without ranking candidate
+bands or using model scores.
+
+No replacement target is approved. A defensible contiguous 38 kHz range
+amendment would require physical/product meaning, a new prospective protocol
+version, and renewed independent review before held-out support processing.
+The unchanged 80% support and 90/12/20 day gates still apply. A frequency
+substitution would be a more material amended/exploratory target, not the
+original confirmatory P0. A tiny layer chosen merely to pass day counts is
+not an acceptable amendment. The original failure remains visible.
+
+
+## Count-audit review findings resolved before execution
+
+The first support-map implementation allowed a valid count above the number of
+observed pings when the nominal expected denominator was larger. Independent
+review rejected that path; the corrected audit requires valid<=observed as well
+as valid<=effective. An adversarial missing-ping case reproduces the old failure.
+The report publisher now flushes a temporary JSON and creates the final path by
+an exclusive hard link; serialization or publication failure cannot leave a
+partial final report. Both changes passed RED/GREEN tests before any corpus map.
+
+The optional count figure additionally requires independent acceptance of the
+exact map and plotting-code hashes. All source/review/report bindings are
+rechecked. Its PNG and provenance publish as one exclusive directory on Windows.
+Failure and race tests preserve prior artifacts and remove only the owned staging
+folder. It displays all100 days, all four frequencies and all64 range cells on a
+fixed0–1 scale. It neither reads Sv arrays nor selects a target.

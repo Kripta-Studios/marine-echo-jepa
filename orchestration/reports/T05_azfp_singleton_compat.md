@@ -16,3 +16,8 @@ The fixed TRAIN singleton `20030416.01A` is 13,244 bytes, SHA-256 `aa83fe5054432
 - Main-config Ruff format/check, module mypy (`azfp-mypy.txt`) and `git diff --check` exited 0. No GPU training, protected data, download, environment modification or paid resource was used. Process-tree peak RAM was not measured.
 
 Independent review is required before coordinator integration. Any resumed full TRAIN census needs a new prospective version and must retain the prior failed census record; this helper alone is not R0/R1 calibration or corpus approval.
+
+
+## Coordinator integration update
+
+Independent continuation reviewer accepted this narrow compatibility repair. Main integration40a22eb retains the helper unchanged; its test source-location lookup was adjusted to the existing sibling extraction and verified with22 integrated tests. V2 launch approval is recorded in orchestration/reviews/TRAIN_CENSUS_V2_LAUNCH_20260927.json. All100TRAINdays are being rerun, with exact comparisons against16 completed v1 days. No corpus or benchmark approval follows.

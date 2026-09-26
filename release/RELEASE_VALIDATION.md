@@ -78,3 +78,26 @@ software11 passed/2 opt-in GPU checks skipped; frontend2 and browser5 passed. Fo
 lint, app/model types, frontend build and unchanged historicalr2 integrity passed.
 Peak sampled check process-tree RAM0.8313GiB. These are software checks, not benchmarks,
 new physical corpus approval, a new release, or a new full-training memory measurement.
+
+
+Later source integration: `evidence/continuation/checks-20260926T225032Z/checks.json` records
+all11 commands exiting0.200 app/data/scientific/security/API tests passed; model software
+11 passed/2 explicit opt-in GPU skips; frontend2 passed. Formatting, lint, types, frontend
+build and unchanged r2 integrity passed. The current working-preview browser check will use
+its own evidence output after the actual census summary is independently reviewed.
+
+
+## Final continuation source checks (27 September, before data decision)
+
+After registry hardening and the complete count-map/plot safeguards, all 229
+app/data/integration/scientific/API/security tests passed in 132.68 seconds.
+Formatting, lint and both type-check environments passed; sampled test process-tree
+RAM peaked at 0.301 GiB. Logs retain 707 upstream warnings (704 scikit-learn
+parallel-configuration warnings plus deprecation warnings). No test was skipped
+from this app/data invocation. See
+`evidence/continuation/final-app-checks-20260926T233155Z/checks.json`.
+
+The unchanged model suite's preceding 11 passes and two opt-in GPU skips remain
+separate evidence in `checks-20260926T225032Z`; they are not fresh training runs.
+Current working-preview artifact and changed-browser acceptance remain pending.
+No new normal release or diagnostic ZIP was produced; historical r2 is preserved.

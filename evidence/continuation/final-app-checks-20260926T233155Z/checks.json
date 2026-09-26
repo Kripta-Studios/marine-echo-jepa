@@ -1,0 +1,73 @@
+[
+  {
+    "name": "ruff-format",
+    "command": [
+      "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+      "-m",
+      "ruff",
+      "format",
+      "--check",
+      "src",
+      "tests"
+    ],
+    "exit_code": 0,
+    "resource_or_time_stop": false,
+    "seconds": 0.8119999999980791,
+    "peak_sampled_process_tree_rss_gib": 0.0329742431640625,
+    "log": "evidence/continuation/final-app-checks-20260926T233155Z/ruff-format.log"
+  },
+  {
+    "name": "ruff-check",
+    "command": [
+      "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+      "-m",
+      "ruff",
+      "check",
+      "src",
+      "tests"
+    ],
+    "exit_code": 0,
+    "resource_or_time_stop": false,
+    "seconds": 1.125,
+    "peak_sampled_process_tree_rss_gib": 0.0218505859375,
+    "log": "evidence/continuation/final-app-checks-20260926T233155Z/ruff-check.log"
+  },
+  {
+    "name": "mypy",
+    "command": [
+      "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+      "tools/check_types.py"
+    ],
+    "exit_code": 0,
+    "resource_or_time_stop": false,
+    "seconds": 49.45300000000134,
+    "peak_sampled_process_tree_rss_gib": 0.25881195068359375,
+    "log": "evidence/continuation/final-app-checks-20260926T233155Z/mypy.log"
+  },
+  {
+    "name": "pytest-app-data",
+    "command": [
+      "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "tests/unit",
+      "tests/integration",
+      "tests/scientific",
+      "tests/api",
+      "tests/security",
+      "-q",
+      "--ignore=tests/unit/test_models_forecast.py",
+      "--ignore=tests/unit/test_models_hybrid.py",
+      "--ignore=tests/scientific/test_model_gradients.py",
+      "--ignore=tests/scientific/test_model_controls.py",
+      "--ignore=tests/scientific/test_model_collapse.py",
+      "--ignore=tests/integration/test_training_resume.py",
+      "--ignore=tests/integration/test_training_gpu.py"
+    ],
+    "exit_code": 0,
+    "resource_or_time_stop": false,
+    "seconds": 141.4690000000046,
+    "peak_sampled_process_tree_rss_gib": 0.300811767578125,
+    "log": "evidence/continuation/final-app-checks-20260926T233155Z/pytest-app-data.log"
+  }
+]

@@ -1,0 +1,13 @@
+
+> marine-echo-web@0.1.0 test:run
+> vitest run
+
+
+ RUN  v5.0.2 C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/web
+
+
+ Test Files  2 passed (2)
+      Tests  2 passed (2)
+   Start at  00:54:42
+   Duration  1.13s (import 45%, transform 41%, worker 9%, tests 5%)
+
