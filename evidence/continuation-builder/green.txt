@@ -1,0 +1,22 @@
+Focused RED/GREEN evidence, 2026-09-26
+
+RED: existing main-worktree Python 3.12 virtual environment, core worktree test.
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -m pytest tests/scientific/test_preprocessing.py -q
+Exit status: 1. Collection failed with ModuleNotFoundError: marine_echo.data.preprocessing.
+
+The core worktree lacks src/marine_echo/__init__.py because it predates main's
+package integration. The existing main virtual environment resolves main's
+installed package. GREEN therefore inserts only the core data-package path for
+this focused isolated-worktree test. No package was installed or changed.
+
+GREEN command:
+..\marine-echo-jepa\.venv\Scripts\python.exe -c "import marine_echo.data,pytest; p='C:/Users/'+chr(193)+'lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa-core'; marine_echo.data.__path__.insert(0,p+'/src/marine_echo/data'); raise SystemExit(pytest.main([p+'/tests/scientific/test_preprocessing.py','-q']))"
+Exit status: 0. 6 passed in 0.67 seconds.
+
+Ruff check: exit 0, All checks passed.
+Ruff format --check: exit 0, 2 files already formatted.
+Mypy preprocessing.py: exit 0, Success: no issues found in 1 source file.
+Git diff --check: exit 0, no output.
+
+These tests use synthetic calibrated arrays only. Real physical calibration,
+dataset day counts, model training and final test evaluation were not run.

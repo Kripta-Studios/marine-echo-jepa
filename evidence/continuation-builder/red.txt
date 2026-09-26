@@ -1,0 +1,4 @@
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -m pytest tests/scientific/test_preprocessing.py -q
+Exit status: 1
+Result: collection error, ModuleNotFoundError: No module named 'marine_echo.data.preprocessing'.
+Environment: existing main-worktree Python 3.12 virtual environment; no package installation.
