@@ -137,6 +137,7 @@ def test_window_containment_availability_and_future_mutation() -> None:
         expected_processing_sha256="d" * 64,
         analysis_frequency_hz=38000,
         analysis_range_m=(0.0, 4.0),
+        availability_basis="measured",
     )
     assert window.context_mask.shape == (96, 1, 2)
     assert window.target_support[0] == pytest.approx(1.0)
@@ -160,6 +161,7 @@ def test_window_containment_availability_and_future_mutation() -> None:
         expected_processing_sha256="d" * 64,
         analysis_frequency_hz=38000,
         analysis_range_m=(0.0, 4.0),
+        availability_basis="measured",
     )
     np.testing.assert_array_equal(window.context_linear, second.context_linear)
     assert window.row_id == second.row_id
@@ -187,6 +189,7 @@ def test_window_containment_availability_and_future_mutation() -> None:
         "expected_processing_sha256": "d" * 64,
         "analysis_frequency_hz": 38000,
         "analysis_range_m": (0.0, 4.0),
+        "availability_basis": "measured",
     }
     with pytest.raises(ValueError, match="context bin"):
         build_window(late_series, **late_kwargs)
@@ -207,6 +210,7 @@ def test_window_containment_availability_and_future_mutation() -> None:
             expected_processing_sha256="d" * 64,
             analysis_frequency_hz=38000,
             analysis_range_m=(0.0, 4.0),
+            availability_basis="measured",
         )
 
 
@@ -235,6 +239,7 @@ def test_window_rejects_source_mismatch_and_insufficient_target_support() -> Non
         "expected_processing_sha256": "d" * 64,
         "analysis_frequency_hz": 38000,
         "analysis_range_m": (0.0, 4.0),
+        "availability_basis": "zero_latency_replay",
     }
     with pytest.raises(ValueError, match="support"):
         build_window(series, **window_args)

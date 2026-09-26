@@ -22,7 +22,8 @@ _MAX_BINS_PER_BATCH = 128
 class BinnedAcoustics:
     bin_start: NDArray[np.datetime64]
     bin_end: NDArray[np.datetime64]
-    available_time: NDArray[np.datetime64]
+    observed_available_time: NDArray[np.datetime64]
+    replay_available_time: NDArray[np.datetime64]
     sv_linear: NDArray[np.float64]
     sv_db: NDArray[np.float64]
     valid_mask: NDArray[np.bool_]
@@ -49,6 +50,7 @@ class AcousticWindow:
     row_id: str
     cutoff: np.datetime64
     partition: str
+    availability_basis: str
     context_linear: NDArray[np.float64]
     context_mask: NDArray[np.bool_]
     target_index_linear: NDArray[np.float64]
@@ -156,12 +158,15 @@ def aggregate_calibrated_pings(
     if ping_available_times is None:
         if availability_policy == "measured":
             raise ValueError("Measured availability requires observed timestamps.")
-        available = times
+        measured = np.full(len(times), np.datetime64("NaT", "ns"), dtype="datetime64[ns]")
     else:
         if availability_policy != "measured":
             raise ValueError("Observed availability requires the measured policy.")
-        available = _time_ns(ping_available_times, "ping_available_times")
-        if len(available) != pings or (available < times).any():
+        if ping_available_times.ndim != 1 or ping_available_times.dtype.kind != "M":
+            raise ValueError("Observed availability timestamps are invalid.")
+        measured = ping_available_times.astype("datetime64[ns]")
+        known = ~np.isnat(measured)
+        if len(measured) != pings or (measured[known] < times[known]).any():
             raise ValueError("Availability must follow acquisition for every ping.")
 
     quarter_ids = times.astype("datetime64[m]").astype(np.int64) // _BIN_MINUTES
@@ -173,7 +178,8 @@ def aggregate_calibrated_pings(
     ends = starts + np.timedelta64(_BIN_MINUTES, "m")
     binned = np.full((count, frequencies, ranges), np.nan, dtype=np.float64)
     masks = np.zeros((count, frequencies, ranges), dtype=bool)
-    availability = np.full(count, np.datetime64("NaT", "ns"), dtype="datetime64[ns]")
+    observed_availability = np.full(count, np.datetime64("NaT", "ns"), dtype="datetime64[ns]")
+    replay_availability = np.full(count, np.datetime64("NaT", "ns"), dtype="datetime64[ns]")
     ping_counts = np.zeros(count, dtype=np.int64)
     configurations: list[str | None] = []
     sources: list[frozenset[str]] = []
@@ -185,7 +191,9 @@ def aggregate_calibrated_pings(
         configurations.append(next(iter(configs)) if len(configs) == 1 else None)
         if not len(indices):
             continue
-        availability[offset] = available[indices].max()
+        replay_availability[offset] = ends[offset].astype("datetime64[ns]")
+        if not np.isnat(measured[indices]).any():
+            observed_availability[offset] = measured[indices].max()
         if len(configs) != 1:
             continue
         selected_valid = valid_mask[indices] & supported_range[None, :, :]
@@ -202,7 +210,8 @@ def aggregate_calibrated_pings(
     return BinnedAcoustics(
         bin_start=starts.astype("datetime64[ns]"),
         bin_end=ends.astype("datetime64[ns]"),
-        available_time=availability,
+        observed_available_time=observed_availability,
+        replay_available_time=replay_availability,
         sv_linear=binned,
         sv_db=db,
         valid_mask=masks,
@@ -242,6 +251,7 @@ def build_window(
     expected_processing_sha256: str,
     analysis_frequency_hz: int,
     analysis_range_m: tuple[float, float],
+    availability_basis: str,
     context_bins: int = 96,
     horizons: tuple[int, ...] = (1, 3, 6),
     minimum_target_support: float = 0.8,
@@ -251,6 +261,10 @@ def build_window(
         raise ValueError("A declared chronological partition is required.")
     if partition == "test":
         raise ValueError("Protected test truth requires a separately reviewed R2 evaluation path.")
+    if availability_basis not in ("measured", "zero_latency_replay"):
+        raise ValueError(
+            "An explicit measured or zero-latency replay availability basis is required."
+        )
     if (
         series.dataset_id != expected_dataset_id
         or series.deployment_id != expected_deployment_id
@@ -317,8 +331,13 @@ def build_window(
         raise ValueError("Analysis band must match exact range edges and have support.")
     # A bin is input only if it was available at the issue time. The future
     # target is read separately and cannot influence context construction.
-    available_context = (~np.isnat(series.available_time[context])) & (
-        series.available_time[context] <= cutoff_ns
+    available_times = (
+        series.observed_available_time
+        if availability_basis == "measured"
+        else series.replay_available_time
+    )
+    available_context = (~np.isnat(available_times[context])) & (
+        available_times[context] <= cutoff_ns
     )
     context_mask = series.valid_mask[context] & available_context[:, None, None]
     context_linear = np.where(context_mask, series.sv_linear[context], np.nan)
@@ -351,6 +370,7 @@ def build_window(
         "source_file_ids": sorted(sources),
         "analysis_frequency_hz": analysis_frequency_hz,
         "analysis_range_m": analysis_range_m,
+        "availability_basis": availability_basis,
     }
     row_id = hashlib.sha256(
         json.dumps(row_identity, sort_keys=True, separators=(",", ":")).encode("utf-8")
@@ -359,6 +379,7 @@ def build_window(
         row_id=row_id,
         cutoff=cutoff_ns,
         partition=partition,
+        availability_basis=availability_basis,
         context_linear=context_linear,
         context_mask=context_mask,
         target_index_linear=linear,

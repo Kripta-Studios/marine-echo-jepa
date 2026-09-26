@@ -5,8 +5,11 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import tempfile
+import uuid
 from dataclasses import asdict, dataclass
+from datetime import UTC, datetime
 from itertools import chain
 from pathlib import Path
 from typing import Any
@@ -18,6 +21,8 @@ from marine_echo.data.preprocessing import BinnedAcoustics, valid_sha256
 
 PARTITIONS = ("train", "validation", "calibration", "test")
 REQUIRED_DAYS = {"overall": 90, "calibration": 12, "test": 20}
+PROMOTION_STATUS = "NONPROMOTABLE_ENGINEERING_FIXTURE"
+_UTC_MIDNIGHT = re.compile(r"^\d{4}-\d{2}-\d{2}T00:00:00Z$")
 
 
 def _json_bytes(value: Any) -> bytes:
@@ -38,6 +43,16 @@ def _sha256_file(path: Path) -> str:
 def split_bounds_sha256(bounds: dict[str, tuple[str, str]]) -> str:
     if set(bounds) != set(PARTITIONS):
         raise ValueError("Split bounds must declare all four partitions.")
+    previous_end: datetime | None = None
+    for partition in PARTITIONS:
+        start, end = bounds[partition]
+        if not _UTC_MIDNIGHT.fullmatch(start) or not _UTC_MIDNIGHT.fullmatch(end):
+            raise ValueError("Split boundaries require canonical UTC-midnight calendar days.")
+        start_time = datetime.fromisoformat(start)
+        end_time = datetime.fromisoformat(end)
+        if start_time >= end_time or (previous_end is not None and start_time != previous_end):
+            raise ValueError("Chronological split boundaries must be exactly adjacent.")
+        previous_end = end_time
     return _sha256_bytes(_json_bytes(bounds))
 
 
@@ -79,7 +94,8 @@ class StoreIdentity:
 class DayMetadata:
     bin_start: NDArray[np.datetime64]
     bin_end: NDArray[np.datetime64]
-    available_time: NDArray[np.datetime64]
+    observed_available_time: NDArray[np.datetime64]
+    replay_available_time: NDArray[np.datetime64]
     valid_mask: NDArray[np.bool_]
     ping_count: NDArray[np.int64]
     frequency_hz: NDArray[np.int64]
@@ -108,7 +124,8 @@ def _series_digest(series: BinnedAcoustics) -> str:
     arrays = (
         series.bin_start,
         series.bin_end,
-        series.available_time,
+        series.observed_available_time,
+        series.replay_available_time,
         series.sv_linear,
         series.sv_db,
         series.valid_mask,
@@ -167,6 +184,10 @@ class CanonicalStore:
         }
         if any(calibration.get(key) != value for key, value in expected.items()):
             raise ValueError("Calibration manifest physical status or provenance differs.")
+        if calibration.get("scope") != "synthetic-fixture-only":
+            raise ValueError(
+                "This nonpromotable store accepts synthetic calibration fixtures only."
+            )
         self.root = root
         self.identity = identity
         self.calibration_manifest = calibration_manifest
@@ -186,6 +207,7 @@ class CanonicalStore:
                 self.manifest_path,
                 {
                     "schema_version": "1.0",
+                    "promotion_status": PROMOTION_STATUS,
                     "identity": _identity_document(identity),
                     "shards": {},
                 },
@@ -197,10 +219,21 @@ class CanonicalStore:
         document = json.loads(self.manifest_path.read_text(encoding="utf-8"))
         if (
             document.get("schema_version") != "1.0"
+            or document.get("promotion_status") != PROMOTION_STATUS
             or document.get("identity") != _identity_document(self.identity)
             or not isinstance(document.get("shards"), dict)
         ):
             raise ValueError("Canonical manifest schema or identity is invalid.")
+        if self.shards.is_symlink() or not self.shards.is_dir():
+            raise ValueError("Canonical shard directory is missing or linked.")
+        expected = {f"{day}.npz" for day in document["shards"]}
+        observed = set()
+        for path in self.shards.iterdir():
+            if path.is_symlink() or not path.is_file() or path.suffix != ".npz":
+                raise ValueError("Canonical shard directory contains a linked or unexpected entry.")
+            observed.add(path.name)
+        if observed != expected:
+            raise ValueError("Canonical shard directory has missing or unregistered files.")
         return document
 
     def _validate_series(self, series: BinnedAcoustics) -> str:
@@ -219,7 +252,8 @@ class CanonicalStore:
         if (
             not n
             or len(series.bin_end) != n
-            or len(series.available_time) != n
+            or len(series.observed_available_time) != n
+            or len(series.replay_available_time) != n
             or len(series.ping_count) != n
             or len(series.configuration_ids) != n
             or len(series.configuration_boundary) != n
@@ -243,6 +277,8 @@ class CanonicalStore:
         if len(days) != 1 or series.bin_end[-1] > days[0] + np.timedelta64(1, "D"):
             raise ValueError("One shard must stay inside one UTC calendar day.")
         day = str(days[0])
+        if series.ping_count.dtype.kind not in "iu" or (series.ping_count < 0).any():
+            raise ValueError("Ping counts must be nonnegative integers.")
         if (
             len(series.raw_ping_times) != int(series.ping_count.sum())
             or np.isnat(series.raw_ping_times).any()
@@ -271,12 +307,23 @@ class CanonicalStore:
             raise ValueError("Canonical frequency, range or configuration metadata is invalid.")
         for index in range(n):
             if series.ping_count[index] == 0:
-                if not np.isnat(series.available_time[index]) or series.source_file_ids[index]:
+                if (
+                    not np.isnat(series.observed_available_time[index])
+                    or not np.isnat(series.replay_available_time[index])
+                    or series.source_file_ids[index]
+                ):
                     raise ValueError("Empty bin availability or source metadata is inconsistent.")
-            elif np.isnat(series.available_time[index]):
-                raise ValueError("Populated bin availability is missing.")
-            elif series.available_time[index] < series.raw_ping_times[bin_index == index].max():
-                raise ValueError("Availability precedes acquisition in a populated bin.")
+            else:
+                if series.replay_available_time[index] != series.bin_end[index]:
+                    raise ValueError("Replay availability must equal the trailing bin end.")
+                observed = series.observed_available_time[index]
+                if (
+                    not np.isnat(observed)
+                    and observed < series.raw_ping_times[bin_index == index].max()
+                ):
+                    raise ValueError(
+                        "Measured availability precedes acquisition in a populated bin."
+                    )
         if not np.array_equal(
             series.configuration_boundary[1:],
             np.array(
@@ -339,7 +386,8 @@ class CanonicalStore:
                     stream,
                     bin_start=series.bin_start,
                     bin_end=series.bin_end,
-                    available_time=series.available_time,
+                    observed_available_time=series.observed_available_time,
+                    replay_available_time=series.replay_available_time,
                     sv_linear=series.sv_linear,
                     sv_db=series.sv_db,
                     valid_mask=series.valid_mask,
@@ -376,10 +424,75 @@ class CanonicalStore:
         _atomic_json(self.manifest_path, document)
         return "WRITTEN"
 
-    def load_day_metadata(self, day: str) -> DayMetadata:
-        entry = self._manifest()["shards"].get(day)
+    def _record_test_metadata_exposure(
+        self, manifest: dict[str, Any], *, availability_basis: str
+    ) -> Path:
+        directory = self.root / "exposure"
+        directory.mkdir(parents=True, exist_ok=True)
+        path = directory / f"test-metadata-{uuid.uuid4().hex}.json"
+        record = {
+            "schema_version": "1.0",
+            "event": "TEST_METADATA_MASKS_INSPECTED",
+            "recorded_before_npz_access": True,
+            "recorded_utc": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
+            "processing_manifest_sha256": _sha256_file(self.manifest_path),
+            "split_sha256": self.identity.split_sha256,
+            "test_shard_sha256": {
+                day: entry["sha256"]
+                for day, entry in sorted(manifest["shards"].items())
+                if entry["partition"] == "test"
+            },
+            "fields": ["timestamps", "masks", "availability", "provenance"],
+            "availability_basis": availability_basis,
+            "test_metadata_opened": True,
+            "test_acoustic_values_opened": False,
+            "promotion_status": PROMOTION_STATUS,
+        }
+        with path.open("xb") as stream:
+            stream.write(_json_bytes(record))
+            stream.flush()
+            os.fsync(stream.fileno())
+        return path
+
+    def load_day_metadata(
+        self,
+        day: str,
+        *,
+        exposure_record: Path | None = None,
+        availability_basis: str = "unspecified_direct_metadata_read",
+    ) -> DayMetadata:
+        manifest = self._manifest()
+        entry = manifest["shards"].get(day)
         if entry is None:
             raise FileNotFoundError("Day is not registered in the canonical manifest.")
+        if entry["partition"] == "test":
+            if exposure_record is None:
+                exposure_record = self._record_test_metadata_exposure(
+                    manifest, availability_basis=availability_basis
+                )
+            else:
+                if (
+                    exposure_record.parent != self.root / "exposure"
+                    or exposure_record.is_symlink()
+                    or not exposure_record.is_file()
+                ):
+                    raise ValueError("Durable test metadata exposure record is missing.")
+                recorded = json.loads(exposure_record.read_text(encoding="utf-8"))
+                expected_shards = {
+                    name: shard["sha256"]
+                    for name, shard in sorted(manifest["shards"].items())
+                    if shard["partition"] == "test"
+                }
+                if (
+                    recorded.get("event") != "TEST_METADATA_MASKS_INSPECTED"
+                    or recorded.get("processing_manifest_sha256")
+                    != _sha256_file(self.manifest_path)
+                    or recorded.get("split_sha256") != self.identity.split_sha256
+                    or recorded.get("test_shard_sha256") != expected_shards
+                    or recorded.get("availability_basis") != availability_basis
+                    or recorded.get("test_acoustic_values_opened") is not False
+                ):
+                    raise ValueError("Test metadata exposure record does not bind this audit.")
         path = self._verified_entry(day, entry)
         with np.load(path, allow_pickle=False) as loaded:
             if str(loaded["identity_sha256"]) != _sha256_bytes(_json_bytes(asdict(self.identity))):
@@ -389,7 +502,8 @@ class CanonicalStore:
             return DayMetadata(
                 bin_start=loaded["bin_start"],
                 bin_end=loaded["bin_end"],
-                available_time=loaded["available_time"],
+                observed_available_time=loaded["observed_available_time"],
+                replay_available_time=loaded["replay_available_time"],
                 valid_mask=loaded["valid_mask"],
                 ping_count=loaded["ping_count"],
                 frequency_hz=loaded["frequency_hz"],
@@ -412,7 +526,8 @@ class CanonicalStore:
             return BinnedAcoustics(
                 bin_start=meta.bin_start,
                 bin_end=meta.bin_end,
-                available_time=meta.available_time,
+                observed_available_time=meta.observed_available_time,
+                replay_available_time=meta.replay_available_time,
                 sv_linear=loaded["sv_linear"],
                 sv_db=loaded["sv_db"],
                 valid_mask=meta.valid_mask,
@@ -441,12 +556,15 @@ def audit_eligibility(
     *,
     analysis_frequency_hz: int,
     analysis_range_m: tuple[float, float],
+    availability_basis: str,
 ) -> dict[str, Any]:
     """Audit masks and provenance across partitions without loading Sv values."""
+    if availability_basis not in ("measured", "zero_latency_replay"):
+        raise ValueError("Availability basis must be measured or zero_latency_replay.")
     if split_bounds_sha256(bounds) != store.identity.split_sha256:
         raise ValueError("Split manifest digest differs from the canonical store.")
     split_times = {
-        part: (np.datetime64(start, "ns"), np.datetime64(end, "ns"))
+        part: (np.datetime64(start[:-1], "ns"), np.datetime64(end[:-1], "ns"))
         for part, (start, end) in bounds.items()
     }
     previous_end: np.datetime64 | None = None
@@ -456,11 +574,17 @@ def audit_eligibility(
             np.isnat(start)
             or np.isnat(end)
             or start >= end
-            or (previous_end is not None and start < previous_end)
+            or (previous_end is not None and start != previous_end)
         ):
             raise ValueError("Chronological split boundaries overlap or are invalid.")
         previous_end = end
-    entries = store._manifest()["shards"]
+    manifest = store._manifest()
+    entries = manifest["shards"]
+    exposure_record = (
+        store._record_test_metadata_exposure(manifest, availability_basis=availability_basis)
+        if any(entry["partition"] == "test" for entry in entries.values())
+        else None
+    )
     grouped: dict[str, list[DayMetadata]] = {part: [] for part in PARTITIONS}
     source_partition: dict[str, str] = {}
     raw_time_partition: dict[int, str] = {}
@@ -472,7 +596,9 @@ def audit_eligibility(
         part = entry.get("partition")
         if part not in PARTITIONS:
             raise ValueError("Shard partition is invalid.")
-        meta = store.load_day_metadata(day)
+        meta = store.load_day_metadata(
+            day, exposure_record=exposure_record, availability_basis=availability_basis
+        )
         if (
             str(meta.bin_start[0].astype("datetime64[D]")) != day
             or meta.bin_start[0] < split_times[part][0]
@@ -511,7 +637,14 @@ def audit_eligibility(
         if not shards:
             continue
         ends = np.concatenate([item.bin_end for item in shards])
-        available = np.concatenate([item.available_time for item in shards])
+        available = np.concatenate(
+            [
+                item.observed_available_time
+                if availability_basis == "measured"
+                else item.replay_available_time
+                for item in shards
+            ]
+        )
         masks = np.concatenate([item.valid_mask for item in shards])
         configs = list(chain.from_iterable(item.configuration_ids for item in shards))
         if np.any(np.diff(ends) <= np.timedelta64(0, "ns")):
@@ -582,6 +715,15 @@ def audit_eligibility(
         "after_qc_days": after_qc,
         "eligible_windows": eligible_windows,
         "protected_partition_inspection": "timestamps_masks_provenance_only",
+        "test_metadata_opened": exposure_record is not None,
+        "test_acoustic_values_opened": False,
         "test_outcomes_opened": False,
+        "availability_basis": availability_basis,
+        "availability_claim": (
+            "observed_only" if availability_basis == "measured" else "simulation_only"
+        ),
+        "promotion_status": PROMOTION_STATUS,
+        "exposure_record": str(exposure_record) if exposure_record is not None else None,
         "split_sha256": store.identity.split_sha256,
+        "processing_manifest_sha256": _sha256_file(store.manifest_path),
     }

@@ -1,0 +1,6 @@
+Reviewer-change RED execution in isolated core worktree, before audit and availability fixes.
+Focused pytest result observed: 6 failed, 3 passed; exit 1.
+Failures included missing required availability_basis in the audit, accepted split gap,
+and accepted floating-point ping counts. The original pytest stream was not saved;
+this record preserves the observed summary, not a reconstructed transcript.
+No acoustic corpus arrays or protected test outcomes were read.
