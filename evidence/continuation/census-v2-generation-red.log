@@ -1,0 +1,54 @@
+FFF                                                                      [100%]
+================================== FAILURES ===================================
+_____________ test_tampered_previous_execution_fails_before_reuse _____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000026D7E9A76E0>
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3705/test_tampered_previous_executi0')
+
+    def test_tampered_previous_execution_fails_before_reuse(monkeypatch, tmp_path):
+        census = module(monkeypatch)
+        monkeypatch.setattr(census, "ROOT", tmp_path)
+        folder = tmp_path / "evidence/continuation"
+        folder.mkdir(parents=True)
+        (folder / "train_census_execution.json").write_text('{"status":"tampered"}')
+        (folder / "train_census_v2_contract.json").write_text(json.dumps({"prior_failure": {"sha256": "0" * 64}}))
+        with pytest.raises(ValueError, match="prior"):
+>           census.previous_execution()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module 'train_census_v2' has no attribute 'previous_execution'
+
+tests\scientific\test_census_generation_integrity.py:28: AttributeError
+_____________ test_changed_array_cannot_be_accepted_as_equivalent _____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000026D7EA3E0C0>
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3705/test_changed_array_cannot_be_a0')
+
+    def test_changed_array_cannot_be_accepted_as_equivalent(monkeypatch, tmp_path):
+        old, new = tmp_path / "old.npz", tmp_path / "new.npz"
+        np.savez(old, valid_count=np.array([60, 60]), sv=np.array([1.0, np.nan]))
+        np.savez(new, valid_count=np.array([60, 59]), sv=np.array([1.0, np.nan]))
+        with pytest.raises(AssertionError):
+>           module(monkeypatch).assert_shards_equal(old, new)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module 'train_census_v2' has no attribute 'assert_shards_equal'
+
+tests\scientific\test_census_generation_integrity.py:36: AttributeError
+___________________ test_identical_nan_masks_are_equivalent ___________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000026D7EA3ED80>
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3705/test_identical_nan_masks_are_e0')
+
+    def test_identical_nan_masks_are_equivalent(monkeypatch, tmp_path):
+        old, new = tmp_path / "old.npz", tmp_path / "new.npz"
+        np.savez(old, sv=np.array([1.0, np.nan]))
+        np.savez(new, sv=np.array([1.0, np.nan]))
+>       assert module(monkeypatch).assert_shards_equal(old, new) == ["sv"]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'train_census_v2' has no attribute 'assert_shards_equal'
+
+tests\scientific\test_census_generation_integrity.py:43: AttributeError
+=========================== short test summary info ===========================
+FAILED tests/scientific/test_census_generation_integrity.py::test_tampered_previous_execution_fails_before_reuse
+FAILED tests/scientific/test_census_generation_integrity.py::test_changed_array_cannot_be_accepted_as_equivalent
+FAILED tests/scientific/test_census_generation_integrity.py::test_identical_nan_masks_are_equivalent
+3 failed in 0.16s

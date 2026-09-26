@@ -1,0 +1,55 @@
+....FFF                                                                  [100%]
+================================== FAILURES ===================================
+_ test_repaired_generation_requires_exact_lineage[prior_failed_execution_sha256-None] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000281DB63A6C0>
+field = 'prior_failed_execution_sha256', value = None
+
+    @pytest.mark.parametrize("field,value", [("prior_failed_execution_sha256", None), ("prior_failed_execution_sha256", "wrong"), ("method_review_sha256", "wrong")])
+    def test_repaired_generation_requires_exact_lineage(monkeypatch, field, value):
+        identity = {"prior_failed_execution_sha256": "prior", "method_review_sha256": "method"}
+        identity[field] = value
+        strict = {"status": "TRAIN_CENSUS_COMPLETE_STRICT_CONTEXT_CANDIDATE_ONLY", "global_ineligibility_conclusion": "NOT_ESTABLISHED_TARGET_ONLY_BOUND_REQUIRED", "held_out_acoustic_payloads_processed": False, "completed_benchmark_runs": 0, "benchmark_eligible": False}
+        with pytest.raises(ValueError, match="lineage"):
+>           module(monkeypatch).validate_lineage(identity, strict, "prior", "method")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module 'target_only_bound' has no attribute 'validate_lineage'. Did you mean: 'validate_ledger'?
+
+tests\scientific\test_target_only_bound.py:53: AttributeError
+_ test_repaired_generation_requires_exact_lineage[prior_failed_execution_sha256-wrong] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000281DB63A900>
+field = 'prior_failed_execution_sha256', value = 'wrong'
+
+    @pytest.mark.parametrize("field,value", [("prior_failed_execution_sha256", None), ("prior_failed_execution_sha256", "wrong"), ("method_review_sha256", "wrong")])
+    def test_repaired_generation_requires_exact_lineage(monkeypatch, field, value):
+        identity = {"prior_failed_execution_sha256": "prior", "method_review_sha256": "method"}
+        identity[field] = value
+        strict = {"status": "TRAIN_CENSUS_COMPLETE_STRICT_CONTEXT_CANDIDATE_ONLY", "global_ineligibility_conclusion": "NOT_ESTABLISHED_TARGET_ONLY_BOUND_REQUIRED", "held_out_acoustic_payloads_processed": False, "completed_benchmark_runs": 0, "benchmark_eligible": False}
+        with pytest.raises(ValueError, match="lineage"):
+>           module(monkeypatch).validate_lineage(identity, strict, "prior", "method")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module 'target_only_bound' has no attribute 'validate_lineage'. Did you mean: 'validate_ledger'?
+
+tests\scientific\test_target_only_bound.py:53: AttributeError
+_ test_repaired_generation_requires_exact_lineage[method_review_sha256-wrong] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000281DB63B440>
+field = 'method_review_sha256', value = 'wrong'
+
+    @pytest.mark.parametrize("field,value", [("prior_failed_execution_sha256", None), ("prior_failed_execution_sha256", "wrong"), ("method_review_sha256", "wrong")])
+    def test_repaired_generation_requires_exact_lineage(monkeypatch, field, value):
+        identity = {"prior_failed_execution_sha256": "prior", "method_review_sha256": "method"}
+        identity[field] = value
+        strict = {"status": "TRAIN_CENSUS_COMPLETE_STRICT_CONTEXT_CANDIDATE_ONLY", "global_ineligibility_conclusion": "NOT_ESTABLISHED_TARGET_ONLY_BOUND_REQUIRED", "held_out_acoustic_payloads_processed": False, "completed_benchmark_runs": 0, "benchmark_eligible": False}
+        with pytest.raises(ValueError, match="lineage"):
+>           module(monkeypatch).validate_lineage(identity, strict, "prior", "method")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module 'target_only_bound' has no attribute 'validate_lineage'. Did you mean: 'validate_ledger'?
+
+tests\scientific\test_target_only_bound.py:53: AttributeError
+=========================== short test summary info ===========================
+FAILED tests/scientific/test_target_only_bound.py::test_repaired_generation_requires_exact_lineage[prior_failed_execution_sha256-None]
+FAILED tests/scientific/test_target_only_bound.py::test_repaired_generation_requires_exact_lineage[prior_failed_execution_sha256-wrong]
+FAILED tests/scientific/test_target_only_bound.py::test_repaired_generation_requires_exact_lineage[method_review_sha256-wrong]
+3 failed, 4 passed in 0.27s

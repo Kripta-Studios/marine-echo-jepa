@@ -1,0 +1,208 @@
+FF.F..................                                                   [100%]
+================================== FAILURES ===================================
+______ test_real_single_ping_train_file_is_preserved_without_duplication ______
+
+    def test_real_single_ping_train_file_is_preserved_without_duplication() -> None:
+>       assert _sha(_SINGLE) == "aa83fe505443235d70d846b898a331c799be9e2fedd7c9fa23f476415993b48a"
+               ^^^^^^^^^^^^^
+
+tests\integration\test_azfp_compat.py:29: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\integration\test_azfp_compat.py:25: in _sha
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+                          ^^^^^^^^^^^^^^^^^
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:1019: in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/data/raw/pangaea/mosaic_azfp_down_2020_extracted/20030416.01A')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\data\\raw\\pangaea\\mosaic_azfp_down_2020_extracted\\20030416.01A'
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:1013: FileNotFoundError
+_____________ test_multi_ping_train_file_matches_upstream_exactly _____________
+
+    def test_multi_ping_train_file_matches_upstream_exactly() -> None:
+        original_parser = SONAR_MODELS["AZFP"]["parser"]
+>       baseline = ep.open_raw(_MULTI, sonar_model="AZFP", xml_path=_XML)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\integration\test_azfp_compat.py:44: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv\Lib\site-packages\echopype\utils\prov.py:241: in inner
+    dataobj = func(*args, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\echopype\convert\api.py:455: in open_raw
+    file_chk, xml_chk, bot_chk, idx_chk = _check_file(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+raw_file = 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\data\\raw\\pangaea\\mosaic_azfp_down_2020_extracted\\20030300.01A'
+sonar_model = 'AZFP'
+xml_path = WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/data/raw/pangaea/mosaic_azfp_down_2020_extracted/20021600.XML')
+include_bot = False, include_idx = False, storage_options = {}
+
+    def _check_file(
+        raw_file,
+        sonar_model: "SonarModelsHint",
+        xml_path: Optional["PathHint"] = None,
+        include_bot: bool = False,
+        include_idx: bool = False,
+        storage_options: Dict[str, str] = {},
+    ) -> Tuple[str, str, str, str]:
+        """Checks whether the file and/or xml file exists and
+        whether they have the correct extensions.
+    
+        Parameters
+        ----------
+        raw_file : str
+            path to raw data file
+        sonar_model : str
+            model of the sonar instrument
+        xml_path : str
+            path to XML config file used by AZFP
+        include_bot : bool, default `False`
+            Include bottom depth file in parsing. Only used by EK60/EK80.
+        include_index : bool, default `False`
+            Include index file in parsing. Only used by EK60/EK80.
+        storage_options : dict
+            options for cloud storage
+    
+        Returns
+        -------
+        raw_file : str
+            path to existing raw data file
+        xml : str
+            path to existing xml file
+            empty string if no xml file is required for the specified model
+        bot_file : str
+            Path to existing bot file.
+            Empty string if `.bot` file is not requested to be parsed and/or
+            `.bot` parsing is not allowed by the specified model.
+        idx_file : str
+            Path to existing idx file.
+            Empty string if `.idx` file is not requested to be parsed and/or
+            `.idx` parsing is not allowed by the specified model.
+        """
+        if SONAR_MODELS[sonar_model]["xml"]:  # if this sonar model expects an XML file
+            if not xml_path:
+                raise ValueError(f"XML file is required for {sonar_model} raw data")
+            else:
+                if ".XML" not in Path(xml_path).suffix.upper():
+                    raise ValueError(f"{Path(xml_path).name} is not an XML file")
+    
+            xmlmap = fsspec.get_mapper(str(xml_path), **storage_options)
+            if not xmlmap.fs.exists(xmlmap.root):
+>               raise FileNotFoundError(f"There is no file named {Path(xml_path).name}")
+E               FileNotFoundError: There is no file named 20021600.XML
+
+.venv\Lib\site-packages\echopype\convert\api.py:304: FileNotFoundError
+___ test_singleton_reaches_candidate_calibration_cleaning_and_range_shapes ____
+
+    def test_singleton_reaches_candidate_calibration_cleaning_and_range_shapes() -> None:
+        original_parser = SONAR_MODELS["AZFP"]["parser"]
+        root = Path(__file__).resolve().parents[2]
+        env = json.loads(
+            (
+                root.parent
+                / "marine-echo-jepa/evidence/continuation/depth_environment_sensitivity.json"
+            ).read_text(encoding="utf-8")
+        )["nominal"]
+>       ed = open_raw_azfp_compat(_SINGLE, _XML)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\integration\test_azfp_compat.py:79: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\marine_echo\data\azfp_compat.py:90: in open_raw_azfp_compat
+    return ep.open_raw(path, sonar_model="AZFP", xml_path=xml_path)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\echopype\utils\prov.py:241: in inner
+    dataobj = func(*args, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\echopype\convert\api.py:455: in open_raw
+    file_chk, xml_chk, bot_chk, idx_chk = _check_file(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+raw_file = 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\data\\raw\\pangaea\\mosaic_azfp_down_2020_extracted\\20030416.01A'
+sonar_model = 'AZFP'
+xml_path = WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/data/raw/pangaea/mosaic_azfp_down_2020_extracted/20021600.XML')
+include_bot = False, include_idx = False, storage_options = {}
+
+    def _check_file(
+        raw_file,
+        sonar_model: "SonarModelsHint",
+        xml_path: Optional["PathHint"] = None,
+        include_bot: bool = False,
+        include_idx: bool = False,
+        storage_options: Dict[str, str] = {},
+    ) -> Tuple[str, str, str, str]:
+        """Checks whether the file and/or xml file exists and
+        whether they have the correct extensions.
+    
+        Parameters
+        ----------
+        raw_file : str
+            path to raw data file
+        sonar_model : str
+            model of the sonar instrument
+        xml_path : str
+            path to XML config file used by AZFP
+        include_bot : bool, default `False`
+            Include bottom depth file in parsing. Only used by EK60/EK80.
+        include_index : bool, default `False`
+            Include index file in parsing. Only used by EK60/EK80.
+        storage_options : dict
+            options for cloud storage
+    
+        Returns
+        -------
+        raw_file : str
+            path to existing raw data file
+        xml : str
+            path to existing xml file
+            empty string if no xml file is required for the specified model
+        bot_file : str
+            Path to existing bot file.
+            Empty string if `.bot` file is not requested to be parsed and/or
+            `.bot` parsing is not allowed by the specified model.
+        idx_file : str
+            Path to existing idx file.
+            Empty string if `.idx` file is not requested to be parsed and/or
+            `.idx` parsing is not allowed by the specified model.
+        """
+        if SONAR_MODELS[sonar_model]["xml"]:  # if this sonar model expects an XML file
+            if not xml_path:
+                raise ValueError(f"XML file is required for {sonar_model} raw data")
+            else:
+                if ".XML" not in Path(xml_path).suffix.upper():
+                    raise ValueError(f"{Path(xml_path).name} is not an XML file")
+    
+            xmlmap = fsspec.get_mapper(str(xml_path), **storage_options)
+            if not xmlmap.fs.exists(xmlmap.root):
+>               raise FileNotFoundError(f"There is no file named {Path(xml_path).name}")
+E               FileNotFoundError: There is no file named 20021600.XML
+
+.venv\Lib\site-packages\echopype\convert\api.py:304: FileNotFoundError
+============================== warnings summary ===============================
+.venv\Lib\site-packages\flox\xrdtypes.py:68
+.venv\Lib\site-packages\flox\xrdtypes.py:68
+  C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\.venv\Lib\site-packages\flox\xrdtypes.py:68: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    NAT_TYPES = {np.datetime64("NaT").dtype, np.timedelta64("NaT").dtype}
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/integration/test_azfp_compat.py::test_real_single_ping_train_file_is_preserved_without_duplication
+FAILED tests/integration/test_azfp_compat.py::test_multi_ping_train_file_matches_upstream_exactly
+FAILED tests/integration/test_azfp_compat.py::test_singleton_reaches_candidate_calibration_cleaning_and_range_shapes
+3 failed, 19 passed, 2 warnings in 3.24s

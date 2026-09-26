@@ -1,0 +1,23 @@
+{
+  "record_type": "COORDINATOR_TRANSCRIPTION_OF_DISTINCT_REVIEWER_MESSAGE",
+  "reviewer_session": "/root/continuation_review",
+  "disposition": "APPROVE_FIXED_100_DAY_TRAIN_CENSUS_V2",
+  "hashes": {
+    "tools/train_census_v2.py": "a5f4194989f2a8051b10881c21666c46c85b76ac79a614d42010d2afeafa3265",
+    "tools/preprocess_train_candidate.py": "a0ddb50f64a4a92fcf45e657aeb385aa27ddbd32cdd30af50571cd79b6bd0e4d",
+    "evidence/continuation/train_census_v2_contract.json": "581141caa866b3cf3756fecdda49e379e38df7ea89e19f156c9074b3f5961e0c",
+    "src/marine_echo/data/azfp_compat.py": "4a60f0287f538f674f947ecc3f2f20f302e1b70bbe66360adf419f607e22bbf5"
+  },
+  "prior_execution_sha256": "43c6c3d62bb836f13d3f5b854f4a55bb27a02aed908d66faf36c64640397e24b",
+  "scope": "Same scientific method, pinnedsingletonheaderrepair; all100TRAINdates/newpaths; exactold16arrays beforeacceptance; nocontextbasedglobalineligibilityclaim.",
+  "evidence": "Reviewer inspected3RED then21GREEN3.07s; integrationpath3RED then22GREEN3.28s. No reviewer test execution.",
+  "not_approved": [
+    "R0",
+    "R1",
+    "corpus promotion",
+    "held-out processing",
+    "benchmarks",
+    "R2",
+    "release"
+  ]
+}

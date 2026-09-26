@@ -42,3 +42,25 @@ def test_all_three_targets_required(monkeypatch):
 def test_corrupt_counts_fail_closed(monkeypatch):
     with pytest.raises(ValueError):
         module(monkeypatch).target_only_cutoffs(np.full((24, 45), 61), np.full(24, 60))
+
+
+@pytest.mark.parametrize(
+    "field,value",
+    [
+        ("prior_failed_execution_sha256", None),
+        ("prior_failed_execution_sha256", "wrong"),
+        ("method_review_sha256", "wrong"),
+    ],
+)
+def test_repaired_generation_requires_exact_lineage(monkeypatch, field, value):
+    identity = {"prior_failed_execution_sha256": "prior", "method_review_sha256": "method"}
+    identity[field] = value
+    strict = {
+        "status": "TRAIN_CENSUS_COMPLETE_STRICT_CONTEXT_CANDIDATE_ONLY",
+        "global_ineligibility_conclusion": "NOT_ESTABLISHED_TARGET_ONLY_BOUND_REQUIRED",
+        "held_out_acoustic_payloads_processed": False,
+        "completed_benchmark_runs": 0,
+        "benchmark_eligible": False,
+    }
+    with pytest.raises(ValueError, match="lineage"):
+        module(monkeypatch).validate_lineage(identity, strict, "prior", "method")

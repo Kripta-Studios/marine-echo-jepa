@@ -1,0 +1,21 @@
+{
+  "record_type": "COORDINATOR_TRANSCRIPTION_OF_DISTINCT_REVIEWER_MESSAGE",
+  "reviewer_session": "/root/continuation_review",
+  "disposition": "APPROVE_POST_COMPLETION_TARGET_ONLY_BOUND_V2",
+  "code_sha256": "699142b1d0b79a57988c13b86beffc5152438980c9f08e9799387bdae6141ffd",
+  "method_contract_sha256": "774f7bcac90ca275eb486d243a5b3a20488814c1d1de2060bc8a188322dd769f",
+  "input_contract_sha256": "1b27db9b08eedf3f937f363fbabcb522633d73175c7836e926f7248c9434c4ef",
+  "tests_sha256": "e2344e5b6d8d26662e3052d7006b23c797d65241d9f8c65818aec9d100ff0fe3",
+  "scope": "Exact completed100-dayv2census only; revalidatesv1lineage/review and recomputesall16old/newarraycomparisons. Targetmathsamegenerousnecessarybound,ignorescontext/config.",
+  "evidence": "Reviewer inspected3RED,10GREEN0.28s and earlier4GREEN0.07s; didnotexecute tests or inspect acoustic outcomes.",
+  "not_approved": [
+    "strict context policy",
+    "R0",
+    "R1",
+    "corpus promotion",
+    "benchmarks",
+    "held-out access",
+    "R2",
+    "release"
+  ]
+}

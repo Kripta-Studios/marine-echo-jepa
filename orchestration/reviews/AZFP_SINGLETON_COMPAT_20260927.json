@@ -1,0 +1,26 @@
+{
+  "record_type": "COORDINATOR_TRANSCRIPTION_OF_DISTINCT_REVIEWER_MESSAGE",
+  "reviewer_session": "/root/continuation_review",
+  "disposition": "APPROVE_PINNED_SINGLETON_COMPAT_TRAIN_ONLY",
+  "helper_sha256": "4a60f0287f538f674f947ecc3f2f20f302e1b70bbe66360adf419f607e22bbf5",
+  "builder_commit": "9d0fb251cbd8965ea1b2252b79bb859433813320",
+  "upstream_parser_sha256": "d5ac606f3372b36e940f32df2255d23fdb8848e87d14f8794cface0050275b45",
+  "method": "Same nine frequency-vector and nine scalar header reductions as upstream for one parsed ping; multi-ping delegates unchanged; version/hash pin; sequential wrapped calls; parser binding restored even on failure. No ping duplication/drop/new binary parser or installed-env edit.",
+  "evidence": "Reviewer inspected4GREEN1.44s,1 singleton calibration/noise/regrid smoke0.11s,real multiping array equivalence,forced-error restoration and original census traceback. No independent reviewer test execution.",
+  "conditions": [
+    "All v2 AZFP opens use wrapper sequentially",
+    "New contract/driver/output/ledger",
+    "Rerun all100 TRAIN dates",
+    "Preserve everyv1artifact",
+    "Fail on old/new multiping numeric mismatch"
+  ],
+  "not_approved": [
+    "R0",
+    "R1",
+    "corpus promotion",
+    "benchmark",
+    "test access",
+    "R2",
+    "release"
+  ]
+}

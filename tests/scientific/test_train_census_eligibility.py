@@ -49,6 +49,26 @@ def module(monkeypatch):
     return result
 
 
+def test_second_generation_retains_integrity_and_support_rules(monkeypatch):
+    folder = Path(__file__).resolve().parents[2] / "tools"
+    monkeypatch.syspath_prepend(str(folder))
+    spec = importlib.util.spec_from_file_location("train_census_v2", folder / "train_census_v2.py")
+    result = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(result)
+    assert result.eligible_cutoffs(
+        np.full((192, 45), 60), np.full(192, 60), ["config"] * 192
+    ) == list(range(96, 169, 4))
+    ledger = {
+        "status": "RUNNING_TRAIN_ONLY_CENSUS",
+        "identity": {},
+        "days": {},
+        "held_out_acoustic_payloads_processed": True,
+        "completed_benchmark_runs": 0,
+    }
+    with pytest.raises(ValueError, match="Exposure"):
+        result.validate_ledger(ledger, {}, ["2020-02-17"])
+
+
 def test_two_complete_days_have_only_second_day_cutoffs(monkeypatch):
     result = module(monkeypatch).eligible_cutoffs(
         np.full((192, 45), 60), np.full(192, 60), ["config"] * 192

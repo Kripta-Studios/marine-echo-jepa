@@ -1,0 +1,32 @@
+{"file": "20030400.01A", "pings": 3, "elapsed_s": 0.0930000000007567}
+{"file": "20030401.01A", "pings": 58, "elapsed_s": 0.20300000000133878}
+{"file": "20030402.01A", "pings": 240, "elapsed_s": 0.5460000000020955}
+{"file": "20030403.01A", "pings": 240, "elapsed_s": 1.0310000000026776}
+{"file": "20030404.01A", "pings": 240, "elapsed_s": 1.5}
+{"file": "20030405.01A", "pings": 240, "elapsed_s": 1.9060000000026776}
+{"file": "20030406.01A", "pings": 240, "elapsed_s": 2.3589999999967404}
+{"file": "20030407.01A", "pings": 240, "elapsed_s": 2.75}
+{"file": "20030408.01A", "pings": 3, "elapsed_s": 2.811999999998079}
+{"file": "20030409.01A", "pings": 58, "elapsed_s": 2.936999999998079}
+{"file": "20030410.01A", "pings": 240, "elapsed_s": 3.2339999999967404}
+{"file": "20030411.01A", "pings": 240, "elapsed_s": 3.561999999998079}
+{"file": "20030412.01A", "pings": 240, "elapsed_s": 3.889999999999418}
+{"file": "20030413.01A", "pings": 240, "elapsed_s": 4.25}
+{"file": "20030414.01A", "pings": 240, "elapsed_s": 4.5460000000020955}
+{"file": "20030415.01A", "pings": 240, "elapsed_s": 4.85899999999674}
+Traceback (most recent call last):
+  File "C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tools\preprocess_train_candidate.py", line 383, in <module>
+    raise SystemExit(main(args.date, args.variant))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tools\preprocess_train_candidate.py", line 148, in main
+    ed = ep.open_raw(path, sonar_model="AZFP", xml_path=xml)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\.venv\Lib\site-packages\echopype\utils\prov.py", line 241, in inner
+    dataobj = func(*args, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\.venv\Lib\site-packages\echopype\convert\api.py", line 471, in open_raw
+    parser.parse_raw()
+  File "C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\.venv\Lib\site-packages\echopype\convert\parse_azfp.py", line 356, in parse_raw
+    self.unpacked_data["frequency"] = self.unpacked_data["frequency"].astype(np.float64)
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'astype'

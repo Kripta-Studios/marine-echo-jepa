@@ -1,0 +1,9 @@
+......................                                                   [100%]
+============================== warnings summary ===============================
+.venv\Lib\site-packages\flox\xrdtypes.py:68
+.venv\Lib\site-packages\flox\xrdtypes.py:68
+  C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\.venv\Lib\site-packages\flox\xrdtypes.py:68: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    NAT_TYPES = {np.datetime64("NaT").dtype, np.timedelta64("NaT").dtype}
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+22 passed, 2 warnings in 3.28s

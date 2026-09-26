@@ -2,19 +2,26 @@
 
 import hashlib
 import json
+import os
 from pathlib import Path
 
 import echopype as ep
 import numpy as np
 import pytest
 from echopype.convert.api import SONAR_MODELS
+
+from marine_echo.data.azfp_compat import open_raw_azfp_compat
 from marine_echo.data.candidate_qc import clean_per_ping, sample_edges
 from marine_echo.data.range_grid import regrid_linear_sv
 
-from marine_echo.data.azfp_compat import open_raw_azfp_compat
-
-_EXTRACTED = (
-    Path(__file__).resolve().parents[2] / "data/raw/pangaea/mosaic_azfp_down_2020_extracted"
+_EXTRACTED = Path(
+    os.environ.get(
+        "MARINE_ECHO_REAL_AZFP_HOUR",
+        str(
+            Path(__file__).resolve().parents[3]
+            / "marine-echo-jepa-core/data/raw/pangaea/mosaic_azfp_down_2020_extracted"
+        ),
+    )
 )
 _XML = _EXTRACTED / "20021600.XML"
 _SINGLE = _EXTRACTED / "20030416.01A"

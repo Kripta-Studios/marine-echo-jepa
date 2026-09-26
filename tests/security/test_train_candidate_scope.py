@@ -13,6 +13,8 @@ import pytest
         ("2020-02-17", "v2"),
         ("2020-05-27", "census-v1"),
         ("2020-07-07", "census-v1"),
+        ("2020-05-27", "census-v2"),
+        ("2020-07-07", "census-v2"),
     ],
 )
 def test_candidate_rejects_unregistered_dates(date, variant, monkeypatch):
