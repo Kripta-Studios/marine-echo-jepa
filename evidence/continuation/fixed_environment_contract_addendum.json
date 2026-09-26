@@ -1,0 +1,10 @@
+{
+  "parent_contract_sha256": "9808f38fc559af9b46b7c8c4dcf0fa5ee2f230ab313b4d6fade48f663ff76f86",
+  "status": "RECORDED_BEFORE_ASSAY_EXECUTION",
+  "basis": "Independent reviewer pre-execution requirements",
+  "coordinates": "Evaluate every accepted environmental T/SP/P record using its own source longitude/latitude in GSW SA conversion and exact sound speed. Include those observed speed extrema alongside nominal-coordinate17^3 rectangle extrema.",
+  "path_integral": "Report sampled alpha min/max per frequency. Conditional on every local path segment lying inside the accepted physical envelope, bound the two-way absorption integral at physical range r by2*r*alpha_min and2*r*alpha_max. Keep this conditional premise explicit.",
+  "range_volume": "Combine speed extrema independently for travel-time range and local pulse-volume factor. Compute20log10(c_range/c_nominal)-10log10(c_local/c_nominal)+2*r_nominal*(alpha*c_range/c_nominal-alpha_nominal) for every alpha/speed-bound corner. This is more conservative than a homogeneous point calculation.",
+  "gates": "Retain1dB at38kHz and2m displacement. Report homogeneous sampled and conditional path-extrema checks separately. Neither is a continuous-envelope proof or QC approval.",
+  "no_scope_change": "Same source selection, full calendar, units, uncertainty allowances, original analysis band, one fixed training hour and no acoustic test access."
+}

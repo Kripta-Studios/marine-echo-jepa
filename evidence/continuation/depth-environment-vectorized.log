@@ -1,0 +1,16 @@
+{"source": "2019O1", "accepted": 720232, "rejected_relevant": 128, "flags": "ALL_T_SP_P_DEPTH_1_OR_2"}
+{"source": "2019O3", "accepted": 573737, "rejected_relevant": 2763, "flags": "ALL_T_SP_P_DEPTH_1_OR_2"}
+{"source": "2019O4", "accepted": 574410, "rejected_relevant": 1463, "flags": "ALL_T_SP_P_DEPTH_1_OR_2"}
+{"source": "2019O6", "accepted": 715288, "rejected_relevant": 4942, "flags": "ALL_T_SP_P_DEPTH_1_OR_2"}
+{
+  "status": "DEPTH_RESOLVED_DIAGNOSTIC_REQUIRES_GEOMETRY_AND_R0",
+  "all_sampled_scenarios_passed": true,
+  "max_abs_Sv_delta_db_all_scenarios": [
+    0.2308358414513858,
+    0.6270054531305078,
+    0.6019033888677221,
+    1.27316884965375
+  ],
+  "max_abs_range_displacement_m_all_scenarios": 0.8254177705381238,
+  "elapsed_seconds": 136.13999999999942
+}

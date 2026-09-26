@@ -1,0 +1,167 @@
+{
+  "checked_at": "2026-09-26T20:25:50.803596+00:00",
+  "source_verification_scope": "existence/size against preserved prior hashes; no repeat multi-GB hashing",
+  "sources": [
+    {
+      "name": "azfp55170-bioacoustics.zip",
+      "present": true,
+      "actual_bytes": 4676515350,
+      "registered": {
+        "name": "azfp55170-bioacoustics.zip",
+        "bytes": 4676515350,
+        "sha256": "bc9cf56bd92e7dd1c83cfca6d296585a832e13e27635c04f14ff864bf2831ab9"
+      },
+      "hash_rechecked": false,
+      "size_matches_registered": true
+    },
+    {
+      "name": "iridium-msgs.txt",
+      "present": true,
+      "actual_bytes": 206050,
+      "registered": {
+        "name": "iridium-msgs.txt",
+        "bytes": 206050,
+        "sha256": "44096a09096aa3bed2cfb6253948152c39a6bc4f3b8e495ba100069c08eb5d6a"
+      },
+      "hash_rechecked": false,
+      "size_matches_registered": true
+    },
+    {
+      "name": "POPE306-308-mosaic-manual.pdf",
+      "present": true,
+      "actual_bytes": 705497,
+      "registered": {
+        "name": "POPE306-308-mosaic-manual.pdf",
+        "bytes": 705497,
+        "sha256": "d491cb47ad5d569c60a057751eb741eba2acc8f9075460c9b7e6fe9efe48c2bf"
+      },
+      "hash_rechecked": false,
+      "size_matches_registered": true
+    },
+    {
+      "name": "readme.txt",
+      "present": true,
+      "actual_bytes": 1779,
+      "registered": {
+        "name": "readme.txt",
+        "bytes": 1779,
+        "sha256": "16b9fc8dc0d76b2631aa60c3dccb0ca89e6d8942c8c8fb0376be68bccbbae5fb"
+      },
+      "hash_rechecked": false,
+      "size_matches_registered": true
+    },
+    {
+      "name": "xeos-rover-mosaicdown-transponder-16feb-02aug2020.csv",
+      "present": true,
+      "actual_bytes": 135837,
+      "registered": {
+        "name": "xeos-rover-mosaicdown-transponder-16feb-02aug2020.csv",
+        "bytes": 135837,
+        "sha256": "031e563c1d8aa2b851997f5f239ace571561b12a58c98eaecc56676b0efdc946"
+      },
+      "hash_rechecked": false,
+      "size_matches_registered": true
+    }
+  ],
+  "registries": [
+    {
+      "path": "orchestration/run_ledger.json",
+      "sha256": "bb1c29c3aa0b1b0f0fc67811e0d52f861a3324a86896de29051809bfcf9629d0",
+      "statuses": {
+        "BLOCKED": 25
+      }
+    },
+    {
+      "path": "reports/active/training_registry.json",
+      "sha256": "6061823100962ded061123814acb8b20688c42f699036a590ca3afadd323fd69",
+      "statuses": {
+        "BLOCKED": 25
+      }
+    }
+  ],
+  "candidate_split": {
+    "complete_days": 167,
+    "rounding": "floor_cumulative_calendar_fraction",
+    "partitions": {
+      "train": {
+        "start": "2020-02-17T00:00:00Z",
+        "end": "2020-05-27T00:00:00Z",
+        "calendar_days": 100
+      },
+      "validation": {
+        "start": "2020-05-27T00:00:00Z",
+        "end": "2020-06-21T00:00:00Z",
+        "calendar_days": 25
+      },
+      "calibration": {
+        "start": "2020-06-21T00:00:00Z",
+        "end": "2020-07-07T00:00:00Z",
+        "calendar_days": 16
+      },
+      "test": {
+        "start": "2020-07-07T00:00:00Z",
+        "end": "2020-08-02T00:00:00Z",
+        "calendar_days": 26
+      }
+    }
+  },
+  "replay_exposure": [
+    {
+      "path": "evidence/data/diagnostic_raw_replay_2020-02-17.json",
+      "sha256": "5bbf9ce4dcd89f49d304d29bb50dada6e495a0b827bce2654791e86ff424699c",
+      "bytes": 603402,
+      "rows": 96,
+      "first_bin_end": "2020-02-17T00:15:00Z",
+      "last_bin_end": "2020-02-18T00:00:00Z",
+      "overlaps_candidate_test": false
+    },
+    {
+      "path": "release/meeting-20260926-r2/demo/artifacts/observations.json",
+      "sha256": "68240f4e6d75eef0c6890dbbb658468b45ff0f4ea95eb2ec1e41084de200beea",
+      "bytes": 629805,
+      "rows": 96,
+      "first_bin_end": "2020-02-17T00:15:00Z",
+      "last_bin_end": "2020-02-18T00:00:00Z",
+      "overlaps_candidate_test": false
+    },
+    {
+      "path": "release/demo/artifacts/observations.json",
+      "sha256": "68240f4e6d75eef0c6890dbbb658468b45ff0f4ea95eb2ec1e41084de200beea",
+      "bytes": 629805,
+      "rows": 96,
+      "first_bin_end": "2020-02-17T00:15:00Z",
+      "last_bin_end": "2020-02-18T00:00:00Z",
+      "overlaps_candidate_test": false
+    }
+  ],
+  "other_known_exposure": [
+    {
+      "period": "2020-02-16T14:00:00Z/2020-02-16T15:00:00Z",
+      "kind": "partial deployment diagnostic probe outside complete-day split"
+    },
+    {
+      "period": "2020-03-03T00:00:00Z/2020-03-03T01:00:00Z",
+      "kind": "training acoustic numerical assay in this continuation"
+    },
+    {
+      "period": "2020-02-17/2020-08-02",
+      "kind": "environmental profile metadata/applicability inspected; not acoustic outcome exposure"
+    }
+  ],
+  "replay_serialization_lineage": {
+    "tracked_vs_packaged_semantically_equal": true,
+    "note": "Historical report hash describes packaged JSON serialization; preserve both bytes and hashes."
+  },
+  "exposure_disposition": "NO_KNOWN_TEST_OUTCOME_EXPOSURE_IN_AUDITED_REPLAYS_NOT_PROOF_OF_SEAL",
+  "exposure_limitations": [
+    "Browser human viewing history is not exhaustively logged.",
+    "Prior agent context and discarded artifacts cannot be reconstructed.",
+    "No R2 approval or test seal exists; do not infer one from zero runs."
+  ],
+  "historical_release": {
+    "path": "release\\meeting-20260926-r2.zip",
+    "sha256": "df02ff06cbbb05d967f8c157423c0c76b2acf66ddb16f1a1fcfbe36a710a5cc3",
+    "bytes": 18697810,
+    "members": 147
+  }
+}

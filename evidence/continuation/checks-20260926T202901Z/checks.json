@@ -1,0 +1,177 @@
+[
+  {
+    "name": "ruff-format",
+    "command": [
+      "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+      "-m",
+      "ruff",
+      "format",
+      "--check",
+      "src",
+      "tests"
+    ],
+    "exit_code": 1,
+    "resource_or_time_stop": false,
+    "seconds": 0.8440000000045984,
+    "peak_sampled_process_tree_rss_gib": 0.03238677978515625,
+    "log": "evidence\\continuation\\checks-20260926T202901Z\\ruff-format.log"
+  },
+  {
+    "name": "ruff-check",
+    "command": [
+      "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+      "-m",
+      "ruff",
+      "check",
+      "src",
+      "tests"
+    ],
+    "exit_code": 0,
+    "resource_or_time_stop": false,
+    "seconds": 0.7969999999986612,
+    "peak_sampled_process_tree_rss_gib": 0.03612518310546875,
+    "log": "evidence\\continuation\\checks-20260926T202901Z\\ruff-check.log"
+  },
+  {
+    "name": "mypy",
+    "command": [
+      "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+      "tools/check_types.py"
+    ],
+    "exit_code": 0,
+    "resource_or_time_stop": false,
+    "seconds": 31.468999999997322,
+    "peak_sampled_process_tree_rss_gib": 0.2121124267578125,
+    "log": "evidence\\continuation\\checks-20260926T202901Z\\mypy.log"
+  },
+  {
+    "name": "pytest-app-data",
+    "command": [
+      "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "tests/unit",
+      "tests/integration",
+      "tests/scientific",
+      "tests/api",
+      "tests/security",
+      "-q",
+      "--ignore=tests/unit/test_models_forecast.py",
+      "--ignore=tests/unit/test_models_hybrid.py",
+      "--ignore=tests/scientific/test_model_gradients.py",
+      "--ignore=tests/scientific/test_model_controls.py",
+      "--ignore=tests/scientific/test_model_collapse.py",
+      "--ignore=tests/integration/test_training_resume.py",
+      "--ignore=tests/integration/test_training_gpu.py"
+    ],
+    "exit_code": 0,
+    "resource_or_time_stop": false,
+    "seconds": 42.18800000000192,
+    "peak_sampled_process_tree_rss_gib": 0.24322509765625,
+    "log": "evidence\\continuation\\checks-20260926T202901Z\\pytest-app-data.log"
+  },
+  {
+    "name": "pytest-model-software",
+    "command": [
+      "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\EVOCON_JEPA_Codex_Handoff\\e-jepa-ttc\\.venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "tests/unit/test_models_forecast.py",
+      "tests/unit/test_models_hybrid.py",
+      "tests/scientific/test_model_gradients.py",
+      "tests/scientific/test_model_controls.py",
+      "tests/scientific/test_model_collapse.py",
+      "tests/integration/test_training_resume.py",
+      "tests/integration/test_training_gpu.py",
+      "-q",
+      "-rs"
+    ],
+    "exit_code": 0,
+    "resource_or_time_stop": false,
+    "seconds": 73.375,
+    "peak_sampled_process_tree_rss_gib": 0.764251708984375,
+    "log": "evidence\\continuation\\checks-20260926T202901Z\\pytest-model-software.log"
+  },
+  {
+    "name": "r2-integrity",
+    "command": [
+      "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+      "release/meeting-20260926-r2/Verify-Release.py"
+    ],
+    "exit_code": 0,
+    "resource_or_time_stop": false,
+    "seconds": 1.4059999999954016,
+    "peak_sampled_process_tree_rss_gib": 0.020282745361328125,
+    "log": "evidence\\continuation\\checks-20260926T202901Z\\r2-integrity.log"
+  },
+  {
+    "name": "web-format-check",
+    "command": [
+      "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.runtime\\node_modules\\node\\bin\\node.exe",
+      "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+      "run",
+      "format:check"
+    ],
+    "exit_code": 0,
+    "resource_or_time_stop": false,
+    "seconds": 11.187000000005355,
+    "peak_sampled_process_tree_rss_gib": 0.1765594482421875,
+    "log": "evidence\\continuation\\checks-20260926T202901Z\\web-format-check.log"
+  },
+  {
+    "name": "web-lint",
+    "command": [
+      "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.runtime\\node_modules\\node\\bin\\node.exe",
+      "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+      "run",
+      "lint"
+    ],
+    "exit_code": 0,
+    "resource_or_time_stop": false,
+    "seconds": 13.375,
+    "peak_sampled_process_tree_rss_gib": 0.2600517272949219,
+    "log": "evidence\\continuation\\checks-20260926T202901Z\\web-lint.log"
+  },
+  {
+    "name": "web-typecheck",
+    "command": [
+      "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.runtime\\node_modules\\node\\bin\\node.exe",
+      "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+      "run",
+      "typecheck"
+    ],
+    "exit_code": 0,
+    "resource_or_time_stop": false,
+    "seconds": 10.140999999995984,
+    "peak_sampled_process_tree_rss_gib": 0.33506011962890625,
+    "log": "evidence\\continuation\\checks-20260926T202901Z\\web-typecheck.log"
+  },
+  {
+    "name": "web-test-run",
+    "command": [
+      "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.runtime\\node_modules\\node\\bin\\node.exe",
+      "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+      "run",
+      "test:run"
+    ],
+    "exit_code": 0,
+    "resource_or_time_stop": false,
+    "seconds": 14.203000000001339,
+    "peak_sampled_process_tree_rss_gib": 0.2627105712890625,
+    "log": "evidence\\continuation\\checks-20260926T202901Z\\web-test-run.log"
+  },
+  {
+    "name": "web-build",
+    "command": [
+      "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.runtime\\node_modules\\node\\bin\\node.exe",
+      "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+      "run",
+      "build"
+    ],
+    "exit_code": 0,
+    "resource_or_time_stop": false,
+    "seconds": 13.577999999994063,
+    "peak_sampled_process_tree_rss_gib": 0.3355865478515625,
+    "log": "evidence\\continuation\\checks-20260926T202901Z\\web-build.log"
+  }
+]

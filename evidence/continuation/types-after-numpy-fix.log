@@ -1,0 +1,7 @@
+src\marine_echo\data\candidate_qc.py:27: error: Skipping analyzing "echopype": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+src\marine_echo\data\candidate_qc.py:27: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+Found 1 error in 1 file (checked 20 source files)
+ 
+src\marine_echo\training\data_adapter.py:152: error: "timedelta" has no attribute "astype"  [attr-defined]
+Found 1 error in 1 file (checked 10 source files)
+ 

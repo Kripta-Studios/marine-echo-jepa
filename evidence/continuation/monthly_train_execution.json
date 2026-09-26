@@ -1,0 +1,70 @@
+{
+  "status": "TRAIN_REVIEW_ONLY_NOT_CORPUS_PROMOTION",
+  "results": [
+    {
+      "date": "2020-02-17",
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\preprocess_train_candidate.py",
+        "--date",
+        "2020-02-17",
+        "--variant",
+        "monthly-v1"
+      ],
+      "exit_code": 0,
+      "resource_stop": false,
+      "elapsed_seconds": 32.375,
+      "peak_sampled_process_tree_rss_gib": 0.3088798522949219,
+      "log": "evidence\\continuation\\monthly-train-2020-02-17.log"
+    },
+    {
+      "date": "2020-03-01",
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\preprocess_train_candidate.py",
+        "--date",
+        "2020-03-01",
+        "--variant",
+        "monthly-v1"
+      ],
+      "exit_code": 0,
+      "resource_stop": false,
+      "elapsed_seconds": 99.64100000000326,
+      "peak_sampled_process_tree_rss_gib": 0.31854248046875,
+      "log": "evidence\\continuation\\monthly-train-2020-03-01.log"
+    },
+    {
+      "date": "2020-04-01",
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\preprocess_train_candidate.py",
+        "--date",
+        "2020-04-01",
+        "--variant",
+        "monthly-v1"
+      ],
+      "exit_code": 0,
+      "resource_stop": false,
+      "elapsed_seconds": 157.56299999999464,
+      "peak_sampled_process_tree_rss_gib": 0.32224273681640625,
+      "log": "evidence\\continuation\\monthly-train-2020-04-01.log"
+    },
+    {
+      "date": "2020-05-01",
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\preprocess_train_candidate.py",
+        "--date",
+        "2020-05-01",
+        "--variant",
+        "monthly-v1"
+      ],
+      "exit_code": 0,
+      "resource_stop": false,
+      "elapsed_seconds": 147.53100000000268,
+      "peak_sampled_process_tree_rss_gib": 0.31774139404296875,
+      "log": "evidence\\continuation\\monthly-train-2020-05-01.log"
+    }
+  ],
+  "benchmark_eligible": false
+}

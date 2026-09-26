@@ -1,0 +1,64 @@
+test_absolute_path (test_archive.ArchiveTests.test_absolute_path) ... ok
+test_backslash_traversal (test_archive.ArchiveTests.test_backslash_traversal) ... ok
+test_case_collision (test_archive.ArchiveTests.test_case_collision) ... ok
+test_file_as_parent (test_archive.ArchiveTests.test_file_as_parent) ... ok
+test_member_limit (test_archive.ArchiveTests.test_member_limit) ... ok
+test_normal_archive (test_archive.ArchiveTests.test_normal_archive) ... ok
+test_parent_traversal (test_archive.ArchiveTests.test_parent_traversal) ... ok
+test_reserved_windows_name (test_archive.ArchiveTests.test_reserved_windows_name) ... ok
+test_size_limit (test_archive.ArchiveTests.test_size_limit) ... ok
+test_symlink (test_archive.ArchiveTests.test_symlink) ... ok
+test_windows_drive (test_archive.ArchiveTests.test_windows_drive) ... ok
+test_windows_unc (test_archive.ArchiveTests.test_windows_unc) ... ok
+test_actual_graph (test_contracts.DagTests.test_actual_graph) ... ok
+test_cycle_rejected (test_contracts.DagTests.test_cycle_rejected) ... ok
+test_duplicate_id_rejected (test_contracts.DagTests.test_duplicate_id_rejected) ... ok
+test_unknown_dependency_rejected (test_contracts.DagTests.test_unknown_dependency_rejected) ... ok
+test_abstention_must_not_invent_values (test_contracts.ForecastTests.test_abstention_must_not_invent_values) ... ok
+test_age_mismatch_rejected (test_contracts.ForecastTests.test_age_mismatch_rejected) ... ok
+test_crossing_rejected (test_contracts.ForecastTests.test_crossing_rejected) ... ok
+test_duplicate_horizons_rejected (test_contracts.ForecastTests.test_duplicate_horizons_rejected) ... ok
+test_future_observation_rejected (test_contracts.ForecastTests.test_future_observation_rejected) ... ok
+test_nan_rejected (test_contracts.ForecastTests.test_nan_rejected) ... ok
+test_physical_unit_requires_calibration (test_contracts.ForecastTests.test_physical_unit_requires_calibration) ... ok
+test_synthetic_badge_cannot_be_removed (test_contracts.ForecastTests.test_synthetic_badge_cannot_be_removed) ... ok
+test_valid_abstention (test_contracts.ForecastTests.test_valid_abstention) ... ok
+test_valid_synthetic_contract (test_contracts.ForecastTests.test_valid_synthetic_contract) ... ok
+test_wrong_target_window_rejected (test_contracts.ForecastTests.test_wrong_target_window_rejected) ... ok
+test_empty_rejected (test_contracts.NumericalTests.test_empty_rejected) ... ok
+test_large_values_stable (test_contracts.NumericalTests.test_large_values_stable) ... ok
+test_linear_mean_not_arithmetic_db (test_contracts.NumericalTests.test_linear_mean_not_arithmetic_db) ... ok
+test_nonfinite_rejected (test_contracts.NumericalTests.test_nonfinite_rejected) ... ok
+test_offset_normalized (test_contracts.NumericalTests.test_offset_normalized) ... ok
+test_pinball_invalid_quantile (test_contracts.NumericalTests.test_pinball_invalid_quantile) ... ok
+test_pinball_nonfinite (test_contracts.NumericalTests.test_pinball_nonfinite) ... ok
+test_pinball_overprediction (test_contracts.NumericalTests.test_pinball_overprediction) ... ok
+test_pinball_underprediction (test_contracts.NumericalTests.test_pinball_underprediction) ... ok
+test_single_value (test_contracts.NumericalTests.test_single_value) ... ok
+test_timezone_required (test_contracts.NumericalTests.test_timezone_required) ... ok
+test_windows_not_overlapping_past (test_contracts.NumericalTests.test_windows_not_overlapping_past) ... ok
+test_allowed (test_preflight.AccessPolicyTests.test_allowed) ... ok
+test_credentials_rejected (test_preflight.AccessPolicyTests.test_credentials_rejected) ... ok
+test_http_rejected (test_preflight.AccessPolicyTests.test_http_rejected) ... ok
+test_nonstandard_port_rejected (test_preflight.AccessPolicyTests.test_nonstandard_port_rejected) ... ok
+test_unknown_host_rejected (test_preflight.AccessPolicyTests.test_unknown_host_rejected) ... ok
+test_agent_role_bindings_match (test_preflight.ConfigurationTests.test_agent_role_bindings_match) ... ok
+test_budget_has_no_paid_authorization (test_preflight.ConfigurationTests.test_budget_has_no_paid_authorization) ... ok
+test_no_scientific_results_in_initial_tasks (test_preflight.ConfigurationTests.test_no_scientific_results_in_initial_tasks) ... FAIL
+test_spec_parameters_match (test_preflight.ConfigurationTests.test_spec_parameters_match) ... ok
+test_corruption_rejected (test_preflight.ManifestTests.test_corruption_rejected) ... ok
+test_escaping_manifest_rejected (test_preflight.ManifestTests.test_escaping_manifest_rejected) ... ok
+test_good_manifest (test_preflight.ManifestTests.test_good_manifest) ... ok
+
+======================================================================
+FAIL: test_no_scientific_results_in_initial_tasks (test_preflight.ConfigurationTests.test_no_scientific_results_in_initial_tasks)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tests_handoff\test_preflight.py", line 57, in test_no_scientific_results_in_initial_tasks
+    self.assertTrue(all(task['status']=='TODO' for task in tasks))
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 51 tests in 0.310s
+
+FAILED (failures=1)

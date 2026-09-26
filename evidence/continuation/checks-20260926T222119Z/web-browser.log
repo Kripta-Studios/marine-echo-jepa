@@ -1,0 +1,16 @@
+
+> marine-echo-web@0.1.0 test:e2e
+> playwright test --reporter=list
+
+
+Running 5 tests using 1 worker
+
+(node:25064) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests\offline.spec.ts:5:1 › offline real replay, unavailable forecast, reveal, evidence and export (3.7s)
+  ✓  2 tests\offline.spec.ts:52:1 › malformed cutoff recovers and every sample group is accessible (580ms)
+  ✓  3 tests\offline.spec.ts:62:1 › changing cutoff cancels pending reveal without leaking stale data or errors (1.1s)
+  ✓  4 tests\offline.spec.ts:79:1 › mobile fits, keyboard focus and refresh preserve cutoff (634ms)
+  ✓  5 tests\offline.spec.ts:91:1 › bounded replay navigation meets the declared latency target (2.0s)
+
+  5 passed (11.2s)

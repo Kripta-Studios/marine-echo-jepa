@@ -1,0 +1,84 @@
+FFF                                                                      [100%]
+================================== FAILURES ===================================
+_____________ test_two_complete_days_have_only_second_day_cutoffs _____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C7BF5EAAB0>
+
+    def test_two_complete_days_have_only_second_day_cutoffs(monkeypatch):
+>       result=module(monkeypatch).eligible_cutoffs(np.full((192,45),60),np.full(192,60),["config"]*192)
+               ^^^^^^^^^^^^^^^^^^^
+
+tests\scientific\test_train_census_eligibility.py:19: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\scientific\test_train_census_eligibility.py:14: in module
+    spec.loader.exec_module(result)
+<frozen importlib._bootstrap_external>:995: in exec_module
+    ???
+<frozen importlib._bootstrap_external>:1132: in get_code
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_frozen_importlib_external.SourceFileLoader object at 0x000001C7BF7A21E0>
+path = 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\train_census.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\train_census.py'
+
+<frozen importlib._bootstrap_external>:1190: FileNotFoundError
+_______________ test_sparse_context_or_target_cannot_be_hidden ________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C7BF7A25A0>
+
+    def test_sparse_context_or_target_cannot_be_hidden(monkeypatch):
+        valid=np.full((192,45),60)
+        valid[:96]=1
+>       assert module(monkeypatch).eligible_cutoffs(valid,np.full(192,60),["config"]*192)==[]
+               ^^^^^^^^^^^^^^^^^^^
+
+tests\scientific\test_train_census_eligibility.py:26: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\scientific\test_train_census_eligibility.py:14: in module
+    spec.loader.exec_module(result)
+<frozen importlib._bootstrap_external>:995: in exec_module
+    ???
+<frozen importlib._bootstrap_external>:1132: in get_code
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_frozen_importlib_external.SourceFileLoader object at 0x000001C7BF7A2A50>
+path = 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\train_census.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\train_census.py'
+
+<frozen importlib._bootstrap_external>:1190: FileNotFoundError
+__________________ test_configuration_boundary_blocks_window __________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C7BF82C170>
+
+    def test_configuration_boundary_blocks_window(monkeypatch):
+>       result=module(monkeypatch).eligible_cutoffs(np.full((192,45),60),np.full(192,60),["a"]*96+["b"]*96)
+               ^^^^^^^^^^^^^^^^^^^
+
+tests\scientific\test_train_census_eligibility.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\scientific\test_train_census_eligibility.py:14: in module
+    spec.loader.exec_module(result)
+<frozen importlib._bootstrap_external>:995: in exec_module
+    ???
+<frozen importlib._bootstrap_external>:1132: in get_code
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_frozen_importlib_external.SourceFileLoader object at 0x000001C7BF82C0B0>
+path = 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\train_census.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\train_census.py'
+
+<frozen importlib._bootstrap_external>:1190: FileNotFoundError
+=========================== short test summary info ===========================
+FAILED tests/scientific/test_train_census_eligibility.py::test_two_complete_days_have_only_second_day_cutoffs
+FAILED tests/scientific/test_train_census_eligibility.py::test_sparse_context_or_target_cannot_be_hidden
+FAILED tests/scientific/test_train_census_eligibility.py::test_configuration_boundary_blocks_window
+3 failed in 0.08s

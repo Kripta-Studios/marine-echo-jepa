@@ -1,0 +1,56 @@
+{
+  "contract_id": "fixed-regional-physics-sensitivity-v1",
+  "status": "PROSPECTIVE_ASSAY_ONLY_NOT_R0_APPROVAL",
+  "recorded_before_sensitivity_execution": true,
+  "independent_adviser_session": "/root/continuation_review",
+  "acoustic_dataset": "mosaic_azfp_down_2020",
+  "instrument_serial": "55170",
+  "factory_certificate_sha256": "6541fbe21f6af64e0731f53784a2763b87d8527ff79ddcba178bd0dd5eb3f464",
+  "nominal_basis": "Previously predetermined March3 training-day profile nearest50m; scenario1 in preserved calibration_report.json; no model-performance selection",
+  "nominal": {
+    "temperature_in_situ_c": -1.8118900122480823,
+    "salinity_practical_pss78": 33.06896920965461,
+    "pressure_dbar": 51.0017728686292,
+    "sound_speed_m_s": 1438.678132300255
+  },
+  "equations": {
+    "echopype": "0.11.1",
+    "gsw": "3.6.23",
+    "absorption": "Echopype AZFP formula, dB/m; pH not an argument to that branch",
+    "sound_speed_extremes": "GSW sound_speed_t_exact after SP_to_SA at nominal training-profile coordinates",
+    "physical_comparison": "At identical original sample indices, retain sound-speed range displacement separately from Sv coefficient change; no acoustic-field interpolation claim"
+  },
+  "envelope": {
+    "source_selection": "All four recovered SIT units and existing daily composite over original complete167-day calendar; environmental measurements only",
+    "depth_min_max_m_positive_down": [0, 130],
+    "SIT_QC": "Finite T/SP/P/depth with all associated publisher flags1 or2; preserve rejected counts",
+    "composite_QC": "Finite converted T/SP/P; source lacks per-profile quality flags so these only widen plausibility envelope, not certify local water",
+    "rectangular_bounds": "Min/max over all accepted regional measurements, independently expanded in each variable; no quantile trimming or acoustic score selection",
+    "measurement_conversion_allowances": {
+      "temperature_c": 0.05,
+      "practical_salinity": 0.1,
+      "pressure_dbar": 1.0,
+      "pressure_lower_floor_dbar": 0.0
+    },
+    "allowance_status": "Conservative engineering allowances exceeding quoted initial CTD precision; scientific adequacy requires reviewer acceptance, not formal uncertainty coverage",
+    "samples": "All8 T/SP/P corners plus17 evenly spaced levels on each axis (4913 grid points); grid maximum is not a mathematical continuous bound"
+  },
+  "evaluation": {
+    "frequencies_hz": [38000, 125000, 200000, 455000],
+    "nominal_range_m": [10, 100],
+    "range_sampling": "181 evenly spaced0.5m points plus actual finite training-segment sample positions",
+    "primary_max_absolute_Sv_difference_db": 1.0,
+    "max_absolute_range_displacement_m": 2.0,
+    "support": "Original38kHz finite training range must contain10–100m under every corner; support at band edges must remain invariant",
+    "other_channels": "Report all; no other channel may rescue a failed38kHz gate",
+    "real_reference": "Fixed training file20030300.01A only; compare corner Sv differences to pinned upstream calibration and independent scalar difference equation"
+  },
+  "decision": "Any failed bound retains physical block. A passing sampled envelope is candidate evidence requiring independent adequacy/continuous-bound review; no automatic corpus promotion.",
+  "remaining_even_if_passed": [
+    "Sound-path and geometry adequacy",
+    "Near-field/noise/saturation/configuration masks",
+    "Calibrated upstream adapter and mandatory QC artifacts",
+    "R0/R1 independent approval and real eligible-day counts"
+  ],
+  "forecast_availability": "Fixed calibration metadata only; no measured future or retrospective environmental covariates enter predictor inputs. No acoustic test arrays are read."
+}

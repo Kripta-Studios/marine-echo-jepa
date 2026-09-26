@@ -1,0 +1,16 @@
+
+=================================== ERRORS ====================================
+____________ ERROR collecting tests/scientific/test_environment.py ____________
+ImportError while importing test module 'C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tests\scientific\test_environment.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\scientific\test_environment.py:8: in <module>
+    from marine_echo.data.environment import ProfileRecord, match_profile, seawater_properties, parse_iridium_position
+E   ImportError: cannot import name 'parse_iridium_position' from 'marine_echo.data.environment' (C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\src\marine_echo\data\environment.py)
+=========================== short test summary info ===========================
+ERROR tests/scientific/test_environment.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 1.67s

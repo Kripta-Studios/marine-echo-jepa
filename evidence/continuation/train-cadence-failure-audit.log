@@ -1,0 +1,4 @@
+Observed 5342 count>60bins [95]
+Intervals {np.int64(14): np.int64(5), np.int64(15): np.int64(5333), np.int64(16): np.int64(2), np.int64(6301): np.int64(1)}
+firstlast 2020-03-03T00:00:01.000000000 2020-03-03T23:59:59.000000000
+Extra-bin timestamps {95: ['2020-03-03T23:45:00.000000000', '2020-03-03T23:59:59.000000000', 61]}

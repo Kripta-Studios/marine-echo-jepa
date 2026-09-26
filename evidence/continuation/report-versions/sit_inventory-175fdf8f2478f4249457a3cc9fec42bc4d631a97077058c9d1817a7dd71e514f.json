@@ -1,0 +1,42 @@
+{
+  "files": [
+    {
+      "buoy": "2019O1",
+      "doi": "10.1594/PANGAEA.940271",
+      "url": "https://doi.pangaea.de/10.1594/PANGAEA.940271?format=textfile",
+      "status": "DOWNLOADED_UNVALIDATED_APPLICABILITY",
+      "path": "data/raw/environment/mosaic_sit/940271-2019O1.tsv",
+      "bytes": 124982979,
+      "sha256": "e784c313c1ce733a3dfb4c8a156f919c6e710cf8002842457ef9aa11309361ad",
+      "fetched_at": "2026-09-26T20:46:17.256706+00:00",
+      "license": "CC-BY-4.0",
+      "seconds": 10.656999999999243
+    },
+    {
+      "buoy": "2019O3",
+      "doi": "10.1594/PANGAEA.940282",
+      "url": "https://doi.pangaea.de/10.1594/PANGAEA.940282?format=textfile",
+      "status": "DOWNLOADED_UNVALIDATED_APPLICABILITY",
+      "path": "data/raw/environment/mosaic_sit/940282-2019O3.tsv",
+      "bytes": 116290400,
+      "sha256": "ee428302794593c9b69750e21448a497889ecb0f37bde04907ec08b18d98af0c",
+      "fetched_at": "2026-09-26T20:46:31.027769+00:00",
+      "license": "CC-BY-4.0",
+      "seconds": 13.75
+    },
+    {
+      "buoy": "2019O4",
+      "doi": "10.1594/PANGAEA.940291",
+      "url": "https://doi.pangaea.de/10.1594/PANGAEA.940291?format=textfile",
+      "status": "DOWNLOADED_UNVALIDATED_APPLICABILITY",
+      "path": "data/raw/environment/mosaic_sit/940291-2019O4.tsv",
+      "bytes": 120750740,
+      "sha256": "4a04c80267976a47787767dd837ad900f866fea8736c987fb25d3afdf5c13f9b",
+      "fetched_at": "2026-09-26T20:46:40.601757+00:00",
+      "license": "CC-BY-4.0",
+      "seconds": 9.514999999999418
+    }
+  ],
+  "selection": "All four recovered SIT units; no outcome selection",
+  "benchmark_eligible": false
+}

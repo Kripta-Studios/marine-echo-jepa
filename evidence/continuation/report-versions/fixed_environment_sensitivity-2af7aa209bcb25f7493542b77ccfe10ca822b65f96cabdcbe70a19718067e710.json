@@ -1,0 +1,306 @@
+{
+  "status": "FIXED_ENVIRONMENT_SAMPLED_LIMITS_FAILED",
+  "benchmark_eligible": false,
+  "physically_approved_days": 0,
+  "contract_sha256": "9808f38fc559af9b46b7c8c4dcf0fa5ee2f230ab313b4d6fade48f663ff76f86",
+  "code_sha256": "152a0ba998041601dcf01803d1ee2157846e6d5e024de3f3fb5b66c5a8605909",
+  "sources": [
+    {
+      "path": "data/raw/environment/mosaic_sit/940271-2019O1.tsv",
+      "sha256": "e784c313c1ce733a3dfb4c8a156f919c6e710cf8002842457ef9aa11309361ad"
+    },
+    {
+      "path": "data/raw/environment/mosaic_sit/940282-2019O3.tsv",
+      "sha256": "ee428302794593c9b69750e21448a497889ecb0f37bde04907ec08b18d98af0c"
+    },
+    {
+      "path": "data/raw/environment/mosaic_sit/940291-2019O4.tsv",
+      "sha256": "4a04c80267976a47787767dd837ad900f866fea8736c987fb25d3afdf5c13f9b"
+    },
+    {
+      "path": "data/raw/environment/mosaic_sit/940296-2019O6.tsv",
+      "sha256": "baf0b810931b4faf55da3f40f7cc3962b8549068c5747186153df9abcf81602d"
+    },
+    {
+      "path": "data\\raw\\environment\\mosaic_core\\MOSAiC_daily_profiles.nc",
+      "sha256": "f54c7365df191c5348966d319af5ebacfcf80a1d89e6275634b585a3905e9682"
+    },
+    {
+      "path": "20030300.01A",
+      "sha256": "999d50ff36017cfac0b4964fa70c1fa5dceeb272442cb1ed15289c005684dde0"
+    },
+    {
+      "path": "20021600.XML",
+      "sha256": "8efaf894f10b60a1e80885dd8e38366a72319cf6af64c3b0e914b28f6b6437f7"
+    }
+  ],
+  "contract_addendum_sha256": "452bd5c037d057fbbcc715ed8e5c7a5f17fd1d487ecf83f7e9077496c4a84110",
+  "checked_at": "2026-09-26T21:10:07.564586+00:00",
+  "nominal": {
+    "temperature": -1.8118900122480823,
+    "salinity": 33.06896920965461,
+    "pressure": 51.0017728686292,
+    "sound_speed": 1438.678132300255
+  },
+  "nominal_lat_lon": [
+    88.159326,
+    30.7365057
+  ],
+  "observed_min_T_SP_P": [
+    -1.881,
+    16.21952084742614,
+    1.999711608611088
+  ],
+  "observed_max_T_SP_P": [
+    1.729,
+    34.75628264608123,
+    131.00485866073524
+  ],
+  "expanded_lower_T_SP_P": [
+    -1.931,
+    16.119520847426138,
+    0.999711608611088
+  ],
+  "expanded_upper_T_SP_P": [
+    1.7790000000000001,
+    34.85628264608123,
+    132.00485866073524
+  ],
+  "QC": [
+    {
+      "source": "2019O1",
+      "accepted_T_SP_P_triples": 720232,
+      "rejected_relevant_rows": 128
+    },
+    {
+      "source": "2019O3",
+      "accepted_T_SP_P_triples": 573737,
+      "rejected_relevant_rows": 2763
+    },
+    {
+      "source": "2019O4",
+      "accepted_T_SP_P_triples": 574410,
+      "rejected_relevant_rows": 1463
+    },
+    {
+      "source": "2019O6",
+      "accepted_T_SP_P_triples": 715288,
+      "rejected_relevant_rows": 4942
+    },
+    {
+      "source": "daily_composite",
+      "accepted_T_SP_P_triples": 20612,
+      "rejected_relevant_rows": 1003,
+      "quality_flags": "UNKNOWN_NOT_CERTIFIED"
+    }
+  ],
+  "samples": 4913,
+  "corners": 8,
+  "frequency_hz": [
+    38000,
+    125000,
+    200000,
+    455000
+  ],
+  "max_abs_Sv_delta_db": [
+    0.9053638423789829,
+    2.2447521298987065,
+    2.536896095414299,
+    5.118527036961758
+  ],
+  "max_abs_absorption_only_delta_db": [
+    0.8568168218270376,
+    2.1213990531663396,
+    2.4970476102682437,
+    5.044003551687165
+  ],
+  "max_abs_range_displacement_m": 1.6884271822958485,
+  "worst_cases_per_frequency": [
+    {
+      "temperature": -1.931,
+      "salinity": 16.119520847426138,
+      "pressure": 132.00485866073524,
+      "sound_speed": 1416.4774897564055
+    },
+    {
+      "temperature": -1.931,
+      "salinity": 16.119520847426138,
+      "pressure": 132.00485866073524,
+      "sound_speed": 1416.4774897564055
+    },
+    {
+      "temperature": 0.38775000000000004,
+      "salinity": 16.119520847426138,
+      "pressure": 132.00485866073524,
+      "sound_speed": 1427.9434851205451
+    },
+    {
+      "temperature": 1.7790000000000001,
+      "salinity": 16.119520847426138,
+      "pressure": 132.00485866073524,
+      "sound_speed": 1434.5187613263126
+    }
+  ],
+  "observed_own_coordinate_speed_extrema_m_s": [
+    1419.7450031542132,
+    1458.1217801069233
+  ],
+  "combined_sampled_speed_extrema_m_s": [
+    1414.3870996487512,
+    1458.9586806569982
+  ],
+  "sampled_alpha_min_db_m": [
+    0.0045023440172009595,
+    0.01808451114501384,
+    0.031159916207006685,
+    0.10713786742496373
+  ],
+  "sampled_alpha_max_db_m": [
+    0.009267412937488152,
+    0.032294409139221915,
+    0.046921940200077145,
+    0.13436150267939445
+  ],
+  "conditional_path_integral_at_100m_db_lower_upper_by_frequency": [
+    [
+      0.9004688034401919,
+      1.8534825874976304
+    ],
+    [
+      3.616902229002768,
+      6.458881827844383
+    ],
+    [
+      6.231983241401337,
+      9.384388040015429
+    ],
+    [
+      21.427573484992745,
+      26.87230053587889
+    ]
+  ],
+  "conditional_path_max_abs_Sv_delta_db": [
+    1.0807211984835041,
+    2.391168430168975,
+    2.810970725923274,
+    5.614493143525287
+  ],
+  "path_bound_premise": "Every local path condition lies within the regional envelope; alpha/speed extrema are sampled, not continuous-certified. Different extrema for path and local pulse volume intentionally overbound homogeneous scenarios.",
+  "primary_numerical_limits_passed": false,
+  "upstream_scalar_delta_max_error_db": 6.206146707654625e-14,
+  "corner_finite_range_checks": [
+    {
+      "scenario": {
+        "temperature": -1.931,
+        "salinity": 16.119520847426138,
+        "pressure": 0.999711608611088,
+        "sound_speed": 1414.3870996487512
+      },
+      "finite38_range_m": [
+        0.5834346786051099,
+        494.6288485859139
+      ],
+      "contains_10_100m": true
+    },
+    {
+      "scenario": {
+        "temperature": -1.931,
+        "salinity": 16.119520847426138,
+        "pressure": 132.00485866073524,
+        "sound_speed": 1416.4774897564055
+      },
+      "finite38_range_m": [
+        0.5842969645245173,
+        495.3598841364369
+      ],
+      "contains_10_100m": true
+    },
+    {
+      "scenario": {
+        "temperature": -1.931,
+        "salinity": 34.85628264608123,
+        "pressure": 0.999711608611088,
+        "sound_speed": 1439.776670040019
+      },
+      "finite38_range_m": [
+        0.5939078763915079,
+        503.50789872137017
+      ],
+      "contains_10_100m": true
+    },
+    {
+      "scenario": {
+        "temperature": -1.931,
+        "salinity": 34.85628264608123,
+        "pressure": 132.00485866073524,
+        "sound_speed": 1441.8736330085283
+      },
+      "finite38_range_m": [
+        0.5947728736160179,
+        504.2412328834949
+      ],
+      "contains_10_100m": true
+    },
+    {
+      "scenario": {
+        "temperature": 1.7790000000000001,
+        "salinity": 16.119520847426138,
+        "pressure": 0.999711608611088,
+        "sound_speed": 1432.4213790047427
+      },
+      "finite38_range_m": [
+        0.5908738188394563,
+        500.93566150519604
+      ],
+      "contains_10_100m": true
+    },
+    {
+      "scenario": {
+        "temperature": 1.7790000000000001,
+        "salinity": 16.119520847426138,
+        "pressure": 132.00485866073524,
+        "sound_speed": 1434.5187613263126
+      },
+      "finite38_range_m": [
+        0.591738989047104,
+        501.6691423203281
+      ],
+      "contains_10_100m": true
+    },
+    {
+      "scenario": {
+        "temperature": 1.7790000000000001,
+        "salinity": 34.85628264608123,
+        "pressure": 0.999711608611088,
+        "sound_speed": 1456.8488102503316
+      },
+      "finite38_range_m": [
+        0.6009501342282617,
+        509.4782395546691
+      ],
+      "contains_10_100m": true
+    },
+    {
+      "scenario": {
+        "temperature": 1.7790000000000001,
+        "salinity": 34.85628264608123,
+        "pressure": 132.00485866073524,
+        "sound_speed": 1458.9586806569982
+      },
+      "finite38_range_m": [
+        0.6018204557710117,
+        510.21608760926046
+      ],
+      "contains_10_100m": true
+    }
+  ],
+  "limitations": [
+    "A sampled regional envelope does not prove a continuous bound or local water conditions",
+    "Homogeneous rectangular extremes are conservative plausibility scenarios, not observed water columns",
+    "Finite range support is not QC support and does not establish noise/saturation/edge eligibility invariance",
+    "Factory calibration is not field calibration",
+    "No acoustic test arrays or forecast scores were inspected"
+  ],
+  "elapsed_seconds": 61.7809999999954,
+  "peak_sampled_process_rss_gib_not_tree": 0.252716064453125
+}

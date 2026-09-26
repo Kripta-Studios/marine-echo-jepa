@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tools\audit_trajectory_matches.py", line 181, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tools\audit_trajectory_matches.py", line 102, in main
+    partition = next(
+                ^^^^^
+StopIteration

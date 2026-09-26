@@ -1,0 +1,12 @@
+{
+  "record_type": "COORDINATOR_TRANSCRIPTION_OF_DISTINCT_REVIEWER_MESSAGE",
+  "reviewer_session": "/root/continuation_review",
+  "disposition": "APPROVE_TRAIN_ONLY_CENSUS_METHOD",
+  "not_approved": ["R0 corpus", "R1 real-corpus adapter", "held-out acoustic processing", "benchmarks", "R2", "release"],
+  "reviewed_monthly_contract_sha256": "270babaf9d34a3c97fa092b9fe9c742760edeb0a45591ce6ffa950bb808b4bfe",
+  "reviewed_monthly_code_sha256": "01390b3511678e17bf2987c75820e0e8f284fcb4d5e9478da1c841bfbd98c875",
+  "reviewed_execution_report_sha256": "66273691eb8d3964c0bd4371347bdccfef52745a73b6f5354fc33c89f6d0ab75",
+  "basis": "Reviewer inspected allfour complete predetermined TRAIN day images/manifests; consistent sparse below-noise returns, preserved gaps, no obvious seafloor return; no outcome-chosen extra masks. Each0/96bins met80%primarysupport.",
+  "conditions": "Exact same certificate/XML/fixedenv/slant/QC/regrid; all100TRAINdates fromfrozen split; noheldoutpayloads; immutable resumable aggregate shards; exactcounts,source/configidentities,rawtimestamp provenance,failures; cross-day24h+6h eligibility with count*range weights; keep bottomNOT_APPLIED uncertainty.",
+  "upper_bound": "If fewerthan23TRAINusable days, even all67remainingcalendar days cannot reach90overall. Held-out counts then remain an unmeasured upper bound; calibration/test minima unevaluated."
+}

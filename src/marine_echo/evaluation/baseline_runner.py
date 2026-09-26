@@ -10,9 +10,9 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
-from marine_echo.evaluation.metrics import daily_metrics
 
 from marine_echo.evaluation import metrics as metrics_module
+from marine_echo.evaluation.metrics import daily_metrics
 from marine_echo.models import baselines as baselines_module
 from marine_echo.models.baselines import (
     DailySeasonalBaseline,

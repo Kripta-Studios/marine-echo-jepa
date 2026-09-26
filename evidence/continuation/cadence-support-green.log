@@ -1,0 +1,9 @@
+....                                                                     [100%]
+============================== warnings summary ===============================
+tests/scientific/test_candidate_qc.py::test_noise_does_not_depend_on_future_pings
+tests/scientific/test_candidate_qc.py::test_noise_does_not_depend_on_future_pings
+  C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\.venv\Lib\site-packages\flox\xrdtypes.py:68: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    NAT_TYPES = {np.datetime64("NaT").dtype, np.timedelta64("NaT").dtype}
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+4 passed, 2 warnings in 2.01s

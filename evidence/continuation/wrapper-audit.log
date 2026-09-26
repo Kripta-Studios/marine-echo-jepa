@@ -1,0 +1,102 @@
+{
+  "report": "evidence\\continuation\\state_audit.json",
+  "replay_exposure": [
+    {
+      "path": "evidence/data/diagnostic_raw_replay_2020-02-17.json",
+      "sha256": "5bbf9ce4dcd89f49d304d29bb50dada6e495a0b827bce2654791e86ff424699c",
+      "bytes": 603402,
+      "rows": 96,
+      "first_bin_end": "2020-02-17T00:15:00Z",
+      "last_bin_end": "2020-02-18T00:00:00Z",
+      "overlaps_candidate_test": false
+    },
+    {
+      "path": "release/meeting-20260926-r2/demo/artifacts/observations.json",
+      "sha256": "68240f4e6d75eef0c6890dbbb658468b45ff0f4ea95eb2ec1e41084de200beea",
+      "bytes": 629805,
+      "rows": 96,
+      "first_bin_end": "2020-02-17T00:15:00Z",
+      "last_bin_end": "2020-02-18T00:00:00Z",
+      "overlaps_candidate_test": false
+    },
+    {
+      "path": "release/demo/artifacts/observations.json",
+      "sha256": "68240f4e6d75eef0c6890dbbb658468b45ff0f4ea95eb2ec1e41084de200beea",
+      "bytes": 629805,
+      "rows": 96,
+      "first_bin_end": "2020-02-17T00:15:00Z",
+      "last_bin_end": "2020-02-18T00:00:00Z",
+      "overlaps_candidate_test": false
+    }
+  ],
+  "registries": [
+    {
+      "path": "orchestration/run_ledger.json",
+      "sha256": "bb1c29c3aa0b1b0f0fc67811e0d52f861a3324a86896de29051809bfcf9629d0",
+      "statuses": {
+        "BLOCKED": 25
+      }
+    },
+    {
+      "path": "reports/active/training_registry.json",
+      "sha256": "6061823100962ded061123814acb8b20688c42f699036a590ca3afadd323fd69",
+      "statuses": {
+        "BLOCKED": 25
+      }
+    }
+  ]
+}
+{
+  "status": "METADATA_ONLY_NOT_CALIBRATED_PREPROCESSING",
+  "acoustic_payloads_opened": 0,
+  "source_manifest_sha256": "d1b94df3604ddd85b3a38ec26d148df48b5d1d41a7d10c66e79e49f09f0d14b3",
+  "protocol_sha256": "8473ecb568d7c102521e7118197a2bbe61426df9d02a0ed7b73933f49ca7815b",
+  "raw_chunks": 3740,
+  "partition_chunk_counts": {
+    "outside_complete_calendar_days": 48,
+    "train": 2135,
+    "validation": 597,
+    "calibration": 366,
+    "test": 594
+  },
+  "sampling_phase_extents_not_verified_configuration_boundaries": {
+    "01": {
+      "first_filename_hour": "2020-02-16T00:00:00+00:00",
+      "last_filename_hour": "2020-08-02T13:00:00+00:00"
+    }
+  },
+  "limitations": [
+    "Filename hours are not verified raw timestamps; no scientific split assignments are approved.",
+    "Repeated hourly suffixes are consecutive chunks, not duplicate independent observations.",
+    "Presence of an hourly chunk does not establish temporal, range, target or daily support."
+  ]
+}
+{
+  "status": "NUMERICAL_ASSAY_PASSED_PHYSICAL_APPLICABILITY_BLOCKED",
+  "iridium_accepted": 1560,
+  "iridium_rejected": 448,
+  "scalar_formula_max_absolute_error_db": 2.842170943040401e-14,
+  "scenario_spread_db_p50_p95_max_by_frequency": [
+    [
+      0.02994755642014013,
+      0.044405771065584076,
+      0.045892647295630695
+    ],
+    [
+      0.07696318292698834,
+      0.12734135477607822,
+      0.1323169766871075
+    ],
+    [
+      0.07779897340842012,
+      0.12879722141448724,
+      0.13383408541510278
+    ],
+    [
+      0.014419006248687083,
+      0.026738783608934114,
+      0.027955551743289675
+    ]
+  ],
+  "elapsed_seconds": 5.125
+}

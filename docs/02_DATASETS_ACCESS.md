@@ -87,3 +87,21 @@ dataset-specific model/preprocessing configuration before training; do not force
 channels into D1's four-frequency tensor or rename120kHz as125kHz. Keep the shared experiment
 logic, but do not compare unrelated habitats as matched outcomes or call this cross-domain
 transfer without an independent experiment.
+
+## Continuation source/access register — 26 September2026
+
+The five original D1 source files and extracted XML/DPL remain preserved. The owner explicitly
+authorized additional environmental research in the continuation. None of these ancillary
+sources changes the acoustic deployment, chronological split or benchmark protocol.
+
+| Source | Local evidence | Access and disposition |
+|---|---|---|
+| Arctic Data Center10.18739/A21J9790B daily profiles | `evidence/calibration/environment_inventory.json` | Existing bytes reused; TEOS units converted and verified; applicability unapproved |
+| PANGAEA940271/940282/940291/940296 recovered SIT buoys | `evidence/continuation/sit_inventory.json` | Anonymous publisher TSV; CC-BY-4.0;488127156bytes; preserved under `data/raw/environment/mosaic_sit/` |
+| ASL55170 factory certificate, O2A4308/resource980 | `evidence/continuation/factory_certificate.json` | Public207370-byte PDF; actual serial/coefficients independently verified; registry attachment association is swapped; license for redistribution not established |
+| Combined Iridium/XEOS applicability audit | `evidence/continuation/trajectory_matches.json` | Metadata-only; no test acoustic outcomes;12/24 candidate-test composite profile days meet illustrative5km/24h screen |
+
+The source manual is retained locally. It contains operational credential-like strings and
+must not be copied into release payloads or public evidence. No credentials were used.
+The certificate may be retained for local verification; redistribution requires a documented
+license decision. No new OOI downloads, cloud resources, contacts or dataset substitutions occurred.

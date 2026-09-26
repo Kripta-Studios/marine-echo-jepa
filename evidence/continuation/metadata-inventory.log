@@ -1,0 +1,25 @@
+{
+  "status": "METADATA_ONLY_NOT_CALIBRATED_PREPROCESSING",
+  "acoustic_payloads_opened": 0,
+  "source_manifest_sha256": "d1b94df3604ddd85b3a38ec26d148df48b5d1d41a7d10c66e79e49f09f0d14b3",
+  "protocol_sha256": "8473ecb568d7c102521e7118197a2bbe61426df9d02a0ed7b73933f49ca7815b",
+  "raw_chunks": 3740,
+  "partition_chunk_counts": {
+    "outside_complete_calendar_days": 48,
+    "train": 2135,
+    "validation": 597,
+    "calibration": 366,
+    "test": 594
+  },
+  "sampling_phase_extents_not_verified_configuration_boundaries": {
+    "01": {
+      "first_filename_hour": "2020-02-16T00:00:00+00:00",
+      "last_filename_hour": "2020-08-02T13:00:00+00:00"
+    }
+  },
+  "limitations": [
+    "Filename hours are not verified raw timestamps; no scientific split assignments are approved.",
+    "Repeated hourly suffixes are consecutive chunks, not duplicate independent observations.",
+    "Presence of an hourly chunk does not establish temporal, range, target or daily support."
+  ]
+}

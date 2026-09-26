@@ -1,0 +1,1928 @@
+{
+  "checked_at": "2026-09-26T20:31:31.769529+00:00",
+  "assay_code_sha256": "4ba920627003a3c9f9c9c16b3c8c6193c84806922a4fcde40ec97c430d010ad1",
+  "environment_helper_sha256": "a22cae1c9b4c2d9f385031fedfb323bbf2141b7512939c46a867a5caefbfbace",
+  "status": "NUMERICAL_ASSAY_PASSED_PHYSICAL_APPLICABILITY_BLOCKED",
+  "benchmark_eligible": false,
+  "eligible_days": 0,
+  "eligibility_meaning": "No physically approved corpus; not a measured claim of zero usable acoustic days.",
+  "physical_calibration_distinct_from_interval_calibration": true,
+  "source_hashes": {
+    "20030300.01A": "999d50ff36017cfac0b4964fa70c1fa5dceeb272442cb1ed15289c005684dde0",
+    "20021600.XML": "8efaf894f10b60a1e80885dd8e38366a72319cf6af64c3b0e914b28f6b6437f7",
+    "data\\raw\\environment\\mosaic_core\\MOSAiC_daily_profiles.nc": "f54c7365df191c5348966d319af5ebacfcf80a1d89e6275634b585a3905e9682",
+    "data\\raw\\pangaea\\949811\\iridium-msgs.txt": "44096a09096aa3bed2cfb6253948152c39a6bc4f3b8e495ba100069c08eb5d6a"
+  },
+  "upstream_version": "0.11.1",
+  "gsw_version": "3.6.23",
+  "upstream_sha256": {
+    "calibrate/calibrate_azfp.py": "4b175e5a00c5d3b2442e3d47737591990efdc02aed58cbabfded9dd64aa543e3",
+    "calibrate/range.py": "d73da1d649b330e964c45d2153b3cf8e55a0c77310a3aad2ea0b372a1786fbfe",
+    "calibrate/env_params.py": "91329322c47571316ef76022224afa001853dac0e4fbb5689baab63aa556b6c9",
+    "utils/uwa.py": "2af7edfaf9f2e18e0d0029a7ab8ace82ffb86949af9caa1105c07b45bade74cd",
+    "convert/parse_azfp.py": "d5ac606f3372b36e940f32df2255d23fdb8848e87d14f8794cface0050275b45"
+  },
+  "environment_metadata": {
+    "time": {
+      "_FillValue": "-99999.0",
+      "Unit": "days since 00-Jan-0000 (UTC)",
+      "Description": "Day and Time"
+    },
+    "latitude": {
+      "_FillValue": "-99999.0",
+      "Unit": "decimal degree N",
+      "Description": "Latitude"
+    },
+    "longitude": {
+      "_FillValue": "-99999.0",
+      "Unit": "decimal degree E",
+      "Description": "Longitude"
+    },
+    "depth": {
+      "_FillValue": "-99999.0",
+      "Unit": "m",
+      "Description": "Depth level"
+    },
+    "temperature": {
+      "_FillValue": "-99999.0",
+      "Unit": "degree Celsius",
+      "Description": "Conservative Temperature"
+    },
+    "salinity": {
+      "_FillValue": "-99999.0",
+      "Unit": "g/kg",
+      "Description": "Absolute Salinity"
+    },
+    "watermass": {
+      "_FillValue": "-99999.0",
+      "Unit": "",
+      "Description": "water mass ID",
+      "1": "surface mixed layer (ML)",
+      "2": "halocline layer (HAL)",
+      "3": "Arctic Atlantic Water (AAW)",
+      "4": "Atlantic Water (AW)",
+      "5": "Upper Polar Deep Water (UPDW)",
+      "6": "Eurasian Basin Deep Water (EBDW)",
+      "7": "Eurasian Basin Bottom Water (EBBW)",
+      "8": "Arctic Intermediate Water (AIW)",
+      "9": "Nordic Sea Deep Water (NSDW)"
+    }
+  },
+  "iridium_accepted": 1560,
+  "iridium_rejected": 448,
+  "iridium_quality_policy": "Only code 1 retained; receiver fix-code semantics are not independently certified. Audit positions are not quality-approved.",
+  "trajectory_qc": {
+    "duplicate_timestamps": {
+      "2020-06-18T16:00:00+00:00": 2
+    },
+    "successive_speed_km_h_p50_p95_max": [
+      0.5635324734162217,
+      1.6721151940899834,
+      9.667225498536872
+    ],
+    "gap_hours_p50_p95_max": [
+      1.0,
+      8.0,
+      582.8
+    ],
+    "xeos_pairs_within_60min": 318,
+    "xeos_separation_km_p50_p95_max": [
+      0.004021103061583343,
+      0.5384288474680943,
+      1.646637473911474
+    ],
+    "acceptance": "DESCRIPTIVE_ONLY_NO_TRAJECTORY_APPROVAL"
+  },
+  "matching_by_partition": {
+    "train": {
+      "calendar_days": 100,
+      "profile_days": 100,
+      "illustrative_within_5km_24h": 97,
+      "illustrative_within_10km_24h": 100,
+      "physically_approved_days": 0
+    },
+    "validation": {
+      "calendar_days": 25,
+      "profile_days": 25,
+      "illustrative_within_5km_24h": 25,
+      "illustrative_within_10km_24h": 25,
+      "physically_approved_days": 0
+    },
+    "calibration": {
+      "calendar_days": 16,
+      "profile_days": 16,
+      "illustrative_within_5km_24h": 8,
+      "illustrative_within_10km_24h": 10,
+      "physically_approved_days": 0
+    },
+    "test": {
+      "calendar_days": 26,
+      "profile_days": 24,
+      "illustrative_within_5km_24h": 0,
+      "illustrative_within_10km_24h": 0,
+      "physically_approved_days": 0
+    }
+  },
+  "profile_days": [
+    {
+      "date": "2020-02-17T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.0749496142689674,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-02-18T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.0718136452749025,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-02-19T00:00:00+00:00",
+      "nearest_iridium_hours": 1.0,
+      "distance_km": 1.7794995255657766,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-02-20T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.0752510043397328,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-02-21T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.0700764665602978,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-02-22T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.070382788272839,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-02-23T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.0792012820991115,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-02-24T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.0112317179602988,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-02-25T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.079173255153185,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-02-26T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.087728792201785,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-02-27T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.084402549704971,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-02-28T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.0724160912502416,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-02-29T00:00:00+00:00",
+      "nearest_iridium_hours": 6.0,
+      "distance_km": 4.6072293860175995,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-03-01T00:00:00+00:00",
+      "nearest_iridium_hours": 2.0,
+      "distance_km": 1.5794290153847446,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-03-02T00:00:00+00:00",
+      "nearest_iridium_hours": 2.0,
+      "distance_km": 1.7776564740548737,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-03-03T00:00:00+00:00",
+      "nearest_iridium_hours": 6.0,
+      "distance_km": 3.6382033236985327,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-03-04T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.076699975204344,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-03-05T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.0714737375773495,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-03-06T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.075129543141222,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-03-07T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.081285917391716,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-03-08T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.0946068648248164,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-03-09T00:00:00+00:00",
+      "nearest_iridium_hours": 8.0,
+      "distance_km": 2.4785356165155514,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-03-10T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.0799326839782863,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-03-11T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.0803488707231024,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-03-12T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.192010512974685,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-03-13T00:00:00+00:00",
+      "nearest_iridium_hours": 8.0,
+      "distance_km": 6.560126502636672,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-03-14T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.3995577916311377,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-03-15T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.33804623817078,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-03-16T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.250370255025089,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-03-17T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.2847946908562218,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-03-18T00:00:00+00:00",
+      "nearest_iridium_hours": 8.0,
+      "distance_km": 1.2577038070592739,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-03-19T00:00:00+00:00",
+      "nearest_iridium_hours": 8.0,
+      "distance_km": 3.3471407914428277,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-03-20T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.246532401711973,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-03-21T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.1989625368270342,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-03-22T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.1770049552221296,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-03-23T00:00:00+00:00",
+      "nearest_iridium_hours": 8.0,
+      "distance_km": 1.8745354195687538,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-03-24T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.234204176746647,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-03-25T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.2928420898443966,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-03-26T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.335390025415918,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-03-27T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.3438664512959435,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-03-28T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.3487127829133456,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-03-29T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.34377012162524,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-03-30T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.317423427050589,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-03-31T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.2890138398683475,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-04-01T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.252631716672987,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-04-02T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.254720552938139,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-04-03T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.2666557716943045,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-04-04T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.254831077599734,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-04-05T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.2516325173184373,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-04-06T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.245945692712849,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-04-07T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.2663193128319308,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-04-08T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.2504927320502515,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-04-09T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.2517885545550143,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-04-10T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.251542234782721,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-04-11T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.250435350420119,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-04-12T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.2530236433728077,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-04-13T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.242411314674686,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-04-14T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.2362098393798515,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-04-15T00:00:00+00:00",
+      "nearest_iridium_hours": 24.0,
+      "distance_km": 8.8875553265191,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-04-16T00:00:00+00:00",
+      "nearest_iridium_hours": 16.0,
+      "distance_km": 5.621087321447633,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-04-17T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.2347500601520953,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-04-18T00:00:00+00:00",
+      "nearest_iridium_hours": 13.816666666666666,
+      "distance_km": 3.602085771747609,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-04-19T00:00:00+00:00",
+      "nearest_iridium_hours": 0.016666666666666666,
+      "distance_km": 2.234012116421169,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-04-20T00:00:00+00:00",
+      "nearest_iridium_hours": 0.08333333333333333,
+      "distance_km": 2.2419589064932697,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-04-21T00:00:00+00:00",
+      "nearest_iridium_hours": 1.0,
+      "distance_km": 1.361867912601215,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-04-22T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.2618562806882054,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-04-23T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.253466899199019,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-04-24T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.244220454533,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-04-25T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.256886267403037,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-04-26T00:00:00+00:00",
+      "nearest_iridium_hours": 1.0,
+      "distance_km": 2.2759748170155474,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-04-27T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.2503408602461588,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-04-28T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.2302357172579694,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-04-29T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.2402206043792168,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-04-30T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.2665645833058914,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-05-01T00:00:00+00:00",
+      "nearest_iridium_hours": 4.0,
+      "distance_km": 2.3501688250457864,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-05-02T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.245044800593786,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-05-03T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.2362373391394184,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-05-04T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.183469105114676,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-05-05T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.187819594754126,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-05-06T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.189056437150958,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-05-07T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.147160413597183,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-05-08T00:00:00+00:00",
+      "nearest_iridium_hours": 4.0,
+      "distance_km": 2.427522641251898,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-05-09T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.1640466592557814,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-05-10T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.1708495150811875,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-05-11T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.164763670978481,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-05-12T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.1648974871338935,
+      "finite_levels_10_100m": 90,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-05-13T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.2615126556852543,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-05-14T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.308187745147364,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-05-15T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.0575953268520113,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-05-16T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.129006884753757,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-05-17T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.0539691459723683,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-05-18T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.0591494218417097,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-05-19T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.042498265991186,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-05-20T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.02803077865417,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-05-21T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.0281879079783014,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-05-22T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.019783558024168,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-05-23T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.0384309433330365,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-05-24T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.029640368444874,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-05-25T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.0306125062703133,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-05-26T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.0260243830770883,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-05-27T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.0160064407609912,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-05-28T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.0126983133656164,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-05-29T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.012308221527367,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-05-30T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.018768350105136,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-05-31T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 1.9806382828705302,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-06-01T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.016762975249255,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-06-02T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.0084080306890373,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-06-03T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.026684555769009,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-06-04T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.0230591607906376,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-06-05T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.028076541388532,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-06-06T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.034272618535536,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-06-07T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.022390232414268,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-06-08T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.0236600036841783,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-06-09T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.0087611321115157,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-06-10T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.011029278586138,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-06-11T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 2.0264256266126233,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-06-12T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 1.9646449554648004,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-06-13T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 1.8728078080859978,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-06-14T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 1.2872198302241542,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-06-15T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 1.2579671069659388,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-06-16T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 1.3075603980431878,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-06-17T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 1.3399448784183914,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-06-18T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 1.328939717796356,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-06-19T00:00:00+00:00",
+      "nearest_iridium_hours": 1.0,
+      "distance_km": 1.4681334640033834,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-06-20T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 1.2869125886985473,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-06-21T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 0.44664282069581496,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-06-22T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 0.4488573418324397,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-06-23T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 0.43639102224404436,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-06-24T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 0.4261870385520049,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-06-25T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 0.413650654468017,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-06-26T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 0.5162811466538485,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-06-27T00:00:00+00:00",
+      "nearest_iridium_hours": 16.0,
+      "distance_km": 9.76595740729929,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-06-28T00:00:00+00:00",
+      "nearest_iridium_hours": 12.533333333333333,
+      "distance_km": 4.713240635106582,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-06-29T00:00:00+00:00",
+      "nearest_iridium_hours": 0.0,
+      "distance_km": 0.9574173281989204,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-06-30T00:00:00+00:00",
+      "nearest_iridium_hours": 20.0,
+      "distance_km": 5.327323188103891,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-07-01T00:00:00+00:00",
+      "nearest_iridium_hours": 44.0,
+      "distance_km": 8.389418477423689,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-07-02T00:00:00+00:00",
+      "nearest_iridium_hours": 68.0,
+      "distance_km": 11.07073428615337,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-07-03T00:00:00+00:00",
+      "nearest_iridium_hours": 92.0,
+      "distance_km": 24.062334854856505,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-07-04T00:00:00+00:00",
+      "nearest_iridium_hours": 116.0,
+      "distance_km": 37.88255846118015,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-07-05T00:00:00+00:00",
+      "nearest_iridium_hours": 140.0,
+      "distance_km": 44.07974413059951,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-07-06T00:00:00+00:00",
+      "nearest_iridium_hours": 164.0,
+      "distance_km": 57.74966704388884,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-07-07T00:00:00+00:00",
+      "nearest_iridium_hours": 188.0,
+      "distance_km": 71.76207228832058,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-07-08T00:00:00+00:00",
+      "nearest_iridium_hours": 212.0,
+      "distance_km": 90.35286779770297,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-07-09T00:00:00+00:00",
+      "nearest_iridium_hours": 236.0,
+      "distance_km": 109.00053791739953,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-07-10T00:00:00+00:00",
+      "nearest_iridium_hours": 260.0,
+      "distance_km": 114.76734685226675,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-07-11T00:00:00+00:00",
+      "nearest_iridium_hours": 284.0,
+      "distance_km": 123.34370314795362,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-07-12T00:00:00+00:00",
+      "nearest_iridium_hours": 274.8,
+      "distance_km": 123.08884933331943,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-07-13T00:00:00+00:00",
+      "nearest_iridium_hours": 250.8,
+      "distance_km": 120.30060961247274,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-07-14T00:00:00+00:00",
+      "nearest_iridium_hours": 226.8,
+      "distance_km": 117.08513769795681,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-07-15T00:00:00+00:00",
+      "nearest_iridium_hours": 202.8,
+      "distance_km": 109.72253893995004,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-07-16T00:00:00+00:00",
+      "nearest_iridium_hours": 178.8,
+      "distance_km": 102.10225471729134,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-07-17T00:00:00+00:00",
+      "nearest_iridium_hours": 154.8,
+      "distance_km": 93.26120181365985,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-07-18T00:00:00+00:00",
+      "nearest_iridium_hours": 130.8,
+      "distance_km": 84.61516973542646,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-07-19T00:00:00+00:00",
+      "nearest_iridium_hours": 106.8,
+      "distance_km": 67.11681628325128,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-07-20T00:00:00+00:00",
+      "nearest_iridium_hours": 82.8,
+      "distance_km": 52.82275971549416,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-07-21T00:00:00+00:00",
+      "nearest_iridium_hours": 58.8,
+      "distance_km": 39.40640020543642,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-07-22T00:00:00+00:00",
+      "nearest_iridium_hours": 34.8,
+      "distance_km": 26.02450703844837,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-07-23T00:00:00+00:00",
+      "nearest_iridium_hours": 10.8,
+      "distance_km": 17.439906096182664,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-07-24T00:00:00+00:00",
+      "nearest_iridium_hours": 7.9,
+      "distance_km": 24.55048112490403,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-07-25T00:00:00+00:00",
+      "nearest_iridium_hours": 0.016666666666666666,
+      "distance_km": 17.242690763524706,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-07-26T00:00:00+00:00",
+      "nearest_iridium_hours": 0.016666666666666666,
+      "distance_km": 63.274560858656926,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-07-27T00:00:00+00:00",
+      "nearest_iridium_hours": 10.716666666666667,
+      "distance_km": 84.33352327687815,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-07-28T00:00:00+00:00",
+      "nearest_iridium_hours": 34.71666666666667,
+      "distance_km": 96.97010951708009,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-07-29T00:00:00+00:00",
+      "nearest_iridium_hours": 47.5,
+      "distance_km": 93.81995619005433,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    },
+    {
+      "date": "2020-07-30T00:00:00+00:00",
+      "nearest_iridium_hours": 23.5,
+      "distance_km": 86.71447087659752,
+      "finite_levels_10_100m": 91,
+      "requested_levels_10_100m": 91,
+      "available_at": null,
+      "benchmark_eligible": false
+    }
+  ],
+  "coefficient_mapping": [
+    {
+      "frequency_hz": 38000.0,
+      "TVR": 171.3999938965,
+      "VTX0": 76.0,
+      "EL": 142.8999938965,
+      "DS": 0.0230000000447,
+      "beam_solid_angle_sr": 0.02408999949694
+    },
+    {
+      "frequency_hz": 125000.0,
+      "TVR": 165.5,
+      "VTX0": 169.6999969482,
+      "EL": 139.1999969482,
+      "DS": 0.02290000021458,
+      "beam_solid_angle_sr": 0.01673999987543
+    },
+    {
+      "frequency_hz": 200000.0,
+      "TVR": 169.1000061035,
+      "VTX0": 115.3000030518,
+      "EL": 144.3999938965,
+      "DS": 0.02319999970496,
+      "beam_solid_angle_sr": 0.01355999987572
+    },
+    {
+      "frequency_hz": 455000.0,
+      "TVR": 172.6999969482,
+      "VTX0": 76.0,
+      "EL": 153.3000030518,
+      "DS": 0.02309999987483,
+      "beam_solid_angle_sr": 0.006029999814928
+    }
+  ],
+  "assay_hour": {
+    "file": "20030300.01A",
+    "first_ping": "2020-03-03T00:00:01.000000000",
+    "last_ping": "2020-03-03T00:59:46.000000000",
+    "pings": 240
+  },
+  "scenarios": [
+    {
+      "homogeneous_reference_depth_m": 10.882035273372276,
+      "sound_speed_basis": "TEOS-10 measured profile scenario",
+      "inputs": {
+        "temperature": -1.8111962366933279,
+        "salinity": 33.00620322353089,
+        "pressure": 11.00038219317184,
+        "sound_speed": 1437.9539577832377
+      },
+      "absorption_db_per_m": [
+        0.008805323305076202,
+        0.028750053335045943,
+        0.04372803508782419,
+        0.13257564614151063
+      ],
+      "sound_speed_azfp_formula_m_s": 1438.076063835789,
+      "padded_formula_grid_range_m_by_channel_not_support": [
+        [
+          0.5931560075855855,
+          502.8704734612705
+        ],
+        [
+          0.5931560075855855,
+          502.8704734612705
+        ],
+        [
+          0.5931560075855855,
+          502.8704734612705
+        ],
+        [
+          0.5931560075855855,
+          502.8704734612705
+        ]
+      ],
+      "finite_sv_range_m_by_channel_not_qc_approval": [
+        [
+          0.5931560075855855,
+          502.8704734612705
+        ],
+        [
+          0.5931560075855855,
+          502.8704734612705
+        ],
+        [
+          0.5931560075855855,
+          196.87387124499753
+        ],
+        [
+          0.5931560075855855,
+          118.36158515003275
+        ]
+      ]
+    },
+    {
+      "homogeneous_reference_depth_m": 50.44817618788271,
+      "sound_speed_basis": "TEOS-10 measured profile scenario",
+      "inputs": {
+        "temperature": -1.8118900122480823,
+        "salinity": 33.06896920965461,
+        "pressure": 51.0017728686292,
+        "sound_speed": 1438.678132300255
+      },
+      "absorption_db_per_m": [
+        0.008786428126336147,
+        0.028691506410845537,
+        0.043645154258347904,
+        0.13235788518339955
+      ],
+      "sound_speed_azfp_formula_m_s": 1438.8103305110722,
+      "padded_formula_grid_range_m_by_channel_not_support": [
+        [
+          0.5934547295738551,
+          503.12372634205286
+        ],
+        [
+          0.5934547295738551,
+          503.12372634205286
+        ],
+        [
+          0.5934547295738551,
+          503.12372634205286
+        ],
+        [
+          0.5934547295738551,
+          503.12372634205286
+        ]
+      ],
+      "finite_sv_range_m_by_channel_not_qc_approval": [
+        [
+          0.5934547295738551,
+          503.12372634205286
+        ],
+        [
+          0.5934547295738551,
+          503.12372634205286
+        ],
+        [
+          0.5934547295738551,
+          196.97301978855864
+        ],
+        [
+          0.5934547295738551,
+          118.42119376496473
+        ]
+      ]
+    },
+    {
+      "homogeneous_reference_depth_m": 99.89506255393066,
+      "sound_speed_basis": "TEOS-10 measured profile scenario",
+      "inputs": {
+        "temperature": -1.6107350697219782,
+        "salinity": 33.97543421410858,
+        "pressure": 101.00351314033436,
+        "sound_speed": 1441.6823101800549
+      },
+      "absorption_db_per_m": [
+        0.008952288259183462,
+        0.029248015648782044,
+        0.04417808872504591,
+        0.1320609860063114
+      ],
+      "sound_speed_azfp_formula_m_s": 1441.8142221166784,
+      "padded_formula_grid_range_m_by_channel_not_support": [
+        [
+          0.5946939529492726,
+          504.1743248988424
+        ],
+        [
+          0.5946939529492726,
+          504.1743248988424
+        ],
+        [
+          0.5946939529492726,
+          504.1743248988424
+        ],
+        [
+          0.5946939529492726,
+          504.1743248988424
+        ]
+      ],
+      "finite_sv_range_m_by_channel_not_qc_approval": [
+        [
+          0.5946939529492726,
+          504.1743248988424
+        ],
+        [
+          0.5946939529492726,
+          504.1743248988424
+        ],
+        [
+          0.5946939529492726,
+          197.38432929252676
+        ],
+        [
+          0.5946939529492726,
+          118.66847515669576
+        ]
+      ]
+    },
+    {
+      "homogeneous_reference_depth_m": 50.44817618788271,
+      "sound_speed_basis": "XML configured value sensitivity only",
+      "inputs": {
+        "temperature": -1.8118900122480823,
+        "salinity": 33.06896920965461,
+        "pressure": 51.0017728686292,
+        "sound_speed": 1465.0
+      },
+      "absorption_db_per_m": [
+        0.008786428126336147,
+        0.028691506410845537,
+        0.043645154258347904,
+        0.13235788518339955
+      ],
+      "sound_speed_azfp_formula_m_s": 1438.8103305110722,
+      "padded_formula_grid_range_m_by_channel_not_support": [
+        [
+          0.6043125,
+          512.3288125
+        ],
+        [
+          0.6043125,
+          512.3288125
+        ],
+        [
+          0.6043125,
+          512.3288125
+        ],
+        [
+          0.6043125,
+          512.3288125
+        ]
+      ],
+      "finite_sv_range_m_by_channel_not_qc_approval": [
+        [
+          0.6043125,
+          512.3288125
+        ],
+        [
+          0.6043125,
+          512.3288125
+        ],
+        [
+          0.6043125,
+          200.5768125
+        ],
+        [
+          0.6043125,
+          120.5878125
+        ]
+      ]
+    }
+  ],
+  "scalar_formula_max_absolute_error_db": 2.842170943040401e-14,
+  "scenario_spread_db_p50_p95_max_by_frequency": [
+    [
+      0.02994755642014013,
+      0.044405771065584076,
+      0.045892647295630695
+    ],
+    [
+      0.07696318292698834,
+      0.12734135477607822,
+      0.1323169766871075
+    ],
+    [
+      0.07779897340842012,
+      0.12879722141448724,
+      0.13383408541510278
+    ],
+    [
+      0.014419006248687083,
+      0.026738783608934114,
+      0.027955551743289675
+    ]
+  ],
+  "xml_1465_vs_teos_50m_absolute_difference_db_p50_p95_max_by_frequency": [
+    [
+      0.09609124426829396,
+      0.10888076275614367,
+      0.11017590386880727
+    ],
+    [
+      0.135399755526052,
+      0.177163091708735,
+      0.1813922903094749
+    ],
+    [
+      0.16493019124487773,
+      0.22846004652448926,
+      0.2348934495907713
+    ],
+    [
+      0.34011992586594886,
+      0.5327799687436539,
+      0.552289846503399
+    ]
+  ],
+  "scenario_support": "Common finite sample-index cells whose scenario-specific ranges all lie within 10\u2013100 m; not range-regridded accuracy.",
+  "assumptions": [
+    "Homogeneous columns using measured 10/50/100 m profile values are illustrative sensitivity scenarios only.",
+    "The daily profile is retrospective and unavailable at forecast issue time; never injected as predictor input.",
+    "Range remains distance from transducer, never absolute depth.",
+    "XML coefficient agreement and scalar recomputation establish implementation consistency, not field calibration accuracy."
+  ],
+  "blockers": [
+    "Transducer depth/orientation geometry is not measured; 5 m cable is not exact depth.",
+    "Manual serial 55169 versus XML/DPL 55170 remains unresolved; manual is platform context only.",
+    "Daily composite profiles lack per-profile instrument identity/quality/availability provenance in these files.",
+    "No reviewed spatial/temporal matching tolerance or sound-path environmental integration rule.",
+    "No approved frequency-specific noise/saturation/range masks or calibrated eligibility counts."
+  ],
+  "elapsed_seconds": 8.046999999998661,
+  "final_process_rss_gib_not_peak": 0.2717247009277344
+}

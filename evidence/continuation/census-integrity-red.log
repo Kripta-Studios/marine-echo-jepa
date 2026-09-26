@@ -1,0 +1,69 @@
+FFFF...                                                                  [100%]
+================================== FAILURES ===================================
+_ test_resume_rejects_exposure_or_run_counter_tamper[held_out_acoustic_payloads_processed-True] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000026EF116C260>
+field = 'held_out_acoustic_payloads_processed', value = True
+
+    @pytest.mark.parametrize("field,value", [("held_out_acoustic_payloads_processed", True), ("completed_benchmark_runs", 1), ("completed_benchmark_runs", False)])
+    def test_resume_rejects_exposure_or_run_counter_tamper(monkeypatch, field, value):
+        ledger = {"status": "RUNNING_TRAIN_ONLY_CENSUS", "identity": {}, "days": {}, "held_out_acoustic_payloads_processed": False, "completed_benchmark_runs": 0}
+        ledger[field] = value
+        with pytest.raises(ValueError):
+>           module(monkeypatch).validate_ledger(ledger, {}, ["2020-02-17"])
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module 'train_census' has no attribute 'validate_ledger'
+
+tests\scientific\test_train_census_eligibility.py:15: AttributeError
+_ test_resume_rejects_exposure_or_run_counter_tamper[completed_benchmark_runs-1] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000026EF1197D10>
+field = 'completed_benchmark_runs', value = 1
+
+    @pytest.mark.parametrize("field,value", [("held_out_acoustic_payloads_processed", True), ("completed_benchmark_runs", 1), ("completed_benchmark_runs", False)])
+    def test_resume_rejects_exposure_or_run_counter_tamper(monkeypatch, field, value):
+        ledger = {"status": "RUNNING_TRAIN_ONLY_CENSUS", "identity": {}, "days": {}, "held_out_acoustic_payloads_processed": False, "completed_benchmark_runs": 0}
+        ledger[field] = value
+        with pytest.raises(ValueError):
+>           module(monkeypatch).validate_ledger(ledger, {}, ["2020-02-17"])
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module 'train_census' has no attribute 'validate_ledger'
+
+tests\scientific\test_train_census_eligibility.py:15: AttributeError
+_ test_resume_rejects_exposure_or_run_counter_tamper[completed_benchmark_runs-False] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000026EF1196B40>
+field = 'completed_benchmark_runs', value = False
+
+    @pytest.mark.parametrize("field,value", [("held_out_acoustic_payloads_processed", True), ("completed_benchmark_runs", 1), ("completed_benchmark_runs", False)])
+    def test_resume_rejects_exposure_or_run_counter_tamper(monkeypatch, field, value):
+        ledger = {"status": "RUNNING_TRAIN_ONLY_CENSUS", "identity": {}, "days": {}, "held_out_acoustic_payloads_processed": False, "completed_benchmark_runs": 0}
+        ledger[field] = value
+        with pytest.raises(ValueError):
+>           module(monkeypatch).validate_ledger(ledger, {}, ["2020-02-17"])
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module 'train_census' has no attribute 'validate_ledger'
+
+tests\scientific\test_train_census_eligibility.py:15: AttributeError
+________________ test_final_result_binds_final_execution_bytes ________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000026EF1197710>
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3683/test_final_result_binds_final_0')
+
+    def test_final_result_binds_final_execution_bytes(monkeypatch, tmp_path):
+        import json
+        census = module(monkeypatch)
+        ledger = {"status": "RUNNING_TRAIN_ONLY_CENSUS"}
+        execution = tmp_path / "execution.json"
+        result_path = tmp_path / "result.json"
+>       census.finalize_reports(execution, ledger, result_path, {})
+        ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'train_census' has no attribute 'finalize_reports'
+
+tests\scientific\test_train_census_eligibility.py:24: AttributeError
+=========================== short test summary info ===========================
+FAILED tests/scientific/test_train_census_eligibility.py::test_resume_rejects_exposure_or_run_counter_tamper[held_out_acoustic_payloads_processed-True]
+FAILED tests/scientific/test_train_census_eligibility.py::test_resume_rejects_exposure_or_run_counter_tamper[completed_benchmark_runs-1]
+FAILED tests/scientific/test_train_census_eligibility.py::test_resume_rejects_exposure_or_run_counter_tamper[completed_benchmark_runs-False]
+FAILED tests/scientific/test_train_census_eligibility.py::test_final_result_binds_final_execution_bytes
+4 failed, 3 passed in 1.69s

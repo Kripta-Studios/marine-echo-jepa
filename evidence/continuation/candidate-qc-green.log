@@ -1,0 +1,77 @@
+FF.                                                                      [100%]
+================================== FAILURES ===================================
+_________________ test_noise_does_not_depend_on_future_pings __________________
+
+    def test_noise_does_not_depend_on_future_pings():
+        data = synthetic_dataset()
+>       first = clean_per_ping(data, range_samples=2)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\scientific\test_candidate_qc.py:41: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\marine_echo\data\candidate_qc.py:33: in clean_per_ping
+    return ep.clean.remove_background_noise(
+.venv\Lib\site-packages\echopype\utils\prov.py:241: in inner
+    dataobj = func(*args, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\echopype\clean\api.py:477: in remove_background_noise
+    SNR_threshold = extract_dB(SNR_threshold)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+dB_str = 3
+
+    def extract_dB(dB_str: str) -> float:
+        """Extract float value from decibal string in the form of 'NUMdB'."""
+        # Search for numeric part using regular expressions and convert to float
+        if not isinstance(dB_str, str):
+>           raise TypeError(
+                "Decibal input must be a string formatted as `NUMdB` or `NUMdb."
+                f"Cannot be of type `{type(dB_str)}`."
+            )
+E           TypeError: Decibal input must be a string formatted as `NUMdB` or `NUMdb.Cannot be of type `<class 'int'>`.
+
+.venv\Lib\site-packages\echopype\clean\utils.py:17: TypeError
+_____________ test_corrected_values_are_linear_noise_subtraction ______________
+
+    def test_corrected_values_are_linear_noise_subtraction():
+        data = synthetic_dataset()
+>       result = clean_per_ping(data, range_samples=2)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\scientific\test_candidate_qc.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\marine_echo\data\candidate_qc.py:33: in clean_per_ping
+    return ep.clean.remove_background_noise(
+.venv\Lib\site-packages\echopype\utils\prov.py:241: in inner
+    dataobj = func(*args, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\echopype\clean\api.py:477: in remove_background_noise
+    SNR_threshold = extract_dB(SNR_threshold)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+dB_str = 3
+
+    def extract_dB(dB_str: str) -> float:
+        """Extract float value from decibal string in the form of 'NUMdB'."""
+        # Search for numeric part using regular expressions and convert to float
+        if not isinstance(dB_str, str):
+>           raise TypeError(
+                "Decibal input must be a string formatted as `NUMdB` or `NUMdb."
+                f"Cannot be of type `{type(dB_str)}`."
+            )
+E           TypeError: Decibal input must be a string formatted as `NUMdB` or `NUMdb.Cannot be of type `<class 'int'>`.
+
+.venv\Lib\site-packages\echopype\clean\utils.py:17: TypeError
+============================== warnings summary ===============================
+tests/scientific/test_candidate_qc.py::test_noise_does_not_depend_on_future_pings
+tests/scientific/test_candidate_qc.py::test_noise_does_not_depend_on_future_pings
+  C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\.venv\Lib\site-packages\flox\xrdtypes.py:68: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    NAT_TYPES = {np.datetime64("NaT").dtype, np.timedelta64("NaT").dtype}
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/scientific/test_candidate_qc.py::test_noise_does_not_depend_on_future_pings
+FAILED tests/scientific/test_candidate_qc.py::test_corrected_values_are_linear_noise_subtraction
+2 failed, 1 passed, 2 warnings in 17.31s

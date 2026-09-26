@@ -1,0 +1,19 @@
+{
+  "status": "SLANT_SENSITIVITY_REQUIRES_REVIEW",
+  "benchmark_eligible": false,
+  "contract_sha256": "46be964e96ffb4d910789df39f509bd1137aa7526e33d8811b74697e90eb0bad",
+  "source_report_sha256": "bb3aa8c36b5a19b56bb30435743956ec842257e6e3ce6a921bfcbabd1a6a8018",
+  "code_sha256": "0d7ac5aaddbbbfdbefe6d62ef7d10cc844a2bf7877286e4e574b85725cbe96f0",
+  "all_sampled_scenarios_passed": true,
+  "scenario_count": 1886,
+  "max_abs_Sv_delta_db": [
+    0.16202904655366757,
+    0.439691493464089,
+    0.42575364778911684,
+    1.0337914891223612
+  ],
+  "max_range_displacement_m": 0.608893451886459,
+  "independent_vertical_integrator_max_difference_db": 2.6645352591003757e-14,
+  "elapsed_seconds": 2.014999999999418,
+  "limitations": "Sampled grid, no continuous proof or ray-bending correction; actual tilt and finite beam limits still need TRAIN QC review. No test acoustic reads. Preserve all earlier results."
+}

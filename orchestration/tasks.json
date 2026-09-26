@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "state": "P0_INCOMPLETE_NATIVE_AGENT_QUOTA_BLOCK",
+  "state": "P0_INCOMPLETE_TRAIN_CENSUS_RUNNING",
   "tasks": [
     {
       "id": "T01",
@@ -41,7 +41,9 @@
       ],
       "required_tests": "D06",
       "actual_commit": null,
-      "report": "orchestration/reports/P0_CHECKPOINT.md"
+      "report": "orchestration/reports/P0_CHECKPOINT.md",
+      "continuation_report": "orchestration/reports/CONTINUATION_20260926.md",
+      "continuation_disposition": "PARTIAL_NONPROMOTABLE_EVIDENCE_NOT_FULL_TASK_COMPLETION"
     },
     {
       "id": "T03",
@@ -109,7 +111,9 @@
       ],
       "required_tests": "D02 D03 D04 D05",
       "actual_commit": null,
-      "report": "orchestration/reports/P0_CHECKPOINT.md"
+      "report": "orchestration/reports/P0_CHECKPOINT.md",
+      "continuation_report": "orchestration/reports/CONTINUATION_20260926.md",
+      "continuation_disposition": "PARTIAL_NONPROMOTABLE_EVIDENCE_NOT_FULL_TASK_COMPLETION"
     },
     {
       "id": "T06",
@@ -131,7 +135,9 @@
       ],
       "required_tests": "L01 L02 L03 L04 L05",
       "actual_commit": null,
-      "report": "orchestration/reports/P0_CHECKPOINT.md"
+      "report": "orchestration/reports/P0_CHECKPOINT.md",
+      "continuation_report": "orchestration/reports/CONTINUATION_20260926.md",
+      "continuation_disposition": "PARTIAL_NONPROMOTABLE_EVIDENCE_NOT_FULL_TASK_COMPLETION"
     },
     {
       "id": "T07",
@@ -151,7 +157,9 @@
       ],
       "required_tests": "D01-D06 L01-L05",
       "actual_commit": null,
-      "report": "orchestration/reports/P0_CHECKPOINT.md"
+      "report": "orchestration/reports/P0_CHECKPOINT.md",
+      "continuation_report": "orchestration/reports/CONTINUATION_20260926.md",
+      "continuation_disposition": "PARTIAL_NONPROMOTABLE_EVIDENCE_NOT_FULL_TASK_COMPLETION"
     },
     {
       "id": "T08",
@@ -172,7 +180,9 @@
       ],
       "required_tests": "E01 E04",
       "actual_commit": null,
-      "report": "orchestration/reports/P0_CHECKPOINT.md"
+      "report": "orchestration/reports/P0_CHECKPOINT.md",
+      "continuation_report": "orchestration/reports/CONTINUATION_20260926.md",
+      "continuation_disposition": "PARTIAL_NONPROMOTABLE_EVIDENCE_NOT_FULL_TASK_COMPLETION"
     },
     {
       "id": "T09",
@@ -484,5 +494,6 @@
       "actual_commit": null,
       "report": "orchestration/reports/P0_CHECKPOINT.md"
     }
-  ]
+  ],
+  "continuation_current": "Independent fixed calibration/QC method and TRAIN census launch accepted.100-day TRAIN census running; R0/R1 real corpus and benchmark eligibility unresolved. Zero benchmarks."
 }

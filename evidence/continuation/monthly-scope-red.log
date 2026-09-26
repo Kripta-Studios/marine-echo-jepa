@@ -1,0 +1,47 @@
+FF                                                                       [100%]
+================================== FAILURES ===================================
+______ test_candidate_rejects_unregistered_dates[2020-07-07-monthly-v1] _______
+
+date = '2020-07-07', variant = 'monthly-v1'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001E4CAB22AB0>
+
+    @pytest.mark.parametrize("date,variant", [("2020-07-07", "monthly-v1"), ("2020-02-17", "v2")])
+    def test_candidate_rejects_unregistered_dates(date, variant, monkeypatch):
+        folder = Path(__file__).resolve().parents[2] / "tools"
+        monkeypatch.syspath_prepend(str(folder))
+        spec = importlib.util.spec_from_file_location("train_candidate_scope", folder / "preprocess_train_candidate.py")
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        with pytest.raises(ValueError):
+>           module.main(date, variant)
+E           TypeError: main() takes 0 positional arguments but 2 were given
+
+tests\security\test_train_candidate_scope.py:18: TypeError
+__________ test_candidate_rejects_unregistered_dates[2020-02-17-v2] ___________
+
+date = '2020-02-17', variant = 'v2'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001E4FF82CAA0>
+
+    @pytest.mark.parametrize("date,variant", [("2020-07-07", "monthly-v1"), ("2020-02-17", "v2")])
+    def test_candidate_rejects_unregistered_dates(date, variant, monkeypatch):
+        folder = Path(__file__).resolve().parents[2] / "tools"
+        monkeypatch.syspath_prepend(str(folder))
+        spec = importlib.util.spec_from_file_location("train_candidate_scope", folder / "preprocess_train_candidate.py")
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        with pytest.raises(ValueError):
+>           module.main(date, variant)
+E           TypeError: main() takes 0 positional arguments but 2 were given
+
+tests\security\test_train_candidate_scope.py:18: TypeError
+============================== warnings summary ===============================
+tests/security/test_train_candidate_scope.py::test_candidate_rejects_unregistered_dates[2020-07-07-monthly-v1]
+tests/security/test_train_candidate_scope.py::test_candidate_rejects_unregistered_dates[2020-07-07-monthly-v1]
+  C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\.venv\Lib\site-packages\flox\xrdtypes.py:68: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    NAT_TYPES = {np.datetime64("NaT").dtype, np.timedelta64("NaT").dtype}
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/security/test_train_candidate_scope.py::test_candidate_rejects_unregistered_dates[2020-07-07-monthly-v1]
+FAILED tests/security/test_train_candidate_scope.py::test_candidate_rejects_unregistered_dates[2020-02-17-v2]
+2 failed, 2 warnings in 2.41s

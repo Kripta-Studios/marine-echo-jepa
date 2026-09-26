@@ -1,0 +1,76 @@
+FFF                                                                      [100%]
+================================== FAILURES ===================================
+____________________ test_homogeneous_time_and_absorption _____________________
+
+    def test_homogeneous_time_and_absorption():
+>       assay = module()
+                ^^^^^^^^
+
+tests\unit\test_depth_path_bounds.py:19: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\unit\test_depth_path_bounds.py:14: in module
+    spec.loader.exec_module(result)
+<frozen importlib._bootstrap_external>:995: in exec_module
+    ???
+<frozen importlib._bootstrap_external>:1132: in get_code
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_frozen_importlib_external.SourceFileLoader object at 0x0000019DFF5A10D0>
+path = 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\depth_environment_sensitivity.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\depth_environment_sensitivity.py'
+
+<frozen importlib._bootstrap_external>:1190: FileNotFoundError
+_____________________ test_two_layers_and_global_fallback _____________________
+
+    def test_two_layers_and_global_fallback():
+>       assay = module()
+                ^^^^^^^^
+
+tests\unit\test_depth_path_bounds.py:29: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\unit\test_depth_path_bounds.py:14: in module
+    spec.loader.exec_module(result)
+<frozen importlib._bootstrap_external>:995: in exec_module
+    ???
+<frozen importlib._bootstrap_external>:1132: in get_code
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_frozen_importlib_external.SourceFileLoader object at 0x0000019DFF5A22D0>
+path = 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\depth_environment_sensitivity.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\depth_environment_sensitivity.py'
+
+<frozen importlib._bootstrap_external>:1190: FileNotFoundError
+_________________________ test_boundary_and_zero_time _________________________
+
+    def test_boundary_and_zero_time():
+>       assay = module()
+                ^^^^^^^^
+
+tests\unit\test_depth_path_bounds.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\unit\test_depth_path_bounds.py:14: in module
+    spec.loader.exec_module(result)
+<frozen importlib._bootstrap_external>:995: in exec_module
+    ???
+<frozen importlib._bootstrap_external>:1132: in get_code
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_frozen_importlib_external.SourceFileLoader object at 0x0000019DFF6481A0>
+path = 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\depth_environment_sensitivity.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\depth_environment_sensitivity.py'
+
+<frozen importlib._bootstrap_external>:1190: FileNotFoundError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_depth_path_bounds.py::test_homogeneous_time_and_absorption
+FAILED tests/unit/test_depth_path_bounds.py::test_two_layers_and_global_fallback
+FAILED tests/unit/test_depth_path_bounds.py::test_boundary_and_zero_time - Fi...
+3 failed in 0.93s

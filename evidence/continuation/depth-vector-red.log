@@ -1,0 +1,24 @@
+F...                                                                     [100%]
+================================== FAILURES ===================================
+____________ test_vector_absorption_matches_upstream_scalar_cases _____________
+
+    def test_vector_absorption_matches_upstream_scalar_cases():
+        assay = module()
+        temperatures = np.array([-1.93, -1., 0., 1.78])
+        salinities = np.array([0., 16., 33., 35.])
+        pressures = np.array([0., 10., 60., 132.])
+>       actual = assay.vector_absorption(temperatures, salinities, pressures)
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'depth_assay' has no attribute 'vector_absorption'
+
+tests\unit\test_depth_path_bounds.py:16: AttributeError
+============================== warnings summary ===============================
+.venv\Lib\site-packages\flox\xrdtypes.py:68
+.venv\Lib\site-packages\flox\xrdtypes.py:68
+  C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\.venv\Lib\site-packages\flox\xrdtypes.py:68: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    NAT_TYPES = {np.datetime64("NaT").dtype, np.timedelta64("NaT").dtype}
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/unit/test_depth_path_bounds.py::test_vector_absorption_matches_upstream_scalar_cases
+1 failed, 3 passed, 2 warnings in 20.29s

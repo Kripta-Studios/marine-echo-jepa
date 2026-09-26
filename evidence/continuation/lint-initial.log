@@ -1,0 +1,66 @@
+PLW0127 Self-assignment of variable `UTC`
+  --> tests\scientific\test_environment.py:15:1
+   |
+13 | )
+14 |
+15 | UTC = UTC
+   | ^^^
+16 | T = datetime(2020, 3, 1, tzinfo=UTC)
+   |
+
+C408 Unnecessary `dict()` call (rewrite as a literal)
+  --> tests\scientific\test_environment.py:20:14
+   |
+19 |   def record(**changes):
+20 |       values = dict(observed_at=T, available_at=T, latitude=85.0, longitude=30.0,
+   |  ______________^
+21 | |                   quality_verified=True, source_id="synthetic-profile")
+   | |_______________________________________________________________________^
+22 |       return ProfileRecord(**(values | changes))
+   |
+help: Rewrite as a literal
+
+DTZ001 `datetime.datetime()` called without a `tzinfo` argument
+  --> tests\scientific\test_environment.py:45:28
+   |
+43 |         record(latitude=float("nan"))
+44 |     with pytest.raises(ValueError):
+45 |         record(observed_at=datetime(2020, 3, 1))
+   |                            ^^^^^^^^^^^^^^^^^^^^
+help: Pass a `datetime.timezone` object to the `tzinfo` parameter
+
+B023 Function definition does not bind loop variable `channel`
+   --> tools\calibration_continuation.py:116:71
+    |
+114 |         for channel in range(4):
+115 |             sample, ping = 100, 0
+116 |             scalar = lambda array: float(array.isel(**{d: {"channel": channel, "ping_time": ping,
+    |                                                                       ^^^^^^^
+117 |                                                           "range_sample": sample}[d] for d in array.dims}).values)
+118 |             n, rate, lockout = [scalar(vendor[name]) for name in
+    |
+
+B023 Function definition does not bind loop variable `ping`
+   --> tools\calibration_continuation.py:116:93
+    |
+114 |         for channel in range(4):
+115 |             sample, ping = 100, 0
+116 |             scalar = lambda array: float(array.isel(**{d: {"channel": channel, "ping_time": ping,
+    |                                                                                             ^^^^
+117 |                                                           "range_sample": sample}[d] for d in array.dims}).values)
+118 |             n, rate, lockout = [scalar(vendor[name]) for name in
+    |
+
+B023 Function definition does not bind loop variable `sample`
+   --> tools\calibration_continuation.py:117:75
+    |
+115 |             sample, ping = 100, 0
+116 |             scalar = lambda array: float(array.isel(**{d: {"channel": channel, "ping_time": ping,
+117 |                                                           "range_sample": sample}[d] for d in array.dims}).values)
+    |                                                                           ^^^^^^
+118 |             n, rate, lockout = [scalar(vendor[name]) for name in
+119 |                                 ("number_of_samples_per_average_bin", "digitization_rate", "lock_out_index")]
+    |
+
+Found 21 errors (15 fixed, 6 remaining).
+No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).

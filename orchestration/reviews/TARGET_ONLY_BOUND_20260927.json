@@ -1,0 +1,18 @@
+{
+  "record_type": "COORDINATOR_TRANSCRIPTION_OF_DISTINCT_REVIEWER_MESSAGE",
+  "reviewer_session": "/root/continuation_review",
+  "disposition": "APPROVE_POST_CENSUS_TARGET_ONLY_BOUND",
+  "code_sha256": "c2a558391536c84aaf5b410dd8058a8a5dc5dcb5d68523b5614d9b717b491b4a",
+  "contract_sha256": "774f7bcac90ca275eb486d243a5b3a20488814c1d1de2060bc8a188322dd769f",
+  "tests_sha256": "118fc8f66fd6b3c3750a3675449be911824f99e7e4bf15adbdd29b341338ff9f",
+  "scope": "After exact completed100-day census only; generous necessary-condition target support bound ignoring all context/config restrictions. If target-supported TRAIN dates plus67<90, D1 minimum impossible; else no conclusion.",
+  "evidence": "Reviewer inspected code/contract and saved4RED/4GREEN0.45s, did not execute tests or read acoustic values.",
+  "not_approved": [
+    "R0",
+    "R1",
+    "benchmark",
+    "held-out processing",
+    "R2",
+    "release"
+  ]
+}

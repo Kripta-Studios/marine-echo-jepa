@@ -1,0 +1,15 @@
+{
+  "id": "train-target-only-necessary-bound-v1",
+  "status": "PROSPECTIVE_BEFORE_COMPLETE_CENSUS_RESULTS",
+  "method": "For hourly cutoffs0,4,... with all24futurequarters insideTRAIN, require summedvalidcount/(45*summedeffectivecount)>=0.8 separately in4quarter targets offsets0/8/20. Count distinctUTC anchor dates. Ignore context quality, context containment and all configuration restrictions to give a generous necessary-condition upper bound.",
+  "calendar": "Original100TRAINdays,2020-02-17 inclusive to2020-05-27 exclusive",
+  "nontrain_calendar_day_upper_bound": 67,
+  "minimum_overall_days": 90,
+  "decision": "Only if target-only eligibleTRAINanchor_days+67<90 is globalminimum definitively impossible. Otherwise NO_GLOBAL_CONCLUSION and original context quality requires R1.",
+  "reviewer_session": "/root/continuation_review",
+  "basis": "Distinct reviewer determined docs03/06 freeze80percent primary target support, not every-context-bin80percent. Existing strict census output classification is provisional and is superseded for global eligibility by this more generous bound.",
+  "no_change": "Frozen running census,QCrules,thresholds,rawdata,splits,benchmark budget remain unchanged. No held-out acoustic payload read.",
+  "input_integrity": "Require completed census final execution hash, exact100calendar days, verified manifests/configuration/shard hashes and original code/contract/source bindings. Read only counts and grid/time metadata, never model scores.",
+  "benchmark_eligible": false,
+  "completed_benchmark_runs": 0
+}

@@ -1,0 +1,18 @@
+{
+  "record_type": "COORDINATOR_TRANSCRIPTION_OF_DISTINCT_REVIEWER_MESSAGE",
+  "reviewer_session": "/root/continuation_review",
+  "disposition": "APPROVE_BOUNDED_TRAIN_CENSUS_LAUNCH",
+  "driver_sha256": "15ff07d4a993823f5a09b6ba60b806dec0b796969977c1ebd43177237e375e20",
+  "preprocessor_sha256": "98120ac7d19701ced0d7855d0199e4b196d869eebbcfc5d6be26b86a3a73a6f9",
+  "contract_sha256": "117ed3b17f94dd2969cbf4e82f6231f4197bd7feff8e930e1bc67f5d18eeb149",
+  "review_scope": "Exact100 TRAIN dates, fixed QC/count support, schema/exposure/resume integrity and final hash equality. Reviewer inspected source/logs, did not run tests.11 focused tests passed57.49s by coordinator.",
+  "not_approved": [
+    "R0",
+    "R1",
+    "held-out processing",
+    "benchmarks",
+    "R2",
+    "release"
+  ],
+  "stop_rule": "Preserve and stop on failure/resource stop/exposure mismatch; never substitute a day."
+}

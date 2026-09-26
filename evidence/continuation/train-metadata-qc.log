@@ -1,0 +1,86 @@
+<xarray.Dataset> Size: 4MB
+Dimensions:                      (channel: 4, ping_time: 240,
+                                  range_sample: 999, beam_group: 1)
+Coordinates:
+  * channel                      (channel) <U11 176B '55170-38-1' ... '55170-...
+  * ping_time                    (ping_time) datetime64[ns] 2kB 2020-03-03T00...
+  * range_sample                 (range_sample) int64 8kB 0 1 2 ... 996 997 998
+  * beam_group                   (beam_group) <U11 44B 'Beam_group1'
+Data variables: (12/16)
+    frequency_nominal            (channel) float64 32B 3.8e+04 ... 4.55e+05
+    beam_type                    (channel) int64 32B 0 0 0 0
+    beam_direction_x             (channel) float64 32B nan nan nan nan
+    beam_direction_y             (channel) float64 32B nan nan nan nan
+    beam_direction_z             (channel) float64 32B nan nan nan nan
+    backscatter_r                (channel, ping_time, range_sample) float32 4MB ...
+    ...                           ...
+    transmit_frequency_start     (channel) float64 32B 3.8e+04 ... 4.55e+05
+    transmit_frequency_stop      (channel) float64 32B 3.8e+04 ... 4.55e+05
+    transmit_type                <U2 8B 'CW'
+    beam_stabilisation           int8 1B 0
+    non_quantitative_processing  int16 2B 0
+    sample_time_offset           float64 8B 0.0
+Attributes:
+    beam_mode:              
+    conversion_equation_t:  type_4
+<xarray.Dataset> Size: 40kB
+Dimensions:                                         (channel: 4,
+                                                     ping_time: 240,
+                                                     ancillary_len: 5,
+                                                     ad_len: 2,
+                                                     phase_number: 1, cpu: 0,
+                                                     serial_number: 2,
+                                                     XML_sonar_serial_number: 2)
+Coordinates:
+  * channel                                         (channel) <U11 176B '5517...
+  * ping_time                                       (ping_time) datetime64[ns] 2kB ...
+  * ancillary_len                                   (ancillary_len) int64 40B ...
+  * ad_len                                          (ad_len) int64 16B 0 1
+  * phase_number                                    (phase_number) int64 8B 1
+  * cpu                                             (cpu) float64 0B 
+  * serial_number                                   (serial_number) int64 16B ...
+  * XML_sonar_serial_number                         (XML_sonar_serial_number) int64 16B ...
+Data variables: (12/71)
+    frequency_nominal                               (channel) float64 32B 3.8...
+    digitization_rate                               (channel) int64 32B 20000...
+    lock_out_index                                  (channel) int64 32B 0 0 0 0
+    number_of_bins_per_channel                      (channel) int64 32B 999 ....
+    number_of_samples_per_average_bin               (channel) int64 32B 14 .....
+    board_number                                    (channel) int64 32B 0 1 2 3
+    ...                                              ...
+    tilt_X_c                                        float64 8B 4.425e-07
+    tilt_X_d                                        float64 8B -6.869e-12
+    tilt_Y_a                                        float64 8B -32.08
+    tilt_Y_b                                        float64 8B -0.004712
+    tilt_Y_c                                        float64 8B 4.344e-07
+    tilt_Y_d                                        float64 8B -6.773e-12
+<xarray.Dataset> Size: 12kB
+Dimensions:              (time1: 1, time2: 240, channel: 4)
+Coordinates:
+  * time1                (time1) datetime64[ns] 8B 2020-03-03T00:00:01
+  * time2                (time2) datetime64[ns] 2kB 2020-03-03T00:00:01 ... 2...
+  * channel              (channel) <U11 176B '55170-38-1' ... '55170-455-4'
+Data variables: (12/21)
+    latitude             (time1) float64 8B nan
+    longitude            (time1) float64 8B nan
+    pitch                (time2) float64 2kB nan nan nan nan ... nan nan nan nan
+    roll                 (time2) float64 2kB nan nan nan nan ... nan nan nan nan
+    vertical_offset      (time2) float64 2kB nan nan nan nan ... nan nan nan nan
+    water_level          float64 8B nan
+    ...                   ...
+    MRU_rotation_y       float64 8B nan
+    MRU_rotation_z       float64 8B nan
+    position_offset_x    float64 8B nan
+    position_offset_y    float64 8B nan
+    position_offset_z    float64 8B nan
+    frequency_nominal    (channel) float64 32B 3.8e+04 1.25e+05 2e+05 4.55e+05
+Attributes:
+    platform_name:       
+    platform_type:       
+    platform_code_ICES:  
+Exception ignored in: <function EchoData.__del__ at 0x000001F37FFDC0E0>
+Traceback (most recent call last):
+  File "C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\.venv\Lib\site-packages\echopype\echodata\echodata.py", line 109, in __del__
+  File "C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\.venv\Lib\site-packages\echopype\echodata\echodata.py", line 83, in cleanup_swap_files
+  File "C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\.venv\Lib\site-packages\xarray\core\dataset.py", line 1402, in __getitem__
+ModuleNotFoundError: import of xarray.core.formatting halted; None in sys.modules

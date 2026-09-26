@@ -1,0 +1,167 @@
+[
+  {
+    "environmental_source": "2019O1",
+    "trajectory_policy": "Iridium_only",
+    "matched_days": {
+      "train": 0,
+      "validation": 0,
+      "calibration": 0,
+      "test": 0
+    },
+    "profile_days": 167
+  },
+  {
+    "environmental_source": "2019O1",
+    "trajectory_policy": "XEOS_only",
+    "matched_days": {
+      "train": 0,
+      "validation": 0,
+      "calibration": 0,
+      "test": 0
+    },
+    "profile_days": 167
+  },
+  {
+    "environmental_source": "2019O1",
+    "trajectory_policy": "nearest_time_both",
+    "matched_days": {
+      "train": 0,
+      "validation": 0,
+      "calibration": 0,
+      "test": 0
+    },
+    "profile_days": 167
+  },
+  {
+    "environmental_source": "2019O3",
+    "trajectory_policy": "Iridium_only",
+    "matched_days": {
+      "train": 0,
+      "validation": 0,
+      "calibration": 0,
+      "test": 0
+    },
+    "profile_days": 167
+  },
+  {
+    "environmental_source": "2019O3",
+    "trajectory_policy": "XEOS_only",
+    "matched_days": {
+      "train": 0,
+      "validation": 0,
+      "calibration": 0,
+      "test": 0
+    },
+    "profile_days": 167
+  },
+  {
+    "environmental_source": "2019O3",
+    "trajectory_policy": "nearest_time_both",
+    "matched_days": {
+      "train": 0,
+      "validation": 0,
+      "calibration": 0,
+      "test": 0
+    },
+    "profile_days": 167
+  },
+  {
+    "environmental_source": "2019O4",
+    "trajectory_policy": "Iridium_only",
+    "matched_days": {
+      "train": 0,
+      "validation": 0,
+      "calibration": 0,
+      "test": 0
+    },
+    "profile_days": 167
+  },
+  {
+    "environmental_source": "2019O4",
+    "trajectory_policy": "XEOS_only",
+    "matched_days": {
+      "train": 0,
+      "validation": 0,
+      "calibration": 0,
+      "test": 0
+    },
+    "profile_days": 167
+  },
+  {
+    "environmental_source": "2019O4",
+    "trajectory_policy": "nearest_time_both",
+    "matched_days": {
+      "train": 0,
+      "validation": 0,
+      "calibration": 0,
+      "test": 0
+    },
+    "profile_days": 167
+  },
+  {
+    "environmental_source": "2019O6",
+    "trajectory_policy": "Iridium_only",
+    "matched_days": {
+      "train": 0,
+      "validation": 0,
+      "calibration": 0,
+      "test": 0
+    },
+    "profile_days": 167
+  },
+  {
+    "environmental_source": "2019O6",
+    "trajectory_policy": "XEOS_only",
+    "matched_days": {
+      "train": 0,
+      "validation": 0,
+      "calibration": 0,
+      "test": 0
+    },
+    "profile_days": 167
+  },
+  {
+    "environmental_source": "2019O6",
+    "trajectory_policy": "nearest_time_both",
+    "matched_days": {
+      "train": 0,
+      "validation": 0,
+      "calibration": 0,
+      "test": 0
+    },
+    "profile_days": 167
+  },
+  {
+    "environmental_source": "daily_composite",
+    "trajectory_policy": "Iridium_only",
+    "matched_days": {
+      "train": 97,
+      "validation": 25,
+      "calibration": 8,
+      "test": 0
+    },
+    "profile_days": 165
+  },
+  {
+    "environmental_source": "daily_composite",
+    "trajectory_policy": "XEOS_only",
+    "matched_days": {
+      "train": 58,
+      "validation": 25,
+      "calibration": 16,
+      "test": 12
+    },
+    "profile_days": 165
+  },
+  {
+    "environmental_source": "daily_composite",
+    "trajectory_policy": "nearest_time_both",
+    "matched_days": {
+      "train": 99,
+      "validation": 25,
+      "calibration": 16,
+      "test": 12
+    },
+    "profile_days": 165
+  }
+]

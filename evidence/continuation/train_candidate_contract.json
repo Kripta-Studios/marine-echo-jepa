@@ -1,0 +1,17 @@
+{
+  "id": "train-candidate-qc-v1",
+  "status": "PROSPECTIVE_TRAIN_ONLY_QC_DEVELOPMENT_NOT_R0_APPROVAL",
+  "reviewer_session": "/root/continuation_review",
+  "selection": "Full fixed training day2020-03-03; selected as the existing numerical assay day before acoustic QC outcomes. No validation/calibration/test payloads.",
+  "environment": "Fixed March3 TRAIN50m T/SP/P/c from depth_environment_sensitivity.json, same for every ping; no environmental covariates",
+  "calibration_assumptions": "ASL factory serial55170 certificate and XML; conservative beam-face depth0–10m engineering interval, not measured depth",
+  "proximal": "Every sample centre below10m invalid; conservative protocol proximal exclusion, not a certified nearfield calculation",
+  "orientation": "Preserve raw tilt counts and XML-polynomial tilt_x/y degrees; theta=hypot(x,y); no fabricated pitch/roll. Candidate flags theta nonfinite or >=30deg as outside prospective slant sensitivity; finite beam width remains pending source validation.",
+  "saturation": "Equivalent averaged count>=65535 invalid; partial saturation within14-sample linear averaging is unobservable and explicitly retained as a limitation",
+  "noise": {"method":"Echopype0.11.1 remove_background_noise", "ping_num":1,"range_sample_num":10,"SNR_threshold_db":3,"background_noise_max":null},
+  "bottom": "NOT_APPLIED_BOTTOM_NOT_OBSERVED_OR_VALIDATED; training review must assess whether a prospective detector is needed. No catalog bathymetry inference.",
+  "range": "Four original ordered channels; manufacturer's sample-centre spacing c*N/(2*f); piecewise constant source volumes centre+/-spacing/2; overlap integration in linear sv to2m edges0..128; reject partial range cells, no extrapolation",
+  "temporal": "Trailing15min bins; preserve expected ping count from XML ping period, valid per-frequency/range ping counts and raw timestamps. No support inferred from observed density; no data-dependent future denoising.",
+  "outputs": "Separate immutable TRAIN candidate NPZ, processing manifest, frequency_range_support, configuration_boundaries, coverage_by_day and calibration assumption bindings. Preserve pre-noise Sv, estimated noise, corrected values and masks in bounded source-hour shards.",
+  "promotion": "Candidate only until fractional-support fix, slant sensitivity and independent TRAIN QC review; no registry run or scientific approval generated."
+}

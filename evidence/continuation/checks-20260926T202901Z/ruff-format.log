@@ -1,0 +1,30 @@
+unformatted: File would be reformatted
+   --> tests\scientific\test_preprocessing.py:63:43
+    |
+62  |             values,
+    -             ping_available_times=np.array(
+    -                 ["2020-01-01T00:00:00"], dtype="datetime64[ns]"
+    -             ),
+63  +             ping_available_times=np.array(["2020-01-01T00:00:00"], dtype="datetime64[ns]"),
+64  |         )
+--------------------------------------------------------------------------------
+124 |     assert window.context_mask.shape == (4, 1, 2)
+    -     assert not window.context_mask[
+    -         3
+    -     ].any()  # Late observation unavailable at issue time.
+125 +     assert not window.context_mask[3].any()  # Late observation unavailable at issue time.
+126 |     assert window.target_support[0] == pytest.approx(1.0)
+--------------------------------------------------------------------------------
+193 |     with pytest.raises(ValueError, match="source identities"):
+    -         build_window(
+    -             complete, **(window_args | {"allowed_source_file_ids": {"other-file"}})
+    -         )
+194 +         build_window(complete, **(window_args | {"allowed_source_file_ids": {"other-file"}}))
+195 |     with pytest.raises(ValueError, match="Source identity"):
+    -         build_window(
+    -             complete, **(window_args | {"expected_instrument_id": "other-instrument"})
+    -         )
+196 +         build_window(complete, **(window_args | {"expected_instrument_id": "other-instrument"}))
+    |
+
+1 file would be reformatted, 40 files already formatted

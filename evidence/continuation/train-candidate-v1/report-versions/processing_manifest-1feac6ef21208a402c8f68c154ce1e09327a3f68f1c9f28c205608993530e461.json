@@ -1,0 +1,20 @@
+{
+  "status": "FAILED_INCOMPLETE",
+  "bindings": {
+    "contract_sha256": "b156dd89e2fca0f05a236b6cb6d447d141aa8b95474c1d28249ef4d17fb9d4cd",
+    "protocol_sha256": "8473ecb568d7c102521e7118197a2bbe61426df9d02a0ed7b73933f49ca7815b",
+    "environment_report_sha256": "bb3aa8c36b5a19b56bb30435743956ec842257e6e3ce6a921bfcbabd1a6a8018",
+    "certificate_sha256": "6541fbe21f6af64e0731f53784a2763b87d8527ff79ddcba178bd0dd5eb3f464",
+    "xml_sha256": "8efaf894f10b60a1e80885dd8e38366a72319cf6af64c3b0e914b28f6b6437f7",
+    "code_sha256": "763c18476ef7cf36c47ec20751e0769e5cb20b7d31646de48b4709b3317face6",
+    "qc_code_sha256": "23ecf03e05c245d380dd3b08648ce0a07418ef125955db4eaada2ecc39154f1b",
+    "regrid_code_sha256": "21ef36fa66d4aa762fe1aa85e8a39d03a0a6e61531514d2aa5ae1aef8a4f5b33",
+    "upstream_noise_code_sha256": "63f6b1d7d3f75d6496a5c6af3c4ab2b9435bcc646be5d0261d7c9f5fadd55115",
+    "upstream_range_code_sha256": "d73da1d649b330e964c45d2153b3cf8e55a0c77310a3aad2ea0b372a1786fbfe"
+  },
+  "start": "2020-03-03",
+  "benchmark_eligible": false,
+  "failure": "Nominal15second cadence produced61unique acquisitions in final quarter; legitimate14/16second timestamp jitter. No complete day artifact or eligible-day claim.",
+  "failure_log": "evidence/continuation/train-candidate-preprocess.log",
+  "metadata_audit": "evidence/continuation/train-cadence-failure-audit.log"
+}

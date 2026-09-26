@@ -1,0 +1,26 @@
+{"source": "2019O1", "accepted_T_SP_P_triples": 720232, "rejected_relevant_rows": 128}
+{"source": "2019O3", "accepted_T_SP_P_triples": 573737, "rejected_relevant_rows": 2763}
+{"source": "2019O4", "accepted_T_SP_P_triples": 574410, "rejected_relevant_rows": 1463}
+{"source": "2019O6", "accepted_T_SP_P_triples": 715288, "rejected_relevant_rows": 4942}
+{
+  "status": "FIXED_ENVIRONMENT_SAMPLED_LIMITS_FAILED",
+  "observed_min_T_SP_P": [
+    -1.881,
+    16.21952084742614,
+    1.999711608611088
+  ],
+  "observed_max_T_SP_P": [
+    1.729,
+    34.75628264608123,
+    131.00485866073524
+  ],
+  "max_abs_Sv_delta_db": [
+    0.9053638423789829,
+    2.2447521298987065,
+    2.536896095414299,
+    5.118527036961758
+  ],
+  "max_abs_range_displacement_m": 1.6884271822958485,
+  "upstream_scalar_delta_max_error_db": 6.206146707654625e-14,
+  "elapsed_seconds": 61.7809999999954
+}

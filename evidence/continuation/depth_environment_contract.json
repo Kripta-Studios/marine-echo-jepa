@@ -1,0 +1,17 @@
+{
+  "id": "depth-resolved-regional-envelope-v1",
+  "status": "PROSPECTIVE_DIAGNOSTIC_ONLY_NOT_R0_APPROVAL",
+  "recorded_before_execution": true,
+  "parent_failed_assay": "fixed_environment_sensitivity.json",
+  "rationale": "Independent reviewer requested physically stratified sound-path bounds instead of applying shallow fresh water throughout100m. Prior failed1.080721dB result remains preserved; no acoustic performance was observed.",
+  "source_and_qc": "Exactly the original four SIT sources and daily composite, Feb17 inclusive to Aug2 exclusive, depths0–130m; flags1/2 for SIT, finite composite with unknown quality explicitly retained. No trimming.",
+  "depth_bins_m": "Fixed2m bins [0,2),[2,4),...,[128,130], independent of observed values",
+  "physical_bounds": "Own-coordinate GSW speed and AZFP alpha for every accepted record. Per-bin full rectangular T/SP/P min/max expanded by the original0.05C/0.1SP/1dbar allowances, pressure floor0. Evaluate17^3 Cartesian grid at all four combinations of observed latitude and longitude extrema and retain sampled extrema together with own-coordinate observed extrema. Missing bins and path depths outside0–130 use the original global envelope. No continuous-bound claim.",
+  "nominal": "Same preselected March3 training50m scenario, unchanged",
+  "geometry": "Report diagnostic start depths0–30m every0.25m pending independent external installation evidence. These are sampled scenarios, not an approved deployment-depth interval. Straight downward path only; beam spread/orientation requires separate adequacy review.",
+  "integration": "At nominal range10–100m every0.5m, nominal one-way travel time is r/c0. Invert piecewise travel-time integrals using per-bin minimum and maximum c for physical range bounds. Integrate per-bin minimum alpha to the minimum physical range and maximum alpha to maximum range. Bound local pulse-volume c independently across every bin intersecting the possible endpoint interval. DeltaSv=20log10(r_actual/r_nominal)-10log10(c_local/c0)+2integral(alpha dr)-2alpha0*r_nominal; extrema combine conservatively.",
+  "same_gates": {"primary38_max_absolute_Sv_delta_db":1.0,"max_absolute_range_displacement_m":2.0},
+  "coverage": "Record accepted counts and distinct source/day counts by depth bin, rejected flags per source, missing-bin fallback and own-coordinate provenance. Absence of data fails local applicability; global fallback is diagnostic only.",
+  "verification": "Analytic synthetic homogeneous and two-layer travel-time/absorption tests before source execution. Existing real TRAIN upstream comparison remains separate evidence; no new test acoustic arrays.",
+  "decision": "A numerical pass alone cannot approve R0: geometry, regional envelope adequacy, continuous extrema, nearfield/noise/saturation/configuration masks and real eligible-day counts remain independent prerequisites. Retain every failed result."
+}

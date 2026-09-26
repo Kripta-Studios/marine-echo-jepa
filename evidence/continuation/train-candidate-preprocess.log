@@ -1,0 +1,31 @@
+{"file": "20030300.01A", "pings": 240, "elapsed_s": 7.811999999998079}
+{"file": "20030301.01A", "pings": 240, "elapsed_s": 15.328000000001339}
+{"file": "20030302.01A", "pings": 240, "elapsed_s": 21.781000000002678}
+{"file": "20030303.01A", "pings": 240, "elapsed_s": 27.421000000002095}
+{"file": "20030304.01A", "pings": 240, "elapsed_s": 30.718000000000757}
+{"file": "20030305.01A", "pings": 240, "elapsed_s": 32.875}
+{"file": "20030306.01A", "pings": 4, "elapsed_s": 33.296000000002095}
+{"file": "20030307.01A", "pings": 57, "elapsed_s": 34.01499999999942}
+{"file": "20030308.01A", "pings": 240, "elapsed_s": 35.65600000000268}
+{"file": "20030309.01A", "pings": 240, "elapsed_s": 37.046000000002095}
+{"file": "20030310.01A", "pings": 240, "elapsed_s": 38.31199999999808}
+{"file": "20030311.01A", "pings": 240, "elapsed_s": 39.76499999999942}
+{"file": "20030312.01A", "pings": 240, "elapsed_s": 41.13999999999942}
+{"file": "20030313.01A", "pings": 240, "elapsed_s": 42.65600000000268}
+{"file": "20030314.01A", "pings": 240, "elapsed_s": 43.93699999999808}
+{"file": "20030315.01A", "pings": 240, "elapsed_s": 45.32800000000134}
+{"file": "20030316.01A", "pings": 240, "elapsed_s": 46.625}
+{"file": "20030317.01A", "pings": 240, "elapsed_s": 48.046000000002095}
+{"file": "20030318.01A", "pings": 240, "elapsed_s": 49.34300000000076}
+{"file": "20030319.01A", "pings": 240, "elapsed_s": 50.63999999999942}
+{"file": "20030320.01A", "pings": 240, "elapsed_s": 51.71800000000076}
+{"file": "20030321.01A", "pings": 240, "elapsed_s": 52.71800000000076}
+{"file": "20030322.01A", "pings": 240, "elapsed_s": 54.06199999999808}
+{"file": "20030323.01A", "pings": 241, "elapsed_s": 56.06199999999808}
+Traceback (most recent call last):
+  File "C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tools\preprocess_train_candidate.py", line 336, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tools\preprocess_train_candidate.py", line 233, in main
+    raise ValueError("More acquisitions than the registered cadence permits")
+ValueError: More acquisitions than the registered cadence permits

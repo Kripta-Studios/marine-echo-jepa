@@ -1,0 +1,11 @@
+{
+  "id": "slant-path-physics-v1",
+  "status": "PROSPECTIVE_SENSITIVITY_BEFORE_CORPUS_PROMOTION",
+  "depth_report_sha256": "bb3aa8c36b5a19b56bb30435743956ec842257e6e3ce6a921bfcbabd1a6a8018",
+  "rationale": "TRAIN metadata has actual XML-polynomial tilt; vertical ray assumption needs prospective sensitivity. No validation/test outcomes or forecast metrics inspected.",
+  "sources_and_equations": "Reuse exact reviewed per-depth c/alpha bounds, original regional sources/QC/allowances/fixed nominal, no recomputed or trimmed envelope",
+  "geometry": "Start depth0–10m every0.25m engineering bracket, ray angle0–45degrees every1degree from downward vertical; extension past reviewer0–30 recommendation includes conservative finite-beam allowance. Not measured beam width or exact field geometry.",
+  "integration": "Straight slant path through horizontal2m strata: map vertical-depth edges to along-ray distances by division by cos(angle), integrate/invert piecewise slowness and alpha exactly; evaluate nominal slant ranges10–100m every0.5m; independent local-volume speed bound across possible endpoints",
+  "same_gates": {"primary38_max_absolute_Sv_delta_db":1.0,"max_absolute_range_displacement_m":2.0},
+  "limits": "Sampled grid, no continuous proof or ray-bending correction; actual tilt and finite beam limits still need TRAIN QC review. No test acoustic reads. Preserve all earlier results."
+}

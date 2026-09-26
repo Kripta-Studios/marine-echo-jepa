@@ -1,0 +1,18 @@
+{
+  "files": [
+    {
+      "buoy": "2019O1",
+      "doi": "10.1594/PANGAEA.940271",
+      "url": "https://doi.pangaea.de/10.1594/PANGAEA.940271?format=textfile",
+      "status": "DOWNLOADED_UNVALIDATED_APPLICABILITY",
+      "path": "data/raw/environment/mosaic_sit/940271-2019O1.tsv",
+      "bytes": 124982979,
+      "sha256": "e784c313c1ce733a3dfb4c8a156f919c6e710cf8002842457ef9aa11309361ad",
+      "fetched_at": "2026-09-26T20:46:17.256706+00:00",
+      "license": "CC-BY-4.0",
+      "seconds": 10.656999999999243
+    }
+  ],
+  "selection": "All four recovered SIT units; no outcome selection",
+  "benchmark_eligible": false
+}

@@ -44,3 +44,37 @@ diagnostic checkpoint, not completion of the requested P0 forecasting MVP.
 
 Durable continuation: `../orchestration/STATUS.md`, per-task checkpoint, run ledger, reviews,
 ADR0003 and actual logs. Do not substitute models, relax the protocol or relabel raw counts.
+
+## Continuation evidence — historical payload unchanged
+
+The statements above describe r2 at packaging time. In the continuation the native builder
+and distinct independent reviewer became available. They have provided narrow engineering
+and factory-certificate reviews, but no R0/R1 corpus approval, R2 approval or R3 release approval.
+No new release is represented by these reviews; r2 remains the historical diagnostic.
+
+Its ZIP hash and payload integrity were rechecked unchanged. A fresh relocated browser run
+passed all five tests in 34.5 s, with navigation p95 190.143 ms over 20 changes. This does not
+replace the historical 185 ms result. See `evidence/continuation/browser-relocated.log` and
+`navigation-latency-relocated.json`. Existing and current serializations of the raw replay
+have different byte hashes but equal parsed content; both are preserved.
+
+The serial55170 factory certificate was recovered from swapped registry attachments, and
+the reviewer accepted its XML coefficient mapping. Environmental matching across both
+trackers yields 12/24 candidate test profile days within the illustrative 5 km/24 h screen;
+that is neither calibration approval nor the required 20 eligible test days. The prospective
+fixed regional sensitivity assay failed its primary bound (1.080721 dB > 1 dB). Its failure
+and the subsequent depth-resolved investigation remain in `evidence/continuation/`.
+
+All 25 required benchmark runs remain BLOCKED, with zero completed runs. Approved physical
+days are zero; actual post-QC eligible-day counts are NOT_ESTABLISHED. Replay exposure audit
+found only known training-period acoustic artifacts, but incomplete historical viewing records
+prevent a claim that the candidate holdout is sealed. No new diagnostic ZIP was produced.
+
+
+Continuation integration on27 September (local time), before final census/CLI changes:
+`evidence/continuation/checks-20260926T222119Z/checks.json` records all12 check commands
+exiting0 without resource stops.177 app/data/scientific/security/API tests passed; model
+software11 passed/2 opt-in GPU checks skipped; frontend2 and browser5 passed. Formatting,
+lint, app/model types, frontend build and unchanged historicalr2 integrity passed.
+Peak sampled check process-tree RAM0.8313GiB. These are software checks, not benchmarks,
+new physical corpus approval, a new release, or a new full-training memory measurement.

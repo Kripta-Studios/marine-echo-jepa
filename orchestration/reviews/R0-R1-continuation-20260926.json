@@ -1,0 +1,93 @@
+{
+  "review_id": "R0-R1-continuation-20260926",
+  "reviewer_session": "/root/continuation_review",
+  "configured_role": "independent_reviewer: GPT-5.6 Sol, high, read-only",
+  "record_author": "/root",
+  "record_kind": "Coordinator transcription of the independent session's returned findings; not coordinator approval",
+  "inspected_commit": "e72c46f630e589dc261c5c48b0e3e82f0a054752",
+  "verdict": "REQUEST_CHANGES",
+  "R0": "BLOCKED",
+  "R1": "REQUEST_CHANGES",
+  "R2": "NOT_ELIGIBLE",
+  "R3": "NOT_REVIEWED",
+  "approval": false,
+  "test_acoustic_outcomes_opened": false,
+  "reviewer_executed_pytest": false,
+  "reviewer_writes": false,
+  "limited_diagnostic_acceptance": [
+    "Echopype 0.11.1 executed on fixed training file 20030300.01A.",
+    "Channel order and XML coefficient mapping agree.",
+    "Scalar reconstruction discrepancy is 2.84e-14 dB; this verifies numerical implementation consistency, not physical corpus calibration.",
+    "GSW 3.6.23 conversion is pinned; physical calibration is distinct from interval calibration."
+  ],
+  "critical_environmental_finding": {
+    "screen": "Illustrative, unapproved <=5 km / <=24 h",
+    "matched_profile_days": {"train": 97, "validation": 25, "calibration": 8, "test": 0},
+    "test_profiles": 24,
+    "test_calendar_days": 26,
+    "test_matches_within_10km": 0,
+    "test_matches_within_25km": 3,
+    "test_separation_km_min_max": [17.24, 123.34],
+    "disposition": "Current compiled MOSAiC profiles cannot support 20 valid final-test days as close environmental matches. Do not relax thresholds to recover eligibility.",
+    "availability": "All profile available_at fields are null; none qualifies as a forecast-time predictor input."
+  },
+  "required_external_evidence": [
+    "Co-located or scientifically validated temperature/salinity/pressure-depth records, especially 2020-07-07 through 2020-08-02, with source identity, location, time, units, QC and availability.",
+    "Alternatively, an independently reviewed fixed-parameter calibration with full-deployment sensitivity independent of forecast scores.",
+    "Authoritative installation-specific thermistor water-temperature evidence plus salinity/pressure provenance if that route is used.",
+    "Resolve manual serial 55169 versus XML/DPL 55170 or obtain calibration evidence tied to 55170.",
+    "Reviewed transducer-depth uncertainty and sound-path integration rule; retain transducer-relative range.",
+    "Independent numerical reference including finite per-frequency ranges and XML 1465 m/s discrepancy."
+  ],
+  "trajectory_findings": {
+    "accepted_code1": 1560,
+    "rejected_code6": 448,
+    "duplicate_timestamps": 1,
+    "maximum_gap_hours": 582.8,
+    "maximum_implied_speed_km_h": 9.67,
+    "xeos_comparisons_within_60_minutes": 318,
+    "xeos_separation_km_median_p95_max": [0.004, 0.538, 1.647],
+    "remaining": "Prospective duplicate/gap/speed QC and fix-code semantics remain unresolved; XEOS comparison supports coordinate parsing."
+  },
+  "environment_helper_findings_at_review": [
+    "Reject availability before observation and non-Boolean quality verification.",
+    "Fail closed on equally recent ambiguous environmental sources.",
+    "Reject nonintegral Iridium degree fields.",
+    "Add precise independent salinity, in-situ-temperature and sound-speed references.",
+    "Saved green logs predate new tests; rerun after fixes."
+  ],
+  "R1_material_findings": [
+    "Prevent test target materialization before verified R2 authorization.",
+    "Enforce 96 context bins, horizons 1/3/6 and 0.8 support against protocol and split identities.",
+    "Do not silently drop partially overlapping range cells from the target denominator.",
+    "Validate source/configuration SHA-256 and propagate all data/calibration/processing/split identities and deterministic row IDs.",
+    "Enforce the frozen context missingness/discontinuity rule before eligibility.",
+    "Future day store must prove cross-partition raw-timestamp and source disjointness without opening test truth."
+  ],
+  "exposure_disposition": "NO_KNOWN_TEST_OUTCOME_EXPOSURE_IN_AUDITED_REPLAYS_NOT_PROOF_OF_SEAL",
+  "exposure_limitations": "Human browser history, discarded artifacts and prior agent context cannot be reconstructed. All audited replays show training day 2020-02-17. Environmental applicability inspection is not acoustic outcome exposure.",
+  "replay_lineage": {
+    "tracked_bytes": 603402,
+    "tracked_sha256": "5bbf9ce4dcd89f49d304d29bb50dada6e495a0b827bce2654791e86ff424699c",
+    "packaged_bytes": 629805,
+    "packaged_sha256": "68240f4e6d75eef0c6890dbbb658468b45ff0f4ea95eb2ec1e41084de200beea",
+    "reviewer_semantic_comparison": "Metadata and all 96 parsed rows are equal; preserve both serializations."
+  },
+  "fallback": {
+    "status": "RESOURCE_PLAN_BLOCKED",
+    "estimated_raw_mib_per_day": 724,
+    "optimistic_calendar_days_needed": 134,
+    "estimated_raw_gib": 94.7,
+    "raw_data_limit_gib": 40,
+    "basis": "Existing adjacent OOI inventories, 60/15/10/15 split and context containment. One diagnostic file is not a corpus. No download or dataset switch approved."
+  },
+  "inspected_snapshot_hashes": {
+    "environment.py": "b770cf3b367e2eca267a54058bc017be5e532538f751ce3ecc3077362649d501",
+    "calibration_report.json": "038641b8d957546d9a2ffc648c710d51c7b00f9c71557e5e05200755cf22d2a0",
+    "preprocessing.py": "0c4f410359ea86271a04635513260e47cd7310a7f96783e6bf38e2f6b690a203",
+    "test_preprocessing.py": "ec5898991aff18929110e36a93430127255a68799877ec3699703ccfca012bbe",
+    "state_audit.json": "7bd2c8f2c53836743e7c5f6f1654ee8e2d0d891d03f67f5237a2b9d58bf7117d",
+    "protocol.json": "8473ecb568d7c102521e7118197a2bbe61426df9d02a0ed7b73933f49ca7815b"
+  },
+  "subsequent_fixes_require_incremental_review": true
+}
