@@ -1,0 +1,13 @@
+{
+  "id": "train-any-fixed-38khz-band-necessary-bound-v1",
+  "status": "PROPOSED_PENDING_INDEPENDENT_METHOD_REVIEW",
+  "scope": "TRAIN-only necessary support upper bound for any fixed band with nonnegative cell weights and positive total weight over all 64 existing 38 kHz 2 m range cells. This cannot select a band or amend the original 10–100 m target.",
+  "calendar": "Exactly 100 UTC TRAIN days, 2020-02-17 inclusive to 2020-05-27 exclusive; hourly cutoffs 0,4,... with complete six-hour future inside TRAIN",
+  "fixed_grid": "38 kHz is channel zero of ordered [38000,125000,200000,455000] Hz; 64 range cells with edges 0,2,...,128 m",
+  "support": "For each future horizon offset 0,8,20 quarter-hours, sum valid ping counts over its four bins separately per 38 kHz cell. Divide by the common sum of effective counts over those four bins; effective=max(XML nominal expected, observed unique). Any fixed nonnegative-weight band support cannot exceed the largest cell support. An anchor passes this generous necessary bound if at least one cell meets exact 80 percent in each horizon, even if the cell differs by horizon or anchor.",
+  "decision": "Count unique UTC cutoff dates meeting all three necessary horizon checks. Add 67 unmeasured non-TRAIN calendar days. If below the frozen 90-day overall minimum, report D1_INELIGIBLE_ANY_38KHZ_BAND_SUPPORT_UPPER_BOUND; otherwise NO_GLOBAL_INELIGIBILITY_CONCLUSION.",
+  "prerequisites": "Exact independently reviewed completed census-v2, original target-only report, independently approved and recomputed complete TRAIN support map, and separately accepted published support-map result with exact SHA. Own method code and contract need an independent exact-hash review record before execution.",
+  "integrity": "Only count/time/grid NPZ fields from every verified TRAIN day, allow_pickle=False. Recheck expected, observed, effective=max(expected,observed)>0 and 0<=valid<=observed<=effective, exact 100-day calendar and 2 m grid. No Sv or held-out payload access.",
+  "output": "Exclusive durable evidence/continuation/any_band_bound.json with status, fixed assumptions, counts, qualifying cutoff dates and exact evidence hashes. No cell identities, band rankings, maximizer vectors, model metrics, or selected range interval.",
+  "limitations": "Necessary bound only: it allows different winning cells across horizons and anchors, ignores context, source configuration and physical/product utility. Passing it does not establish an eligible fixed band, R0/R1, a benchmark, or an amended protocol."
+}

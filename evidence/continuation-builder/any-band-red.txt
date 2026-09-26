@@ -1,0 +1,261 @@
+FFFFFFFFFF                                                               [100%]
+================================== FAILURES ===================================
+________ test_exact_80_boundary_allows_different_cells_across_horizons ________
+
+    def test_exact_80_boundary_allows_different_cells_across_horizons() -> None:
+>       module = _module()
+                 ^^^^^^^^^
+
+tests\scientific\test_any_band_bound.py:31: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\scientific\test_any_band_bound.py:17: in _module
+    spec.loader.exec_module(module)
+<frozen importlib._bootstrap_external>:995: in exec_module
+    ???
+<frozen importlib._bootstrap_external>:1132: in get_code
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_frozen_importlib_external.SourceFileLoader object at 0x000002747FDD2180>
+path = 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\tools\\any_band_bound.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\tools\\any_band_bound.py'
+
+<frozen importlib._bootstrap_external>:1190: FileNotFoundError
+___________ test_cross_day_and_last_day_cutoffs_use_cutoff_utc_date ___________
+
+    def test_cross_day_and_last_day_cutoffs_use_cutoff_utc_date() -> None:
+>       module = _module()
+                 ^^^^^^^^^
+
+tests\scientific\test_any_band_bound.py:45: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\scientific\test_any_band_bound.py:17: in _module
+    spec.loader.exec_module(module)
+<frozen importlib._bootstrap_external>:995: in exec_module
+    ???
+<frozen importlib._bootstrap_external>:1132: in get_code
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_frozen_importlib_external.SourceFileLoader object at 0x000002747FDD0650>
+path = 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\tools\\any_band_bound.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\tools\\any_band_bound.py'
+
+<frozen importlib._bootstrap_external>:1190: FileNotFoundError
+____ test_any_cell_is_a_generous_bound_for_every_nonnegative_weighted_band ____
+
+    def test_any_cell_is_a_generous_bound_for_every_nonnegative_weighted_band() -> None:
+>       module = _module()
+                 ^^^^^^^^^
+
+tests\scientific\test_any_band_bound.py:55: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\scientific\test_any_band_bound.py:17: in _module
+    spec.loader.exec_module(module)
+<frozen importlib._bootstrap_external>:995: in exec_module
+    ???
+<frozen importlib._bootstrap_external>:1132: in get_code
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_frozen_importlib_external.SourceFileLoader object at 0x000002747FDD2C90>
+path = 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\tools\\any_band_bound.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\tools\\any_band_bound.py'
+
+<frozen importlib._bootstrap_external>:1190: FileNotFoundError
+______________ test_overall_day_minimum_status_boundary_is_exact ______________
+
+    def test_overall_day_minimum_status_boundary_is_exact() -> None:
+>       module = _module()
+                 ^^^^^^^^^
+
+tests\scientific\test_any_band_bound.py:81: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\scientific\test_any_band_bound.py:17: in _module
+    spec.loader.exec_module(module)
+<frozen importlib._bootstrap_external>:995: in exec_module
+    ???
+<frozen importlib._bootstrap_external>:1132: in get_code
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_frozen_importlib_external.SourceFileLoader object at 0x000002747FDD38C0>
+path = 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\tools\\any_band_bound.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\tools\\any_band_bound.py'
+
+<frozen importlib._bootstrap_external>:1190: FileNotFoundError
+_____________ test_day_count_validation_fails_closed[float_valid] _____________
+
+field = 'float_valid'
+
+    @pytest.mark.parametrize("field", ["float_valid", "negative", "above_observed", "wrong_effective", "frequency"])
+    def test_day_count_validation_fails_closed(field: str) -> None:
+>       module = _module()
+                 ^^^^^^^^^
+
+tests\scientific\test_any_band_bound.py:90: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\scientific\test_any_band_bound.py:17: in _module
+    spec.loader.exec_module(module)
+<frozen importlib._bootstrap_external>:995: in exec_module
+    ???
+<frozen importlib._bootstrap_external>:1132: in get_code
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_frozen_importlib_external.SourceFileLoader object at 0x000002747FDE74A0>
+path = 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\tools\\any_band_bound.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\tools\\any_band_bound.py'
+
+<frozen importlib._bootstrap_external>:1190: FileNotFoundError
+______________ test_day_count_validation_fails_closed[negative] _______________
+
+field = 'negative'
+
+    @pytest.mark.parametrize("field", ["float_valid", "negative", "above_observed", "wrong_effective", "frequency"])
+    def test_day_count_validation_fails_closed(field: str) -> None:
+>       module = _module()
+                 ^^^^^^^^^
+
+tests\scientific\test_any_band_bound.py:90: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\scientific\test_any_band_bound.py:17: in _module
+    spec.loader.exec_module(module)
+<frozen importlib._bootstrap_external>:995: in exec_module
+    ???
+<frozen importlib._bootstrap_external>:1132: in get_code
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_frozen_importlib_external.SourceFileLoader object at 0x000002747FDE48F0>
+path = 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\tools\\any_band_bound.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\tools\\any_band_bound.py'
+
+<frozen importlib._bootstrap_external>:1190: FileNotFoundError
+___________ test_day_count_validation_fails_closed[above_observed] ____________
+
+field = 'above_observed'
+
+    @pytest.mark.parametrize("field", ["float_valid", "negative", "above_observed", "wrong_effective", "frequency"])
+    def test_day_count_validation_fails_closed(field: str) -> None:
+>       module = _module()
+                 ^^^^^^^^^
+
+tests\scientific\test_any_band_bound.py:90: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\scientific\test_any_band_bound.py:17: in _module
+    spec.loader.exec_module(module)
+<frozen importlib._bootstrap_external>:995: in exec_module
+    ???
+<frozen importlib._bootstrap_external>:1132: in get_code
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_frozen_importlib_external.SourceFileLoader object at 0x000002747FDE5580>
+path = 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\tools\\any_band_bound.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\tools\\any_band_bound.py'
+
+<frozen importlib._bootstrap_external>:1190: FileNotFoundError
+___________ test_day_count_validation_fails_closed[wrong_effective] ___________
+
+field = 'wrong_effective'
+
+    @pytest.mark.parametrize("field", ["float_valid", "negative", "above_observed", "wrong_effective", "frequency"])
+    def test_day_count_validation_fails_closed(field: str) -> None:
+>       module = _module()
+                 ^^^^^^^^^
+
+tests\scientific\test_any_band_bound.py:90: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\scientific\test_any_band_bound.py:17: in _module
+    spec.loader.exec_module(module)
+<frozen importlib._bootstrap_external>:995: in exec_module
+    ???
+<frozen importlib._bootstrap_external>:1132: in get_code
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_frozen_importlib_external.SourceFileLoader object at 0x000002747FDE6270>
+path = 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\tools\\any_band_bound.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\tools\\any_band_bound.py'
+
+<frozen importlib._bootstrap_external>:1190: FileNotFoundError
+______________ test_day_count_validation_fails_closed[frequency] ______________
+
+field = 'frequency'
+
+    @pytest.mark.parametrize("field", ["float_valid", "negative", "above_observed", "wrong_effective", "frequency"])
+    def test_day_count_validation_fails_closed(field: str) -> None:
+>       module = _module()
+                 ^^^^^^^^^
+
+tests\scientific\test_any_band_bound.py:90: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\scientific\test_any_band_bound.py:17: in _module
+    spec.loader.exec_module(module)
+<frozen importlib._bootstrap_external>:995: in exec_module
+    ???
+<frozen importlib._bootstrap_external>:1132: in get_code
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_frozen_importlib_external.SourceFileLoader object at 0x000002747FDE6F30>
+path = 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\tools\\any_band_bound.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\tools\\any_band_bound.py'
+
+<frozen importlib._bootstrap_external>:1190: FileNotFoundError
+_____ test_published_map_requires_exact_acceptance_and_recomputed_content _____
+
+tmp_path = WindowsPath('C:/Users/Álvaro Schwiedop/AppData/Local/Temp/pytest-of-Álvaro Schwiedop/pytest-3741/test_published_map_requires_ex0')
+
+    def test_published_map_requires_exact_acceptance_and_recomputed_content(tmp_path: Path) -> None:
+>       module = _module()
+                 ^^^^^^^^^
+
+tests\scientific\test_any_band_bound.py:115: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\scientific\test_any_band_bound.py:17: in _module
+    spec.loader.exec_module(module)
+<frozen importlib._bootstrap_external>:995: in exec_module
+    ???
+<frozen importlib._bootstrap_external>:1132: in get_code
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_frozen_importlib_external.SourceFileLoader object at 0x000002747FDD3D70>
+path = 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\tools\\any_band_bound.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\tools\\any_band_bound.py'
+
+<frozen importlib._bootstrap_external>:1190: FileNotFoundError
+=========================== short test summary info ===========================
+FAILED tests/scientific/test_any_band_bound.py::test_exact_80_boundary_allows_different_cells_across_horizons
+FAILED tests/scientific/test_any_band_bound.py::test_cross_day_and_last_day_cutoffs_use_cutoff_utc_date
+FAILED tests/scientific/test_any_band_bound.py::test_any_cell_is_a_generous_bound_for_every_nonnegative_weighted_band
+FAILED tests/scientific/test_any_band_bound.py::test_overall_day_minimum_status_boundary_is_exact
+FAILED tests/scientific/test_any_band_bound.py::test_day_count_validation_fails_closed[float_valid]
+FAILED tests/scientific/test_any_band_bound.py::test_day_count_validation_fails_closed[negative]
+FAILED tests/scientific/test_any_band_bound.py::test_day_count_validation_fails_closed[above_observed]
+FAILED tests/scientific/test_any_band_bound.py::test_day_count_validation_fails_closed[wrong_effective]
+FAILED tests/scientific/test_any_band_bound.py::test_day_count_validation_fails_closed[frequency]
+FAILED tests/scientific/test_any_band_bound.py::test_published_map_requires_exact_acceptance_and_recomputed_content
+10 failed in 5.12s
