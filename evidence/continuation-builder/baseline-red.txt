@@ -1,0 +1,12 @@
+Baseline executor TDD RED observations in the isolated core worktree:
+- Initial integration test collection failed with ModuleNotFoundError for
+  marine_echo.evaluation.baseline_runner before the executor was implemented (exit 2).
+- After the first implementation, all three tests failed because the synthetic
+  calibration fixture used a text-normalized digest rather than exact report bytes
+  (exit 1). The fixture digest was corrected.
+- The next run passed adapter/scaler tests but the runner failed on Windows when
+  fsync was called on a read-only staging NPZ descriptor (1 failed, 2 passed; exit 1).
+  The descriptor was opened read/write for the durability call.
+Original stdout streams for these RED runs were not saved; these are observed
+failure summaries, not reconstructed transcripts. No public acoustic values,
+protected test outcomes, or production benchmark results were inspected.
