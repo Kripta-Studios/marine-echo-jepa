@@ -357,8 +357,7 @@ function App() {
               label: "Release class",
               value: evidence?.release_class ?? "ENGINEERING_DEMO_ONLY",
               detail:
-                evidence?.release_class ===
-                "OFFLINE_RESEARCH_ENGINEERING_ONLY"
+                evidence?.release_class === "OFFLINE_RESEARCH_ENGINEERING_ONLY"
                   ? "Offline research engineering only. Calibrated core and final evaluation remain blocked."
                   : "The full P0 forecasting MVP is incomplete.",
             },

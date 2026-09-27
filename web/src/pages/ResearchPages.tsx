@@ -654,7 +654,10 @@ export function ExperimentLabPage({
         </div>
       </section>
 
-      <section className="panel raw-development-panel" aria-labelledby="raw-development-title">
+      <section
+        className="panel raw-development-panel"
+        aria-labelledby="raw-development-title"
+      >
         <SectionHeading
           eyebrow="REAL TRAIN DEVELOPMENT · ENGINEERING ONLY"
           title="Raw response-code TRAIN development"
@@ -738,7 +741,9 @@ function RawDevelopmentResult({
         </div>
         <div>
           <dt>Calibration</dt>
-          <dd>{evidence.calibrated ? "Calibrated" : "Uncalibrated · not Sv"}</dd>
+          <dd>
+            {evidence.calibrated ? "Calibrated" : "Uncalibrated · not Sv"}
+          </dd>
         </div>
         <div>
           <dt>Final evaluation</dt>
@@ -758,14 +763,26 @@ function RawDevelopmentResult({
         aria-label="Scrollable three-horizon development metrics"
       >
         <table className="raw-development-metrics">
-          <caption>Recorded TRAIN-development metrics by forecast horizon</caption>
+          <caption>
+            Recorded TRAIN-development metrics by forecast horizon
+          </caption>
           <thead>
             <tr>
-              <th scope="col" rowSpan={2}>Horizon</th>
-              <th scope="col" rowSpan={2}>Eligible rows</th>
-              <th scope="col" rowSpan={2}>Target days</th>
-              <th scope="colgroup" colSpan={2}>Ridge</th>
-              <th scope="colgroup" colSpan={2}>Direct neural</th>
+              <th scope="col" rowSpan={2}>
+                Horizon
+              </th>
+              <th scope="col" rowSpan={2}>
+                Eligible rows
+              </th>
+              <th scope="col" rowSpan={2}>
+                Target days
+              </th>
+              <th scope="colgroup" colSpan={2}>
+                Ridge
+              </th>
+              <th scope="colgroup" colSpan={2}>
+                Direct neural
+              </th>
             </tr>
             <tr>
               <th scope="col">Daily mean pinball (code)</th>
@@ -798,7 +815,9 @@ function RawDevelopmentResult({
       >
         <table className="raw-development-predictions">
           <caption>
-            All TRAIN-development predictions and truths · {evidence.rows.length} cutoffs · {predictionRows.length} cutoff-by-horizon rows · no rows omitted
+            All TRAIN-development predictions and truths ·{" "}
+            {evidence.rows.length} cutoffs · {predictionRows.length}{" "}
+            cutoff-by-horizon rows · no rows omitted
           </caption>
           <thead>
             <tr>
@@ -818,9 +837,19 @@ function RawDevelopmentResult({
                 <td>{row.horizon_hours} h</td>
                 <td>{row.target_start_utc}</td>
                 <td>{row.eligible ? "Eligible" : "Ineligible"}</td>
-                <td>{row.truth_code === null ? "Not scored" : String(row.truth_code)}</td>
-                <td><code>{row.ridge_quantiles_code.map(String).join(", ")}</code></td>
-                <td><code>{row.direct_quantiles_code.map(String).join(", ")}</code></td>
+                <td>
+                  {row.truth_code === null
+                    ? "Not scored"
+                    : String(row.truth_code)}
+                </td>
+                <td>
+                  <code>{row.ridge_quantiles_code.map(String).join(", ")}</code>
+                </td>
+                <td>
+                  <code>
+                    {row.direct_quantiles_code.map(String).join(", ")}
+                  </code>
+                </td>
               </tr>
             ))}
           </tbody>
