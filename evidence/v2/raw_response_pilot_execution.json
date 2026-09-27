@@ -1,0 +1,17 @@
+{
+  "study_id": "raw_response_development_v1",
+  "processing_run_id": "raw_response_pilot_v1_20260927",
+  "data_kind": "REAL",
+  "command": ".venv/Scripts/python.exe -m tools.v2_process_raw_response --start 2020-02-17 --end-exclusive 2020-02-18 --review orchestration/reviews/V2_RAW_RESPONSE_PILOT_20260927.json",
+  "exit_code": 0,
+  "day": "2020-02-17",
+  "worker_elapsed_seconds": 32.453,
+  "log_path": "evidence/v2/raw_response_pilot.log",
+  "log_sha256": "1b9f6318fca627ee6368bbf7d5d6b8727b59dc58ac14c35dfc887f312bc2093d",
+  "pilot_index_sha256": "5a61d46b9da1aefb766a87ffb6271961848016f6eebdd15e95cfa6b8b2107526",
+  "pilot_manifest_sha256": "3193745270fc3f407e9b8b7db4dc061354308d0e15ed0e523c92e039274a644e",
+  "pilot_shard_sha256": "aca431ab66e07a5b82777a48a78dfa9043380b59b326e7063dfa7a39dec5e149",
+  "verification_sha256": "8de623d3d0d0038d00c96fa0780bcae16ff11605087e27da68f1c75b62beb89a",
+  "pilot_used_for_full_support": false,
+  "model_fits": 0
+}

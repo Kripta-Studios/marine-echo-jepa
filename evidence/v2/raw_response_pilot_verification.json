@@ -1,0 +1,19 @@
+{
+  "study_id": "raw_response_development_v1",
+  "day": "2020-02-17",
+  "index_sha256": "5a61d46b9da1aefb766a87ffb6271961848016f6eebdd15e95cfa6b8b2107526",
+  "manifest_sha256": "3193745270fc3f407e9b8b7db4dc061354308d0e15ed0e523c92e039274a644e",
+  "shard_sha256": "aca431ab66e07a5b82777a48a78dfa9043380b59b326e7063dfa7a39dec5e149",
+  "source_hashes_recomputed": 48,
+  "observed_pings": 5713,
+  "valid_target_pings": 5713,
+  "zero_only_target_pings": 0,
+  "zero_affected_pings": 0,
+  "zero_affected_quarter_hours": 0,
+  "nonfinite_target_pings": 0,
+  "target_code_samples": 1028340,
+  "profile_code_samples": 4113360,
+  "sampled_process_rss_gib": 0.190155029296875,
+  "worker_elapsed_seconds": 32.45300000000043,
+  "quantity": "complete_positive_azfp_backscatter_r_code_mean; not calibrated Sv"
+}

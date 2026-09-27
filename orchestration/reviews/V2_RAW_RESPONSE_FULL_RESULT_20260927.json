@@ -1,0 +1,14 @@
+{
+  "record_type": "COORDINATOR_TRANSCRIPTION_OF_DISTINCT_REVIEWER_MESSAGE",
+  "reviewer_session": "/root/v2_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "host_permissions": "danger-full-access; behavioral read-only",
+  "disposition": "APPROVE_RAW_RESPONSE_PROCESSING_RESULT",
+  "index_sha256": "c6754334465b32e15bdfdcc9799b75408775ed38c19c3e7a93ea6c49dde869d1",
+  "execution_sha256": "b7cf1a18247f08aac68f634b24013e7c5753138b4fa6d91f44c585bc64a811a0",
+  "log_sha256": "692a8893a83c600424cc1e1818cc1003e7917c3d6bc040a4386bb0551f4427d7",
+  "verification_sha256": "e6a59881de809f4c189ecda7d325b32f285e0fddaca7b9d9280af90b2d41baa2",
+  "independent_checks": "All 58 manifest/shard hashes, per-day UTC timestamp bounds and 15-minute histograms, manifest count reconciliation and QC arrays. Observed and valid target pings both 259083; zero ambiguous/nonfinite pings and samples. Reviewer inspected rather than reran the 1330-source rehash evidence and did not inspect response sums.",
+  "scope": "Exact completed fixed TRAIN raw-response corpus only. Does not approve support method, model fitting, calibrated acoustic claims, validation/test payloads or release."
+}

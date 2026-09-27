@@ -1,0 +1,17 @@
+{
+  "record_type": "COORDINATOR_TRANSCRIPTION_OF_DISTINCT_REVIEWER_MESSAGE",
+  "reviewer_session": "/root/v2_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "host_permissions": "danger-full-access; behavioral read-only",
+  "disposition": "APPROVE_PILOT_RESULT_NO_FULL_RANGE_AUTHORIZATION",
+  "index_sha256": "5a61d46b9da1aefb766a87ffb6271961848016f6eebdd15e95cfa6b8b2107526",
+  "manifest_sha256": "3193745270fc3f407e9b8b7db4dc061354308d0e15ed0e523c92e039274a644e",
+  "shard_sha256": "aca431ab66e07a5b82777a48a78dfa9043380b59b326e7063dfa7a39dec5e149",
+  "verification_sha256": "8de623d3d0d0038d00c96fa0780bcae16ff11605087e27da68f1c75b62beb89a",
+  "review_gate_sha256": "d123649b06a9804911ea3970eec7d720b10a559764c716217c75eef9fa1bb929",
+  "stdout_log_sha256": "1b9f6318fca627ee6368bbf7d5d6b8727b59dc58ac14c35dfc887f312bc2093d",
+  "independent_checks": "All 48 source hashes, source ping sum 5713, shard metadata/shapes/dtypes, disjoint QC partition, target/profile count arithmetic, expected counts, all 96 configurations and native-pilot timestamp equality. No response-code sums read by reviewer.",
+  "result": "5713 observed and target-valid pings; zero zero-code or nonfinite exclusions on this one day. Target count 1028340 and profile count 4113360. Worker 32.453s and sampled RSS 0.190155GiB.",
+  "scope": "One-day pilot only. Preserve its artifacts outside new reviewed full-run namespace. New full processor requires exact code review, one-day logical array equality, then separate full processing and support review. No fitting."
+}

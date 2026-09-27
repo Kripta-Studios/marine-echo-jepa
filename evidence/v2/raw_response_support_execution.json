@@ -1,0 +1,16 @@
+{
+  "study_id": "raw_response_development_v1",
+  "processing_run_id": "raw_response_full_v2_20260927",
+  "data_kind": "REAL",
+  "command": ".venv/Scripts/python.exe -m tools.v2_raw_response_support --review orchestration/reviews/V2_RAW_RESPONSE_SUPPORT_METHOD_20260927.json",
+  "exit_code": 0,
+  "report_path": "evidence/v2/raw-response-support/eligibility_raw_response.json",
+  "report_sha256": "95cbb5ceb0b5bc462c7dd01a3057ed75f37a133c9b7acc70850abe37c3302aaa",
+  "fit_rows_sha256": "8ef760ebf72c86ce0f3528a0709e15c2ea2e577c1d32bb7d63fa6a46fe34339d",
+  "assessment_rows_sha256": "99f9b9d8b0307516e9e75fbe12d4b228738ef022c2fb5eede757c5c2e3f5077b",
+  "log_sha256": "63577493a28ceb9c32b9c6cd13738d17db02b0d927ad0cd08b0a8fffad9f03dd",
+  "fit_target_days_1_3_6": [42, 42, 42],
+  "assessment_target_days_1_3_6": [13, 13, 13],
+  "assessment_populated_48h_blocks_1_3_6": [7, 7, 7],
+  "model_scores_computed": false
+}

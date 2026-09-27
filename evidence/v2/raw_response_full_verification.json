@@ -1,0 +1,24 @@
+{
+  "study_id": "raw_response_development_v1",
+  "processing_run_id": "raw_response_full_v2_20260927",
+  "data_kind": "REAL",
+  "index_sha256": "c6754334465b32e15bdfdcc9799b75408775ed38c19c3e7a93ea6c49dde869d1",
+  "fixed_days": 58,
+  "counts": {
+    "observed_pings": 259083,
+    "valid_target_pings": 259083,
+    "zero_only_pings": 0,
+    "zero_affected_pings": 0,
+    "zero_affected_quarter_hours": 0,
+    "nonfinite_pings": 0,
+    "zero_samples": 0,
+    "nonfinite_samples": 0,
+    "source_records_hashed": 1330,
+    "target_code_samples": 46634940,
+    "profile_code_samples": 186539760
+  },
+  "summed_worker_seconds_not_wall_time": 1962.5889999999945,
+  "maximum_sampled_single_process_rss_gib": 0.19719696044921875,
+  "model_scores_computed": false,
+  "non_train_acoustic_payloads_read": false
+}

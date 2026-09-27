@@ -1,0 +1,27 @@
+{
+  "data_kind": "REAL",
+  "study_id": "raw_response_development_v1",
+  "bindings": {
+    "contract": "467fa249405f4d0983b9c6f88155a4cfd8c458aecff746f465a1b01c2ccc4c69",
+    "processor": "04fbc91b46783b1c727af11a3aa6b3975033304c2487765e8679b829f68e3484",
+    "aggregation": "b4b226386af4dcd005f0181c6320922d2687e48dc68ca7e99b9f415c4601c6f3",
+    "compat": "4a60f0287f538f674f947ecc3f2f20f302e1b70bbe66360adf419f607e22bbf5",
+    "parser": "d5ac606f3372b36e940f32df2255d23fdb8848e87d14f8794cface0050275b45",
+    "group_builder": "d72a63ff77da08e9267b92664b4658b279fb706fff6214176bfbc49d96fa6a39",
+    "xml": "8efaf894f10b60a1e80885dd8e38366a72319cf6af64c3b0e914b28f6b6437f7",
+    "historical_ledger": "415563522356775e1e4ac5ccf444ac5a48725da8659ee1399f3cb1f629e1c407",
+    "detector_slope_ds": [
+      0.0230000000447,
+      0.02290000021458,
+      0.02319999970496,
+      0.02309999987483
+    ]
+  },
+  "days": {
+    "2020-02-17": {
+      "manifest_path": "evidence\\v2\\raw-response-development\\2020-02-17.json",
+      "manifest_sha256": "3193745270fc3f407e9b8b7db4dc061354308d0e15ed0e523c92e039274a644e",
+      "shard_sha256": "aca431ab66e07a5b82777a48a78dfa9043380b59b326e7063dfa7a39dec5e149"
+    }
+  }
+}

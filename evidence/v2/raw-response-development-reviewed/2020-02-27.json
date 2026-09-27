@@ -1,0 +1,183 @@
+{
+  "data_kind": "REAL",
+  "study_id": "raw_response_development_v1",
+  "processing_run_id": "raw_response_full_v2_20260927",
+  "status": "RAW_TRAIN_DEVELOPMENT_PROCESSED_NOT_APPROVED_FOR_FITTING",
+  "day": "2020-02-27",
+  "shard_path": "data\\processed\\raw-response-development-reviewed\\2020-02-27.npz",
+  "shard_sha256": "dae6d9035399db370710fb9a47162f3d7e3c1879db4af3140e8fcbd86b44fc09",
+  "bindings": {
+    "contract": "467fa249405f4d0983b9c6f88155a4cfd8c458aecff746f465a1b01c2ccc4c69",
+    "processor": "d8653304cb0e82026c011bf21666f10010039c96b2fcb97ca8aef7b235a9489d",
+    "aggregation": "b4b226386af4dcd005f0181c6320922d2687e48dc68ca7e99b9f415c4601c6f3",
+    "compat": "4a60f0287f538f674f947ecc3f2f20f302e1b70bbe66360adf419f607e22bbf5",
+    "parser": "d5ac606f3372b36e940f32df2255d23fdb8848e87d14f8794cface0050275b45",
+    "group_builder": "d72a63ff77da08e9267b92664b4658b279fb706fff6214176bfbc49d96fa6a39",
+    "xml": "8efaf894f10b60a1e80885dd8e38366a72319cf6af64c3b0e914b28f6b6437f7",
+    "historical_ledger": "415563522356775e1e4ac5ccf444ac5a48725da8659ee1399f3cb1f629e1c407",
+    "detector_slope_ds": [
+      0.0230000000447,
+      0.02290000021458,
+      0.02319999970496,
+      0.02309999987483
+    ]
+  },
+  "source_hours": [
+    {
+      "source": "20022700.01A",
+      "source_sha256": "41190d03c1d785c6959f1b138b80e0bcbc9995f06d6f41557551c622bdffb1f3",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 4,
+      "first_utc": "2020-02-27T00:00:14.000000000",
+      "last_utc": "2020-02-27T00:00:59.000000000"
+    },
+    {
+      "source": "20022701.01A",
+      "source_sha256": "a63080bc9156bd4e529c1342c0941b448b4221ad1b4213927bc285b73dd22936",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 57,
+      "first_utc": "2020-02-27T01:45:59.000000000",
+      "last_utc": "2020-02-27T01:59:59.000000000"
+    },
+    {
+      "source": "20022702.01A",
+      "source_sha256": "d3a63209f323776059640ccacf309a49d8d5da6154fec4943bd1833c4f882512",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 240,
+      "first_utc": "2020-02-27T02:00:14.000000000",
+      "last_utc": "2020-02-27T02:59:59.000000000"
+    },
+    {
+      "source": "20022703.01A",
+      "source_sha256": "e6fafc792b1d645187f8fe6e08af501d917fc5075ad2b44b1bd6e15491843aa9",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 240,
+      "first_utc": "2020-02-27T03:00:14.000000000",
+      "last_utc": "2020-02-27T03:59:59.000000000"
+    },
+    {
+      "source": "20022704.01A",
+      "source_sha256": "9aa62646b30fbc8769cbd305f2030e0adf880c07a7e9aa948cf31a044500c68f",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 240,
+      "first_utc": "2020-02-27T04:00:14.000000000",
+      "last_utc": "2020-02-27T04:59:59.000000000"
+    },
+    {
+      "source": "20022705.01A",
+      "source_sha256": "976ab5a2ecb4481390a9cb173a69661d1c5cbab02c76ee6c151bdb4ce06275cd",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 240,
+      "first_utc": "2020-02-27T05:00:14.000000000",
+      "last_utc": "2020-02-27T05:59:59.000000000"
+    },
+    {
+      "source": "20022706.01A",
+      "source_sha256": "af07d867e0add58a7561b121a82924ab889f8ea82e8bae7e51b793667081c20a",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 240,
+      "first_utc": "2020-02-27T06:00:14.000000000",
+      "last_utc": "2020-02-27T06:59:59.000000000"
+    },
+    {
+      "source": "20022707.01A",
+      "source_sha256": "d3085a59b28623e7a8fd8f7d8b336923d3693a9dabd61d6f485b6eeb9acdef8a",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 240,
+      "first_utc": "2020-02-27T07:00:14.000000000",
+      "last_utc": "2020-02-27T07:59:59.000000000"
+    },
+    {
+      "source": "20022708.01A",
+      "source_sha256": "bb8cc65b3d7ba93ce90c2abdfd93eb914054c7fdf0c11845970aaa1c29df4631",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 7,
+      "first_utc": "2020-02-27T08:00:14.000000000",
+      "last_utc": "2020-02-27T08:01:44.000000000"
+    },
+    {
+      "source": "20022709.01A",
+      "source_sha256": "bbe739a17661f7a66c876ab126b875a3d1923468d9546eb06a827293643f136c",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 53,
+      "first_utc": "2020-02-27T09:46:58.000000000",
+      "last_utc": "2020-02-27T09:59:58.000000000"
+    },
+    {
+      "source": "20022710.01A",
+      "source_sha256": "3f3952c06a3700291a69cb0c9c4fc7e80fe340b29913f31dc6c6592480fb0349",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 240,
+      "first_utc": "2020-02-27T10:00:13.000000000",
+      "last_utc": "2020-02-27T10:59:58.000000000"
+    },
+    {
+      "source": "20022711.01A",
+      "source_sha256": "3be6b3063c76900b83e82ce84f3e33b8b38a5d337ed80a62e150b3f0cb2bf521",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 240,
+      "first_utc": "2020-02-27T11:00:13.000000000",
+      "last_utc": "2020-02-27T11:59:58.000000000"
+    },
+    {
+      "source": "20022712.01A",
+      "source_sha256": "cb1a296a851faa8e5737fe686b235e9f9254c38f2db08b36803fd33ea681a105",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 240,
+      "first_utc": "2020-02-27T12:00:13.000000000",
+      "last_utc": "2020-02-27T12:59:58.000000000"
+    },
+    {
+      "source": "20022713.01A",
+      "source_sha256": "68f632236b4f2a342b0941fa0ba72dd38f634d1b4c69852f97221366f413a39b",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 240,
+      "first_utc": "2020-02-27T13:00:13.000000000",
+      "last_utc": "2020-02-27T13:59:57.000000000"
+    },
+    {
+      "source": "20022714.01A",
+      "source_sha256": "d238b10228d558372da36a2745aea45de7daa8869d229e1c34318d8e1a684b4e",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 240,
+      "first_utc": "2020-02-27T14:00:12.000000000",
+      "last_utc": "2020-02-27T14:59:57.000000000"
+    },
+    {
+      "source": "20022715.01A",
+      "source_sha256": "88745656becd327ec96995bdbb384d51e893babe947bf0888e4e8a569a797992",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 240,
+      "first_utc": "2020-02-27T15:00:12.000000000",
+      "last_utc": "2020-02-27T15:59:57.000000000"
+    },
+    {
+      "source": "20022716.01A",
+      "source_sha256": "f4a2959e8a54cf4f552a35482a52d1a1ad1bd0a79d5c322d0e5c8a8a5401380c",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 240,
+      "first_utc": "2020-02-27T16:00:12.000000000",
+      "last_utc": "2020-02-27T16:59:57.000000000"
+    },
+    {
+      "source": "20022717.01A",
+      "source_sha256": "4a66d6a80790fa14383427b1f9b3aa27cbe80e43ab8d1f3c1cc145845a8f7b42",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 95,
+      "first_utc": "2020-02-27T17:00:12.000000000",
+      "last_utc": "2020-02-27T17:23:42.000000000"
+    }
+  ],
+  "historical_manifest_sha256": "4e2715b77adf1f16961176378cdac51b77adf148726aa09fbfe1bfdeb844cd2b",
+  "observed_pings": 3336,
+  "valid_target_pings": 3336,
+  "zero_or_undefined_pings": 0,
+  "zero_affected_pings": 0,
+  "zero_affected_quarter_hours": 0,
+  "zero_or_undefined_samples": 0,
+  "nonfinite_pings": 0,
+  "nonfinite_samples": 0,
+  "elapsed_seconds": 1.9689999999991414,
+  "peak_sampled_process_rss_gib": 0.19414138793945312,
+  "quantity": "complete_positive_azfp_backscatter_r_code_mean; not calibrated Sv"
+}

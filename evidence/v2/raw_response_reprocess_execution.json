@@ -1,0 +1,20 @@
+{
+  "study_id": "raw_response_development_v1",
+  "processing_run_id": "raw_response_full_v2_20260927",
+  "data_kind": "REAL",
+  "command": ".venv/Scripts/python.exe -m tools.v2_process_raw_response --start 2020-02-17 --end-exclusive 2020-02-18 --review orchestration/reviews/V2_RAW_RESPONSE_REPROCESS_20260927.json",
+  "exit_code": 0,
+  "day": "2020-02-17",
+  "worker_elapsed_seconds": 31.578,
+  "sampled_process_rss_gib": 0.18973159790039062,
+  "log_path": "evidence/v2/raw_response_reprocess.log",
+  "log_sha256": "e9035b38d4e643c4587871d376e2a8f54aa33a90156fc4a25e93e19315e37211",
+  "index_sha256": "ca6d59f3eb73295bb9fd4e2d577eef3d8fa30425857f0b44fbda9be34472d08c",
+  "manifest_sha256": "2ab0455773a8bc2bdf9836ea4014d03431d97b726fc3aaa215927422d6a90495",
+  "shard_sha256": "aca431ab66e07a5b82777a48a78dfa9043380b59b326e7063dfa7a39dec5e149",
+  "pilot_shard_sha256": "aca431ab66e07a5b82777a48a78dfa9043380b59b326e7063dfa7a39dec5e149",
+  "all_18_logical_arrays_dtype_shape_and_bytes_equal_to_pilot": true,
+  "later_dates_processed": 0,
+  "support_audit_run": false,
+  "model_fits": 0
+}

@@ -363,7 +363,19 @@
     "candidate2_assessment_target_days_1_3_6": [0, 0, 0],
     "candidate2_fit_allowed": false,
     "raw_response_contract": "docs/adr/0007-raw-instrument-response-development.md",
-    "raw_response_status": "TARGET_PROTOCOL_APPROVED_PROCESSOR_PENDING_REVIEW_NO_PROCESSING",
-    "raw_response_target_review": "orchestration/reviews/V2_RAW_RESPONSE_TARGET_20260927.json"
+    "raw_response_status": "ENGINEERING_SUPPORT_APPROVED_PREFIT_EXECUTOR_UNDER_REVIEW",
+    "raw_response_target_review": "orchestration/reviews/V2_RAW_RESPONSE_TARGET_20260927.json",
+    "raw_response_processing_review": "orchestration/reviews/V2_RAW_RESPONSE_FULL_PROCESSING_20260927.json",
+    "raw_response_full_index_sha256": "c6754334465b32e15bdfdcc9799b75408775ed38c19c3e7a93ea6c49dde869d1",
+    "raw_response_full_result_review": "orchestration/reviews/V2_RAW_RESPONSE_FULL_RESULT_20260927.json",
+    "raw_response_support_execution": "evidence/v2/raw_response_support_execution.json",
+    "raw_response_support_report_sha256": "95cbb5ceb0b5bc462c7dd01a3057ed75f37a133c9b7acc70850abe37c3302aaa",
+    "raw_response_support_result_review": "orchestration/reviews/V2_RAW_RESPONSE_SUPPORT_RESULT_20260927.json",
+    "raw_response_fit_target_days_1_3_6": [42, 42, 42],
+    "raw_response_assessment_target_days_1_3_6": [13, 13, 13],
+    "raw_response_assessment_blocks_1_3_6": [7, 7, 7],
+    "raw_response_observed_pings": 259083,
+    "raw_response_target_valid_pings": 259083,
+    "raw_response_model_fits": 0
   }
 }

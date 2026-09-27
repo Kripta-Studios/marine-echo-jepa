@@ -25,10 +25,17 @@ exclusions and row hashes. The distinct reviewer independently reconstructed
 all 1392 hours and approved this negative support result, blocking Candidate 2
 fits. ADR 0006 stops further D1 calibrated-target search. A separate
 complete-positive AZFP response-code engineering target in ADR 0007 is approved
-prospectively; its processor is under independent review. This route cannot
-complete the calibrated-acoustic v2 MVP or consume its 25 campaign slots. No
-model fit or scientific prediction has executed. V1 census and any-band audit
-were not rerun. The builder continues real executor implementation independently.
+prospectively. Its separate hash-bound TRAIN development processing completed
+all 58 fixed days with 259083 observed and target-valid pings and no ambiguous
+zero or nonfinite code exclusions in the fixed segment. The reviewer independently
+accepted the exact processing and support results. Fit target days are 42/42/42;
+April assessment target days are 13/13/13, with all seven fixed 48-hour blocks
+populated at each horizon. These meet ADR 0007's engineering support gates only.
+The hash-bound real cohort reader and ridge/direct development executor are in
+independent pre-fit review; no model fit or forecast score has yet run. This route
+cannot complete the calibrated-acoustic v2 MVP or consume its 25 campaign slots.
+V1 census and any-band audit were not rerun. The builder's real calibrated-v2
+campaign backend is integrated as code and fixtures, with no real D1 fit.
 
 The existing GPU environment passed a CUDA kernel smoke with PyTorch 2.11.0+cu128;
 this is not a training-memory measurement. Data-environment PyTorch is absent and

@@ -1,0 +1,26 @@
+{
+  "record_type": "COORDINATOR_TRANSCRIPTION_OF_DISTINCT_REVIEWER_MESSAGE",
+  "reviewer_session": "/root/v2_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "host_permissions": "danger-full-access; behavioral read-only",
+  "disposition": "APPROVE_RAW_RESPONSE_SUPPORT_METHOD",
+  "driver_sha256": "ac26b6b30c6749b2122e3e77e9779a7a68bec5394a64106af1e9762a69d3e3e0",
+  "audit_sha256": "0dad27ca2c3d57b62a6ba8b29f7297d247b77d67caa00ce0d43c650c0e4e837c",
+  "contract_sha256": "467fa249405f4d0983b9c6f88155a4cfd8c458aecff746f465a1b01c2ccc4c69",
+  "index_sha256": "c6754334465b32e15bdfdcc9799b75408775ed38c19c3e7a93ea6c49dde869d1",
+  "processing_run_id": "raw_response_full_v2_20260927",
+  "reference_configuration": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+  "bindings": {
+    "contract": "467fa249405f4d0983b9c6f88155a4cfd8c458aecff746f465a1b01c2ccc4c69",
+    "processor": "d8653304cb0e82026c011bf21666f10010039c96b2fcb97ca8aef7b235a9489d",
+    "aggregation": "b4b226386af4dcd005f0181c6320922d2687e48dc68ca7e99b9f415c4601c6f3",
+    "compat": "4a60f0287f538f674f947ecc3f2f20f302e1b70bbe66360adf419f607e22bbf5",
+    "parser": "d5ac606f3372b36e940f32df2255d23fdb8848e87d14f8794cface0050275b45",
+    "group_builder": "d72a63ff77da08e9267b92664b4658b279fb706fff6214176bfbc49d96fa6a39",
+    "xml": "8efaf894f10b60a1e80885dd8e38366a72319cf6af64c3b0e914b28f6b6437f7",
+    "historical_ledger": "415563522356775e1e4ac5ccf444ac5a48725da8659ee1399f3cb1f629e1c407",
+    "detector_slope_ds": [0.0230000000447, 0.02290000021458, 0.02319999970496, 0.02309999987483]
+  },
+  "scope": "One-shot count/config/time-only support audit on the exact completed 58-day TRAIN raw-response index. No response sums, model fits, non-TRAIN payloads, threshold or calendar changes. Result requires separate independent review."
+}
