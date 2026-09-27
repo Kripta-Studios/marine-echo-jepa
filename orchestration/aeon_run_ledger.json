@@ -48,9 +48,37 @@
     "eligible_source_dates_per_horizon": [50, 50, 50],
     "selection": "NOT_PERFORMED_PENDING_HYBRID_AND_POST_HOC_EXTENSION_REVIEWS"
   },
+  "random_representation_diagnostic": {
+    "status": "APPROVED_TRAIN_ONLY_DIAGNOSTIC",
+    "artifact": "outputs/aeon3_geb_2024_hourly_sv_v1/random_representation_diagnostics/random-diagnostics.json",
+    "artifact_sha256": "b5ae9d80246d68cfb341906a503d1e217405e7ef1795c02061092379853bba29",
+    "independent_review_sha256": "e686a6fcec35c284f47f91519e7e19e88faa84288d084ef642ec172a08974f15"
+  },
+  "hybrid_development": {
+    "status": "APPROVED_TRAIN_VALIDATION_OUTCOME_NO_SELECTION",
+    "artifact": "outputs/aeon3_geb_2024_hourly_sv_v1/hybrid_development/hybrid-report.json",
+    "artifact_sha256": "0e83129ae1d2b91998c1defcc86204c375c50a4394144d67c2fb2589ff82e2b8",
+    "prefit_review_sha256": "5f82f36fa7cd22ac865f567af98a094ad32cc6273582d73223cb2f3e8db14cf0",
+    "independent_outcome_review_sha256": "5244af6f1c9ba0308f1acaf44b1d5b197fb568dc02b9bd00c41ac57823bf9021",
+    "slots": 10,
+    "jepa_value_gate": "NEGATIVE_ON_CORE_DEVELOPMENT_VALIDATION"
+  },
+  "post_hoc_sota_development": {
+    "lightgbm": {
+      "status": "COMPLETED_INDEPENDENTLY_REVIEWED_POST_HOC_DEVELOPMENT_NO_SELECTION",
+      "report": "outputs/aeon3_geb_2024_hourly_sv_v1/sota_supervised_lightgbm/report.json",
+      "report_sha256": "b7f4b180eb9d5f29e0d25bc34f9940bfee7ee5f7121812b43559b81cd6dad65b",
+      "prediction_sha256": "94bc831f5f33507dcb61af7b77b38fe6c458aa33dbc60bb678b93791d7bd96b0",
+      "prefit_review_sha256": "ebcd704f7757faad68103b3b5b24e16946c1f9c6af5cd022c27742bfdd1c9822",
+      "outcome_review_sha256": "d08932b0c88f322ceb573ef2ee30198aed0ceb3c5611b6e865e0e562f640138d",
+      "primary_daily_mean_pinball_db": 0.6384597244651752
+    },
+    "chronos_2": "NOT_RUN_PENDING_INDEPENDENT_PREFIT_REVIEW",
+    "forward_ema_jepa": "NOT_RUN_PENDING_INDEPENDENT_PREFIT_REVIEW"
+  },
   "calibration": "NOT_RUN",
   "retrospective_test": "NOT_RUN",
   "jepa_value_gate": "NOT_EVALUATED",
-  "gpu_owner": "NONE_CORE_CAMPAIGN_COMPLETED",
+  "gpu_owner": "NONE",
   "paid_cost_usd": 0
 }

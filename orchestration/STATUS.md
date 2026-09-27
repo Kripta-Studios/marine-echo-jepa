@@ -232,3 +232,36 @@ considers a fixed supervised tree, pinned Chronos-2 zero-shot comparator and
 future-block EMA-JEPA with an anti-collapse variance floor. It does not turn
 the completed core validation run into preregistered confirmation. New models
 remain unfitted pending separate code/config review and the one-trainer rule.
+
+The ten-slot hybrid campaign later exited zero and passed independent outcome
+review. Its 150 downstream tree heads reproduce the saved 1,219-row predictions
+bit-exactly. The raw-only B3 score is 0.669379 dB; the best learned EMA hybrid
+scores 0.660870 dB, whereas its matched frozen-random-feature hybrid scores
+0.654412 dB. The three-seed direct ensemble scores 0.639062 dB, ahead of
+EMA-JEPA (0.642170 dB) and shared-SIGReg (0.648643 dB). The independent
+review in `orchestration/reviews/AEON_HYBRID_OUTCOME_REVIEW_20260927.json`
+records a negative incremental JEPA-value finding for the core development
+comparison. A TRAIN-only random representation audit found seed-7 effective
+ranks 3.97 (EMA) and 3.53 (shared) versus 6.37 for the frozen random encoder;
+its separate review is
+`orchestration/reviews/AEON_RANDOM_DIAGNOSTIC_OUTCOME_REVIEW_20260927.json`.
+These are development findings, not retrospective TEST outcomes.
+
+The post-hoc LightGBM challenger received independent prefit approval. Its
+first invocation exited 1 before any head fit because an exclusive-write row
+probe used an already-created temporary file. The failure and reviewed repair
+are documented in
+`orchestration/reports/AEON_SOTA_SUPERVISED_FIRST_ATTEMPT_FAILURE_20260927.md`.
+The serialized retry completed and passed distinct outcome review: 4,965 TRAIN
+rows, 1,219 issued validation forecasts, and corrected daily mean pinball
+0.638459724465 dB across 50 eligible source dates per horizon. This is about
+0.000602 dB below the direct-neural three-seed ensemble, a tiny post-hoc
+development difference with no significance or SOTA claim. The exact model and
+prediction files were reloaded and all 15 heads' predictions reproduced
+bit-exactly by the reviewer; see
+`orchestration/reviews/AEON_SOTA_SUPERVISED_OUTCOME_REVIEW_20260927.json`.
+Chronos-2's exact public checkpoint is locally cached and its runner implemented;
+inference awaits distinct prefit review. The forward-EMA JEPA adaptation with
+fixed VICReg-style anti-collapse penalties is implemented and awaits prefit
+review. CAL/TEST acoustic outcomes remain unopened pending final selection and
+freeze.

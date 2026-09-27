@@ -1,0 +1,58 @@
+{
+  "task": "R2-AEON-POST-HOC-SUPERVISED-PREFIT-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "reviewed_commits": [
+    "92cfb7dc985ff792a222e10f2e94753eb8e76e4b",
+    "0bc469c0082e7d4e4153bcafae028e06bd425219",
+    "974b349b99e8bb23af75e6bc7e5d9cd4566e937c"
+  ],
+  "status": "APPROVED_AEON_POST_HOC_SUPERVISED_PREFIT",
+  "disposition": "APPROVE_ONE_FIXED_POST_HOC_LIGHTGBM_TRAIN_VALIDATION_FIT",
+  "recipe_sha256": "3feee4089ce790c66adb189ff82ad4e006c350822a23aaa494e86afaef884eea",
+  "runner_sha256": "b1ee03282da5c6d3b85381d0f522b90f8d4c2a5f5c0b20d746eefa6cfea02fcf",
+  "test_sha256": "9fe27ffb7d88beb6605d22f8542ef7f02d5d4a5a7d1d0a1643fac39df0c44152",
+  "campaign_manifest_sha256": "67ae5224657524cceb5c26f17c3a1ee399a1e886577552211d42ef2fe35a32ac",
+  "rescore_sha256": "32cea9f8141fbad220a3e47d9e840039ad23b4f8e893efbcfb90f52944214c46",
+  "rescore_outcome_review_sha256": "16bb9ef931f5e2d8f8a3322fa609c5cb1c769f99f5e4a89a5ef519a0fb52f44f",
+  "split_review_sha256": "b8031e2e113e39630c066cee65b4371f69b229ee905a72d832e53e6f505f297b",
+  "cohort_sha256": "5e475f6af798025f187c70ae638710d2b4362f688db2ad43d60ec436dda3e25d",
+  "dependency_binding": {
+    "lightgbm_version": "4.6.0",
+    "pyproject_sha256": "85efe2ea8ddebdcfc9b87dcecb4b1a80b2bc8bcb283560bb44ece7d543505ee",
+    "uv_lock_sha256": "df31c78ccfc2a3add62fd1daab76a2992ab0ae0c5543b3ba37392b3c099e5758"
+  },
+  "independent_execution": {
+    "focused_tests": "5 passed in 26.80s with 15 non-blocking sklearn feature-name warnings",
+    "ruff": "All checks passed",
+    "mypy": "Success: no issues found in 1 source file",
+    "real_feature_preflight": "Reconstructed the exact 4,965 TRAIN by 210 and 1,219 validation by 210 finite matrices and verified feature equality after mutating future target values, masks and source timestamps.",
+    "calibration_or_test_outcomes_opened": false
+  },
+  "approved_contract": [
+    "One fixed LightGBM 4.6.0 recipe with fifteen quantile heads, 256 estimators per head and no validation early stopping or hyperparameter sweep.",
+    "Features contain only the preceding 24 by 4 source products and masks plus the frozen 18 B3 past summaries; missing past values become zero only alongside their explicit mask.",
+    "Every head is fitted only on TRAIN labels for its horizon and assessed on the same 1,219 validation-issued rows as the immutable B3 comparator.",
+    "The runner binds the unchanged evaluator SHA and recomputes the B3 score from the saved B3 predictions for exact equality before any fit.",
+    "The validation-row probe writes to a fresh path compatible with the standard exclusive-write prediction function, closing the prefit failure found before any head was fitted.",
+    "The completed report must remain POST_HOC_DEVELOPMENT_NOT_FINAL_EVALUATION, state SOTA is not established, and perform no selection."
+  ],
+  "execution_conditions": [
+    "Run once and serialize with every other training/fitting process.",
+    "Preserve the declared no-mid-head-resume limitation; an interrupted attempt may restart the entire fixed deterministic fit without changing the recipe.",
+    "Treat process_rss_bytes_after_fit as a point measurement and peak_process_rss_bytes as NOT_MEASURED; do not claim peak-memory evidence from this runner.",
+    "Obtain independent post-run model reload, prediction hash and metric reconstruction review before using the result in development selection."
+  ],
+  "scientific_limits": [
+    "This candidate was defined after core validation exposure and is an explicitly post-hoc stronger supervised baseline, not a preregistered core arm.",
+    "The model differs from B3 in both features and estimator capacity; any improvement cannot be attributed to one factor.",
+    "A LightGBM result on this cohort does not establish state of the art, external validity, calibrated absolute backscatter, biology or deployment value."
+  ],
+  "excluded_scope": [
+    "Validation result approval or selection",
+    "Calibration access or interval widening",
+    "Retrospective test access or final evaluation",
+    "SOTA or production claim"
+  ],
+  "test_access": "PROHIBITED"
+}

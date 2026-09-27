@@ -1,0 +1,60 @@
+{
+  "task": "R2-AEON-FROZEN-PRETRAIN-HYBRID-OUTCOME-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "status": "APPROVED_AEON_HYBRID_OUTCOME_NO_SELECTION",
+  "disposition": "APPROVE_HYBRID_DEVELOPMENT_EVIDENCE_WITH_NEGATIVE_JEPA_VALUE_FINDING",
+  "artifact_sha256": {
+    "hybrid_report": "0e83129ae1d2b91998c1defcc86204c375c50a4394144d67c2fb2589ff82e2b8",
+    "hybrid_prefit_review": "5f82f36fa7cd22ac865f567af98a094ad32cc6273582d73223cb2f3e8db14cf0",
+    "hybrid_config": "f933bd2ce4b61b4cde3368e34258ade3c27052cf806db5dff9348874f5b587af",
+    "hybrid_code": "a0dc4d4c5e807aab1a866fd4207af982b06c81d34d60bb9d0a75f23ae362a668",
+    "campaign_manifest": "67ae5224657524cceb5c26f17c3a1ee399a1e886577552211d42ef2fe35a32ac",
+    "validation_rescore": "32cea9f8141fbad220a3e47d9e840039ad23b4f8e893efbcfb90f52944214c46"
+  },
+  "independent_execution": {
+    "scope": "All ten hybrid slots and the immutable raw-only B3 comparator",
+    "checks": [
+      "Hash-loaded every saved hybrid model and validation prediction plus the exact source representation checkpoint.",
+      "Reloaded all 150 HGB quantile heads and all ten frozen encoders, regenerated each 1,219-row forecast from the real validation inputs and obtained bit-exact equality with the saved prediction.",
+      "Verified identical row identity, truth, masks, source times and provenance against B3, with row digest 9ce5ed6d60c4082efd3f342b3ee09ddadc5cf6286be6d6a3e953ab0f6166a99f.",
+      "Recomputed every corrected eligible-date metric exactly from saved rows; each horizon has 50 eligible dates.",
+      "Computed the prospectively specified equal three-seed arithmetic-mean ensemble diagnostics without dropping or weighting a seed."
+    ],
+    "exit_status": 0,
+    "calibration_or_test_outcomes_opened": false
+  },
+  "primary_daily_mean_pinball_db": {
+    "raw_only_hgb": 0.6693787557244667,
+    "ema_hybrid_seed7": 0.6608701033186064,
+    "ema_hybrid_seed13": 0.6641685555875756,
+    "ema_hybrid_seed23": 0.6615136152302364,
+    "shared_hybrid_seed7": 0.6676006641450284,
+    "shared_hybrid_seed13": 0.6699496257669475,
+    "shared_hybrid_seed23": 0.6668521446179921,
+    "random_encoder_hybrid_seed7": 0.6544115424431186,
+    "shuffled_ema_hybrid_seed7": 0.6679635917362446,
+    "shuffled_shared_hybrid_seed7": 0.6651827192080185,
+    "ema_hybrid_equal_three_seed_ensemble": 0.6595442938836366,
+    "shared_hybrid_equal_three_seed_ensemble": 0.6654519287051324,
+    "core_direct_equal_three_seed_ensemble": 0.6390617417693784,
+    "core_ema_equal_three_seed_ensemble": 0.6421704480588958,
+    "core_shared_equal_three_seed_ensemble": 0.6486432448794395
+  },
+  "interpretation": [
+    "The learned EMA hybrids improve on raw-only B3, while the shared-SIGReg hybrids are near B3; this alone does not establish useful representation learning.",
+    "The frozen-random feature hybrid scores 0.65441, better than every learned EMA or shared-SIGReg hybrid and both shuffled controls. The two random-mode prediction artifacts are identical, as expected from the same frozen seed-7 encoder.",
+    "Because random features outperform all learned hybrid seeds, the hybrid experiment provides no positive evidence that the core JEPA objectives learned incrementally useful acoustic representations.",
+    "The equal three-seed direct ensemble at 0.63906 is better than the EMA core ensemble at 0.64217, the shared core ensemble at 0.64864, and both learned hybrid ensembles. The core development result therefore does not support JEPA incremental value over matched direct supervision.",
+    "The TRAIN-only collapse evidence remains consistent with the downstream result: EMA has low effective rank plus severe scale mismatch, and shared-SIGReg has low effective rank despite healthier scale.",
+    "All comparisons remain retrospective development evidence under source-reported dates with an unspecified clock basis."
+  ],
+  "selection_status": "NOT_PERFORMED_PENDING_POST_HOC_CHALLENGERS_AND_DISTINCT_SELECTION_REVIEW",
+  "excluded_scope": [
+    "Final model selection",
+    "Calibration access or interval widening",
+    "Retrospective test access or final evaluation",
+    "SOTA, JEPA representation-success, sealed-holdout, biological or deployment claims"
+  ],
+  "test_access": "PROHIBITED"
+}

@@ -1,0 +1,65 @@
+{
+  "task": "R2-AEON-POST-HOC-SUPERVISED-OUTCOME-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "status": "APPROVED_AEON_POST_HOC_SUPERVISED_OUTCOME_NO_SELECTION",
+  "disposition": "APPROVE_AS_POST_HOC_VALIDATION_EVIDENCE_ONLY",
+  "reviewed_commit": "974b349b99e8bb23af75e6bc7e5d9cd4566e937c",
+  "artifact_sha256": {
+    "report": "b7f4b180eb9d5f29e0d25bc34f9940bfee7ee5f7121812b43559b81cd6dad65b",
+    "model": "164389731cd5d2e0694d1fb5228196196e7701fc73269e79ef84d85520fb168b",
+    "validation_predictions": "94bc831f5f33507dcb61af7b77b38fe6c458aa33dbc60bb678b93791d7bd96b0",
+    "runner": "b1ee03282da5c6d3b85381d0f522b90f8d4c2a5f5c0b20d746eefa6cfea02fcf",
+    "recipe": "3feee4089ce790c66adb189ff82ad4e006c350822a23aaa494e86afaef884eea",
+    "prefit_review": "ebcd704f7757faad68103b3b5b24e16946c1f9c6af5cd022c27742bfdd1c9822",
+    "campaign_manifest": "67ae5224657524cceb5c26f17c3a1ee399a1e886577552211d42ef2fe35a32ac",
+    "validation_rescore": "32cea9f8141fbad220a3e47d9e840039ad23b4f8e893efbcfb90f52944214c46",
+    "validation_rescore_outcome_review": "16bb9ef931f5e2d8f8a3322fa609c5cb1c769f99f5e4a89a5ef519a0fb52f44f"
+  },
+  "lineage": {
+    "source_archive_sha256": "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde",
+    "split_review_sha256": "b8031e2e113e39630c066cee65b4371f69b229ee905a72d832e53e6f505f297b",
+    "cohort_sha256": "5e475f6af798025f187c70ae638710d2b4362f688db2ad43d60ec436dda3e25d",
+    "validation_row_sha256": "9ce5ed6d60c4082efd3f342b3ee09ddadc5cf6286be6d6a3e953ab0f6166a99f",
+    "train_rows": 4965,
+    "validation_issued_rows": 1219
+  },
+  "independent_execution": {
+    "model_reload": "Reloaded model.joblib with LightGBM 4.6.0 and found the exact 3 by 5 grid of fifteen quantile regressors.",
+    "head_contract": "All fifteen heads have objective quantile, 256 fitted estimators, 256 trees and 210 input features.",
+    "prediction_reconstruction": "Reconstructed the reviewed 1,219-row cohort and 210 past-only features, reran every saved head, applied the frozen monotone sort and obtained bit-exact equality with validation-predictions.npz.",
+    "metric_reconstruction": "Recomputed the corrected eligible-target-source-date metric from saved truth, masks, timestamps and predictions; the full metric object exactly equals report.json.",
+    "artifact_integrity": "Recomputed report, model, prediction, recipe, runner and dependency hashes from local files.",
+    "prediction_checks": {
+      "shape": [1219, 3, 5],
+      "all_finite": true,
+      "all_quantiles_monotone": true,
+      "unique_median_predictions_per_horizon": [1219, 1219, 1219]
+    },
+    "calibration_or_test_outcomes_opened": false
+  },
+  "verified_metrics": {
+    "primary_daily_mean_pinball_db": 0.6384597244651752,
+    "daily_mean_pinball_db_per_horizon": [
+      0.5808725117587309,
+      0.6590047542967834,
+      0.6755019073400114
+    ],
+    "eligible_days_per_horizon": [50, 50, 50],
+    "eligible_scored_rows_per_horizon": [1194, 1192, 1189]
+  },
+  "findings": [
+    "The run is a genuine TRAIN-fitted LightGBM challenger with nonconstant validation forecasts, not an unexecuted model or a constant placeholder.",
+    "Its primary validation pinball value is about 0.000602 dB lower than the separately reviewed direct-neural three-seed ensemble value of about 0.639062 dB. This tiny post-hoc development difference has not been assigned inferential significance and is not a state-of-the-art result.",
+    "The report truthfully preserves POST_HOC_DEVELOPMENT_NOT_FINAL_EVALUATION, SOTA claim NOT_ESTABLISHED, no selection, no mid-head resume and peak RSS NOT_MEASURED.",
+    "The model differs from B3 in both input features and estimator family/capacity, so the result cannot isolate a causal source of any validation difference."
+  ],
+  "conditions": [
+    "Keep this artifact as post-hoc validation evidence only until an independently frozen selection rule is applied.",
+    "Do not use this review to authorize calibration access, test access, final evaluation, a SOTA claim or a production claim.",
+    "Any model, prediction, cohort, scorer, recipe or runner hash change invalidates this outcome review."
+  ],
+  "selection": "NONE",
+  "calibration_access": "PROHIBITED",
+  "test_access": "PROHIBITED"
+}
