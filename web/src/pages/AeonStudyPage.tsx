@@ -183,7 +183,7 @@ export function AeonStudyPage({
                 <td>{result.widened_coverage90_per_horizon.map((value) => `${(value * 100).toFixed(1)}%`).join(" / ")}</td></tr>;
             })}</tbody>
           </table></div>
-          <p>The frozen EMA-JEPA ensemble passed the prespecified within-study retrospective gate against direct. This does not isolate the gain to learned JEPA representations, establish a sealed holdout, or show external generalization. Post-hoc LightGBM failed the same five-percent point gate.</p>
+          <p>The frozen EMA-JEPA ensemble passed the within-study retrospective gate against direct; its family selection was post hoc in development and frozen before TEST. This does not isolate the gain to learned JEPA representations, establish a sealed holdout, or show external generalization. Post-hoc LightGBM failed the same five-percent point gate.</p>
           <p>EMA relative raw loss change versus direct: {(study.retrospective_test.comparisons.core_ema_equal_three_seed_ensemble.primary_relative_loss_change! * 100).toFixed(2)}%; paired 95% interval {study.retrospective_test.comparisons.core_ema_equal_three_seed_ensemble.paired_95_percent_interval_db.map((value) => value.toFixed(4)).join(" to ")} dB. CAL widened intervals without selecting a model. No species, biomass or operational claim follows from these acoustic scores.</p>
           <p>TEST score SHA-256: <code>{study.retrospective_test.test_score_sha256}</code>. Independent outcome review SHA-256: <code>{study.retrospective_test.test_outcome_review_sha256}</code>.</p>
         </section>

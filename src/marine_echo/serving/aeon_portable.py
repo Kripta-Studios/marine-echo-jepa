@@ -231,7 +231,10 @@ def build_aeon_portable(
         test_notice = (
             "An independently reviewed retrospective TEST result and truth-free historical "
             "source-clock replay are included. TEST is not sealed or externally replicated. "
-            "No JEPA incremental-value or business gate is claimed. Exact TEST score, "
+            "The EMA-JEPA family, selected post hoc in development and frozen before TEST, "
+            "passed the within-study retrospective comparison; representation "
+            "attribution, external generalization and business validation remain unproven. "
+            "Exact TEST score, "
             "forecast arrays, metadata candidates and independent review are bundled under "
             "`provenance/`. Final package review remains pending. "
             if all(value is not None for value in test_inputs)

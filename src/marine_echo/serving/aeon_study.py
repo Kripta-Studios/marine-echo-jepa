@@ -376,7 +376,7 @@ def build_aeon_research(
         study["limitations"].extend([
             "Retrospective TEST is not a sealed or external replication.",
             "Saved source-clock predictions are historical replay, not live forecasts or UTC-time service.",
-            "The release does not claim that JEPA incremental value or business validation passed.",
+            "The frozen within-study retrospective EMA-JEPA forecast-family gate passed. Attribution to learned JEPA representations, state of the art, external generalization and business validation remain unestablished.",
         ])
     output.parent.mkdir(parents=True, exist_ok=True)
     stage = Path(tempfile.mkdtemp(prefix=".aeon-release-stage-", dir=output.parent))

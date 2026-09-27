@@ -13,6 +13,6 @@ if ($LASTEXITCODE -ne 0) { throw 'Release integrity verification failed.' }
 & uv pip install --python $PythonExe --offline --no-index --find-links (Join-Path $ReleaseRoot 'wheelhouse') -r (Join-Path $ReleaseRoot 'requirements-app.txt')
 if ($LASTEXITCODE -ne 0) { throw 'Offline wheel installation failed.' }
 $env:PYTHONPATH = Join-Path $ReleaseRoot 'src'
-Write-Output "AEON research (development only): http://127.0.0.1:$Port"
+Write-Output "AEON offline research: http://127.0.0.1:$Port"
 & $PythonExe (Join-Path $ReleaseRoot 'Serve-AEON-Research.py') --port $Port
 exit $LASTEXITCODE
