@@ -1,0 +1,45 @@
+{
+  "task": "R2-AEON-PURE-EVALUATION-CODE-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "disposition": "APPROVE_PURE_EVALUATION_CODE_ONLY",
+  "reviewed_branch": "impl/aeon-eval",
+  "reviewed_commit": "d98b5104f0d8be8e8c6d161d32530895662bfdd9",
+  "reviewed_file_sha256": {
+    "src/marine_echo/evaluation/aeon.py": "92856e16f101397a8d7251fbb60d10e65b632723a5a11aeec993b8135edba081",
+    "tests/unit/test_aeon_evaluation.py": "4a94b53e4e99601691c1d44feaaa6aa9ffaffbedfa1367c48e3ab3e374e39037"
+  },
+  "independent_execution": {
+    "focused_tests": "7 passed in 4.38s",
+    "ruff": "All checks passed",
+    "data_access": "Synthetic fixtures only",
+    "calibration_or_test_outcomes_opened": false
+  },
+  "approved_behavior": [
+    "Target-source-date grouping under the source-reported unspecified clock basis",
+    "Fixed >=18 scored anchors per date and horizon for primary scoring, calibration fitting and paired bootstrap",
+    "Equal averaging over rows within date, eligible dates within horizon, five quantiles and three horizons",
+    "Per-horizon-by-quantile pinball, median-head MAE, 90% coverage/width and scored-coverage reporting",
+    "Calibration-only nonnegative widening of the 0.05 and 0.95 endpoints with eligible/all day and row lineage",
+    "Seeded 2000-draw paired 48-hour source-date block bootstrap on eligible daily loss differences"
+  ],
+  "closed_findings": [
+    "Low-support dates are excluded from primary, bootstrap and calibration calculations while remaining counted for audit.",
+    "Bootstrap support is required per horizon and no longer requires one row observed at all three horizons.",
+    "The FullDepth scalar study explicitly records profile MAE as not applicable."
+  ],
+  "caller_obligations": [
+    "Bind source-row lineage, partition identity, candidate-universe and one-time cohort materialization outside these pure functions.",
+    "Use unadjusted frozen forecasts for the primary model-comparison metric; use widened endpoints only for adjusted 90% interval diagnostics.",
+    "Enforce partition eligibility floors, select the strongest conventional and JEPA families on corrected validation scores only, and fit widening on calibration only.",
+    "Persist exact eligible-date lists and hashes, paired daily differences, bootstrap confidence limits, the 5% improvement gate and per-horizon <=10% regression checks.",
+    "Label results retrospective and source-clock dates unspecified; do not claim a sealed or external holdout."
+  ],
+  "excluded_scope": [
+    "Validation rescore runner and selection artifact",
+    "Calibration/test reader, predictor reload and one-time evaluation orchestration",
+    "Pretest freeze or authorization to open calibration/test outcomes",
+    "Final statistical result, release or deployment"
+  ],
+  "test_access": "PROHIBITED"
+}
