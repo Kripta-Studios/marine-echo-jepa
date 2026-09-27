@@ -1,0 +1,20 @@
+{
+  "study_id": "v2_candidate2",
+  "data_kind": "REAL",
+  "entrypoint": ".venv/Scripts/python.exe -m tools.v2_process_native",
+  "review_path": "orchestration/reviews/V2_NATIVE_FULL_PROCESSING_20260927.json",
+  "requested_start": "2020-02-17",
+  "requested_end_exclusive": "2020-04-15",
+  "exit_code": 0,
+  "fixed_calendar_days": 58,
+  "observed_pings": 259083,
+  "summed_worker_seconds_not_wall_time": 1259.904,
+  "maximum_sampled_single_process_rss_gib": 0.265869140625,
+  "index_path": "evidence/v2/native-development/index.json",
+  "index_sha256": "58b9fc7825b804511b92726d707589db9c818159fb3081d47ed37b8676533b0a",
+  "log_path": "evidence/v2/native_full_run.log",
+  "log_sha256": "7a650acf21ed2a2fb870f461f0368761fd4697a1885db7b8bf0026d9018cf48d",
+  "day_manifest_and_shard_hashes": "evidence/v2/native-development/index.json",
+  "non_train_acoustic_payloads_read": false,
+  "model_fits": 0
+}

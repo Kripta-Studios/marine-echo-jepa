@@ -1,0 +1,264 @@
+{
+  "data_kind": "REAL",
+  "study_id": "v2_candidate2",
+  "status": "NATIVE_TRAIN_DEVELOPMENT_PROCESSED_NOT_APPROVED_FOR_FITTING",
+  "day": "2020-03-05",
+  "shard_path": "data\\processed\\v2-native-development\\2020-03-05.npz",
+  "shard_sha256": "50dfebcf1d506e8667aac7615be11e92f7e7d69d60cf4a04b0bc20e90c77503a",
+  "bindings": {
+    "native_freeze": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\v2\\native_candidate_freeze_v3.json",
+      "sha256": "1cbcdfa88df619ddac2f06b200385786cddf2a4078061fa0991a8b1843889bf3"
+    },
+    "processor": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\v2_process_native.py",
+      "sha256": "5ab32855cc0a28dafb9f09aca8b7faa99d9ed93c16edaf61f284392eeb33a172"
+    },
+    "aggregation": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\native_observations.py",
+      "sha256": "a74c17f984cc26aad459369feedd85e14fa3761865bd7b5115eb3b2e03b2b54c"
+    },
+    "qc": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\candidate_qc.py",
+      "sha256": "b46e0448e9caa7f2d6fd4196ea8b7e3f934023e5df389665b8bebf2414b0460a"
+    },
+    "compat": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\azfp_compat.py",
+      "sha256": "4a60f0287f538f674f947ecc3f2f20f302e1b70bbe66360adf419f607e22bbf5"
+    },
+    "environment": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\continuation\\depth_environment_sensitivity.json",
+      "sha256": "bb3aa8c36b5a19b56bb30435743956ec842257e6e3ce6a921bfcbabd1a6a8018"
+    },
+    "slant": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\continuation\\slant_environment_sensitivity.json",
+      "sha256": "c11ea92a183f9ff7af6a0c05a5e47229c43cf05afbc709b189024826866d5da2"
+    },
+    "certificate": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\data\\raw\\calibration\\azfp55170\\ASL-AZFP55170-calibration-20190326.pdf",
+      "sha256": "6541fbe21f6af64e0731f53784a2763b87d8527ff79ddcba178bd0dd5eb3f464"
+    },
+    "xml": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\data\\raw\\pangaea\\mosaic_azfp_down_2020_extracted\\20021600.XML",
+      "sha256": "8efaf894f10b60a1e80885dd8e38366a72319cf6af64c3b0e914b28f6b6437f7"
+    },
+    "upstream_noise": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\echopype\\clean\\api.py",
+      "sha256": "63f6b1d7d3f75d6496a5c6af3c4ab2b9435bcc646be5d0261d7c9f5fadd55115"
+    },
+    "upstream_range": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\echopype\\calibrate\\range.py",
+      "sha256": "d73da1d649b330e964c45d2153b3cf8e55a0c77310a3aad2ea0b372a1786fbfe"
+    }
+  },
+  "source_hours": [
+    {
+      "source": "20030500.01A",
+      "source_sha256": "7cfbf027eca45393c9b31a0d816359f6306b0068159de79f6b0981757b79dea6",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 3,
+      "first_utc": "2020-03-05T00:00:11.000000000",
+      "last_utc": "2020-03-05T00:00:41.000000000"
+    },
+    {
+      "source": "20030501.01A",
+      "source_sha256": "6147a5bd13d1b83308a61fa3ef95058c4ead6d9c95bcd8e97cfc4882375db7ee",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 58,
+      "first_utc": "2020-03-05T01:45:41.000000000",
+      "last_utc": "2020-03-05T01:59:56.000000000"
+    },
+    {
+      "source": "20030502.01A",
+      "source_sha256": "8c249358d4e9a9378be090d737e305c9fa851efbcc98d16c36abcd7ebc519182",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 240,
+      "first_utc": "2020-03-05T02:00:11.000000000",
+      "last_utc": "2020-03-05T02:59:56.000000000"
+    },
+    {
+      "source": "20030503.01A",
+      "source_sha256": "521876094827c737ada9daaa8a39fadf1fd0c2e9e30f6e727b283479e63733e0",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 240,
+      "first_utc": "2020-03-05T03:00:11.000000000",
+      "last_utc": "2020-03-05T03:59:55.000000000"
+    },
+    {
+      "source": "20030504.01A",
+      "source_sha256": "4df11ffaabc3cf6aa6e37a81e192692899f26b958d31bec75cb94b6819dcd3b3",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 240,
+      "first_utc": "2020-03-05T04:00:10.000000000",
+      "last_utc": "2020-03-05T04:59:55.000000000"
+    },
+    {
+      "source": "20030505.01A",
+      "source_sha256": "849d3598912a93cbda570e267c7c2b1a48535a11897fb9a6e0303414d5d422a8",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 240,
+      "first_utc": "2020-03-05T05:00:10.000000000",
+      "last_utc": "2020-03-05T05:59:55.000000000"
+    },
+    {
+      "source": "20030506.01A",
+      "source_sha256": "14ee6d880c7b0be089418ebf8548b4eeddfc78776cd0ebf107acf66346fda4d0",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 240,
+      "first_utc": "2020-03-05T06:00:10.000000000",
+      "last_utc": "2020-03-05T06:59:55.000000000"
+    },
+    {
+      "source": "20030507.01A",
+      "source_sha256": "9d5393d2af2eee889e2abc212497b46e018dd89e44edb9d61ec81ba7bd9002e3",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 240,
+      "first_utc": "2020-03-05T07:00:10.000000000",
+      "last_utc": "2020-03-05T07:59:55.000000000"
+    },
+    {
+      "source": "20030508.01A",
+      "source_sha256": "2ee05b484f87f196514119d154ba1253d15291b246a79af0fdd3b4f2d599a609",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 3,
+      "first_utc": "2020-03-05T08:00:10.000000000",
+      "last_utc": "2020-03-05T08:00:40.000000000"
+    },
+    {
+      "source": "20030509.01A",
+      "source_sha256": "cb5ee7078e4473b4650af5a2880082a9d039f23de2b69e26af9eee328b4c5dd5",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 58,
+      "first_utc": "2020-03-05T09:45:41.000000000",
+      "last_utc": "2020-03-05T09:59:56.000000000"
+    },
+    {
+      "source": "20030510.01A",
+      "source_sha256": "9b1c78bd5c57b29f79782742b4bd391fa42f64f539d6804c59f6ba3db236a633",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 240,
+      "first_utc": "2020-03-05T10:00:11.000000000",
+      "last_utc": "2020-03-05T10:59:56.000000000"
+    },
+    {
+      "source": "20030511.01A",
+      "source_sha256": "d6c16da2178737e0f43ac3b56e12729c9bbf47b8d9725cc0affde67759cd0a2c",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 240,
+      "first_utc": "2020-03-05T11:00:11.000000000",
+      "last_utc": "2020-03-05T11:59:55.000000000"
+    },
+    {
+      "source": "20030512.01A",
+      "source_sha256": "03f2d937abbfb1b1333cf1ae4c8d252eca18109b3cf8f737f2a5a09d38ebcad1",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 240,
+      "first_utc": "2020-03-05T12:00:10.000000000",
+      "last_utc": "2020-03-05T12:59:55.000000000"
+    },
+    {
+      "source": "20030513.01A",
+      "source_sha256": "d42fa1c13c65637d54a6c7b0a9de1e6a7787a6aca5b6ec74133b711bf0911794",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 240,
+      "first_utc": "2020-03-05T13:00:10.000000000",
+      "last_utc": "2020-03-05T13:59:55.000000000"
+    },
+    {
+      "source": "20030514.01A",
+      "source_sha256": "41426aa386c4f30a4804f420a17f178b81b9f38b74a0ee0f5806537fbf394dcb",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 240,
+      "first_utc": "2020-03-05T14:00:10.000000000",
+      "last_utc": "2020-03-05T14:59:55.000000000"
+    },
+    {
+      "source": "20030515.01A",
+      "source_sha256": "cd4c8cc538e456ab1a6f05a8bb195e5f16a18b3343c5a4bf324feb970a38f978",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 240,
+      "first_utc": "2020-03-05T15:00:10.000000000",
+      "last_utc": "2020-03-05T15:59:55.000000000"
+    },
+    {
+      "source": "20030516.01A",
+      "source_sha256": "5d097425f0aafe595a73eb3deee44c2b69240a9769692ef490c19753e9cdc738",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 1,
+      "first_utc": "2020-03-05T16:00:10.000000000",
+      "last_utc": "2020-03-05T16:00:10.000000000"
+    },
+    {
+      "source": "20030517.01A",
+      "source_sha256": "51c520e59241989bf34e3132801845e958bb1e1d78329036fa723c383b474bf3",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 58,
+      "first_utc": "2020-03-05T17:45:38.000000000",
+      "last_utc": "2020-03-05T17:59:53.000000000"
+    },
+    {
+      "source": "20030518.01A",
+      "source_sha256": "c0c2d20b0d36d8dc5589928f920ba3489a651d615c18b4a8be2e8c1c74511b1b",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 240,
+      "first_utc": "2020-03-05T18:00:08.000000000",
+      "last_utc": "2020-03-05T18:59:53.000000000"
+    },
+    {
+      "source": "20030519.01A",
+      "source_sha256": "2b6e1e8cfcaeec69bf041c051d6d7e5faf398b0cd78abc8453d3325d7936efde",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 240,
+      "first_utc": "2020-03-05T19:00:08.000000000",
+      "last_utc": "2020-03-05T19:59:53.000000000"
+    },
+    {
+      "source": "20030520.01A",
+      "source_sha256": "adcca9e70241ab9fa9ada02b560f349061a1457056f30b9d9221b4de6d7d14ab",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 240,
+      "first_utc": "2020-03-05T20:00:08.000000000",
+      "last_utc": "2020-03-05T20:59:53.000000000"
+    },
+    {
+      "source": "20030521.01A",
+      "source_sha256": "e6da30a2fa30ec16841cefeb3c04e11a56cb68c5ea25951cc2736a82943a3a86",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 240,
+      "first_utc": "2020-03-05T21:00:08.000000000",
+      "last_utc": "2020-03-05T21:59:53.000000000"
+    },
+    {
+      "source": "20030522.01A",
+      "source_sha256": "2cd6d3034571dd751876a760120da7e943b7638857f98ad9efaacc4398c99177",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 240,
+      "first_utc": "2020-03-05T22:00:08.000000000",
+      "last_utc": "2020-03-05T22:59:53.000000000"
+    },
+    {
+      "source": "20030523.01A",
+      "source_sha256": "1506d20741c8761b4b1886157f76e19c1e3aaa6a557bcb8dbc370aca93e72a62",
+      "configuration_sha256": "f90a1a2681898ad2c6dabb5eded4c7fa4c5f5f154aefd10b79dbc82629c74860",
+      "pings_in_day": 240,
+      "first_utc": "2020-03-05T23:00:08.000000000",
+      "last_utc": "2020-03-05T23:59:53.000000000"
+    }
+  ],
+  "historical_manifest_sha256": "02df3c1584da7d9abfb1e411a8e2ecf4c79ed70a6f0c0f9f0676f4ae358354df",
+  "observed_pings": 4501,
+  "native_qc_disjoint_counts": {
+    "native_band_sample_pairs": 805679,
+    "invalid": 0,
+    "saturated": 0,
+    "geometry": 0,
+    "noise_unavailable": 0,
+    "below_detection": 734447,
+    "detected": 71232
+  },
+  "elapsed_seconds": 7.5,
+  "peak_sampled_process_rss_gib": 0.253387451171875,
+  "available_time": "UNKNOWN",
+  "replay_availability": "zero_latency_at_trailing_bin_end",
+  "quantity": "detection-conditioned sampled Sv; range-length weighted; factory/regional assumption"
+}

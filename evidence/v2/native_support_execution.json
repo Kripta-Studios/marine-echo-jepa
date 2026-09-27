@@ -1,0 +1,12 @@
+{
+  "study_id": "v2_candidate2",
+  "data_kind": "REAL",
+  "command": ".venv/Scripts/python.exe -m tools.v2_native_support --review orchestration/reviews/V2_NATIVE_SUPPORT_METHOD_20260927.json",
+  "exit_code": 0,
+  "report_path": "evidence/v2/native-support/eligibility_v2.json",
+  "report_sha256": "befcfe4434fa37b555320105ab538b4912fa26ad666562666d56a33f5027a9fb",
+  "result": "NATIVE_CANDIDATE_INELIGIBLE_STOP_D1_TARGET_SEARCH",
+  "fit_target_days_by_horizon_1_3_6": [21, 22, 21],
+  "assessment_target_days_by_horizon_1_3_6": [0, 0, 0],
+  "model_scores_computed": false
+}

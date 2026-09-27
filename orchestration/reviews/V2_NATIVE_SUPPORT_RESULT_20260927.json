@@ -1,0 +1,17 @@
+{
+  "record_type": "COORDINATOR_TRANSCRIPTION_OF_DISTINCT_REVIEWER_MESSAGE",
+  "reviewer_session": "/root/v2_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "host_permissions": "danger-full-access; behavioral read-only",
+  "disposition": "APPROVE_RESULT_BLOCK_D1_FIT",
+  "report_sha256": "befcfe4434fa37b555320105ab538b4912fa26ad666562666d56a33f5027a9fb",
+  "index_sha256": "58b9fc7825b804511b92726d707589db9c818159fb3081d47ed37b8676533b0a",
+  "fit_rows_sha256": "0691a11145477be04ece70b3f157fc88433843dea8446fb64e43d9b578a9c4c1",
+  "assessment_rows_sha256": "d4064707f07a9bdeb45dd9e35ed9cc3c6d5f8bce5cd344f9584c07ea96cb5938",
+  "full_run_log_sha256": "7a650acf21ed2a2fb870f461f0368761fd4697a1885db7b8bf0026d9018cf48d",
+  "method_review_sha256": "5c56ebfa11d3a6baed740afdb01e7191fa2cddd1e3cf04333b780ae4ecc0350f",
+  "independent_checks": "All 117 indexed manifest/shard hashes, exact 58-day calendar, both row hashes, and reconstruction of all 1392 hours from shards, including issuance exclusions, W/O fractions, quantiles and target-day counts.",
+  "result": "Fit has 227/184/179 eligible rows and 21/22/21 target days at 1/3/6 hours. April assessment has 224 issued rows per horizon and zero eligible target rows/days. Maximum detected fractions are 0.0733444/0.0733444/0.0703087, below the frozen 0.10 floor.",
+  "scope": "Stop further D1 calibrated-target/support search and block all D1 Candidate 2 model fits. This is a failed measurement-support route, not a negative model result."
+}

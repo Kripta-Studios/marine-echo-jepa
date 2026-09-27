@@ -7,17 +7,28 @@ prompt. The leader owns data/design; `/root/v2_builder` owns real executors in t
 separate `impl/v2-execution` worktree; `/root/v2_reviewer` independently reviews
 `continuation_v2/REVIEW_V2.md`. V1 evidence below remains historical and unchanged.
 
-ADR 0005's single conservative two-metre-grid candidate failed its frozen 10%
-detected support rule: zero eligible hourly targets on original TRAIN. The failed
-v2 candidate and immutable row report are preserved under `evidence/v2/support/`.
-The distinct reviewer approved prospective native range-length Candidate 2's
-contract in ADR 0006 and a one-day TRAIN processing pilot. That pilot completed
-on 17 February: 5713 observed pings, 48 source chunks, 0.255 GiB sampled peak
-process RSS, 9.156 seconds, and an exact hash-bound shard/manifest. Native
-support for the full fixed development interval awaits independent pilot review;
-no v2 model fit or scientific prediction has executed yet. The v1 census and
-any-band audit were not rerun. Real reader, causal batches and model executors
-continue in the separate builder worktree.
+ADR 0005's conservative two-metre-grid candidate failed its frozen 10% detected
+support rule: zero eligible hourly targets on original TRAIN. Its row report
+remains under `evidence/v2/support/`. The distinct reviewer approved the native
+range-length Candidate 2 contract in ADR 0006, its processing pilot and the
+fixed 58-day TRAIN development processing. All 58 days, 17 February through
+14 April, completed with 259083 observed pings and hash-bound native shards.
+The audited index SHA256 is
+`58b9fc7825b804511b92726d707589db9c818159fb3081d47ed37b8676533b0a`.
+Summed worker time was 1259.904 seconds, not a wall-clock measurement; maximum
+sampled single-process RSS was 0.266 GiB. The independently reviewed support
+method ran successfully. Candidate 2 has 21/22/21 eligible fit target days at
+1/3/6 hours, but zero eligible April assessment target days at every horizon:
+its maximum observed detection fraction is below the frozen 10% floor.
+`evidence/v2/native-support/eligibility_v2.json` records the complete counts,
+exclusions and row hashes. The distinct reviewer independently reconstructed
+all 1392 hours and approved this negative support result, blocking Candidate 2
+fits. ADR 0006 stops further D1 calibrated-target search. A separate
+complete-positive AZFP response-code engineering target in ADR 0007 is approved
+prospectively; its processor is under independent review. This route cannot
+complete the calibrated-acoustic v2 MVP or consume its 25 campaign slots. No
+model fit or scientific prediction has executed. V1 census and any-band audit
+were not rerun. The builder continues real executor implementation independently.
 
 The existing GPU environment passed a CUDA kernel smoke with PyTorch 2.11.0+cu128;
 this is not a training-memory measurement. Data-environment PyTorch is absent and

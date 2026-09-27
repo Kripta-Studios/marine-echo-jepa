@@ -1,0 +1,14 @@
+{
+  "record_type": "COORDINATOR_TRANSCRIPTION_OF_DISTINCT_REVIEWER_MESSAGE",
+  "reviewer_session": "/root/v2_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "host_permissions": "danger-full-access; behavioral read-only",
+  "disposition": "APPROVE_RAW_RESPONSE_TARGET_PROTOCOL",
+  "contract_path": "docs/adr/0007-raw-instrument-response-development.md",
+  "contract_sha256": "467fa249405f4d0983b9c6f88155a4cfd8c458aecff746f465a1b01c2ccc4c69",
+  "scope": "Prospective complete-positive transformed AZFP backscatter_r code measurement and adequacy contract for raw_response_development_v1 only. Zero-code conditioning and stronger-response selection disclosed. Past-only issuance and target-time configuration gate. No calibrated Sv, no v2 25-slot campaign, no inferential superiority claim.",
+  "excluded_approvals": "Does not approve processor, aggregation code, support audit, pilot, full processing, model fit or result.",
+  "reference_parser_sha256": "d5ac606f3372b36e940f32df2255d23fdb8848e87d14f8794cface0050275b45",
+  "reference_manifest_sha256": "2aec56ec58cc61cb38efd4af08f76402c223e1291334ebbad1a709af2f417733"
+}

@@ -339,7 +339,7 @@
     "infrastructure_committed_usd": 0
   },
   "v2": {
-    "status": "NATIVE_TRAIN_PILOT_COMPLETE_PENDING_REVIEW",
+    "status": "D1_CANDIDATE2_INELIGIBLE_RAW_RESPONSE_PROPOSED",
     "owner_amendment_authorized": true,
     "data_design_owner": "/root",
     "executor_owner": "/root/v2_builder",
@@ -351,6 +351,19 @@
     "registry_namespace": "reports/v2",
     "cloud_authorized": false,
     "infrastructure_paid_usd": 0,
-    "preflight": "evidence/v2/gpu_runtime_preflight.json"
+    "preflight": "evidence/v2/gpu_runtime_preflight.json",
+    "protocol_sha256": "0270b9fc88b2511dc931126fe980a5cd6cc411f88a3579964f4cf4501d325029",
+    "protocol_review": "orchestration/reviews/V2_PROTOCOL_20260927.json",
+    "native_full_execution": "evidence/v2/native_full_execution.json",
+    "native_development_index_sha256": "58b9fc7825b804511b92726d707589db9c818159fb3081d47ed37b8676533b0a",
+    "native_support_execution": "evidence/v2/native_support_execution.json",
+    "native_support_report_sha256": "befcfe4434fa37b555320105ab538b4912fa26ad666562666d56a33f5027a9fb",
+    "native_support_result_review": "orchestration/reviews/V2_NATIVE_SUPPORT_RESULT_20260927.json",
+    "candidate2_fit_target_days_1_3_6": [21, 22, 21],
+    "candidate2_assessment_target_days_1_3_6": [0, 0, 0],
+    "candidate2_fit_allowed": false,
+    "raw_response_contract": "docs/adr/0007-raw-instrument-response-development.md",
+    "raw_response_status": "TARGET_PROTOCOL_APPROVED_PROCESSOR_PENDING_REVIEW_NO_PROCESSING",
+    "raw_response_target_review": "orchestration/reviews/V2_RAW_RESPONSE_TARGET_20260927.json"
   }
 }

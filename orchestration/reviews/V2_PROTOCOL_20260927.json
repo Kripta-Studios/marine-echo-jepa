@@ -1,0 +1,11 @@
+{
+  "record_type": "COORDINATOR_TRANSCRIPTION_OF_DISTINCT_REVIEWER_MESSAGE",
+  "reviewer_session": "/root/v2_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "host_permissions": "danger-full-access; behavioral read-only",
+  "disposition": "APPROVE_V2_PROTOCOL_PROSPECTIVE_FREEZE",
+  "protocol_path": "reports/v2/protocol_v2.json",
+  "protocol_sha256": "0270b9fc88b2511dc931126fe980a5cd6cc411f88a3579964f4cf4501d325029",
+  "scope": "Prospective Candidate2 protocol text and integrity only. Data adequacy/support-result review, fit authorization, full-period physical qualification, campaign lock, non-TRAIN processing, evaluation and release remain separate."
+}

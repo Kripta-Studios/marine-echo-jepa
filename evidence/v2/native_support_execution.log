@@ -1,0 +1,271 @@
+{
+  "status": "NATIVE_CANDIDATE_INELIGIBLE_STOP_D1_TARGET_SEARCH",
+  "partitions": {
+    "development_fit": {
+      "start": "2020-02-17",
+      "end": "2020-04-01",
+      "row_path": "evidence\\v2\\native-support\\development_fit_rows.json",
+      "rows_sha256": "0691a11145477be04ece70b3f157fc88433843dea8446fb64e43d9b578a9c4c1",
+      "minimum_target_days": 20,
+      "adequate_all_horizons": true,
+      "issue_exclusions": {
+        "partition_boundary": 29,
+        "past_configuration": 61,
+        "past_last_hour_acquisition": 201,
+        "past_context_acquisition": 8
+      },
+      "horizons": {
+        "1": {
+          "issued_rows": 757,
+          "index_eligible_rows": 227,
+          "fraction_eligible_rows": 638,
+          "unique_index_days": 21,
+          "unique_index_target_days": 21,
+          "unique_index_cutoff_days": 21,
+          "fixed_48h_blocks": 14,
+          "score_exclusions": {
+            "below_detection_fraction_floor": 411,
+            "insufficient_acquisition": 119
+          },
+          "detected_fraction_quantiles_0_25_50_75_100": [
+            0.022565932927005886,
+            0.05871991040632543,
+            0.08231670595723009,
+            0.11345093583810487,
+            0.19048165077124454
+          ],
+          "scheduled_coverage_quantiles_0_25_50_75_100": [
+            0.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0041666666666667
+          ],
+          "index_days": [
+            "2020-02-18",
+            "2020-02-22",
+            "2020-02-23",
+            "2020-02-24",
+            "2020-02-25",
+            "2020-02-26",
+            "2020-02-27",
+            "2020-02-29",
+            "2020-03-01",
+            "2020-03-02",
+            "2020-03-03",
+            "2020-03-04",
+            "2020-03-05",
+            "2020-03-06",
+            "2020-03-07",
+            "2020-03-08",
+            "2020-03-11",
+            "2020-03-12",
+            "2020-03-13",
+            "2020-03-17",
+            "2020-03-18"
+          ]
+        },
+        "3": {
+          "issued_rows": 757,
+          "index_eligible_rows": 184,
+          "fraction_eligible_rows": 517,
+          "unique_index_days": 22,
+          "unique_index_target_days": 22,
+          "unique_index_cutoff_days": 22,
+          "fixed_48h_blocks": 14,
+          "score_exclusions": {
+            "below_detection_fraction_floor": 333,
+            "insufficient_acquisition": 240
+          },
+          "detected_fraction_quantiles_0_25_50_75_100": [
+            0.026598894080282754,
+            0.05865277607887067,
+            0.08312527169266241,
+            0.11279369933698982,
+            0.19048165077124454
+          ],
+          "scheduled_coverage_quantiles_0_25_50_75_100": [
+            0.0,
+            0.24166666666666667,
+            1.0,
+            1.0,
+            1.0041666666666667
+          ],
+          "index_days": [
+            "2020-02-18",
+            "2020-02-22",
+            "2020-02-23",
+            "2020-02-24",
+            "2020-02-25",
+            "2020-02-26",
+            "2020-02-27",
+            "2020-02-29",
+            "2020-03-01",
+            "2020-03-02",
+            "2020-03-03",
+            "2020-03-04",
+            "2020-03-05",
+            "2020-03-06",
+            "2020-03-07",
+            "2020-03-08",
+            "2020-03-09",
+            "2020-03-11",
+            "2020-03-12",
+            "2020-03-13",
+            "2020-03-17",
+            "2020-03-18"
+          ]
+        },
+        "6": {
+          "issued_rows": 757,
+          "index_eligible_rows": 179,
+          "fraction_eligible_rows": 516,
+          "unique_index_days": 21,
+          "unique_index_target_days": 21,
+          "unique_index_cutoff_days": 23,
+          "fixed_48h_blocks": 13,
+          "score_exclusions": {
+            "below_detection_fraction_floor": 337,
+            "insufficient_acquisition": 241
+          },
+          "detected_fraction_quantiles_0_25_50_75_100": [
+            0.022565932927005886,
+            0.05846746374144843,
+            0.08272104584683292,
+            0.11256640817372712,
+            0.1734470822407889
+          ],
+          "scheduled_coverage_quantiles_0_25_50_75_100": [
+            0.0,
+            0.24166666666666667,
+            1.0,
+            1.0,
+            1.0041666666666667
+          ],
+          "index_days": [
+            "2020-02-18",
+            "2020-02-22",
+            "2020-02-23",
+            "2020-02-24",
+            "2020-02-25",
+            "2020-02-26",
+            "2020-02-27",
+            "2020-02-29",
+            "2020-03-01",
+            "2020-03-02",
+            "2020-03-03",
+            "2020-03-04",
+            "2020-03-05",
+            "2020-03-06",
+            "2020-03-07",
+            "2020-03-08",
+            "2020-03-09",
+            "2020-03-11",
+            "2020-03-12",
+            "2020-03-13",
+            "2020-03-18"
+          ]
+        }
+      }
+    },
+    "development_assessment": {
+      "start": "2020-04-01",
+      "end": "2020-04-15",
+      "row_path": "evidence\\v2\\native-support\\development_assessment_rows.json",
+      "rows_sha256": "d4064707f07a9bdeb45dd9e35ed9cc3c6d5f8bce5cd344f9584c07ea96cb5938",
+      "minimum_target_days": 5,
+      "adequate_all_horizons": false,
+      "issue_exclusions": {
+        "partition_boundary": 29,
+        "past_configuration": 44,
+        "past_last_hour_acquisition": 39
+      },
+      "horizons": {
+        "1": {
+          "issued_rows": 224,
+          "index_eligible_rows": 0,
+          "fraction_eligible_rows": 185,
+          "unique_index_days": 0,
+          "unique_index_target_days": 0,
+          "unique_index_cutoff_days": 0,
+          "fixed_48h_blocks": 0,
+          "score_exclusions": {
+            "insufficient_acquisition": 39,
+            "below_detection_fraction_floor": 185
+          },
+          "detected_fraction_quantiles_0_25_50_75_100": [
+            0.01939551259841824,
+            0.029934888773692846,
+            0.03349922067779691,
+            0.04105257595989452,
+            0.0733443753721699
+          ],
+          "scheduled_coverage_quantiles_0_25_50_75_100": [
+            0.0,
+            0.9875,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "index_days": []
+        },
+        "3": {
+          "issued_rows": 224,
+          "index_eligible_rows": 0,
+          "fraction_eligible_rows": 149,
+          "unique_index_days": 0,
+          "unique_index_target_days": 0,
+          "unique_index_cutoff_days": 0,
+          "fixed_48h_blocks": 0,
+          "score_exclusions": {
+            "below_detection_fraction_floor": 149,
+            "insufficient_acquisition": 75
+          },
+          "detected_fraction_quantiles_0_25_50_75_100": [
+            0.01939551259841824,
+            0.029909185893955043,
+            0.034455009159209314,
+            0.04168996500585031,
+            0.0733443753721699
+          ],
+          "scheduled_coverage_quantiles_0_25_50_75_100": [
+            0.0,
+            0.26666666666666666,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "index_days": []
+        },
+        "6": {
+          "issued_rows": 224,
+          "index_eligible_rows": 0,
+          "fraction_eligible_rows": 146,
+          "unique_index_days": 0,
+          "unique_index_target_days": 0,
+          "unique_index_cutoff_days": 0,
+          "fixed_48h_blocks": 0,
+          "score_exclusions": {
+            "below_detection_fraction_floor": 146,
+            "insufficient_acquisition": 78
+          },
+          "detected_fraction_quantiles_0_25_50_75_100": [
+            0.02044454873655388,
+            0.03023260386296925,
+            0.03501449509954828,
+            0.04266663092939306,
+            0.07030873316926618
+          ],
+          "scheduled_coverage_quantiles_0_25_50_75_100": [
+            0.0,
+            0.2625,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "index_days": []
+        }
+      }
+    }
+  }
+}
