@@ -22,6 +22,7 @@ import {
 import { RawEchogram } from "./charts/RawEchogram";
 import { AeonStudyPage } from "./pages/AeonStudyPage";
 import type { AeonStudyEvidence } from "./api/client";
+import { aeonContext } from "./aeonContext";
 import { safeCutoff } from "./api/cutoff";
 import "./styles/integration.css";
 
@@ -441,11 +442,7 @@ function App() {
         verificationLabel: aeonStudy ? "Reviewed source and result hashes" : "Artifact unavailable",
         origin: aeonStudy ? "public-data" : "unavailable",
       },
-      context: {
-        cutoffLabel: "Source clock unspecified",
-        modeLabel: "Validation evidence · no forecast replay",
-        uncertaintyLabel: "No final evaluation",
-      },
+      context: aeonContext(aeonStudy),
       content: <AeonStudyPage study={aeonStudy} state={aeonStudyState} />,
     },
   };
