@@ -35,16 +35,19 @@ def _train_rows() -> list[AeonHourlyWindow]:
     return rows
 
 
+@pytest.mark.parametrize("mode", ["ema", "shared_sigreg"])
 def test_random_checkpoint_diagnostic_uses_train_rows_and_frozen_encoder(
-    tmp_path: Path,
+    tmp_path: Path, mode: str,
 ) -> None:
     rows = _train_rows()
+    family = f"random_encoder_{mode}"
     with torch.random.fork_rng(devices=[]):
         torch.manual_seed(7)
-        model = AeonTemporalSSL(mode="ema", width=16, layers=2, regularizer_weight=0.03)
+        model = AeonTemporalSSL(mode=mode, width=16, layers=2,
+                                regularizer_weight=0.03 if mode == "ema" else 0.04)
     checkpoint = tmp_path / "model.pt"
     torch.save({
-        "phase": "supervised", "step": 1500, "family": "random_encoder_ema",
+        "phase": "supervised", "step": 1500, "family": family,
         "seed": 7, "model_state_dict": model.state_dict(),
         "scaler_fit_only": (-80.0, 1.0, -80.0, 1.0),
         "source_sha256": "a" * 64, "protocol_sha256": "b" * 64,
@@ -52,14 +55,14 @@ def test_random_checkpoint_diagnostic_uses_train_rows_and_frozen_encoder(
     config = {"neural": {"encoder_width": 16, "encoder_layers": 2,
                          "ema_sigreg_weight": 0.03, "shared_sigreg_weight": 0.04}}
     with pytest.raises(ValueError, match="TRAIN scaler"):
-        _checkpoint_diagnostic(checkpoint, "random_encoder_ema", rows, config,
+        _checkpoint_diagnostic(checkpoint, family, rows, config,
                                expected_source="a" * 64, expected_protocol="b" * 64)
     from marine_echo.training.aeon_development import _normalizer
 
     saved = torch.load(checkpoint, map_location="cpu", weights_only=True)
     saved["scaler_fit_only"] = _normalizer(rows)
     torch.save(saved, checkpoint)
-    report = _checkpoint_diagnostic(checkpoint, "random_encoder_ema", rows, config,
+    report = _checkpoint_diagnostic(checkpoint, family, rows, config,
                                     expected_source="a" * 64, expected_protocol="b" * 64)
     assert report["source_partition"] == "train"
     assert report["row_ids"] == [row.row_id for row in rows]
@@ -70,7 +73,7 @@ def test_random_checkpoint_diagnostic_uses_train_rows_and_frozen_encoder(
     saved["model_state_dict"]["encoder.network.0.weight"][0, 0] += 0.1
     torch.save(saved, checkpoint)
     with pytest.raises(ValueError, match="representation weights changed"):
-        _checkpoint_diagnostic(checkpoint, "random_encoder_ema", rows, config,
+        _checkpoint_diagnostic(checkpoint, family, rows, config,
                                expected_source="a" * 64, expected_protocol="b" * 64)
 
 

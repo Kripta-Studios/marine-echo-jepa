@@ -70,7 +70,9 @@ def _checkpoint_diagnostic(
             mode=mode,
             width=neural["encoder_width"],
             layers=neural["encoder_layers"],
-            regularizer_weight=neural[f"{mode}_sigreg_weight"],
+            regularizer_weight=neural[
+                "ema_sigreg_weight" if mode == "ema" else "shared_sigreg_weight"
+            ],
         )
     initial = {
         name: value.clone()
