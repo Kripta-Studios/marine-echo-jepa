@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 import os
@@ -157,6 +158,8 @@ def _config_gate(config: dict[str, Any]) -> None:
     if (
         conventional.get("ridge_alpha") != 10.0
         or conventional.get("hist_gradient_boosting_max_iter") != 128
+        or conventional.get("hist_gradient_boosting_loss") != "quantile"
+        or conventional.get("hist_gradient_boosting_heads") != 15
         or conventional.get("hist_gradient_boosting_max_depth") != 4
         or conventional.get("hist_gradient_boosting_learning_rate") != 0.05
         or conventional.get("max_threads") != 4
@@ -266,6 +269,34 @@ def _conventional_prediction(
             },
             model_path,
         )
+    elif slot.family == "hist_gradient_boosting":
+        x_fit, x_assess = _past_features(fit), _past_features(assess)
+        truth = np.stack([row.target_db for row in fit])
+        masks = np.stack([row.target_mask for row in fit])
+        prediction = np.zeros((len(assess), 3, 5))
+        models = []
+        conventional = config["conventional"]
+        with threadpool_limits(limits=conventional["max_threads"]):
+            for horizon in range(3):
+                valid = masks[:, horizon]
+                if not valid.any():
+                    raise ValueError("AEON HGB TRAIN lacks a horizon label.")
+                horizon_models = []
+                for index, quantile in enumerate(QUANTILES):
+                    model = HistGradientBoostingRegressor(
+                        loss="quantile",
+                        quantile=float(quantile),
+                        max_iter=conventional["hist_gradient_boosting_max_iter"],
+                        max_depth=conventional["hist_gradient_boosting_max_depth"],
+                        learning_rate=conventional["hist_gradient_boosting_learning_rate"],
+                        random_state=conventional["random_state"],
+                    )
+                    model.fit(x_fit[valid], truth[valid, horizon])
+                    prediction[:, horizon, index] = model.predict(x_assess)
+                    horizon_models.append(model)
+                models.append(horizon_models)
+        prediction.sort(axis=-1)
+        joblib.dump({"family": slot.family, "models": models}, model_path)
     else:
         x_fit, x_assess = _past_features(fit), _past_features(assess)
         truth = np.stack([row.target_db for row in fit])
@@ -282,13 +313,6 @@ def _conventional_prediction(
                 if slot.family == "ridge":
                     model = make_pipeline(
                         StandardScaler(), Ridge(alpha=conventional["ridge_alpha"])
-                    )
-                elif slot.family == "hist_gradient_boosting":
-                    model = HistGradientBoostingRegressor(
-                        max_iter=conventional["hist_gradient_boosting_max_iter"],
-                        max_depth=conventional["hist_gradient_boosting_max_depth"],
-                        learning_rate=conventional["hist_gradient_boosting_learning_rate"],
-                        random_state=conventional["random_state"],
                     )
                 else:
                     raise ValueError("Unknown AEON conventional family.")
@@ -525,6 +549,77 @@ def _shuffled_pretrain_loss(
     )
 
 
+def _representation_diagnostics(
+    model: AeonTemporalSSL,
+    fit: list[AeonHourlyWindow],
+    values: torch.Tensor,
+    mask: torch.Tensor,
+    *,
+    device: str,
+) -> dict[str, Any]:
+    """Deterministic TRAIN-only final-pretrain collapse and scale evidence."""
+    if len(fit) < 2 or len(values) != len(fit) or mask.shape != values.shape:
+        raise ValueError("AEON TRAIN representation diagnostic cohort is invalid.")
+    selected = np.linspace(0, len(fit) - 1, min(512, len(fit)), dtype=int)
+    if len(set(selected.tolist())) != len(selected):
+        raise ValueError("AEON diagnostic source row selection repeated an issue.")
+    target_parts = []
+    predictor_parts = []
+    model.eval()
+    with torch.no_grad():
+        for first in range(0, len(selected), 64):
+            batch = selected[first : first + 64]
+            past = values[batch].to(device)
+            past_mask = mask[batch].to(device)
+            target_parts.append(model.teacher_view(past, past_mask).cpu().numpy())
+            predictor_parts.append(
+                model.predictor(model.context_view(past, past_mask)).cpu().numpy()
+            )
+    target = np.concatenate(target_parts).astype(np.float64)
+    predicted = np.concatenate(predictor_parts).astype(np.float64)
+    if target.shape != predicted.shape or not np.isfinite(target).all() or not np.isfinite(predicted).all():
+        raise ValueError("AEON TRAIN representation diagnostic vectors are invalid.")
+    target_variance = target.var(axis=0, ddof=1)
+    predictor_variance = predicted.var(axis=0, ddof=1)
+    centered = target - target.mean(axis=0)
+    covariance = centered.T @ centered / (len(target) - 1)
+    eigenvalues = np.maximum(np.linalg.eigvalsh(covariance), 0.0)
+    trace = float(eigenvalues.sum())
+    if trace <= 1e-12:
+        effective_rank = 0.0
+    else:
+        mass = eigenvalues[eigenvalues > 0] / trace
+        effective_rank = float(np.exp(-(mass * np.log(mass)).sum()))
+    target_rms = float(np.sqrt(np.square(target).mean()))
+    predictor_rms = float(np.sqrt(np.square(predicted).mean()))
+    variance_ratio = (
+        float(predictor_variance.mean() / target_variance.mean())
+        if float(target_variance.mean()) > 1e-12
+        else None
+    )
+    scale_ratio = predictor_rms / target_rms if target_rms > 1e-12 else None
+    return {
+        "selection": "chronological_evenly_spaced_train_issue_rows_v1",
+        "source_partition": "train",
+        "source_archive_sha256": fit[0].source_archive_sha256,
+        "row_count": len(selected),
+        "row_ids": [fit[index].row_id for index in selected],
+        "cutoff_interval_ids": [fit[index].cutoff_interval_id for index in selected],
+        "target_dimension_variance_min": float(target_variance.min()),
+        "target_dimension_variance_median": float(np.median(target_variance)),
+        "target_dimension_variance_mean": float(target_variance.mean()),
+        "target_effective_rank": effective_rank,
+        "target_effective_rank_fraction": effective_rank / target.shape[1],
+        "target_exact_zero_variance": trace <= 1e-12,
+        "predictor_dimension_variance_min": float(predictor_variance.min()),
+        "predictor_dimension_variance_mean": float(predictor_variance.mean()),
+        "predictor_rms": predictor_rms,
+        "target_rms": target_rms,
+        "prediction_target_rms_ratio": scale_ratio,
+        "predictor_target_variance_ratio": variance_ratio,
+    }
+
+
 def _neural_prediction(
     slot: CampaignSlot,
     fit: list[AeonHourlyWindow],
@@ -582,6 +677,7 @@ def _neural_prediction(
         validation_checks: list[dict[str, Any]] = []
         pretrain_seconds = 0.0
         supervised_seconds = 0.0
+        representation_diagnostics: dict[str, Any] | None = None
 
         def check_resources() -> None:
             nonlocal peak_rss
@@ -676,6 +772,10 @@ def _neural_prediction(
                 if step % neural["checkpoint_every_updates"] == 0:
                     save_checkpoint("pretrain", step, pretrain_optimizer)
             pretrain_seconds = time.perf_counter() - started
+            representation_diagnostics = _representation_diagnostics(
+                model, fit, x_fit, m_fit, device=device
+            )
+            check_resources()
 
         if _is_random_control(slot.family):
             supervised_updates = config["controls"]["random_encoder_supervised_updates"]
@@ -750,8 +850,31 @@ def _neural_prediction(
             "peak_process_rss_bytes": peak_rss,
             "gpu_peak_reserved_bytes": torch.cuda.max_memory_reserved() if device == "cuda" else None,
             "scaler_fit_only": scaler,
+            "final_pretrain_train_representation_diagnostics": representation_diagnostics,
             "device": device,
         }
         return final_forecast, final_checkpoint, metadata
     finally:
         torch.set_num_threads(previous_threads)
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--archive", type=Path, required=True)
+    parser.add_argument("--split-review", type=Path, required=True)
+    parser.add_argument("--campaign-review", type=Path, required=True)
+    parser.add_argument("--config", type=Path, required=True)
+    parser.add_argument("--output", type=Path, required=True)
+    arguments = parser.parse_args()
+    result = run_campaign(
+        arguments.archive,
+        arguments.split_review,
+        arguments.campaign_review,
+        arguments.config,
+        arguments.output,
+    )
+    print(json.dumps(result, indent=2, allow_nan=False))
+
+
+if __name__ == "__main__":
+    main()

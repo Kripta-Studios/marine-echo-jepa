@@ -6,6 +6,7 @@ import json
 from dataclasses import replace
 from pathlib import Path
 
+import joblib
 import numpy as np
 import pytest
 import torch
@@ -106,6 +107,34 @@ def test_seasonal_24_step_reference_uses_matching_hour_for_each_horizon(tmp_path
     assert np.array_equal(forecast[0, :, 2], [101.0, 103.0, 106.0])
 
 
+def test_hgb_fits_fifteen_train_only_quantile_heads(tmp_path: Path) -> None:
+    base = _row()
+    fit = [
+        replace(
+            base,
+            row_id=f"{index:064x}",
+            partition="train",
+            context_db=np.full((24, 4), -90.0 + index),
+            target_db=np.array([-89.0, -88.0, -87.0]) + index,
+        )
+        for index in range(40)
+    ]
+    config = _config()
+    config["conventional"]["hist_gradient_boosting_max_iter"] = 2
+    slot = aeon_campaign.CampaignSlot(
+        "hist_gradient_boosting", "hist_gradient_boosting", None
+    )
+    forecast, model_path, _ = aeon_campaign._conventional_prediction(
+        slot, fit, [base], config, tmp_path
+    )
+    saved = joblib.load(model_path)
+    assert len(saved["models"]) == 3
+    assert all(len(horizon) == 5 for horizon in saved["models"])
+    assert all(model.loss == "quantile" for horizon in saved["models"] for model in horizon)
+    assert forecast.shape == (1, 3, 5)
+    assert np.all(np.diff(forecast, axis=-1) >= 0)
+
+
 def test_shuffled_control_preserves_mode_specific_target_gradient() -> None:
     for mode in ("ema", "shared_sigreg"):
         torch.manual_seed(7)
@@ -119,6 +148,30 @@ def test_shuffled_control_preserves_mode_specific_target_gradient() -> None:
             assert held_out_gradient == 0
         else:
             assert held_out_gradient > 0
+
+
+def test_train_representation_diagnostics_are_finite_and_expose_collapse() -> None:
+    fit = [
+        replace(_row(), row_id=f"{index:064x}", partition="train", cutoff_interval_id=480120 + index)
+        for index in range(8)
+    ]
+    values = torch.randn(8, 24, 4)
+    mask = torch.ones_like(values, dtype=torch.bool)
+    model = AeonTemporalSSL(mode="ema", width=16, layers=2)
+    normal = aeon_campaign._representation_diagnostics(model, fit, values, mask, device="cpu")
+    assert normal["source_partition"] == "train"
+    assert normal["row_ids"] == [row.row_id for row in fit]
+    assert normal["row_count"] == 8
+    assert np.isfinite(normal["target_effective_rank"])
+    assert 0 <= normal["target_effective_rank"] <= 16
+    for parameter in model.parameters():
+        torch.nn.init.zeros_(parameter)
+    collapsed = aeon_campaign._representation_diagnostics(model, fit, values, mask, device="cpu")
+    assert collapsed["target_exact_zero_variance"] is True
+    assert collapsed["target_dimension_variance_mean"] == 0
+    assert collapsed["target_effective_rank"] == 0
+    assert collapsed["prediction_target_rms_ratio"] is None
+    assert collapsed["predictor_target_variance_ratio"] is None
 
 
 def test_all_neural_campaign_families_execute_bounded_fixture(tmp_path: Path) -> None:
@@ -166,3 +219,10 @@ def test_all_neural_campaign_families_execute_bounded_fixture(tmp_path: Path) ->
         assert details["random_encoder_unequal_total_learned_update_budget"] == family.startswith(
             "random_encoder"
         )
+        diagnostic = details["final_pretrain_train_representation_diagnostics"]
+        if expected_pretrain:
+            assert diagnostic["source_partition"] == "train"
+            assert diagnostic["row_count"] == len(fit)
+            assert np.isfinite(diagnostic["target_effective_rank"])
+        else:
+            assert diagnostic is None
