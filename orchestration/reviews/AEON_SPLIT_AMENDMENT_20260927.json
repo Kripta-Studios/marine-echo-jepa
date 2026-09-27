@@ -1,0 +1,25 @@
+{
+  "task": "R0/R1-AEON-SPLIT-LINEAGE-AMENDMENT-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "disposition": "APPROVE_TRAIN_VALIDATION_DEVELOPMENT_ONLY",
+  "supersedes_adr_hash_only": "2ef8679947f082b0283066d6efe4ea9bcca2d26d74600db9f601c12897016c55",
+  "reviewed_adr": "docs/adr/0008-aeon-hourly-sv-study.md",
+  "reviewed_adr_sha256": "d83392832a1bde3ae3e096de0a664ca9cfc27762a18bb10fb5ace3a97e787435",
+  "source_archive_sha256": "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde",
+  "verified_boundary_metadata": {
+    "train_last_day": "2024-10-07",
+    "train_last_day_interval_ids_inclusive": [480073, 480096],
+    "validation_first_day": "2024-10-08",
+    "validation_first_day_interval_ids_inclusive": [480097, 480120],
+    "calibration_last_day": "2025-01-05",
+    "calibration_last_day_interval_ids_inclusive": [482233, 482256],
+    "test_first_day": "2025-01-06",
+    "test_first_day_interval_ids_inclusive": [482257, 482280],
+    "october_and_january_monthly_csv_containers_straddle_splits": true
+  },
+  "approval_scope": "Rows and interval IDs are the isolation unit; monthly file hashes may repeat as immutable provenance. TRAIN/validation implementation and development only.",
+  "required_reader_behavior": "Partition by source date and interval before numeric use of outcome fields; no file-level statistics, fitting, aggregation or pretraining across boundaries; audit exact boundary rows.",
+  "test_outcomes_opened": false,
+  "test_access": "PROHIBITED_PENDING_SEPARATE_PRETEST_FREEZE"
+}

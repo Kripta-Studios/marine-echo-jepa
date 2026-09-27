@@ -86,7 +86,13 @@ calendar, independent of missingness or Sv: TRAIN 2024-03-06 to 2024-10-07
 (216 days), validation 2024-10-08 to 2024-11-30 (54), interval calibration
 2024-12-01 to 2025-01-05 (36), retrospective test 2025-01-06 to
 2025-02-28 (54). A window's full context and last target must remain inside
-its partition; enforce interval-ID and source-file lineage disjointness.
+its partition; enforce interval-ID and derived-row disjointness. Immutable monthly
+source CSV files can straddle a calendar split, so their file hashes may recur
+as provenance in adjacent partitions. Never compute a file-level statistic,
+normalizer, target, feature, or pretraining sample across the partition boundary;
+filter by source date and interval ID before any fitting or aggregation. Audit
+the exact boundary rows and raw interval identities for overlap or future-context
+leakage. A shared source container is not permission to share source observations.
 No source-day windowing based on a post hoc good-data segment.
 
 Eligibility before confirmatory comparison requires at least 90 source dates
