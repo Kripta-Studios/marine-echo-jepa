@@ -162,5 +162,29 @@ unresolved. This is a prospective candidate, not an eligibility or model result.
 The longer AEON3 March 2024–February 2025 archive was subsequently downloaded and
 publisher-hash verified as the proposed new-study source. Metadata-only inspection found
 360 date fields, including 356 with 24 hourly interval IDs and all four AZFP channels.
-ADR 0008 proposes a distinct hourly source-product study; independent prefit review,
-validity/support QC and all model runs remain pending.
+ADR 0008 proposed a distinct hourly source-product study at this source-selection
+checkpoint. Its subsequent review and development execution are recorded below.
+
+## AEON prospective study execution — 2026-09-27
+
+ADR 0008 and its row-level split amendment received distinct independent approval for
+TRAIN/validation development only in `orchestration/reviews/AEON_SPLIT_AMENDMENT_20260927.json`.
+The source-reported conditioned 38 kHz hourly FullDepth `Sv_mean` is a different
+observand and study from the failed v1 and MOSAiC v2 work. Calibration and test acoustic
+outcomes remain unopened pending a separate pretest freeze; neither is a sealed holdout.
+
+A real persistence baseline and direct neural development run executed on AEON TRAIN
+and validation rows. After the loader was hardened, the 128-update CPU run was repeated
+under the inspectable code at
+`outputs/aeon3_geb_2024_hourly_sv_v1/first_development_seed7_codebound/run.json`.
+Its 4,965 TRAIN windows and 1,219 validation issuances yielded 1,217 scored rows per
+horizon. Baseline daily mean pinball was 0.6943/0.9143/1.0226 dB at 1/3/6 source-hour
+steps; direct was 0.6877/0.6994/0.7226 dB. The code-bound run saved all issued-row
+predictions and a genuine direct checkpoint. These are development outcomes awaiting
+independent artifact review, not final evaluation or JEPA evidence. The first run remains
+preserved with its historical code hash; no result was silently replaced.
+
+The larger 128-wide, three-layer, three-seed AEON core campaign is specified in
+`configs/aeon_campaign.json` and awaiting final executor implementation and independent
+prefit code/config review. No AEON JEPA, calibration, or test run has yet executed.
+Machine state is `orchestration/aeon_run_ledger.json`; the v1 blocked ledger is unchanged.

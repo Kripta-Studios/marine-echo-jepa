@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "study_id": "aeon3_geb_2024_hourly_sv_v1",
+  "classification": "PROSPECTIVE_DISTINCT_STUDY",
+  "source_archive_sha256": "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde",
+  "protocol_sha256": "d83392832a1bde3ae3e096de0a664ca9cfc27762a18bb10fb5ace3a97e787435",
+  "train_validation_review_sha256": "b8031e2e113e39630c066cee65b4371f69b229ee905a72d832e53e6f505f297b",
+  "test_access": "PROHIBITED_PENDING_SEPARATE_PRETEST_FREEZE",
+  "runs": [
+    {
+      "run_id": "first_development_seed7_original",
+      "status": "COMPLETED_DEVELOPMENT_CODE_HASH_MISMATCH_AFTER_LOADER_HARDENING",
+      "artifact": "outputs/aeon3_geb_2024_hourly_sv_v1/first_development_seed7/run.json",
+      "code_sha256": "acc6c8097575a7f0670a4db90aabe3875e15b39c7359124791570f9ecefe4da7",
+      "input_sha256": "5e475f6af798025f187c70ae638710d2b4362f688db2ad43d60ec436dda3e25d",
+      "classification": "DEVELOPMENT_NOT_FINAL_EVALUATION"
+    },
+    {
+      "run_id": "first_development_seed7_codebound",
+      "status": "COMPLETED_AWAITING_INDEPENDENT_ARTIFACT_REVIEW",
+      "artifact": "outputs/aeon3_geb_2024_hourly_sv_v1/first_development_seed7_codebound/run.json",
+      "artifact_sha256": "eb4b100e3c9e84d4f557b786110d82d9d79f6b3d197562fc2648f8111b78c69f",
+      "code_sha256": "76f026664e0838dd10750cdfbf71bb3ee5e13644799e529499c2cb09612680ee",
+      "input_sha256": "5e475f6af798025f187c70ae638710d2b4362f688db2ad43d60ec436dda3e25d",
+      "fit_rows": 4965,
+      "validation_issued_rows": 1219,
+      "validation_scored_rows_per_horizon": [1217, 1217, 1217],
+      "direct_updates": 128,
+      "direct_checkpoint_sha256": "b64e1d9e879e00de6b01fc4ab89877fce00224b3a051d562f5e60e28aad4461c",
+      "classification": "DEVELOPMENT_NOT_FINAL_EVALUATION"
+    }
+  ],
+  "core_campaign": "NOT_RUN_AWAITING_CODE_AND_INDEPENDENT_PREFIT_REVIEW",
+  "calibration": "NOT_RUN",
+  "retrospective_test": "NOT_RUN",
+  "jepa_value_gate": "NOT_EVALUATED",
+  "gpu_owner": null,
+  "paid_cost_usd": 0
+}
