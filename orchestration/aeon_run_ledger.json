@@ -104,6 +104,13 @@
     "actual_issued_rows": "UNKNOWN_NUMERIC_QC_NOT_OPENED",
     "actual_scored_rows": "UNKNOWN_NUMERIC_QC_NOT_OPENED"
   },
+  "validation_comparison": {
+    "status": "COMPLETED_NEUTRAL_NO_SELECTION_PENDING_INDEPENDENT_OUTCOME_REVIEW",
+    "artifact": "outputs/aeon3_geb_2024_hourly_sv_v1/validation_comparison/comparison.json",
+    "artifact_sha256": "f4a0f4771868866ff7c330f4033c5ca9da7c6c36cdb19a1758cf2f383146757b",
+    "prefit_review_sha256": "64f0ceaea3c3b6c3a542307eef781c7ecf33ce3f0d8c7de3b51f4b5b8a72a08b",
+    "selection": "NOT_PERFORMED"
+  },
   "calibration": "NOT_RUN",
   "retrospective_test": "NOT_RUN",
   "jepa_value_gate": "NOT_EVALUATED",

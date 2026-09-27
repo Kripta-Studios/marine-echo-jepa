@@ -289,6 +289,18 @@ candidates are only an upper bound on numerical eligibility. No TEST
 `Sv_mean` values were parsed.
 
 A draft final CAL/TEST scorer has synthetic tests but received independent
-`REQUEST_CHANGES` before any numeric access: its test issuance/forecast order,
-exact review and transitive code bindings, exploratory-arm labels, and full
-incremental-value gate need repair. No CAL or TEST numeric run has started.
+`REQUEST_CHANGES` before any numeric access. Its first issuance/forecast-order
+defect was repaired through a one-pass reader, and a second review still
+requires exact selected checkpoint-to-plan bindings, composite adapter code
+hashes, mandatory core JEPA comparison, a fail-closed hybrid choice, exact
+Chronos snapshot contents and correctly separated value/promotion gates.
+No CAL or TEST numeric run has started.
+
+The independently approved five-source neutral validation comparator executed
+exit zero and saved all individual/control and equal-weight three-seed family
+scores on identical support, plus paired 48-hour bootstrap diagnostics. It
+selected no model and awaits independent outcome review. The lowest development
+scores are post-hoc LightGBM 0.638460 dB, core direct ensemble 0.639062 dB,
+and core EMA-JEPA ensemble 0.642170 dB; the tiny LightGBM difference is not a
+SOTA or inferential claim. Final evaluator/adapter review still requests exact
+artifact and transitive-code bindings before CAL or TEST access.
