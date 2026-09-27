@@ -1,5 +1,73 @@
+import { useEffect, useState } from "react";
 import { PageHeading, ResearchStateNotice, SectionHeading } from "../components/ResearchPrimitives";
-import type { AeonStudyEvidence } from "../api/client";
+import { getJson, type AeonStudyEvidence } from "../api/client";
+
+const testModels = [
+  ["Direct ensemble", "core_direct_equal_three_seed_ensemble"],
+  ["EMA-JEPA ensemble", "core_ema_equal_three_seed_ensemble"],
+  ["LightGBM · post-hoc", "post_hoc_lightgbm"],
+] as const;
+
+type ReplayPage = {
+  classification: string;
+  source_time_basis: string;
+  target: string;
+  horizon_source_interval_steps: number[];
+  quantile_levels: number[];
+  total: number;
+  offset: number;
+  rows: Array<{
+    row_id: string;
+    cutoff_interval_id: number;
+    cutoff_source_timestamp: string;
+    quantiles_db: number[][];
+  }>;
+};
+
+function AeonReplay() {
+  const [model, setModel] = useState<string>(testModels[0][1]);
+  const [offset, setOffset] = useState(0);
+  const [page, setPage] = useState<ReplayPage | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  useEffect(() => {
+    const controller = new AbortController();
+    setPage(null);
+    setError(null);
+    getJson<ReplayPage>(
+      `/api/v1/studies/aeon/replay?model_id=${encodeURIComponent(model)}&offset=${offset}&limit=12`,
+      controller.signal,
+    ).then(setPage).catch((reason: unknown) => {
+      if (!controller.signal.aborted) setError(reason instanceof Error ? reason.message : "Replay unavailable.");
+    });
+    return () => controller.abort();
+  }, [model, offset]);
+  return (
+    <section className="panel" aria-labelledby="aeon-replay-title">
+      <SectionHeading id="aeon-replay-title" eyebrow="HISTORICAL REPLAY" title="Saved TEST predictions"
+        description="Every issued cutoff is available in chronological source order. These are saved, truth-free predictions from the reviewed retrospective run, not live forecasts. The source clock is unspecified, not UTC." />
+      <label htmlFor="aeon-replay-model">Frozen family</label>{" "}
+      <select id="aeon-replay-model" value={model} onChange={(event) => { setModel(event.target.value); setOffset(0); }}>
+        {testModels.map(([name, id]) => <option key={id} value={id}>{name}</option>)}
+      </select>
+      {error && <p role="alert">{error}</p>}
+      {!page && !error && <p>Loading saved predictions…</p>}
+      {page && <>
+        <p>Rows {page.offset + 1}–{Math.min(page.offset + page.rows.length, page.total)} of {page.total}.</p>
+        <div className="table-scroll"><table>
+          <thead><tr><th scope="col">Source cutoff</th><th scope="col">Interval ID</th><th scope="col">+1 source interval · q05 / q25 / q50 / q75 / q95 (dB)</th><th scope="col">+3</th><th scope="col">+6</th></tr></thead>
+          <tbody>{page.rows.map((row) => <tr key={row.row_id}>
+            <th scope="row">{row.cutoff_source_timestamp}</th><td>{row.cutoff_interval_id}</td>
+            {row.quantiles_db.map((values, horizon) => <td key={horizon}>{values.map((value) => value.toFixed(2)).join(" / ")}</td>)}
+          </tr>)}</tbody>
+        </table></div>
+        <div className="button-row">
+          <button type="button" disabled={offset === 0} onClick={() => setOffset(Math.max(0, offset - 12))}>Previous</button>{" "}
+          <button type="button" disabled={offset + 12 >= page.total} onClick={() => setOffset(offset + 12)}>Next</button>
+        </div>
+      </>}
+    </section>
+  );
+}
 
 export function AeonStudyPage({
   study,
@@ -66,7 +134,7 @@ export function AeonStudyPage({
           </table>
         </div>
         <p>Forward EMA and Chronos-2 have independent outcome reviews. Their scores are post-hoc development evidence; neither establishes state of the art or JEPA incremental value.</p>
-        <p>{study.calibration ? "CAL is shown separately below; retrospective TEST remains unopened." : "CAL and retrospective TEST outcomes are not opened for this report."} No AEON cached forecasts are served.</p>
+        <p>{study.retrospective_test ? "Reviewed retrospective TEST evidence is shown separately below." : study.calibration ? "CAL is shown separately below; retrospective TEST remains unopened." : "CAL and retrospective TEST outcomes are not opened for this report."} {study.retrospective_test ? "Saved source-clock TEST predictions are available as historical replay." : "No AEON cached forecasts are served."}</p>
       </section>
       {study.calibration && (
         <section className="panel" aria-labelledby="aeon-calibration-title">
@@ -101,6 +169,26 @@ export function AeonStudyPage({
           <p>CAL artifact SHA-256: <code>{study.calibration.artifact_sha256}</code></p>
         </section>
       )}
+      {study.retrospective_test && <>
+        <section className="panel" aria-labelledby="aeon-test-title">
+          <SectionHeading id="aeon-test-title" eyebrow="REVIEWED RETROSPECTIVE TEST" title="Frozen-family evaluation"
+            description={`${study.retrospective_test.issued_rows} issued TEST rows; ${study.retrospective_test.eligible_days_per_horizon.join(" / ")} eligible source dates at +1 / +3 / +6 source intervals. The split was retrospective and is not sealed or an external replication.`} />
+          <div className="table-scroll"><table>
+            <thead><tr><th scope="col">Frozen family</th><th scope="col">Raw daily pinball (dB)</th><th scope="col">+1 / +3 / +6 pinball (dB)</th><th scope="col">Raw 90% coverage</th><th scope="col">CAL-widened 90% coverage on TEST</th></tr></thead>
+            <tbody>{testModels.map(([name, id]) => {
+              const result = study.retrospective_test!.models[id];
+              return <tr key={id}><th scope="row">{name}</th><td>{result.raw_primary_daily_mean_pinball_db.toFixed(4)}</td>
+                <td>{result.raw_per_horizon_pinball_db.map((value) => value.toFixed(4)).join(" / ")}</td>
+                <td>{result.raw_coverage90_per_horizon.map((value) => `${(value * 100).toFixed(1)}%`).join(" / ")}</td>
+                <td>{result.widened_coverage90_per_horizon.map((value) => `${(value * 100).toFixed(1)}%`).join(" / ")}</td></tr>;
+            })}</tbody>
+          </table></div>
+          <p>The frozen EMA-JEPA ensemble passed the prespecified within-study retrospective gate against direct. This does not isolate the gain to learned JEPA representations, establish a sealed holdout, or show external generalization. Post-hoc LightGBM failed the same five-percent point gate.</p>
+          <p>EMA relative raw loss change versus direct: {(study.retrospective_test.comparisons.core_ema_equal_three_seed_ensemble.primary_relative_loss_change! * 100).toFixed(2)}%; paired 95% interval {study.retrospective_test.comparisons.core_ema_equal_three_seed_ensemble.paired_95_percent_interval_db.map((value) => value.toFixed(4)).join(" to ")} dB. CAL widened intervals without selecting a model. No species, biomass or operational claim follows from these acoustic scores.</p>
+          <p>TEST score SHA-256: <code>{study.retrospective_test.test_score_sha256}</code>. Independent outcome review SHA-256: <code>{study.retrospective_test.test_outcome_review_sha256}</code>.</p>
+        </section>
+        <AeonReplay />
+      </>}
       <section className="panel" aria-label="Study limitations">
         <h2>Limits</h2>
         <ul>{study.limitations.map((limit) => <li key={limit}>{limit}</li>)}</ul>

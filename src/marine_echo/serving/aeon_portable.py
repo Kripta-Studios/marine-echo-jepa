@@ -91,14 +91,17 @@ def build_aeon_portable(
     root: Path, output: Path, wheelhouse: Path, upstream_sums: Path,
     payload: Path | None = None, calibration_artifact: Path | None = None,
     web_dist: Path | None = None,
+    test_score: Path | None = None, test_candidate: Path | None = None,
+    test_review: Path | None = None, test_forecasts: Path | None = None,
 ) -> dict[str, Any]:
     """Build portable wrapper from reviewed study payload and verified local wheels."""
     archive = output.with_suffix(".zip")
     sidecar = output.with_suffix(".zip.sha256")
     if any(path.exists() or path.is_symlink() for path in (output, archive, sidecar)):
         raise FileExistsError("Portable release output already exists")
-    if payload is not None and calibration_artifact is not None:
-        raise ValueError("An external study payload cannot be combined with CAL input")
+    test_inputs = (test_score, test_candidate, test_review, test_forecasts)
+    if payload is not None and (calibration_artifact is not None or any(test_inputs)):
+        raise ValueError("An external study payload cannot be combined with CAL or TEST input")
     wheels = _upstream_wheels(wheelhouse, upstream_sums)
     source_root = Path(__file__).resolve().parents[3]
     template_root = source_root / "release/aeon_portable"
@@ -110,6 +113,8 @@ def build_aeon_portable(
             build_aeon_research(
                 root, stage / "study", calibration_artifact=calibration_artifact,
                 web_dist=web_dist,
+                test_score=test_score, test_candidate=test_candidate,
+                test_review=test_review, test_forecasts=test_forecasts,
             )
             payload_source = stage / "study"
         else:
@@ -124,6 +129,7 @@ def build_aeon_portable(
                 shutil.copy2(path, destination)
         if payload is None:
             shutil.rmtree(payload_source)
+        study = json.loads((stage / "artifacts/aeon-study.json").read_text(encoding="utf-8")) if payload is None else {}
         for name in _SOURCE_FILES:
             destination = stage / "src" / name
             destination.parent.mkdir(parents=True, exist_ok=True)
@@ -150,6 +156,22 @@ def build_aeon_portable(
                 artifact_destination = stage / "provenance/calibration/calibration.json"
                 artifact_destination.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(calibration_artifact, artifact_destination)
+            if all(value is not None for value in test_inputs):
+                assert test_score is not None and test_candidate is not None
+                assert test_review is not None and test_forecasts is not None
+                for source, relative in (
+                    (test_score, "provenance/retrospective_test/test-score.json"),
+                    (test_candidate, "provenance/retrospective_test/metadata-candidates.json"),
+                    (test_review, "provenance/reviews/AEON_RETROSPECTIVE_TEST_OUTCOME_REVIEW_20260927.json"),
+                ):
+                    destination = stage / relative
+                    destination.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(source, destination)
+                for model_id in study["retrospective_test"]["models"]:
+                    name = f"{model_id}-forecast.npz"
+                    shutil.copy2(test_forecasts / name, stage / "provenance/retrospective_test" / name)
+                outcome_report = root / "orchestration/reports/AEON_RETROSPECTIVE_OUTCOME_20260927.md"
+                shutil.copy2(outcome_report, stage / "provenance/retrospective_test" / outcome_report.name)
         frontend_licenses = {
             "react": "19.3.0", "react-dom": "19.3.0", "scheduler": "0.28.0",
         }
@@ -168,8 +190,13 @@ def build_aeon_portable(
             ["git", "rev-parse", "HEAD"], cwd=source_root, text=True,
         ).strip()
         catalog = json.loads((stage / "artifacts/catalog.json").read_text(encoding="utf-8"))
+        expected_class = (
+            "OFFLINE_RESEARCH_MIXED_STUDIES_TEST_REVIEWED_RELEASE_REVIEW_PENDING"
+            if all(value is not None for value in test_inputs)
+            else "OFFLINE_RESEARCH_MIXED_STUDIES_DEVELOPMENT_ONLY"
+        )
         if payload is None and (
-            catalog.get("release_class") != "OFFLINE_RESEARCH_MIXED_STUDIES_DEVELOPMENT_ONLY"
+            catalog.get("release_class") != expected_class
             or catalog.get("forecasts") != {}
             or "aeon-study" not in catalog.get("artifacts", {})
         ):
@@ -177,7 +204,7 @@ def build_aeon_portable(
         aeon_study_path = stage / "artifacts/aeon-study.json"
         study = json.loads(aeon_study_path.read_text()) if aeon_study_path.exists() else {}
         metadata = {
-            "release_class": "OFFLINE_RESEARCH_MIXED_STUDIES_DEVELOPMENT_ONLY",
+            "release_class": expected_class,
             "source_commit": commit,
             "source_archive_sha256": study.get("source", {}).get("archive_sha256"),
             "aeon_study_sha256": _sha256(aeon_study_path) if aeon_study_path.exists() else None,
@@ -185,8 +212,10 @@ def build_aeon_portable(
             "calibration_outcome_review_sha256": _CAL_REVIEW_SHA if calibration_artifact else None,
             "historical_wheelhouse_sha256s_sha256": _sha256(upstream_sums),
             "wheel_count": len(wheels),
-            "calibration_or_test_final_evaluation": False,
-            "cached_aeon_forecasts": 0,
+            "retrospective_test_score_sha256": study.get("retrospective_test", {}).get("test_score_sha256"),
+            "retrospective_test_outcome_review_sha256": study.get("retrospective_test", {}).get("test_outcome_review_sha256"),
+            "retrospective_test_non_sealed": bool(study.get("retrospective_test")),
+            "cached_aeon_forecasts": study.get("cached_forecasts", 0),
             "independent_final_release_review": False,
         }
         (stage / "SOURCE_REVISION.json").write_text(
@@ -199,12 +228,23 @@ def build_aeon_portable(
             "and independent review are bundled under `provenance/`. "
             if calibration_artifact is not None else "CAL outcomes are not included. "
         )
+        test_notice = (
+            "An independently reviewed retrospective TEST result and truth-free historical "
+            "source-clock replay are included. TEST is not sealed or externally replicated. "
+            "No JEPA incremental-value or business gate is claimed. Exact TEST score, "
+            "forecast arrays, metadata candidates and independent review are bundled under "
+            "`provenance/`. Final package review remains pending. "
+            if all(value is not None for value in test_inputs)
+            else "Retrospective TEST is not evaluated here. No AEON forecast is cached or served. "
+        )
         (stage / "README_AEON_RESEARCH.md").write_text(
             "# AEON offline research release\n\n"
-            "This is a development-only research artifact. The AEON hourly 38-kHz Sv study "
+            + ("This package awaits independent final release review. " if all(value is not None for value in test_inputs)
+               else "This is a development-only research artifact. ")
+            + "The AEON hourly 38-kHz Sv study "
             "presents independently reviewed TRAIN/validation results. "
-            + calibration_notice + "Retrospective TEST is not evaluated here. "
-            "No AEON forecast is cached or served. "
+            + calibration_notice + test_notice
+            +
             "Historical MOSAiC v1/v2 eligibility failures and blocked registry remain intact.\n\n"
             "On Windows, install Python 3.12 and uv locally, then run "
             "`Run-AEON-Research.ps1`. It verifies packaged bytes, installs from the bundled "
@@ -258,8 +298,14 @@ if __name__ == "__main__":
     parser.add_argument("--upstream-sums", type=Path, required=True)
     parser.add_argument("--calibration-artifact", type=Path)
     parser.add_argument("--web-dist", type=Path)
+    parser.add_argument("--test-score", type=Path)
+    parser.add_argument("--test-candidate", type=Path)
+    parser.add_argument("--test-review", type=Path)
+    parser.add_argument("--test-forecasts", type=Path)
     arguments = parser.parse_args()
     print(json.dumps(build_aeon_portable(
         arguments.root, arguments.output, arguments.wheelhouse, arguments.upstream_sums,
         calibration_artifact=arguments.calibration_artifact, web_dist=arguments.web_dist,
+        test_score=arguments.test_score, test_candidate=arguments.test_candidate,
+        test_review=arguments.test_review, test_forecasts=arguments.test_forecasts,
     ), indent=2))

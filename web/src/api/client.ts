@@ -102,7 +102,7 @@ export interface RawDevelopmentEvidence {
 export interface AeonStudyEvidence {
   study_id: "aeon3_geb_2024_hourly_sv_v1";
   title: string;
-  classification: "REVIEWED_TRAIN_VALIDATION_DEVELOPMENT_NOT_FINAL_EVALUATION" | "REVIEWED_DEVELOPMENT_AND_CALIBRATION_NOT_FINAL_EVALUATION";
+  classification: "REVIEWED_TRAIN_VALIDATION_DEVELOPMENT_NOT_FINAL_EVALUATION" | "REVIEWED_DEVELOPMENT_AND_CALIBRATION_NOT_FINAL_EVALUATION" | "REVIEWED_RETROSPECTIVE_TEST_NOT_SEALED";
   source_time_basis: "SOURCE_REPORTED_UNSPECIFIED_NOT_UTC";
   source: { publisher: string; site: string; archive_sha256: string };
   target: {
@@ -114,12 +114,34 @@ export interface AeonStudyEvidence {
     calibration_claim: "SOURCE_REPORTED_CONDITIONED_NOT_INDEPENDENTLY_FIELD_VERIFIED";
     horizon_source_interval_steps: number[];
   };
-  assessment_partition: "validation";
-  final_evaluation: false;
-  selection: "NOT_PERFORMED_IN_THIS_REPORT";
-  cached_forecasts: 0;
+  assessment_partition: "validation" | "retrospective_test";
+  final_evaluation: boolean;
+  selection: "NOT_PERFORMED_IN_THIS_REPORT" | "FROZEN_BEFORE_TEST_NO_RELEASE_RERANKING";
+  cached_forecasts: number;
   calibration_outcomes: "NOT_OPENED_FOR_THIS_REPORT" | "INDEPENDENTLY_REVIEWED_CALIBRATION_ONLY";
-  retrospective_test_outcomes: "NOT_OPENED_FOR_THIS_REPORT";
+  retrospective_test_outcomes: "NOT_OPENED_FOR_THIS_REPORT" | "INDEPENDENTLY_REVIEWED_RETROSPECTIVE_TEST";
+  retrospective_test?: {
+    status: "INDEPENDENTLY_REVIEWED_RETROSPECTIVE_TEST";
+    classification: "RETROSPECTIVE_EVALUATION_NOT_SEALED";
+    issued_rows: number;
+    eligible_days_per_horizon: number[];
+    jepa_value_gate: "PASSED_FROZEN_WITHIN_STUDY_RETROSPECTIVE_GATE";
+    jepa_representation_attribution: "NOT_ESTABLISHED";
+    test_score_sha256: string;
+    test_outcome_review_sha256: string;
+    models: Record<string, {
+      selection_classification: string;
+      raw_primary_daily_mean_pinball_db: number;
+      raw_per_horizon_pinball_db: number[];
+      raw_coverage90_per_horizon: number[];
+      widened_coverage90_per_horizon: number[];
+    }>;
+    comparisons: Record<string, {
+      primary_relative_loss_change: number | null;
+      paired_95_percent_interval_db: number[];
+      passes_full_unnarrowed_promotion_rule: boolean;
+    }>;
+  };
   calibration?: {
     status: "INDEPENDENTLY_REVIEWED_CALIBRATION_ONLY";
     classification: "CALIBRATION_ONLY_NOT_MODEL_SELECTION_OR_FINAL_EVALUATION";

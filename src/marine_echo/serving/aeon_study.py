@@ -10,6 +10,7 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
+from marine_echo.serving.aeon_final import load_reviewed_test
 from marine_echo.serving.release import build_v2_research
 
 _REVIEW_FILES = {
@@ -331,6 +332,8 @@ def build_aeon_development_report(root: Path) -> dict[str, Any]:
 def build_aeon_research(
     root: Path, output: Path, *, calibration_artifact: Path | None = None,
     web_dist: Path | None = None,
+    test_score: Path | None = None, test_candidate: Path | None = None,
+    test_review: Path | None = None, test_forecasts: Path | None = None,
 ) -> dict[str, Any]:
     """Build a new offline package; retain v1/v2 artifacts and attach AEON evidence."""
     if output.exists() or output.is_symlink():
@@ -339,6 +342,12 @@ def build_aeon_research(
         web_dist is None or not (web_dist / "index.html").is_file()
     ):
         raise ValueError("CAL study package requires an explicitly built web/dist.")
+    final_inputs = (test_score, test_candidate, test_review, test_forecasts)
+    if any(value is not None for value in final_inputs) and (
+        any(value is None for value in final_inputs)
+        or calibration_artifact is None or web_dist is None
+    ):
+        raise ValueError("AEON TEST package requires all reviewed evidence, CAL and built web assets.")
     study = build_aeon_development_report(root)
     if calibration_artifact is not None:
         study["calibration"] = build_aeon_calibration_report(root, calibration_artifact)
@@ -348,6 +357,27 @@ def build_aeon_research(
         study["limitations"].append(
             "CAL interval coverage is in-sample and does not establish retrospective TEST or external coverage."
         )
+    replay: dict[str, Any] | None = None
+    if all(value is not None for value in final_inputs):
+        assert test_score is not None and test_candidate is not None
+        assert test_review is not None and test_forecasts is not None
+        report, replay = load_reviewed_test(test_score, test_candidate, test_review, test_forecasts)
+        study["retrospective_test"] = report
+        study["retrospective_test_outcomes"] = report["status"]
+        study["classification"] = "REVIEWED_RETROSPECTIVE_TEST_NOT_SEALED"
+        study["assessment_partition"] = "retrospective_test"
+        study["final_evaluation"] = True
+        study["selection"] = "FROZEN_BEFORE_TEST_NO_RELEASE_RERANKING"
+        study["cached_forecasts"] = len(replay["rows"]) * len(report["models"])
+        study["limitations"] = [
+            limit for limit in study["limitations"]
+            if limit != "No AEON forecasts are cached or served by this release."
+        ]
+        study["limitations"].extend([
+            "Retrospective TEST is not a sealed or external replication.",
+            "Saved source-clock predictions are historical replay, not live forecasts or UTC-time service.",
+            "The release does not claim that JEPA incremental value or business validation passed.",
+        ])
     output.parent.mkdir(parents=True, exist_ok=True)
     stage = Path(tempfile.mkdtemp(prefix=".aeon-release-stage-", dir=output.parent))
     base = stage / "package"
@@ -374,8 +404,18 @@ def build_aeon_research(
         catalog["artifacts"]["aeon-study"] = {
             "path": study_path.name, "sha256": _sha256(study_path), "kind": "aeon-study",
         }
+        if replay is not None:
+            replay_path = artifacts / "aeon-test-replay.json"
+            replay_path.write_text(json.dumps(replay, indent=2, allow_nan=False) + "\n", encoding="utf-8")
+            catalog["artifacts"]["aeon-test-replay"] = {
+                "path": replay_path.name, "sha256": _sha256(replay_path),
+                "kind": "aeon-test-replay",
+            }
         catalog["studies"] = ["mosaic_v1_v2_historical", study["study_id"]]
-        catalog["release_class"] = "OFFLINE_RESEARCH_MIXED_STUDIES_DEVELOPMENT_ONLY"
+        catalog["release_class"] = (
+            "OFFLINE_RESEARCH_MIXED_STUDIES_TEST_REVIEWED_RELEASE_REVIEW_PENDING"
+            if replay is not None else "OFFLINE_RESEARCH_MIXED_STUDIES_DEVELOPMENT_ONLY"
+        )
         for path in (catalog_path, base / "catalog.json"):
             path.write_text(json.dumps(catalog, indent=2, allow_nan=False) + "\n", encoding="utf-8")
         packaged_files = sorted(
@@ -395,7 +435,7 @@ def build_aeon_research(
             "aeon_study_sha256": _sha256(output / "artifacts/aeon-study.json"),
             "packaged_asset_count": len(asset_hashes),
             "historical_registry_rows": len(catalog["experiments"]),
-            "aeon_cached_forecasts": 0,
+            "aeon_cached_forecasts": study["cached_forecasts"],
         }
     finally:
         if stage.exists():

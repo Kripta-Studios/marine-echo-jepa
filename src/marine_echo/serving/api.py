@@ -227,6 +227,47 @@ def create_app(artifact_root: Path, web_root: Path | None = None) -> FastAPI:
     def aeon_study() -> Any:
         return store.json("aeon-study", "aeon-study")
 
+    @app.get("/api/v1/studies/aeon/replay")
+    def aeon_replay(
+        model_id: str,
+        offset: int = Query(0, ge=0, le=1500),
+        limit: int = Query(12, ge=1, le=24),
+    ) -> Any:
+        """Page truth-free historical source-clock predictions; never use the UTC forecast API."""
+        study = store.json("aeon-study", "aeon-study")
+        if (
+            study.get("retrospective_test_outcomes") != "INDEPENDENTLY_REVIEWED_RETROSPECTIVE_TEST"
+            or "aeon-test-replay" not in store.catalog.get("artifacts", {})
+        ):
+            raise HTTPException(503, "No independently reviewed AEON retrospective replay is packaged.")
+        replay = store.json("aeon-test-replay", "aeon-test-replay")
+        if (
+            replay.get("test_score_sha256")
+            != study.get("retrospective_test", {}).get("test_score_sha256")
+            or replay.get("source_time_basis") != "SOURCE_REPORTED_UNSPECIFIED_NOT_UTC"
+            or not isinstance(replay.get("rows"), list)
+            or len(replay["rows"]) > 1500
+        ):
+            raise HTTPException(503, "AEON replay provenance or size differs from reviewed study.")
+        if model_id not in study["retrospective_test"]["models"]:
+            raise HTTPException(404, "Unknown AEON retrospective model ID.")
+        return {
+            "classification": replay["classification"],
+            "source_time_basis": replay["source_time_basis"],
+            "target": replay["target"],
+            "model_id": model_id,
+            "horizon_source_interval_steps": replay["horizon_source_interval_steps"],
+            "quantile_levels": replay["quantile_levels"],
+            "total": len(replay["rows"]), "offset": offset, "limit": limit,
+            "rows": [
+                {"row_id": row["row_id"],
+                 "cutoff_interval_id": row["cutoff_interval_id"],
+                 "cutoff_source_timestamp": row["cutoff_source_timestamp"],
+                 "quantiles_db": row["predictions"][model_id]}
+                for row in replay["rows"][offset:offset + limit]
+            ],
+        }
+
     @app.get("/api/v1/exports/{export_id}")
     def export(export_id: str) -> Response:
         store.require_ready()
