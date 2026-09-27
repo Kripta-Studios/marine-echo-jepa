@@ -27,5 +27,6 @@
   "future_metadata_filter": "NONE",
   "error_based_filter": "PROHIBITED",
   "numeric_test_outcome_access": "PROHIBITED",
+  "scanner_code_dependencies": ["aeon_test_metadata.py", "aeon_corpus.py"],
   "actual_issued_and_scored_status": "UNKNOWN_UNTIL_SEPARATE_APPROVED_NUMERIC_TEST_MATERIALIZATION"
 }

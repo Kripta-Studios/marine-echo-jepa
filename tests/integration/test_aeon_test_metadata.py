@@ -12,7 +12,7 @@ from pathlib import Path
 
 import pytest
 
-from marine_echo.training.aeon_test_metadata import scan_test_metadata
+from marine_echo.training.aeon_test_metadata import _scanner_code_sha256, scan_test_metadata
 
 
 def _fixture(tmp_path: Path) -> tuple[Path, Path, Path]:
@@ -55,8 +55,6 @@ def _fixture(tmp_path: Path) -> tuple[Path, Path, Path]:
                         if index == 30 and frequency == 38:
                             writer.writerow(row)
                 zf.writestr(member, buffer.getvalue())
-    from marine_echo.training import aeon_test_metadata
-
     source_config = Path(__file__).resolve().parents[2] / "configs/aeon_test_metadata.json"
     config = json.loads(source_config.read_text(encoding="utf-8"))
     config["status"] = "SYNTHETIC_FIXTURE_ONLY"
@@ -66,9 +64,7 @@ def _fixture(tmp_path: Path) -> tuple[Path, Path, Path]:
     review_path = tmp_path / "fixture-review.json"
     review_path.write_text(json.dumps({
         "status": "APPROVED_AEON_TEST_METADATA_FIXTURE",
-        "scanner_code_sha256": hashlib.sha256(
-            Path(aeon_test_metadata.__file__).read_bytes()
-        ).hexdigest(),
+        "scanner_code_sha256": _scanner_code_sha256(),
         "config_sha256": hashlib.sha256(config_path.read_bytes()).hexdigest(),
         "source_archive_sha256": config["source_archive_sha256"],
         "numeric_test_outcome_access": "PROHIBITED",
@@ -117,3 +113,21 @@ def test_metadata_candidate_scanner_rejects_real_access_without_distinct_review(
     real_config = Path(__file__).resolve().parents[2] / "configs/aeon_test_metadata.json"
     with pytest.raises(ValueError, match="independent metadata review"):
         scan_test_metadata(archive, real_config, review, tmp_path / "real", fixture_only=False)
+
+
+def test_scanner_digest_changes_with_corpus_dependency_without_touching_source(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from marine_echo.training import aeon_corpus
+
+    archive, config, review = _fixture(tmp_path)
+    dependency = tmp_path / "aeon_corpus.py"
+    dependency.write_bytes(Path(aeon_corpus.__file__).read_bytes())
+    monkeypatch.setattr(aeon_corpus, "__file__", str(dependency))
+    original = _scanner_code_sha256()
+    dependency.write_bytes(dependency.read_bytes() + b"\n# synthetic dependency mutation\n")
+    assert _scanner_code_sha256() != original
+    with pytest.raises(ValueError, match="independent metadata review"):
+        scan_test_metadata(
+            archive, config, review, tmp_path / "must-not-open", fixture_only=True
+        )

@@ -16,6 +16,7 @@ from typing import Any
 
 import numpy as np
 
+from marine_echo.training import aeon_corpus
 from marine_echo.training.aeon_corpus import (
     AEON_ADR_SHA256, AEON_SOURCE_SHA256, FREQUENCIES_HZ, _MEMBER, _sha256,
 )
@@ -32,6 +33,19 @@ _PAIRS = tuple(
 )
 _START_DAY = "20250106"
 _END_DAY = "20250301"
+_CODE_DEPENDENCIES = ("aeon_test_metadata.py", "aeon_corpus.py")
+
+
+def _scanner_code_sha256() -> str:
+    """Bind the scanner and imported corpus constants/parser grammar as one unit."""
+    digest = hashlib.sha256()
+    for name, path in (
+        ("aeon_test_metadata.py", Path(__file__)),
+        ("aeon_corpus.py", Path(aeon_corpus.__file__)),
+    ):
+        digest.update(name.encode("ascii") + b"\0")
+        digest.update(bytes.fromhex(_sha256(path)))
+    return digest.hexdigest()
 
 
 def _config_gate(config: dict[str, Any], *, fixture_only: bool) -> None:
@@ -71,6 +85,7 @@ def _config_gate(config: dict[str, Any], *, fixture_only: bool) -> None:
         or config.get("future_metadata_filter") != "NONE"
         or config.get("error_based_filter") != "PROHIBITED"
         or config.get("numeric_test_outcome_access") != "PROHIBITED"
+        or config.get("scanner_code_dependencies") != list(_CODE_DEPENDENCIES)
         or config.get("actual_issued_and_scored_status")
         != "UNKNOWN_UNTIL_SEPARATE_APPROVED_NUMERIC_TEST_MATERIALIZATION"
     ):
@@ -145,7 +160,8 @@ def _channel_status(
     if len(rows) != 1:
         return "DUPLICATE_ROW"
     row = rows[0]
-    if abs(_source_time(row) - representative_time) > np.timedelta64(5, "m"):
+    difference = _source_time(row) - representative_time
+    if difference < -np.timedelta64(5, "m") or difference > np.timedelta64(5, "m"):
         return "SOURCE_TIME_MISMATCH"
     if (
         int(row["Layer"]) != 1
@@ -275,7 +291,7 @@ def scan_test_metadata(
     config_sha256 = _sha256(config_path)
     config = json.loads(config_path.read_text(encoding="utf-8"))
     _config_gate(config, fixture_only=fixture_only)
-    code_sha256 = _sha256(Path(__file__))
+    code_sha256 = _scanner_code_sha256()
     review_sha256 = _sha256(review_path)
     review = json.loads(review_path.read_text(encoding="utf-8"))
     if (
@@ -299,6 +315,7 @@ def scan_test_metadata(
         "status": "METADATA_CANDIDATE_UNIVERSE_PENDING_INDEPENDENT_REVIEW",
         "config_sha256": config_sha256,
         "scanner_code_sha256": code_sha256,
+        "scanner_code_dependencies": list(_CODE_DEPENDENCIES),
         "prefit_review_sha256": review_sha256,
     })
     output = output.resolve()
