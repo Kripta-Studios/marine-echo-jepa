@@ -63,6 +63,7 @@ def test_representation_pretrain_probe_and_hybrid_write_rows(family: str, tmp_pa
         probe_updates=2,
         batch_size=4,
         device="cpu",
+        hybrid_slot=True,
     )
     assert result["status"] == "COMPLETED_SYNTHETIC_FIXTURE"
     assert result["pretrain_updates"] == 2
@@ -74,6 +75,24 @@ def test_representation_pretrain_probe_and_hybrid_write_rows(family: str, tmp_pa
             assert saved["row_ids"].shape == (8,)
             assert saved["quantiles_db"].shape == (8, 3, 5)
             assert saved["detection_fraction"].shape == (8, 3)
+
+
+def test_hybrid_requires_explicit_slot(tmp_path: Path) -> None:
+    torch.set_num_threads(1)
+    result = execute_representation(
+        _rows("2020-02-18", step_days=2),
+        _rows("2020-04-02", step_days=1),
+        tmp_path / "probe-only",
+        family="ema_jepa",
+        protocol_sha256="b" * 64,
+        fixture_only=True,
+        model_config=ModelConfig(width=16, layers=1, heads=4),
+        pretrain_updates=1,
+        probe_updates=1,
+        batch_size=4,
+        device="cpu",
+    )
+    assert "hybrid" not in result
 
 
 @pytest.mark.parametrize("control", ["random_encoder", "shuffled_future"])

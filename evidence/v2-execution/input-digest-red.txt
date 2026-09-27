@@ -1,0 +1,19 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+________________ test_input_digest_includes_age_and_ssl_future ________________
+
+    def test_input_digest_includes_age_and_ssl_future() -> None:
+        fit, assess = _rows("2020-02-18"), _rows("2020-04-02")
+        first, _ = _validate_rows(fit, assess, fixture_only=True)
+        changed_age = list(fit)
+        changed_age[0] = replace(
+            fit[0], context_age_minutes=fit[0].context_age_minutes + 1
+        )
+        second, _ = _validate_rows(changed_age, assess, fixture_only=True)
+>       assert first != second
+E       AssertionError: assert '41f25bcd4858e75038388bdcb4e8547cb22ee3d23e3d4f1e1c36083e4bc1879b' != '41f25bcd4858e75038388bdcb4e8547cb22ee3d23e3d4f1e1c36083e4bc1879b'
+
+tests\integration\test_v2_development_executor.py:147: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/integration/test_v2_development_executor.py::test_input_digest_includes_age_and_ssl_future
+1 failed, 3 deselected in 27.85s

@@ -1,0 +1,1 @@
+EXPECTED_NO_FIT_GATE: Native support is ineligible; D1 target search and fitting must stop.

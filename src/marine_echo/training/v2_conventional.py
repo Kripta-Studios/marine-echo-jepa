@@ -16,6 +16,7 @@ import psutil
 from marine_echo.models.v2_conventional import ConventionalFamily, NativeConventional
 from marine_echo.training.v2_executor import (
     V2_PROTOCOL_SHA256,
+    _code_digest,
     _review_gate,
     _sha256,
     _valid_hash,
@@ -36,6 +37,8 @@ def execute_conventional(
     fixture_only: bool = False,
     review_path: Path | None = None,
     review_sha256: str | None = None,
+    native_index_sha256: str | None = None,
+    support_report_sha256: str | None = None,
     tree_max_iter: int = 150,
 ) -> dict[str, Any]:
     """Fit one frozen TRAIN-only conventional family, then save every issued row."""
@@ -52,6 +55,9 @@ def execute_conventional(
         review_sha256=review_sha256,
         protocol_sha256=protocol_sha256,
         source_hashes=source_hashes,
+        input_sha256=input_digest,
+        native_index_sha256=native_index_sha256,
+        support_report_sha256=support_report_sha256,
     )
     output = output.resolve()
     if output.exists():
@@ -80,6 +86,9 @@ def execute_conventional(
             "protocol_sha256": protocol_sha256,
             "input_sha256": input_digest,
             "source_sha256": source_hashes,
+            "code_sha256": _code_digest(),
+            "native_index_sha256": native_index_sha256,
+            "support_report_sha256": support_report_sha256,
             "review_sha256": review_sha256 if not fixture_only else None,
             "tree_max_iter": tree_max_iter if family == "hist_gradient_boosting" else None,
             "fallback_count": model.fallback_count,

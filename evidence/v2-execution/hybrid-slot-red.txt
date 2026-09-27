@@ -1,0 +1,28 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_____________________ test_hybrid_requires_explicit_slot ______________________
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-3779/test_hybrid_requires_explicit_0')
+
+    def test_hybrid_requires_explicit_slot(tmp_path: Path) -> None:
+        torch.set_num_threads(1)
+        result = execute_representation(
+            _rows("2020-02-18", step_days=2),
+            _rows("2020-04-02", step_days=1),
+            tmp_path / "probe-only",
+            family="ema_jepa",
+            protocol_sha256="b" * 64,
+            fixture_only=True,
+            model_config=ModelConfig(width=16, layers=1, heads=4),
+            pretrain_updates=1,
+            probe_updates=1,
+            batch_size=4,
+            device="cpu",
+        )
+>       assert "hybrid" not in result
+E       AssertionError: assert 'hybrid' not in {'status': 'COMPLETED_SYNTHETIC_FIXTURE', 'family': 'ema_jepa', 'control': None, 'seed': 7, ...}
+
+tests\integration\test_v2_representation_executor.py:90: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/integration/test_v2_representation_executor.py::test_hybrid_requires_explicit_slot
+1 failed, 4 deselected in 41.03s

@@ -76,6 +76,9 @@ def iter_native_hourly_windows(
             continue
         if not _known_configuration(context_slots):
             continue
+        issuance_configuration = next(
+            item.configuration_id for item in context_slots if item.observed_pings > 0
+        )
         observed_context = np.array([item.observed_pings for item in context_slots])
         if (
             observed_context[-4:].sum() < 120
@@ -125,7 +128,12 @@ def iter_native_hourly_windows(
             values = future_linear[horizon, :, 0, 5:50]
             detected_range_ping_m = weights.sum()
             target_acquisition[horizon] = observed / expected
-            if observed >= 120 and _known_configuration(group):
+            if (
+                observed >= 120
+                and _known_configuration(group)
+                and next(item.configuration_id for item in group if item.observed_pings > 0)
+                == issuance_configuration
+            ):
                 target_detection_mask[horizon] = True
                 target_detection[horizon] = detected_range_ping_m / (90 * observed)
                 if detected_range_ping_m > 0 and target_detection[horizon] >= 0.1:

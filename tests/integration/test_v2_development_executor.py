@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import hashlib
+import json
 from dataclasses import replace
 from pathlib import Path
 
@@ -12,6 +14,9 @@ import torch
 from marine_echo.models.compact import ModelConfig
 from marine_echo.training.v2_executor import (
     V2_PROTOCOL_SHA256,
+    _code_digest,
+    _review_gate,
+    _validate_rows,
     _verify_predictions,
     execute_development,
 )
@@ -133,3 +138,52 @@ def test_real_development_requires_exact_batch_and_model_config(tmp_path: Path) 
             fixture_only=True,
             updates=2,
         )
+
+
+def test_input_digest_includes_age_and_ssl_future() -> None:
+    fit, assess = _rows("2020-02-18"), _rows("2020-04-02")
+    first, _ = _validate_rows(fit, assess, fixture_only=True)
+    changed_age = list(fit)
+    changed_age[0] = replace(fit[0], context_age_minutes=fit[0].context_age_minutes + 1)
+    second, _ = _validate_rows(changed_age, assess, fixture_only=True)
+    assert first != second
+    changed_future = list(fit)
+    changed_future[0] = replace(fit[0], future_train_mask=np.ones_like(fit[0].future_train_mask))
+    third, _ = _validate_rows(changed_future, assess, fixture_only=True)
+    assert first != third
+
+
+def test_real_review_binds_exact_inputs_code_and_sources(tmp_path: Path) -> None:
+    review = {
+        "status": "APPROVED_V2_TRAIN_DEVELOPMENT",
+        "candidate_id": "v2_candidate2",
+        "protocol_sha256": V2_PROTOCOL_SHA256,
+        "input_sha256": "b" * 64,
+        "code_sha256": _code_digest(),
+        "native_index_sha256": "c" * 64,
+        "support_report_sha256": "d" * 64,
+        "source_sha256": ["a" * 64],
+    }
+    path = tmp_path / "review.json"
+
+    def check() -> None:
+        path.write_text(json.dumps(review), encoding="utf-8")
+        _review_gate(
+            fixture_only=False,
+            review_path=path,
+            review_sha256=hashlib.sha256(path.read_bytes()).hexdigest(),
+            protocol_sha256=V2_PROTOCOL_SHA256,
+            source_hashes=("a" * 64,),
+            input_sha256="b" * 64,
+            native_index_sha256="c" * 64,
+            support_report_sha256="d" * 64,
+        )
+
+    check()
+    review["source_sha256"].append("e" * 64)
+    with pytest.raises(ValueError, match="does not authorize"):
+        check()
+    review["source_sha256"] = ["a" * 64]
+    review["input_sha256"] = "e" * 64
+    with pytest.raises(ValueError, match="does not authorize"):
+        check()

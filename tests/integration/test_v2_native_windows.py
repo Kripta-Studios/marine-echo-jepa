@@ -2,10 +2,18 @@
 
 from __future__ import annotations
 
+import hashlib
+import json
 from dataclasses import replace
+from pathlib import Path
 
 import numpy as np
+import pytest
 
+from marine_echo.training.v2_cohort import (
+    prepare_native_development_cohort,
+    verify_support_rows,
+)
 from marine_echo.training.v2_native import NativeObservationSlot, iter_native_hourly_windows
 
 
@@ -77,3 +85,50 @@ def test_native_past_index_uses_exact_range_lengths() -> None:
     assert row.context_index_db[-1] == 10 * np.log10(expected)
     assert row.past_source_sha256 == ("b" * 64,)
     assert row.target_source_sha256 == ("b" * 64,)
+
+
+def test_future_configuration_must_match_issuance_configuration() -> None:
+    changed = _slots()
+    for index in range(96, 100):
+        changed[index] = replace(changed[index], configuration_id="d" * 64)
+    row = next(iter_native_hourly_windows(changed, partition="train"))
+    assert not row.target_mask[0]
+    assert not row.target_detection_mask[0]
+    assert row.target_mask[1:].all()
+
+
+def test_support_cohort_requires_exact_issued_cutoff_and_target_masks() -> None:
+    row = next(iter_native_hourly_windows(_slots(), partition="train"))
+    entry = {
+        "cutoff": str(row.cutoff.astype("datetime64[h]")),
+        "issued": True,
+        "horizons": {
+            str(h): {
+                "target_start": str(row.target_interval_start[index].astype("datetime64[h]")),
+                "index_eligible": bool(row.target_mask[index]),
+                "fraction_eligible": bool(row.target_detection_mask[index]),
+                "fraction": float(row.target_detection_fraction[index]),
+            }
+            for index, h in enumerate((1, 3, 6))
+        },
+    }
+    verify_support_rows([row], [entry])
+    entry["horizons"]["3"]["index_eligible"] = False
+    with pytest.raises(ValueError, match="support row"):
+        verify_support_rows([row], [entry])
+
+
+def test_failed_support_stops_before_any_native_shard_read(tmp_path: Path) -> None:
+    report = tmp_path / "evidence/v2/native-support/eligibility_v2.json"
+    report.parent.mkdir(parents=True)
+    report.write_text(
+        json.dumps({"status": "NATIVE_CANDIDATE_INELIGIBLE_STOP_D1_TARGET_SEARCH"}),
+        encoding="utf-8",
+    )
+    digest = hashlib.sha256(report.read_bytes()).hexdigest()
+    with pytest.raises(ValueError, match="ineligible"):
+        prepare_native_development_cohort(
+            tmp_path,
+            native_index_sha256="a" * 64,
+            support_report_sha256=digest,
+        )

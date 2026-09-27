@@ -40,6 +40,22 @@ def _valid_hash(value: str) -> bool:
     return len(value) == 64 and all(character in "0123456789abcdef" for character in value)
 
 
+def _code_digest() -> str:
+    """Bind all native v2 window, model and executor code used by a run."""
+    package = Path(__file__).resolve().parents[1]
+    files = sorted(package.glob("models/v2_*.py")) + sorted(package.glob("training/v2_*.py"))
+    files += [
+        package / "models/compact.py",
+        package / "models/sigreg.py",
+        package / "training/loop.py",
+    ]
+    digest = hashlib.sha256()
+    for path in files:
+        digest.update(path.relative_to(package).as_posix().encode())
+        digest.update(path.read_bytes())
+    return digest.hexdigest()
+
+
 def _validate_rows(
     fit: list[HourlyWindow], assess: list[HourlyWindow], *, fixture_only: bool
 ) -> tuple[str, tuple[str, ...]]:
@@ -70,22 +86,30 @@ def _validate_rows(
     digest = hashlib.sha256()
     for row in fit + assess:
         digest.update(row.row_id.encode())
+        digest.update(row.partition.encode())
         digest.update(np.datetime64(row.cutoff, "ns").tobytes())
         for field in (
             row.context,
             row.context_mask,
             row.context_acquisition_fraction,
             row.context_detection_fraction,
+            row.context_age_minutes,
             row.target_interval_start,
             row.target_interval_end,
             row.target_db,
             row.target_mask,
             row.target_detection_fraction,
             row.target_detection_mask,
+            row.target_acquisition_fraction,
+            row.future_train_db,
+            row.future_train_mask,
         ):
             digest.update(np.ascontiguousarray(field).tobytes())
         if row.context_index_db is not None:
+            digest.update(b"exact-native-index")
             digest.update(np.ascontiguousarray(row.context_index_db).tobytes())
+        else:
+            digest.update(b"no-native-index")
         digest.update(";".join(row.source_sha256).encode())
         digest.update(";".join(row.past_source_sha256).encode())
         digest.update(";".join(row.target_source_sha256).encode())
@@ -99,10 +123,21 @@ def _review_gate(
     review_sha256: str | None,
     protocol_sha256: str,
     source_hashes: tuple[str, ...],
+    input_sha256: str,
+    native_index_sha256: str | None,
+    support_report_sha256: str | None,
 ) -> None:
     if fixture_only:
         return
-    if review_path is None or review_sha256 is None or not _valid_hash(review_sha256):
+    if (
+        review_path is None
+        or review_sha256 is None
+        or not _valid_hash(review_sha256)
+        or native_index_sha256 is None
+        or not _valid_hash(native_index_sha256)
+        or support_report_sha256 is None
+        or not _valid_hash(support_report_sha256)
+    ):
         raise ValueError("Reviewed v2 TRAIN development approval and digest are required.")
     if _sha256(review_path) != review_sha256:
         raise ValueError("V2 development review digest differs.")
@@ -111,7 +146,11 @@ def _review_gate(
         review.get("status") != "APPROVED_V2_TRAIN_DEVELOPMENT"
         or review.get("candidate_id") != "v2_candidate2"
         or review.get("protocol_sha256") != protocol_sha256
-        or not set(source_hashes).issubset(set(review.get("source_sha256", [])))
+        or review.get("input_sha256") != input_sha256
+        or review.get("code_sha256") != _code_digest()
+        or review.get("native_index_sha256") != native_index_sha256
+        or review.get("support_report_sha256") != support_report_sha256
+        or review.get("source_sha256") != list(source_hashes)
     ):
         raise ValueError("V2 development review does not authorize these inputs.")
 
@@ -441,6 +480,8 @@ def execute_development(
     fixture_only: bool = False,
     review_path: Path | None = None,
     review_sha256: str | None = None,
+    native_index_sha256: str | None = None,
+    support_report_sha256: str | None = None,
     model_config: ModelConfig | None = None,
     updates: int = 128,
     batch_size: int = 16,
@@ -466,6 +507,9 @@ def execute_development(
         review_sha256=review_sha256,
         protocol_sha256=protocol_sha256,
         source_hashes=source_hashes,
+        input_sha256=input_digest,
+        native_index_sha256=native_index_sha256,
+        support_report_sha256=support_report_sha256,
     )
     output = output.resolve()
     if output.exists():
@@ -491,6 +535,9 @@ def execute_development(
             "protocol_sha256": protocol_sha256,
             "input_sha256": input_digest,
             "source_sha256": source_hashes,
+            "code_sha256": _code_digest(),
+            "native_index_sha256": native_index_sha256,
+            "support_report_sha256": support_report_sha256,
             "review_sha256": review_sha256 if not fixture_only else None,
             "fit_rows": len(fit),
             "assessment_rows": len(assess),

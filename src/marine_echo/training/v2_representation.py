@@ -27,6 +27,7 @@ from marine_echo.models.v2_hybrid import NativeHybridRidge
 from marine_echo.training.loop import save_checkpoint
 from marine_echo.training.v2_executor import (
     V2_PROTOCOL_SHA256,
+    _code_digest,
     _Scaler,
     _sha256,
     _tensors,
@@ -82,8 +83,7 @@ def _representation_features(
             current = torch.where(valid[..., None], encoded, 0).sum(dim=1) / valid.sum(
                 dim=1, keepdim=True
             ).clamp_min(1)
-            predicted = model.base.predictor(encoded, valid).mean(dim=2).flatten(start_dim=1)
-            features.append(torch.cat((current, predicted), dim=1).cpu().numpy())
+            features.append(current.cpu().numpy())
     raw = np.stack([past_features(row) for row in rows])
     return np.concatenate((raw, np.concatenate(features)), axis=1).astype(np.float64)
 
@@ -96,14 +96,28 @@ def _campaign_gate(
     protocol_sha256: str,
     family: Family,
     control: Control | None,
+    hybrid_slot: bool,
     seed: int,
     pretrain_updates: int,
     probe_updates: int,
+    representation_regularizer_weight: float,
+    sigreg_weight: float,
     source_hashes: tuple[str, ...],
+    input_sha256: str,
+    native_index_sha256: str | None,
+    support_report_sha256: str | None,
 ) -> None:
     if fixture_only:
         return
-    if review_path is None or review_sha256 is None or not _valid_hash(review_sha256):
+    if (
+        review_path is None
+        or review_sha256 is None
+        or not _valid_hash(review_sha256)
+        or native_index_sha256 is None
+        or not _valid_hash(native_index_sha256)
+        or support_report_sha256 is None
+        or not _valid_hash(support_report_sha256)
+    ):
         raise ValueError("Independent v2 representation campaign review is required.")
     if _sha256(review_path) != review_sha256:
         raise ValueError("Representation campaign review digest differs.")
@@ -114,10 +128,17 @@ def _campaign_gate(
         or review.get("protocol_sha256") != protocol_sha256
         or review.get("family") != family
         or review.get("control") != control
+        or review.get("hybrid_slot") != hybrid_slot
         or review.get("seed") != seed
         or review.get("pretrain_updates") != pretrain_updates
         or review.get("probe_updates") != probe_updates
-        or not set(source_hashes).issubset(set(review.get("source_sha256", [])))
+        or review.get("representation_regularizer_weight") != representation_regularizer_weight
+        or review.get("sigreg_weight") != sigreg_weight
+        or review.get("input_sha256") != input_sha256
+        or review.get("code_sha256") != _code_digest()
+        or review.get("native_index_sha256") != native_index_sha256
+        or review.get("support_report_sha256") != support_report_sha256
+        or review.get("source_sha256") != list(source_hashes)
     ):
         raise ValueError("Representation campaign review does not authorize these inputs.")
 
@@ -130,9 +151,12 @@ def execute_representation(
     family: Family,
     protocol_sha256: str,
     control: Control | None = None,
+    hybrid_slot: bool = False,
     fixture_only: bool = False,
     review_path: Path | None = None,
     review_sha256: str | None = None,
+    native_index_sha256: str | None = None,
+    support_report_sha256: str | None = None,
     model_config: ModelConfig | None = None,
     seed: int = 7,
     pretrain_updates: int = 128,
@@ -152,6 +176,7 @@ def execute_representation(
     if (
         seed not in (7, 13, 23)
         or (control is not None and seed != 7)
+        or (hybrid_slot and (control is not None or seed != 7))
         or not 1 <= pretrain_updates <= 3000
         or not 1 <= probe_updates <= 3000
         or not 1 <= batch_size <= 16
@@ -175,10 +200,16 @@ def execute_representation(
         protocol_sha256=protocol_sha256,
         family=family,
         control=control,
+        hybrid_slot=hybrid_slot,
         seed=seed,
         pretrain_updates=pretrain_updates,
         probe_updates=probe_updates,
+        representation_regularizer_weight=representation_regularizer_weight,
+        sigreg_weight=sigreg_weight,
         source_hashes=source_hashes,
+        input_sha256=input_digest,
+        native_index_sha256=native_index_sha256,
+        support_report_sha256=support_report_sha256,
     )
     if device == "cuda" and not torch.cuda.is_available():
         raise RuntimeError("CUDA requested but unavailable.")
@@ -329,14 +360,20 @@ def execute_representation(
             else "COMPLETED_TRAIN_DEVELOPMENT",
             "family": family,
             "control": control,
+            "hybrid_slot": hybrid_slot,
             "seed": seed,
             "protocol_sha256": protocol_sha256,
             "input_sha256": input_digest,
             "source_sha256": source_hashes,
+            "code_sha256": _code_digest(),
+            "native_index_sha256": native_index_sha256,
+            "support_report_sha256": support_report_sha256,
             "review_sha256": review_sha256 if not fixture_only else None,
             "model_config": asdict(model_config or ModelConfig()),
             "pretrain_updates": actual_pretrain,
             "probe_updates": probe_updates,
+            "representation_regularizer_weight": representation_regularizer_weight,
+            "sigreg_weight": sigreg_weight,
             "pretrain_checkpoint": pretrain_checkpoint,
             "probe_checkpoint": str(output / probe_path.name),
             "probe_checkpoint_sha256": _sha256(probe_path),
@@ -355,7 +392,7 @@ def execute_representation(
         }
         if pretrain_checkpoint is not None:
             result["pretrain_checkpoint_sha256"] = _sha256(staging / Path(pretrain_checkpoint).name)
-        if control is None:
+        if hybrid_slot:
             xtrain = _representation_features(
                 model, fit, train, batch_size=batch_size, device=device
             )

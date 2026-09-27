@@ -1,0 +1,16 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_________ test_future_configuration_must_match_issuance_configuration _________
+
+    def test_future_configuration_must_match_issuance_configuration() -> None:
+        changed = _slots()
+        for index in range(96, 100):
+            changed[index] = replace(changed[index], configuration_id="d" * 64)
+        row = next(iter_native_hourly_windows(changed, partition="train"))
+>       assert not row.target_mask[0]
+E       assert not np.True_
+
+tests\integration\test_v2_native_windows.py:87: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/integration/test_v2_native_windows.py::test_future_configuration_must_match_issuance_configuration
+1 failed, 3 deselected in 1.81s
