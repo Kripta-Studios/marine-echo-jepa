@@ -1,0 +1,16 @@
+{
+  "record_type": "COORDINATOR_TRANSCRIPTION_OF_DISTINCT_REVIEWER_MESSAGE",
+  "reviewer_session": "/root/v2_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "disposition": "APPROVE_FINAL_OFFLINE_RESEARCH_ENGINEERING_RELEASE",
+  "reviewed_archive": "release/marine-echo-v2-research-20260927-r2.zip",
+  "reviewed_archive_sha256": "8c3eee64695c4ef3007ac6af9ab449434ef87e2c0bd4fbe5ab1641a59666b5ef",
+  "reviewed_source_commit": "dfa9843d4bd53692b2cc681a582695c2de0caa58",
+  "prior_rejected_archive_sha256": "20df1e7c7292f09a16dea0b641b82da12efff4c2660d2a9159fa599f53b2d2e6",
+  "independent_checks": "ZIP 337 files total and 336 manifest-covered payloads, unique safe paths, no encryption or symlinks, CRC clean, exact manifest and staged/relocated member hashes. Packaged verifier exit 0. All 53 packaged source files match the source commit. Delta from rejected archive is limited to the intended protocol-link label/bundle and packaging provenance; 56 common scientific/run/review files remain byte-identical. 'Protocol and evidence' is visible and bytewise present; 'Frozen protocol' absent. Linked record correctly says DRAFT_REQUIRES_R1_AND_R2 and NOT_FROZEN. External relocated browser evidence has eight expected passes and no failures, flakes or skips; portable integrity clean/corrupt/restored 0/2/0 and offline starts 3.469s/1.164s. Browser and portable executions were inspected, not independently rerun.",
+  "preserved_history": "Historical meeting r2 ZIP SHA256 df02ff06cbbb05d967f8c157423c0c76b2acf66ddb16f1a1fcfbe36a710a5cc3 unchanged. Historical registry remains 25 BLOCKED runs, null metrics, zero updates, test_opened false.",
+  "raw_result_scope": "212 cutoffs/636 horizons, uncalibrated TRAIN-development response codes; approved result/prediction/checkpoint hashes unchanged; final_evaluation false.",
+  "limitations": "Engineering-only release. Calibrated v2 ineligible; core 25 and JEPA NOT_RUN; no protected final evaluation or commercial/biological claim.",
+  "acoustic_payload_or_final_evaluation_inspected": false
+}

@@ -64,7 +64,12 @@ review are preserved. A corrected separate r2 archive uses "Protocol and
 evidence"; its SHA-256 is
 `8c3eee64695c4ef3007ac6af9ab449434ef87e2c0bd4fbe5ab1641a59666b5ef`.
 The r2 archive passed fresh relocation, checksum corruption detection, offline
-starts and eight browser journeys; independent r2 release review is pending.
+starts and eight browser journeys. The distinct reviewer approved that exact
+archive as an offline research engineering release after independently checking
+all 336 payload hashes, packaged source, the corrected draft-protocol link,
+unchanged scientific artifacts and preserved v1/r2 history. Its review is an
+external immutable-archive sidecar at
+`orchestration/reviews/V2_RESEARCH_RELEASE_FINAL_20260927.json`.
 
 The existing GPU environment passed a CUDA kernel smoke with PyTorch 2.11.0+cu128;
 this is not a training-memory measurement. Data-environment PyTorch is absent and

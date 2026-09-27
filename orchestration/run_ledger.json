@@ -420,7 +420,7 @@
     "calibrated_executor_code_status": "INDEPENDENTLY_APPROVED_CODE_NO_CALIBRATED_FIT",
     "calibrated_executor_code_review": "orchestration/reviews/V2_CALIBRATED_EXECUTOR_CODE_20260927.json",
     "calibrated_executor_reviewed_commit": "23b180b2431277cda9967827eaccceabbc2e7e30",
-    "offline_research_app_status": "RELOCATED_OFFLINE_RELEASE_VALIDATED_PENDING_INDEPENDENT_FINAL_REVIEW",
+    "offline_research_app_status": "INDEPENDENTLY_APPROVED_OFFLINE_RESEARCH_ENGINEERING_ONLY",
     "offline_research_browser_evidence": "evidence/v2-release/browser/playwright-results.json",
     "offline_research_archive": "release/marine-echo-v2-research-20260927-r2.zip",
     "offline_research_archive_sha256": "8c3eee64695c4ef3007ac6af9ab449434ef87e2c0bd4fbe5ab1641a59666b5ef",
@@ -428,9 +428,14 @@
     "offline_research_portable_validation": "evidence/v2-release-r2/portable.json",
     "offline_research_relocated_browser": "evidence/v2-release-r2/browser/playwright-results.json",
     "offline_research_relocated_browser_passed": 8,
-    "offline_research_final_review": "PENDING_CORRECTED_R2",
+    "offline_research_final_review": "APPROVE_FINAL_OFFLINE_RESEARCH_ENGINEERING_RELEASE",
     "offline_research_rejected_archive": "release/marine-echo-v2-research-20260927.zip",
     "offline_research_rejected_archive_sha256": "20df1e7c7292f09a16dea0b641b82da12efff4c2660d2a9159fa599f53b2d2e6",
-    "offline_research_rejected_review": "orchestration/reviews/V2_RESEARCH_RELEASE_REJECTED_20260927.json"
+    "offline_research_rejected_review": "orchestration/reviews/V2_RESEARCH_RELEASE_REJECTED_20260927.json",
+    "offline_research_final_review_record": "orchestration/reviews/V2_RESEARCH_RELEASE_FINAL_20260927.json",
+    "software_gate": "PASS_OFFLINE_RESEARCH_ENGINEERING_RELEASE",
+    "experiment_gate": "BLOCKED_CALIBRATED_CORE_NOT_RUN_SUPPORT_INELIGIBLE",
+    "jepa_value_gate": "NOT_EVALUATED_NO_JEPA_RUN",
+    "business_validation_gate": "NOT_EVALUATED"
   }
 }

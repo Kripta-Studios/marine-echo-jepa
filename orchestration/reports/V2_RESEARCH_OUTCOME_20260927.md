@@ -85,4 +85,8 @@ a clean/corrupt/restored integrity cycle, offline dependency install, first
 start in 3.469 seconds, and cold restart in 1.164 seconds. The extracted
 package passed eight offline browser journeys, including the complete real
 prediction table and corrected link. Exact records are under
-`evidence/v2-release-r2/`. Independent r2 final review is pending.
+`evidence/v2-release-r2/`. The distinct reviewer approved this exact archive
+under `orchestration/reviews/V2_RESEARCH_RELEASE_FINAL_20260927.json`. The
+archive's build-time `independent_final_release_review: false` and G1
+pending-review text record its immutable pre-review state; the external review
+is the final approval record. No normal calibrated/JEPA release is claimed.
