@@ -1,0 +1,42 @@
+{
+  "task": "R2-AEON-PRECAL-SOURCE-REVIEW-34963B9-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "status": "REQUEST_CHANGES_AEON_PRECAL_SOURCE",
+  "disposition": "REJECT_NUMERIC_CALIBRATION_OR_TEST_ACCESS_UNDER_THIS_SOURCE",
+  "source_commit": "34963b9e63bf9bf8ab4ed2048c93350590585905",
+  "source_sha256": {
+    "src/marine_echo/training/aeon_final_evaluation.py": "a70c8f45b1da870a9eeb1c7eaf2a7ff57500cd7bb3f0643a64df288fddc4b178",
+    "src/marine_echo/training/aeon_forecast_adapters.py": "9d0a827dfe370948454391f4c00d18e898072d4253b9d22d87cd2c145277be47",
+    "src/marine_echo/evaluation/aeon.py": "5dff72c1baf2f5528f13f369936d2ca5710eeb8b8a6e6cae12a0ef95366225ff",
+    "configs/aeon_final_evaluation.json": "9003865b288a3c5afdf4b7cdb3a3f401c346f6067a53a255b833dde8e3a668c4c"
+  },
+  "resolved_findings": [
+    "CAL forecasts are produced in process from issued contexts before target extraction rather than accepted as pre-materialized arrays.",
+    "TEST forecasts are produced in process after exact candidate-triplet subset validation and before target extraction.",
+    "Real versus synthetic execution, exact trusted reviewer identity, reader and runner review separation, selected component IDs and hashes, and repository inference dependencies are fail-closed.",
+    "The earlier full-file Ruff failures are resolved at this commit."
+  ],
+  "blocking_findings": [
+    {
+      "severity": "BLOCKER",
+      "location": "src/marine_echo/training/aeon_final_evaluation.py:326-334,337-368,577-585,790-808",
+      "finding": "Frozen component paths and byte digests are first resolved and checked during forecast execution after `_rows(reader, partition)` has already materialized numeric CAL or TEST rows. A missing, replaced or digest-mismatched checkpoint therefore consumes held-out numeric data before the frozen executable model graph is proven valid.",
+      "reproduction": "Construct an otherwise approved real adapter plan whose component path is missing or whose file bytes do not match its frozen SHA-256. `_forecast_plan` accepts the declared artifact IDs and hashes, `_rows` invokes the numeric reader, and only `_plan_artifact`/adapter `_checked` then raises.",
+      "required_fix": "Before creating or invoking the partition reader, resolve every component path within the plan directory and verify every exact file SHA-256. Apply the same pre-reader byte check to the complete pinned Chronos snapshot. Preserve execution-time revalidation to protect against a later change, and add an adversarial test proving reader invocation count remains zero for a missing or mismatched real component."
+    }
+  ],
+  "independent_execution": {
+    "focused_tests": "29 passed in 74.49s",
+    "ruff": "All checks passed",
+    "mypy": "Success: no issues found in 2 source files",
+    "source_inspection": "Independently traced calibration and retrospective TEST dependency checks, reader construction, row materialization, forecasting, target extraction and scoring order.",
+    "calibration_or_test_numeric_access": false
+  },
+  "unresolved_uncertainty": [
+    "No selection freeze, adapter plan or access review may be issued against this rejected source commit.",
+    "The corrected source must receive a new exact independent review with new source and composite digests."
+  ],
+  "calibration_access": "PROHIBITED",
+  "test_access": "PROHIBITED"
+}
