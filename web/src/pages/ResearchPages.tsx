@@ -749,6 +749,12 @@ function RawDevelopmentResult({
           <dt>Final evaluation</dt>
           <dd>{evidence.final_evaluation ? "Performed" : "Not performed"}</dd>
         </div>
+        <div>
+          <dt>Direct checkpoint SHA-256</dt>
+          <dd className="raw-development-digest">
+            {evidence.direct_checkpoint_128_sha256}
+          </dd>
+        </div>
       </dl>
       <p className="raw-development-conclusion">
         {directWorseAtEveryHorizon
@@ -826,8 +832,8 @@ function RawDevelopmentResult({
               <th scope="col">Target start (UTC)</th>
               <th scope="col">Eligible</th>
               <th scope="col">Truth code</th>
-              <th scope="col">Ridge quantile codes (source order)</th>
-              <th scope="col">Direct neural quantile codes (source order)</th>
+              <th scope="col">Ridge codes (5%, 25%, 50%, 75%, 95%)</th>
+              <th scope="col">Direct neural codes (5%, 25%, 50%, 75%, 95%)</th>
             </tr>
           </thead>
           <tbody>

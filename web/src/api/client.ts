@@ -93,6 +93,7 @@ export interface RawDevelopmentEvidence {
   calibrated: false;
   final_evaluation: false;
   comparison_label: string;
+  direct_checkpoint_128_sha256: string;
   horizons: RawDevelopmentHorizonMetrics[];
   rows: RawDevelopmentRow[];
   limitations: string[];

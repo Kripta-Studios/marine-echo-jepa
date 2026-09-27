@@ -180,6 +180,7 @@ def build_raw_development_report(root: Path) -> dict[str, Any]:
         "horizons": horizon_reports,
         "rows": rows,
         "source_result_sha256": review["result_sha256"],
+        "direct_checkpoint_128_sha256": review["checkpoint_128_sha256"],
         "review_record_sha256": _sha256(root / REVIEW_RECORD),
         "limitations": [
             "All rows are fixed TRAIN-development assessment; the April segment is not a sealed holdout or final evaluation.",

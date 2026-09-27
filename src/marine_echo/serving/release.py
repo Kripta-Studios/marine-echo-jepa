@@ -162,6 +162,7 @@ def build_v2_research(root: Path, output: Path) -> dict[str, Any]:
             "quantity": report["quantity"],
             "unit": report["unit"],
             "source_result_sha256": report["source_result_sha256"],
+            "direct_checkpoint_128_sha256": report["direct_checkpoint_128_sha256"],
             "review_record_sha256": report["review_record_sha256"],
             "horizons": report["horizons"],
             "all_issued_rows_artifact": "raw-development",

@@ -130,6 +130,7 @@ test('raw TRAIN-development evidence shows all predictions and current release c
     calibrated: false,
     final_evaluation: false,
     comparison_label: 'Direct neural is worse than ridge in this contract fixture.',
+    direct_checkpoint_128_sha256: 'fixture-checkpoint-not-real',
     horizons,
     rows: cutoffs.map((cutoff_utc, cutoff_index) => ({
       cutoff_utc,
@@ -157,7 +158,7 @@ test('raw TRAIN-development evidence shows all predictions and current release c
   await expect(page.getByRole('heading', { name: 'Raw response-code TRAIN development' })).toBeVisible();
   const resultTable = page.getByRole('table', { name: /All TRAIN-development predictions and truths/ });
   await expect(resultTable.locator('tbody tr')).toHaveCount(6);
-  await expect(resultTable.getByRole('columnheader', { name: 'Ridge quantile codes (source order)' })).toBeAttached();
+  await expect(resultTable.getByRole('columnheader', { name: 'Ridge codes (5%, 25%, 50%, 75%, 95%)' })).toBeAttached();
   await expect(resultTable.getByRole('cell', { name: '12', exact: true })).toBeVisible();
   await expect(resultTable.getByRole('cell', { name: '17', exact: true })).toBeVisible();
   await expect(page.getByText('Direct neural is worse than ridge on both reported metrics at all three horizons.')).toBeVisible();
@@ -174,4 +175,20 @@ test('missing raw TRAIN-development artifact has an honest unavailable state', a
   await page.goto('/#experiment-lab');
   await expect(page.getByRole('heading', { name: 'Raw development evidence unavailable' })).toBeVisible();
   await expect(page.getByText(/no prediction or performance result is displayed/i)).toBeVisible();
+});
+
+test('packaged reviewed development artifact renders its complete real cohort', async ({page}) => {
+  const health = await (await page.request.get('/health')).json();
+  test.skip(health.release_class !== 'OFFLINE_RESEARCH_ENGINEERING_ONLY', 'v2 research artifact required');
+  const response = await page.request.get('/api/v1/evidence/raw-development');
+  expect(response.ok()).toBe(true);
+  const artifact = await response.json();
+  expect(artifact.rows).toHaveLength(212);
+  expect(artifact.direct_checkpoint_128_sha256).toHaveLength(64);
+  expect(artifact.horizons.map((horizon: {eligible_rows: number}) => horizon.eligible_rows)).toEqual([176, 140, 135]);
+  await page.goto('/#experiment-lab');
+  const resultTable = page.getByRole('table', {name: /All TRAIN-development predictions and truths/});
+  await expect(resultTable.locator('tbody tr')).toHaveCount(636);
+  await expect(page.getByText('12.23123253969628', {exact: true})).toBeVisible();
+  await page.screenshot({path:resolve(import.meta.dirname, '../../evidence/browser/v2-research-results.png'),fullPage:true});
 });
