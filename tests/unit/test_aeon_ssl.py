@@ -52,6 +52,19 @@ def test_masked_context_view_cannot_read_later_six_products() -> None:
     assert not torch.equal(model.teacher_view(values, mask), model.teacher_view(changed, mask))
 
 
+def test_teacher_view_encodes_only_held_out_six_past_products() -> None:
+    values, mask = _batch()
+    for mode in ("ema", "shared_sigreg"):
+        model = AeonTemporalSSL(mode=mode, width=128, layers=3)
+        target = model.teacher_view(values, mask)
+        changed_context = values.clone()
+        changed_context[:, :18] += 10_000
+        assert torch.equal(target, model.teacher_view(changed_context, mask))
+        changed_target = values.clone()
+        changed_target[:, 18:] += 10_000
+        assert not torch.equal(target, model.teacher_view(changed_target, mask))
+
+
 def test_supervised_heads_have_identical_output_contract() -> None:
     values, mask = _batch()
     direct = AeonDirect(width=128, layers=3)

@@ -104,7 +104,13 @@ class AeonTemporalSSL(nn.Module):
 
     def teacher_view(self, values: torch.Tensor, mask: torch.Tensor) -> torch.Tensor:
         module = self.teacher if self.teacher is not None else self.encoder
-        return module(values, mask)
+        if values.ndim != 3 or values.shape[1:] != (24, 4) or mask.shape != values.shape:
+            raise ValueError("Expected matching [batch,24,4] values and masks.")
+        target_values = values.clone()
+        target_mask = mask.clone()
+        target_values[:, :18] = 0
+        target_mask[:, :18] = False
+        return module(target_values, target_mask)
 
     def pretrain_loss(self, values: torch.Tensor, mask: torch.Tensor) -> torch.Tensor:
         if len(values) < 2:
