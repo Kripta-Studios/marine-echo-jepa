@@ -83,11 +83,14 @@
       "primary_daily_mean_pinball_db": 0.6935176150003005
     },
     "forward_ema_jepa": {
-      "status": "COMPLETED_POST_HOC_TRAIN_VALIDATION_PENDING_INDEPENDENT_OUTCOME_REVIEW",
+      "status": "APPROVED_POST_HOC_TRAIN_VALIDATION_OUTCOME_NO_SELECTION",
       "manifest": "outputs/aeon3_geb_2024_hourly_sv_v1/forward_ema_development/manifest.json",
+      "manifest_sha256": "a77f96d63ae06fb6c6d349ecd641d3862eff17dfe0348643d9c6e03fa7095f49",
       "prefit_review_sha256": "7275f5c0e9c70daccbc60fb26a952ea8514746a93ee2dbb1c73b2468efe35ffa",
+      "outcome_review_sha256": "d3f142e1f01bb84b22155faa9f1cedb40d499b5aa784865cc9191416c6cfbed6",
       "device": "cuda",
-      "completed_slots": 5
+      "completed_slots": 5,
+      "three_seed_ensemble_daily_mean_pinball_db": 0.6533145184
     }
   },
   "test_metadata_candidates": {

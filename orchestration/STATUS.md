@@ -268,9 +268,12 @@ pinball is 0.693518 dB, behind the direct-neural and LightGBM development
 results; distinct outcome review is pending.
 The forward-EMA JEPA adaptation with fixed VICReg-style anti-collapse penalties
 completed all five serial TRAIN/validation slots on CUDA with exit status zero,
-real checkpoints and forecasts; distinct outcome review is pending. Its three
-individual post-hoc validation scores are 0.667524, 0.657679 and 0.659481 dB,
-with no selection or final inference from them yet.
+real checkpoints and forecasts. Distinct outcome review recomputed all five
+metrics and checkpoint predictions and approved post-hoc comparison only. The
+three-seed forward ensemble scores 0.653315 dB versus direct 0.639062 dB,
+worse overall and at all horizons. The fixed variance penalty raised TRAIN
+teacher rank but did not establish incremental JEPA value. No selection or
+final inference has been performed.
 CAL/TEST acoustic outcomes remain unopened pending final selection and freeze.
 
 The separately reviewed metadata-only TEST scanner completed one real pass over
