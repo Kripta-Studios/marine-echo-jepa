@@ -1,0 +1,7 @@
+{
+  "status": "REVISED_BEFORE_NATIVE_SUPPORT",
+  "proposal_path": "docs\\adr\\0006-native-observation-population-v2.md",
+  "proposal_sha256": "058dcb8ca603fa96cfe12a7f9968594807253bcbcd1cc5ae6fe04446cad19327",
+  "supersedes": "evidence/v2/native_candidate_freeze.json",
+  "model_scores_accessed": false
+}

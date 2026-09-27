@@ -1,0 +1,11 @@
+{
+  "status": "REVISED_BEFORE_NATIVE_SUPPORT",
+  "proposal_path": "docs\\adr\\0006-native-observation-population-v2.md",
+  "proposal_sha256": "058dcb8ca603fa96cfe12a7f9968594807253bcbcd1cc5ae6fe04446cad19327",
+  "supersedes": "evidence/v2/native_candidate_freeze_v2.json",
+  "model_scores_accessed": false,
+  "inherited_contract": {
+    "path": "docs/adr/0005-prospective-observation-aligned-v2.md",
+    "sha256": "48ca1923776578459eb2ad71194fe08cf1156af02e792f10b3d88a089df34276"
+  }
+}

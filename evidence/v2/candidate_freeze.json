@@ -1,0 +1,9 @@
+{
+  "status": "PROPOSED_BEFORE_CANDIDATE_SUPPORT",
+  "candidate_count": 1,
+  "candidate_id": "D1_38khz_10_100m_detected_sample_mean",
+  "proposal_path": "docs\\adr\\0005-prospective-observation-aligned-v2.md",
+  "proposal_sha256": "9c3ff2b32513b2cf2118365ae207be54cd65bd6ab019f924f11928191e91df07",
+  "model_scores_accessed": false,
+  "comparative_support_accessed": false
+}

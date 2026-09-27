@@ -337,5 +337,20 @@
     "gpu_training_processes": 0,
     "infrastructure_paid_usd": 0,
     "infrastructure_committed_usd": 0
+  },
+  "v2": {
+    "status": "DEVELOPMENT_CONTRACT_REVIEW",
+    "owner_amendment_authorized": true,
+    "data_design_owner": "/root",
+    "executor_owner": "/root/v2_builder",
+    "reviewer": "/root/v2_reviewer",
+    "gpu_owner": "/root/v2_builder",
+    "historical_study": "INELIGIBLE_UNDER_ORIGINAL_PROTOCOL",
+    "completed_development_runs": 0,
+    "completed_core_runs": 0,
+    "registry_namespace": "reports/v2",
+    "cloud_authorized": false,
+    "infrastructure_paid_usd": 0,
+    "preflight": "evidence/v2/gpu_runtime_preflight.json"
   }
 }

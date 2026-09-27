@@ -1,0 +1,7 @@
+{
+  "status": "REVISED_BEFORE_SUPPORT_AND_FIT",
+  "proposal_path": "docs\\adr\\0005-prospective-observation-aligned-v2.md",
+  "proposal_sha256": "24fa871953427151cd8f2dc82acba552061c5cd443774f31154807770a41c138",
+  "supersedes": "evidence/v2/candidate_freeze.json",
+  "changes": "Clarify units,population,configuration,issued/scored rows and joint loss; numerical support thresholds unchanged."
+}

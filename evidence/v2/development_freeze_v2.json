@@ -1,0 +1,7 @@
+{
+  "status": "REVISED_BEFORE_SUPPORT_AND_FIT",
+  "proposal_path": "docs\\adr\\0005-prospective-observation-aligned-v2.md",
+  "proposal_sha256": "48ca1923776578459eb2ad71194fe08cf1156af02e792f10b3d88a089df34276",
+  "supersedes": "evidence/v2/development_freeze.json",
+  "changes": "No profile supervision; engineering smoke scores excluded from all campaign decisions; thresholds unchanged."
+}

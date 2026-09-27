@@ -1,5 +1,26 @@
 # Execution status
 
+## Prospective v2 continuation - active 27 September 2026
+
+Owner authorization for the documented v2 amendment is recorded in the continuation
+prompt. The leader owns data/design; `/root/v2_builder` owns real executors in the
+separate `impl/v2-execution` worktree; `/root/v2_reviewer` independently reviews
+`continuation_v2/REVIEW_V2.md`. V1 evidence below remains historical and unchanged.
+
+One detection-conditioned, observation-aligned target is proposed in ADR 0005 before
+candidate support inspection. Existing acquisition/QC records are being inspected;
+the completed census and any-band audit are not being rerun. The real reader and
+causal batch implementation are underway. No v2 scientific run has executed yet.
+
+The existing GPU environment passed a CUDA kernel smoke with PyTorch 2.11.0+cu128;
+this is not a training-memory measurement. Data-environment PyTorch is absent and
+has not been installed. Free disk was 29.38 GiB: use existing source bytes and
+streamed shards; no speculative bulk download or duplicate raw corpus. Original
+handoff verification still fails at the recorded `.gitattributes` scaffold mismatch.
+Current evidence: `evidence/v2/`, machine state: `orchestration/run_ledger.json:v2`.
+
+## Preserved v1 checkpoint
+
 P0 INCOMPLETE - D1 DATA INELIGIBLE UNDER THE REVIEWED METHOD; D2 BLOCKED.
 
 All 100 original TRAIN days were processed successfully using the independently reviewed

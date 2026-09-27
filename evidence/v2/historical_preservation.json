@@ -1,0 +1,11 @@
+{
+  "utc": "2026-09-27T08:51:49.502980+00:00",
+  "sha256": {
+    "reports/active/protocol.json": "8473ecb568d7c102521e7118197a2bbe61426df9d02a0ed7b73933f49ca7815b",
+    "evidence/continuation/target_only_bound.json": "ad3ab2c3a0cd5723ec5b450c777bdfcc9438f8fe31db11418b28c10c7f861015",
+    "evidence/continuation/any_band_bound.json": "dc959350312671165697b83a8d8bda1a6859a198db45eba37d69b9fa8b2302ed",
+    "evidence/continuation/train_census_v2_execution.json": "415563522356775e1e4ac5ccf444ac5a48725da8659ee1399f3cb1f629e1c407",
+    "release/meeting-20260926-r2.zip": "df02ff06cbbb05d967f8c157423c0c76b2acf66ddb16f1a1fcfbe36a710a5cc3",
+    "reports\\active\\training_registry.json": "e01953c56acf1230d6853e43f3dad5c9832fb4615b923d53a0f006bd32859575"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "status": "PROPOSED_BEFORE_NATIVE_SUPPORT",
+  "candidate_ordinal": 2,
+  "candidate_id": "D1_38khz_10_100m_native_detected_sample_mean",
+  "proposal_path": "docs\\adr\\0006-native-observation-population-v2.md",
+  "proposal_sha256": "bd81538bbed2bae0d0ccaa2771501e753c8969c50fe49c0ae596379132588937",
+  "failed_candidate_preserved": "evidence/v2/support/eligibility_v2.json",
+  "failed_candidate_sha256": "2c8c097fc36da80da32547317d3599f158a1b9e740e7279ecdddfd24f2a42511",
+  "model_scores_accessed": false
+}

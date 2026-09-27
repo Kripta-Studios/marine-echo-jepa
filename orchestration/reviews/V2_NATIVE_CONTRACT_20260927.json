@@ -1,0 +1,16 @@
+{
+  "record_type": "COORDINATOR_TRANSCRIPTION_OF_DISTINCT_REVIEWER_MESSAGE",
+  "reviewer_session": "/root/v2_reviewer",
+  "configured_role": "independent_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "observed_host_permission": "danger-full-access; reviewer instructed behaviorally read-only",
+  "runtime_model_attestation": "Not independently exposed by native list/spawn metadata",
+  "utc": "2026-09-27T09:09:13.396168+00:00",
+  "disposition": "APPROVE_NATIVE_CONTRACT_BOUNDED_PROCESSING_SCOPE",
+  "freeze_sha256": "1cbcdfa88df619ddac2f06b200385786cddf2a4078061fa0991a8b1843889bf3",
+  "adr0006_sha256": "058dcb8ca603fa96cfe12a7f9968594807253bcbcd1cc5ae6fe04446cad19327",
+  "adr0005_sha256": "48ca1923776578459eb2ad71194fe08cf1156af02e792f10b3d88a089df34276",
+  "scope": "Implementation review, then preserved-source TRAIN-only native sufficient-statistic/support processing for 2020-02-17 through 2020-04-14; no fitting, model scores, non-TRAIN payload, evaluation, release, or further D1 target search. Full implementation must return for review before processing.",
+  "independently_reproduced": "100-manifest acquisition metadata and fixed native sample QC categories."
+}
