@@ -60,6 +60,7 @@ class TrainingPhase:
     checkpoints: tuple[Path, ...]
     validation_scores: tuple[float, ...]
     validation_predictions: tuple[Path, ...] = ()
+    validation_score_files: tuple[Path, ...] = ()
 
 
 SlotExecutor = Callable[[V2Slot, int | None, Path], SlotResult]
@@ -127,8 +128,13 @@ def _verified_training_phases(
             )
         if phase.name == "pretrain" and phase.validation_predictions:
             raise ValueError("Pretraining checks use objective loss, not forecast rows.")
+        if phase.name == "pretrain" and len(phase.validation_score_files) != len(steps):
+            raise ValueError("Pretraining checks need saved validation losses every 250 updates.")
+        if phase.name != "pretrain" and phase.validation_score_files:
+            raise ValueError("Supervised checks cannot claim pretraining validation losses.")
         checkpoints = []
         validations = []
+        score_files = []
         for index, step in enumerate(steps):
             raw_checkpoint = phase.checkpoints[index]
             checkpoint = raw_checkpoint.resolve(strict=True)
@@ -167,6 +173,25 @@ def _verified_training_phases(
                         "metric": score,
                     }
                 )
+            else:
+                raw_score = phase.validation_score_files[index]
+                score_path = raw_score.resolve(strict=True)
+                if raw_score.is_symlink() or not score_path.is_relative_to(staging.resolve()):
+                    raise ValueError("Pretraining validation artifact escapes its slot output.")
+                recorded_score = json.loads(score_path.read_text(encoding="utf-8"))
+                if (
+                    recorded_score.get("step") != step
+                    or recorded_score.get("score") != phase.validation_scores[index]
+                ):
+                    raise ValueError("Pretraining validation score differs from saved loss.")
+                score_files.append(
+                    {
+                        "step": step,
+                        "path": str(score_path.relative_to(staging)),
+                        "sha256": _sha256(score_path),
+                        "metric": phase.validation_scores[index],
+                    }
+                )
         manifest.append(
             {
                 "name": phase.name,
@@ -174,6 +199,7 @@ def _verified_training_phases(
                 "validation_scores": phase.validation_scores,
                 "checkpoints": checkpoints,
                 "validation_predictions": validations,
+                "validation_score_files": score_files,
             }
         )
     return manifest
@@ -315,14 +341,14 @@ def _verify_ledger(
         slot.run_id for slot in slots
     }:
         raise ValueError("Campaign ledger identity or finite slots differ.")
-    success = {
-        "COMPLETED_SYNTHETIC_FIXTURE",
-        "COMPLETED_TRAIN_VALIDATION",
-        "REUSED_SYNTHETIC_FIXTURE",
-        "REUSED_TRAIN_VALIDATION",
-    }
+    suffix = (
+        "SYNTHETIC_FIXTURE" if identity["scope"] == "synthetic-fixture-only" else "TRAIN_VALIDATION"
+    )
+    success = {f"COMPLETED_{suffix}", f"REUSED_{suffix}"}
     for slot in slots:
         run = ledger["runs"][slot.run_id]
+        if run["status"].startswith(("COMPLETED", "REUSED")) and run["status"] not in success:
+            raise ValueError("Campaign slot completion status differs from its scope.")
         if run["status"] not in success:
             if run["status"] not in ("PENDING", "RUNNING", "FAILED"):
                 raise ValueError("Campaign ledger has an unknown run status.")
@@ -331,11 +357,38 @@ def _verify_ledger(
         if run["status"].startswith("REUSED"):
             if slot.phase != "selected" or slot.seed != 7:
                 raise ValueError("Only selected seed-7 endpoints can be reused.")
+            if (
+                run.get("family") != slot.family
+                or run.get("phase") != slot.phase
+                or run.get("seed") != slot.seed
+                or run.get("selected_configuration") not in (0, 1)
+                or run.get("reusable_seed7") is not False
+            ):
+                raise ValueError("Reused campaign slot identity differs from its plan.")
             if run["reuse_of"] != f"{slot.family}-development{run['selected_configuration']}-seed7":
                 raise ValueError("Campaign reuse points to a different family or configuration.")
             source = ledger["runs"].get(run["reuse_of"])
-            if source is None or not source["status"].startswith("COMPLETED"):
+            if source is None or source["status"] != f"COMPLETED_{suffix}":
                 raise ValueError("Campaign reuse source is not completed.")
+            if run.get("updates") != source.get("updates"):
+                raise ValueError("Reused campaign slot updates differ from their source.")
+        elif (
+            run.get("family") != slot.family
+            or run.get("phase") != slot.phase
+            or run.get("seed") != slot.seed
+            or run.get("selected_configuration")
+            != (
+                slot.configuration
+                if slot.phase == "development"
+                else (
+                    ledger.get("selected_configs", {}).get(slot.family)
+                    if slot.family in LEARNED
+                    else None
+                )
+            )
+            or run.get("reuse_of") is not None
+        ):
+            raise ValueError("Completed campaign slot identity differs from its plan.")
         path = Path(source["predictions"])
         if not path.is_file() or path.is_symlink() or _sha256(path) != source["prediction_sha256"]:
             raise ValueError("Campaign validation artifact differs on resume.")
@@ -358,6 +411,20 @@ def _verify_ledger(
         registered_files = {item["path"]: item["sha256"] for item in source.get("artifacts", [])}
         if actual_files != registered_files:
             raise ValueError("Campaign model or resource artifacts differ on resume.")
+        recorded_slot = json.loads((artifact_root / "slot-result.json").read_text(encoding="utf-8"))
+        if recorded_slot != {
+            key: source.get(key)
+            for key in (
+                "family",
+                "phase",
+                "seed",
+                "selected_configuration",
+                "updates",
+                "reusable_seed7",
+                "training_phases",
+            )
+        }:
+            raise ValueError("Campaign slot result differs from its saved artifact.")
         for phase in source.get("training_phases", []):
             for item in phase["checkpoints"] + phase["validation_predictions"]:
                 file = (artifact_root / item["path"]).resolve(strict=True)
@@ -368,10 +435,40 @@ def _verify_ledger(
                     raise ValueError("Campaign training milestone artifact differs on resume.")
                 if "metric" in item and _primary(_verify_predictions(file, rows)) != item["metric"]:
                     raise ValueError("Campaign training milestone metric differs on resume.")
+        if suffix == "TRAIN_VALIDATION" and run["status"] == f"COMPLETED_{suffix}":
+            phases = tuple(
+                TrainingPhase(
+                    name=phase["name"],
+                    updates=phase["updates"],
+                    checkpoints=tuple(
+                        artifact_root / item["path"] for item in phase["checkpoints"]
+                    ),
+                    validation_scores=tuple(phase["validation_scores"]),
+                    validation_predictions=tuple(
+                        artifact_root / item["path"] for item in phase["validation_predictions"]
+                    ),
+                    validation_score_files=tuple(
+                        artifact_root / item["path"]
+                        for item in phase.get("validation_score_files", [])
+                    ),
+                )
+                for phase in source.get("training_phases", [])
+            )
+            verified = _verified_training_phases(
+                slot,
+                SlotResult(
+                    path,
+                    updates=source["updates"],
+                    reusable_seed7=source["reusable_seed7"],
+                    training_phases=phases,
+                ),
+                artifact_root,
+                rows,
+                identity["protocol_sha256"],
+            )
+            if verified != source["training_phases"]:
+                raise ValueError("Campaign saved training phases differ from verified cadence.")
     completed = sum(run["status"] in success for run in ledger["runs"].values())
-    suffix = (
-        "SYNTHETIC_FIXTURE" if identity["scope"] == "synthetic-fixture-only" else "TRAIN_VALIDATION"
-    )
     if (
         ledger.get("completed_slots") != completed
         or ledger.get("test_opened") is not False
@@ -492,7 +589,11 @@ def execute_v2_campaign(
                     **source,
                     "status": f"REUSED_{success_prefix}",
                     "reuse_of": source_id,
+                    "family": slot.family,
+                    "phase": slot.phase,
+                    "seed": slot.seed,
                     "selected_configuration": selected,
+                    "reusable_seed7": False,
                 }
                 completed_this_call += 1
                 ledger["completed_slots"] += 1
@@ -526,6 +627,18 @@ def execute_v2_campaign(
             )
             name = path.relative_to(staging)
             digest = _sha256(path)
+            slot_result = {
+                "family": slot.family,
+                "phase": slot.phase,
+                "seed": slot.seed,
+                "selected_configuration": selected,
+                "updates": result.updates,
+                "reusable_seed7": result.reusable_seed7,
+                "training_phases": phase_manifest,
+            }
+            (staging / "slot-result.json").write_text(
+                json.dumps(slot_result, sort_keys=True, allow_nan=False), encoding="utf-8"
+            )
             artifacts = []
             for artifact in sorted(staging.rglob("*")):
                 if artifact.is_symlink():

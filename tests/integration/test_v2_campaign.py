@@ -15,6 +15,7 @@ from marine_echo.training.v2_campaign import (
     SlotResult,
     _validation_digest,
     _verified_training_phases,
+    _verify_ledger,
     execute_v2_campaign,
     v2_plan,
     validate_update_cadence,
@@ -194,4 +195,90 @@ def test_failed_native_support_stops_real_campaign_before_executor(tmp_path: Pat
             review_sha256=hashlib.sha256(review.read_bytes()).hexdigest(),
             support_report_path=report,
             support_report_sha256=hashlib.sha256(report.read_bytes()).hexdigest(),
+        )
+
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("family", "direct"),
+        ("phase", "development"),
+        ("seed", 13),
+        ("selected_configuration", 0),
+        ("updates", 9),
+        ("reusable_seed7", True),
+        ("status", "COMPLETED_TRAIN_VALIDATION"),
+    ],
+)
+def test_campaign_resume_rejects_tampered_completed_slot_metadata(
+    field: str, value: object, tmp_path: Path
+) -> None:
+    rows = [_validation_row()]
+    root = tmp_path / "campaign"
+
+    def backend(slot, selected_config, run_dir):  # type: ignore[no-untyped-def]
+        path = run_dir / "validation-predictions.npz"
+        _write_predictions(
+            path,
+            rows,
+            JointPrediction(np.full((1, 3, 5), -90.0), np.full((1, 3), 0.2)),
+        )
+        return SlotResult(path, updates=0)
+
+    execute_v2_campaign(
+        root,
+        validation_rows=rows,
+        executor=backend,
+        protocol_sha256="b" * 64,
+        fixture_only=True,
+        max_slots=1,
+    )
+    ledger_path = root / "ledger.json"
+    ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
+    ledger["runs"]["persistence-seed7"][field] = value
+    ledger_path.write_text(json.dumps(ledger), encoding="utf-8")
+    with pytest.raises(ValueError, match="slot|status|artifact"):
+        execute_v2_campaign(
+            root,
+            validation_rows=rows,
+            executor=backend,
+            protocol_sha256="b" * 64,
+            fixture_only=True,
+            max_slots=1,
+        )
+
+
+def test_real_ledger_revalidates_declared_training_phases(tmp_path: Path) -> None:
+    rows = [_validation_row()]
+    root = tmp_path / "campaign"
+
+    def backend(slot, selected_config, run_dir):  # type: ignore[no-untyped-def]
+        path = run_dir / "validation-predictions.npz"
+        _write_predictions(
+            path,
+            rows,
+            JointPrediction(np.full((1, 3, 5), -90.0), np.full((1, 3), 0.2)),
+        )
+        return SlotResult(path, updates=0)
+
+    ledger = execute_v2_campaign(
+        root,
+        validation_rows=rows,
+        executor=backend,
+        protocol_sha256="b" * 64,
+        fixture_only=True,
+        max_slots=5,
+    )
+    ledger["identity"]["scope"] = "reviewed-train-validation"
+    ledger["status"] = "PARTIAL_TRAIN_VALIDATION"
+    for run in ledger["runs"].values():
+        if run["status"] == "COMPLETED_SYNTHETIC_FIXTURE":
+            run["status"] = "COMPLETED_TRAIN_VALIDATION"
+    with pytest.raises(ValueError, match="declared training phases"):
+        _verify_ledger(
+            ledger,
+            identity=ledger["identity"],
+            slots=v2_plan(),
+            rows=rows,
+            root=root,
         )

@@ -487,9 +487,11 @@ class NativeCampaignBackend:
             checkpoint = output / f"{name}-checkpoint-{step}.pt"
             self._save_phase_checkpoint(checkpoint, model, optimizer, step=step, identity=identity)
             return None, checkpoint
+        selected = checkpoints[min(range(len(scores)), key=lambda index: scores[index])]
+        self._load_phase_checkpoint(selected, output, model, optimizer, identity)
         return (
             TrainingPhase(name, step, tuple(checkpoints), tuple(scores), tuple(validation_paths)),
-            checkpoints[-1],
+            selected,
         )
 
     def _direct(self, slot: V2Slot, config: int, output: Path) -> SlotResult:
@@ -587,6 +589,7 @@ class NativeCampaignBackend:
         process = psutil.Process()
         checkpoints: list[Path] = []
         scores: list[float] = []
+        score_paths: list[Path] = []
         best = float("inf")
         stale = 0
         identity = self._checkpoint_identity(slot, configuration, "pretrain")
@@ -612,8 +615,13 @@ class NativeCampaignBackend:
                     score = self._pretrain_validation_loss(
                         model, validation_tensors, validation_future, validation_future_mask
                     )
+                    score_path = output / f"pretrain-validation-{prior_step}.json"
+                    recorded_score = json.loads(score_path.read_text(encoding="utf-8"))
+                    if recorded_score != {"step": prior_step, "score": score, "identity": identity}:
+                        raise ValueError("Campaign pretraining validation loss differs on resume.")
                     checkpoints.append(prior)
                     scores.append(score)
+                    score_paths.append(score_path)
                     if score < best:
                         best, stale = score, 0
                     else:
@@ -655,6 +663,14 @@ class NativeCampaignBackend:
                     model, validation_tensors, validation_future, validation_future_mask
                 )
                 scores.append(score)
+                score_path = output / f"pretrain-validation-{step}.json"
+                score_path.write_text(
+                    json.dumps(
+                        {"step": step, "score": score, "identity": identity}, sort_keys=True
+                    ),
+                    encoding="utf-8",
+                )
+                score_paths.append(score_path)
                 if score < best:
                     best, stale = score, 0
                 else:
@@ -670,7 +686,15 @@ class NativeCampaignBackend:
                 identity=identity,
             )
             return None
-        return TrainingPhase("pretrain", step, tuple(checkpoints), tuple(scores))
+        selected = checkpoints[min(range(len(scores)), key=lambda index: scores[index])]
+        self._load_phase_checkpoint(selected, output, model, optimizer, identity)
+        return TrainingPhase(
+            "pretrain",
+            step,
+            tuple(checkpoints),
+            tuple(scores),
+            validation_score_files=tuple(score_paths),
+        )
 
     def _representation(self, slot: V2Slot, config: int, output: Path) -> SlotResult:
         torch.manual_seed(slot.seed)

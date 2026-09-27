@@ -13,6 +13,7 @@ import torch
 
 from marine_echo.models.compact import ModelConfig
 from marine_echo.models.v2_development import JointDirectForecaster, JointJEPAForecaster
+from marine_echo.training import v2_campaign_backend as backend_module
 from marine_echo.training.v2_campaign import execute_v2_campaign, v2_plan
 from marine_echo.training.v2_campaign_backend import NativeCampaignBackend
 from marine_echo.training.v2_representation import _future
@@ -513,9 +514,95 @@ def test_synthetic_pretraining_reloads_real_250_update_milestone(
         phase(uninterrupted)
     checkpoint = output / "pretrain-checkpoint-250.pt"
     assert checkpoint.is_file()
+    assert (output / "pretrain-validation-250.json").is_file()
     calls = 250
     resumed = make_model()
     with pytest.raises(PlannedInterruption):
         phase(resumed, checkpoint)
     for name, value in uninterrupted.state_dict().items():
         torch.testing.assert_close(value, resumed.state_dict()[name], rtol=0, atol=0)
+
+
+def test_synthetic_supervised_early_stop_restores_best_checkpoint(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    torch.set_num_threads(1)
+    backend = NativeCampaignBackend(
+        _rows("2020-02-18", "train"),
+        _rows("2020-05-28", "validation"),
+        fixture_only=True,
+        batch_size=4,
+        model_config=ModelConfig(width=16, layers=1, heads=4),
+    )
+    backend.fixture_only = False
+    backend._peak_rss = 0
+    scores = iter((0.1, 0.2, 0.3, 0.4, 0.5))
+    monkeypatch.setattr(backend_module, "_primary", lambda _: next(scores))
+    scaler, fit_tensors, validation_tensors = backend._scaler_tensors()
+    slot = next(slot for slot in v2_plan() if slot.run_id == "direct-development0-seed7")
+    output = tmp_path / "direct"
+    output.mkdir()
+    torch.manual_seed(7)
+    model = JointDirectForecaster(backend.model_config)
+    optimizer = torch.optim.AdamW(model.parameters(), lr=3e-4)
+    phase, selected = backend._supervised_phase(
+        model,
+        optimizer=optimizer,
+        fit_tensors=fit_tensors,
+        validation_tensors=validation_tensors,
+        scaler=scaler,
+        output=output,
+        slot=slot,
+        configuration=0,
+        seed=7,
+        learning_rate=3e-4,
+        name="supervised",
+    )
+    assert phase is not None and phase.updates == 1250
+    assert selected.name == "supervised-checkpoint-250.pt"
+    best_state = torch.load(selected, map_location="cpu", weights_only=True)["model"]
+    for name, value in model.state_dict().items():
+        torch.testing.assert_close(value, best_state[name], rtol=0, atol=0)
+
+
+def test_synthetic_pretraining_early_stop_restores_best_checkpoint(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    torch.set_num_threads(1)
+    backend = NativeCampaignBackend(
+        _rows("2020-02-18", "train"),
+        _rows("2020-05-28", "validation"),
+        fixture_only=True,
+        batch_size=4,
+        model_config=ModelConfig(width=16, layers=1, heads=4),
+    )
+    backend.fixture_only = False
+    backend._peak_rss = 0
+    scores = iter((0.1, 0.2, 0.3, 0.4, 0.5))
+    monkeypatch.setattr(backend, "_pretrain_validation_loss", lambda *_: next(scores))
+    scaler, fit_tensors, validation_tensors = backend._scaler_tensors()
+    future, future_mask = _future(backend.fit, scaler)
+    validation_future, validation_future_mask = _future(backend.validation, scaler)
+    slot = next(slot for slot in v2_plan() if slot.run_id == "ema_jepa-development0-seed7")
+    output = tmp_path / "pretrain"
+    output.mkdir()
+    torch.manual_seed(7)
+    model = JointJEPAForecaster(backend.model_config, mode="ema")
+    phase = backend._pretrain_phase(
+        model,
+        slot=slot,
+        configuration=0,
+        fit_tensors=fit_tensors,
+        validation_tensors=validation_tensors,
+        future=future,
+        future_mask=future_mask,
+        validation_future=validation_future,
+        validation_future_mask=validation_future_mask,
+        shuffle=np.arange(len(backend.fit)),
+        output=output,
+    )
+    assert phase is not None and phase.updates == 1250
+    selected = output / "pretrain-checkpoint-250.pt"
+    best_state = torch.load(selected, map_location="cpu", weights_only=True)["model"]
+    for name, value in model.state_dict().items():
+        torch.testing.assert_close(value, best_state[name], rtol=0, atol=0)

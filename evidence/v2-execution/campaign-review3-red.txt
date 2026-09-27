@@ -1,0 +1,19 @@
+RED evidence for independent calibrated-v2 campaign review changes.
+All tests used synthetic rows on CPU. No D1 fitting or non-TRAIN payload access.
+
+python -m pytest -q tests/integration/test_v2_campaign.py -k 'tampered_completed_slot_metadata'
+Observed: 7 failed, 7 deselected in 3.17s. The old ledger accepted changes to family,
+phase, seed, selected configuration, updates, reusable flag and fixture/real completion status.
+
+python -m pytest -q tests/integration/test_v2_campaign.py -k 'real_ledger_revalidates'
+Observed: 1 failed, 14 deselected in 3.00s. The old verifier accepted a real learned
+completion without declared training phases.
+
+python -m pytest -q tests/integration/test_v2_campaign_backend.py -k 'synthetic_pretraining_reloads_real_250'
+Observed: 2 failed, 18 deselected in 10.54s. No saved pretraining validation loss
+artifact existed at update 250.
+
+python -m pytest -q tests/integration/test_v2_campaign_backend.py -k 'early_stop_restores_best'
+Observed: 2 failed, 20 deselected in 34.29s. The supervised endpoint selected update
+1250 instead of the best update 250; the pretraining model weights differed from the
+best update-250 checkpoint.
