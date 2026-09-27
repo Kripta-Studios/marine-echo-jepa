@@ -1,6 +1,8 @@
 # AEON Chronos-2 zero-shot implementation
 
-Date: 2026-09-27. Classification: development implementation, not a final evaluation.
+Date: 2026-09-27. Classification: post-hoc TRAIN/validation development, not a final
+evaluation. Chronos-2 was added after the finite core campaign and validation selection;
+its state-of-the-art standing in this AEON study is `NOT_ESTABLISHED`.
 
 ## Frozen application choice
 
@@ -27,7 +29,7 @@ part of the already reviewed cohort reconstruction and digest; the model remains
 ## Executor and safety properties
 
 `src/marine_echo/training/aeon_chronos.py` accepts only the reviewed TRAIN/validation
-reader and exact validation cohort. It refuses a changed config, source, model revision,
+reader and exact standard validation cohort. It refuses a changed config, source, model revision,
 snapshot file digest, independent-review config/code binding, row digest or code digest. Every batch
 is written as an atomic shard. A restart validates completed shard hashes and row IDs,
 recovers a fully written orphan shard, and computes only missing batches. The final NPZ
@@ -40,6 +42,11 @@ RSS cap, a 10 GiB peak reserved GPU cap and a two-GPU-hour elapsed cap after eve
 Elapsed inference time and peak resource maxima persist cumulatively across restarts. Final
 assembly accepts only the canonical batch-name sequence and revalidates every shard's schema,
 row IDs, finite values and quantile order. No training or parameter update API is called.
+Both the normal CLI and direct executor calls require the exact split-review, corrected-rescore,
+rescore-outcome-review, cohort and standard validation-row hashes. Arbitrary rows cannot reach
+pipeline loading. The corrected-rescore row digest `9ce5ed6d...` binds the standard scoring-row
+schema; the separate full input digest `ea672898...` additionally binds all context values,
+masks, timestamps and provenance used by Chronos-2.
 
 ## Current execution state
 

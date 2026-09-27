@@ -3,7 +3,8 @@
   "study_id": "aeon3_geb_2024_hourly_sv_v1",
   "workstream": "frozen_chronos2_zero_shot_baseline",
   "status": "BLOCKED_BEFORE_INFERENCE",
-  "classification": "DEVELOPMENT_NOT_FINAL_EVALUATION",
+  "classification": "POST_HOC_TRAIN_VALIDATION_DEVELOPMENT",
+  "sota_claim": "NOT_ESTABLISHED",
   "model_repo_id": "amazon/chronos-2",
   "model_revision": "29ec3766d36d6f73f0696f85560a422f50e8498c",
   "model_cache_verification": "PASSED_FOUR_FILES",
@@ -17,6 +18,14 @@
   "gpu_owner_authorization": "NOT_GRANTED_FOR_INFERENCE",
   "calibration_access": "PROHIBITED",
   "test_access": "PROHIBITED",
+  "standard_validation_bindings": {
+    "split_review_sha256": "b8031e2e113e39630c066cee65b4371f69b229ee905a72d832e53e6f505f297b",
+    "cohort_sha256": "5e475f6af798025f187c70ae638710d2b4362f688db2ad43d60ec436dda3e25d",
+    "corrected_rescore_sha256": "32cea9f8141fbad220a3e47d9e840039ad23b4f8e893efbcfb90f52944214c46",
+    "outcome_review_sha256": "16bb9ef931f5e2d8f8a3322fa609c5cb1c769f99f5e4a89a5ef519a0fb52f44f",
+    "validation_row_sha256": "9ce5ed6d60c4082efd3f342b3ee09ddadc5cf6286be6d6a3e953ab0f6166a99f",
+    "context_row_sha256": "ea6728982ca445a2bc3317b4d8e26e5e367c1bf48dea1a2e4002a900f732202d"
+  },
   "numeric_result": null,
   "infrastructure_cost_usd": 0
 }

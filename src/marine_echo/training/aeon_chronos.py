@@ -1,4 +1,4 @@
-"""Frozen, resumable Chronos-2 baseline for AEON TRAIN/validation development.
+"""Frozen, resumable Chronos-2 baseline for post-hoc AEON TRAIN/validation development.
 
 The real-data entry point is intentionally unable to open calibration or test
 partitions. Chronos-2 receives the four past source-product channels as native
@@ -33,6 +33,12 @@ PACKAGE_VERSION = "2.3.2"
 PACKAGE_WHEEL_SHA256 = "0f0d9a1972f252d6cf584b9fa749bd1b389b3c1cf05a889c4130cb10652c2117"
 PACKAGE_SDIST_SHA256 = "910b0891310b74598a937bb9fe8447ea16393bcc2e1ad8d328c1f8099f909201"
 SOURCE_ARCHIVE_SHA256 = "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde"
+SPLIT_REVIEW_SHA256 = "b8031e2e113e39630c066cee65b4371f69b229ee905a72d832e53e6f505f297b"
+STANDARD_COHORT_SHA256 = "5e475f6af798025f187c70ae638710d2b4362f688db2ad43d60ec436dda3e25d"
+CORRECTED_RESCORE_SHA256 = "32cea9f8141fbad220a3e47d9e840039ad23b4f8e893efbcfb90f52944214c46"
+OUTCOME_REVIEW_SHA256 = "16bb9ef931f5e2d8f8a3322fa609c5cb1c769f99f5e4a89a5ef519a0fb52f44f"
+STANDARD_VALIDATION_ROW_SHA256 = "9ce5ed6d60c4082efd3f342b3ee09ddadc5cf6286be6d6a3e953ab0f6166a99f"
+STANDARD_CONTEXT_ROW_SHA256 = "ea6728982ca445a2bc3317b4d8e26e5e367c1bf48dea1a2e4002a900f732202d"
 CHRONOS_QUANTILES: NDArray[np.float64] = np.asarray([0.05, 0.25, 0.5, 0.75, 0.95], dtype=np.float64)
 HORIZON_INDICES: NDArray[np.int64] = np.asarray([0, 2, 5], dtype=np.int64)
 _SNAPSHOT_FILES = {".gitattributes", "README.md", "config.json", "model.safetensors"}
@@ -79,8 +85,10 @@ def _config_gate(config: dict[str, Any]) -> None:
     if (
         config.get("schema_version") != "1.0"
         or config.get("study_id") != "aeon3_geb_2024_hourly_sv_v1"
-        or config.get("phase") != "train_validation_frozen_chronos2_zero_shot"
+        or config.get("phase") != "post_hoc_train_validation_chronos2_zero_shot_development"
         or config.get("status") != "PROPOSED_FOR_INDEPENDENT_PREFIT_REVIEW"
+        or config.get("classification") != "POST_HOC_TRAIN_VALIDATION_DEVELOPMENT"
+        or config.get("sota_claim") != "NOT_ESTABLISHED"
         or config.get("source_sha256") != SOURCE_ARCHIVE_SHA256
         or config.get("calibration_access") != "PROHIBITED_IN_THIS_PHASE"
         or config.get("test_access") != "PROHIBITED_IN_THIS_PHASE"
@@ -107,6 +115,16 @@ def _config_gate(config: dict[str, Any]) -> None:
         or resource.get("max_gpu_seconds") != 7200
     ):
         raise ValueError("Chronos-2 config differs from the frozen bounded baseline contract.")
+    bindings = config.get("bindings", {})
+    if bindings != {
+        "split_review_sha256": SPLIT_REVIEW_SHA256,
+        "cohort_sha256": STANDARD_COHORT_SHA256,
+        "corrected_rescore_sha256": CORRECTED_RESCORE_SHA256,
+        "outcome_review_sha256": OUTCOME_REVIEW_SHA256,
+        "validation_row_sha256": STANDARD_VALIDATION_ROW_SHA256,
+        "context_row_sha256": STANDARD_CONTEXT_ROW_SHA256,
+    }:
+        raise ValueError("Chronos-2 config differs from the standard AEON validation lineage.")
     rows_per_shard = config.get("rows_per_resume_shard")
     pipeline_batch = config.get("pipeline_series_batch_size")
     if (
@@ -125,6 +143,14 @@ def _verify_review(review: dict[str, Any], config_sha256: str, code_sha256: str)
         or review.get("implementation_code_sha256") != code_sha256
         or review.get("model_revision") != MODEL_REVISION
         or review.get("source_archive_sha256") != SOURCE_ARCHIVE_SHA256
+        or review.get("split_review_sha256") != SPLIT_REVIEW_SHA256
+        or review.get("cohort_sha256") != STANDARD_COHORT_SHA256
+        or review.get("corrected_rescore_sha256") != CORRECTED_RESCORE_SHA256
+        or review.get("outcome_review_sha256") != OUTCOME_REVIEW_SHA256
+        or review.get("validation_row_sha256") != STANDARD_VALIDATION_ROW_SHA256
+        or review.get("context_row_sha256") != STANDARD_CONTEXT_ROW_SHA256
+        or review.get("classification") != "POST_HOC_TRAIN_VALIDATION_DEVELOPMENT"
+        or review.get("sota_claim") != "NOT_ESTABLISHED"
         or review.get("calibration_access") != "PROHIBITED"
         or review.get("test_access") != "PROHIBITED"
     ):
@@ -140,6 +166,25 @@ def _verify_snapshot(snapshot: Path, expected: dict[str, str]) -> dict[str, str]
     if actual != expected:
         raise ValueError("Chronos-2 snapshot digest differs from the frozen model revision.")
     return actual
+
+
+def _verify_provenance_artifacts(
+    split_review_path: Path,
+    corrected_rescore_path: Path,
+    outcome_review_path: Path,
+) -> dict[str, str]:
+    paths = {
+        "split_review_sha256": (split_review_path, SPLIT_REVIEW_SHA256),
+        "corrected_rescore_sha256": (corrected_rescore_path, CORRECTED_RESCORE_SHA256),
+        "outcome_review_sha256": (outcome_review_path, OUTCOME_REVIEW_SHA256),
+    }
+    verified: dict[str, str] = {}
+    for name, (path, expected) in paths.items():
+        actual = _sha256(path.resolve(strict=True))
+        if actual != expected:
+            raise ValueError(f"Chronos-2 {name} artifact digest differs.")
+        verified[name] = actual
+    return verified
 
 
 def _row_sha256(rows: Sequence[AeonHourlyWindow]) -> str:
@@ -176,6 +221,44 @@ def _row_sha256(rows: Sequence[AeonHourlyWindow]) -> str:
             digest.update(np.asarray(contiguous.shape, dtype=np.int64).tobytes())
             digest.update(contiguous.tobytes())
     return digest.hexdigest()
+
+
+def _standard_validation_row_sha256(rows: Sequence[AeonHourlyWindow]) -> str:
+    arrays = {
+        "row_ids": np.asarray([row.row_id for row in rows]),
+        "cutoff_source_timestamps": np.asarray(
+            [row.cutoff_source_timestamp for row in rows], dtype="datetime64[us]"
+        ),
+        "target_source_timestamps": np.stack([row.target_source_timestamps for row in rows]),
+        "target_interval_ids": np.stack([row.target_interval_ids for row in rows]),
+        "truth_db": np.stack([row.target_db for row in rows]),
+        "target_mask": np.stack([row.target_mask for row in rows]),
+        "target_qc_status": np.asarray([row.target_qc_status for row in rows]),
+        "past_members": np.asarray([";".join(row.past_members) for row in rows]),
+        "target_members": np.asarray([";".join(row.target_members) for row in rows]),
+    }
+    digest = hashlib.sha256()
+    for field, values in arrays.items():
+        contiguous = np.ascontiguousarray(values)
+        digest.update(field.encode("ascii"))
+        digest.update(str(contiguous.dtype).encode("ascii"))
+        digest.update(np.asarray(contiguous.shape, dtype=np.int64).tobytes())
+        digest.update(contiguous.tobytes())
+    return digest.hexdigest()
+
+
+def _validate_standard_inputs(
+    rows: Sequence[AeonHourlyWindow], cohort_sha256: str
+) -> tuple[str, str]:
+    if cohort_sha256 != STANDARD_COHORT_SHA256:
+        raise ValueError("Chronos-2 cohort differs from the reviewed standard AEON cohort.")
+    validation_row_sha256 = _standard_validation_row_sha256(rows)
+    if validation_row_sha256 != STANDARD_VALIDATION_ROW_SHA256:
+        raise ValueError("Chronos-2 rows differ from the corrected standard validation rows.")
+    context_row_sha256 = _row_sha256(rows)
+    if context_row_sha256 != STANDARD_CONTEXT_ROW_SHA256:
+        raise ValueError("Chronos-2 contexts differ from the reviewed standard model inputs.")
+    return validation_row_sha256, context_row_sha256
 
 
 def _save_predictions(
@@ -350,6 +433,9 @@ def execute_zero_shot(
     output: Path,
     config_path: Path,
     review_path: Path,
+    split_review_path: Path,
+    corrected_rescore_path: Path,
+    outcome_review_path: Path,
     model_snapshot: Path,
     cohort_sha256: str,
     pipeline: Chronos2Like | None = None,
@@ -367,17 +453,22 @@ def execute_zero_shot(
     review_sha256 = _sha256(review_path)
     review = json.loads(review_path.read_text(encoding="utf-8"))
     _verify_review(review, config_sha256, code_sha256)
+    lineage = _verify_provenance_artifacts(
+        split_review_path, corrected_rescore_path, outcome_review_path
+    )
     model_files = _verify_snapshot(model_snapshot, config["model"]["snapshot_files_sha256"])
     context = prepare_multivariate_context(rows)
-    row_sha256 = _row_sha256(rows)
+    validation_row_sha256, context_row_sha256 = _validate_standard_inputs(rows, cohort_sha256)
     binding = {
         "config_sha256": config_sha256,
         "review_sha256": review_sha256,
         "model_revision": MODEL_REVISION,
         "model_snapshot_files_sha256": model_files,
         "source_archive_sha256": SOURCE_ARCHIVE_SHA256,
+        **lineage,
         "cohort_sha256": cohort_sha256,
-        "validation_row_sha256": row_sha256,
+        "validation_row_sha256": validation_row_sha256,
+        "context_row_sha256": context_row_sha256,
         "code_sha256": code_sha256,
         "issued_rows": len(rows),
         "device": device,
@@ -393,8 +484,9 @@ def execute_zero_shot(
             raise ValueError("Chronos-2 resume binding differs from the existing run.")
     else:
         manifest = {
-            "status": "IN_PROGRESS",
-            "classification": "DEVELOPMENT_NOT_FINAL_EVALUATION",
+            "status": "IN_PROGRESS_POST_HOC_TRAIN_VALIDATION_ZERO_SHOT_DEVELOPMENT",
+            "classification": "POST_HOC_TRAIN_VALIDATION_DEVELOPMENT",
+            "sota_claim": "NOT_ESTABLISHED",
             "fit_behavior": "FROZEN_ZERO_SHOT_NO_TRAINING",
             "calibration_access": "PROHIBITED",
             "test_access": "PROHIBITED",
@@ -405,6 +497,16 @@ def execute_zero_shot(
             "peak_gpu_reserved_bytes": None,
         }
         _atomic_json(manifest_path, manifest)
+    if (
+        manifest.get("classification") != "POST_HOC_TRAIN_VALIDATION_DEVELOPMENT"
+        or manifest.get("sota_claim") != "NOT_ESTABLISHED"
+        or manifest.get("status")
+        not in {
+            "IN_PROGRESS_POST_HOC_TRAIN_VALIDATION_ZERO_SHOT_DEVELOPMENT",
+            "COMPLETED_POST_HOC_TRAIN_VALIDATION_ZERO_SHOT_DEVELOPMENT",
+        }
+    ):
+        raise ValueError("Chronos-2 output labels differ from the post-hoc contract.")
     completed = manifest.get("completed_shards")
     if not isinstance(completed, dict):
         raise TypeError("Chronos-2 resume manifest has invalid shard state.")
@@ -482,7 +584,7 @@ def execute_zero_shot(
         os.replace(temporary_prediction, prediction_path)
     manifest.update(
         {
-            "status": "COMPLETED_TRAIN_VALIDATION_ZERO_SHOT_NOT_FINAL_EVALUATION",
+            "status": "COMPLETED_POST_HOC_TRAIN_VALIDATION_ZERO_SHOT_DEVELOPMENT",
             "prediction_path": prediction_path.name,
             "prediction_sha256": _sha256(prediction_path),
             "metrics": metrics,
@@ -500,6 +602,8 @@ def execute_zero_shot(
 def run_chronos(
     archive: Path,
     split_review: Path,
+    corrected_rescore: Path,
+    outcome_review: Path,
     chronos_review: Path,
     config: Path,
     model_snapshot: Path,
@@ -508,6 +612,7 @@ def run_chronos(
     device: str,
 ) -> dict[str, Any]:
     """Load only reviewed TRAIN/validation partitions and forecast exact validation rows."""
+    _verify_provenance_artifacts(split_review, corrected_rescore, outcome_review)
     # The campaign module imports the optional CUDA training stack. Keep that
     # dependency out of pure executor/tests and load it only for the real CLI.
     from marine_echo.training.aeon_campaign import load_cohort
@@ -518,6 +623,9 @@ def run_chronos(
         output=output,
         config_path=config,
         review_path=chronos_review,
+        split_review_path=split_review,
+        corrected_rescore_path=corrected_rescore,
+        outcome_review_path=outcome_review,
         model_snapshot=model_snapshot,
         cohort_sha256=cohort_sha256,
         device=device,
@@ -528,6 +636,8 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--archive", type=Path, required=True)
     parser.add_argument("--split-review", type=Path, required=True)
+    parser.add_argument("--corrected-rescore", type=Path, required=True)
+    parser.add_argument("--outcome-review", type=Path, required=True)
     parser.add_argument("--chronos-review", type=Path, required=True)
     parser.add_argument("--config", type=Path, required=True)
     parser.add_argument("--model-snapshot", type=Path, required=True)
@@ -537,6 +647,8 @@ def main() -> None:
     result = run_chronos(
         arguments.archive,
         arguments.split_review,
+        arguments.corrected_rescore,
+        arguments.outcome_review,
         arguments.chronos_review,
         arguments.config,
         arguments.model_snapshot,

@@ -5,13 +5,21 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
+from typing import Any
 
 import numpy as np
 import pytest
 
 from marine_echo.training.aeon_chronos import (
     CHRONOS_QUANTILES,
+    CORRECTED_RESCORE_SHA256,
+    OUTCOME_REVIEW_SHA256,
+    SPLIT_REVIEW_SHA256,
+    STANDARD_COHORT_SHA256,
+    STANDARD_CONTEXT_ROW_SHA256,
+    STANDARD_VALIDATION_ROW_SHA256,
     _code_sha256,
+    _row_sha256,
     execute_zero_shot,
     prepare_multivariate_context,
 )
@@ -91,11 +99,21 @@ def _config(tmp_path: Path) -> tuple[Path, Path, Path]:
     config = {
         "schema_version": "1.0",
         "study_id": "aeon3_geb_2024_hourly_sv_v1",
-        "phase": "train_validation_frozen_chronos2_zero_shot",
+        "phase": "post_hoc_train_validation_chronos2_zero_shot_development",
         "status": "PROPOSED_FOR_INDEPENDENT_PREFIT_REVIEW",
+        "classification": "POST_HOC_TRAIN_VALIDATION_DEVELOPMENT",
+        "sota_claim": "NOT_ESTABLISHED",
         "source_sha256": "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde",
         "calibration_access": "PROHIBITED_IN_THIS_PHASE",
         "test_access": "PROHIBITED_IN_THIS_PHASE",
+        "bindings": {
+            "split_review_sha256": SPLIT_REVIEW_SHA256,
+            "cohort_sha256": STANDARD_COHORT_SHA256,
+            "corrected_rescore_sha256": CORRECTED_RESCORE_SHA256,
+            "outcome_review_sha256": OUTCOME_REVIEW_SHA256,
+            "validation_row_sha256": STANDARD_VALIDATION_ROW_SHA256,
+            "context_row_sha256": STANDARD_CONTEXT_ROW_SHA256,
+        },
         "model": {
             "repo_id": "amazon/chronos-2",
             "revision": "29ec3766d36d6f73f0696f85560a422f50e8498c",
@@ -132,12 +150,55 @@ def _config(tmp_path: Path) -> tuple[Path, Path, Path]:
         "implementation_code_sha256": _code_sha256(),
         "model_revision": config["model"]["revision"],
         "source_archive_sha256": config["source_sha256"],
+        "split_review_sha256": SPLIT_REVIEW_SHA256,
+        "cohort_sha256": STANDARD_COHORT_SHA256,
+        "corrected_rescore_sha256": CORRECTED_RESCORE_SHA256,
+        "outcome_review_sha256": OUTCOME_REVIEW_SHA256,
+        "validation_row_sha256": STANDARD_VALIDATION_ROW_SHA256,
+        "context_row_sha256": STANDARD_CONTEXT_ROW_SHA256,
+        "classification": "POST_HOC_TRAIN_VALIDATION_DEVELOPMENT",
+        "sota_claim": "NOT_ESTABLISHED",
         "calibration_access": "PROHIBITED",
         "test_access": "PROHIBITED",
     }
     review_path = tmp_path / "review.json"
     review_path.write_text(json.dumps(review), encoding="utf-8")
     return config_path, review_path, snapshot
+
+
+@pytest.fixture
+def synthetic_lineage(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> tuple[Path, Path, Path]:
+    split = tmp_path / "split-review.json"
+    rescore = tmp_path / "rescore.json"
+    outcome = tmp_path / "outcome-review.json"
+    monkeypatch.setattr(
+        "marine_echo.training.aeon_chronos._verify_provenance_artifacts",
+        lambda *_: {
+            "split_review_sha256": SPLIT_REVIEW_SHA256,
+            "corrected_rescore_sha256": CORRECTED_RESCORE_SHA256,
+            "outcome_review_sha256": OUTCOME_REVIEW_SHA256,
+        },
+    )
+    monkeypatch.setattr(
+        "marine_echo.training.aeon_chronos._validate_standard_inputs",
+        lambda rows, _: (STANDARD_VALIDATION_ROW_SHA256, _row_sha256(rows)),
+    )
+    return split, rescore, outcome
+
+
+def _execute_fixture(
+    rows: list[AeonHourlyWindow],
+    *,
+    lineage: tuple[Path, Path, Path],
+    **kwargs: Any,
+) -> dict[str, Any]:
+    return execute_zero_shot(
+        rows,
+        split_review_path=lineage[0],
+        corrected_rescore_path=lineage[1],
+        outcome_review_path=lineage[2],
+        **kwargs,
+    )
 
 
 def test_context_uses_four_variates_and_native_nan_missing_mask() -> None:
@@ -150,12 +211,15 @@ def test_context_uses_four_variates_and_native_nan_missing_mask() -> None:
     assert rows[0].context_db[5, 2] == 12345.0
 
 
-def test_zero_shot_extracts_fixed_38khz_steps_and_protocol_score(tmp_path: Path) -> None:
+def test_zero_shot_extracts_fixed_38khz_steps_and_protocol_score(
+    tmp_path: Path, synthetic_lineage: tuple[Path, Path, Path]
+) -> None:
     config, review, snapshot = _config(tmp_path)
     rows = [_row(index, missing_channel=index == 0) for index in range(24)]
     pipeline = _FakePipeline()
-    result = execute_zero_shot(
+    result = _execute_fixture(
         rows,
+        lineage=synthetic_lineage,
         output=tmp_path / "run",
         config_path=config,
         review_path=review,
@@ -166,7 +230,9 @@ def test_zero_shot_extracts_fixed_38khz_steps_and_protocol_score(tmp_path: Path)
     )
     assert len(pipeline.calls) == 12
     assert pipeline.calls[0].shape == (2, 4, 24)
-    assert result["status"] == "COMPLETED_TRAIN_VALIDATION_ZERO_SHOT_NOT_FINAL_EVALUATION"
+    assert result["status"] == "COMPLETED_POST_HOC_TRAIN_VALIDATION_ZERO_SHOT_DEVELOPMENT"
+    assert result["classification"] == "POST_HOC_TRAIN_VALIDATION_DEVELOPMENT"
+    assert result["sota_claim"] == "NOT_ESTABLISHED"
     assert result["metrics"]["eligible_days_per_horizon"] == [1, 1, 1]
     with np.load(tmp_path / "run" / "validation-predictions.npz", allow_pickle=False) as saved:
         assert saved["row_ids"].tolist() == [row.row_id for row in rows]
@@ -177,13 +243,16 @@ def test_zero_shot_extracts_fixed_38khz_steps_and_protocol_score(tmp_path: Path)
         )
 
 
-def test_interrupted_run_resumes_only_missing_hash_bound_shards(tmp_path: Path) -> None:
+def test_interrupted_run_resumes_only_missing_hash_bound_shards(
+    tmp_path: Path, synthetic_lineage: tuple[Path, Path, Path]
+) -> None:
     config, review, snapshot = _config(tmp_path)
     rows = [_row(index) for index in range(24)]
     output = tmp_path / "run"
     with pytest.raises(RuntimeError, match="injected interruption"):
-        execute_zero_shot(
+        _execute_fixture(
             rows,
+            lineage=synthetic_lineage,
             output=output,
             config_path=config,
             review_path=review,
@@ -193,15 +262,16 @@ def test_interrupted_run_resumes_only_missing_hash_bound_shards(tmp_path: Path) 
             device="cuda",
         )
     manifest = json.loads((output / "manifest.json").read_text(encoding="utf-8"))
-    assert manifest["status"] == "IN_PROGRESS"
+    assert manifest["status"] == "IN_PROGRESS_POST_HOC_TRAIN_VALIDATION_ZERO_SHOT_DEVELOPMENT"
     assert list(manifest["completed_shards"]) == ["batch-000000.npz"]
     first_elapsed = manifest["cumulative_inference_seconds"]
     first_rss = manifest["peak_process_tree_rss_bytes"]
     assert first_elapsed > 0
     assert first_rss > 0
     resumed = _FakePipeline()
-    result = execute_zero_shot(
+    result = _execute_fixture(
         rows,
+        lineage=synthetic_lineage,
         output=output,
         config_path=config,
         review_path=review,
@@ -216,11 +286,12 @@ def test_interrupted_run_resumes_only_missing_hash_bound_shards(tmp_path: Path) 
     assert result["elapsed_inference_seconds"] == result["cumulative_inference_seconds"]
     assert result["peak_process_tree_rss_bytes"] >= first_rss
     manifest = json.loads((output / "manifest.json").read_text(encoding="utf-8"))
-    manifest["status"] = "IN_PROGRESS"
+    manifest["status"] = "IN_PROGRESS_POST_HOC_TRAIN_VALIDATION_ZERO_SHOT_DEVELOPMENT"
     (output / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
     recovered = _FakePipeline()
-    result = execute_zero_shot(
+    result = _execute_fixture(
         rows,
+        lineage=synthetic_lineage,
         output=output,
         config_path=config,
         review_path=review,
@@ -233,13 +304,16 @@ def test_interrupted_run_resumes_only_missing_hash_bound_shards(tmp_path: Path) 
     assert recovered.calls == []
 
 
-def test_resume_rejects_mutated_context_even_when_row_id_is_unchanged(tmp_path: Path) -> None:
+def test_resume_rejects_mutated_context_even_when_row_id_is_unchanged(
+    tmp_path: Path, synthetic_lineage: tuple[Path, Path, Path]
+) -> None:
     config, review, snapshot = _config(tmp_path)
     rows = [_row(index) for index in range(24)]
     output = tmp_path / "run"
     with pytest.raises(RuntimeError, match="injected interruption"):
-        execute_zero_shot(
+        _execute_fixture(
             rows,
+            lineage=synthetic_lineage,
             output=output,
             config_path=config,
             review_path=review,
@@ -251,8 +325,9 @@ def test_resume_rejects_mutated_context_even_when_row_id_is_unchanged(tmp_path: 
     rows[0].context_db[0, 0] += 1.0
     resumed = _FakePipeline()
     with pytest.raises(ValueError, match="resume binding"):
-        execute_zero_shot(
+        _execute_fixture(
             rows,
+            lineage=synthetic_lineage,
             output=output,
             config_path=config,
             review_path=review,
@@ -264,13 +339,16 @@ def test_resume_rejects_mutated_context_even_when_row_id_is_unchanged(tmp_path: 
     assert resumed.calls == []
 
 
-def test_resume_rejects_reordered_completed_shard_keys(tmp_path: Path) -> None:
+def test_resume_rejects_reordered_completed_shard_keys(
+    tmp_path: Path, synthetic_lineage: tuple[Path, Path, Path]
+) -> None:
     config, review, snapshot = _config(tmp_path)
     rows = [_row(index) for index in range(24)]
     output = tmp_path / "run"
     with pytest.raises(RuntimeError, match="injected interruption"):
-        execute_zero_shot(
+        _execute_fixture(
             rows,
+            lineage=synthetic_lineage,
             output=output,
             config_path=config,
             review_path=review,
@@ -284,8 +362,9 @@ def test_resume_rejects_reordered_completed_shard_keys(tmp_path: Path) -> None:
     manifest["completed_shards"] = dict(reversed(list(manifest["completed_shards"].items())))
     manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
     with pytest.raises(ValueError, match="canonical prefix"):
-        execute_zero_shot(
+        _execute_fixture(
             rows,
+            lineage=synthetic_lineage,
             output=output,
             config_path=config,
             review_path=review,
@@ -296,13 +375,16 @@ def test_resume_rejects_reordered_completed_shard_keys(tmp_path: Path) -> None:
         )
 
 
-def test_resume_enforces_cumulative_inference_cap_before_next_batch(tmp_path: Path) -> None:
+def test_resume_enforces_cumulative_inference_cap_before_next_batch(
+    tmp_path: Path, synthetic_lineage: tuple[Path, Path, Path]
+) -> None:
     config, review, snapshot = _config(tmp_path)
     rows = [_row(index) for index in range(24)]
     output = tmp_path / "run"
     with pytest.raises(RuntimeError, match="injected interruption"):
-        execute_zero_shot(
+        _execute_fixture(
             rows,
+            lineage=synthetic_lineage,
             output=output,
             config_path=config,
             review_path=review,
@@ -317,8 +399,9 @@ def test_resume_enforces_cumulative_inference_cap_before_next_batch(tmp_path: Pa
     manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
     resumed = _FakePipeline()
     with pytest.raises(TimeoutError, match="cumulative"):
-        execute_zero_shot(
+        _execute_fixture(
             rows,
+            lineage=synthetic_lineage,
             output=output,
             config_path=config,
             review_path=review,
@@ -330,13 +413,16 @@ def test_resume_enforces_cumulative_inference_cap_before_next_batch(tmp_path: Pa
     assert resumed.calls == []
 
 
-def test_snapshot_hash_or_review_mismatch_blocks_before_pipeline_call(tmp_path: Path) -> None:
+def test_snapshot_hash_or_review_mismatch_blocks_before_pipeline_call(
+    tmp_path: Path, synthetic_lineage: tuple[Path, Path, Path]
+) -> None:
     config, review, snapshot = _config(tmp_path)
     (snapshot / "model.safetensors").write_text("tampered", encoding="utf-8")
     pipeline = _FakePipeline()
     with pytest.raises(ValueError, match="snapshot digest"):
-        execute_zero_shot(
+        _execute_fixture(
             [_row(index) for index in range(24)],
+            lineage=synthetic_lineage,
             output=tmp_path / "run",
             config_path=config,
             review_path=review,
@@ -346,3 +432,36 @@ def test_snapshot_hash_or_review_mismatch_blocks_before_pipeline_call(tmp_path: 
             device="cuda",
         )
     assert not pipeline.calls
+
+
+def test_direct_executor_rejects_nonstandard_cohort_and_rows_before_pipeline(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    config, review, snapshot = _config(tmp_path)
+    lineage = (tmp_path / "split.json", tmp_path / "rescore.json", tmp_path / "outcome.json")
+    monkeypatch.setattr(
+        "marine_echo.training.aeon_chronos._verify_provenance_artifacts",
+        lambda *_: {
+            "split_review_sha256": SPLIT_REVIEW_SHA256,
+            "corrected_rescore_sha256": CORRECTED_RESCORE_SHA256,
+            "outcome_review_sha256": OUTCOME_REVIEW_SHA256,
+        },
+    )
+    rows = [_row(index) for index in range(24)]
+    pipeline = _FakePipeline()
+    common = {
+        "output": tmp_path / "run",
+        "config_path": config,
+        "review_path": review,
+        "split_review_path": lineage[0],
+        "corrected_rescore_path": lineage[1],
+        "outcome_review_path": lineage[2],
+        "model_snapshot": snapshot,
+        "pipeline": pipeline,
+        "device": "cuda",
+    }
+    with pytest.raises(ValueError, match="standard AEON cohort"):
+        execute_zero_shot(rows, cohort_sha256="b" * 64, **common)
+    with pytest.raises(ValueError, match="standard validation rows"):
+        execute_zero_shot(rows, cohort_sha256=STANDARD_COHORT_SHA256, **common)
+    assert pipeline.calls == []
