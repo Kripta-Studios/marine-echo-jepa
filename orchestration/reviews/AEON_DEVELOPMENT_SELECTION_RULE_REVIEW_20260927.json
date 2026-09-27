@@ -1,0 +1,34 @@
+{
+  "task": "R2-AEON-DEVELOPMENT-SELECTION-RULE-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "reviewed_commit": "bfdb61bd7ca65a8cd87b47d6d3098225d0551126",
+  "status": "APPROVED_AEON_POST_HOC_DEVELOPMENT_SELECTION_RULE",
+  "disposition": "APPROVE_RULE_BEFORE_FORWARD_AND_CHRONOS_OUTCOMES",
+  "selection_adr_sha256": "93a0e89f96dd04aa42d55e6f974a047b30270896d6046287585612f0a1829872",
+  "evaluation_code_sha256": "5dff72c1baf2f5528f13f369936d2ca5710eeb8b8a6e6cae12a0ef95366225ff",
+  "corrected_validation_rescore_sha256": "32cea9f8141fbad220a3e47d9e840039ad23b4f8e893efbcfb90f52944214c46",
+  "corrected_validation_outcome_review_sha256": "16bb9ef931f5e2d8f8a3322fa609c5cb1c769f99f5e4a89a5ef519a0fb52f44f",
+  "approved_rules": [
+    "Three-seed family forecasts are averaged row by row, horizon by horizon and quantile by quantile before the common monotone rearrangement and corrected eligible-day score; no best seed is selected.",
+    "Controls remain diagnostics and cannot become selection candidates.",
+    "Core conventional and core JEPA development choices remain distinct from the exploratory post-hoc LightGBM, forward-EMA and Chronos-2 operational choice.",
+    "Incomplete or partially fitted families cannot enter ranking, and any operational default must be servable by the offline application.",
+    "Paired validation summaries use fixed 48-hour source-date blocks, 2,000 draws and seed 20260926 and remain descriptive.",
+    "Calibration may only widen frozen 90 percent interval endpoints and cannot alter model selection."
+  ],
+  "exposure_accounting": [
+    "The ADR truthfully records that core, hybrid and LightGBM validation outcomes were already available when the exact rule was frozen.",
+    "The forward-EMA and Chronos-2 outcomes had not been opened when the rule was committed.",
+    "Both core and exploratory choices are post-hoc development selections and carry no confirmatory claim.",
+    "Selecting a learned hybrid cannot override its matched random-feature control failure or establish incremental JEPA value."
+  ],
+  "conditions": [
+    "A separate reviewed implementation must bind all completed prediction, model and checkpoint hashes and recompute the ranking before numerical calibration access.",
+    "Report every completed family, individual seed, ensemble, coverage and paired daily result, including negative JEPA controls.",
+    "Do not use this review to authorize calibration numeric access, retrospective TEST numeric access or a SOTA claim."
+  ],
+  "selection_performed": false,
+  "calibration_access": "PROHIBITED",
+  "test_access": "PROHIBITED"
+}
