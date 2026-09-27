@@ -152,3 +152,9 @@ The Norwegian cabled EK60 observatory is a promising but unacquired lead whose c
 routes data access through email and lacks a public file manifest and calibration lineage.
 Evidence and acquisition decision: `orchestration/reports/HF_SOURCE_SCOUT_20260927.md`
 and `evidence/continuation/hf_source_scout_20260927.json`.
+
+Subsequent source search found the public AEON AZFP integrated Sv collection. Its readme
+and one 11.3 MB deployment ZIP were downloaded and publisher-hash verified. The 38 kHz
+hourly CSVs have records on 174 dates, including 172 dates with 24 interval IDs, but
+valid-target support, calibration lineage and the 15-minute-contract mismatch remain
+unresolved. This is a prospective candidate, not an eligibility or model result.

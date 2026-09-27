@@ -36,6 +36,36 @@
     "bulk_size": "UNKNOWN",
     "status": "PROSPECTIVE_UNACQUIRED"
   },
+  "prospective_aeon_acquisition": {
+    "source_url": "https://figshare.com/articles/dataset/AZFP/29247113",
+    "source_version": 2,
+    "license": "CC-BY-4.0",
+    "readme": {
+      "path": "data/prospective/aeon-azfp-20260927/AZFP_AEON_Integrated_Product_Readme_2025.docx",
+      "bytes": 23400,
+      "publisher_md5": "becdbfad84936aaab1220d5c8a9461cd",
+      "sha256": "f72f04f52c246815bedb510c74b45c39ade419c5795d24250fa844fa7fd020a7"
+    },
+    "archive": {
+      "path": "data/prospective/aeon-azfp-20260927/AEON3_GEB_Jul2021-Jan2022_AZFP_Sv.zip",
+      "figshare_file_id": 61937260,
+      "bytes": 11313838,
+      "publisher_md5": "aefd9cad151cc495bca575e9a757ccb9",
+      "sha256": "ee58c943b4fcdf6978203c508ffd4aa480bcf236dad1baf6fab9bc041796fbaa",
+      "expanded_bytes": 112161538,
+      "csv_files": 70
+    },
+    "metadata_probe_38khz_hourly_partition": {
+      "date_fields": 174,
+      "first_date_field": "20210723",
+      "last_date_field": "20220112",
+      "intervals_per_date_distribution": {"14": 1, "23": 1, "24": 172},
+      "qc_usable_days": "NOT_EVALUATED",
+      "target_support": "NOT_EVALUATED"
+    },
+    "representation": "HOURLY_PROCESSED_SV_NOT_FROZEN_15MIN_INPUT",
+    "status": "PROSPECTIVE_ACQUIRED_NOT_ADMITTED"
+  },
   "training_runs_started": 0,
   "heldout_acoustic_outcomes_inspected": false
 }
