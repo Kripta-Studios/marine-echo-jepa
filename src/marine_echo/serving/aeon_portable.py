@@ -12,7 +12,7 @@ import zipfile
 from pathlib import Path
 from typing import Any
 
-from marine_echo.serving.aeon_study import build_aeon_research
+from marine_echo.serving.aeon_study import _REVIEW_FILES, build_aeon_research
 
 _SOURCE_FILES = (
     "marine_echo/__init__.py",
@@ -121,6 +121,14 @@ def build_aeon_portable(
         (stage / "wheelhouse").mkdir()
         for name in sorted(wheels):
             shutil.copy2(wheelhouse / name, stage / "wheelhouse" / name)
+        if payload is None:
+            for review_name, expected, _ in _REVIEW_FILES.values():
+                review = root / "orchestration/reviews" / review_name
+                if _sha256(review) != expected:
+                    raise ValueError(f"Reviewed AEON provenance digest differs: {review_name}")
+                destination = stage / "provenance/reviews" / review_name
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(review, destination)
         frontend_licenses = {
             "react": "19.3.0", "react-dom": "19.3.0", "scheduler": "0.28.0",
         }
@@ -175,7 +183,8 @@ def build_aeon_portable(
             "product, not species, biomass, catch or operational benefit. "
             "The original acoustic archive is not redistributed.\n\n"
             "`SHA256SUMS` covers every packaged file except itself; the adjacent `.zip.sha256` "
-            "records the archive digest. `SOURCE_REVISION.json` records source and evidence.\n",
+            "records the archive digest. `SOURCE_REVISION.json` records source and evidence. "
+            "Five exact development-outcome review records are in `provenance/reviews/`.\n",
             encoding="utf-8",
         )
         (stage / "THIRD_PARTY_NOTICES.md").write_text(
