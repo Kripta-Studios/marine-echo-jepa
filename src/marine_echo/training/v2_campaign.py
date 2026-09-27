@@ -309,6 +309,7 @@ def _verify_ledger(
     identity: dict[str, Any],
     slots: tuple[V2Slot, ...],
     rows: list[HourlyWindow],
+    root: Path,
 ) -> None:
     if ledger.get("identity") != identity or set(ledger.get("runs", {})) != {
         slot.run_id for slot in slots
@@ -342,6 +343,21 @@ def _verify_ledger(
         if metric != source["validation_metric"] or metric != run["validation_metric"]:
             raise ValueError("Campaign validation metric differs from saved rows.")
         artifact_root = Path(source["artifact_root"])
+        owner = run["reuse_of"] if run["status"].startswith("REUSED") else slot.run_id
+        if (
+            artifact_root.resolve(strict=True) != (root / "runs" / owner).resolve(strict=True)
+            or not path.resolve(strict=True).is_relative_to(artifact_root.resolve(strict=True))
+            or any(item.is_symlink() for item in artifact_root.rglob("*"))
+        ):
+            raise ValueError("Campaign artifact ownership or path differs on resume.")
+        actual_files = {
+            path.relative_to(artifact_root).as_posix(): _sha256(path)
+            for path in artifact_root.rglob("*")
+            if path.is_file() and not path.is_symlink()
+        }
+        registered_files = {item["path"]: item["sha256"] for item in source.get("artifacts", [])}
+        if actual_files != registered_files:
+            raise ValueError("Campaign model or resource artifacts differ on resume.")
         for phase in source.get("training_phases", []):
             for item in phase["checkpoints"] + phase["validation_predictions"]:
                 file = (artifact_root / item["path"]).resolve(strict=True)
@@ -428,7 +444,7 @@ def execute_v2_campaign(
     ledger_path = root / "ledger.json"
     if ledger_path.exists():
         ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
-        _verify_ledger(ledger, identity=identity, slots=slots, rows=validation_rows)
+        _verify_ledger(ledger, identity=identity, slots=slots, rows=validation_rows, root=root)
     else:
         if any(root.iterdir()):
             raise FileExistsError("New campaign root must be empty.")
@@ -510,6 +526,17 @@ def execute_v2_campaign(
             )
             name = path.relative_to(staging)
             digest = _sha256(path)
+            artifacts = []
+            for artifact in sorted(staging.rglob("*")):
+                if artifact.is_symlink():
+                    raise ValueError("Campaign slot artifact cannot be a symbolic link.")
+                if artifact.is_file():
+                    artifacts.append(
+                        {
+                            "path": artifact.relative_to(staging).as_posix(),
+                            "sha256": _sha256(artifact),
+                        }
+                    )
             os.replace(staging, slot_dir)
             ledger["runs"][slot.run_id] = {
                 "status": f"COMPLETED_{success_prefix}",
@@ -519,6 +546,7 @@ def execute_v2_campaign(
                 "selected_configuration": selected,
                 "predictions": str(slot_dir / name),
                 "artifact_root": str(slot_dir),
+                "artifacts": artifacts,
                 "prediction_sha256": digest,
                 "validation_metric": score,
                 "updates": result.updates,
