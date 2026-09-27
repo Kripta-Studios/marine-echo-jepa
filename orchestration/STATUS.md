@@ -350,5 +350,9 @@ It has 810 issued rows and 34 eligible target-source dates at each horizon,
 above the frozen 12-date CAL floor. Frozen direct, EMA-JEPA and LightGBM raw
 daily pinball scores are 0.653051, 0.633284 and 0.639519 dB on CAL; these
 values do not change model selection. Their nonnegative 90% interval widening
-was fitted and the outcome is under separate independent review. TEST numeric
-values remain unopened.
+was fitted. Distinct outcome review reloaded every frozen model, reconstructed
+all 810 rows, all nine adjustments and the complete raw/widened metrics, and
+approved the exact CAL artifact for a later pretest freeze (SHA-256
+`7b61385b29836be53d0e2c5a0b5e3f5db7e2dcb8983e534d17711ed0b44c1428`).
+TEST numeric values remain unopened while the separate source/access graph is
+repaired and reviewed.

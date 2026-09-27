@@ -142,7 +142,8 @@
     "runner_access_review_sha256": "1c15ea81a8f2f32ab4bfc4dbebdeff2f308a744e967b42b7388102786d3f7e7a",
     "issued_rows": 810,
     "eligible_source_dates_per_horizon": [34, 34, 34],
-    "independent_outcome_review": "PENDING"
+    "independent_outcome_review": "APPROVED_CALIBRATION_ONLY_NO_SELECTION",
+    "independent_outcome_review_sha256": "7b61385b29836be53d0e2c5a0b5e3f5db7e2dcb8983e534d17711ed0b44c1428"
   },
   "retrospective_test": "NOT_RUN",
   "jepa_value_gate": "NOT_EVALUATED",

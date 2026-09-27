@@ -1,0 +1,133 @@
+{
+  "task": "R2-AEON-CALIBRATION-OUTCOME-REVIEW-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "status": "APPROVED_AEON_CALIBRATION_OUTCOME_NO_SELECTION",
+  "disposition": "APPROVE_EXACT_CAL_INTERVAL_WIDENING_ARTIFACT_FOR_LATER_PRETEST_FREEZE",
+  "classification": "CALIBRATION_ONLY_NOT_MODEL_SELECTION_OR_FINAL_EVALUATION",
+  "artifact_path": "outputs/aeon3_geb_2024_hourly_sv_v1/calibration/calibration.json",
+  "artifact_sha256": "a6e35bc5fa5c27b2b0669e7fb9fe7f8ff1bdd69952193418bbbe130e46438c94",
+  "source_commit": "6ef76da5b2bb29a3aeaa86766f679a5fd9f3a7f2",
+  "source_archive_sha256": "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde",
+  "selection_freeze_sha256": "b3940ab8e159ac8808843b15b455ffb3c42f2d3db322190af15b80e543edff58",
+  "calibration_forecast_plan_sha256": "790cfc22e059e398a1aefa6358c4dca5bae63ac2ba0291f5333f7d3f85661ede",
+  "config_sha256": "9003865b288a3c5afdf4b7cdba3f401c346f6067a53a255b833dde8e3a668c4c",
+  "source_approval_v2_sha256": "e03c94e78956bb00c307c3310b0efd6b8b1cb84424b2db83c829c4de80a5168a",
+  "selection_plan_review_v2_sha256": "a3135b776aee08b81643fb7ff8ceb10d486e109bce14b9d2ac84a0d6d356feb6",
+  "reader_review_v2_sha256": "006d931b99dda41886bc54cdcf39c2a5a1f13114463469a5f2f22024c4e447d5",
+  "runner_review_v2_sha256": "1c15ea81a8f2f32ab4bfc4dbebdeff2f308a744e967b42b7388102786d3f7e7a",
+  "runner_code_sha256": "25d9a33b8746501dc76888e1e30a9e0128f3fa7c9c45a664a65d686b178a57a5",
+  "evaluation_code_sha256": "5dff72c1baf2f5528f13f369936d2ca5710eeb8b8a6e6cae12a0ef95366225ff",
+  "reader_composite_sha256": "121facf774cc81e55f1ced6d4d6ec82927614a7dadc0deab66b557f35dd5563f",
+  "adapter_composite_sha256": "c8ccc0c54b720676b9f6d19cdd5ed7ffd1a5daf58ed22c469479a9272d1b77f9",
+  "calibration_support": {
+    "issued_rows": 810,
+    "unique_row_ids": 810,
+    "scored_rows_per_horizon": [809, 809, 809],
+    "all_scored_days_per_horizon": [34, 35, 35],
+    "eligible_scored_rows_per_horizon": [809, 807, 804],
+    "eligible_source_dates_per_horizon": [34, 34, 34],
+    "minimum_anchors_per_eligible_target_source_date": 18,
+    "minimum_eligible_dates_required": 12
+  },
+  "models": {
+    "core_direct_equal_three_seed_ensemble": {
+      "selection_classification": "CORE_CONVENTIONAL_SELECTION",
+      "adjustment_db_by_horizon": [
+        0.4688770553385524,
+        0.7696660485026143,
+        0.7822474801432406
+      ],
+      "raw_primary_daily_mean_pinball_db": 0.6530512691964927,
+      "raw_daily_mean_pinball_db_per_horizon": [
+        0.5698161368821602,
+        0.6856190320867543,
+        0.7037186386205636
+      ],
+      "raw_coverage90_per_horizon": [
+        0.8207663782447466,
+        0.7657992565055762,
+        0.7860696517412935
+      ],
+      "widened_primary_daily_mean_pinball_db": 0.6465133090967804,
+      "widened_coverage90_per_horizon": [
+        0.9011124845488258,
+        0.9008674101610905,
+        0.900497512437811
+      ]
+    },
+    "core_ema_equal_three_seed_ensemble": {
+      "selection_classification": "CORE_JEPA_SELECTION",
+      "adjustment_db_by_horizon": [
+        0.4256341394856662,
+        0.6775389073893336,
+        0.6758221416015573
+      ],
+      "raw_primary_daily_mean_pinball_db": 0.6332841197408038,
+      "raw_daily_mean_pinball_db_per_horizon": [
+        0.5450816463725018,
+        0.6639549066083535,
+        0.6908158062415561
+      ],
+      "raw_coverage90_per_horizon": [
+        0.8430160692212608,
+        0.79182156133829,
+        0.8084577114427861
+      ],
+      "widened_primary_daily_mean_pinball_db": 0.6286164974029739,
+      "widened_coverage90_per_horizon": [
+        0.9011124845488258,
+        0.9008674101610905,
+        0.900497512437811
+      ]
+    },
+    "post_hoc_lightgbm": {
+      "selection_classification": "POST_HOC_DEVELOPMENT_SELECTION",
+      "adjustment_db_by_horizon": [
+        0.2392205089907975,
+        0.36635803164666925,
+        0.43980797066537036
+      ],
+      "raw_primary_daily_mean_pinball_db": 0.6395188273469137,
+      "raw_daily_mean_pinball_db_per_horizon": [
+        0.5524256557304765,
+        0.6708101174107589,
+        0.6953207088995057
+      ],
+      "raw_coverage90_per_horizon": [
+        0.8454882571075402,
+        0.8314745972738538,
+        0.822139303482587
+      ],
+      "widened_primary_daily_mean_pinball_db": 0.6372472611628058,
+      "widened_coverage90_per_horizon": [
+        0.9011124845488258,
+        0.9008674101610905,
+        0.900497512437811
+      ]
+    }
+  },
+  "independent_execution": {
+    "lineage_audit": "Every saved source, selection, plan, config, corrected reader/runner review, runner, evaluation, reader-composite and adapter-composite digest matches the approved V2 graph.",
+    "row_reconstruction": "Reopened only the approved CAL partition and reproduced 810 ordered unique issued rows. The saved issued-row list matched exactly.",
+    "issuance_audit": "Every row has 24 consecutive prior interval IDs ending at its cutoff, a 24 by 4 context, and all 24 prior 38-kHz source products observed. Every observed target is finite and later than its cutoff.",
+    "forecast_reconstruction": "Reloaded the exact six neural checkpoints and LightGBM model under the frozen CPU plan and regenerated all three forecast tensors before extracting target arrays. Forecast tensors are finite, monotone and nonconstant.",
+    "metric_recomputation": "Recomputed every complete raw and widened eligible-target-source-date metric dictionary. All three saved model records match exactly.",
+    "adjustment_recomputation": "Independently sorted the eligible per-horizon nonconformity scores and selected the fixed higher-method 90th-percentile order statistic. All nine nonnegative adjustments match exactly.",
+    "failed_attempt_audit": "The first CLI attempt failed at the runner-review config binding before reader construction because an earlier review transcribed one config-hash character incorrectly. It created no CAL artifact and was superseded by the corrected V2 reviews.",
+    "test_numeric_access": false
+  },
+  "scientific_interpretation": [
+    "Widening changed only the 0.05 and 0.95 interval endpoints and achieved approximately 90 percent in-sample CAL coverage on the eligible support, as expected from the fixed higher-order-statistic rule.",
+    "Raw five-quantile metrics remain the primary forecasts; widened metrics are interval-calibration diagnostics.",
+    "The descriptive CAL losses must not rank, select or tune the already frozen model families. The core direct baseline, core EMA comparator and post-hoc LightGBM status remain unchanged.",
+    "No TEST result, JEPA incremental-value decision, SOTA claim or final promotion decision follows from CAL."
+  ],
+  "limitations": [
+    "Coverage is in-sample on this finite CAL period and does not guarantee 90 percent retrospective TEST or external coverage.",
+    "This single fixed AEON deployment does not establish external generalization, calibrated absolute backscatter, biological causality, production value or business value.",
+    "Retrospective TEST remains prohibited until the source receives its TEST-specific fixes, the exact CAL artifact is bound into a pretest freeze and distinct TEST reader/runner approvals are issued."
+  ],
+  "calibration_access": "COMPLETED_AND_REVIEWED_NO_MODEL_SELECTION",
+  "test_access": "PROHIBITED"
+}
