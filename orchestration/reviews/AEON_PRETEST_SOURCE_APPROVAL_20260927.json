@@ -1,0 +1,98 @@
+{
+  "task": "R3-AEON-PRETEST-SOURCE-APPROVAL-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "status": "APPROVED_AEON_PRETEST_SOURCE_GRAPH",
+  "disposition": "APPROVE_SOURCE_AND_TRUTH_FREE_PLAN_FOR_EXACT_PRETEST_FREEZE_ONLY",
+  "scope": "RETROSPECTIVE_TEST_SOURCE_NO_NUMERIC_TEST_ACCESS_GRANTED_BY_THIS_ARTIFACT",
+  "source_commit": "fd054d9",
+  "source_sha256": {
+    "runner_code_sha256": "fa3a4db0665eefd02ecf77032451dd17f940c2b3c58c86fd3c9dfa52872324a7",
+    "adapter_source_sha256": "06392b0714a692c16645294ade9e7c3eaa5b6798eaf2b37662109a9b5f27f7c9",
+    "evaluation_code_sha256": "5dff72c1baf2f5528f13f369936d2ca5710eeb8b8a6e6cae12a0ef95366225ff",
+    "reader_source_sha256": "735ac1d4d03b29a7ebfb23259bd355137463e12d6ac9c9127df81b338828e380",
+    "corpus_source_sha256": "398e021a5807ab8068ceef03dd692f3b688c744751cd4e65d3efbee94d9a3efd",
+    "window_source_sha256": "d6a1dc53188da5329daa23fe11e7660e36d1d1666fcafda5dcc5a256bf54023b",
+    "config_sha256": "9003865b288a3c5afdf4b7cdba3f401c346f6067a53a255b833dde8e3a668c4c"
+  },
+  "composite_sha256": {
+    "reader_composite_sha256": "121facf774cc81e55f1ced6d4d6ec82927614a7dadc0deab66b557f35dd5563f",
+    "adapter_composite_sha256": "c8ccc0c54b720676b9f6d19cdd5ed7ffd1a5daf58ed22c469479a9272d1b77f9"
+  },
+  "frozen_inputs": {
+    "source_archive_sha256": "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde",
+    "protocol_sha256": "d83392832a1bde3ae3e096de0a664ca9cfc27762a18bb10fb5ace3a97e787435",
+    "selection_freeze_sha256": "b3940ab8e159ac8808843b15b455ffb3c42f2d3db322190af15b80e543edff58",
+    "metadata_candidate_report_sha256": "40510cfb321cbb57bc24f309f0e11cd0a2d274c181370ae6d13efdc26972be93",
+    "metadata_candidate_review_sha256": "9d9c6ca4580d6a4ead4117a00a1a872710bf6e323eb17d491837e24c1011bebe",
+    "metadata_candidate_count": 1216,
+    "metadata_candidate_sha256": "6b475b41a462b46ab8784fc5a17590860f5b1fb759a96c028776df820f56dbae",
+    "calibration_artifact_sha256": "a6e35bc5fa5c27b2b0669e7fb9fe7f8ff1bdd69952193418bbbe130e46438c94",
+    "calibration_outcome_review_sha256": "7b61385b29836be53d0e2c5a0b5e3f5db7e2dcb8983e534d17711ed0b44c1428",
+    "test_forecast_plan_sha256": "b393663c95ba99666626542f790ab4b8b69260dd82cec7c394393b2826d0ef63"
+  },
+  "calibration_lineage": {
+    "calibration_plan_sha256": "790cfc22e059e398a1aefa6358c4dca5bae63ac2ba0291f5333f7d3f85661ede",
+    "calibration_runner_review_v2_sha256": "1c15ea81a8f2f32ab4bfc4dbebdeff2f308a744e967b42b7388102786d3f7e7a",
+    "calibration_reader_review_v2_sha256": "006d931b99dda41886bc54cdcf39c2a5a1f13114463469a5f2f22024c4e447d5",
+    "calibration_runner_code_sha256": "25d9a33b8746501dc76888e1e30a9e0128f3fa7c9c45a664a65d686b178a57a5",
+    "calibration_evaluation_code_sha256": "5dff72c1baf2f5528f13f369936d2ca5710eeb8b8a6e6cae12a0ef95366225ff",
+    "calibration_adapter_composite_sha256": "c8ccc0c54b720676b9f6d19cdd5ed7ffd1a5daf58ed22c469479a9272d1b77f9",
+    "selected_model_ids": [
+      "core_direct_equal_three_seed_ensemble",
+      "core_ema_equal_three_seed_ensemble",
+      "post_hoc_lightgbm"
+    ],
+    "all_adjustments_shape": [3],
+    "all_adjustments_finite_nonnegative": true,
+    "minimum_calibration_eligible_dates_per_horizon": 34
+  },
+  "test_plan": {
+    "partition": "test",
+    "source_date_start_inclusive": "2025-01-06",
+    "source_date_end_exclusive": "2025-03-01",
+    "models": [
+      "core_direct_equal_three_seed_ensemble",
+      "core_ema_equal_three_seed_ensemble",
+      "post_hoc_lightgbm"
+    ],
+    "devices": "CPU_FOR_NEURAL_ENSEMBLES",
+    "component_bytes": "IDENTICAL_TO_REVIEWED_SELECTION_AND_CAL_PLAN",
+    "issued_row_rule": "EXACT_24_PRIOR_INTERVAL_IDS_OBSERVED_38KHZ",
+    "minimum_anchors_per_target_source_date_and_horizon": 18,
+    "minimum_eligible_dates_per_horizon": 20,
+    "primary_metric": "RAW_FIVE_QUANTILE_ELIGIBLE_TARGET_SOURCE_DATE_PINBALL",
+    "interval_reporting": "RAW_AND_CAL_WIDENED_90_PERCENT_INTERVALS",
+    "bootstrap": {"block_hours": 48, "draws": 2000, "seed": 20260926},
+    "promotion_rule": "FIVE_PERCENT_POINT_IMPROVEMENT_AND_PAIRED_INTERVAL_BELOW_ZERO_AND_EACH_HORIZON_WITHIN_TEN_PERCENT"
+  },
+  "resolved_blockers": [
+    "An existing TEST output directory is rejected before config, artifact or reader work, preventing accidental TEST reopening on rerun.",
+    "The exact immutable CAL artifact hash, independent CAL outcome review hash, selected model order, adjustment geometry, eligibility evidence and CAL code/review lineage are validated before TEST reader construction.",
+    "The exact metadata-only candidate universe and independent metadata outcome review are bound before numeric TEST issuance.",
+    "The pretest freeze now requires the independent CAL outcome review SHA-256 as part of its exact dictionary.",
+    "All selected model paths, bytes, family/options and CPU devices are preflighted before TEST reader construction.",
+    "TEST rows are read once; candidate triplets are checked before forecasting; forecasts are generated from contexts before target extraction; truth-free forecast files and score are written atomically."
+  ],
+  "independent_execution": {
+    "focused_tests": "35 passed in 6.83s",
+    "ruff": "All checks passed",
+    "mypy": "Success: no issues found in 2 source files",
+    "real_preflight": "The exact real selection, 1,216-row metadata candidate report, truth-free TEST plan, all eight model/recipe bytes and exact reviewed CAL artifact passed the pre-reader validators.",
+    "negative_preflight": "An altered CAL artifact SHA, missing selected model and negative adjustment each failed before any reader; the focused suite also verifies early existing-output rejection with reader opens equal to zero.",
+    "test_numeric_access": false
+  },
+  "required_before_test_numeric_access": [
+    "Author the exact pretest freeze dictionary required by this source, binding all listed hashes and preserving test_access as prohibited pending review.",
+    "Independently verify and hash that exact pretest freeze and the truth-free TEST plan.",
+    "Issue distinct TEST reader and runner access reviews from `/root/aeon_reviewer`, binding the exact archive, candidate universe, selection, CAL artifact and review, plan, config, source, composites and pretest freeze.",
+    "Confirm the intended TEST output path is absent immediately before execution."
+  ],
+  "limitations": [
+    "This source approval does not authorize numeric TEST access or reveal actual issued/scored TEST support.",
+    "The TEST period is retrospective and must not be described as a sealed holdout.",
+    "Post-hoc LightGBM remains exploratory; the core JEPA value comparison is EMA versus the direct ensemble.",
+    "No SOTA, calibrated absolute backscatter, external generalization, biological causality, production or business-value claim follows from source eligibility."
+  ],
+  "test_access": "PROHIBITED_PENDING_EXACT_PRETEST_FREEZE_AND_DISTINCT_ACCESS_REVIEWS"
+}
