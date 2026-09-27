@@ -19,6 +19,8 @@ REVIEWS = (
     "AEON_VALIDATION_RESCORE_OUTCOME_REVIEW_20260927.json",
     "AEON_HYBRID_OUTCOME_REVIEW_20260927.json",
     "AEON_SOTA_SUPERVISED_OUTCOME_REVIEW_20260927.json",
+    "AEON_FORWARD_OUTCOME_REVIEW_20260927.json",
+    "AEON_CHRONOS2_OUTCOME_REVIEW_20260927.json",
 )
 
 
@@ -36,20 +38,24 @@ def test_reviewed_development_report_labels_source_and_unopened_partitions() -> 
     assert study["development"]["core"]["issued_rows"] == 1219
     assert len(study["development"]["core"]["slot_primary_pinball_db"]) == 17
     assert study["development"]["post_hoc_supervised"]["family"] == "LightGBM"
-    assert study["development"]["forward_ema"] == "PENDING_INDEPENDENT_OUTCOME_REVIEW"
-    assert study["development"]["chronos2"] == "PENDING_INDEPENDENT_OUTCOME_REVIEW"
+    assert study["development"]["forward_ema"]["primary_pinball_db"] == pytest.approx(0.6533145184149417)
+    assert study["development"]["chronos2"]["primary_pinball_db"] == pytest.approx(0.6935176150003005)
+    assert study["development"]["chronos2"]["status"] == "INDEPENDENTLY_REVIEWED_POST_HOC_ZERO_SHOT_DEVELOPMENT"
     assert study["selection"] == "NOT_PERFORMED_IN_THIS_REPORT"
     assert study["cached_forecasts"] == 0
 
 
-def test_tampered_review_bytes_cannot_change_development_metric(tmp_path: Path) -> None:
+@pytest.mark.parametrize("changed_review", REVIEWS)
+def test_tampered_review_bytes_cannot_change_development_metric(
+    tmp_path: Path, changed_review: str,
+) -> None:
     folder = tmp_path / "orchestration/reviews"
     folder.mkdir(parents=True)
     for name in REVIEWS:
         shutil.copyfile(ROOT / "orchestration/reviews" / name, folder / name)
-    changed = folder / REVIEWS[0]
+    changed = folder / changed_review
     review = json.loads(changed.read_text(encoding="utf-8"))
-    review["primary_daily_mean_pinball_db_by_slot"]["direct_seed7"] = 0.0
+    review["status"] = "UNREVIEWED_MUTATION"
     changed.write_text(json.dumps(review), encoding="utf-8")
     with pytest.raises(ValueError, match="review digest"):
         build_aeon_development_report(tmp_path)

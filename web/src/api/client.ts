@@ -133,8 +133,16 @@ export interface AeonStudyEvidence {
       status: "INDEPENDENTLY_REVIEWED_POST_HOC_DEVELOPMENT";
       primary_pinball_db: number;
     };
-    forward_ema: string;
-    chronos2: string;
+    forward_ema: {
+      status: "INDEPENDENTLY_REVIEWED_POST_HOC_DEVELOPMENT";
+      primary_pinball_db: number;
+      individual_seed_primary_pinball_db: Record<string, number>;
+    };
+    chronos2: {
+      status: "INDEPENDENTLY_REVIEWED_POST_HOC_ZERO_SHOT_DEVELOPMENT";
+      primary_pinball_db: number;
+      model_revision: string;
+    };
   };
   limitations: string[];
 }

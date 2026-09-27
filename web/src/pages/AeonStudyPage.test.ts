@@ -24,8 +24,8 @@ const study: AeonStudyEvidence = {
     core: { status: "INDEPENDENTLY_REVIEWED", issued_rows: 1219, eligible_days_per_horizon: [50, 50, 50], slot_primary_pinball_db: { ridge: 0.6676 } },
     hybrid: { status: "INDEPENDENTLY_REVIEWED", primary_pinball_db: { core_direct_equal_three_seed_ensemble: 0.6391 } },
     post_hoc_supervised: { family: "LightGBM", status: "INDEPENDENTLY_REVIEWED_POST_HOC_DEVELOPMENT", primary_pinball_db: 0.6385 },
-    forward_ema: "PENDING_INDEPENDENT_OUTCOME_REVIEW",
-    chronos2: "PENDING_INDEPENDENT_OUTCOME_REVIEW",
+    forward_ema: { status: "INDEPENDENTLY_REVIEWED_POST_HOC_DEVELOPMENT", primary_pinball_db: 0.6533, individual_seed_primary_pinball_db: {} },
+    chronos2: { status: "INDEPENDENTLY_REVIEWED_POST_HOC_ZERO_SHOT_DEVELOPMENT", primary_pinball_db: 0.6935, model_revision: "fixed-review-revision" },
   },
   limitations: ["No AEON forecasts are cached or served by this release."],
 };
@@ -38,6 +38,8 @@ describe("AEON study page", () => {
     expect(html).toContain("TRAIN/validation development");
     expect(html).toContain("0.6385");
     expect(html).not.toContain("Forecast here");
-    expect(html).not.toContain("Chronos-2 score");
+    expect(html).toContain("0.6533");
+    expect(html).toContain("0.6935");
+    expect(html).toContain("post-hoc development evidence");
   });
 });

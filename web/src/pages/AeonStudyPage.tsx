@@ -27,6 +27,8 @@ export function AeonStudyPage({
     ["EMA raw + latent hybrid ensemble", hybrid.ema_hybrid_equal_three_seed_ensemble, "Hybrid development"],
     ["Shared raw + latent hybrid ensemble", hybrid.shared_hybrid_equal_three_seed_ensemble, "Hybrid development"],
     ["LightGBM", study.development.post_hoc_supervised.primary_pinball_db, "Post-hoc development"],
+    ["Forward EMA-JEPA · equal three-seed ensemble", study.development.forward_ema.primary_pinball_db, "Post-hoc development"],
+    ["Chronos-2 · frozen zero-shot", study.development.chronos2.primary_pinball_db, "Post-hoc development"],
   ] as const;
   return (
     <div className="screen-stack">
@@ -63,7 +65,7 @@ export function AeonStudyPage({
             </tbody>
           </table>
         </div>
-        <p>Forward EMA: {study.development.forward_ema}. Chronos-2: {study.development.chronos2}.</p>
+        <p>Forward EMA and Chronos-2 have independent outcome reviews. Their scores are post-hoc development evidence; neither establishes state of the art or JEPA incremental value.</p>
         <p>CAL and retrospective TEST outcomes are not opened for this report. No AEON cached forecasts are served.</p>
       </section>
       <section className="panel" aria-label="Study limitations">

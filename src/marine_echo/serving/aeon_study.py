@@ -28,6 +28,16 @@ _REVIEW_FILES = {
         "d08932b0c88f322ceb573ef2ee30198aed0ceb3c5611b6e865e0e562f640138d",
         "APPROVED_AEON_POST_HOC_SUPERVISED_OUTCOME_NO_SELECTION",
     ),
+    "forward_ema": (
+        "AEON_FORWARD_OUTCOME_REVIEW_20260927.json",
+        "d3f142e1f01bb84b22155faa9f1cedb40d499b5aa784865cc9191416c6cfbed6",
+        "APPROVED_AEON_FORWARD_OUTCOME_NO_SELECTION",
+    ),
+    "chronos2": (
+        "AEON_CHRONOS2_OUTCOME_REVIEW_20260927.json",
+        "11f1c8dd25cd485d296e9502a94c8247cf57f442f4cbb4d00538ce172c6bb541",
+        "APPROVED_AEON_CHRONOS2_OUTCOME_NO_SELECTION",
+    ),
 }
 _SOURCE_SHA = "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde"
 _ROW_SHA = "9ce5ed6d60c4082efd3f342b3ee09ddadc5cf6286be6d6a3e953ab0f6166a99f"
@@ -51,11 +61,16 @@ def _review(root: Path, key: str) -> tuple[dict[str, Any], str]:
     if _sha256(path) != expected:
         raise ValueError(f"AEON {key} review digest differs from approved evidence.")
     record = json.loads(path.read_text(encoding="utf-8"))
+    execution = record.get("independent_execution", {})
+    numeric_access = execution.get(
+        "calibration_or_test_outcomes_opened",
+        execution.get("calibration_or_test_numeric_access"),
+    )
     if (
         record.get("status") != status
         or record.get("reviewer_session") != "/root/aeon_reviewer"
         or record.get("test_access") != "PROHIBITED"
-        or record.get("independent_execution", {}).get("calibration_or_test_outcomes_opened") is not False
+        or numeric_access is not False
     ):
         raise ValueError(f"AEON {key} lacks a distinct development outcome review.")
     return record, expected
@@ -74,6 +89,8 @@ def build_aeon_development_report(root: Path) -> dict[str, Any]:
     core, core_sha = _review(root, "core")
     hybrid, hybrid_sha = _review(root, "hybrid")
     supervised, supervised_sha = _review(root, "post_hoc_supervised")
+    forward, forward_sha = _review(root, "forward_ema")
+    chronos, chronos_sha = _review(root, "chronos2")
     core_scores = _finite_scores(core.get("primary_daily_mean_pinball_db_by_slot"), _CORE_SLOTS)
     hybrid_scores = _finite_scores(hybrid.get("primary_daily_mean_pinball_db"))
     required_hybrid = {
@@ -107,6 +124,42 @@ def build_aeon_development_report(root: Path) -> dict[str, Any]:
     sota_score = _finite_scores({
         "primary_daily_mean_pinball_db": supervised_metrics.get("primary_daily_mean_pinball_db")
     })["primary_daily_mean_pinball_db"]
+    forward_slots = forward.get("slots", {})
+    expected_forward = {
+        *(f"forward_ema_seed{seed}" for seed in (7, 13, 23)),
+        "random_encoder_seed7", "temporally_shuffled_future_target_seed7",
+    }
+    forward_scores = _finite_scores(
+        {name: slot.get("primary_daily_mean_pinball_db") for name, slot in forward_slots.items()},
+        expected_forward,
+    )
+    forward_ensemble = forward.get("fixed_three_seed_forward_ensemble", {})
+    chronos_metrics = chronos.get("validation_metrics", {})
+    forward_primary = _finite_scores({
+        "primary_daily_mean_pinball_db": forward_ensemble.get("primary_daily_mean_pinball_db")
+    })["primary_daily_mean_pinball_db"]
+    chronos_primary = _finite_scores({
+        "primary_daily_mean_pinball_db": chronos_metrics.get("primary_daily_mean_pinball_db")
+    })["primary_daily_mean_pinball_db"]
+    if (
+        forward.get("validation_row_sha256") != _ROW_SHA
+        or forward.get("validation_issued_rows") != 1219
+        or forward.get("eligible_source_dates_per_horizon") != [50, 50, 50]
+        or forward.get("cohort_sha256") != supervised_support.get("cohort_sha256")
+        or forward.get("sota_claim") != "NOT_ESTABLISHED"
+        or forward.get("classification") != "POST_HOC_DEVELOPMENT_NOT_FINAL_EVALUATION"
+        or forward_ensemble.get("method") != "arithmetic_mean_of_three_saved_forecasts_then_monotone_quantile_sort"
+        or abs(forward_ensemble.get("direct_three_seed_reference_primary_daily_mean_pinball_db", -1) - hybrid_scores["core_direct_equal_three_seed_ensemble"]) > 5e-12
+        or chronos.get("source_archive_sha256") != _SOURCE_SHA
+        or chronos.get("validation_row_sha256") != _ROW_SHA
+        or chronos.get("cohort_sha256") != supervised_support.get("cohort_sha256")
+        or chronos_metrics.get("issued_rows") != 1219
+        or chronos_metrics.get("eligible_source_dates_per_horizon") != [50, 50, 50]
+        or chronos.get("sota_claim") != "NOT_ESTABLISHED"
+        or chronos.get("fit_behavior") != "FROZEN_ZERO_SHOT_NO_TRAINING"
+        or chronos.get("corrected_validation_rescore_sha256") != core["artifact_sha256"]["rescore_report"]
+    ):
+        raise ValueError("AEON reviewed forward or Chronos support differs from development cohort.")
     return {
         "schema_version": "1.0",
         "study_id": "aeon3_geb_2024_hourly_sv_v1",
@@ -153,8 +206,27 @@ def build_aeon_development_report(root: Path) -> dict[str, Any]:
                 "report_sha256": supervised["artifact_sha256"]["report"],
                 "outcome_review_sha256": supervised_sha,
             },
-            "forward_ema": "PENDING_INDEPENDENT_OUTCOME_REVIEW",
-            "chronos2": "PENDING_INDEPENDENT_OUTCOME_REVIEW",
+            "forward_ema": {
+                "status": "INDEPENDENTLY_REVIEWED_POST_HOC_DEVELOPMENT",
+                "primary_pinball_db": forward_primary,
+                "per_horizon_pinball_db": forward_ensemble["daily_mean_pinball_db_per_horizon"],
+                "individual_seed_primary_pinball_db": {
+                    key: forward_scores[key] for key in sorted(forward_scores) if key.startswith("forward_ema_seed")
+                },
+                "control_primary_pinball_db": {
+                    key: forward_scores[key] for key in sorted(forward_scores) if not key.startswith("forward_ema_seed")
+                },
+                "manifest_sha256": forward["manifest_sha256"],
+                "outcome_review_sha256": forward_sha,
+            },
+            "chronos2": {
+                "status": "INDEPENDENTLY_REVIEWED_POST_HOC_ZERO_SHOT_DEVELOPMENT",
+                "primary_pinball_db": chronos_primary,
+                "per_horizon_pinball_db": chronos_metrics["daily_mean_pinball_db_per_horizon"],
+                "model_revision": chronos["model"]["revision"],
+                "manifest_sha256": chronos["manifest_sha256"],
+                "outcome_review_sha256": chronos_sha,
+            },
         },
         "limitations": [
             "Retrospective TRAIN/validation development scores are not a final evaluation or a state-of-the-art claim.",
