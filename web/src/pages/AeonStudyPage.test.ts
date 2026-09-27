@@ -42,4 +42,36 @@ describe("AEON study page", () => {
     expect(html).toContain("0.6935");
     expect(html).toContain("post-hoc development evidence");
   });
+
+  it("separates reviewed CAL widening from validation and final TEST", () => {
+    const calibrated: AeonStudyEvidence = {
+      ...study,
+      classification: "REVIEWED_DEVELOPMENT_AND_CALIBRATION_NOT_FINAL_EVALUATION",
+      calibration_outcomes: "INDEPENDENTLY_REVIEWED_CALIBRATION_ONLY",
+      calibration: {
+        status: "INDEPENDENTLY_REVIEWED_CALIBRATION_ONLY",
+        classification: "CALIBRATION_ONLY_NOT_MODEL_SELECTION_OR_FINAL_EVALUATION",
+        issued_rows: 810, eligible_days_per_horizon: [34, 34, 34],
+        artifact_sha256: "b".repeat(64), outcome_review_sha256: "c".repeat(64),
+        models: Object.fromEntries([
+          "core_direct_equal_three_seed_ensemble", "core_ema_equal_three_seed_ensemble",
+          "post_hoc_lightgbm",
+        ].map((key) => [key, {
+          selection_classification: "FROZEN_BEFORE_CAL", raw_primary_pinball_db: 0.6531,
+          raw_per_horizon_pinball_db: [0.57, 0.68, 0.70],
+          raw_coverage90_per_horizon: [0.82, 0.77, 0.79],
+          interval_widening_db_by_horizon: [0.47, 0.77, 0.78],
+          widened_in_sample_coverage90_per_horizon: [0.901, 0.901, 0.900],
+        }])),
+      },
+    };
+    const html = renderToStaticMarkup(createElement(AeonStudyPage, { study: calibrated, state: "success" }));
+    expect(html).toContain("CALIBRATION ONLY");
+    expect(html).toContain("810 issued CAL rows");
+    expect(html).toContain("0.6531");
+    expect(html).toContain("0.470 / 0.770 / 0.780");
+    expect(html).toContain("do not select or rank models");
+    expect(html).toContain("retrospective TEST remains unopened");
+    expect(html).not.toContain("CAL and retrospective TEST outcomes are not opened");
+  });
 });

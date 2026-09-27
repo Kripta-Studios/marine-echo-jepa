@@ -66,8 +66,41 @@ export function AeonStudyPage({
           </table>
         </div>
         <p>Forward EMA and Chronos-2 have independent outcome reviews. Their scores are post-hoc development evidence; neither establishes state of the art or JEPA incremental value.</p>
-        <p>CAL and retrospective TEST outcomes are not opened for this report. No AEON cached forecasts are served.</p>
+        <p>{study.calibration ? "CAL is shown separately below; retrospective TEST remains unopened." : "CAL and retrospective TEST outcomes are not opened for this report."} No AEON cached forecasts are served.</p>
       </section>
+      {study.calibration && (
+        <section className="panel" aria-labelledby="aeon-calibration-title">
+          <SectionHeading
+            id="aeon-calibration-title"
+            eyebrow="CALIBRATION ONLY"
+            title="Reviewed interval widening"
+            description={`${study.calibration.issued_rows} issued CAL rows; ${study.calibration.eligible_days_per_horizon.join(" / ")} eligible source dates by horizon. These in-sample CAL diagnostics do not select or rank models and are not final evaluation.`}
+          />
+          <div className="table-scroll">
+            <table>
+              <thead><tr><th scope="col">Frozen family</th><th scope="col">Raw CAL pinball (dB)</th><th scope="col">90% interval widening, +1 / +3 / +6 (dB)</th><th scope="col">Raw 90% coverage, +1 / +3 / +6</th><th scope="col">Widened in-sample 90% coverage, +1 / +3 / +6</th></tr></thead>
+              <tbody>
+                {([
+                  ["Direct ensemble", "core_direct_equal_three_seed_ensemble"],
+                  ["EMA-JEPA ensemble", "core_ema_equal_three_seed_ensemble"],
+                  ["LightGBM · post-hoc", "post_hoc_lightgbm"],
+                ] as const).map(([label, key]) => {
+                  const model = study.calibration!.models[key];
+                  return <tr key={key}>
+                    <th scope="row">{label}</th>
+                    <td>{model.raw_primary_pinball_db.toFixed(4)}</td>
+                    <td>{model.interval_widening_db_by_horizon.map((value) => value.toFixed(3)).join(" / ")}</td>
+                    <td>{model.raw_coverage90_per_horizon.map((value) => `${(value * 100).toFixed(1)}%`).join(" / ")}</td>
+                    <td>{model.widened_in_sample_coverage90_per_horizon.map((value) => `${(value * 100).toFixed(1)}%`).join(" / ")}</td>
+                  </tr>;
+                })}
+              </tbody>
+            </table>
+          </div>
+          <p>Widening changed only the outer interval endpoints on CAL. Approximately 90% in-sample CAL coverage does not guarantee retrospective TEST coverage.</p>
+          <p>CAL artifact SHA-256: <code>{study.calibration.artifact_sha256}</code></p>
+        </section>
+      )}
       <section className="panel" aria-label="Study limitations">
         <h2>Limits</h2>
         <ul>{study.limitations.map((limit) => <li key={limit}>{limit}</li>)}</ul>

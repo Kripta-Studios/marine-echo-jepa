@@ -102,7 +102,7 @@ export interface RawDevelopmentEvidence {
 export interface AeonStudyEvidence {
   study_id: "aeon3_geb_2024_hourly_sv_v1";
   title: string;
-  classification: "REVIEWED_TRAIN_VALIDATION_DEVELOPMENT_NOT_FINAL_EVALUATION";
+  classification: "REVIEWED_TRAIN_VALIDATION_DEVELOPMENT_NOT_FINAL_EVALUATION" | "REVIEWED_DEVELOPMENT_AND_CALIBRATION_NOT_FINAL_EVALUATION";
   source_time_basis: "SOURCE_REPORTED_UNSPECIFIED_NOT_UTC";
   source: { publisher: string; site: string; archive_sha256: string };
   target: {
@@ -118,8 +118,24 @@ export interface AeonStudyEvidence {
   final_evaluation: false;
   selection: "NOT_PERFORMED_IN_THIS_REPORT";
   cached_forecasts: 0;
-  calibration_outcomes: "NOT_OPENED_FOR_THIS_REPORT";
+  calibration_outcomes: "NOT_OPENED_FOR_THIS_REPORT" | "INDEPENDENTLY_REVIEWED_CALIBRATION_ONLY";
   retrospective_test_outcomes: "NOT_OPENED_FOR_THIS_REPORT";
+  calibration?: {
+    status: "INDEPENDENTLY_REVIEWED_CALIBRATION_ONLY";
+    classification: "CALIBRATION_ONLY_NOT_MODEL_SELECTION_OR_FINAL_EVALUATION";
+    issued_rows: number;
+    eligible_days_per_horizon: number[];
+    artifact_sha256: string;
+    outcome_review_sha256: string;
+    models: Record<string, {
+      selection_classification: string;
+      raw_primary_pinball_db: number;
+      raw_per_horizon_pinball_db: number[];
+      raw_coverage90_per_horizon: number[];
+      interval_widening_db_by_horizon: number[];
+      widened_in_sample_coverage90_per_horizon: number[];
+    }>;
+  };
   development: {
     core: {
       status: "INDEPENDENTLY_REVIEWED";

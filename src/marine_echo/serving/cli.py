@@ -268,9 +268,15 @@ def release_build_v2_research(output: Path = Path("release/v2-research-offline")
 
 
 @release.command("build-aeon-research")
-def release_build_aeon_research(output: Path = Path("release/aeon-research-offline")) -> None:
+def release_build_aeon_research(
+    output: Path = Path("release/aeon-research-offline"),
+    calibration_artifact: Path | None = None,
+    web_dist: Path | None = None,
+) -> None:
     """Build a separate offline study release from reviewed development evidence."""
-    emit(build_aeon_research(root_path(), output))
+    emit(build_aeon_research(
+        root_path(), output, calibration_artifact=calibration_artifact, web_dist=web_dist,
+    ))
 
 
 @app.command()

@@ -12,7 +12,13 @@ import zipfile
 from pathlib import Path
 from typing import Any
 
-from marine_echo.serving.aeon_study import _REVIEW_FILES, build_aeon_research
+from marine_echo.serving.aeon_study import (
+    _CAL_ARTIFACT_SHA,
+    _CAL_REVIEW_NAME,
+    _CAL_REVIEW_SHA,
+    _REVIEW_FILES,
+    build_aeon_research,
+)
 
 _SOURCE_FILES = (
     "marine_echo/__init__.py",
@@ -83,13 +89,16 @@ def _archive(package: Path, archive: Path) -> None:
 
 def build_aeon_portable(
     root: Path, output: Path, wheelhouse: Path, upstream_sums: Path,
-    payload: Path | None = None,
+    payload: Path | None = None, calibration_artifact: Path | None = None,
+    web_dist: Path | None = None,
 ) -> dict[str, Any]:
     """Build portable wrapper from reviewed study payload and verified local wheels."""
     archive = output.with_suffix(".zip")
     sidecar = output.with_suffix(".zip.sha256")
     if any(path.exists() or path.is_symlink() for path in (output, archive, sidecar)):
         raise FileExistsError("Portable release output already exists")
+    if payload is not None and calibration_artifact is not None:
+        raise ValueError("An external study payload cannot be combined with CAL input")
     wheels = _upstream_wheels(wheelhouse, upstream_sums)
     source_root = Path(__file__).resolve().parents[3]
     template_root = source_root / "release/aeon_portable"
@@ -98,7 +107,10 @@ def build_aeon_portable(
         stage = Path(temporary) / output.name
         stage.mkdir()
         if payload is None:
-            build_aeon_research(root, stage / "study")
+            build_aeon_research(
+                root, stage / "study", calibration_artifact=calibration_artifact,
+                web_dist=web_dist,
+            )
             payload_source = stage / "study"
         else:
             payload_source = payload
@@ -129,6 +141,15 @@ def build_aeon_portable(
                 destination = stage / "provenance/reviews" / review_name
                 destination.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(review, destination)
+            if calibration_artifact is not None:
+                review = root / "orchestration/reviews" / _CAL_REVIEW_NAME
+                if _sha256(review) != _CAL_REVIEW_SHA or _sha256(calibration_artifact) != _CAL_ARTIFACT_SHA:
+                    raise ValueError("CAL provenance differs from independently reviewed bytes")
+                review_destination = stage / "provenance/reviews" / _CAL_REVIEW_NAME
+                shutil.copy2(review, review_destination)
+                artifact_destination = stage / "provenance/calibration/calibration.json"
+                artifact_destination.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(calibration_artifact, artifact_destination)
         frontend_licenses = {
             "react": "19.3.0", "react-dom": "19.3.0", "scheduler": "0.28.0",
         }
@@ -160,6 +181,8 @@ def build_aeon_portable(
             "source_commit": commit,
             "source_archive_sha256": study.get("source", {}).get("archive_sha256"),
             "aeon_study_sha256": _sha256(aeon_study_path) if aeon_study_path.exists() else None,
+            "calibration_artifact_sha256": _CAL_ARTIFACT_SHA if calibration_artifact else None,
+            "calibration_outcome_review_sha256": _CAL_REVIEW_SHA if calibration_artifact else None,
             "historical_wheelhouse_sha256s_sha256": _sha256(upstream_sums),
             "wheel_count": len(wheels),
             "calibration_or_test_final_evaluation": False,
@@ -169,11 +192,19 @@ def build_aeon_portable(
         (stage / "SOURCE_REVISION.json").write_text(
             json.dumps(metadata, indent=2) + "\n", encoding="utf-8",
         )
+        calibration_notice = (
+            "An independently reviewed 810-row CAL interval-widening result is included. "
+            "Its raw scores and approximately 90% widened in-sample coverage are calibration "
+            "diagnostics, not model selection or final TEST performance. The exact CAL artifact "
+            "and independent review are bundled under `provenance/`. "
+            if calibration_artifact is not None else "CAL outcomes are not included. "
+        )
         (stage / "README_AEON_RESEARCH.md").write_text(
             "# AEON offline research release\n\n"
             "This is a development-only research artifact. The AEON hourly 38-kHz Sv study "
-            "presents independently reviewed TRAIN/validation results; CAL and retrospective "
-            "TEST are not final-evaluated here. No AEON forecast is cached or served. "
+            "presents independently reviewed TRAIN/validation results. "
+            + calibration_notice + "Retrospective TEST is not evaluated here. "
+            "No AEON forecast is cached or served. "
             "Historical MOSAiC v1/v2 eligibility failures and blocked registry remain intact.\n\n"
             "On Windows, install Python 3.12 and uv locally, then run "
             "`Run-AEON-Research.ps1`. It verifies packaged bytes, installs from the bundled "
@@ -184,7 +215,7 @@ def build_aeon_portable(
             "The original acoustic archive is not redistributed.\n\n"
             "`SHA256SUMS` covers every packaged file except itself; the adjacent `.zip.sha256` "
             "records the archive digest. `SOURCE_REVISION.json` records source and evidence. "
-            "Five exact development-outcome review records are in `provenance/reviews/`.\n",
+            "Exact development-outcome review records are in `provenance/reviews/`.\n",
             encoding="utf-8",
         )
         (stage / "THIRD_PARTY_NOTICES.md").write_text(
@@ -225,7 +256,10 @@ if __name__ == "__main__":
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--wheelhouse", type=Path, required=True)
     parser.add_argument("--upstream-sums", type=Path, required=True)
+    parser.add_argument("--calibration-artifact", type=Path)
+    parser.add_argument("--web-dist", type=Path)
     arguments = parser.parse_args()
     print(json.dumps(build_aeon_portable(
         arguments.root, arguments.output, arguments.wheelhouse, arguments.upstream_sums,
+        calibration_artifact=arguments.calibration_artifact, web_dist=arguments.web_dist,
     ), indent=2))

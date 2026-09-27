@@ -41,6 +41,14 @@ _REVIEW_FILES = {
 }
 _SOURCE_SHA = "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde"
 _ROW_SHA = "9ce5ed6d60c4082efd3f342b3ee09ddadc5cf6286be6d6a3e953ab0f6166a99f"
+_CAL_ARTIFACT_SHA = "a6e35bc5fa5c27b2b0669e7fb9fe7f8ff1bdd69952193418bbbe130e46438c94"
+_CAL_REVIEW_SHA = "7b61385b29836be53d0e2c5a0b5e3f5db7e2dcb8983e534d17711ed0b44c1428"
+_CAL_REVIEW_NAME = "AEON_CALIBRATION_OUTCOME_REVIEW_20260927.json"
+_CAL_MODELS = (
+    "core_direct_equal_three_seed_ensemble",
+    "core_ema_equal_three_seed_ensemble",
+    "post_hoc_lightgbm",
+)
 _CORE_SLOTS = {
     "persistence", "seasonal_24_source_intervals", "ridge", "hist_gradient_boosting",
     *(f"{family}_seed{seed}" for family in ("direct", "ema_jepa", "shared_sigreg") for seed in (7, 13, 23)),
@@ -82,6 +90,88 @@ def _finite_scores(scores: object, expected_keys: set[str] | None = None) -> dic
     if not all(isinstance(value, (int, float)) and math.isfinite(value) and value >= 0 for value in scores.values()):
         raise ValueError("AEON reviewed score must be finite and nonnegative.")
     return {str(key): float(value) for key, value in scores.items()}
+
+
+def build_aeon_calibration_report(root: Path, calibration_artifact: Path) -> dict[str, Any]:
+    """Expose exact reviewed CAL interval evidence without ranking models or reading TEST."""
+    review_path = root / "orchestration/reviews" / _CAL_REVIEW_NAME
+    if _sha256(review_path) != _CAL_REVIEW_SHA:
+        raise ValueError("AEON CAL review digest differs from approved evidence.")
+    review = json.loads(review_path.read_text(encoding="utf-8"))
+    if _sha256(calibration_artifact) != _CAL_ARTIFACT_SHA:
+        raise ValueError("AEON CAL artifact digest differs from approved evidence.")
+    artifact = json.loads(calibration_artifact.read_text(encoding="utf-8"))
+    support = review.get("calibration_support", {})
+    if (
+        review.get("status") != "APPROVED_AEON_CALIBRATION_OUTCOME_NO_SELECTION"
+        or review.get("reviewer_session") != "/root/aeon_reviewer"
+        or review.get("classification") != "CALIBRATION_ONLY_NOT_MODEL_SELECTION_OR_FINAL_EVALUATION"
+        or review.get("test_access") != "PROHIBITED"
+        or review.get("independent_execution", {}).get("test_numeric_access") is not False
+        or review.get("artifact_sha256") != _CAL_ARTIFACT_SHA
+        or review.get("source_archive_sha256") != _SOURCE_SHA
+        or artifact.get("status") != "COMPLETED_AEON_CALIBRATION_INTERVAL_WIDENING"
+        or artifact.get("study_id") != "aeon3_geb_2024_hourly_sv_v1"
+        or artifact.get("partition") != "calibration"
+        or artifact.get("test_access") != "PROHIBITED"
+        or artifact.get("selection_freeze_sha256") != review.get("selection_freeze_sha256")
+        or artifact.get("forecast_manifest_sha256") != review.get("calibration_forecast_plan_sha256")
+        or artifact.get("config_sha256") != review.get("config_sha256")
+        or support.get("issued_rows") != 810
+        or support.get("unique_row_ids") != 810
+        or support.get("eligible_source_dates_per_horizon") != [34, 34, 34]
+        or not isinstance(artifact.get("issued_row_ids"), list)
+        or len(artifact["issued_row_ids"]) != 810
+        or len(set(artifact["issued_row_ids"])) != 810
+        or set(artifact.get("models", {})) != set(_CAL_MODELS)
+        or set(review.get("models", {})) != set(_CAL_MODELS)
+    ):
+        raise ValueError("AEON CAL review, artifact or support contract differs.")
+    models: dict[str, dict[str, Any]] = {}
+    for name in _CAL_MODELS:
+        recorded = artifact["models"][name]
+        approved = review["models"][name]
+        raw = recorded.get("raw_interval_metrics", {})
+        widened = recorded.get("widened_interval_metrics", {})
+        expected_pairs = (
+            (recorded.get("selection_classification"), approved.get("selection_classification")),
+            (recorded.get("adjustment_db"), approved.get("adjustment_db_by_horizon")),
+            (recorded.get("eligible_days_per_horizon"), [34, 34, 34]),
+            (recorded.get("eligible_rows_per_horizon"), support.get("eligible_scored_rows_per_horizon")),
+            (raw.get("primary_daily_mean_pinball_db"), approved.get("raw_primary_daily_mean_pinball_db")),
+            (raw.get("daily_mean_pinball_db_per_horizon"), approved.get("raw_daily_mean_pinball_db_per_horizon")),
+            (raw.get("coverage90_per_horizon"), approved.get("raw_coverage90_per_horizon")),
+            (widened.get("primary_daily_mean_pinball_db"), approved.get("widened_primary_daily_mean_pinball_db")),
+            (widened.get("coverage90_per_horizon"), approved.get("widened_coverage90_per_horizon")),
+        )
+        if any(left != right for left, right in expected_pairs):
+            raise ValueError(f"AEON CAL {name} metrics differ from independent review.")
+        finite = [
+            *recorded["adjustment_db"], raw["primary_daily_mean_pinball_db"],
+            *raw["daily_mean_pinball_db_per_horizon"], *raw["coverage90_per_horizon"],
+            widened["primary_daily_mean_pinball_db"], *widened["coverage90_per_horizon"],
+        ]
+        if not all(isinstance(value, (int, float)) and math.isfinite(value) for value in finite):
+            raise ValueError("AEON CAL metrics are nonfinite.")
+        models[name] = {
+            "selection_classification": recorded["selection_classification"],
+            "raw_primary_pinball_db": raw["primary_daily_mean_pinball_db"],
+            "raw_per_horizon_pinball_db": raw["daily_mean_pinball_db_per_horizon"],
+            "raw_coverage90_per_horizon": raw["coverage90_per_horizon"],
+            "interval_widening_db_by_horizon": recorded["adjustment_db"],
+            "widened_in_sample_coverage90_per_horizon": widened["coverage90_per_horizon"],
+        }
+    return {
+        "status": "INDEPENDENTLY_REVIEWED_CALIBRATION_ONLY",
+        "classification": "CALIBRATION_ONLY_NOT_MODEL_SELECTION_OR_FINAL_EVALUATION",
+        "issued_rows": 810,
+        "eligible_days_per_horizon": [34, 34, 34],
+        "models": models,
+        "artifact_sha256": _CAL_ARTIFACT_SHA,
+        "outcome_review_sha256": _CAL_REVIEW_SHA,
+        "selection_freeze_sha256": review["selection_freeze_sha256"],
+        "retrospective_test_outcomes": "NOT_OPENED_FOR_THIS_REPORT",
+    }
 
 
 def build_aeon_development_report(root: Path) -> dict[str, Any]:
@@ -238,16 +328,37 @@ def build_aeon_development_report(root: Path) -> dict[str, Any]:
     }
 
 
-def build_aeon_research(root: Path, output: Path) -> dict[str, Any]:
+def build_aeon_research(
+    root: Path, output: Path, *, calibration_artifact: Path | None = None,
+    web_dist: Path | None = None,
+) -> dict[str, Any]:
     """Build a new offline package; retain v1/v2 artifacts and attach AEON evidence."""
     if output.exists() or output.is_symlink():
         raise FileExistsError("AEON release output already exists.")
+    if calibration_artifact is not None and (
+        web_dist is None or not (web_dist / "index.html").is_file()
+    ):
+        raise ValueError("CAL study package requires an explicitly built web/dist.")
     study = build_aeon_development_report(root)
+    if calibration_artifact is not None:
+        study["calibration"] = build_aeon_calibration_report(root, calibration_artifact)
+        study["calibration_outcomes"] = "INDEPENDENTLY_REVIEWED_CALIBRATION_ONLY"
+        study["classification"] = "REVIEWED_DEVELOPMENT_AND_CALIBRATION_NOT_FINAL_EVALUATION"
+        study["title"] = "AEON3 Georges Basin hourly acoustic research"
+        study["limitations"].append(
+            "CAL interval coverage is in-sample and does not establish retrospective TEST or external coverage."
+        )
     output.parent.mkdir(parents=True, exist_ok=True)
     stage = Path(tempfile.mkdtemp(prefix=".aeon-release-stage-", dir=output.parent))
     base = stage / "package"
     try:
         build_v2_research(root, base)
+        if web_dist is not None:
+            web_target = base / "web"
+            if not web_target.resolve().is_relative_to(base.resolve()):
+                raise ValueError("AEON web staging path escaped the release.")
+            shutil.rmtree(web_target)
+            shutil.copytree(web_dist, web_target)
         artifacts = base / "artifacts"
         catalog_path = artifacts / "catalog.json"
         catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
