@@ -91,15 +91,15 @@ def _contract(tmp_path: Path, partition: str, rows: list[AeonHourlyWindow]):
             {"model_id": "baseline", "role": "baseline", "adapter": "SYNTHETIC_FIXTURE",
              "selection_classification": "CORE_CONVENTIONAL_SELECTION",
              "component_artifacts": [{"artifact_id": "baseline-model", "sha256": "3" * 64}],
-             "ensemble_weights": [1.0]},
+             "ensemble_weights": [1.0], "adapter_options": {}},
             {"model_id": "core_jepa", "role": "candidate", "adapter": "SYNTHETIC_FIXTURE",
              "selection_classification": "CORE_JEPA_SELECTION",
              "component_artifacts": [{"artifact_id": "core-jepa-models", "sha256": "4" * 64}],
-             "ensemble_weights": [1.0]},
+             "ensemble_weights": [1.0], "adapter_options": {}},
             {"model_id": "candidate", "role": "candidate", "adapter": "SYNTHETIC_FIXTURE",
              "selection_classification": "POST_HOC_DEVELOPMENT_SELECTION",
              "component_artifacts": [{"artifact_id": "post-hoc-model", "sha256": "5" * 64}],
-             "ensemble_weights": [1.0]},
+             "ensemble_weights": [1.0], "adapter_options": {}},
         ],
     })
     predictions = []
@@ -113,6 +113,7 @@ def _contract(tmp_path: Path, partition: str, rows: list[AeonHourlyWindow]):
             "model_id": model, "role": role,
             "selection_classification": classification,
             "adapter": "SYNTHETIC_FIXTURE",
+            "options": {},
             "ensemble_weights": [1.0],
             "component_artifacts": [{
                 "artifact_id": (
@@ -313,6 +314,39 @@ def test_calibration_component_substitution_precedes_reader(tmp_path: Path) -> N
     assert not reader.opened
 
 
+@pytest.mark.parametrize("bad_options", [
+    {"family": "ema_jepa", "device": "cpu"},
+    {"family": "direct", "device": "tpu"},
+])
+def test_adapter_option_substitution_precedes_calibration_reader(
+    tmp_path: Path, bad_options: dict[str, str],
+) -> None:
+    rows = [_window(i, "calibration", "2024-12-01") for i in range(12 * 24)]
+    config, selection, selection_sha, _, _, manifest, _ = _contract(
+        tmp_path, "calibration", rows
+    )
+    changed = json.loads(manifest.read_text())
+    changed["models"][0]["options"] = bad_options
+    manifest_sha = _write_json(manifest, changed)
+    reader = _Reader(rows)
+    review, review_sha = _review(tmp_path, "calibration", {
+        "selection_freeze_sha256": selection_sha,
+        "forecast_manifest_sha256": manifest_sha,
+        "config_sha256": artifact_sha256(config),
+        "reader_review_sha256": _reader_review(tmp_path, "calibration")[1],
+    })
+    with pytest.raises(ValueError, match="adapter plan differs"):
+        execute_calibration(
+            archive=tmp_path, reader_review_path=_reader_review(tmp_path, "calibration")[0],
+            reader_review_sha256=_reader_review(tmp_path, "calibration")[1],
+            runner_review_path=review, runner_review_sha256=review_sha, config_path=config,
+            selection_freeze_path=selection, forecast_manifest_path=manifest,
+            output=tmp_path / "never", fixture_reader=reader,
+            fixture_forecaster=_fixture_forecaster,
+        )
+    assert not reader.opened
+
+
 def test_missing_real_component_bytes_precede_reader_construction(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -328,8 +362,9 @@ def test_missing_real_component_bytes_precede_reader_construction(
         "reader_review_sha256": _reader_review(tmp_path, "calibration")[1],
     })
     real_entry = {
-        "adapter": "conventional",
-        "options": {"family": "persistence"},
+        "model_id": "core_direct_equal_three_seed_ensemble",
+        "adapter": "core_neural_ensemble",
+        "options": {"family": "direct", "device": "cpu"},
         "component_artifacts": [{
             "artifact_id": "missing-model", "path": "missing.joblib", "sha256": "a" * 64,
         }],
@@ -483,6 +518,12 @@ def test_selection_categories_and_component_set_are_exact(tmp_path: Path) -> Non
     with pytest.raises(ValueError, match="differs from the frozen selection"):
         _test_forecast_plan(plan, selection, selection_sha, candidate_sha)
 
+    changed["models"][1]["component_artifacts"][0]["sha256"] = "4" * 64
+    changed["models"][1]["options"] = {"family": "direct", "device": "tpu"}
+    _write_json(plan, changed)
+    with pytest.raises(ValueError, match="differs from the frozen selection"):
+        _test_forecast_plan(plan, selection, selection_sha, candidate_sha)
+
     invalid = json.loads(selection_path.read_text())
     invalid["models"][1]["selection_classification"] = "POST_HOC_DEVELOPMENT_SELECTION"
     _write_json(selection_path, invalid)
@@ -514,6 +555,7 @@ def test_selection_binds_reviewed_components_and_equal_weights(tmp_path: Path) -
                 {"artifact_id": "direct_seed23", "sha256": "ee3ae09ebf05bc41ec762e946a1d0046be33fff4ea47472a992893a294054761"},
             ],
             "ensemble_weights": thirds,
+            "adapter_options": {"family": "direct", "device": "cpu"},
         },
         {
             "model_id": "core_ema_equal_three_seed_ensemble",
@@ -526,6 +568,7 @@ def test_selection_binds_reviewed_components_and_equal_weights(tmp_path: Path) -
                 {"artifact_id": "ema_jepa_seed23", "sha256": "4a7c63931a31a48f60323b944110df9292856f39cb822ce0b891371a10a16a15"},
             ],
             "ensemble_weights": thirds,
+            "adapter_options": {"family": "ema_jepa", "device": "cpu"},
         },
         {
             "model_id": "post_hoc_lightgbm",
@@ -537,11 +580,23 @@ def test_selection_binds_reviewed_components_and_equal_weights(tmp_path: Path) -
                 {"artifact_id": "lightgbm_recipe", "sha256": "3feee4089ce790c66adb189ff82ad4e006c350822a23aaa494e86afaef884eea"},
             ],
             "ensemble_weights": [1.0],
+            "adapter_options": {"recipe_sha256": "3feee4089ce790c66adb189ff82ad4e006c350822a23aaa494e86afaef884eea"},
         },
     ]
     _write_json(selection_path, selection)
     _selection(selection_path)
 
+    selection["models"][0]["adapter_options"]["family"] = "ema_jepa"
+    _write_json(selection_path, selection)
+    with pytest.raises(ValueError, match="reviewed model family"):
+        _selection(selection_path)
+
+    selection["models"][0]["adapter_options"] = {"family": "direct", "device": "tpu"}
+    _write_json(selection_path, selection)
+    with pytest.raises(ValueError, match="explicit CPU or CUDA"):
+        _selection(selection_path)
+
+    selection["models"][0]["adapter_options"] = {"family": "direct", "device": "cpu"}
     selection["models"][1]["ensemble_weights"] = [0.34, 0.33, 0.33]
     _write_json(selection_path, selection)
     with pytest.raises(ValueError, match="ensemble weights"):

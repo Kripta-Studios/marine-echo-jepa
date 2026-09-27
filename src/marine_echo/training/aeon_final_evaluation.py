@@ -75,6 +75,7 @@ _SELECTED_MODEL_SPECS: dict[str, tuple[str, str, tuple[tuple[str, str], ...]]] =
 _HEX = set("0123456789abcdef")
 _MODEL_ID = re.compile(r"[A-Za-z0-9][A-Za-z0-9_.-]{0,79}")
 _TRUSTED_REVIEWER_SESSION = "/root/aeon_reviewer"
+_LIGHTGBM_RECIPE_SHA256 = "3feee4089ce790c66adb189ff82ad4e006c350822a23aaa494e86afaef884eea"
 
 
 class _WindowReader(Protocol):
@@ -140,6 +141,38 @@ def _config(path: Path) -> tuple[dict[str, Any], str]:
     return value, digest
 
 
+def _validate_adapter_options(model_id: str, adapter: str, options: object) -> None:
+    if adapter == "SYNTHETIC_FIXTURE":
+        if options != {}:
+            raise ValueError("Synthetic AEON adapter options must be empty.")
+        return
+    if not isinstance(options, dict):
+        raise TypeError("AEON selected-model adapter options are malformed.")
+    expected_family = {
+        "core_direct_equal_three_seed_ensemble": "direct",
+        "core_ema_equal_three_seed_ensemble": "ema_jepa",
+    }.get(model_id)
+    if expected_family is not None:
+        if set(options) != {"family", "device"} or options.get("family") != expected_family:
+            raise ValueError("AEON neural adapter options differ from the reviewed model family.")
+        device = options.get("device")
+        if device not in ("cpu", "cuda"):
+            raise ValueError("AEON neural adapter device must be explicit CPU or CUDA.")
+        if device == "cuda":
+            import torch
+
+            if not torch.cuda.is_available():
+                raise ValueError("AEON neural adapter requested unavailable CUDA.")
+        return
+    if model_id == "post_hoc_lightgbm":
+        if set(options) != {"recipe_sha256"} or options.get("recipe_sha256") != (
+            _LIGHTGBM_RECIPE_SHA256
+        ):
+            raise ValueError("AEON LightGBM options differ from the reviewed recipe.")
+        return
+    raise ValueError("AEON adapter options refer to an unreviewed model identity.")
+
+
 def _selection(path: Path) -> tuple[dict[str, Any], str]:
     value, digest = _json(path)
     models = value.get("models")
@@ -184,7 +217,7 @@ def _selection(path: Path) -> tuple[dict[str, Any], str]:
             not isinstance(model, dict)
             or set(model) != {
                 "model_id", "role", "selection_classification", "adapter",
-                "component_artifacts", "ensemble_weights",
+                "component_artifacts", "ensemble_weights", "adapter_options",
             }
             or not isinstance(model.get("model_id"), str)
             or not model["model_id"]
@@ -222,6 +255,7 @@ def _selection(path: Path) -> tuple[dict[str, Any], str]:
         )
         if model["ensemble_weights"] != expected_weights:
             raise ValueError("AEON selected-model ensemble weights differ from the frozen rule.")
+        _validate_adapter_options(model["model_id"], model["adapter"], model["adapter_options"])
         ids.add(model["model_id"])
         roles.append(model["role"])
     core_conventional = [
@@ -281,6 +315,7 @@ def _forecast_plan(
             model["adapter"],
             [(item["artifact_id"], item["sha256"]) for item in model["component_artifacts"]],
             model["ensemble_weights"],
+            model["adapter_options"],
         )
         for model in selection["models"]
     ]
@@ -294,6 +329,7 @@ def _forecast_plan(
                 if isinstance(item, dict)
             ],
             entry.get("ensemble_weights"),
+            entry.get("options"),
         )
         for entry in typed_entries
     ]
@@ -354,6 +390,7 @@ def _preflight_forecast_plan(
         components = entry.get("component_artifacts")
         if not isinstance(options, dict) or not isinstance(components, list):
             raise TypeError("AEON adapter plan lacks options or component artifacts.")
+        _validate_adapter_options(entry["model_id"], adapter, options)
         artifacts = [_plan_artifact(directory, item) for item in components]
         if any(artifact_sha256(item.path) != item.sha256 for item in artifacts):
             raise ValueError("AEON adapter-plan component digest differs.")
