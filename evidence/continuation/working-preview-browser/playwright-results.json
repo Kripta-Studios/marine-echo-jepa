@@ -64,7 +64,7 @@
     "version": "1.63.0",
     "workers": 1,
     "webServer": {
-      "command": "\"C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe\" -m marine_echo.serving.cli serve --port 8767 --artifact-root \"C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\relocated continuation preview 20260927\\artifacts\"",
+      "command": "\"C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe\" -m marine_echo.serving.cli serve --port 8767 --artifact-root \"C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\continuation-preview-20260927\\artifacts\"",
       "port": 8767,
       "reuseExistingServer": false,
       "timeout": 30000
@@ -93,12 +93,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 6169,
+                  "duration": 7041,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-09-27T00:17:46.719Z",
+                  "startTime": "2026-09-27T00:16:46.058Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -127,12 +127,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1695,
+                  "duration": 1820,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-09-27T00:17:53.565Z",
+                  "startTime": "2026-09-27T00:16:53.954Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -161,12 +161,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2132,
+                  "duration": 2161,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-09-27T00:17:55.329Z",
+                  "startTime": "2026-09-27T00:16:55.842Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -195,12 +195,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1971,
+                  "duration": 1919,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-09-27T00:17:57.516Z",
+                  "startTime": "2026-09-27T00:16:58.058Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -229,12 +229,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 4156,
+                  "duration": 4192,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-09-27T00:17:59.550Z",
+                  "startTime": "2026-09-27T00:17:00.040Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -252,8 +252,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-09-27T00:17:40.617Z",
-    "duration": 24896.89,
+    "startTime": "2026-09-27T00:16:39.160Z",
+    "duration": 26881.722999999998,
     "expected": 5,
     "skipped": 0,
     "unexpected": 0,

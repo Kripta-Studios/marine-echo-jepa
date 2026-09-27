@@ -1,4 +1,26 @@
-# Continuation checkpoint — P0 incomplete, execution in progress
+Current outcome: [27 September report](CONTINUATION_OUTCOME_20260927.md).
+
+# Continuation checkpoint — P0 incomplete, data ineligibility established
+
+## Current execution checkpoint (27 September)
+
+Main contains the preserved implementation plus reviewed calibration/QC, singleton
+parser compatibility, exact census resume/equivalence checks, truthful registry
+integration, and a reviewed full TRAIN count-map method. Latest source checks:
+229 app/data/scientific/security/API tests passed; formatting, lint and types pass.
+The unchanged model suite has 11 passes and two opt-in GPU skips, not real runs.
+
+Full 100-day TRAIN census completed with exact equivalence for all 16 prior successful days. Original 38 kHz 10-100 m target has 0 supported TRAIN anchor dates; granting all 67 non-TRAIN days eligibility yields an overall upper bound of 67 below 90. The distinct reviewer accepted the full support map and both necessary bounds by exact independent recomputation. Any fixed 38 kHz band has a generous overall upper bound of 73 days, below 90. No held-out acoustic processing or benchmarks.
+
+Actual command exits were 0 for census, original-target bound and support map.
+Census worker time totaled 4648.436 seconds; sampled worker-tree RAM peaked at
+0.319389 GiB. Full pipeline wall time was 4667.160 seconds. No GPU trainer ran.
+The approved plot and any-band bound both executed successfully. The any-band result is independently accepted; no replacement target was selected.
+
+D2 bounded discovery is complete: official geometry and embedded raw acquisition
+coefficients were found, but external/environmental/FullNC lineage and an approved
+bounded acquisition plan remain unresolved. Do not resume broad D2 discovery.
+The historical r2 archive/extraction and all original sources remain preserved.
 
 The recovered workspace is `main` at `036af24` before continuation edits. The existing
 core/UI worktrees are retained. No reset, remote overwrite, raw-data deletion or public
@@ -22,7 +44,7 @@ publication occurred. The owner's continuation file was already untracked on ent
   requiring all original task statuses to be TODO. These failures are preserved rather
   than erased by resetting the implementation. See `evidence/continuation/`.
 
-## Calibration work executed
+## Earlier numerical assay: applicability assessment superseded by later reviews
 
 GSW 3.6.23 was added to the existing data environment without dependency upgrades or any
 PyTorch change, and pinned in the optional data dependency/lock. New tests cover published
@@ -82,7 +104,7 @@ regional diagnostic evidence: exact depth/tilt, local conditions, continuous bou
 QC support remain unverified. The first attempt's upstream vector incompatibility traceback
 is retained; the vectorized pinned equation was tested and independently reviewed before rerun.
 
-## Software work and review boundaries
+## Earlier software checkpoint and review boundaries
 
 Integrated code includes strict environmental availability and unit conversion, conservative
 linear-range integration, trailing aggregation and exact windows, immutable day shards,
@@ -133,7 +155,7 @@ zero usable days. R0/R1 remain incomplete, R2 ineligible, R3 not approved. Infra
 No new release ZIP has been produced or relabelled as full P0.
 
 
-## 27 September: TRAIN QC and execution checkpoint
+## Earlier 27 September TRAIN QC checkpoint (historical; superseded above)
 
 The factory certificate/XML mapping, depth-stratified environmental bound, and slant
 sensitivity method have separate independent acceptance for TRAIN candidate processing.
@@ -145,10 +167,11 @@ The fractional-support implementation was corrected and independently reviewed. 
 scheduler integrity fixes through main58235d6 were independently accepted; earlier failed
 reviews and the caught indentation regression remain in evidence. None is a real benchmark.
 
-The independently approved100-day TRAIN census is running with daily immutable aggregates,
+At this earlier checkpoint, the independently approved100-day TRAIN census was running with daily immutable aggregates,
 source/configuration hashes, expected/observed/effective/valid counts, exact raw timestamps,
 one process and a22GiB process-tree limit. Its code and contract are frozen. No held-out
-acoustic payload is needed. Current execution: evidence/continuation/train_census_execution.json.
+acoustic payload is needed. Historical v1 execution: evidence/continuation/train_census_execution.json.
+The completed v2 ledger and accepted result reviews now supersede this execution state.
 
 The original protocol explicitly freezes80% target support, not the implementation's
 stricter every-context-bin80% rule. The separate prospective target_only_bound_contract.json

@@ -75,6 +75,29 @@ def main() -> int:
     package = ROOT / "release/meeting-20260926-r2.zip"
     with zipfile.ZipFile(package) as archive:
         package_members = len(archive.infolist())
+    census_exposure = []
+    for name in ("train_census_execution.json", "train_census_v2_execution.json"):
+        path = ROOT / "evidence/continuation" / name
+        if path.exists():
+            census = json.loads(path.read_text(encoding="utf-8"))
+            census_exposure.append(
+                {
+                    "execution_report": path.relative_to(ROOT).as_posix(),
+                    "sha256": digest(path),
+                    "status": census["status"],
+                    "attempted_train_dates": list(census["days"]),
+                    "completed_train_dates": [
+                        day for day, entry in census["days"].items() if entry["exit_code"] == 0
+                    ],
+                    "failed_dates_preserved_as_partial_access": [
+                        day for day, entry in census["days"].items() if entry["exit_code"] != 0
+                    ],
+                    "held_out_acoustic_payloads_processed_recorded": census[
+                        "held_out_acoustic_payloads_processed"
+                    ],
+                    "exposure_kind": "Automated TRAIN parsing/calibration/QC; counts/manifests inspected, no full-census echograms visualized",
+                }
+            )
     report = {
         "checked_at": datetime.now(UTC).isoformat(),
         "source_verification_scope": "existence/size against preserved prior hashes; no repeat multi-GB hashing",
@@ -82,6 +105,7 @@ def main() -> int:
         "registries": registries,
         "candidate_split": protocol["split"],
         "replay_exposure": replay,
+        "train_census_exposure": census_exposure,
         "other_known_exposure": [
             {
                 "period": "2020-02-16T14:00:00Z/2020-02-16T15:00:00Z",
@@ -95,6 +119,23 @@ def main() -> int:
                 "period": "2020-03-03T00:00:00Z/2020-03-04T00:00:00Z",
                 "kind": "Complete TRAIN day processed and visualized for independent candidate QC review; failed v1 and corrected v2 retained.",
                 "evidence": "evidence/continuation/train-candidate-v2/training-review.html",
+            },
+            {
+                "periods": ["2020-02-17", "2020-03-01", "2020-04-01", "2020-05-01"],
+                "kind": "Four complete outcome-independent monthly TRAIN days calibrated and visualized, plus the separate March3 day; coordinator and independent reviewer inspected all five.",
+                "evidence": "evidence/continuation/monthly_train_execution.json",
+            },
+            {
+                "dataset": "ooi_ce04osps_ek60_2017",
+                "source": "OOI-D20170821-T000000.raw",
+                "kind": "Historical one-file acoustic calibration diagnostic already inspected; never treat this period as sealed if a D2 protocol is later created.",
+                "evidence": "evidence/data/ooi_calibration.json",
+            },
+            {
+                "dataset": "ooi_ce04osps_ek60_2017",
+                "period": "2017-08-20",
+                "kind": "Continuation FullNC HTTP/HDF5 metadata and coordinates only; no Sv array values indexed/read by reviewer. Bounded range transport can contain uninterpreted adjacent bytes.",
+                "evidence": "evidence/continuation/ooi_fallback_disposition.json",
             },
             {
                 "period": "2020-02-17/2020-08-02",
@@ -116,7 +157,13 @@ def main() -> int:
             ),
             "note": "Historical report hash describes packaged JSON serialization; preserve both bytes and hashes.",
         },
-        "exposure_disposition": "NO_KNOWN_TEST_OUTCOME_EXPOSURE_IN_AUDITED_REPLAYS_NOT_PROOF_OF_SEAL",
+        "exposure_disposition": "EXPOSURE_REVIEW_REQUIRED"
+        if any(
+            row["held_out_acoustic_payloads_processed_recorded"] is not False
+            for row in census_exposure
+        )
+        or any(row["overlaps_candidate_test"] for row in replay)
+        else "NO_KNOWN_TEST_OUTCOME_EXPOSURE_IN_AUDITED_REPLAYS_NOT_PROOF_OF_SEAL",
         "exposure_limitations": [
             "Browser human viewing history is not exhaustively logged.",
             "Prior agent context and discarded artifacts cannot be reconstructed.",

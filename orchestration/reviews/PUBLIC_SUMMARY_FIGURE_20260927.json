@@ -1,0 +1,17 @@
+{
+  "record_type": "COORDINATOR_TRANSCRIPTION_OF_DISTINCT_REVIEWER_VERDICT",
+  "reviewer_session": "/root/continuation_review",
+  "disposition": "APPROVE_CURRENT_WORKING_PREVIEW_EVIDENCE_AND_SUPPORT_FIGURE",
+  "scope": "TRAIN_QC_ONLY_NOT_BENCHMARK; not R0/R1, R2, R3 or normal release approval",
+  "public_summary_sha256": "7a35daf392881cd4ebded1938f60de3efd6dae8b4e024b0bf68f3986a81d99d4",
+  "registry_sha256": "e01953c56acf1230d6853e43f3dad5c9832fb4615b923d53a0f006bd32859575",
+  "support_png_sha256": "f330fb0bd17edc0fd43ee2c98f5e9e854afe63e43cd606597ff926a3805aea4b",
+  "support_png_provenance_sha256": "b6273aba2ab70d71524171414e23612fcbdfc4e8de34b6dd41b6770454c0215a",
+  "findings": [
+    "All9 summary evidence hashes match",
+    "25configured rows BLOCKED/null/0updates; no model conclusions",
+    "Original0/67 and any-band6/73 necessary bounds accurately scoped",
+    "Historical seal NOT_ESTABLISHED preserved",
+    "Full4frequency100day0-128m figure independently visually inspected; fixed0-1scale; no cropping/ranking or selected band"
+  ]
+}

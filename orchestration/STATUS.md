@@ -1,71 +1,64 @@
 # Execution status
 
-P0 INCOMPLETE — CORPUS QC/ELIGIBILITY AND INDEPENDENT REVIEW BLOCK. Native builder and independent reviewer
-availability recovered in the continuation; the prior quota failure is historical.
-Read `orchestration/reports/CONTINUATION_20260926.md` and `evidence/continuation/` first.
-The fixed factory/regional environmental method is independently accepted for bounded TRAIN
-candidate preprocessing. This is not R0/R1 approval. One complete TRAIN day was processed
-using upstream Echopype: 5342/5760 nominal pings; 0/96 quarter-hours reach 80% primary support
-under the candidate noise/QC rules. Four fixed monthly TRAIN days also have0/96 supported bins.
-The independent reviewer approved full100-day TRAIN-only census launch after method and
-resume-integrity review; it is running via tools/train_census.py. No held-out payload is needed.
-No approved physical corpus or completed benchmark exists. A corrected trajectory audit
-using both Iridium and XEOS finds 12/24 candidate test profile days within the illustrative
-5 km/24 h screen, not the earlier Iridium-only 0/24. See `trajectory_matches.json` in the
-continuation evidence. This is not physical eligibility and does not meet 20 test days.
-The correct serial55170 factory calibration certificate was found behind swapped public
-registry attachments; the independent reviewer accepted its XML coefficient mapping.
-Full corpus QC, eligibility and R0/R1 remain unresolved.
-The prospective fixed-regional sensitivity assay failed its unchanged primary 1 dB bound:
-conditional path maximum 1.080721 dB at 38 kHz; range displacement 1.688427 m (limit 2 m).
-The homogeneous-only 0.905364 dB result does not override that failure. A separately
-preregistered depth-stratified diagnostic passed its primary gates. The follow-up slant assay
-also passed: 0.162029 dB at 38 kHz, 0.608893 m range, over 1886 sampled depth/angle scenarios.
-The reviewer accepted the fixed method for TRAIN development; no corpus promotion is authorized.
-The baseline adapter/runner now executes B0–B3 on synthetic canonical fixtures, with narrow
-independent engineering approval and an integrated 18-pass regression check. It cannot
-consume a real calibrated corpus or count as a benchmark. The fixture finite scheduler is
-independently approved within its synthetic engineering scope. The fractional support bug
-is fixed and reviewed: support uses valid counts over max(expected,observed) counts,
-with weighted target aggregation. Real executor/canonical-corpus interfaces remain missing.
+P0 INCOMPLETE - D1 DATA INELIGIBLE UNDER THE REVIEWED METHOD; D2 BLOCKED.
 
-Current independent reviewer: `/root/continuation_review`; builder: `/root/continuation_builder`.
-Review remains substantive, not an automatic approval from agent availability.
+All 100 original TRAIN days were processed successfully using the independently reviewed
+factory/regional calibration and QC method. The singleton parser repair is reviewed; all
+16 overlapping successful v1 days match v2 arrays exactly. V1 failure evidence is preserved.
 
-## Preserved r2 checkpoint context
+Independent recomputation accepted both necessary-support results:
+- Original 38 kHz, 10-100 m target: zero supported TRAIN anchor dates; even granting all
+  67 non-TRAIN calendar days eligibility gives 67 overall, below the required 90.
+- Every fixed nonnegative-weight band on the existing 64-cell 38 kHz grid: the generous
+  per-horizon best-cell relaxation yields 9 anchors on 6 TRAIN dates, hence at most
+  73 overall days. No band, frequency, QC or support rule was changed.
 
-Read orchestration/reports/P0_CHECKPOINT.md and docs/adr/0003-environmental-research.md.
-The five original files remain immutable at data/raw/pangaea/949811. Extracted files remain at
-../marine-echo-jepa-core/data/raw/pangaea/mosaic_azfp_down_2020_extracted. New environmental
-sources and hashes are under data/raw/environment/mosaic_core and evidence/calibration.
-Do not redownload valid sources. Do not silently change D1 or the scientific protocol.
+These are data-eligibility results, not negative JEPA results. Calibration/test eligible
+days remain NOT_EVALUATED. All 25 benchmark slots are BLOCKED, with null metrics and zero
+updates. No training, validation selection, interval calibration or final evaluation ran.
+R0/R1 corpus promotion is blocked; R2 and normal R3 release are ineligible.
 
-Implemented model software, real raw-count replay, read-only API and English app are tested.
-No real benchmark has run. Full calibrated preprocessing/train/evaluation orchestration is
-unfinished. R0/R1 scientific findings remain open; R2 was never approved; no final test seal exists.
-The continuation found no known test acoustic exposure in audited replay artifacts, all from
-the first complete training day. This is not proof of an untouched holdout; see the exposure audit.
-Required 25 runs are BLOCKED with null metrics. JEPA and commercial value remain NOT_EVALUATED.
+The matching serial 55170 factory certificate was recovered from swapped public registry
+attachments and checked against XML. Environmental profiles and geometry were evaluated.
+The fixed regional/depth/slant method is accepted for TRAIN development only, not full
+field calibration. Its conditional slant sensitivity reached 0.162029 dB and 0.608893 m
+at 38 kHz. The earlier global sensitivity failure (1.080721 dB > 1 dB) remains preserved.
 
-Checks: 54 app/data tests, 2 frontend unit tests and 5 fresh-server browser tests passed.
-Core model suite: 17 passed including CUDA profile; integrated rerun: 16 passed, 1 explicit
-skip of the already executed 100-update profile. Peak GPU reserved memory: 100 MiB.
-The first copied package passed functional tests but failed navigation p95 (433 ms).
-Lazy rendering of the closed accessibility table fixed the observed issue: fresh-server
-p95 192 ms. The revised package passed all 5 copied-release browser tests: navigation p95 185 ms and cold start 7.55 s. Integrity corruption detection and offline installation also passed. See release/VALIDATION.json.
+The documented OOI fallback has official deployment geometry and embedded raw acquisition
+coefficients, but lacks sufficient calibration/processed-product lineage and an approved
+bounded acquisition plan. Bounded investigation is complete; do not start a new dataset
+project or relax the protocol to force a result.
 
-At r2 packaging, native independent R3 and Sol review of Luna drafts were blocked by quota.
-Access has since returned for the continuation sessions; no R3 approval is claimed.
-Existing source branches/worktrees and reports preserve their work.
+Exposure: existing audited MOSAiC replays are TRAIN-only. All 100 census manifests contain
+2,135 source records and zero out-of-day pings. No held-out acoustic payload was processed
+in this continuation. Full-period retrospective environmental metadata was inspected, and
+the historical OOI diagnostic file was exposed. Earlier human exposure is not exhaustively
+known: the intended holdout is NOT_ESTABLISHED as sealed.
 
-Marine GPU owner: none. No marine training is running. Unrelated local Python work was
-identified and left untouched; inspect actual device ownership before starting any trainer.
-The old owned preview server was stopped.
-Cloud unauthorized; infrastructure paid/committed: USD 0.
+The native builder and distinct independent reviewer recovered availability. Coordinator
+owned calibration/integration in main; builder used the separate core worktree; reviewer
+remained read-only. Historical quota failures remain recorded. No paid credentials/cloud.
+No GPU owner or marine trainer is active; unrelated user processes remain untouched.
 
-Next scientific prerequisite: complete and independently review the100-day TRAIN census.
-Fewer than23 usable TRAIN days would make the90-day overall minimum unreachable even
-if all67 remaining calendar days were usable. This is a coverage bound, not a JEPA result.
-Calibration/test counts remain unmeasured and no final-test seal is claimed.
+Latest checks: 229 app/data/scientific/security/API passes, 11 model passes with two opt-in
+GPU skips, 27 focused any-band/map passes, and successful lint/format/type checks. These
+are software checks. Full census wall time was 4667.160 s; sampled worker-tree RAM peaked
+at 0.319389 GiB. Any-band audit took 11.125 s and 0.174793 GiB. Infrastructure cost is USD 0.
 
-Delivered diagnostic: release/meeting-20260926-r2.zip. Source revision b45b7ec; SHA-256 and validation sidecar are in release/. No owned training or app server is left running.
+The actual scientific results are integrated into outputs/continuation-preview-20260927.
+Both original and copied-path previews passed five offline browser tests (navigation p95
+197.787 ms and 186.135 ms). The distinct reviewer accepted the exact artifact and visual/browser evidence
+within working-preview scope only. No new engineering diagnostic ZIP substitutes for
+the requested normal release. Historical release/meeting-20260926-r2.zip and its extracted
+payload are unchanged (SHA256 df02ff06cbbb05d967f8c157423c0c76b2acf66ddb16f1a1fcfbe36a710a5cc3).
+
+Authoritative evidence: evidence/continuation/train_census_v2_execution.json,
+target_only_bound.json, train_support_map.json, any_band_bound.json and the matching
+orchestration/reviews/*RESULT_20260927.json records. See the continuation report for
+source searches, assumptions, tests and historical evidence.
+
+Next scientific action requires an independently justified prospective protocol/data
+resolution within owner scope. The current Campaign command correctly exits 2 and lists
+its scientific and real-executor blockers. It cannot approve or open the final test.
+
+Final detail: orchestration/reports/CONTINUATION_OUTCOME_20260927.md.

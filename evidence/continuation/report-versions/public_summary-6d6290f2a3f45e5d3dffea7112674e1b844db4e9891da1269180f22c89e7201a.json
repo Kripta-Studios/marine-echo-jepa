@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "evidence_scope": "TRAIN_QC_ONLY_NOT_BENCHMARK",
+  "forecast_unavailability_reason": "The reviewed TRAIN calibration/QC method yields zero supported TRAIN anchor dates for the original 38 kHz 10-100 m target. Even granting all 67 non-TRAIN calendar days eligibility, the maximum is 67 below the required 90. No independently approved corpus or completed benchmark is available.",
+  "processed_train_calendar_days": 100,
+  "original_target_supported_train_anchor_dates": 0,
+  "original_target_generous_overall_day_upper_bound": 67,
+  "required_overall_eligible_days": 90,
+  "calibration_days": "NOT_EVALUATED",
+  "test_days": "NOT_EVALUATED",
+  "completed_benchmark_runs": 0,
+  "test_seal": "NOT_ESTABLISHED",
+  "limitations": [
+    "Factory certificate and XML coefficients match serial 55170. Regional environmental and geometry approximations are accepted for TRAIN development only; full R0/R1 corpus approval is absent.",
+    "All 100 original TRAIN days were processed. This is a data-support failure for the original target, not a negative JEPA result.",
+    "The earlier global sensitivity assay failed its unchanged bound and remains preserved. Separately reviewed depth/slant assays support only the declared conditional TRAIN method.",
+    "No validation, interval-calibration or final-test acoustic payloads were processed in this continuation. Earlier human exposure cannot be conclusively excluded; no sealed holdout is claimed.",
+    "The documented OOI fallback remains blocked by calibration provenance and an approved bounded acquisition plan.",
+    "All 25 required benchmark slots remain BLOCKED with null metrics and zero optimizer updates. No scientific or commercial value conclusion is supported."
+  ],
+  "evidence": {
+    "evidence/continuation/calibration_disposition.json": "c049609747cf8d5f021278ad9e18cdb6162cdd6c90d94861d769c00d6416b3f7",
+    "evidence/continuation/train_census_v2_execution.json": "415563522356775e1e4ac5ccf444ac5a48725da8659ee1399f3cb1f629e1c407",
+    "evidence/continuation/target_only_bound.json": "ad3ab2c3a0cd5723ec5b450c777bdfcc9438f8fe31db11418b28c10c7f861015",
+    "evidence/continuation/train_support_map.json": "340df813be4ce254ae5224637945e8992116dd1ab6b1190476f9447e17878c88",
+    "evidence/continuation/census_v2_timestamp_exposure.json": "4413cb630cc8929d836496930a7390237a2732aa6e5bb62cc9e69ee3305da1c8",
+    "evidence/continuation/ooi_fallback_disposition.json": "20afec0bba486a9b03ca32fc96f0338f8f12aca9ae13b67ae32085b02c52c319"
+  }
+}

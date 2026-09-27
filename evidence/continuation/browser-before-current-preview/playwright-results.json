@@ -3,9 +3,7 @@
     "argv": [
       "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.runtime\\node_modules\\node\\bin\\node.exe",
       "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\web\\node_modules\\@playwright\\test\\cli.js",
-      "test",
-      "--config",
-      "web/playwright.config.ts"
+      "test"
     ],
     "configFile": "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\web\\playwright.config.ts",
     "rootDir": "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/web/tests",
@@ -64,7 +62,7 @@
     "version": "1.63.0",
     "workers": 1,
     "webServer": {
-      "command": "\"C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe\" -m marine_echo.serving.cli serve --port 8767 --artifact-root \"C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\relocated continuation preview 20260927\\artifacts\"",
+      "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.runtime\\meeting-relocated-20260926-r2\\Run-Demo.ps1\" -Port 8767",
       "port": 8767,
       "reuseExistingServer": false,
       "timeout": 30000
@@ -93,12 +91,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 6169,
+                  "duration": 6460,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-09-27T00:17:46.719Z",
+                  "startTime": "2026-09-26T19:24:49.411Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -127,12 +125,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1695,
+                  "duration": 1748,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-09-27T00:17:53.565Z",
+                  "startTime": "2026-09-26T19:24:56.520Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -142,7 +140,7 @@
           ],
           "id": "586fc5283fd8ec7c7982-e13fd7fd35aeacf588f5",
           "file": "offline.spec.ts",
-          "line": 55,
+          "line": 52,
           "column": 1
         },
         {
@@ -161,12 +159,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2132,
+                  "duration": 2436,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-09-27T00:17:55.329Z",
+                  "startTime": "2026-09-26T19:24:58.341Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -176,7 +174,7 @@
           ],
           "id": "586fc5283fd8ec7c7982-9a04180a338796d636d4",
           "file": "offline.spec.ts",
-          "line": 65,
+          "line": 62,
           "column": 1
         },
         {
@@ -195,12 +193,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1971,
+                  "duration": 1935,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-09-27T00:17:57.516Z",
+                  "startTime": "2026-09-26T19:25:00.846Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -210,7 +208,7 @@
           ],
           "id": "586fc5283fd8ec7c7982-c46f087cddd251486605",
           "file": "offline.spec.ts",
-          "line": 82,
+          "line": 79,
           "column": 1
         },
         {
@@ -229,12 +227,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 4156,
+                  "duration": 4299,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-09-27T00:17:59.550Z",
+                  "startTime": "2026-09-26T19:25:02.845Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -244,7 +242,7 @@
           ],
           "id": "586fc5283fd8ec7c7982-062a0d530db9d5bda8ab",
           "file": "offline.spec.ts",
-          "line": 94,
+          "line": 91,
           "column": 1
         }
       ]
@@ -252,8 +250,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-09-27T00:17:40.617Z",
-    "duration": 24896.89,
+    "startTime": "2026-09-26T19:24:39.253Z",
+    "duration": 29889.208,
     "expected": 5,
     "skipped": 0,
     "unexpected": 0,

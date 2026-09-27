@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "state": "P0_INCOMPLETE_D1_INELIGIBLE_D2_BLOCKED",
+  "state": "P0_INCOMPLETE_ORIGINAL_TARGET_INELIGIBLE_REVIEW_PENDING",
   "tasks": [
     {
       "id": "T01",
@@ -44,7 +44,7 @@
       "report": "orchestration/reports/P0_CHECKPOINT.md",
       "continuation_report": "orchestration/reports/CONTINUATION_20260926.md",
       "continuation_disposition": "PARTIAL_NONPROMOTABLE_EVIDENCE_NOT_FULL_TASK_COMPLETION",
-      "continuation_note": "Independent recomputation accepted original-target upper bound67<90 and any-fixed-38kHz-band upper bound73<90 after complete100-day TRAIN census. D1 is ineligible under unchanged calibration/QC/support; D2 provenance/resource plan remains blocked. No heldout acoustic processing, eligible corpus, R0/R1 promotion, real executor, benchmark, R2 or normal R3 release."
+      "continuation_note": "Full 100-day TRAIN census completed with exact equivalence for all 16 prior successful days. Original 38 kHz 10-100 m target has 0 supported TRAIN anchor dates; granting all 67 non-TRAIN days eligibility yields an overall upper bound of 67 below 90. Complete support-map result and any-fixed-band method await independent review. No held-out acoustic processing or benchmarks."
     },
     {
       "id": "T03",
@@ -139,7 +139,7 @@
       "report": "orchestration/reports/P0_CHECKPOINT.md",
       "continuation_report": "orchestration/reports/CONTINUATION_20260926.md",
       "continuation_disposition": "PARTIAL_NONPROMOTABLE_EVIDENCE_NOT_FULL_TASK_COMPLETION",
-      "continuation_note": "Independent recomputation accepted original-target upper bound67<90 and any-fixed-38kHz-band upper bound73<90 after complete100-day TRAIN census. D1 is ineligible under unchanged calibration/QC/support; D2 provenance/resource plan remains blocked. No heldout acoustic processing, eligible corpus, R0/R1 promotion, real executor, benchmark, R2 or normal R3 release."
+      "continuation_note": "Full 100-day TRAIN census completed with exact equivalence for all 16 prior successful days. Original 38 kHz 10-100 m target has 0 supported TRAIN anchor dates; granting all 67 non-TRAIN days eligibility yields an overall upper bound of 67 below 90. Complete support-map result and any-fixed-band method await independent review. No held-out acoustic processing or benchmarks."
     },
     {
       "id": "T07",
@@ -161,8 +161,7 @@
       "actual_commit": null,
       "report": "orchestration/reports/P0_CHECKPOINT.md",
       "continuation_report": "orchestration/reports/CONTINUATION_20260926.md",
-      "continuation_disposition": "PARTIAL_NONPROMOTABLE_EVIDENCE_NOT_FULL_TASK_COMPLETION",
-      "continuation_note": "Independent recomputation accepted original-target upper bound67<90 and any-fixed-38kHz-band upper bound73<90 after complete100-day TRAIN census. D1 is ineligible under unchanged calibration/QC/support; D2 provenance/resource plan remains blocked. No heldout acoustic processing, eligible corpus, R0/R1 promotion, real executor, benchmark, R2 or normal R3 release."
+      "continuation_disposition": "PARTIAL_NONPROMOTABLE_EVIDENCE_NOT_FULL_TASK_COMPLETION"
     },
     {
       "id": "T08",
@@ -454,8 +453,7 @@
       ],
       "required_tests": "E05 A02 W02 R01 R02",
       "actual_commit": null,
-      "report": "orchestration/reports/P0_CHECKPOINT.md",
-      "continuation_note": "Normal release requires scientific prerequisites; current narrowly reviewed working preview is not R3 or P0 delivery."
+      "report": "orchestration/reports/P0_CHECKPOINT.md"
     },
     {
       "id": "T21",
@@ -465,7 +463,7 @@
       ],
       "role": "leader",
       "priority": "P0",
-      "status": "BLOCKED",
+      "status": "REVIEW",
       "allowed_paths": [
         "release/",
         "orchestration/"
@@ -477,8 +475,7 @@
       ],
       "required_tests": "R01 R02",
       "actual_commit": "b45b7ec808e9d189e0047dc9fadd94900a3ecf73",
-      "report": "orchestration/reports/P0_CHECKPOINT.md",
-      "continuation_note": "Normal release requires scientific prerequisites; current narrowly reviewed working preview is not R3 or P0 delivery."
+      "report": "orchestration/reports/P0_CHECKPOINT.md"
     },
     {
       "id": "T22",
@@ -501,5 +498,5 @@
       "report": "orchestration/reports/P0_CHECKPOINT.md"
     }
   ],
-  "continuation_current": "Independent recomputation accepted original-target upper bound67<90 and any-fixed-38kHz-band upper bound73<90 after complete100-day TRAIN census. D1 is ineligible under unchanged calibration/QC/support; D2 provenance/resource plan remains blocked. No heldout acoustic processing, eligible corpus, R0/R1 promotion, real executor, benchmark, R2 or normal R3 release."
+  "continuation_current": "Full 100-day TRAIN census completed with exact equivalence for all 16 prior successful days. Original 38 kHz 10-100 m target has 0 supported TRAIN anchor dates; granting all 67 non-TRAIN days eligibility yields an overall upper bound of 67 below 90. Complete support-map result and any-fixed-band method await independent review. No held-out acoustic processing or benchmarks."
 }

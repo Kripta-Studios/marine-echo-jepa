@@ -1,0 +1,20 @@
+{
+  "command": [
+    "powershell",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "scripts/Continue-Local.ps1",
+    "-Stage",
+    "Campaign"
+  ],
+  "exit_code": 2,
+  "expected_blocked_exit_code": 2,
+  "seconds": 4.187999999994645,
+  "registry_before_sha256": "e01953c56acf1230d6853e43f3dad5c9832fb4615b923d53a0f006bd32859575",
+  "registry_after_sha256": "e01953c56acf1230d6853e43f3dad5c9832fb4615b923d53a0f006bd32859575",
+  "registry_unchanged": true,
+  "benchmark_runs": 0,
+  "log": "evidence/continuation/campaign-final-preflight.log"
+}

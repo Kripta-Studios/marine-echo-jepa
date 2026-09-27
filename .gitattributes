@@ -14,3 +14,7 @@ evidence/continuation/** -text whitespace=-blank-at-eol,-blank-at-eof
 orchestration/reviews/** -text whitespace=cr-at-eol
 # This already executed Windows source is frozen by the census identity.
 tools/train_census.py -text whitespace=cr-at-eol
+
+# Retain historical registry/checkpoint bytes under their SHA-256 filenames.
+reports/active/report-versions/** -text whitespace=cr-at-eol
+orchestration/report-versions/** -text whitespace=cr-at-eol

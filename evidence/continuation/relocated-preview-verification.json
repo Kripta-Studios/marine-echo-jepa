@@ -1,0 +1,37 @@
+{
+  "exit_code": 0,
+  "browser_tests_passed": 5,
+  "seconds": 24.9,
+  "navigation": {
+    "metric": "UI cutoff change through rendered observation canvas",
+    "samples_ms": [
+      118.47940000000017,
+      175.3184000000001,
+      112.39729999999872,
+      154.628999999999,
+      135.8762000000006,
+      150.75540000000183,
+      119.87679999999818,
+      149.23300000000017,
+      135.17250000000058,
+      179.0661,
+      128.1824000000015,
+      153.70540000000256,
+      122.90260000000126,
+      151.28960000000006,
+      138.6949999999997,
+      178.34549999999945,
+      141.09220000000278,
+      113.94280000000072,
+      199.24659999999858,
+      186.1349999999984
+    ],
+    "p95_ms": 186.1349999999984,
+    "target_ms": 300,
+    "live_forecast_latency": null,
+    "live_forecast_status": "NOT_RUN_NO_MODEL"
+  },
+  "artifact_root": "outputs/relocated continuation preview 20260927/artifacts",
+  "offline_browser_external_requests": 0,
+  "limitations": "Copied artifact serving with existing project Python environment and code, not a new release installation."
+}

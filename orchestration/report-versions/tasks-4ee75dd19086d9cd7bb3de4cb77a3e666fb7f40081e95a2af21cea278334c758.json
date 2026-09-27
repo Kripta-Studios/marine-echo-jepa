@@ -454,8 +454,7 @@
       ],
       "required_tests": "E05 A02 W02 R01 R02",
       "actual_commit": null,
-      "report": "orchestration/reports/P0_CHECKPOINT.md",
-      "continuation_note": "Normal release requires scientific prerequisites; current narrowly reviewed working preview is not R3 or P0 delivery."
+      "report": "orchestration/reports/P0_CHECKPOINT.md"
     },
     {
       "id": "T21",
@@ -465,7 +464,7 @@
       ],
       "role": "leader",
       "priority": "P0",
-      "status": "BLOCKED",
+      "status": "REVIEW",
       "allowed_paths": [
         "release/",
         "orchestration/"
@@ -477,8 +476,7 @@
       ],
       "required_tests": "R01 R02",
       "actual_commit": "b45b7ec808e9d189e0047dc9fadd94900a3ecf73",
-      "report": "orchestration/reports/P0_CHECKPOINT.md",
-      "continuation_note": "Normal release requires scientific prerequisites; current narrowly reviewed working preview is not R3 or P0 delivery."
+      "report": "orchestration/reports/P0_CHECKPOINT.md"
     },
     {
       "id": "T22",

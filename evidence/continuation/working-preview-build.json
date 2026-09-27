@@ -1,0 +1,17 @@
+{
+  "status": "ENGINEERING_DEMO_ONLY",
+  "output": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\continuation-preview-20260927",
+  "raw_rows": 96,
+  "benchmark_runs": 0,
+  "purpose": "Current local working preview only; no new diagnostic ZIP or normal release",
+  "files": {
+    "catalog.json": "76a6dace2fcf7c3ebf095125b166dd583bc8a26047155c810e6e3ec0f7682867",
+    "artifacts/catalog.json": "76a6dace2fcf7c3ebf095125b166dd583bc8a26047155c810e6e3ec0f7682867",
+    "artifacts/observations.json": "68240f4e6d75eef0c6890dbbb658468b45ff0f4ea95eb2ec1e41084de200beea",
+    "artifacts/research-export.json": "bd21b2d8357be6f09e3c1c6df9807a6f64bd0a0e78531bde95eca735d28d6548",
+    "artifacts/research.json": "bd21b2d8357be6f09e3c1c6df9807a6f64bd0a0e78531bde95eca735d28d6548",
+    "web/index.html": "2003b029a25674f2c52ba2146359a72a065bcaf77505fc3ee1e1a72b739bdd08",
+    "web/assets/index-CiJUCDom.css": "1905d1f8a9822a15f6785d059199eeea235a85de135915525a1d7158b74a6eea",
+    "web/assets/index-CSpV-qFx.js": "7e938be85b7d88e0b6dc663f7143829adda84b68f0fec4429aa914ea043aa0b9"
+  }
+}

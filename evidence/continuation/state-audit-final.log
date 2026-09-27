@@ -1,0 +1,48 @@
+{
+  "report": "evidence\\continuation\\state_audit.json",
+  "replay_exposure": [
+    {
+      "path": "evidence/data/diagnostic_raw_replay_2020-02-17.json",
+      "sha256": "5bbf9ce4dcd89f49d304d29bb50dada6e495a0b827bce2654791e86ff424699c",
+      "bytes": 603402,
+      "rows": 96,
+      "first_bin_end": "2020-02-17T00:15:00Z",
+      "last_bin_end": "2020-02-18T00:00:00Z",
+      "overlaps_candidate_test": false
+    },
+    {
+      "path": "release/meeting-20260926-r2/demo/artifacts/observations.json",
+      "sha256": "68240f4e6d75eef0c6890dbbb658468b45ff0f4ea95eb2ec1e41084de200beea",
+      "bytes": 629805,
+      "rows": 96,
+      "first_bin_end": "2020-02-17T00:15:00Z",
+      "last_bin_end": "2020-02-18T00:00:00Z",
+      "overlaps_candidate_test": false
+    },
+    {
+      "path": "release/demo/artifacts/observations.json",
+      "sha256": "68240f4e6d75eef0c6890dbbb658468b45ff0f4ea95eb2ec1e41084de200beea",
+      "bytes": 629805,
+      "rows": 96,
+      "first_bin_end": "2020-02-17T00:15:00Z",
+      "last_bin_end": "2020-02-18T00:00:00Z",
+      "overlaps_candidate_test": false
+    }
+  ],
+  "registries": [
+    {
+      "path": "orchestration/run_ledger.json",
+      "sha256": "a775352537bcc75dabf31925724a982e8e4163f0a82b842f5f14a4edc18a7dd2",
+      "statuses": {
+        "BLOCKED": 25
+      }
+    },
+    {
+      "path": "reports/active/training_registry.json",
+      "sha256": "e01953c56acf1230d6853e43f3dad5c9832fb4615b923d53a0f006bd32859575",
+      "statuses": {
+        "BLOCKED": 25
+      }
+    }
+  ]
+}

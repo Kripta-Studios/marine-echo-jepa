@@ -1,0 +1,314 @@
+{
+  "schema_version": "1.0",
+  "state": "P0_INCOMPLETE_ORIGINAL_TARGET_INELIGIBLE_REVIEW_PENDING",
+  "dataset_id": "mosaic_azfp_down_2020",
+  "source_policy": "immutable_existing_local_files_no_redownload_if_valid",
+  "gpu_owner": null,
+  "runs": [
+    {
+      "run_id": "persistence-seed7",
+      "family": "persistence",
+      "seed": 7,
+      "phase": "selected",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "No approved eligible real corpus. Fixed calibration/QC method accepted for TRAIN-only census; coverage evaluation running. R0/R1 and real executor adapters remain missing.",
+      "updates": 0
+    },
+    {
+      "run_id": "seasonal-seed7",
+      "family": "seasonal",
+      "seed": 7,
+      "phase": "selected",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "No approved eligible real corpus. Fixed calibration/QC method accepted for TRAIN-only census; coverage evaluation running. R0/R1 and real executor adapters remain missing.",
+      "updates": 0
+    },
+    {
+      "run_id": "ridge-seed7",
+      "family": "ridge",
+      "seed": 7,
+      "phase": "selected",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "No approved eligible real corpus. Fixed calibration/QC method accepted for TRAIN-only census; coverage evaluation running. R0/R1 and real executor adapters remain missing.",
+      "updates": 0
+    },
+    {
+      "run_id": "hist_gradient_boosting-seed7",
+      "family": "hist_gradient_boosting",
+      "seed": 7,
+      "phase": "selected",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "No approved eligible real corpus. Fixed calibration/QC method accepted for TRAIN-only census; coverage evaluation running. R0/R1 and real executor adapters remain missing.",
+      "updates": 0
+    },
+    {
+      "run_id": "direct-seed7",
+      "family": "direct",
+      "seed": 7,
+      "phase": "selected",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "No approved eligible real corpus. Fixed calibration/QC method accepted for TRAIN-only census; coverage evaluation running. R0/R1 and real executor adapters remain missing.",
+      "updates": 0
+    },
+    {
+      "run_id": "direct-seed13",
+      "family": "direct",
+      "seed": 13,
+      "phase": "selected",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "No approved eligible real corpus. Fixed calibration/QC method accepted for TRAIN-only census; coverage evaluation running. R0/R1 and real executor adapters remain missing.",
+      "updates": 0
+    },
+    {
+      "run_id": "direct-seed23",
+      "family": "direct",
+      "seed": 23,
+      "phase": "selected",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "No approved eligible real corpus. Fixed calibration/QC method accepted for TRAIN-only census; coverage evaluation running. R0/R1 and real executor adapters remain missing.",
+      "updates": 0
+    },
+    {
+      "run_id": "ema_jepa-seed7",
+      "family": "ema_jepa",
+      "seed": 7,
+      "phase": "selected",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "No approved eligible real corpus. Fixed calibration/QC method accepted for TRAIN-only census; coverage evaluation running. R0/R1 and real executor adapters remain missing.",
+      "updates": 0
+    },
+    {
+      "run_id": "ema_jepa-seed13",
+      "family": "ema_jepa",
+      "seed": 13,
+      "phase": "selected",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "No approved eligible real corpus. Fixed calibration/QC method accepted for TRAIN-only census; coverage evaluation running. R0/R1 and real executor adapters remain missing.",
+      "updates": 0
+    },
+    {
+      "run_id": "ema_jepa-seed23",
+      "family": "ema_jepa",
+      "seed": 23,
+      "phase": "selected",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "No approved eligible real corpus. Fixed calibration/QC method accepted for TRAIN-only census; coverage evaluation running. R0/R1 and real executor adapters remain missing.",
+      "updates": 0
+    },
+    {
+      "run_id": "shared_sigreg-seed7",
+      "family": "shared_sigreg",
+      "seed": 7,
+      "phase": "selected",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "No approved eligible real corpus. Fixed calibration/QC method accepted for TRAIN-only census; coverage evaluation running. R0/R1 and real executor adapters remain missing.",
+      "updates": 0
+    },
+    {
+      "run_id": "shared_sigreg-seed13",
+      "family": "shared_sigreg",
+      "seed": 13,
+      "phase": "selected",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "No approved eligible real corpus. Fixed calibration/QC method accepted for TRAIN-only census; coverage evaluation running. R0/R1 and real executor adapters remain missing.",
+      "updates": 0
+    },
+    {
+      "run_id": "shared_sigreg-seed23",
+      "family": "shared_sigreg",
+      "seed": 23,
+      "phase": "selected",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "No approved eligible real corpus. Fixed calibration/QC method accepted for TRAIN-only census; coverage evaluation running. R0/R1 and real executor adapters remain missing.",
+      "updates": 0
+    },
+    {
+      "run_id": "ema_jepa_plus_raw-seed7",
+      "family": "ema_jepa_plus_raw",
+      "seed": 7,
+      "phase": "selected",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "No approved eligible real corpus. Fixed calibration/QC method accepted for TRAIN-only census; coverage evaluation running. R0/R1 and real executor adapters remain missing.",
+      "updates": 0
+    },
+    {
+      "run_id": "shared_sigreg_plus_raw-seed7",
+      "family": "shared_sigreg_plus_raw",
+      "seed": 7,
+      "phase": "selected",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "No approved eligible real corpus. Fixed calibration/QC method accepted for TRAIN-only census; coverage evaluation running. R0/R1 and real executor adapters remain missing.",
+      "updates": 0
+    },
+    {
+      "run_id": "direct-development0-seed7",
+      "family": "direct",
+      "seed": 7,
+      "phase": "development",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "No approved eligible real corpus. Fixed calibration/QC method accepted for TRAIN-only census; coverage evaluation running. R0/R1 and real executor adapters remain missing.",
+      "updates": 0
+    },
+    {
+      "run_id": "direct-development1-seed7",
+      "family": "direct",
+      "seed": 7,
+      "phase": "development",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "No approved eligible real corpus. Fixed calibration/QC method accepted for TRAIN-only census; coverage evaluation running. R0/R1 and real executor adapters remain missing.",
+      "updates": 0
+    },
+    {
+      "run_id": "ema_jepa-development0-seed7",
+      "family": "ema_jepa",
+      "seed": 7,
+      "phase": "development",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "No approved eligible real corpus. Fixed calibration/QC method accepted for TRAIN-only census; coverage evaluation running. R0/R1 and real executor adapters remain missing.",
+      "updates": 0
+    },
+    {
+      "run_id": "ema_jepa-development1-seed7",
+      "family": "ema_jepa",
+      "seed": 7,
+      "phase": "development",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "No approved eligible real corpus. Fixed calibration/QC method accepted for TRAIN-only census; coverage evaluation running. R0/R1 and real executor adapters remain missing.",
+      "updates": 0
+    },
+    {
+      "run_id": "shared_sigreg-development0-seed7",
+      "family": "shared_sigreg",
+      "seed": 7,
+      "phase": "development",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "No approved eligible real corpus. Fixed calibration/QC method accepted for TRAIN-only census; coverage evaluation running. R0/R1 and real executor adapters remain missing.",
+      "updates": 0
+    },
+    {
+      "run_id": "shared_sigreg-development1-seed7",
+      "family": "shared_sigreg",
+      "seed": 7,
+      "phase": "development",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "No approved eligible real corpus. Fixed calibration/QC method accepted for TRAIN-only census; coverage evaluation running. R0/R1 and real executor adapters remain missing.",
+      "updates": 0
+    },
+    {
+      "run_id": "ema_jepa-random_encoder-seed7",
+      "family": "ema_jepa",
+      "seed": 7,
+      "phase": "random_encoder",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "No approved eligible real corpus. Fixed calibration/QC method accepted for TRAIN-only census; coverage evaluation running. R0/R1 and real executor adapters remain missing.",
+      "updates": 0
+    },
+    {
+      "run_id": "ema_jepa-shuffled_future-seed7",
+      "family": "ema_jepa",
+      "seed": 7,
+      "phase": "shuffled_future",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "No approved eligible real corpus. Fixed calibration/QC method accepted for TRAIN-only census; coverage evaluation running. R0/R1 and real executor adapters remain missing.",
+      "updates": 0
+    },
+    {
+      "run_id": "shared_sigreg-random_encoder-seed7",
+      "family": "shared_sigreg",
+      "seed": 7,
+      "phase": "random_encoder",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "No approved eligible real corpus. Fixed calibration/QC method accepted for TRAIN-only census; coverage evaluation running. R0/R1 and real executor adapters remain missing.",
+      "updates": 0
+    },
+    {
+      "run_id": "shared_sigreg-shuffled_future-seed7",
+      "family": "shared_sigreg",
+      "seed": 7,
+      "phase": "shuffled_future",
+      "status": "BLOCKED",
+      "metrics": null,
+      "reason": "No approved eligible real corpus. Fixed calibration/QC method accepted for TRAIN-only census; coverage evaluation running. R0/R1 and real executor adapters remain missing.",
+      "updates": 0
+    }
+  ],
+  "gates": {
+    "G0_DATA": "BLOCKED_CORPUS_ELIGIBILITY_AND_R0_R1",
+    "G1_ENGINEERING": "HISTORICAL_DIAGNOSTIC_TESTED_NEW_COMPONENTS_NARROWLY_REVIEWED",
+    "G2_EXPERIMENT": "BLOCKED_NOT_RUN",
+    "G3_INCREMENTAL_VALUE": "NOT_EVALUATED",
+    "commercial_validation": "NOT_EVALUATED"
+  },
+  "infrastructure_paid_usd": 0,
+  "infrastructure_committed_usd": 0,
+  "cloud_authorized": false,
+  "active_processes": [],
+  "blockers": [
+    "Original target fails the 90-day necessary support bound under reviewed TRAIN calibration/QC.",
+    "Complete support-map result and prospective any-fixed-38kHz-band bound require independent review.",
+    "No promoted physical corpus, R0/R1, real campaign executor adapter, completed benchmarks, R2 or normal R3 release."
+  ],
+  "software_evidence": {
+    "app_checks": "evidence/tests/final/checks.json",
+    "gpu_checks": "evidence/models/main-integrated-tests.log",
+    "resource_profile": "evidence/models/gpu_100_updates.json",
+    "fresh_browser": "evidence/tests/R3-browser-fresh.log"
+  },
+  "release": {
+    "status": "ENGINEERING_DIAGNOSTIC_TESTED_P0_INCOMPLETE",
+    "archive_sha256": "df02ff06cbbb05d967f8c157423c0c76b2acf66ddb16f1a1fcfbe36a710a5cc3",
+    "source_commit": "b45b7ec808e9d189e0047dc9fadd94900a3ecf73",
+    "validation": "release/VALIDATION.json",
+    "browser_passed": 5,
+    "navigation_p95_ms": 185.14210000000094,
+    "cold_start_seconds": 7.546795800000837,
+    "independent_approval": false
+  },
+  "continuation": {
+    "report": "orchestration/reports/CONTINUATION_20260926.md",
+    "agent_availability": "BUILDER_AND_INDEPENDENT_REVIEWER_RUNNING",
+    "calibration_audit": "evidence/continuation/calibration_report.json",
+    "exposure_audit": "evidence/continuation/state_audit.json",
+    "benchmark_executions_this_continuation": 0,
+    "gpu_owner": null,
+    "infrastructure_usd": 0,
+    "calibration_evidence": [
+      "evidence/continuation/factory_certificate.json",
+      "evidence/continuation/trajectory_matches.json",
+      "evidence/continuation/fixed_environment_sensitivity.json",
+      "evidence/continuation/depth_environment_sensitivity.json"
+    ],
+    "physically_approved_days": 0,
+    "post_qc_eligible_days": "NOT_ESTABLISHED",
+    "calibration_disposition": "evidence/continuation/calibration_disposition.json",
+    "census_execution": "evidence/continuation/train_census_v2_execution.json",
+    "software_integration": "evidence/continuation/checks-20260926T225032Z/checks.json",
+    "train_support_map_scope": "orchestration/reviews/TRAIN_SUPPORT_MAP_SCOPE_20260927.json"
+  },
+  "continuation_current": "Full 100-day TRAIN census completed with exact equivalence for all 16 prior successful days. Original 38 kHz 10-100 m target has 0 supported TRAIN anchor dates; granting all 67 non-TRAIN days eligibility yields an overall upper bound of 67 below 90. Complete support-map result and any-fixed-band method await independent review. No held-out acoustic processing or benchmarks.",
+  "process_snapshot_utc": "2026-09-26T23:16:22.422930+00:00"
+}

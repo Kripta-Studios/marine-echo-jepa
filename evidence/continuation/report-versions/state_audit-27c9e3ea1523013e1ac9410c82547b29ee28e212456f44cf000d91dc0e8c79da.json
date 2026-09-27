@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-09-27T00:23:37.781643+00:00",
+  "checked_at": "2026-09-27T00:16:45.820413+00:00",
   "source_verification_scope": "existence/size against preserved prior hashes; no repeat multi-GB hashing",
   "sources": [
     {
@@ -66,7 +66,7 @@
   "registries": [
     {
       "path": "orchestration/run_ledger.json",
-      "sha256": "a775352537bcc75dabf31925724a982e8e4163f0a82b842f5f14a4edc18a7dd2",
+      "sha256": "f60c1a30969b707b613c91014a6cf3f716d52ae42d16c8e1ef4ed076fd4bce6c",
       "statuses": {
         "BLOCKED": 25
       }

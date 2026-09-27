@@ -1,8 +1,12 @@
 # Run the offline engineering diagnostic
 
+This page documents the historical r2 package. Native builder/reviewer access has since
+returned; current scientific and release gates are recorded in `orchestration/STATUS.md`
+and `release/RELEASE_VALIDATION.md`. The preserved r2 archive is unchanged.
+
 This is an incomplete P0 engineering package. It replays real Arctic raw counts.
 No physical-unit forecast, trained benchmark or JEPA value result is included.
-Independent final approval is blocked by the native-agent service usage limit.
+At r2 packaging, independent final approval was blocked by the native-agent service usage limit.
 
 On this Windows 11 machine, extract the ZIP to a new folder and run:
 

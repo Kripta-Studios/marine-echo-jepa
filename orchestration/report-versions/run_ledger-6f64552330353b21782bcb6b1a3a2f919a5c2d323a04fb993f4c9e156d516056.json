@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "state": "P0_INCOMPLETE_D1_INELIGIBLE_D2_BLOCKED",
+  "state": "P0_INCOMPLETE_ORIGINAL_TARGET_INELIGIBLE_REVIEW_PENDING",
   "dataset_id": "mosaic_azfp_down_2020",
   "source_policy": "immutable_existing_local_files_no_redownload_if_valid",
   "gpu_owner": null,
@@ -257,7 +257,7 @@
     }
   ],
   "gates": {
-    "G0_DATA": "D1_INELIGIBLE_UNDER_REVIEWED_METHOD_D2_BLOCKED",
+    "G0_DATA": "BLOCKED_CORPUS_ELIGIBILITY_AND_R0_R1",
     "G1_ENGINEERING": "HISTORICAL_DIAGNOSTIC_TESTED_NEW_COMPONENTS_NARROWLY_REVIEWED",
     "G2_EXPERIMENT": "BLOCKED_NOT_RUN",
     "G3_INCREMENTAL_VALUE": "NOT_EVALUATED",
@@ -268,18 +268,15 @@
   "cloud_authorized": false,
   "active_processes": [],
   "blockers": [
-    "D1 original target necessary day upper bound67<90; any-fixed-38kHz-band upper bound73<90 under unchanged QC/support.",
-    "D2 calibration/processed-product provenance and bounded acquisition plan unresolved.",
-    "No promotable corpus, R0/R1, real corpus/executor interfaces, completed experiments, R2 or normal R3."
+    "Original target fails the 90-day necessary support bound under reviewed TRAIN calibration/QC.",
+    "Complete support-map result and prospective any-fixed-38kHz-band bound require independent review.",
+    "No promoted physical corpus, R0/R1, real campaign executor adapter, completed benchmarks, R2 or normal R3 release."
   ],
   "software_evidence": {
     "app_checks": "evidence/tests/final/checks.json",
     "gpu_checks": "evidence/models/main-integrated-tests.log",
     "resource_profile": "evidence/models/gpu_100_updates.json",
-    "fresh_browser": "evidence/tests/R3-browser-fresh.log",
-    "current_app_checks": "evidence/continuation/final-app-checks-20260926T233155Z/checks.json",
-    "current_browser": "evidence/continuation/working-preview-browser.log",
-    "current_relocated_browser": "evidence/continuation/relocated-preview-browser.log"
+    "fresh_browser": "evidence/tests/R3-browser-fresh.log"
   },
   "release": {
     "status": "ENGINEERING_DIAGNOSTIC_TESTED_P0_INCOMPLETE",
@@ -293,7 +290,7 @@
   },
   "continuation": {
     "report": "orchestration/reports/CONTINUATION_20260926.md",
-    "agent_availability": "RECOVERED_BUILDER_COMPLETE_REVIEWER_FINAL_CHECKPOINT_REVIEW",
+    "agent_availability": "BUILDER_AND_INDEPENDENT_REVIEWER_RUNNING",
     "calibration_audit": "evidence/continuation/calibration_report.json",
     "exposure_audit": "evidence/continuation/state_audit.json",
     "benchmark_executions_this_continuation": 0,
@@ -306,36 +303,12 @@
       "evidence/continuation/depth_environment_sensitivity.json"
     ],
     "physically_approved_days": 0,
-    "post_qc_eligible_days": "ORIGINAL_TARGET_TRAIN0_OVERALL_UPPER67_ANY38BAND_TRAIN_UPPER6_OVERALL_UPPER73",
+    "post_qc_eligible_days": "NOT_ESTABLISHED",
     "calibration_disposition": "evidence/continuation/calibration_disposition.json",
     "census_execution": "evidence/continuation/train_census_v2_execution.json",
     "software_integration": "evidence/continuation/checks-20260926T225032Z/checks.json",
-    "train_support_map_scope": "orchestration/reviews/TRAIN_SUPPORT_MAP_SCOPE_20260927.json",
-    "outcome_report": "orchestration/reports/CONTINUATION_OUTCOME_20260927.md",
-    "working_preview": {
-      "path": "outputs/continuation-preview-20260927",
-      "status": "INDEPENDENTLY_REVIEWED_LOCAL_WORKING_PREVIEW_NOT_NORMAL_RELEASE",
-      "normal_release_approved": false,
-      "evidence": {
-        "evidence/continuation/working-preview-build.json": "aec67c28e4c546803d406029ba861926f918890ad01250795735aa3b850b917d",
-        "evidence/continuation/working-preview-verification.json": "69e3cc101027f6fa546961a3d971ee2a209b82c595765f4acdd2c780fbe41133",
-        "evidence/continuation/relocated-preview-verification.json": "1f15c59027825030494dee7e952a82e54d5588ff9c15606e1462430b00e78bf2",
-        "evidence/continuation/campaign-final-preflight.json": "dedd8c66775777f86bd552f25e76bd404b2892ebdbdb6c7dec5be9eca809527b"
-      },
-      "independent_review": "orchestration/reviews/WORKING_PREVIEW_20260927.json"
-    }
+    "train_support_map_scope": "orchestration/reviews/TRAIN_SUPPORT_MAP_SCOPE_20260927.json"
   },
-  "continuation_current": "Independent recomputation accepted original-target upper bound67<90 and any-fixed-38kHz-band upper bound73<90 after complete100-day TRAIN census. D1 is ineligible under unchanged calibration/QC/support; D2 provenance/resource plan remains blocked. No heldout acoustic processing, eligible corpus, R0/R1 promotion, real executor, benchmark, R2 or normal R3 release.",
-  "process_snapshot_utc": "2026-09-27T00:22:43.327383+00:00",
-  "scientific_result_reviews": [
-    "orchestration/reviews/TRAIN_SUPPORT_MAP_RESULT_20260927.json",
-    "orchestration/reviews/ANY_BAND_BOUND_RESULT_20260927.json"
-  ],
-  "continuation_resources": {
-    "census_seconds": 4667.16,
-    "census_sampled_worker_tree_ram_gib": 0.319389,
-    "gpu_training_processes": 0,
-    "infrastructure_paid_usd": 0,
-    "infrastructure_committed_usd": 0
-  }
+  "continuation_current": "Full 100-day TRAIN census completed with exact equivalence for all 16 prior successful days. Original 38 kHz 10-100 m target has 0 supported TRAIN anchor dates; granting all 67 non-TRAIN days eligibility yields an overall upper bound of 67 below 90. Complete support-map result and any-fixed-band method await independent review. No held-out acoustic processing or benchmarks.",
+  "process_snapshot_utc": "2026-09-26T23:16:22.422930+00:00"
 }

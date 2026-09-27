@@ -1,0 +1,20 @@
+{
+  "command": [
+    "powershell",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "scripts/Continue-Local.ps1",
+    "-Stage",
+    "Campaign"
+  ],
+  "exit_code": 2,
+  "expected_blocked_exit_code": 2,
+  "seconds": 5.26600000000326,
+  "registry_before_sha256": "6061823100962ded061123814acb8b20688c42f699036a590ca3afadd323fd69",
+  "registry_after_sha256": "6061823100962ded061123814acb8b20688c42f699036a590ca3afadd323fd69",
+  "registry_unchanged": true,
+  "benchmark_runs": 0,
+  "log": "evidence/continuation/campaign-post-census-preflight.log"
+}

@@ -2,13 +2,17 @@
 
 **A reproducible public-data acoustic forecasting demonstrator with an offline-first web application.**
 
-Status of this distribution: **implementation handoff with tested bootstrap utilities, not a trained MVP**.
-Prepared on 2026-09-26. Planning target: a meeting approximately two weeks later (around
-2026-10-10); the actual meeting date has not been provided.
+Current status: **working offline engineering application; scientific P0 remains incomplete**.
+The existing app, read-only API, real raw-count replay and model software are implemented.
+The historical engineering diagnostic is preserved at `release/meeting-20260926-r2.zip`.
+It contains no completed benchmark or supported JEPA-value result.
 
-The implementation agent must build the complete product described here, acquire permitted
-public data, execute real experiments, independently review the work, and package a runnable
-meeting release. It must not stop after scaffolding, a synthetic demo, or a plan.
+Continuation work has recovered the correct factory calibration evidence, tested bounded
+environmental assumptions and repaired a pinned upstream parser edge case. The complete
+TRAIN eligibility audit is complete: the original target permits at most 67 overall days;
+even a generous bound for any fixed 38 kHz band permits at most 73, below the required 90.
+Independent review accepted those data findings; all 25 benchmark runs remain blocked.
+See the current checkpoint rather than treating the original handoff as the implementation.
 
 The product asks: **What acoustic state should we expect one, three, and six hours from now,
 and when is our observation too old to support a useful forecast?** It does not estimate tuna
@@ -18,11 +22,15 @@ catch, certify biomass, direct fishing, or claim validation on Marine Instrument
 
 [Full package index](INDEX.md)
 
-Read [START_HERE.md](START_HERE.md), [AGENTS.md](AGENTS.md), and
-[CODEX_START_PROMPT.md](CODEX_START_PROMPT.md). The numbered documents in `docs/` are the
+Read [AGENTS.md](AGENTS.md), [the continuation contract](CODEX_CONTINUE_AFTER_DIAGNOSTIC.md),
+[current status](orchestration/STATUS.md), and [release validation](release/RELEASE_VALIDATION.md).
+[START_HERE.md](START_HERE.md) and [CODEX_START_PROMPT.md](CODEX_START_PROMPT.md) preserve the
+original handoff context. The numbered documents in `docs/` are the
 implementation contract. Source facts and access limitations are in `references/SOURCES.md`.
 
-## Deliverable
+Current results and tested local launch command: [continuation outcome](orchestration/reports/CONTINUATION_OUTCOME_20260927.md).
+
+## Intended deliverable
 
 A local English-language application with an acoustic replay viewer, three-horizon forecasts,
 a baseline/model comparison lab, a clearly labelled observation-age experiment, and an
@@ -34,8 +42,9 @@ moored EK60 data provide a documented contingency. Neither corpus is tropical tu
 ## Hardware and cost
 
 Windows 11; RTX 5070 Ti Laptop, approximately 12 GB dedicated VRAM; 32 GB system RAM.
-Optional cloud infrastructure ceiling: USD 500, not a spending target. Agent subscriptions/API
-usage are separate unless the owner explicitly reallocates this budget.
+Cloud is disabled without explicit owner approval. The infrastructure ceiling is USD 500,
+with a USD 400 stop and reserve; it is not a spending target. No purchases or metered agent
+API use are authorized by that ceiling.
 
 ## Important boundaries
 

@@ -83,8 +83,8 @@ new physical corpus approval, a new release, or a new full-training memory measu
 Later source integration: `evidence/continuation/checks-20260926T225032Z/checks.json` records
 all11 commands exiting0.200 app/data/scientific/security/API tests passed; model software
 11 passed/2 explicit opt-in GPU skips; frontend2 passed. Formatting, lint, types, frontend
-build and unchanged r2 integrity passed. The current working-preview browser check will use
-its own evidence output after the actual census summary is independently reviewed.
+build and unchanged r2 integrity passed. The then-pending current-preview browser check subsequently completed; see the final
+continuation addendum below for its separate exact artifact evidence.
 
 
 ## Final continuation source checks (27 September, before data decision)
@@ -99,5 +99,24 @@ from this app/data invocation. See
 
 The unchanged model suite's preceding 11 passes and two opt-in GPU skips remain
 separate evidence in `checks-20260926T225032Z`; they are not fresh training runs.
-Current working-preview artifact and changed-browser acceptance remain pending.
+Current working-preview artifact and changed-browser acceptance subsequently completed
+with narrow independent review; normal R3/release remains blocked.
 No new normal release or diagnostic ZIP was produced; historical r2 is preserved.
+
+## Completed continuation evidence (27 September)
+
+The 100-day TRAIN census completed. Independent recomputation accepted original-target
+overall support ceiling 67 days and any-fixed-38kHz-band ceiling 73 days, both below 90.
+Conditional TRAIN calibration is not full R0/R1 corpus approval. D2 remains blocked.
+All 25 benchmark slots remain BLOCKED, and no final-test seal or model result is claimed.
+
+Current local working preview: `../outputs/continuation-preview-20260927`; no new ZIP.
+It displays the reviewed actual eligibility findings and recorded run statuses. Five
+offline browser tests passed both in place (26.9 s, p95 197.787 ms) and after a byte-verified
+copy to a path containing spaces (24.9 s, p95 186.135 ms). The copied artifact uses the
+existing project code/environment; it is not a new offline installation. Historical r2
+above is unchanged. See `../orchestration/reports/CONTINUATION_OUTCOME_20260927.md` for
+checks, resource limits, review scope, missing experiments and exact startup commands.
+Normal R3/release remains blocked; no engineering ZIP substitutes for P0 completion.
+
+Independent exact artifact and visual/browser review: `../orchestration/reviews/WORKING_PREVIEW_20260927.json`. This is not normal R3 approval.
