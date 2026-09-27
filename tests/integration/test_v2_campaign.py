@@ -283,6 +283,17 @@ def test_real_ledger_revalidates_declared_training_phases(tmp_path: Path) -> Non
             for item in run["artifacts"]:
                 if item["path"] == ".attempt.json":
                     item["sha256"] = run["attempt_sha256"]
+            for entry in run["lease_history"]:
+                lease = entry["lease"]
+                lease["attempt_sha256"] = run["attempt_sha256"]
+                lease["campaign_identity_sha256"] = _canonical_digest(ledger["identity"])
+                lease_path = Path(run["artifact_root"]) / f".lease-{lease['generation']}.json"
+                lease_path.write_text(json.dumps(lease, sort_keys=True), encoding="utf-8")
+                entry["sha256"] = hashlib.sha256(lease_path.read_bytes()).hexdigest()
+                for item in run["artifacts"]:
+                    if item["path"] == lease_path.name:
+                        item["sha256"] = entry["sha256"]
+            run["active_lease"] = run["lease_history"][-1]["lease"]
     with pytest.raises(ValueError, match="declared training phases"):
         _verify_ledger(
             ledger,

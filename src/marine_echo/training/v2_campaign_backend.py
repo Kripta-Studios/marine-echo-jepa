@@ -228,7 +228,7 @@ class NativeCampaignBackend:
     def __call__(self, slot: V2Slot, selected_config: int | None, output: Path) -> SlotResult:
         if not output.is_dir() or {path.name for path in output.iterdir()} not in (
             set(),
-            {".attempt.json"},
+            {".attempt.json", ".lease-0.json"},
         ):
             raise ValueError("Campaign slot output must contain only its attempt metadata.")
         if not self.fixture_only:
@@ -243,6 +243,8 @@ class NativeCampaignBackend:
                 or ledger.get("runs", {}).get(slot.run_id, {}).get("status") != "RUNNING"
                 or ledger["runs"][slot.run_id].get("attempt_sha256")
                 != _sha256(output / ".attempt.json")
+                or ledger["runs"][slot.run_id]["lease_history"][0]["sha256"]
+                != _sha256(output / ".lease-0.json")
             ):
                 raise ValueError("Real backend slot or validation cohort differs from its ledger.")
             if slot.family in LEARNED:
@@ -313,13 +315,20 @@ class NativeCampaignBackend:
         ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
         run = ledger.get("runs", {}).get(slot.run_id, {})
         reviews = run.get("resume_review_sha256s", [])
+        lease_history = run.get("lease_history", [])
+        if not isinstance(lease_history, list) or not lease_history:
+            raise ValueError("Interrupted backend slot lacks an active-run lease.")
         review_copy = output / f"resume-review-{len(reviews)}.json"
+        lease_record = lease_history[-1]
+        lease_path = output / f".lease-{lease_record['lease']['generation']}.json"
         if (
             run.get("status") != "RUNNING"
             or not reviews
             or _sha256(review_copy) != reviews[-1]
             or json.loads(review_copy.read_text(encoding="utf-8")) != review
             or run.get("attempt_sha256") != _sha256(output / ".attempt.json")
+            or _sha256(lease_path) != lease_record["sha256"]
+            or run.get("active_lease") != lease_record["lease"]
             or ledger.get("identity", {}).get("protocol_sha256") != self.protocol_sha256
             or ledger.get("identity", {}).get("validation_sha256") != _rows_digest(self.validation)
             or run["attempt"]["selected_configuration"] != selected_config

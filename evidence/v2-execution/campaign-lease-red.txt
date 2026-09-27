@@ -1,0 +1,8 @@
+RED evidence for active-run lease generation. Synthetic CPU fixture only.
+
+Command (GPU-capable Python environment, PYTHONPATH=src; device CPU):
+python -m pytest -q tests/integration/test_v2_campaign_restart.py -k 'reviewed_interrupted_learned_slot_resumes_once_from_250 and False'
+Observed before the fix: 1 failed, 3 deselected in 3.93s.
+The reviewed resume callback read the RUNNING ledger and raised KeyError:
+'active_lease'. It had no generation-1 process binding and therefore could not
+exclude a second concurrent restart after the original attempt process exited.

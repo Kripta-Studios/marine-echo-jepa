@@ -144,6 +144,15 @@ class InterruptedLearnedFixture:
         self.resumed += 1
         assert slot.run_id == "direct-development0-seed7"
         assert selected_config == 0
+        running = json.loads((output.parent.parent / "ledger.json").read_text(encoding="utf-8"))
+        active = running["runs"][slot.run_id]["active_lease"]
+        assert active["generation"] == 1
+        assert (
+            active["resume_review_sha256"]
+            == hashlib.sha256((output / "resume-review-1.json").read_bytes()).hexdigest()
+        )
+        with pytest.raises(ValueError, match="still running"):
+            interrupted_slot_review_request(output.parent.parent, slot.run_id)
         model, optimizer = self._model()
         checkpoint = output / review["resume_checkpoint"]["path"]
         assert (
@@ -235,6 +244,10 @@ def test_reviewed_interrupted_learned_slot_resumes_once_from_250(
     )
     assert backend.started == backend.resumed == 1
     assert ledger["completed_slots"] == 5
+    assert [
+        lease["lease"]["generation"]
+        for lease in ledger["runs"]["direct-development0-seed7"]["lease_history"]
+    ] == [0, 1]
     assert ledger["runs"]["direct-development0-seed7"]["status"] == "COMPLETED_SYNTHETIC_FIXTURE"
     assert (root / "runs/direct-development0-seed7/supervised-checkpoint-250.pt").is_file()
     assert not list((root / "runs").glob("direct-development0-seed7.stage.*"))

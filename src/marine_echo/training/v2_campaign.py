@@ -294,6 +294,62 @@ def _stage_files(staging: Path) -> list[dict[str, str]]:
     return files
 
 
+def _write_active_lease(
+    staging: Path, run: dict[str, Any], identity: dict[str, Any], review_sha256: str | None
+) -> None:
+    history = run.setdefault("lease_history", [])
+    generation = len(history)
+    process = psutil.Process()
+    lease = {
+        "generation": generation,
+        "pid": process.pid,
+        "process_create_time": process.create_time(),
+        "attempt_sha256": run["attempt_sha256"],
+        "campaign_identity_sha256": _canonical_digest(identity),
+        "code_sha256": _code_digest(),
+        "resume_review_sha256": review_sha256,
+    }
+    path = staging / f".lease-{generation}.json"
+    if path.exists():
+        raise FileExistsError("Campaign active-run lease already exists.")
+    path.write_text(json.dumps(lease, sort_keys=True), encoding="utf-8")
+    history.append({"lease": lease, "sha256": _sha256(path)})
+    run["active_lease"] = lease
+
+
+def _verify_lease_history(run: dict[str, Any], storage: Path, identity: dict[str, Any]) -> None:
+    history = run.get("lease_history")
+    reviews = run.get("resume_review_sha256s", [])
+    if not isinstance(history, list) or not history or len(history) != len(reviews) + 1:
+        raise ValueError("Campaign active-run lease generations differ.")
+    for generation, entry in enumerate(history):
+        lease = entry.get("lease", {})
+        path = storage / f".lease-{generation}.json"
+        if (
+            path.is_symlink()
+            or not path.is_file()
+            or _sha256(path) != entry.get("sha256")
+            or json.loads(path.read_text(encoding="utf-8")) != lease
+            or lease.get("generation") != generation
+            or lease.get("attempt_sha256") != run.get("attempt_sha256")
+            or lease.get("campaign_identity_sha256") != _canonical_digest(identity)
+            or lease.get("code_sha256") != _code_digest()
+            or lease.get("resume_review_sha256")
+            != (None if generation == 0 else reviews[generation - 1])
+        ):
+            raise ValueError("Campaign active-run lease provenance differs.")
+    if run.get("active_lease") != history[-1]["lease"]:
+        raise ValueError("Campaign active-run lease pointer differs.")
+
+
+def _active_process_is_live(run: dict[str, Any]) -> bool:
+    lease = run["active_lease"]
+    try:
+        return psutil.Process(lease["pid"]).create_time() == lease["process_create_time"]
+    except psutil.NoSuchProcess:
+        return False
+
+
 def _verify_attempt(
     run: dict[str, Any], slot: V2Slot, identity: dict[str, Any], root: Path
 ) -> Path:
@@ -322,6 +378,7 @@ def _verify_attempt(
         or json.loads(record.read_text(encoding="utf-8")) != attempt
     ):
         raise ValueError("Interrupted campaign attempt metadata differs.")
+    _verify_lease_history(run, staging, identity)
     return staging
 
 
@@ -336,6 +393,8 @@ def interrupted_slot_review_request(root: Path, run_id: str) -> dict[str, Any]:
     if run.get("status") not in ("RUNNING", "FAILED"):
         raise ValueError("Campaign slot is not interrupted.")
     staging = _verify_attempt(run, slot, ledger["identity"], root)
+    if run["status"] == "RUNNING" and _active_process_is_live(run):
+        raise ValueError("Interrupted campaign process is still running.")
     staging_files = _stage_files(staging)
     phases = ("supervised",) if slot.family == "direct" else ("probe", "pretrain")
     checkpoint: Path | None = None
@@ -418,16 +477,6 @@ def _validated_restart_review(
     expected = interrupted_slot_review_request(root, run_id)
     if {key: review.get(key) for key in expected} != expected:
         raise ValueError("Interrupted slot staging, checkpoint or review identity differs.")
-    ledger = json.loads((root / "ledger.json").read_text(encoding="utf-8"))
-    run = ledger["runs"][run_id]
-    if run["status"] == "RUNNING":
-        attempt = run["attempt"]
-        try:
-            process = psutil.Process(attempt["pid"])
-            if process.create_time() == attempt["process_create_time"]:
-                raise ValueError("Interrupted campaign process is still running.")
-        except psutil.NoSuchProcess:
-            pass
     return review
 
 
@@ -587,6 +636,7 @@ def _verify_ledger(
                 or run["attempt"].get("code_sha256") != _code_digest()
             ):
                 raise ValueError("Completed campaign attempt identity differs.")
+            _verify_lease_history(run, artifact_root, identity)
             for index, digest in enumerate(run.get("resume_review_sha256s", []), start=1):
                 if _sha256(artifact_root / f"resume-review-{index}.json") != digest:
                     raise ValueError("Completed campaign restart review differs.")
@@ -797,6 +847,7 @@ def execute_v2_campaign(
                 raise FileExistsError("Interrupted review copy already exists.")
             review_copy.write_bytes(restart_review_path.read_bytes())  # type: ignore[union-attr]
             reviews.append(restart_review_sha256)
+            _write_active_lease(staging, run, identity, restart_review_sha256)
             run["status"] = "RUNNING"
             _write_ledger(ledger_path, ledger)
         else:
@@ -825,6 +876,7 @@ def execute_v2_campaign(
                 attempt_sha256=_sha256(attempt_file),
                 resume_review_sha256s=[],
             )
+            _write_active_lease(staging, run, identity, None)
             _write_ledger(ledger_path, ledger)
         try:
             if resuming:
@@ -897,6 +949,8 @@ def execute_v2_campaign(
                 "attempt": run["attempt"],
                 "attempt_sha256": run["attempt_sha256"],
                 "resume_review_sha256s": run["resume_review_sha256s"],
+                "lease_history": run["lease_history"],
+                "active_lease": run["active_lease"],
             }
             completed_this_call += 1
             ledger["completed_slots"] += 1
