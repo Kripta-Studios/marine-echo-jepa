@@ -11,7 +11,7 @@ import hashlib
 import json
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Protocol, Sequence
+from typing import Any, Literal, Protocol, Sequence
 
 import joblib  # type: ignore[import-untyped]
 import numpy as np
@@ -36,6 +36,12 @@ SOURCE_SHA256 = "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecd
 PROTOCOL_SHA256 = "d83392832a1bde3ae3e096de0a664ca9cfc27762a18bb10fb5ace3a97e787435"
 FORWARD_PAIR_SHA256 = "9a3afbb17c6cc9694062b65c66b70f95df258c467814f23c75e40ecccce0b7bc"
 SEEDS = (7, 13, 23)
+CHRONOS_SNAPSHOT_SHA256 = {
+    ".gitattributes": "11ad7efa24975ee4b0c3c3a38ed18737f0658a5f75a0a96787b576a78a023361",
+    "README.md": "c7b29bc88f5bc3ebc6e7213b6353be80090d671fefa4aa74ed20498838c16558",
+    "config.json": "ef1143bfdc9c0376d9a056eefca46cb4b1ec3d0ffacd541ff56feb40fb708031",
+    "model.safetensors": "ddcda3c7508bf2528087723e98a20707cc04b7f370ae275a9fd88078ddba4f42",
+}
 
 
 @dataclass(frozen=True)
@@ -235,7 +241,9 @@ def adapt_core_neural_ensemble(
         if family == "direct":
             model: torch.nn.Module = AeonDirect(width=128, layers=3)
         else:
-            mode = "ema" if family == "ema_jepa" else "shared_sigreg"
+            mode: Literal["ema", "shared_sigreg"] = (
+                "ema" if family == "ema_jepa" else "shared_sigreg"
+            )
             weight = 0.03 if mode == "ema" else 0.04
             model = AeonTemporalSSL(mode=mode, width=128, layers=3, regularizer_weight=weight)
         model.load_state_dict(saved["model_state_dict"], strict=True)
@@ -291,9 +299,8 @@ def adapt_chronos2(
     if pipeline is None:
         if fixture_only or snapshot is None or snapshot_files_sha256 is None:
             raise ValueError("Real Chronos adaptation needs the exact reviewed local snapshot.")
-        names = {".gitattributes", "README.md", "config.json", "model.safetensors"}
-        if set(snapshot_files_sha256) != names:
-            raise ValueError("Chronos-2 snapshot file allowlist differs.")
+        if snapshot_files_sha256 != CHRONOS_SNAPSHOT_SHA256:
+            raise ValueError("Chronos-2 snapshot differs from exact revision " + MODEL_REVISION + ".")
         snapshot = snapshot.resolve(strict=True)
         if any(_sha256(snapshot / name) != digest for name, digest in snapshot_files_sha256.items()):
             raise ValueError("Chronos-2 snapshot digest differs.")

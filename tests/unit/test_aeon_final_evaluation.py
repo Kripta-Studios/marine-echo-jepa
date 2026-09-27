@@ -13,10 +13,11 @@ from marine_echo.training.aeon_final_evaluation import (
     artifact_sha256,
     execute_calibration,
     execute_retrospective_test,
+    reader_composite_sha256,
 )
 from marine_echo.evaluation.aeon import daily_pinball
-from marine_echo.training.aeon_evaluation_reader import AeonEvaluationReader
 from marine_echo.training import aeon_final_evaluation
+from marine_echo.training import aeon_windows
 from marine_echo.training.aeon_windows import AeonHourlyWindow
 
 
@@ -52,9 +53,11 @@ class _Reader:
     def __init__(self, rows: list[AeonHourlyWindow]) -> None:
         self.rows = rows
         self.opened = False
+        self.opens = 0
 
     def iter_windows(self):  # type: ignore[no-untyped-def]
         self.opened = True
+        self.opens += 1
         yield from self.rows
 
 
@@ -72,29 +75,50 @@ def _contract(tmp_path: Path, partition: str, rows: list[AeonHourlyWindow]):
     selection_sha = _write_json(selection, {
         "schema_version": "1.0", "status": "FROZEN_AEON_MODEL_SELECTION",
         "study_id": "aeon3_geb_2024_hourly_sv_v1", "test_access": "PROHIBITED",
+        "selection_rule_review_sha256": "dd3dcbdf5e93d42e021abbaf4bf310bec0b40ea52d53411802e00770840127b2",
         "corrected_validation_rescore_sha256": "32cea9f8141fbad220a3e47d9e840039ad23b4f8e893efbcfb90f52944214c46",
         "corrected_validation_outcome_review_sha256": "16bb9ef931f5e2d8f8a3322fa609c5cb1c769f99f5e4a89a5ef519a0fb52f44f",
         "validation_row_sha256": "9ce5ed6d60c4082efd3f342b3ee09ddadc5cf6286be6d6a3e953ab0f6166a99f",
         "models": [
-            {"model_id": "baseline", "role": "baseline", "checkpoint_sha256": "3" * 64,
+            {"model_id": "baseline", "role": "baseline",
+             "selection_classification": "CORE_CONVENTIONAL_SELECTION",
+             "checkpoint_sha256": "3" * 64,
              "predictor_code_sha256": "4" * 64},
-            {"model_id": "candidate", "role": "candidate", "checkpoint_sha256": "5" * 64,
+            {"model_id": "candidate", "role": "candidate",
+             "selection_classification": "POST_HOC_DEVELOPMENT_SELECTION",
+             "checkpoint_sha256": "5" * 64,
              "predictor_code_sha256": "6" * 64},
         ],
     })
     predictions = []
     for model, shift in (("baseline", 0.0), ("candidate", 0.2)):
-        artifact = tmp_path / f"{partition}-{model}.npz"
-        q = np.broadcast_to(np.array([-2., -1., 0., 1., 2.]) + shift,
-                            (len(rows), 3, 5)).copy()
-        np.savez_compressed(artifact, row_ids=np.asarray([r.row_id for r in rows]), quantiles_db=q)
-        predictions.append({"model_id": model, "artifact": artifact.name,
-                            "artifact_sha256": artifact_sha256(artifact)})
+        if partition == "calibration":
+            artifact = tmp_path / f"{partition}-{model}.npz"
+            q = np.broadcast_to(np.array([-2., -1., 0., 1., 2.]) + shift,
+                                (len(rows), 3, 5)).copy()
+            np.savez_compressed(
+                artifact, row_ids=np.asarray([r.row_id for r in rows]), quantiles_db=q
+            )
+            predictions.append({"model_id": model, "artifact": artifact.name,
+                                "artifact_sha256": artifact_sha256(artifact)})
+        else:
+            predictions.append({
+                "model_id": model, "role": "baseline" if model == "baseline" else "candidate",
+                "selection_classification": (
+                    "CORE_CONVENTIONAL_SELECTION" if model == "baseline"
+                    else "POST_HOC_DEVELOPMENT_SELECTION"
+                ),
+                "adapter": "SYNTHETIC_FIXTURE",
+                "adapter_code_sha256": "4" * 64 if model == "baseline" else "6" * 64,
+            })
     candidate = None
     candidate_sha = None
     manifest = tmp_path / f"{partition}-forecasts.json"
     manifest_sha = _write_json(manifest, {
-        "schema_version": "1.0", "status": "FROZEN_AEON_PARTITION_FORECASTS",
+        "schema_version": "1.0", "status": (
+            "FROZEN_AEON_PARTITION_FORECASTS" if partition == "calibration"
+            else "FROZEN_AEON_TEST_FORECAST_ADAPTER_PLAN"
+        ),
         "study_id": "aeon3_geb_2024_hourly_sv_v1", "partition": partition,
         "selection_freeze_sha256": selection_sha,
         "candidate_contract_sha256": candidate_sha,
@@ -127,7 +151,7 @@ def _candidate_contract(tmp_path: Path, rows: list[AeonHourlyWindow]) -> tuple[P
 
 def _pretest(
     tmp_path: Path, candidate_sha: str, selection_sha: str, calibration_sha: str,
-    config_sha: str,
+    config_sha: str, forecast_manifest_sha: str,
 ) -> tuple[Path, str]:
     path = tmp_path / "pretest-freeze.json"
     digest = _write_json(path, {
@@ -135,12 +159,13 @@ def _pretest(
         "study_id": "aeon3_geb_2024_hourly_sv_v1",
         "source_archive_sha256": "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde",
         "metadata_candidate_report_sha256": candidate_sha,
-        "metadata_candidate_review_sha256": "7" * 64,
+        "metadata_candidate_review_sha256": "9d9c6ca4580d6a4ead4117a00a1a872710bf6e323eb17d491837e24c1011bebe",
         "selection_freeze_sha256": selection_sha,
         "calibration_artifact_sha256": calibration_sha, "config_sha256": config_sha,
+        "forecast_manifest_sha256": forecast_manifest_sha,
         "runner_code_sha256": artifact_sha256(Path(aeon_final_evaluation.__file__)),
         "evaluation_code_sha256": artifact_sha256(Path(daily_pinball.__code__.co_filename)),
-        "reader_code_sha256": artifact_sha256(Path(AeonEvaluationReader.__init__.__code__.co_filename)),
+        "reader_composite_sha256": reader_composite_sha256(),
         "issued_row_rule": "EXACT_24_PRIOR_INTERVAL_IDS_OBSERVED_38KHZ",
         "primary_metric": "RAW_FIVE_QUANTILE_ELIGIBLE_TARGET_DATE_PINBALL",
         "bootstrap": {"block_hours": 48, "draws": 2000, "seed": 20260926},
@@ -155,6 +180,11 @@ def _bind_candidate(manifest: Path, candidate_sha: str) -> str:
     return _write_json(manifest, value)
 
 
+def _fixture_forecaster(rows: list[AeonHourlyWindow]) -> dict[str, np.ndarray]:
+    base = np.broadcast_to(np.array([-2., -1., 0., 1., 2.]), (len(rows), 3, 5)).copy()
+    return {"baseline": base, "candidate": base * 0.5}
+
+
 def _review(tmp_path: Path, partition: str, bindings: dict[str, str]) -> tuple[Path, str]:
     path = tmp_path / f"{partition}-review.json"
     digest = _write_json(path, {
@@ -163,7 +193,7 @@ def _review(tmp_path: Path, partition: str, bindings: dict[str, str]) -> tuple[P
         "data_kind": "SYNTHETIC_FIXTURE", "partition": partition,
         "runner_code_sha256": artifact_sha256(Path(aeon_final_evaluation.__file__)),
         "evaluation_code_sha256": artifact_sha256(Path(daily_pinball.__code__.co_filename)),
-        "reader_code_sha256": artifact_sha256(Path(AeonEvaluationReader.__init__.__code__.co_filename)),
+        "reader_composite_sha256": reader_composite_sha256(),
         **bindings,
     })
     return path, digest
@@ -179,9 +209,10 @@ def test_calibration_is_hash_gated_and_requires_twelve_eligible_dates(tmp_path: 
         "selection_freeze_sha256": selection_sha,
         "forecast_manifest_sha256": manifest_sha,
         "config_sha256": artifact_sha256(config),
+        "reader_review_sha256": "8" * 64,
     })
     result = execute_calibration(
-        archive=tmp_path, reader_review_path=review, reader_review_sha256=review_sha,
+        archive=tmp_path, reader_review_path=review, reader_review_sha256="8" * 64,
         runner_review_path=review, runner_review_sha256=review_sha, config_path=config,
         selection_freeze_path=selection, forecast_manifest_path=manifest,
         output=tmp_path / "calibration-output", fixture_reader=reader,
@@ -201,10 +232,11 @@ def test_gate_failure_happens_before_any_partition_rows_are_read(tmp_path: Path)
         "selection_freeze_sha256": selection_sha,
         "forecast_manifest_sha256": manifest_sha,
         "config_sha256": "0" * 64,
+        "reader_review_sha256": "8" * 64,
     })
     with pytest.raises(ValueError, match="review bindings"):
         execute_calibration(
-            archive=tmp_path, reader_review_path=review, reader_review_sha256=review_sha,
+            archive=tmp_path, reader_review_path=review, reader_review_sha256="8" * 64,
             runner_review_path=review, runner_review_sha256=review_sha, config_path=config,
             selection_freeze_path=selection, forecast_manifest_path=manifest,
             output=tmp_path / "never", fixture_reader=reader,
@@ -222,18 +254,29 @@ def test_code_hash_mutation_is_rejected_before_partition_read(tmp_path: Path) ->
         "selection_freeze_sha256": selection_sha,
         "forecast_manifest_sha256": manifest_sha,
         "config_sha256": artifact_sha256(config),
+        "reader_review_sha256": "8" * 64,
     })
     doc = json.loads(review.read_text())
     doc["runner_code_sha256"] = "0" * 64
     review_sha = _write_json(review, doc)
     with pytest.raises(ValueError, match="review bindings"):
         execute_calibration(
-            archive=tmp_path, reader_review_path=review, reader_review_sha256=review_sha,
+            archive=tmp_path, reader_review_path=review, reader_review_sha256="8" * 64,
             runner_review_path=review, runner_review_sha256=review_sha, config_path=config,
             selection_freeze_path=selection, forecast_manifest_path=manifest,
             output=tmp_path / "never", fixture_reader=reader,
         )
     assert not reader.opened
+
+
+def test_reader_dependency_mutation_changes_composite_gate(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    original = reader_composite_sha256()
+    mutated = tmp_path / "aeon_windows.py"
+    mutated.write_bytes(Path(aeon_windows.__file__).read_bytes() + b"\n# mutation\n")
+    monkeypatch.setattr(aeon_windows, "__file__", str(mutated))
+    assert reader_composite_sha256() != original
 
 
 def test_forecasts_must_match_exact_issued_row_order(tmp_path: Path) -> None:
@@ -250,10 +293,11 @@ def test_forecasts_must_match_exact_issued_row_order(tmp_path: Path) -> None:
     review, review_sha = _review(tmp_path, "calibration", {
         "selection_freeze_sha256": selection_sha, "forecast_manifest_sha256": manifest_sha,
         "config_sha256": artifact_sha256(config),
+        "reader_review_sha256": "8" * 64,
     })
     with pytest.raises(ValueError, match="row order"):
         execute_calibration(
-            archive=tmp_path, reader_review_path=review, reader_review_sha256=review_sha,
+            archive=tmp_path, reader_review_path=review, reader_review_sha256="8" * 64,
             runner_review_path=review, runner_review_sha256=review_sha, config_path=config,
             selection_freeze_path=selection, forecast_manifest_path=manifest,
             output=tmp_path / "never", fixture_reader=_Reader(rows),
@@ -275,24 +319,37 @@ def test_test_scoring_requires_candidate_and_calibration_hashes(tmp_path: Path) 
     candidate, candidate_sha = _candidate_contract(tmp_path, rows)
     manifest_sha = _bind_candidate(manifest, candidate_sha)
     pretest, pretest_sha = _pretest(
-        tmp_path, candidate_sha, selection_sha, calibration_sha, artifact_sha256(config)
+        tmp_path, candidate_sha, selection_sha, calibration_sha, artifact_sha256(config),
+        manifest_sha,
     )
     review, review_sha = _review(tmp_path, "test", {
         "selection_freeze_sha256": selection_sha, "forecast_manifest_sha256": manifest_sha,
         "config_sha256": artifact_sha256(config), "pretest_freeze_sha256": pretest_sha,
         "calibration_artifact_sha256": calibration_sha,
+        "reader_review_sha256": "8" * 64,
     })
     result = execute_retrospective_test(
-        archive=tmp_path, reader_review_path=review, reader_review_sha256=review_sha,
+        archive=tmp_path, reader_review_path=review, reader_review_sha256="8" * 64,
         runner_review_path=review, runner_review_sha256=review_sha, config_path=config,
         selection_freeze_path=selection, candidate_contract_path=candidate,
         calibration_artifact_path=calibration, pretest_freeze_path=pretest,
         forecast_manifest_path=manifest,
-        output=tmp_path / "test-output", fixture_reader=_Reader(rows),
+        output=tmp_path / "test-output", fixture_reader=(reader := _Reader(rows)),
+        fixture_forecaster=_fixture_forecaster,
     )
     assert result["status"] == "COMPLETED_AEON_RETROSPECTIVE_TEST_SCORING"
     assert result["classification"] == "RETROSPECTIVE_EVALUATION_NOT_SEALED"
     assert len(result["comparisons"]["candidate"]["bootstrap_candidate_minus_baseline_db"]) == 2000
+    assert reader.opens == 1
+    assert result["models"]["baseline"]["selection_classification"] == "CORE_CONVENTIONAL_SELECTION"
+    assert result["models"]["candidate"]["selection_classification"] == "POST_HOC_DEVELOPMENT_SELECTION"
+    comparison = result["comparisons"]["candidate"]
+    assert comparison["passes_prespecified_five_percent_point_improvement"] is True
+    assert comparison["passes_paired_95_percent_interval_strictly_favoring_candidate"] is True
+    assert comparison["passes_per_horizon_ten_percent_regression_guard"] is True
+    assert comparison["passes_full_incremental_loss_gate"] is True
+    with np.load(tmp_path / "test-output" / "baseline-forecast.npz", allow_pickle=False) as saved:
+        assert set(saved.files) == {"row_ids", "quantiles_db"}
 
 
 def test_test_candidate_contract_rejects_unfrozen_issued_row(tmp_path: Path) -> None:
@@ -314,19 +371,22 @@ def test_test_candidate_contract_rejects_unfrozen_issued_row(tmp_path: Path) -> 
     candidate_sha = _write_json(candidate, doc)
     manifest_sha = _bind_candidate(manifest, candidate_sha)
     pretest, pretest_sha = _pretest(
-        tmp_path, candidate_sha, selection_sha, calibration_sha, artifact_sha256(config)
+        tmp_path, candidate_sha, selection_sha, calibration_sha, artifact_sha256(config),
+        manifest_sha,
     )
     review, review_sha = _review(tmp_path, "test", {
         "selection_freeze_sha256": selection_sha, "forecast_manifest_sha256": manifest_sha,
         "config_sha256": artifact_sha256(config), "pretest_freeze_sha256": pretest_sha,
         "calibration_artifact_sha256": calibration_sha,
+        "reader_review_sha256": "8" * 64,
     })
     with pytest.raises(ValueError, match="candidate universe"):
         execute_retrospective_test(
-            archive=tmp_path, reader_review_path=review, reader_review_sha256=review_sha,
+            archive=tmp_path, reader_review_path=review, reader_review_sha256="8" * 64,
             runner_review_path=review, runner_review_sha256=review_sha, config_path=config,
             selection_freeze_path=selection, candidate_contract_path=candidate,
             calibration_artifact_path=calibration, pretest_freeze_path=pretest,
             forecast_manifest_path=manifest,
             output=tmp_path / "never", fixture_reader=_Reader(rows),
+            fixture_forecaster=_fixture_forecaster,
         )

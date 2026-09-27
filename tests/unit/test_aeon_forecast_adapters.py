@@ -9,6 +9,7 @@ from pathlib import Path
 import joblib  # type: ignore[import-untyped]
 import numpy as np
 import torch
+import pytest
 
 from marine_echo.models.aeon_forward_ssl import AeonForwardSSL
 from marine_echo.models.aeon_ssl import AeonDirect, AeonTemporalSSL
@@ -90,6 +91,10 @@ def test_conventional_and_lightgbm_reload_without_targets(tmp_path: Path) -> Non
     prediction = adapt_lightgbm(rows, _artifact(lightgbm), recipe_sha256="b" * 64)
     assert prediction.shape == (3, 3, 5)
     assert prediction[0, 2].tolist() == [20, 21, 22, 23, 24]
+    with pytest.raises(ValueError, match="digest differs"):
+        adapt_lightgbm(
+            rows, FrozenArtifact(lightgbm, "0" * 64), recipe_sha256="b" * 64
+        )
 
 
 def _core_checkpoint(path: Path, family: str, seed: int, median: float) -> FrozenArtifact:

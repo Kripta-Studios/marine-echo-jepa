@@ -11,9 +11,10 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import tempfile
 from pathlib import Path
-from typing import Any, Protocol
+from typing import Any, Protocol, cast
 
 import numpy as np
 
@@ -24,6 +25,7 @@ from marine_echo.evaluation.aeon import (
     paired_48h_bootstrap,
 )
 from marine_echo.training.aeon_evaluation_reader import AeonEvaluationReader
+from marine_echo.training import aeon_corpus, aeon_evaluation_reader, aeon_windows
 from marine_echo.training.aeon_windows import AeonHourlyWindow
 
 
@@ -32,11 +34,18 @@ _SOURCE_SHA256 = "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ec
 _VALIDATION_ROW_SHA256 = "9ce5ed6d60c4082efd3f342b3ee09ddadc5cf6286be6d6a3e953ab0f6166a99f"
 _CORRECTED_RESCORE_SHA256 = "32cea9f8141fbad220a3e47d9e840039ad23b4f8e893efbcfb90f52944214c46"
 _RESCORE_OUTCOME_REVIEW_SHA256 = "16bb9ef931f5e2d8f8a3322fa609c5cb1c769f99f5e4a89a5ef519a0fb52f44f"
+_METADATA_OUTCOME_REVIEW_SHA256 = "9d9c6ca4580d6a4ead4117a00a1a872710bf6e323eb17d491837e24c1011bebe"
+_SELECTION_RULE_REVIEW_SHA256 = "dd3dcbdf5e93d42e021abbaf4bf310bec0b40ea52d53411802e00770840127b2"
 _HEX = set("0123456789abcdef")
+_MODEL_ID = re.compile(r"[A-Za-z0-9][A-Za-z0-9_.-]{0,79}")
 
 
 class _WindowReader(Protocol):
     def iter_windows(self) -> Any: ...
+
+
+class _FixtureForecaster(Protocol):
+    def __call__(self, rows: list[AeonHourlyWindow]) -> dict[str, np.ndarray]: ...
 
 
 def artifact_sha256(path: Path) -> str:
@@ -45,6 +54,19 @@ def artifact_sha256(path: Path) -> str:
     with path.open("rb") as stream:
         for block in iter(lambda: stream.read(1024 * 1024), b""):
             digest.update(block)
+    return digest.hexdigest()
+
+
+def reader_composite_sha256() -> str:
+    """Bind the reader plus the corpus parser and window/issuance implementation."""
+    digest = hashlib.sha256()
+    for module in (aeon_evaluation_reader, aeon_corpus, aeon_windows):
+        module_file = module.__file__
+        if module_file is None:
+            raise RuntimeError("AEON reader dependency lacks a filesystem source path.")
+        path = Path(module_file).resolve(strict=True)
+        digest.update(path.name.encode("ascii"))
+        digest.update(path.read_bytes())
     return digest.hexdigest()
 
 
@@ -87,6 +109,7 @@ def _selection(path: Path) -> tuple[dict[str, Any], str]:
     if (
         set(value) != {
             "schema_version", "status", "study_id", "test_access",
+            "selection_rule_review_sha256",
             "corrected_validation_rescore_sha256",
             "corrected_validation_outcome_review_sha256", "validation_row_sha256", "models",
         }
@@ -95,6 +118,7 @@ def _selection(path: Path) -> tuple[dict[str, Any], str]:
         or value.get("status") != "FROZEN_AEON_MODEL_SELECTION"
         or value.get("study_id") != _STUDY
         or value.get("test_access") != "PROHIBITED"
+        or value.get("selection_rule_review_sha256") != _SELECTION_RULE_REVIEW_SHA256
         or value.get("validation_row_sha256") != _VALIDATION_ROW_SHA256
         or value.get("corrected_validation_rescore_sha256") != _CORRECTED_RESCORE_SHA256
         or value.get("corrected_validation_outcome_review_sha256") != _RESCORE_OUTCOME_REVIEW_SHA256
@@ -107,11 +131,19 @@ def _selection(path: Path) -> tuple[dict[str, Any], str]:
     for model in models:
         if (
             not isinstance(model, dict)
-            or set(model) != {"model_id", "role", "checkpoint_sha256", "predictor_code_sha256"}
+            or set(model) != {
+                "model_id", "role", "selection_classification",
+                "checkpoint_sha256", "predictor_code_sha256",
+            }
             or not isinstance(model.get("model_id"), str)
             or not model["model_id"]
+            or _MODEL_ID.fullmatch(model["model_id"]) is None
             or model["model_id"] in ids
             or model.get("role") not in ("baseline", "candidate")
+            or model.get("selection_classification") not in (
+                "CORE_CONVENTIONAL_SELECTION", "CORE_JEPA_SELECTION",
+                "POST_HOC_DEVELOPMENT_SELECTION",
+            )
             or not _digest(model.get("checkpoint_sha256"))
             or not _digest(model.get("predictor_code_sha256"))
         ):
@@ -120,6 +152,10 @@ def _selection(path: Path) -> tuple[dict[str, Any], str]:
         roles.append(model["role"])
     if roles.count("baseline") != 1 or "candidate" not in roles:
         raise ValueError("AEON selection needs one baseline and at least one candidate.")
+    if not any(
+        model["selection_classification"].startswith("CORE_") for model in models
+    ):
+        raise ValueError("AEON selection freeze loses the ADR 0010 core comparison category.")
     return value, digest
 
 
@@ -167,6 +203,140 @@ def _forecast_manifest(
     return result, digest
 
 
+def _test_forecast_plan(
+    path: Path, selection: dict[str, Any], selection_sha256: str, candidate_sha256: str,
+) -> tuple[list[dict[str, Any]], str]:
+    """Validate the pre-access adapter plan; it contains no issued-row forecasts."""
+    value, digest = _json(path)
+    entries = value.get("models")
+    if not isinstance(entries, list) or not all(isinstance(entry, dict) for entry in entries):
+        raise ValueError("AEON TEST forecast adapter plan model list is malformed.")
+    typed_entries = cast(list[dict[str, Any]], entries)
+    expected = [
+        (
+            model["model_id"], model["role"], model["selection_classification"],
+            model["predictor_code_sha256"],
+        )
+        for model in selection["models"]
+    ]
+    actual = [
+        (
+            entry.get("model_id"), entry.get("role"), entry.get("selection_classification"),
+            entry.get("adapter_code_sha256"),
+        )
+        for entry in typed_entries
+    ]
+    allowed = {
+        "conventional", "core_neural_ensemble", "lightgbm",
+        "forward_ema_ensemble", "chronos2", "SYNTHETIC_FIXTURE",
+    }
+    if (
+        value.get("schema_version") != "1.0"
+        or value.get("status") != "FROZEN_AEON_TEST_FORECAST_ADAPTER_PLAN"
+        or value.get("study_id") != _STUDY
+        or value.get("partition") != "test"
+        or value.get("selection_freeze_sha256") != selection_sha256
+        or value.get("candidate_contract_sha256") != candidate_sha256
+        or actual != expected
+        or any(entry.get("adapter") not in allowed for entry in typed_entries)
+    ):
+        raise ValueError("AEON TEST forecast adapter plan differs from the frozen selection.")
+    return typed_entries, digest
+
+
+def _plan_artifact(directory: Path, value: dict[str, Any]) -> Any:
+    from marine_echo.training.aeon_forecast_adapters import FrozenArtifact
+
+    if set(value) != {"path", "sha256"}:
+        raise ValueError("AEON adapter-plan artifact reference is malformed.")
+    path = Path(value["path"])
+    if path.is_absolute() or ".." in path.parts:
+        raise ValueError("AEON adapter-plan artifact escapes its directory.")
+    return FrozenArtifact((directory / path).resolve(strict=True), value["sha256"])
+
+
+def _execute_forecast_plan(
+    entries: list[dict[str, Any]], rows: list[AeonHourlyWindow], directory: Path,
+    *, fixture: bool, fixture_forecaster: _FixtureForecaster | None,
+) -> dict[str, np.ndarray]:
+    if fixture_forecaster is not None:
+        if not fixture or any(entry.get("adapter") != "SYNTHETIC_FIXTURE" for entry in entries):
+            raise ValueError("Injected AEON forecasting is permitted for synthetic fixtures only.")
+        result = fixture_forecaster(rows)
+    else:
+        if fixture:
+            raise ValueError("Synthetic AEON TEST execution requires its fixture forecaster.")
+        from marine_echo.training.aeon_forecast_adapters import (
+            adapt_chronos2, adapt_conventional, adapt_core_neural_ensemble,
+            adapt_forward_ensemble, adapt_lightgbm,
+        )
+        from marine_echo.training import aeon_forecast_adapters
+
+        adapter_sha256 = artifact_sha256(Path(aeon_forecast_adapters.__file__))
+
+        result = {}
+        for entry in entries:
+            if entry.get("adapter_code_sha256") != adapter_sha256:
+                raise ValueError("AEON frozen adapter code digest differs at execution.")
+            adapter = entry["adapter"]
+            options = entry.get("options")
+            components = entry.get("component_artifacts")
+            if not isinstance(options, dict) or not isinstance(components, list):
+                raise ValueError("AEON adapter plan lacks options or component artifacts.")
+            artifacts = [_plan_artifact(directory, item) for item in components]
+            family = options.get("family")
+            recipe_sha256 = options.get("recipe_sha256")
+            config_sha256 = options.get("config_sha256")
+            if adapter == "conventional" and len(artifacts) == 1:
+                if not isinstance(family, str):
+                    raise ValueError("AEON conventional adapter family is malformed.")
+                prediction = adapt_conventional(
+                    rows, artifacts[0], family=family
+                )
+            elif adapter == "core_neural_ensemble":
+                if not isinstance(family, str):
+                    raise ValueError("AEON core-neural adapter family is malformed.")
+                prediction = adapt_core_neural_ensemble(
+                    rows, artifacts, family=family, device=options.get("device", "cpu")
+                )
+            elif adapter == "lightgbm" and len(artifacts) == 1:
+                if not isinstance(recipe_sha256, str):
+                    raise ValueError("AEON LightGBM recipe digest is malformed.")
+                prediction = adapt_lightgbm(
+                    rows, artifacts[0], recipe_sha256=recipe_sha256
+                )
+            elif adapter == "forward_ema_ensemble":
+                if not isinstance(config_sha256, str):
+                    raise ValueError("AEON forward config digest is malformed.")
+                prediction = adapt_forward_ensemble(
+                    rows, artifacts, config_sha256=config_sha256,
+                    device=options.get("device", "cpu"),
+                )
+            elif adapter == "chronos2" and not artifacts:
+                snapshot = Path(options.get("snapshot", ""))
+                if snapshot.is_absolute() or ".." in snapshot.parts:
+                    raise ValueError("Chronos snapshot escapes the adapter-plan directory.")
+                prediction = adapt_chronos2(
+                    rows, snapshot=(directory / snapshot),
+                    snapshot_files_sha256=options.get("snapshot_files_sha256"),
+                    device=options.get("device", "cuda"),
+                )
+            else:
+                raise ValueError(f"Unsupported or malformed AEON adapter plan: {adapter}.")
+            result[entry["model_id"]] = prediction
+    expected_ids = [entry["model_id"] for entry in entries]
+    if list(result) != expected_ids:
+        raise ValueError("AEON forecast adapter output model order differs from the frozen plan.")
+    for prediction in result.values():
+        if (
+            prediction.shape != (len(rows), 3, 5)
+            or not np.isfinite(prediction).all()
+            or (np.diff(prediction, axis=-1) < 0).any()
+        ):
+            raise ValueError("AEON forecast adapter returned invalid quantiles.")
+    return result
+
+
 def _review(
     path: Path,
     expected_sha256: str,
@@ -184,7 +354,7 @@ def _review(
     code_bindings = {
         "runner_code_sha256": artifact_sha256(Path(__file__)),
         "evaluation_code_sha256": artifact_sha256(Path(daily_pinball.__code__.co_filename)),
-        "reader_code_sha256": artifact_sha256(Path(AeonEvaluationReader.__init__.__code__.co_filename)),
+        "reader_composite_sha256": reader_composite_sha256(),
     }
     if (
         value.get("status") != expected_status
@@ -302,6 +472,7 @@ def execute_calibration(
         "selection_freeze_sha256": selection_sha,
         "forecast_manifest_sha256": manifest_sha,
         "config_sha256": config_sha,
+        "reader_review_sha256": reader_review_sha256,
     })
     reader = _reader(
         archive=archive, review_path=reader_review_path, review_sha256=reader_review_sha256,
@@ -320,7 +491,8 @@ def execute_calibration(
         "runner_review_sha256": runner_review_sha256,
         "runner_code_sha256": artifact_sha256(Path(__file__)),
         "evaluation_code_sha256": artifact_sha256(Path(daily_pinball.__code__.co_filename)),
-        "reader_code_sha256": artifact_sha256(Path(AeonEvaluationReader.__init__.__code__.co_filename)),
+        "reader_composite_sha256": reader_composite_sha256(),
+        "reader_review_sha256": reader_review_sha256,
         "issued_row_ids": [row.row_id for row in rows],
         "models": {},
     }
@@ -375,7 +547,7 @@ def _candidate(path: Path) -> tuple[dict[str, Any], str]:
 
 def _pretest_freeze(
     path: Path, *, candidate_sha: str, selection_sha: str, calibration_sha: str,
-    config_sha: str,
+    config_sha: str, forecast_manifest_sha: str,
 ) -> tuple[dict[str, Any], str]:
     value, digest = _json(path)
     expected = {
@@ -384,21 +556,66 @@ def _pretest_freeze(
         "study_id": _STUDY,
         "source_archive_sha256": _SOURCE_SHA256,
         "metadata_candidate_report_sha256": candidate_sha,
-        "metadata_candidate_review_sha256": value.get("metadata_candidate_review_sha256"),
+        "metadata_candidate_review_sha256": _METADATA_OUTCOME_REVIEW_SHA256,
         "selection_freeze_sha256": selection_sha,
         "calibration_artifact_sha256": calibration_sha,
         "config_sha256": config_sha,
+        "forecast_manifest_sha256": forecast_manifest_sha,
         "runner_code_sha256": artifact_sha256(Path(__file__)),
         "evaluation_code_sha256": artifact_sha256(Path(daily_pinball.__code__.co_filename)),
-        "reader_code_sha256": artifact_sha256(Path(AeonEvaluationReader.__init__.__code__.co_filename)),
+        "reader_composite_sha256": reader_composite_sha256(),
         "issued_row_rule": "EXACT_24_PRIOR_INTERVAL_IDS_OBSERVED_38KHZ",
         "primary_metric": "RAW_FIVE_QUANTILE_ELIGIBLE_TARGET_DATE_PINBALL",
         "bootstrap": {"block_hours": 48, "draws": 2000, "seed": 20260926},
         "test_access": "PROHIBITED_PENDING_INDEPENDENT_APPROVAL",
     }
-    if value != expected or not _digest(value.get("metadata_candidate_review_sha256")):
+    if value != expected:
         raise ValueError("AEON pretest freeze differs from the one-way reviewed dependency graph.")
     return value, digest
+
+
+def _write_test_bundle(
+    output: Path, rows: list[AeonHourlyWindow], forecasts: dict[str, np.ndarray],
+    result: dict[str, Any],
+) -> dict[str, Any]:
+    """Atomically preserve truth-free forecasts and the retrospective score."""
+    output = output.resolve()
+    if output.exists():
+        raise FileExistsError("AEON retrospective TEST output already exists.")
+    output.parent.mkdir(parents=True, exist_ok=True)
+    stage = Path(tempfile.mkdtemp(prefix=output.name + ".stage.", dir=output.parent))
+    try:
+        materialized = []
+        expected_ids = np.asarray([row.row_id for row in rows])
+        for model_id, prediction in forecasts.items():
+            path = stage / f"{model_id}-forecast.npz"
+            with path.open("xb") as stream:
+                np.savez_compressed(stream, row_ids=expected_ids, quantiles_db=prediction)
+            digest = artifact_sha256(path)
+            result["models"][model_id]["forecast_artifact_sha256"] = digest
+            materialized.append({
+                "model_id": model_id, "artifact": path.name, "artifact_sha256": digest,
+            })
+        manifest = {
+            "status": "MATERIALIZED_AEON_TEST_FORECASTS_AFTER_SINGLE_REVIEWED_READ",
+            "forecast_plan_sha256": result["forecast_manifest_sha256"],
+            "reader_review_sha256": result["reader_review_sha256"],
+            "models": materialized,
+        }
+        (stage / "materialized-forecast-manifest.json").write_text(
+            json.dumps(manifest, indent=2, allow_nan=False) + "\n", encoding="utf-8"
+        )
+        (stage / "test-score.json").write_text(
+            json.dumps(result, indent=2, allow_nan=False) + "\n", encoding="utf-8"
+        )
+        os.replace(stage, output)
+    except BaseException:
+        if stage.exists():
+            for child in stage.iterdir():
+                child.unlink()
+            stage.rmdir()
+        raise
+    return result
 
 
 def execute_retrospective_test(
@@ -408,8 +625,9 @@ def execute_retrospective_test(
     calibration_artifact_path: Path, pretest_freeze_path: Path,
     forecast_manifest_path: Path, output: Path,
     fixture_reader: _WindowReader | None = None,
+    fixture_forecaster: _FixtureForecaster | None = None,
 ) -> dict[str, Any]:
-    """Score frozen raw forecasts once after the exact TEST access approval."""
+    """Open TEST once, forecast issued rows in-process, then score those same rows."""
     config, config_sha = _config(config_path)
     selection, selection_sha = _selection(selection_freeze_path)
     calibration, calibration_sha = _json(calibration_artifact_path)
@@ -421,18 +639,21 @@ def execute_retrospective_test(
     ):
         raise ValueError("AEON calibration artifact differs from the frozen selection.")
     candidate, candidate_sha = _candidate(candidate_contract_path)
+    forecast_plan, manifest_sha = _test_forecast_plan(
+        forecast_manifest_path, selection, selection_sha, candidate_sha
+    )
     _, pretest_sha = _pretest_freeze(
         pretest_freeze_path, candidate_sha=candidate_sha, selection_sha=selection_sha,
         calibration_sha=calibration_sha, config_sha=config_sha,
-    )
-    forecasts, manifest_sha = _forecast_manifest(
-        forecast_manifest_path, "test", selection, selection_sha, candidate_sha
+        forecast_manifest_sha=manifest_sha,
     )
     _, fixture = _review(runner_review_path, runner_review_sha256, "test", {
         "selection_freeze_sha256": selection_sha,
         "config_sha256": config_sha,
         "calibration_artifact_sha256": calibration_sha,
         "pretest_freeze_sha256": pretest_sha,
+        "forecast_manifest_sha256": manifest_sha,
+        "reader_review_sha256": reader_review_sha256,
     })
     reader = _reader(
         archive=archive, review_path=reader_review_path, review_sha256=reader_review_sha256,
@@ -447,12 +668,17 @@ def execute_retrospective_test(
     issued = {(row.cutoff_interval_id, str(row.cutoff_source_timestamp)) for row in rows}
     if not issued <= frozen:
         raise ValueError("AEON issued row falls outside the metadata-only candidate universe.")
+    generated = _execute_forecast_plan(
+        forecast_plan, rows, forecast_manifest_path.parent,
+        fixture=fixture, fixture_forecaster=fixture_forecaster,
+    )
     truth, observed, times = _targets(rows)
     model_results: dict[str, Any] = {}
     raw: dict[str, np.ndarray] = {}
     baseline_id = next(model["model_id"] for model in selection["models"] if model["role"] == "baseline")
-    for model_id, _, artifact in forecasts:
-        prediction = _forecast(artifact, rows)
+    for model in selection["models"]:
+        model_id = model["model_id"]
+        prediction = generated[model_id]
         model_calibration = calibration["models"].get(model_id)
         if not isinstance(model_calibration, dict):
             raise ValueError("AEON calibration is missing a frozen selected model.")
@@ -462,7 +688,7 @@ def execute_retrospective_test(
         _require_eligible_floor(raw_metrics, 20, "TEST")
         raw[model_id] = prediction
         model_results[model_id] = {
-            "forecast_artifact_sha256": artifact_sha256(artifact),
+            "selection_classification": model["selection_classification"],
             "raw_metrics": raw_metrics,
             "widened_interval_metrics": daily_pinball(truth, widened, observed, times),
         }
@@ -503,18 +729,24 @@ def execute_retrospective_test(
                     for base_row, candidate_row in zip(base_rows, candidate_rows, strict=True)
                 ],
             })
+        bounds = np.asarray(np.quantile(boot, [0.025, 0.975]), dtype=np.float64).reshape(2)
+        interval = [float(bounds[0]), float(bounds[1])]
+        point_pass = candidate_primary <= 0.95 * base_primary
+        horizon_pass = bool(np.all(candidate_h <= 1.10 * base_h))
+        interval_pass = interval[1] < 0.0
         comparisons[model_id] = {
             "baseline_model_id": baseline_id,
+            "selection_classification": model["selection_classification"],
             "primary_relative_loss_change": (
                 candidate_primary / base_primary - 1.0 if base_primary > 0 else None
             ),
-            "passes_prespecified_five_percent_improvement_gate": candidate_primary <= 0.95 * base_primary,
+            "passes_prespecified_five_percent_point_improvement": point_pass,
             "relative_loss_change_per_horizon": relative_horizon,
-            "passes_per_horizon_ten_percent_regression_guard": bool(
-                np.all(candidate_h <= 1.10 * base_h)
-            ),
+            "passes_per_horizon_ten_percent_regression_guard": horizon_pass,
+            "passes_paired_95_percent_interval_strictly_favoring_candidate": interval_pass,
+            "passes_full_incremental_loss_gate": point_pass and horizon_pass and interval_pass,
             "daily_paired_differences": daily_differences,
-            "paired_95_percent_interval_db": np.quantile(boot, [0.025, 0.975]).tolist(),
+            "paired_95_percent_interval_db": interval,
             "bootstrap_candidate_minus_baseline_db": boot.tolist(),
         }
     result: dict[str, Any] = {
@@ -531,7 +763,8 @@ def execute_retrospective_test(
         "runner_review_sha256": runner_review_sha256,
         "runner_code_sha256": artifact_sha256(Path(__file__)),
         "evaluation_code_sha256": artifact_sha256(Path(daily_pinball.__code__.co_filename)),
-        "reader_code_sha256": artifact_sha256(Path(AeonEvaluationReader.__init__.__code__.co_filename)),
+        "reader_composite_sha256": reader_composite_sha256(),
+        "reader_review_sha256": reader_review_sha256,
         "issued_row_ids": [row.row_id for row in rows],
         "scored_target_interval_ids_by_row": [
             [int(value) if row.target_mask[index] else None
@@ -546,7 +779,7 @@ def execute_retrospective_test(
         "models": model_results,
         "comparisons": comparisons,
     }
-    return _write_once(output, "test-score.json", result)
+    return _write_test_bundle(output, rows, raw, result)
 
 
 def main() -> None:
