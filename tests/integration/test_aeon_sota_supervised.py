@@ -7,7 +7,14 @@ from types import SimpleNamespace
 import numpy as np
 import pytest
 
-from marine_echo.training.aeon_sota_supervised import _features, _fit_quantiles, _recipe_gate
+from marine_echo.evaluation.aeon import daily_pinball
+from marine_echo.training.aeon_development import _sha256
+from marine_echo.training.aeon_sota_supervised import (
+    _features,
+    _fit_quantiles,
+    _recipe_gate,
+    _verified_b3_score,
+)
 
 
 def _row(past: np.ndarray, observed: np.ndarray) -> SimpleNamespace:
@@ -58,3 +65,25 @@ def test_recipe_gate_rejects_extra_validation_choice() -> None:
     recipe["tree"]["n_estimators"] = [128, 256]
     with pytest.raises(ValueError, match="fixed post-hoc"):
         _recipe_gate(recipe)
+
+
+def test_b3_comparison_recomputes_score_and_binds_evaluator() -> None:
+    from pathlib import Path
+
+    truth = np.zeros((24, 3))
+    forecast = np.zeros((24, 3, 5))
+    observed = np.ones((24, 3), dtype=bool)
+    hours = np.datetime64("2024-10-09T00:00") + np.arange(24).astype("timedelta64[h]")
+    times = np.repeat(hours[:, None], 3, axis=1)
+    expected = daily_pinball(truth, forecast, observed, times)
+    rescore = {
+        "evaluation_code_sha256": _sha256(Path(daily_pinball.__code__.co_filename)),
+        "slots": {"hist_gradient_boosting": {"protocol_validation_metrics": expected}},
+    }
+    assert _verified_b3_score(truth, forecast, observed, times, rescore) == expected
+    rescore["evaluation_code_sha256"] = "0" * 64
+    with pytest.raises(ValueError, match="evaluator"):
+        _verified_b3_score(truth, forecast, observed, times, rescore)
+    rescore["evaluation_code_sha256"] = _sha256(Path(daily_pinball.__code__.co_filename))
+    with pytest.raises(ValueError, match="B3 score"):
+        _verified_b3_score(truth, forecast + 1, observed, times, rescore)

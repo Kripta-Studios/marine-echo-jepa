@@ -127,6 +127,22 @@ def _fit_quantiles(
     return predictions, models
 
 
+def _verified_b3_score(
+    truth: np.ndarray,
+    forecast: np.ndarray,
+    observed: np.ndarray,
+    source_times: np.ndarray,
+    rescore: dict[str, Any],
+) -> dict[str, Any]:
+    """Recompute the immutable raw-only reference with the unchanged evaluator."""
+    if rescore.get("evaluation_code_sha256") != _sha256(Path(daily_pinball.__code__.co_filename)):
+        raise ValueError("AEON supervised evaluator differs from the reviewed rescore.")
+    score = daily_pinball(truth, forecast, observed, source_times)
+    if score != rescore["slots"]["hist_gradient_boosting"]["protocol_validation_metrics"]:
+        raise ValueError("AEON supervised B3 score differs from the reviewed rescore.")
+    return score
+
+
 def run_supervised(
     archive: Path,
     split_review: Path,
@@ -209,6 +225,10 @@ def run_supervised(
         != rescore["eligible_source_date_sha256_by_horizon"]
     ):
         raise ValueError("AEON supervised comparison rows differ from reviewed B3.")
+    truth = np.stack([row.target_db for row in assess])
+    target_mask = np.stack([row.target_mask for row in assess])
+    target_times = np.stack([row.target_source_timestamps for row in assess])
+    _verified_b3_score(truth, raw_forecast, target_mask, target_times, rescore)
     start = time.perf_counter()
     process = psutil.Process()
     x_train, x_assess = _features(fit), _features(assess)
@@ -227,18 +247,16 @@ def run_supervised(
     saved_rows, saved_forecast = _load_prediction(prediction_path)
     if not _same_rows(saved_rows, raw_rows) or not np.array_equal(saved_forecast, forecast):
         raise ValueError("AEON supervised saved validation predictions differ.")
-    score = daily_pinball(
-        np.stack([row.target_db for row in assess]), forecast,
-        np.stack([row.target_mask for row in assess]),
-        np.stack([row.target_source_timestamps for row in assess]),
-    )
+    score = daily_pinball(truth, forecast, target_mask, target_times)
     if _date_hashes(score) != rescore[
         "eligible_source_date_sha256_by_horizon"
     ]:
         raise ValueError("AEON supervised eligible validation dates differ from core.")
     report = {
         "status": "POST_HOC_SUPERVISED_VALIDATION_COMPLETED_PENDING_INDEPENDENT_REVIEW",
-        "classification": "DEVELOPMENT_NOT_FINAL_EVALUATION", "test_access": "PROHIBITED",
+        "classification": "POST_HOC_DEVELOPMENT_NOT_FINAL_EVALUATION",
+        "sota_claim": "NOT_ESTABLISHED",
+        "test_access": "PROHIBITED",
         "source_archive_sha256": recipe["source_sha256"], "cohort_sha256": cohort_sha,
         "campaign_manifest_sha256": manifest_sha, "rescore_sha256": rescore_sha,
         "rescore_outcome_review_sha256": rescore_outcome_sha,
@@ -250,6 +268,9 @@ def run_supervised(
         "prediction_sha256": _sha256(prediction_path),
         "fit_seconds": time.perf_counter() - start,
         "process_rss_bytes_after_fit": process.memory_info().rss,
+        "peak_process_rss_bytes": "NOT_MEASURED",
+        "resume_policy": "NO_MID_HEAD_RESUME_ONE_SERIAL_FIT_ATTEMPT",
+        "gpu_peak_reserved_bytes": 0,
         "protocol_validation_metrics": score,
         "selection": "NONE_PENDING_INDEPENDENT_REVIEW",
     }
