@@ -180,8 +180,10 @@ under the inspectable code at
 Its 4,965 TRAIN windows and 1,219 validation issuances yielded 1,217 scored rows per
 horizon. Baseline daily mean pinball was 0.6943/0.9143/1.0226 dB at 1/3/6 source-hour
 steps; direct was 0.6877/0.6994/0.7226 dB. The code-bound run saved all issued-row
-predictions and a genuine direct checkpoint. These are development outcomes awaiting
-independent artifact review, not final evaluation or JEPA evidence. The first run remains
+predictions and a genuine direct checkpoint. A distinct reviewer recomputed the cohort,
+scores and checkpoint predictions and approved the bounded development artifact in
+`orchestration/reviews/AEON_DEVELOPMENT_SSL_REVIEW_20260927.json`. These are
+development outcomes, not final evaluation or JEPA evidence. The first run remains
 preserved with its historical code hash; no result was silently replaced.
 
 The larger 128-wide, three-layer, three-seed AEON core campaign is specified in

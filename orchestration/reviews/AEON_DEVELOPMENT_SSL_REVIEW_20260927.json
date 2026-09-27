@@ -1,0 +1,65 @@
+{
+  "task": "R1/R2-AEON-DEVELOPMENT-SSL-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "disposition": "APPROVE_REAL_TRAIN_VALIDATION_DEVELOPMENT_AND_SSL_MODEL_CONTRACT",
+  "reviewed_main_commit": "e2a34e6",
+  "approval_scope": [
+    "Hash-bound real AEON TRAIN/validation loader, windows, first persistence baseline and 128-update direct-neural development execution",
+    "AEON direct, temporal EMA-JEPA and shared-SIGReg model definitions and gradient/view contracts"
+  ],
+  "excluded_scope": [
+    "Finite 17-slot campaign executor and configuration",
+    "Calibration and retrospective test outcomes",
+    "Final evaluation, deployment or release",
+    "Absolute field-calibration, biomass, species, fish-density or operational claims"
+  ],
+  "protocol_sha256": "d83392832a1bde3ae3e096de0a664ca9cfc27762a18bb10fb5ace3a97e787435",
+  "source_archive_sha256": "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde",
+  "split_review_sha256": "b8031e2e113e39630c066cee65b4371f69b229ee905a72d832e53e6f505f297b",
+  "development_config_sha256": "8dbd58cc3641862b5a206e2b75b12ea5bbcf1b3949bee699abcf321e2282439e",
+  "cohort_sha256": "5e475f6af798025f187c70ae638710d2b4362f688db2ad43d60ec436dda3e25d",
+  "development_code_sha256": "76f026664e0838dd10750cdfbf71bb3ee5e13644799e529499c2cb09612680ee",
+  "reviewed_file_sha256": {
+    "src/marine_echo/training/aeon_corpus.py": "398e021a5807ab8068ceef03dd692f3b688c744751cd4e65d3efbee94d9a3efd",
+    "src/marine_echo/training/aeon_windows.py": "d6a1dc53188da5329daa23fe11e7660e36d1d1666fcafda5dcc5a256bf54023b",
+    "src/marine_echo/training/aeon_development.py": "de46c19516f908ef96f778b746b8847139dc00377c73525cbbeefe3a89d9b3c5",
+    "src/marine_echo/models/aeon_ssl.py": "490a0807a24433465c59d004d8e7fbe36cd6442ace71db40fe82cacab2fa229c",
+    "tests/integration/test_aeon_adapter.py": "e40de3f32a8cc753d4ce57f2f9de88a4a73f243d6ca6952930ff2c4bc468ce4c",
+    "tests/unit/test_aeon_ssl.py": "2bf5c93e6faa0ba28b108b77b6fc496bae874debe89c71fe4bcd740634dc82d3"
+  },
+  "approved_artifacts": {
+    "run_json_sha256": "eb4b100e3c9e84d4f557b786110d82d9d79f6b3d197562fc2648f8111b78c69f",
+    "baseline_predictions_sha256": "b1dd51116bb71fe9a809a1eab719160cd01674af8f0158e0a332048220f52996",
+    "direct_predictions_sha256": "6a7f9616b3e137acb85ebf05b46a812c9b2434b89a934b15f2277211d61e4c88",
+    "direct_checkpoint_sha256": "b64e1d9e879e00de6b01fc4ab89877fce00224b3a051d562f5e60e28aad4461c"
+  },
+  "independent_execution": {
+    "environment": "CPython 3.14.2, torch 2.10.0+cu128; CPU checkpoint reload",
+    "focused_tests": "12 passed in 20.53s: tests/integration/test_aeon_adapter.py and tests/unit/test_aeon_ssl.py",
+    "ruff": "All checks passed for AEON SSL source and unit tests",
+    "fit_windows": 4965,
+    "validation_windows": 1219,
+    "fit_validation_raw_interval_overlap": 0,
+    "saved_cohort_fields_match_current_loader": true,
+    "saved_metrics_recomputed_exactly": true,
+    "predictions_finite_sorted_and_nonconstant": true,
+    "checkpoint_reload_matches_saved_predictions_bit_for_bit_at_recorded_batch_size_16": true,
+    "calibration_or_test_outcomes_opened": false
+  },
+  "closed_findings": [
+    "The first artifact was rerun after loader changes; the approved run binds the current development code hash.",
+    "The SSL target view contains only the held-out last six products of the 24-product past context.",
+    "EMA targets are detached and teacher parameters remain gradient-free until explicit EMA update.",
+    "Shared-SIGReg predictive targets remain attached and receive target-side predictive gradients.",
+    "Direct and SSL supervised paths use the same encoder width, depth and quantile-head output contract."
+  ],
+  "material_limitations": [
+    "This is TRAIN/validation development, not final evaluation.",
+    "The target remains source-reported conditioned Sv with unknown source-clock timezone and incompletely verified raw calibration lineage.",
+    "Single-site, serially dependent validation evidence does not establish SOTA or deployment generalization."
+  ],
+  "test_access": "PROHIBITED_PENDING_SEPARATE_PRETEST_FREEZE"
+}

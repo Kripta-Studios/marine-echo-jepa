@@ -17,7 +17,7 @@
     },
     {
       "run_id": "first_development_seed7_codebound",
-      "status": "COMPLETED_AWAITING_INDEPENDENT_ARTIFACT_REVIEW",
+      "status": "COMPLETED_INDEPENDENTLY_REVIEWED_DEVELOPMENT",
       "artifact": "outputs/aeon3_geb_2024_hourly_sv_v1/first_development_seed7_codebound/run.json",
       "artifact_sha256": "eb4b100e3c9e84d4f557b786110d82d9d79f6b3d197562fc2648f8111b78c69f",
       "code_sha256": "76f026664e0838dd10750cdfbf71bb3ee5e13644799e529499c2cb09612680ee",
@@ -30,6 +30,7 @@
       "classification": "DEVELOPMENT_NOT_FINAL_EVALUATION"
     }
   ],
+  "development_ssl_review_sha256": "1f037917378d8e06f05637028704030535e617783163bc32c1049f4db4d477a5",
   "core_campaign": "NOT_RUN_AWAITING_CODE_AND_INDEPENDENT_PREFIT_REVIEW",
   "calibration": "NOT_RUN",
   "retrospective_test": "NOT_RUN",
