@@ -1,0 +1,99 @@
+{
+  "task": "R2-AEON-PRECAL-SOURCE-APPROVAL-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "status": "APPROVED_AEON_PRECAL_SOURCE_GRAPH",
+  "disposition": "APPROVE_SOURCE_FOR_EXACT_CALIBRATION_FREEZE_AND_SEPARATE_ACCESS_REVIEW_ONLY",
+  "scope": "CALIBRATION_SOURCE_ONLY_NO_NUMERIC_ACCESS_GRANTED_BY_THIS_ARTIFACT",
+  "source_commit": "6ef76da5b2bb29a3aeaa86766f679a5fd9f3a7f2",
+  "source_sha256": {
+    "runner_code_sha256": "25d9a33b8746501dc76888e1e30a9e0128f3fa7c9c45a664a65d686b178a57a5",
+    "adapter_source_sha256": "06392b0714a692c16645294ade9e7c3eaa5b6798eaf2b37662109a9b5f27f7c9",
+    "evaluation_code_sha256": "5dff72c1baf2f5528f13f369936d2ca5710eeb8b8a6e6cae12a0ef95366225ff",
+    "reader_source_sha256": "735ac1d4d03b29a7ebfb23259bd355137463e12d6ac9c9127df81b338828e380",
+    "corpus_source_sha256": "398e021a5807ab8068ceef03dd692f3b688c744751cd4e65d3efbee94d9a3efd",
+    "window_source_sha256": "d6a1dc53188da5329daa23fe11e7660e36d1d1666fcafda5dcc5a256bf54023b",
+    "config_sha256": "9003865b288a3c5afdf4b7cdb3a3f401c346f6067a53a255b833dde8e3a668c4c"
+  },
+  "composite_sha256": {
+    "reader_composite_sha256": "121facf774cc81e55f1ced6d4d6ec82927614a7dadc0deab66b557f35dd5563f",
+    "adapter_composite_sha256": "c8ccc0c54b720676b9f6d19cdd5ed7ffd1a5daf58ed22c469479a9272d1b77f9"
+  },
+  "source_archive_sha256": "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde",
+  "protocol_sha256": "d83392832a1bde3ae3e096de0a664ca9cfc27762a18bb10fb5ace3a97e787435",
+  "selected_model_contract": {
+    "core_direct_equal_three_seed_ensemble": {
+      "role": "baseline",
+      "selection_classification": "CORE_CONVENTIONAL_SELECTION",
+      "adapter": "core_neural_ensemble",
+      "family": "direct",
+      "components": ["direct_seed7", "direct_seed13", "direct_seed23"],
+      "weights": [0.3333333333333333, 0.3333333333333333, 0.3333333333333333]
+    },
+    "core_ema_equal_three_seed_ensemble": {
+      "role": "candidate",
+      "selection_classification": "CORE_JEPA_SELECTION",
+      "adapter": "core_neural_ensemble",
+      "family": "ema_jepa",
+      "components": ["ema_jepa_seed7", "ema_jepa_seed13", "ema_jepa_seed23"],
+      "weights": [0.3333333333333333, 0.3333333333333333, 0.3333333333333333]
+    },
+    "post_hoc_lightgbm": {
+      "role": "candidate",
+      "selection_classification": "POST_HOC_DEVELOPMENT_SELECTION",
+      "adapter": "lightgbm",
+      "recipe_sha256": "3feee4089ce790c66adb189ff82ad4e006c350822a23aaa494e86afaef884eea"
+    }
+  },
+  "calibration_contract": {
+    "partition": "calibration",
+    "source_date_start_inclusive": "2024-12-01",
+    "source_date_end_exclusive": "2025-01-06",
+    "numeric_access_order": [
+      "validate exact config, selection, plan and independent review digests",
+      "validate real-versus-fixture mode and trusted reviewer identity",
+      "resolve confined component paths and verify every exact model byte digest",
+      "validate exact selected family, recipe and explicit available device",
+      "construct and invoke the reviewed CAL reader once",
+      "forecast from preceding context and masks in process",
+      "extract targets only after all frozen-model forecasts exist",
+      "fit nonnegative interval widening on eligible CAL target-source dates"
+    ],
+    "minimum_anchors_per_target_source_date_and_horizon": 18,
+    "minimum_eligible_dates_per_horizon": 12,
+    "primary_forecast_quantiles_remain_raw": true,
+    "widening_scope": "LOWER_AND_UPPER_90_PERCENT_INTERVAL_ONLY",
+    "test_access": "PROHIBITED"
+  },
+  "resolved_prior_blockers": [
+    "CAL forecasts are generated in process from context before target extraction; no pre-materialized CAL forecast array is accepted.",
+    "The trusted reviewer session is exactly `/root/aeon_reviewer` for both partition-specific reader and runner gates.",
+    "Full targeted Ruff is clean.",
+    "The adapter composite binds repository inference sources, pyproject.toml and uv.lock.",
+    "Every component path and byte digest, including a complete Chronos snapshot when applicable, is checked before numeric reader construction and checked again during execution.",
+    "The selection and adapter plan bind exact per-model options: direct cannot be relabeled EMA/shared, EMA cannot be relabeled direct, LightGBM binds the reviewed recipe, unknown keys are rejected, and unavailable CUDA is rejected before reader construction."
+  ],
+  "independent_execution": {
+    "focused_tests": "32 passed in 61.05s",
+    "ruff": "All checks passed",
+    "mypy": "Success: no issues found in 2 source files",
+    "digest_recomputation": "Computed all listed file and composite SHA-256 values from integrated main source; the integrated-main adapter composite is c8ccc0c54b720676b9f6d19cdd5ed7ffd1a5daf58ed22c469479a9272d1b77f9.",
+    "source_trace": "Independently traced config, selection, plan, runner review, reader review, byte preflight, reader construction, forecast execution, target extraction, eligible-date calibration and output writing.",
+    "calibration_or_test_numeric_access": false
+  },
+  "required_before_calibration_numeric_access": [
+    "Author one exact machine-readable selection freeze against this adapter composite and the already reviewed development choices.",
+    "Author one exact CAL adapter plan whose confined paths resolve to the selected component bytes and whose options equal the selected model contract.",
+    "Independently verify and hash the exact selection freeze and CAL plan.",
+    "Issue distinct exact reader-access and runner-access review artifacts from `/root/aeon_reviewer`, binding the archive, split, selection, plan, config, source and composite digests.",
+    "Run no numeric CAL command until those artifact-specific gates pass."
+  ],
+  "limitations": [
+    "This approval covers source eligibility for CAL artifact freezing; it does not itself authorize numeric CAL access.",
+    "No retrospective TEST execution is approved. TEST requires the actual reviewed CAL artifact, a separate pretest freeze, an early existing-output rejection, exact pre-reader CAL adjustment lineage checks and a fresh independent source/access review.",
+    "The post-hoc LightGBM candidate remains post-hoc; calibration cannot convert it into a core confirmatory or SOTA result.",
+    "No sealed-holdout, calibrated absolute backscatter, biological causality, production or business-value claim is established."
+  ],
+  "calibration_access": "PROHIBITED_PENDING_ARTIFACT_SPECIFIC_INDEPENDENT_APPROVAL",
+  "test_access": "PROHIBITED"
+}
