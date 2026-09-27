@@ -1,0 +1,51 @@
+{
+  "task": "R3-AEON-CALIBRATION-APP-INTEGRATION-REVIEW-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "status": "APPROVED_AEON_CALIBRATION_ONLY_APP_INTEGRATION",
+  "disposition": "APPROVE_BOUNDED_CALIBRATION_ONLY_APP_AND_PORTABLE_SOURCE_PENDING_FRESH_FINAL_TEST_RELEASE_REVIEW",
+  "source_commit": "a5ca215400288b92ac16baa09c0d0f731ceec73e",
+  "source_sha256": {
+    "src/marine_echo/serving/aeon_study.py": "283e191ff7caa0ad92b60d60d38e0ca476ad5f9c78186fe0dfb21c8e9653be7c",
+    "src/marine_echo/serving/aeon_portable.py": "07e7ad28f0271b550665c866b8f04e3eeffcc0200b63f63584ee0ed9e8f35c3e",
+    "src/marine_echo/serving/cli.py": "9544d5529763d5bd3f9a9b16287659a2a604e698e9ec2e1eeae0f5a0c1bc2cdc",
+    "tests/unit/test_aeon_study_release.py": "fbbe14eed7aff084c66229778f3d75bf7f879622f8d1b0fbb35f3d67ee47cba7",
+    "web/src/api/client.ts": "e2c3a20838e90003baf7d7d0b8897e27ea2f17b373e5b8b5ff57886e75320539",
+    "web/src/pages/AeonStudyPage.tsx": "41877c30966962d538c12d17633b3848a0b223af92b50eab32e92d1f027423b1",
+    "web/src/pages/AeonStudyPage.test.ts": "1d0f1006f6461984ab2542ce37a878bbf337592e9f539dabc95c6fd8ab725866"
+  },
+  "evidence_bindings": {
+    "calibration_artifact_sha256": "a6e35bc5fa5c27b2b0669e7fb9fe7f8ff1bdd69952193418bbbe130e46438c94",
+    "calibration_outcome_review_sha256": "7b61385b29836be53d0e2c5a0b5e3f5db7e2dcb8983e534d17711ed0b44c1428",
+    "issued_rows": 810,
+    "eligible_source_dates_per_horizon": [34, 34, 34],
+    "historical_blocked_registry_rows": 25,
+    "cached_aeon_forecasts": 0
+  },
+  "independent_execution": {
+    "python_unit_tests": "8 passed in 5.74s: C:/Program Files/Python314/python.exe -m pytest tests/unit/test_aeon_study_release.py -q -p no:cacheprovider",
+    "web_component_tests": "1 file and 2 tests passed in 1.58s: npm --prefix web run test:run -- src/pages/AeonStudyPage.test.ts",
+    "exact_report_load": "Loaded the exact reviewed CAL artifact through build_aeon_calibration_report; it emitted calibration-only status, 810 issued rows, [34,34,34] eligible dates, exact three raw primary losses and retrospective_test_outcomes=NOT_OPENED_FOR_THIS_REPORT.",
+    "diff_check": "git diff --check a5ca215^ a5ca215 completed without findings.",
+    "inspected_builder_evidence": "Builder reported 10 Python tests, 4 web tests, TypeScript, lint, production build and extracted offline browser/API smoke; these broader checks were inspected but not independently rerun in full by this reviewer."
+  },
+  "scientific_and_claim_review": [
+    "The app labels the section CALIBRATION ONLY and states that the displayed losses and in-sample coverage neither select nor rank models nor constitute final evaluation.",
+    "The exact artifact and independent review are byte-pinned; any metric, support, classification or provenance change fails closed.",
+    "The direct, EMA-JEPA and post-hoc LightGBM classifications are preserved; the UI does not convert descriptive CAL ordering into selection.",
+    "The release retains zero AEON cached forecasts and the historical 25-row blocked MOSAiC registry.",
+    "Portable provenance includes the exact CAL artifact and review while retaining calibration_or_test_final_evaluation=false."
+  ],
+  "findings": [],
+  "limitations": [
+    "This approval covers the bounded calibration-only integration at a5ca215. It does not approve the later TEST result, final claims or a final release package.",
+    "A fresh independent source, package-integrity, API and browser review is required after the immutable retrospective TEST outcome is integrated.",
+    "CAL coverage is in-sample and does not guarantee TEST or external coverage."
+  ],
+  "test_numeric_access_during_review": false,
+  "cloud_or_paid_resource_use": false,
+  "cost_usd": 0,
+  "next_action": "Integrate only the independently reconstructed retrospective TEST result, then rebuild and independently review the final offline release."
+}

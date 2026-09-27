@@ -125,6 +125,12 @@
     "independent_review_sha256": "a600dcb6bcc19ab8da09feeeab00096470f0cf64de10501a553b798656f93300",
     "aeon_cached_forecasts": 0
   },
+  "calibration_app": {
+    "status": "APPROVED_CALIBRATION_ONLY_APP_INTEGRATION_FINAL_TEST_PENDING",
+    "independent_review_sha256": "e7ed7a8be0b0d48086dabf229faf3ca1e6f4609cf8c97fa5ba2e0d504e2f9cd8",
+    "calibration_artifact_sha256": "a6e35bc5fa5c27b2b0669e7fb9fe7f8ff1bdd69952193418bbbe130e46438c94",
+    "aeon_cached_forecasts": 0
+  },
   "portable_development_release": {
     "status": "APPROVED_SOURCE_DEVELOPMENT_ONLY_NOT_FINAL_SCIENTIFIC_RELEASE",
     "source_commit": "419be6c221234fd612b6b540d544d7f283b9e5f7",
@@ -145,7 +151,18 @@
     "independent_outcome_review": "APPROVED_CALIBRATION_ONLY_NO_SELECTION",
     "independent_outcome_review_sha256": "7b61385b29836be53d0e2c5a0b5e3f5db7e2dcb8983e534d17711ed0b44c1428"
   },
-  "retrospective_test": "NOT_RUN",
+  "retrospective_test": {
+    "status": "COMPLETED_REAL_RETROSPECTIVE_TEST_PENDING_INDEPENDENT_OUTCOME_REVIEW",
+    "classification": "RETROSPECTIVE_EVALUATION_NOT_SEALED",
+    "artifact": "outputs/aeon3_geb_2024_hourly_sv_v1/retrospective_test/test-score.json",
+    "artifact_sha256": "23f9d350528e9f99b35949c6281c39d209dff7f7db44a992d241d64ccde8bd89",
+    "pretest_freeze_sha256": "f9062592b6196f49e86cf938205215670800a14c03c4542576c0b341a6018281",
+    "reader_access_review_sha256": "42496508acd454d6680ae9d3e0a35c8e51eb8aa20dae3f59b4777e0a60d6c741",
+    "runner_access_review_sha256": "9de79a0bfe7b8774261a4f84dac6630877d38d27eaf3a3fef9f3ad217144efaf",
+    "issued_rows": 1216,
+    "eligible_source_dates_per_horizon": [49, 50, 51],
+    "independent_outcome_review": "PENDING"
+  },
   "jepa_value_gate": "NOT_EVALUATED",
   "exploratory_patchtst_challenger": {
     "status": "SEED7_COMPLETED_NOT_PROMISING_SEEDS13_23_NOT_RUN",

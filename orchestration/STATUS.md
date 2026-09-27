@@ -354,5 +354,21 @@ was fitted. Distinct outcome review reloaded every frozen model, reconstructed
 all 810 rows, all nine adjustments and the complete raw/widened metrics, and
 approved the exact CAL artifact for a later pretest freeze (SHA-256
 `7b61385b29836be53d0e2c5a0b5e3f5db7e2dcb8983e534d17711ed0b44c1428`).
-TEST numeric values remain unopened while the separate source/access graph is
-repaired and reviewed.
+At that checkpoint TEST numeric values remained unopened while the separate
+source/access graph was repaired and reviewed.
+
+The separate pretest source, freeze, reader and runner reviews then approved one
+exact retrospective TEST execution. That command completed exit zero and saved
+the single-read score plus three forecast files under
+`outputs/aeon3_geb_2024_hourly_sv_v1/retrospective_test/`. The score JSON SHA-256
+is `23f9d350528e9f99b35949c6281c39d209dff7f7db44a992d241d64ccde8bd89`.
+All 1,216 metadata candidates became issued rows; actual eligible target-source
+dates are 49/50/51 at 1/3/6 hours, above the frozen 20-date floor. Preliminary
+raw primary daily pinball is 0.563387 dB for direct, 0.533954 dB for EMA-JEPA
+and 0.542202 dB for LightGBM. The saved comparison reports a 5.224% EMA-JEPA
+point improvement with its paired 95% interval below zero and the per-horizon
+guard satisfied; LightGBM misses the 5% point criterion. These outcomes are
+under independent artifact/metric/bootstrap review and are retrospective,
+not sealed or SOTA claims. The CAL-only app integration separately passed
+independent review, retaining historical blocked rows and zero AEON cached
+forecasts; final TEST app/release integration remains pending.
