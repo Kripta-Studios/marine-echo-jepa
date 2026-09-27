@@ -135,6 +135,17 @@
   "calibration": "NOT_RUN",
   "retrospective_test": "NOT_RUN",
   "jepa_value_gate": "NOT_EVALUATED",
-  "gpu_owner": "aeon_patchtst_challenger:/root/aeon_builder",
+  "exploratory_patchtst_challenger": {
+    "status": "SEED7_COMPLETED_NOT_PROMISING_SEEDS13_23_NOT_RUN",
+    "classification": "POST_HOC_TRAIN_VALIDATION_EXPLORATORY_NOT_SELECTION_OR_FINAL_EVALUATION",
+    "first_attempt": "NOT_RUN_NO_OUTPUT_ABRUPT_EXIT_1",
+    "final_report": "outputs/aeon_patchtst_exploratory_20260927_r2/report.json",
+    "final_report_sha256": "0c40bc70e2adeaa0bb54a1f5ef8777505232d3fc694ad04b69d4f8e31edb29a6",
+    "seed7_validation_daily_pinball_db": 0.9299893352789196,
+    "seed7_checkpoint_sha256": "e8728ae34be00ca18d2cc3571f470ca2092e77031e594f93d2eb80ccd9827d50",
+    "seed7_predictions_sha256": "12ade00f0de191e61179cc59e55493f6104e46fb572839a78597dc171b80a9e7",
+    "independent_review": "PENDING"
+  },
+  "gpu_owner": "NONE",
   "paid_cost_usd": 0
 }
