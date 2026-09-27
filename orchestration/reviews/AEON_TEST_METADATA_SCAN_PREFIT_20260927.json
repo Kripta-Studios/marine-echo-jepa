@@ -1,0 +1,51 @@
+{
+  "task": "R2-AEON-TEST-METADATA-CANDIDATE-SCAN-PREFIT-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "reviewed_commits": [
+    "5e5a05102b8b326ec12da5d4fc6ecce08859a8e6",
+    "560b7cc4a47e8d1ddffc73791dc8f3f92f3060fb"
+  ],
+  "status": "APPROVED_AEON_TEST_METADATA_SCAN",
+  "disposition": "APPROVE_ONE_METADATA_ONLY_RETROSPECTIVE_TEST_CANDIDATE_SCAN",
+  "scanner_code_sha256": "2e4e24973f9b385fee51234c765aa6ec61399ce659bcb587098bdd993c1ceb92",
+  "scanner_source_sha256": "774112eab7f19fb3a81257175ae46b8b9440e51d53ce000d1493015633c90c66",
+  "corpus_dependency_sha256": "398e021a5807ab8068ceef03dd692f3b688c744751cd4e65d3efbee94d9a3efd",
+  "config_sha256": "fc0ebc65bb57f092b7333cc8cceaef553695765cb72d1226a9ec2f57d634c1d5",
+  "source_archive_sha256": "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde",
+  "protocol_sha256": "d83392832a1bde3ae3e096de0a664ca9cfc27762a18bb10fb5ace3a97e787435",
+  "evaluation_adr_sha256": "0c503c17cf3c5f4ca9d521c17c77974382fdb100879c08633a615a988642b2a9",
+  "independent_execution": {
+    "focused_synthetic_tests": "3 passed in 1.16s",
+    "ruff": "All checks passed",
+    "mypy": "Success: no issues found in 1 source file",
+    "poison_outcome_fixture": "A nonnumeric Sv_mean poison value was neither parsed nor persisted while metadata exclusions and candidate hashes reproduced exactly.",
+    "dependency_mutation_gate": "A synthetic aeon_corpus.py byte change altered the composite digest and blocked scan execution before opening the archive.",
+    "real_test_metadata_opened": false,
+    "real_test_numeric_outcomes_opened": false
+  },
+  "approved_contract": [
+    "Inspect only the exact January and February 2025 FullDepth CSV members and only Date_M, Time_M, Interval, Layer, layer bounds and ping bounds.",
+    "Discard every Sv_mean field immediately as unparsed text and never convert, persist, summarize, compare or log it.",
+    "Candidate issuance depends only on the exact 24 predecessor interval IDs, complete 38-kHz predecessor metadata, roughly hourly source times and the plus-six partition boundary.",
+    "Other-channel predecessor metadata may be reported for later masking but cannot exclude a candidate; future target availability, metadata quality or error cannot filter issuance.",
+    "Every candidate remains numerically unissued and unscored until a separate independently reviewed one-time materialization.",
+    "The source clock remains SOURCE_REPORTED_UNSPECIFIED_NOT_UTC."
+  ],
+  "execution_conditions": [
+    "Integrate the exact reviewed commit and preserve the composite scanner/corpus digest before the real metadata scan.",
+    "Write one immutable candidate report, then obtain independent verification of its source/member/candidate/exclusion hashes and support counts.",
+    "Do not open calibration values or parse any TEST Sv_mean value under this approval.",
+    "Do not present candidate counts as actual issued rows, scored rows, eligible days or a passing study gate."
+  ],
+  "excluded_scope": [
+    "Calibration numeric access",
+    "TEST Sv_mean parsing or numeric QC",
+    "Actual issuance or scoring",
+    "Model prediction, ranking or selection",
+    "Eligibility, sealed-holdout, SOTA or production claims"
+  ],
+  "classification": "METADATA_ONLY_CANDIDATES_NOT_ISSUED_OR_SCORED",
+  "numeric_test_outcome_access": "PROHIBITED",
+  "calibration_access": "PROHIBITED"
+}
