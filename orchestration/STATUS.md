@@ -322,12 +322,11 @@ offline dependency installation, loopback API serving and headless Chromium
 page inspection. Distinct source review approved this exact development-only
 wrapper (review SHA-256
 `a7e99f8337195aa676073820a3234a0aaa3de8d76cce8af1b828b234f26c9001`).
-It remains development only, with no AEON CAL/TEST forecasts. Final evaluator review found additional
-real-access and lineage weaknesses, so CAL and TEST numeric values remain
-unopened while those checks are repaired and re-reviewed. The latest distinct
-review of `7ed4003` still requires CAL forecasts to be generated from frozen
-components inside the reviewed access path, an exact trusted reviewer identity
-on both access artifacts, and full-file Ruff cleanup. One stronger
+It remains development only, with no AEON cached forecasts. Earlier final
+evaluator reviews found real-access and lineage weaknesses; their exact
+rejected source states are preserved. The repaired runner now forecasts from
+frozen components in process, binds the trusted reviewer and passes full-file
+Ruff. One stronger
 supervised architecture was trialled on TRAIN/validation only as a separate
 post-hoc exploratory experiment under local GPU limits. Its fixed first seed
 completed 3,000 updates and scored 0.929989 dB on the same eligible validation
@@ -337,6 +336,19 @@ predictions and report are preserved under `outputs/aeon_patchtst_exploratory_20
 distinct outcome review reproduced the score, row identity and checkpoint
 forecasts and approved the negative exploratory record only (SHA-256
 `232f453e1584472e1dcc1ea1d8812c76104a40d4cd9645f19720b25e0423adec`).
-The evaluator's one-pass CAL repair and
-full-file Ruff cleanup are now integrated and await a new exact independent
-source approval before any held-out numeric read.
+The evaluator's one-pass CAL repair, pre-reader model checks and separate
+independent source approval are integrated.
+
+The first CAL access command safely failed at the runner-review hash gate
+before constructing its reader because a reviewer record transcribed one
+config digest incorrectly. The original reviews remain in history; distinct
+superseding V2 source, selection, reader and runner records corrected that
+digest and passed every pre-reader gate. The exact real CAL command then
+completed exit zero and wrote `outputs/aeon3_geb_2024_hourly_sv_v1/calibration/calibration.json`
+(SHA-256 `a6e35bc5fa5c27b2b0669e7fb9fe7f8ff1bdd69952193418bbbe130e46438c94`).
+It has 810 issued rows and 34 eligible target-source dates at each horizon,
+above the frozen 12-date CAL floor. Frozen direct, EMA-JEPA and LightGBM raw
+daily pinball scores are 0.653051, 0.633284 and 0.639519 dB on CAL; these
+values do not change model selection. Their nonnegative 90% interval widening
+was fitted and the outcome is under separate independent review. TEST numeric
+values remain unopened.

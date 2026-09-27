@@ -132,7 +132,18 @@
     "release_class": "OFFLINE_RESEARCH_MIXED_STUDIES_DEVELOPMENT_ONLY",
     "aeon_cached_forecasts": 0
   },
-  "calibration": "NOT_RUN",
+  "calibration": {
+    "status": "COMPLETED_REAL_CALIBRATION_PENDING_INDEPENDENT_OUTCOME_REVIEW",
+    "artifact": "outputs/aeon3_geb_2024_hourly_sv_v1/calibration/calibration.json",
+    "artifact_sha256": "a6e35bc5fa5c27b2b0669e7fb9fe7f8ff1bdd69952193418bbbe130e46438c94",
+    "selection_freeze_sha256": "b3940ab8e159ac8808843b15b455ffb3c42f2d3db322190af15b80e543edff58",
+    "forecast_plan_sha256": "790cfc22e059e398a1aefa6358c4dca5bae63ac2ba0291f5333f7d3f85661ede",
+    "reader_access_review_sha256": "006d931b99dda41886bc54cdcf39c2a5a1f13114463469a5f2f22024c4e447d5",
+    "runner_access_review_sha256": "1c15ea81a8f2f32ab4bfc4dbebdeff2f308a744e967b42b7388102786d3f7e7a",
+    "issued_rows": 810,
+    "eligible_source_dates_per_horizon": [34, 34, 34],
+    "independent_outcome_review": "PENDING"
+  },
   "retrospective_test": "NOT_RUN",
   "jepa_value_gate": "NOT_EVALUATED",
   "exploratory_patchtst_challenger": {
