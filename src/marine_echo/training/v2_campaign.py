@@ -21,6 +21,7 @@ import torch
 from marine_echo.training.v2_executor import (
     V2_PROTOCOL_SHA256,
     _code_digest,
+    _rows_digest,
     _sha256,
     _valid_hash,
     _verify_predictions,
@@ -234,21 +235,7 @@ def _canonical_digest(value: Any) -> str:
 
 
 def _validation_digest(rows: list[HourlyWindow]) -> str:
-    digest = hashlib.sha256()
-    for row in rows:
-        digest.update(row.row_id.encode())
-        digest.update(np.datetime64(row.cutoff, "ns").tobytes())
-        for field in (
-            row.target_interval_start,
-            row.target_interval_end,
-            row.target_db,
-            row.target_mask,
-            row.target_detection_fraction,
-            row.target_detection_mask,
-        ):
-            digest.update(np.ascontiguousarray(field).tobytes())
-        digest.update(";".join(row.source_sha256).encode())
-    return digest.hexdigest()
+    return _rows_digest(rows)
 
 
 def _write_ledger(path: Path, ledger: dict[str, Any]) -> None:

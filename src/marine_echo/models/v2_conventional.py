@@ -8,10 +8,15 @@ import numpy as np
 from sklearn.ensemble import HistGradientBoostingRegressor
 from sklearn.impute import SimpleImputer
 
-from marine_echo.models.v2_development import QUANTILES, JointPrediction, past_features
+from marine_echo.models.v2_development import (
+    QUANTILES,
+    DevelopmentRidge,
+    JointPrediction,
+    past_features,
+)
 from marine_echo.training.v2_stream import HourlyWindow
 
-ConventionalFamily = Literal["persistence", "seasonal", "hist_gradient_boosting"]
+ConventionalFamily = Literal["persistence", "seasonal", "ridge", "hist_gradient_boosting"]
 
 
 def _linear_mean_db(values: np.ndarray) -> float:
@@ -24,7 +29,7 @@ class NativeConventional:
     """Fixed persistence/seasonal/boosting models with TRAIN-only calibration."""
 
     def __init__(self, family: ConventionalFamily, *, tree_max_iter: int = 150) -> None:
-        if family not in ("persistence", "seasonal", "hist_gradient_boosting"):
+        if family not in ("persistence", "seasonal", "ridge", "hist_gradient_boosting"):
             raise ValueError("Unknown native conventional family.")
         if not 1 <= tree_max_iter <= 150:
             raise ValueError("Tree iteration budget exceeds the frozen configuration.")
@@ -79,7 +84,9 @@ class NativeConventional:
         self.fraction_fallback = np.array(
             [np.median(fraction[fraction_mask[:, h], h]) for h in range(3)]
         )
-        if self.family != "hist_gradient_boosting":
+        if self.family == "ridge":
+            self.ridge = DevelopmentRidge(alpha=1.0).fit(rows)
+        elif self.family != "hist_gradient_boosting":
             point, _, _ = self._fixed_points(rows)
             self.residual = np.stack(
                 [
@@ -126,6 +133,9 @@ class NativeConventional:
             raise RuntimeError("Fit native conventional model on TRAIN first.")
         if not rows:
             raise ValueError("Prediction rows must be nonempty.")
+        if self.family == "ridge":
+            self.fallback_count = 0
+            return self.ridge.predict(rows)
         if self.family != "hist_gradient_boosting":
             point, fraction, self.fallback_count = self._fixed_points(rows)
             quantiles = point[..., None] + self.residual[None]

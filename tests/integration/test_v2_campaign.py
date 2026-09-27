@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+from dataclasses import replace
 from pathlib import Path
 
 import numpy as np
@@ -12,6 +13,7 @@ import pytest
 from marine_echo.models.v2_development import JointPrediction
 from marine_echo.training.v2_campaign import (
     SlotResult,
+    _validation_digest,
     _verified_training_phases,
     execute_v2_campaign,
     v2_plan,
@@ -57,6 +59,21 @@ def test_v2_plan_has_exact_finite_dependencies() -> None:
     for slot in plan:
         assert set(slot.dependencies).issubset(seen)
         seen.add(slot.run_id)
+
+
+def test_validation_identity_includes_inputs_and_provenance() -> None:
+    row = _validation_row()
+    original = _validation_digest([row])
+    changed = replace(row, context_age_minutes=row.context_age_minutes + 1)
+    assert _validation_digest([changed]) != original
+    changed = replace(row, context_mask=np.ones_like(row.context_mask))
+    assert _validation_digest([changed]) != original
+    changed = replace(row, target_acquisition_fraction=np.zeros(3))
+    assert _validation_digest([changed]) != original
+    changed = replace(row, context_index_db=np.full(96, -90.0))
+    assert _validation_digest([changed]) != original
+    changed = replace(row, past_source_sha256=("c" * 64,))
+    assert _validation_digest([changed]) != original
 
 
 def test_frozen_250_update_cadence_and_early_stop() -> None:

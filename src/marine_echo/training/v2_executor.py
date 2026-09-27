@@ -56,35 +56,10 @@ def _code_digest() -> str:
     return digest.hexdigest()
 
 
-def _validate_rows(
-    fit: list[HourlyWindow], assess: list[HourlyWindow], *, fixture_only: bool
-) -> tuple[str, tuple[str, ...]]:
-    if not fit or not assess or any(row.partition != "train" for row in fit + assess):
-        raise ValueError("Only nonempty TRAIN development and assessment rows are allowed.")
-    for rows in (fit, assess):
-        if len({row.row_id for row in rows}) != len(rows):
-            raise ValueError("Development rows contain duplicate identities.")
-        if any(left.cutoff >= right.cutoff for left, right in pairwise(rows)):
-            raise ValueError("Development rows must be chronological.")
-    if fit[-1].cutoff + np.timedelta64(6, "h") > assess[0].cutoff - np.timedelta64(24, "h"):
-        raise ValueError("Fit and assessment raw support would overlap.")
-    if not fixture_only:
-        fit_start, fit_end = np.datetime64("2020-02-17"), np.datetime64("2020-04-01")
-        assess_start, assess_end = np.datetime64("2020-04-01"), np.datetime64("2020-04-15")
-        if (
-            fit[0].cutoff - np.timedelta64(24, "h") < fit_start
-            or fit[-1].cutoff + np.timedelta64(6, "h") > fit_end
-            or assess[0].cutoff - np.timedelta64(24, "h") < assess_start
-            or assess[-1].cutoff + np.timedelta64(6, "h") > assess_end
-        ):
-            raise ValueError("Rows exceed the predeclared TRAIN development calendar.")
-        if any(row.context_index_db is None or not row.past_source_sha256 for row in fit + assess):
-            raise ValueError("Reviewed native rows need exact past index and past provenance.")
-    source_hashes = tuple(sorted({digest for row in fit + assess for digest in row.source_sha256}))
-    if not source_hashes or not all(_valid_hash(digest) for digest in source_hashes):
-        raise ValueError("Every development row needs registered real source hashes.")
+def _rows_digest(rows: list[HourlyWindow]) -> str:
+    """Hash all forecast, scoring and provenance fields in canonical row order."""
     digest = hashlib.sha256()
-    for row in fit + assess:
+    for row in rows:
         digest.update(row.row_id.encode())
         digest.update(row.partition.encode())
         digest.update(np.datetime64(row.cutoff, "ns").tobytes())
@@ -113,7 +88,37 @@ def _validate_rows(
         digest.update(";".join(row.source_sha256).encode())
         digest.update(";".join(row.past_source_sha256).encode())
         digest.update(";".join(row.target_source_sha256).encode())
-    return digest.hexdigest(), source_hashes
+    return digest.hexdigest()
+
+
+def _validate_rows(
+    fit: list[HourlyWindow], assess: list[HourlyWindow], *, fixture_only: bool
+) -> tuple[str, tuple[str, ...]]:
+    if not fit or not assess or any(row.partition != "train" for row in fit + assess):
+        raise ValueError("Only nonempty TRAIN development and assessment rows are allowed.")
+    for rows in (fit, assess):
+        if len({row.row_id for row in rows}) != len(rows):
+            raise ValueError("Development rows contain duplicate identities.")
+        if any(left.cutoff >= right.cutoff for left, right in pairwise(rows)):
+            raise ValueError("Development rows must be chronological.")
+    if fit[-1].cutoff + np.timedelta64(6, "h") > assess[0].cutoff - np.timedelta64(24, "h"):
+        raise ValueError("Fit and assessment raw support would overlap.")
+    if not fixture_only:
+        fit_start, fit_end = np.datetime64("2020-02-17"), np.datetime64("2020-04-01")
+        assess_start, assess_end = np.datetime64("2020-04-01"), np.datetime64("2020-04-15")
+        if (
+            fit[0].cutoff - np.timedelta64(24, "h") < fit_start
+            or fit[-1].cutoff + np.timedelta64(6, "h") > fit_end
+            or assess[0].cutoff - np.timedelta64(24, "h") < assess_start
+            or assess[-1].cutoff + np.timedelta64(6, "h") > assess_end
+        ):
+            raise ValueError("Rows exceed the predeclared TRAIN development calendar.")
+        if any(row.context_index_db is None or not row.past_source_sha256 for row in fit + assess):
+            raise ValueError("Reviewed native rows need exact past index and past provenance.")
+    source_hashes = tuple(sorted({digest for row in fit + assess for digest in row.source_sha256}))
+    if not source_hashes or not all(_valid_hash(digest) for digest in source_hashes):
+        raise ValueError("Every development row needs registered real source hashes.")
+    return _rows_digest(fit + assess), source_hashes
 
 
 def _review_gate(
@@ -241,7 +246,9 @@ def _score(rows: list[HourlyWindow], prediction: JointPrediction) -> dict[str, A
         observed = truth[valid, horizon]
         error = observed[:, None] - q
         pinball = np.maximum(np.asarray(QUANTILES) * error, (np.asarray(QUANTILES) - 1) * error)
-        days = np.array([row.cutoff for row in rows]).astype("datetime64[D]")[valid]
+        days = np.stack([row.target_interval_start[horizon] for row in rows]).astype(
+            "datetime64[D]"
+        )[valid]
         day_losses = [pinball[days == day].mean() for day in np.unique(days)]
         result["horizons"].append(
             {

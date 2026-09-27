@@ -1,0 +1,73 @@
+FF..F.                                                                   [100%]
+================================== FAILURES ===================================
+_______________ test_daily_pinball_groups_by_future_target_day ________________
+
+    def test_daily_pinball_groups_by_future_target_day() -> None:
+        rows = []
+        for hour in ("2020-04-01T18", "2020-04-01T19", "2020-04-02T01"):
+            row = _rows("2020-04-02")[0]
+            cutoff = np.datetime64(hour)
+            rows.append(
+                replace(
+                    row,
+                    row_id=hour,
+                    cutoff=cutoff,
+                    target_interval_start=np.array(
+                        [cutoff + np.timedelta64(h, "h") for h in (0, 2, 5)]
+                    ),
+                    target_interval_end=np.array(
+                        [cutoff + np.timedelta64(h, "h") for h in (1, 3, 6)]
+                    ),
+                    target_db=np.zeros(3),
+                    target_mask=np.array([False, False, True]),
+                    target_detection_mask=np.zeros(3, dtype=bool),
+                )
+            )
+        quantiles = np.zeros((3, 3, 5))
+        quantiles[2, 2, :] = 40.0
+        metrics = _score(rows, JointPrediction(quantiles, np.zeros((3, 3))))
+        assert metrics["horizons"][2]["index_days"] == 2
+>       assert metrics["horizons"][2]["daily_mean_pinball_db"] == 5.0
+E       assert 10.0 == 5.0
+
+tests\integration\test_v2_development_executor.py:219: AssertionError
+___________ test_validation_identity_includes_inputs_and_provenance ___________
+
+    def test_validation_identity_includes_inputs_and_provenance() -> None:
+        row = _validation_row()
+        original = _validation_digest([row])
+        changed = replace(row, context_age_minutes=row.context_age_minutes + 1)
+>       assert _validation_digest([changed]) != original
+E       AssertionError: assert '479f3aba1d38427553606ae810f794e6384211e377c6b29d141403a9f2094a73' != '479f3aba1d38427553606ae810f794e6384211e377c6b29d141403a9f2094a73'
+E        +  where '479f3aba1d38427553606ae810f794e6384211e377c6b29d141403a9f2094a73' = _validation_digest([HourlyWindow(row_id='fixture-validation-1', partition='validation', cutoff=np.datetime64('2020-06-01T00:00'), context...aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',), context_index_db=None, past_source_sha256=(), target_source_sha256=())])
+
+tests\integration\test_v2_campaign.py:68: AssertionError
+___________ test_conventional_prediction_never_reads_future[ridge] ____________
+
+family = 'ridge'
+
+    @pytest.mark.parametrize(
+        "family", ["persistence", "seasonal", "ridge", "hist_gradient_boosting"]
+    )
+    def test_conventional_prediction_never_reads_future(family: str) -> None:
+        fit, assess = _rows("2020-02-18"), _rows("2020-04-02")
+>       model = NativeConventional(family, tree_max_iter=3).fit(fit)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\integration\test_v2_conventional.py:59: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <marine_echo.models.v2_conventional.NativeConventional object at 0x0000025BC91F2510>
+family = 'ridge', tree_max_iter = 3
+
+    def __init__(self, family: ConventionalFamily, *, tree_max_iter: int = 150) -> None:
+        if family not in ("persistence", "seasonal", "hist_gradient_boosting"):
+>           raise ValueError("Unknown native conventional family.")
+E           ValueError: Unknown native conventional family.
+
+src\marine_echo\models\v2_conventional.py:28: ValueError
+=========================== short test summary info ===========================
+FAILED tests/integration/test_v2_development_executor.py::test_daily_pinball_groups_by_future_target_day
+FAILED tests/integration/test_v2_campaign.py::test_validation_identity_includes_inputs_and_provenance
+FAILED tests/integration/test_v2_conventional.py::test_conventional_prediction_never_reads_future[ridge]
+3 failed, 3 passed, 12 deselected in 6.59s

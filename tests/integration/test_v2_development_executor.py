@@ -12,10 +12,12 @@ import pytest
 import torch
 
 from marine_echo.models.compact import ModelConfig
+from marine_echo.models.v2_development import JointPrediction
 from marine_echo.training.v2_executor import (
     V2_PROTOCOL_SHA256,
     _code_digest,
     _review_gate,
+    _score,
     _validate_rows,
     _verify_predictions,
     execute_development,
@@ -187,3 +189,29 @@ def test_real_review_binds_exact_inputs_code_and_sources(tmp_path: Path) -> None
     review["input_sha256"] = "e" * 64
     with pytest.raises(ValueError, match="does not authorize"):
         check()
+
+
+def test_daily_pinball_groups_by_future_target_day() -> None:
+    rows = []
+    for hour in ("2020-04-01T18", "2020-04-01T19", "2020-04-02T01"):
+        row = _rows("2020-04-02")[0]
+        cutoff = np.datetime64(hour)
+        rows.append(
+            replace(
+                row,
+                row_id=hour,
+                cutoff=cutoff,
+                target_interval_start=np.array(
+                    [cutoff + np.timedelta64(h, "h") for h in (0, 2, 5)]
+                ),
+                target_interval_end=np.array([cutoff + np.timedelta64(h, "h") for h in (1, 3, 6)]),
+                target_db=np.zeros(3),
+                target_mask=np.array([False, False, True]),
+                target_detection_mask=np.zeros(3, dtype=bool),
+            )
+        )
+    quantiles = np.zeros((3, 3, 5))
+    quantiles[2, 2, :] = 40.0
+    metrics = _score(rows, JointPrediction(quantiles, np.zeros((3, 3))))
+    assert metrics["horizons"][2]["index_days"] == 2
+    assert metrics["horizons"][2]["daily_mean_pinball_db"] == 5.0

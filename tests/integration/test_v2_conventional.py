@@ -51,7 +51,7 @@ def _rows(first_day: str) -> list[HourlyWindow]:
     return rows
 
 
-@pytest.mark.parametrize("family", ["persistence", "seasonal", "hist_gradient_boosting"])
+@pytest.mark.parametrize("family", ["persistence", "seasonal", "ridge", "hist_gradient_boosting"])
 def test_conventional_prediction_never_reads_future(family: str) -> None:
     fit, assess = _rows("2020-02-18"), _rows("2020-04-02")
     model = NativeConventional(family, tree_max_iter=3).fit(fit)
@@ -72,27 +72,31 @@ def test_conventional_prediction_never_reads_future(family: str) -> None:
     assert ((first.detection_fraction >= 0) & (first.detection_fraction <= 1)).all()
 
 
-def test_conventional_executor_writes_recomputable_rows(tmp_path: Path) -> None:
+@pytest.mark.parametrize("family", ["seasonal", "ridge"])
+def test_conventional_executor_writes_recomputable_rows(family: str, tmp_path: Path) -> None:
     result = execute_conventional(
         _rows("2020-02-18"),
         _rows("2020-04-02"),
-        tmp_path / "seasonal",
-        family="seasonal",
+        tmp_path / family,
+        family=family,
         protocol_sha256="b" * 64,
         fixture_only=True,
     )
     assert result["status"] == "COMPLETED_SYNTHETIC_FIXTURE"
-    assert result["family"] == "seasonal"
+    assert result["family"] == family
     assert Path(result["predictions"]).is_file()
     assert Path(result["model"]).is_file()
     assert result["metrics"]["issued_rows"] == 12
-    assert result["fallback_count"] > 0
+    if family == "seasonal":
+        assert result["fallback_count"] > 0
+    else:
+        assert result["fallback_count"] == 0
     with pytest.raises(FileExistsError):
         execute_conventional(
             _rows("2020-02-18"),
             _rows("2020-04-02"),
-            tmp_path / "seasonal",
-            family="seasonal",
+            tmp_path / family,
+            family=family,
             protocol_sha256="b" * 64,
             fixture_only=True,
         )
