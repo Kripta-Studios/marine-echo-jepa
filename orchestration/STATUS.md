@@ -58,7 +58,13 @@ direct checkpoint hash. Its eight browser journeys passed on the built app and
 again on the relocated archive. The 20,421,117-byte archive SHA-256 is
 `20df1e7c7292f09a16dea0b641b82da12efff4c2660d2a9159fa599f53b2d2e6`.
 Offline install/start, clean/corrupt/restored hash verification and local API
-checks passed; independent final release review is pending.
+checks passed. The distinct reviewer rejected that first archive because the
+Experiment Lab linked a draft protocol as "Frozen protocol". The archive and
+review are preserved. A corrected separate r2 archive uses "Protocol and
+evidence"; its SHA-256 is
+`8c3eee64695c4ef3007ac6af9ab449434ef87e2c0bd4fbe5ab1641a59666b5ef`.
+The r2 archive passed fresh relocation, checksum corruption detection, offline
+starts and eight browser journeys; independent r2 release review is pending.
 
 The existing GPU environment passed a CUDA kernel smoke with PyTorch 2.11.0+cu128;
 this is not a training-memory measurement. Data-environment PyTorch is absent and

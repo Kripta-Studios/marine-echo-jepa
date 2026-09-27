@@ -70,12 +70,19 @@ That code approval does not override the failed calibrated data gate. The
 research app's real-artifact browser suite passed eight journeys, including
 rendering all 636 cutoff-by-horizon prediction rows.
 
-The offline archive `release/marine-echo-v2-research-20260927.zip` is
-20,421,117 bytes with SHA-256
-`20df1e7c7292f09a16dea0b641b82da12efff4c2660d2a9159fa599f53b2d2e6`.
-It contains 332 hashed payload files and was built from commit `52f63f9`.
-Fresh relocation verification passed a clean/corrupt/restored integrity cycle,
-offline dependency install, first start in 3.398 seconds, and cold restart in
-1.136 seconds. The extracted package passed eight offline browser journeys,
-including the complete real prediction table. Exact records are under
-`evidence/v2-release/`. Independent final release review remains pending.
+The first offline archive `release/marine-echo-v2-research-20260927.zip`
+(SHA-256 `20df1e7c7292f09a16dea0b641b82da12efff4c2660d2a9159fa599f53b2d2e6`)
+passed integrity, relocation and browser checks but failed distinct final
+release review: its Experiment Lab link incorrectly called the draft protocol
+"Frozen protocol". That rejected archive and its review remain preserved.
+
+The corrected archive `release/marine-echo-v2-research-20260927-r2.zip` is
+20,796,053 bytes with SHA-256
+`8c3eee64695c4ef3007ac6af9ab449434ef87e2c0bd4fbe5ab1641a59666b5ef`.
+It contains 336 hashed payload files and was built from commit `dfa9843`.
+Its link reads "Protocol and evidence". Fresh relocation verification passed
+a clean/corrupt/restored integrity cycle, offline dependency install, first
+start in 3.469 seconds, and cold restart in 1.164 seconds. The extracted
+package passed eight offline browser journeys, including the complete real
+prediction table and corrected link. Exact records are under
+`evidence/v2-release-r2/`. Independent r2 final review is pending.
