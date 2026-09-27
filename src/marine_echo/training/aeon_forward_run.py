@@ -158,6 +158,7 @@ def _code_sha256() -> str:
         Path(__file__).with_name("aeon_corpus.py"),
         Path(__file__).with_name("aeon_windows.py"),
         Path(__file__).with_name("aeon_development.py"),
+        Path(__file__).with_name("aeon_rescore.py"),
         root / "evaluation/aeon.py",
     )
     digest = hashlib.sha256()
@@ -645,4 +646,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

@@ -2,14 +2,29 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+
 import numpy as np
 import pytest
 import torch
 
 from marine_echo.models.aeon_forward_ssl import AeonForwardSSL
 from marine_echo.training.aeon_forward_run import (
-    FORWARD_SLOTS, _forward_representation_diagnostics, _shuffled_pair_indices,
+    FORWARD_SLOTS, _code_sha256, _forward_representation_diagnostics,
+    _shuffled_pair_indices,
 )
+
+
+def test_forward_digest_binds_rescore_artifact_reader(monkeypatch: pytest.MonkeyPatch) -> None:
+    baseline = _code_sha256()
+    original = Path.read_bytes
+
+    def changed_read(path: Path) -> bytes:
+        content = original(path)
+        return content + b"reviewed_dependency_change" if path.name == "aeon_rescore.py" else content
+
+    monkeypatch.setattr(Path, "read_bytes", changed_read)
+    assert _code_sha256() != baseline
 
 
 def test_forward_slots_and_shuffled_pair_distances() -> None:
@@ -57,7 +72,9 @@ def test_forward_train_diagnostic_reports_collapse_without_validation() -> None:
     "forward_ema_seed7", "random_encoder_seed7",
     "temporally_shuffled_future_target_seed7",
 ))
-def test_forward_slot_executes_one_step_fixture_with_real_artifacts(tmp_path, slot_id: str) -> None:
+def test_forward_slot_executes_one_step_fixture_with_real_artifacts(
+    tmp_path: Path, slot_id: str,
+) -> None:
     from dataclasses import replace
 
     from marine_echo.training.aeon_corpus import AeonHourlySlot
