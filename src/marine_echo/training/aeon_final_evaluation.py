@@ -24,11 +24,10 @@ from marine_echo.evaluation.aeon import (
     daily_pinball,
     paired_48h_bootstrap,
 )
-from marine_echo.training.aeon_evaluation_reader import AeonEvaluationReader
 from marine_echo.training import aeon_corpus, aeon_evaluation_reader, aeon_windows
+from marine_echo.training.aeon_evaluation_reader import AeonEvaluationReader
 from marine_echo.training.aeon_forecast_adapters import adapter_composite_sha256
 from marine_echo.training.aeon_windows import AeonHourlyWindow
-
 
 _STUDY = "aeon3_geb_2024_hourly_sv_v1"
 _SOURCE_SHA256 = "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde"
@@ -286,13 +285,31 @@ def _forecast_manifest(
     value, digest = _json(path)
     entries = value.get("models")
     expected_ids = [model["model_id"] for model in selection["models"]]
+    expected_bindings = {
+        model["model_id"]: (
+            model["role"], model["selection_classification"], model["adapter"],
+            tuple(
+                (item["artifact_id"], item["sha256"])
+                for item in model["component_artifacts"]
+            ),
+            tuple(model["ensemble_weights"]),
+        )
+        for model in selection["models"]
+    }
     if (
-        value.get("schema_version") != "1.0"
+        set(value) != {
+            "schema_version", "status", "study_id", "partition",
+            "selection_freeze_sha256", "candidate_contract_sha256",
+            "adapter_composite_sha256", "models",
+        }
+        or value.get("schema_version") != "1.0"
         or value.get("status") != "FROZEN_AEON_PARTITION_FORECASTS"
         or value.get("study_id") != _STUDY
         or value.get("partition") != partition
         or value.get("selection_freeze_sha256") != selection_sha256
         or value.get("candidate_contract_sha256") != candidate_sha256
+        or value.get("adapter_composite_sha256") != selection["adapter_composite_sha256"]
+        or value.get("adapter_composite_sha256") != adapter_composite_sha256()
         or not isinstance(entries, list)
         or [entry.get("model_id") for entry in entries if isinstance(entry, dict)] != expected_ids
     ):
@@ -300,8 +317,30 @@ def _forecast_manifest(
     result = []
     roles = {model["model_id"]: model["role"] for model in selection["models"]}
     for entry in entries:
-        if not isinstance(entry, dict) or set(entry) != {"model_id", "artifact", "artifact_sha256"}:
+        if (
+            not isinstance(entry, dict)
+            or set(entry) != {
+                "model_id", "role", "selection_classification", "adapter",
+                "component_artifacts", "ensemble_weights", "adapter_composite_sha256",
+                "artifact", "artifact_sha256",
+            }
+        ):
             raise ValueError("AEON forecast manifest model entry is malformed.")
+        components = entry.get("component_artifacts")
+        binding = (
+            entry.get("role"), entry.get("selection_classification"), entry.get("adapter"),
+            tuple(
+                (item.get("artifact_id"), item.get("sha256"))
+                for item in components
+                if isinstance(item, dict)
+            ) if isinstance(components, list) else (),
+            tuple(entry.get("ensemble_weights", ())),
+        )
+        if (
+            binding != expected_bindings[entry["model_id"]]
+            or entry.get("adapter_composite_sha256") != adapter_composite_sha256()
+        ):
+            raise ValueError("AEON forecast provenance differs from the frozen selection.")
         result.append((entry["model_id"], roles[entry["model_id"]], _safe_artifact(
             path.parent, entry["artifact"], entry["artifact_sha256"]
         )))
@@ -380,11 +419,14 @@ def _execute_forecast_plan(
     else:
         if fixture:
             raise ValueError("Synthetic AEON TEST execution requires its fixture forecaster.")
-        from marine_echo.training.aeon_forecast_adapters import (
-            adapt_chronos2, adapt_conventional, adapt_core_neural_ensemble,
-            adapt_forward_ensemble, adapt_lightgbm,
-        )
         from marine_echo.training import aeon_forecast_adapters
+        from marine_echo.training.aeon_forecast_adapters import (
+            adapt_chronos2,
+            adapt_conventional,
+            adapt_core_neural_ensemble,
+            adapt_forward_ensemble,
+            adapt_lightgbm,
+        )
 
         adapter_sha256 = aeon_forecast_adapters.adapter_composite_sha256()
 
@@ -474,14 +516,44 @@ def _review(
         "reader_composite_sha256": reader_composite_sha256(),
         "adapter_composite_sha256": adapter_composite_sha256(),
     }
+    expected_access = {
+        ("calibration", True): "CALIBRATION_FIXTURE_ONLY",
+        ("test", True): "RETROSPECTIVE_TEST_FIXTURE_ONLY",
+        ("calibration", False): "CALIBRATION_NUMERIC_ACCESS_APPROVED",
+        ("test", False): "RETROSPECTIVE_TEST_NUMERIC_ACCESS_APPROVED",
+    }[(partition, fixture)]
     if (
         value.get("status") != expected_status
         or value.get("partition") != partition
+        or not isinstance(value.get("reviewer_session"), str)
+        or not value["reviewer_session"]
+        or value.get("partition_access") != expected_access
         or any(value.get(key) != digest for key, digest in bindings.items())
         or any(value.get(key) != digest for key, digest in code_bindings.items())
     ):
         raise ValueError("AEON runner review bindings differ from the frozen artifacts.")
     return value, fixture
+
+
+def _reader_review_gate(
+    path: Path, expected_sha256: str, partition: str, fixture: bool,
+    runner_reviewer_session: str,
+) -> None:
+    value, _ = _json(path, expected_sha256)
+    expected_access = {
+        ("calibration", True): "CALIBRATION_FIXTURE_ONLY",
+        ("test", True): "RETROSPECTIVE_TEST_FIXTURE_ONLY",
+        ("calibration", False): "CALIBRATION_NUMERIC_ACCESS_APPROVED",
+        ("test", False): "RETROSPECTIVE_TEST_NUMERIC_ACCESS_APPROVED",
+    }[(partition, fixture)]
+    if (
+        value.get("partition") != partition
+        or value.get("partition_access") != expected_access
+        or not isinstance(value.get("reviewer_session"), str)
+        or not value["reviewer_session"]
+        or value["reviewer_session"] == runner_reviewer_session
+    ):
+        raise ValueError("AEON reader review lacks distinct partition-specific approval.")
 
 
 def _reader(
@@ -586,12 +658,18 @@ def execute_calibration(
     forecasts, manifest_sha = _forecast_manifest(
         forecast_manifest_path, "calibration", selection, selection_sha, None
     )
-    _, fixture = _review(runner_review_path, runner_review_sha256, "calibration", {
+    runner_review, fixture = _review(runner_review_path, runner_review_sha256, "calibration", {
         "selection_freeze_sha256": selection_sha,
         "forecast_manifest_sha256": manifest_sha,
         "config_sha256": config_sha,
         "reader_review_sha256": reader_review_sha256,
     })
+    if all(model["adapter"] == "SYNTHETIC_FIXTURE" for model in selection["models"]) != fixture:
+        raise ValueError("AEON selection fixture mode differs from the reviewed data access mode.")
+    _reader_review_gate(
+        reader_review_path, reader_review_sha256, "calibration", fixture,
+        runner_review["reviewer_session"],
+    )
     reader = _reader(
         archive=archive, review_path=reader_review_path, review_sha256=reader_review_sha256,
         partition="calibration", fixture=fixture, fixture_reader=fixture_reader,
@@ -654,13 +732,16 @@ def _candidate(path: Path) -> tuple[dict[str, Any], str]:
         or any(
             not isinstance(row, dict)
             or not isinstance(row.get("cutoff_source_timestamp"), str)
-            or not isinstance(row.get("row_id"), str)
+            or not _digest(row.get("row_id"))
             or row.get("numeric_issuance_status") != "UNKNOWN"
             or row.get("target_scoring_status") != "UNKNOWN"
             for row in rows
         )
     ):
         raise ValueError("AEON metadata-only TEST candidate contract is invalid.")
+    row_ids = [row["row_id"] for row in rows]
+    if len(row_ids) != len(set(row_ids)):
+        raise ValueError("AEON metadata-only TEST candidate row IDs are duplicated.")
     return value, digest
 
 
@@ -784,7 +865,7 @@ def execute_retrospective_test(
         calibration_sha=calibration_sha, config_sha=config_sha,
         forecast_manifest_sha=manifest_sha,
     )
-    _, fixture = _review(runner_review_path, runner_review_sha256, "test", {
+    runner_review, fixture = _review(runner_review_path, runner_review_sha256, "test", {
         "selection_freeze_sha256": selection_sha,
         "config_sha256": config_sha,
         "calibration_artifact_sha256": calibration_sha,
@@ -792,17 +873,25 @@ def execute_retrospective_test(
         "forecast_manifest_sha256": manifest_sha,
         "reader_review_sha256": reader_review_sha256,
     })
+    if all(model["adapter"] == "SYNTHETIC_FIXTURE" for model in selection["models"]) != fixture:
+        raise ValueError("AEON selection fixture mode differs from the reviewed data access mode.")
+    _reader_review_gate(
+        reader_review_path, reader_review_sha256, "test", fixture,
+        runner_review["reviewer_session"],
+    )
     reader = _reader(
         archive=archive, review_path=reader_review_path, review_sha256=reader_review_sha256,
         partition="test", fixture=fixture, fixture_reader=fixture_reader,
     )
     rows = _rows(reader, "test")
     candidate_pairs = [
-        (row["cutoff_interval_id"], row["cutoff_source_timestamp"])
+        (row["cutoff_interval_id"], row["cutoff_source_timestamp"], row["row_id"])
         for row in candidate["candidate_rows"]
     ]
     frozen = set(candidate_pairs)
-    issued = {(row.cutoff_interval_id, str(row.cutoff_source_timestamp)) for row in rows}
+    issued = {
+        (row.cutoff_interval_id, str(row.cutoff_source_timestamp), row.row_id) for row in rows
+    }
     if not issued <= frozen:
         raise ValueError("AEON issued row falls outside the metadata-only candidate universe.")
     generated = _execute_forecast_plan(
@@ -910,8 +999,10 @@ def execute_retrospective_test(
         "target_qc_status_by_row": [list(row.target_qc_status) for row in rows],
         "candidate_not_issued": [
             {"cutoff_interval_id": interval, "cutoff_source_timestamp": timestamp,
+             "row_id": row_id,
              "reason": "FAILED_FROZEN_24_PRIOR_38KHZ_ISSUANCE_RULE"}
-            for interval, timestamp in candidate_pairs if (interval, timestamp) not in issued
+            for interval, timestamp, row_id in candidate_pairs
+            if (interval, timestamp, row_id) not in issued
         ],
         "models": model_results,
         "comparisons": comparisons,
