@@ -9,6 +9,7 @@ from typing import Any
 import typer
 
 from marine_echo.evaluation.protocol import create_protocol, digest_file, verify_seal
+from marine_echo.serving.aeon_study import build_aeon_research
 from marine_echo.serving.release import REASON, build_diagnostic, build_v2_research, run_registry
 
 app = typer.Typer(no_args_is_help=True)
@@ -264,6 +265,12 @@ def release_build(protocol: str = "active", output: Path = Path("release/demo"))
 def release_build_v2_research(output: Path = Path("release/v2-research-offline")) -> None:
     """Build a separate offline research artifact from reviewed raw-code development."""
     emit(build_v2_research(root_path(), output))
+
+
+@release.command("build-aeon-research")
+def release_build_aeon_research(output: Path = Path("release/aeon-research-offline")) -> None:
+    """Build a separate offline study release from reviewed development evidence."""
+    emit(build_aeon_research(root_path(), output))
 
 
 @app.command()

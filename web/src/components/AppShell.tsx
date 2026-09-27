@@ -6,12 +6,15 @@ export type AppRoute =
   | "forecast-comparison"
   | "observation-freshness"
   | "experiment-lab"
-  | "evidence-transfer";
+  | "evidence-transfer"
+  | "aeon-study";
 
 export interface AppScreen {
   title: string;
   eyebrow?: string;
   content: ReactNode;
+  provenance?: ShellProvenance;
+  context?: ShellContext;
 }
 
 export type DataOrigin =
@@ -46,6 +49,7 @@ const routeItems: ReadonlyArray<{
   { id: "observation-freshness", label: "Observation freshness", number: "03" },
   { id: "experiment-lab", label: "Experiment lab", number: "04" },
   { id: "evidence-transfer", label: "Evidence & transfer", number: "05" },
+  { id: "aeon-study", label: "AEON study", number: "06" },
 ];
 
 function routeFromLocation(): AppRoute {
@@ -73,6 +77,8 @@ function originLabel(origin: DataOrigin | undefined): string {
 export function AppShell({ screens, provenance, context }: AppShellProps) {
   const [activeRoute, setActiveRoute] = useState<AppRoute>(routeFromLocation);
   const activeScreen = screens[activeRoute];
+  const visibleProvenance = activeScreen.provenance ?? provenance;
+  const visibleContext = activeScreen.context ?? context;
 
   useEffect(() => {
     const syncRoute = () => setActiveRoute(routeFromLocation());
@@ -128,7 +134,7 @@ export function AppShell({ screens, provenance, context }: AppShellProps) {
         </nav>
         <div className="rail-bottom">
           <span className="rail-coordinate" aria-hidden="true">
-            ARCTIC / PUBLIC STUDY
+            {activeRoute === "aeon-study" ? "GEORGES BASIN / PUBLIC STUDY" : "ARCTIC / PUBLIC STUDY"}
           </span>
           <p>
             Acoustic forecasting
@@ -153,38 +159,38 @@ export function AppShell({ screens, provenance, context }: AppShellProps) {
             <p>Public-data research demonstrator</p>
             <span
               className="origin-badge"
-              data-origin={provenance?.origin ?? "unavailable"}
+              data-origin={visibleProvenance?.origin ?? "unavailable"}
             >
               <span className="origin-badge__dot" aria-hidden="true" />
-              {originLabel(provenance?.origin)}
+              {originLabel(visibleProvenance?.origin)}
             </span>
           </div>
           <div className="provenance-bar" aria-label="Dataset provenance">
             <div>
               <span className="topbar-label">Source</span>
-              <strong>{provenance?.sourceLabel || "Not verified"}</strong>
+              <strong>{visibleProvenance?.sourceLabel || "Not verified"}</strong>
             </div>
             <div>
               <span className="topbar-label">Dataset</span>
-              <strong>{provenance?.datasetLabel || "Not selected"}</strong>
+              <strong>{visibleProvenance?.datasetLabel || "Not selected"}</strong>
             </div>
             <div>
               <span className="topbar-label">Integrity</span>
-              <strong>{provenance?.verificationLabel || "Not checked"}</strong>
+              <strong>{visibleProvenance?.verificationLabel || "Not checked"}</strong>
             </div>
           </div>
           <div className="compact-provenance" aria-label="Dataset provenance">
             <div>
               <span>Source</span>
-              <strong>{provenance?.sourceLabel || "Not verified"}</strong>
+              <strong>{visibleProvenance?.sourceLabel || "Not verified"}</strong>
             </div>
             <div>
               <span>Dataset</span>
-              <strong>{provenance?.datasetLabel || "Not selected"}</strong>
+              <strong>{visibleProvenance?.datasetLabel || "Not selected"}</strong>
             </div>
             <div>
               <span>Integrity</span>
-              <strong>{provenance?.verificationLabel || "Not checked"}</strong>
+              <strong>{visibleProvenance?.verificationLabel || "Not checked"}</strong>
             </div>
           </div>
           <details className="mobile-navigation">
@@ -203,9 +209,9 @@ export function AppShell({ screens, provenance, context }: AppShellProps) {
         </header>
 
         <div className="mobile-context" aria-label="Replay context">
-          <ContextItem label="Cutoff" value={context?.cutoffLabel} />
-          <ContextItem label="Mode" value={context?.modeLabel} />
-          <ContextItem label="Uncertainty" value={context?.uncertaintyLabel} />
+          <ContextItem label="Cutoff" value={visibleContext?.cutoffLabel} />
+          <ContextItem label="Mode" value={visibleContext?.modeLabel} />
+          <ContextItem label="Uncertainty" value={visibleContext?.uncertaintyLabel} />
         </div>
 
         <main className="main-content" id="main" tabIndex={-1}>
@@ -217,11 +223,11 @@ export function AppShell({ screens, provenance, context }: AppShellProps) {
               <h1>{activeScreen.title}</h1>
             </div>
             <div className="desktop-context" aria-label="Replay context">
-              <ContextItem label="Cutoff" value={context?.cutoffLabel} />
-              <ContextItem label="Mode" value={context?.modeLabel} />
+              <ContextItem label="Cutoff" value={visibleContext?.cutoffLabel} />
+              <ContextItem label="Mode" value={visibleContext?.modeLabel} />
               <ContextItem
                 label="Uncertainty"
-                value={context?.uncertaintyLabel}
+                value={visibleContext?.uncertaintyLabel}
               />
             </div>
           </div>
@@ -230,8 +236,9 @@ export function AppShell({ screens, provenance, context }: AppShellProps) {
               !
             </span>
             <p>
-              Arctic research deployment. Not tuna, catch or Marine Instruments
-              validation.
+              {activeRoute === "aeon-study"
+                ? "Georges Basin research deployment. Not tuna, catch or Marine Instruments validation."
+                : "Arctic research deployment. Not tuna, catch or Marine Instruments validation."}
             </p>
           </div>
           <section

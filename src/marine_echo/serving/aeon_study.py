@@ -1,0 +1,222 @@
+"""Package independently reviewed AEON development evidence beside historical v1/v2."""
+
+from __future__ import annotations
+
+import hashlib
+import json
+import math
+import shutil
+import tempfile
+from pathlib import Path
+from typing import Any
+
+from marine_echo.serving.release import build_v2_research
+
+_REVIEW_FILES = {
+    "core": (
+        "AEON_VALIDATION_RESCORE_OUTCOME_REVIEW_20260927.json",
+        "16bb9ef931f5e2d8f8a3322fa609c5cb1c769f99f5e4a89a5ef519a0fb52f44f",
+        "APPROVED_AEON_VALIDATION_RESCORE_OUTCOME_NO_SELECTION",
+    ),
+    "hybrid": (
+        "AEON_HYBRID_OUTCOME_REVIEW_20260927.json",
+        "5244af6f1c9ba0308f1acaf44b1d5b197fb568dc02b9bd00c41ac57823bf9021",
+        "APPROVED_AEON_HYBRID_OUTCOME_NO_SELECTION",
+    ),
+    "post_hoc_supervised": (
+        "AEON_SOTA_SUPERVISED_OUTCOME_REVIEW_20260927.json",
+        "d08932b0c88f322ceb573ef2ee30198aed0ceb3c5611b6e865e0e562f640138d",
+        "APPROVED_AEON_POST_HOC_SUPERVISED_OUTCOME_NO_SELECTION",
+    ),
+}
+_SOURCE_SHA = "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde"
+_ROW_SHA = "9ce5ed6d60c4082efd3f342b3ee09ddadc5cf6286be6d6a3e953ab0f6166a99f"
+_CORE_SLOTS = {
+    "persistence", "seasonal_24_source_intervals", "ridge", "hist_gradient_boosting",
+    *(f"{family}_seed{seed}" for family in ("direct", "ema_jepa", "shared_sigreg") for seed in (7, 13, 23)),
+    "random_encoder_ema_seed7", "random_encoder_shared_sigreg_seed7",
+    "temporally_shuffled_pretrain_target_ema_seed7",
+    "temporally_shuffled_pretrain_target_shared_sigreg_seed7",
+}
+
+
+def _sha256(path: Path) -> str:
+    with path.open("rb") as stream:
+        return hashlib.file_digest(stream, "sha256").hexdigest()
+
+
+def _review(root: Path, key: str) -> tuple[dict[str, Any], str]:
+    name, expected, status = _REVIEW_FILES[key]
+    path = root / "orchestration/reviews" / name
+    if _sha256(path) != expected:
+        raise ValueError(f"AEON {key} review digest differs from approved evidence.")
+    record = json.loads(path.read_text(encoding="utf-8"))
+    if (
+        record.get("status") != status
+        or record.get("reviewer_session") != "/root/aeon_reviewer"
+        or record.get("test_access") != "PROHIBITED"
+        or record.get("independent_execution", {}).get("calibration_or_test_outcomes_opened") is not False
+    ):
+        raise ValueError(f"AEON {key} lacks a distinct development outcome review.")
+    return record, expected
+
+
+def _finite_scores(scores: object, expected_keys: set[str] | None = None) -> dict[str, float]:
+    if not isinstance(scores, dict) or (expected_keys is not None and set(scores) != expected_keys):
+        raise ValueError("AEON reviewed score inventory differs.")
+    if not all(isinstance(value, (int, float)) and math.isfinite(value) and value >= 0 for value in scores.values()):
+        raise ValueError("AEON reviewed score must be finite and nonnegative.")
+    return {str(key): float(value) for key, value in scores.items()}
+
+
+def build_aeon_development_report(root: Path) -> dict[str, Any]:
+    """Use only exact approved outcome reviews; no source ZIP or CAL/TEST values."""
+    core, core_sha = _review(root, "core")
+    hybrid, hybrid_sha = _review(root, "hybrid")
+    supervised, supervised_sha = _review(root, "post_hoc_supervised")
+    core_scores = _finite_scores(core.get("primary_daily_mean_pinball_db_by_slot"), _CORE_SLOTS)
+    hybrid_scores = _finite_scores(hybrid.get("primary_daily_mean_pinball_db"))
+    required_hybrid = {
+        "raw_only_hgb", "ema_hybrid_seed7", "ema_hybrid_seed13", "ema_hybrid_seed23",
+        "shared_hybrid_seed7", "shared_hybrid_seed13", "shared_hybrid_seed23",
+        "random_encoder_hybrid_seed7", "shuffled_ema_hybrid_seed7",
+        "shuffled_shared_hybrid_seed7", "ema_hybrid_equal_three_seed_ensemble",
+        "shared_hybrid_equal_three_seed_ensemble", "core_direct_equal_three_seed_ensemble",
+        "core_ema_equal_three_seed_ensemble", "core_shared_equal_three_seed_ensemble",
+    }
+    if set(hybrid_scores) != required_hybrid:
+        raise ValueError("AEON reviewed hybrid/ensemble score inventory differs.")
+    core_support = core.get("support", {})
+    supervised_support = supervised.get("lineage", {})
+    supervised_metrics = supervised.get("verified_metrics", {})
+    if (
+        core_support.get("issued_rows") != 1219
+        or core_support.get("validation_row_sha256") != _ROW_SHA
+        or core_support.get("eligible_days_per_horizon") != [50, 50, 50]
+        or supervised_support.get("source_archive_sha256") != _SOURCE_SHA
+        or supervised_support.get("validation_row_sha256") != _ROW_SHA
+        or supervised_support.get("validation_issued_rows") != 1219
+        or supervised_metrics.get("eligible_days_per_horizon") != [50, 50, 50]
+        or core.get("artifact_sha256", {}).get("rescore_report")
+        != hybrid.get("artifact_sha256", {}).get("validation_rescore")
+        or core.get("artifact_sha256", {}).get("rescore_report")
+        != supervised.get("artifact_sha256", {}).get("validation_rescore")
+        or abs(core_scores["hist_gradient_boosting"] - hybrid_scores["raw_only_hgb"]) > 5e-12
+    ):
+        raise ValueError("AEON reviewed development cohort or metric support differs.")
+    sota_score = _finite_scores({
+        "primary_daily_mean_pinball_db": supervised_metrics.get("primary_daily_mean_pinball_db")
+    })["primary_daily_mean_pinball_db"]
+    return {
+        "schema_version": "1.0",
+        "study_id": "aeon3_geb_2024_hourly_sv_v1",
+        "title": "AEON3 Georges Basin hourly acoustic development",
+        "classification": "REVIEWED_TRAIN_VALIDATION_DEVELOPMENT_NOT_FINAL_EVALUATION",
+        "source": {
+            "publisher": "Figshare AEON AZFP Integrated Sv products, version 2, file 61937281",
+            "archive_sha256": _SOURCE_SHA,
+            "site": "AEON3 Georges Basin fixed lander",
+            "source_identifier": "55144; physical serial binding not independently verified",
+        },
+        "target": {
+            "source_variable": "Sv_mean", "frequency_hz": 38000,
+            "product": "60minFullDepth", "nominal_layer_m": [0, 200],
+            "unit": "dB re 1 m^-1, source-reported conditioned volume backscattering strength",
+            "calibration_claim": "SOURCE_REPORTED_CONDITIONED_NOT_INDEPENDENTLY_FIELD_VERIFIED",
+            "horizon_source_interval_steps": [1, 3, 6],
+        },
+        "source_time_basis": "SOURCE_REPORTED_UNSPECIFIED_NOT_UTC",
+        "assessment_partition": "validation",
+        "validation_row_sha256": _ROW_SHA,
+        "calibration_outcomes": "NOT_OPENED_FOR_THIS_REPORT",
+        "retrospective_test_outcomes": "NOT_OPENED_FOR_THIS_REPORT",
+        "final_evaluation": False,
+        "selection": "NOT_PERFORMED_IN_THIS_REPORT",
+        "cached_forecasts": 0,
+        "development": {
+            "core": {
+                "status": "INDEPENDENTLY_REVIEWED", "issued_rows": 1219,
+                "eligible_days_per_horizon": [50, 50, 50],
+                "slot_primary_pinball_db": core_scores,
+                "rescore_report_sha256": core["artifact_sha256"]["rescore_report"],
+                "outcome_review_sha256": core_sha,
+            },
+            "hybrid": {
+                "status": "INDEPENDENTLY_REVIEWED", "primary_pinball_db": hybrid_scores,
+                "report_sha256": hybrid["artifact_sha256"]["hybrid_report"],
+                "outcome_review_sha256": hybrid_sha,
+            },
+            "post_hoc_supervised": {
+                "family": "LightGBM", "status": "INDEPENDENTLY_REVIEWED_POST_HOC_DEVELOPMENT",
+                "primary_pinball_db": sota_score,
+                "per_horizon_pinball_db": supervised_metrics["daily_mean_pinball_db_per_horizon"],
+                "report_sha256": supervised["artifact_sha256"]["report"],
+                "outcome_review_sha256": supervised_sha,
+            },
+            "forward_ema": "PENDING_INDEPENDENT_OUTCOME_REVIEW",
+            "chronos2": "PENDING_INDEPENDENT_OUTCOME_REVIEW",
+        },
+        "limitations": [
+            "Retrospective TRAIN/validation development scores are not a final evaluation or a state-of-the-art claim.",
+            "The source clock timezone and product availability latency are unknown; source dates are not UTC dates.",
+            "Publisher conditioning includes filtering and manual exclusions; exact calibration coefficients and processing settings are not independently verified.",
+            "The acoustic response does not establish species, biomass, catch or operational savings.",
+            "No AEON forecasts are cached or served by this release.",
+        ],
+    }
+
+
+def build_aeon_research(root: Path, output: Path) -> dict[str, Any]:
+    """Build a new offline package; retain v1/v2 artifacts and attach AEON evidence."""
+    if output.exists() or output.is_symlink():
+        raise FileExistsError("AEON release output already exists.")
+    study = build_aeon_development_report(root)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    stage = Path(tempfile.mkdtemp(prefix=".aeon-release-stage-", dir=output.parent))
+    base = stage / "package"
+    try:
+        build_v2_research(root, base)
+        artifacts = base / "artifacts"
+        catalog_path = artifacts / "catalog.json"
+        catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
+        if (
+            catalog.get("release_class") != "OFFLINE_RESEARCH_ENGINEERING_ONLY"
+            or catalog.get("forecasts") != {}
+            or "aeon-study" in catalog.get("artifacts", {})
+            or "aeon3_geb_2024_hourly_sv_v1" in catalog.get("studies", [])
+        ):
+            raise ValueError("AEON base release has unexpected historical contract.")
+        study_path = artifacts / "aeon-study.json"
+        study_path.write_text(json.dumps(study, indent=2, allow_nan=False) + "\n", encoding="utf-8")
+        catalog["artifacts"]["aeon-study"] = {
+            "path": study_path.name, "sha256": _sha256(study_path), "kind": "aeon-study",
+        }
+        catalog["studies"] = ["mosaic_v1_v2_historical", study["study_id"]]
+        catalog["release_class"] = "OFFLINE_RESEARCH_MIXED_STUDIES_DEVELOPMENT_ONLY"
+        for path in (catalog_path, base / "catalog.json"):
+            path.write_text(json.dumps(catalog, indent=2, allow_nan=False) + "\n", encoding="utf-8")
+        packaged_files = sorted(
+            (path for path in base.rglob("*") if path.is_file()),
+            key=lambda path: path.relative_to(base).as_posix(),
+        )
+        asset_hashes = {
+            path.relative_to(base).as_posix(): _sha256(path) for path in packaged_files
+        }
+        (base / "SHA256SUMS").write_text(
+            "".join(f"{digest}  {name}\n" for name, digest in asset_hashes.items()),
+            encoding="utf-8",
+        )
+        base.rename(output)
+        return {
+            "status": catalog["release_class"], "output": str(output),
+            "aeon_study_sha256": _sha256(output / "artifacts/aeon-study.json"),
+            "packaged_asset_count": len(asset_hashes),
+            "historical_registry_rows": len(catalog["experiments"]),
+            "aeon_cached_forecasts": 0,
+        }
+    finally:
+        if stage.exists():
+            resolved = stage.resolve()
+            if not resolved.is_relative_to(output.parent.resolve()):
+                raise ValueError("AEON release staging path escaped output parent.")
+            shutil.rmtree(resolved)

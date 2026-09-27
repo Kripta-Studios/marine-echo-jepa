@@ -20,6 +20,8 @@ import {
   type RawDevelopmentEvidence,
 } from "./api/client";
 import { RawEchogram } from "./charts/RawEchogram";
+import { AeonStudyPage } from "./pages/AeonStudyPage";
+import type { AeonStudyEvidence } from "./api/client";
 import { safeCutoff } from "./api/cutoff";
 import "./styles/integration.css";
 
@@ -29,6 +31,10 @@ function App() {
   const [evidence, setEvidence] = useState<Evidence | null>(null);
   const [rawDevelopment, setRawDevelopment] =
     useState<RawDevelopmentEvidence | null>(null);
+  const [aeonStudy, setAeonStudy] = useState<AeonStudyEvidence | null>(null);
+  const [aeonStudyState, setAeonStudyState] = useState<
+    "loading" | "success" | "unavailable"
+  >("loading");
   const [rawDevelopmentState, setRawDevelopmentState] = useState<
     "loading" | "success" | "not-executed"
   >("loading");
@@ -86,6 +92,18 @@ function App() {
           setRawDevelopment(null);
           setRawDevelopmentState("not-executed");
         }
+      });
+    return () => controller.abort();
+  }, []);
+  useEffect(() => {
+    const controller = new AbortController();
+    getJson<AeonStudyEvidence>("/api/v1/studies/aeon", controller.signal)
+      .then((result) => {
+        setAeonStudy(result);
+        setAeonStudyState("success");
+      })
+      .catch((requestError: Error) => {
+        if (requestError.name !== "AbortError") setAeonStudyState("unavailable");
       });
     return () => controller.abort();
   }, []);
@@ -414,6 +432,21 @@ function App() {
           ]}
         />
       ),
+    },
+    "aeon-study": {
+      title: "AEON study",
+      provenance: {
+        sourceLabel: "Figshare AEON AZFP / file 61937281",
+        datasetLabel: "AEON3 · Georges Basin",
+        verificationLabel: aeonStudy ? "Reviewed source and result hashes" : "Artifact unavailable",
+        origin: aeonStudy ? "public-data" : "unavailable",
+      },
+      context: {
+        cutoffLabel: "Source clock unspecified",
+        modeLabel: "Validation evidence · no forecast replay",
+        uncertaintyLabel: "No final evaluation",
+      },
+      content: <AeonStudyPage study={aeonStudy} state={aeonStudyState} />,
     },
   };
   return (

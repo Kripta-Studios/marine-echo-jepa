@@ -223,6 +223,10 @@ def create_app(artifact_root: Path, web_root: Path | None = None) -> FastAPI:
     def evidence(evidence_id: str) -> Any:
         return store.json(evidence_id, "evidence")
 
+    @app.get("/api/v1/studies/aeon")
+    def aeon_study() -> Any:
+        return store.json("aeon-study", "aeon-study")
+
     @app.get("/api/v1/exports/{export_id}")
     def export(export_id: str) -> Response:
         store.require_ready()

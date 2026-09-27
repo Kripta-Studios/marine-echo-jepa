@@ -99,6 +99,46 @@ export interface RawDevelopmentEvidence {
   limitations: string[];
 }
 
+export interface AeonStudyEvidence {
+  study_id: "aeon3_geb_2024_hourly_sv_v1";
+  title: string;
+  classification: "REVIEWED_TRAIN_VALIDATION_DEVELOPMENT_NOT_FINAL_EVALUATION";
+  source_time_basis: "SOURCE_REPORTED_UNSPECIFIED_NOT_UTC";
+  source: { publisher: string; site: string; archive_sha256: string };
+  target: {
+    source_variable: "Sv_mean";
+    frequency_hz: 38000;
+    product: "60minFullDepth";
+    nominal_layer_m: number[];
+    unit: string;
+    calibration_claim: "SOURCE_REPORTED_CONDITIONED_NOT_INDEPENDENTLY_FIELD_VERIFIED";
+    horizon_source_interval_steps: number[];
+  };
+  assessment_partition: "validation";
+  final_evaluation: false;
+  selection: "NOT_PERFORMED_IN_THIS_REPORT";
+  cached_forecasts: 0;
+  calibration_outcomes: "NOT_OPENED_FOR_THIS_REPORT";
+  retrospective_test_outcomes: "NOT_OPENED_FOR_THIS_REPORT";
+  development: {
+    core: {
+      status: "INDEPENDENTLY_REVIEWED";
+      issued_rows: number;
+      eligible_days_per_horizon: number[];
+      slot_primary_pinball_db: Record<string, number>;
+    };
+    hybrid: { status: "INDEPENDENTLY_REVIEWED"; primary_pinball_db: Record<string, number> };
+    post_hoc_supervised: {
+      family: "LightGBM";
+      status: "INDEPENDENTLY_REVIEWED_POST_HOC_DEVELOPMENT";
+      primary_pinball_db: number;
+    };
+    forward_ema: string;
+    chronos2: string;
+  };
+  limitations: string[];
+}
+
 export async function getJson<T>(
   path: string,
   signal?: AbortSignal,
