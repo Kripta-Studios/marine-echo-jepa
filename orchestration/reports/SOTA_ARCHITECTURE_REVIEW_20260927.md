@@ -1,6 +1,6 @@
 # September 2026 forecasting and JEPA evidence for the AEON study
 
-Status: source-grounded research and proposed post-hoc TRAIN/validation development extension. It does not change the reviewed 17-slot core campaign, historical v1/v2 evidence, calibration boundary, or retrospective TEST rule. No model below is called state of the art on AEON without AEON evaluation.
+Status: source-grounded research and executed post-hoc TRAIN/validation development extension. It does not change the reviewed 17-slot core campaign, historical v1/v2 evidence, calibration boundary, or retrospective TEST rule. No model below is called state of the art on AEON without AEON evaluation.
 
 ## Task fit
 
@@ -51,6 +51,15 @@ horizons. The pinned Chronos-2 120M frozen zero-shot comparator ran on all
 1,219 validation rows and scored 0.693518 dB. These outcomes show that
 architecture claims on other benchmarks did not transfer automatically to
 this one-site, 24-step conditioned acoustic target. The separate neutral
-five-source comparison has executed and awaits its own independent outcome
-review; no final model selection or CAL/TEST acoustic read follows from this
-section.
+five-source comparison was independently reconstructed across all 40
+candidates and selected no model. ADR 0011 records the subsequently reviewed
+development choices: the direct three-seed ensemble as the core conventional
+reference, EMA-JEPA three-seed ensemble as the core JEPA comparator, and
+LightGBM as a post-hoc exploratory candidate. The machine-readable component
+freeze and CAL/TEST access gates are still under independent review; neither
+partition's numeric values have been opened.
+
+A further single supervised architecture trial is being undertaken on the same
+TRAIN/validation support under the expanded local compute authorization. It
+remains exploratory and cannot be imported into the already reviewed selection
+without a new explicit comparison and independent selection review.

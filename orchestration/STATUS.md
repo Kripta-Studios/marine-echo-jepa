@@ -315,3 +315,13 @@ record; the machine-readable component freeze remains pending. The separate
 AEON development-only app/API package passed independent review with the five
 approved model outcomes, 25 historical blocked entries and zero AEON cached
 forecasts. It is not the final research release.
+
+The AEON portable offline research wrapper is integrated on main and passed its
+focused tests. Its isolated smoke ZIP was verified after fresh extraction,
+offline dependency installation, loopback API serving and headless Chromium
+page inspection; distinct release review is pending. It remains development
+only, with no AEON CAL/TEST forecasts. Final evaluator review found additional
+real-access and lineage weaknesses, so CAL and TEST numeric values remain
+unopened while those checks are repaired and re-reviewed. One stronger
+supervised architecture is being trialled on TRAIN/validation only as a
+separate post-hoc exploratory experiment under local GPU limits.
