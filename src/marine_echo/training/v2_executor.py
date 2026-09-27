@@ -8,12 +8,13 @@ import os
 import shutil
 import tempfile
 import time
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from itertools import pairwise
 from pathlib import Path
 from typing import Any
 
 import numpy as np
+import psutil
 import torch
 
 from marine_echo.models.compact import ModelConfig
@@ -24,8 +25,10 @@ from marine_echo.models.v2_development import (
     JointPrediction,
     joint_supervised_loss,
 )
-from marine_echo.training.loop import save_checkpoint
+from marine_echo.training.loop import load_checkpoint, save_checkpoint
 from marine_echo.training.v2_stream import HourlyWindow
+
+V2_PROTOCOL_SHA256 = "0270b9fc88b2511dc931126fe980a5cd6cc411f88a3579964f4cf4501d325029"
 
 
 def _sha256(path: Path) -> str:
@@ -248,6 +251,67 @@ def _write_predictions(path: Path, rows: list[HourlyWindow], prediction: JointPr
         )
 
 
+def _verify_predictions(path: Path, rows: list[HourlyWindow]) -> dict[str, Any]:
+    """Reconstruct all reported scores from immutable saved prediction rows."""
+    with np.load(path, allow_pickle=False) as saved:
+        expected = {
+            "row_ids",
+            "cutoffs",
+            "past_source_sha256",
+            "target_source_sha256",
+            "target_interval_start",
+            "target_interval_end",
+            "truth_db",
+            "target_mask",
+            "truth_detection_fraction",
+            "detection_mask",
+            "target_acquisition_fraction",
+            "quantiles_db",
+            "detection_fraction",
+        }
+        if set(saved.files) != expected:
+            raise ValueError("Saved development prediction fields differ.")
+        checks = {
+            "row_ids": np.array([row.row_id for row in rows]),
+            "cutoffs": np.array([row.cutoff for row in rows]),
+            "past_source_sha256": np.array([",".join(row.past_source_sha256) for row in rows]),
+            "target_source_sha256": np.array([",".join(row.target_source_sha256) for row in rows]),
+            "target_interval_start": np.stack([row.target_interval_start for row in rows]),
+            "target_interval_end": np.stack([row.target_interval_end for row in rows]),
+            "truth_db": np.stack([row.target_db for row in rows]),
+            "target_mask": np.stack([row.target_mask for row in rows]),
+            "truth_detection_fraction": np.stack([row.target_detection_fraction for row in rows]),
+            "detection_mask": np.stack([row.target_detection_mask for row in rows]),
+            "target_acquisition_fraction": np.stack(
+                [row.target_acquisition_fraction for row in rows]
+            ),
+        }
+        if any(
+            not np.array_equal(
+                saved[key],
+                value,
+                equal_nan=saved[key].dtype.kind in "fc",
+            )
+            for key, value in checks.items()
+        ):
+            raise ValueError(
+                "Saved prediction cohort, truth or provenance differs from issued rows."
+            )
+        quantiles = saved["quantiles_db"]
+        fraction = saved["detection_fraction"]
+        if (
+            quantiles.shape != (len(rows), 3, 5)
+            or fraction.shape != (len(rows), 3)
+            or not np.isfinite(quantiles).all()
+            or not np.isfinite(fraction).all()
+            or (np.diff(quantiles, axis=-1) < 0).any()
+            or ((fraction < 0) | (fraction > 1)).any()
+        ):
+            raise ValueError("Saved development predictions are invalid or incomplete.")
+        prediction = JointPrediction(quantiles_db=quantiles, detection_fraction=fraction)
+        return _score(rows, prediction)
+
+
 def _train_direct(
     fit: list[HourlyWindow],
     assess: list[HourlyWindow],
@@ -258,7 +322,7 @@ def _train_direct(
     updates: int,
     batch_size: int,
     device: str,
-) -> tuple[JointPrediction, str, _Scaler, float]:
+) -> tuple[JointPrediction, str, _Scaler, dict[str, Any]]:
     torch.manual_seed(7)
     if device == "cuda" and not torch.cuda.is_available():
         raise RuntimeError("CUDA was requested but is unavailable.")
@@ -270,41 +334,74 @@ def _train_direct(
     candidates = np.flatnonzero((train.target_mask | train.fraction_mask).any(dim=1).numpy())
     if not len(candidates):
         raise ValueError("No labelled TRAIN update rows exist.")
-    started = time.perf_counter()
-    model.train()
-    for step in range(updates):
-        rng = np.random.default_rng(np.random.SeedSequence([7, step]))
-        selected = rng.choice(candidates, size=batch_size, replace=len(candidates) < batch_size)
-        rate = 3e-4 * min(1.0, (step + 1) / 16)
-        for group in optimizer.param_groups:
-            group["lr"] = rate
-        optimizer.zero_grad(set_to_none=True)
-        prediction = model(
-            train.context[selected].to(device),
-            train.mask[selected].to(device),
-            train.aux[selected].to(device),
-        )
-        loss = joint_supervised_loss(
-            prediction,
-            train.target[selected].to(device),
-            train.target_mask[selected].to(device),
-            train.fraction[selected].to(device),
-            train.fraction_mask[selected].to(device),
-        )
-        if not torch.isfinite(loss):
-            raise FloatingPointError("Direct TRAIN update loss is non-finite.")
-        loss.backward()
-        torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0, error_if_nonfinite=True)
-        optimizer.step()
-        if step + 1 in (64, updates):
-            save_checkpoint(
-                output / f"checkpoint-{step + 1}.pt",
-                model,
-                optimizer,
-                step=step + 1,
-                protocol_sha256=protocol_sha256,
+    if device == "cuda":
+        torch.cuda.reset_peak_memory_stats()
+    process = psutil.Process()
+    peak_rss = process.memory_info().rss
+
+    def update_range(
+        current_model: JointDirectForecaster,
+        current_optimizer: torch.optim.Optimizer,
+        first: int,
+        last: int,
+    ) -> None:
+        nonlocal peak_rss
+        current_model.train()
+        for step in range(first, last):
+            rng = np.random.default_rng(np.random.SeedSequence([7, step]))
+            selected = rng.choice(candidates, size=batch_size, replace=len(candidates) < batch_size)
+            rate = 3e-4 * min(1.0, (step + 1) / 16)
+            for group in current_optimizer.param_groups:
+                group["lr"] = rate
+            current_optimizer.zero_grad(set_to_none=True)
+            prediction = current_model(
+                train.context[selected].to(device),
+                train.mask[selected].to(device),
+                train.aux[selected].to(device),
             )
+            loss = joint_supervised_loss(
+                prediction,
+                train.target[selected].to(device),
+                train.target_mask[selected].to(device),
+                train.fraction[selected].to(device),
+                train.fraction_mask[selected].to(device),
+            )
+            if not torch.isfinite(loss):
+                raise FloatingPointError("Direct TRAIN update loss is non-finite.")
+            loss.backward()
+            torch.nn.utils.clip_grad_norm_(current_model.parameters(), 1.0, error_if_nonfinite=True)
+            current_optimizer.step()
+            peak_rss = max(peak_rss, process.memory_info().rss)
+            if peak_rss >= 22 * 1024**3:
+                raise MemoryError("Direct TRAIN process RAM reached the 22 GiB limit.")
+            if device == "cuda" and torch.cuda.max_memory_reserved() >= 10 * 1024**3:
+                raise MemoryError("Direct TRAIN GPU reserve reached the 10 GiB target.")
+
+    started = time.perf_counter()
+    midpoint = updates // 2 if updates > 1 else 1
+    update_range(model, optimizer, 0, midpoint)
+    midway_path = output / f"checkpoint-{midpoint}.pt"
+    save_checkpoint(midway_path, model, optimizer, step=midpoint, protocol_sha256=protocol_sha256)
+    update_range(model, optimizer, midpoint, updates)
+    checkpoint = output / f"checkpoint-{updates}.pt"
+    if checkpoint != midway_path:
+        save_checkpoint(checkpoint, model, optimizer, step=updates, protocol_sha256=protocol_sha256)
     elapsed = time.perf_counter() - started
+    verification_started = time.perf_counter()
+    resumed = JointDirectForecaster(model_config).to(device)
+    resumed_optimizer = torch.optim.AdamW(
+        resumed.parameters(), lr=3e-4, weight_decay=1e-4, betas=(0.9, 0.95)
+    )
+    if (
+        load_checkpoint(midway_path, resumed, resumed_optimizer, protocol_sha256=protocol_sha256)
+        != midpoint
+    ):
+        raise ValueError("Direct midpoint checkpoint has the wrong update count.")
+    update_range(resumed, resumed_optimizer, midpoint, updates)
+    for key, value in model.state_dict().items():
+        if not torch.allclose(value, resumed.state_dict()[key], rtol=1e-6, atol=1e-7):
+            raise ValueError(f"Direct checkpoint resume diverged in {key}.")
+    verification_elapsed = time.perf_counter() - verification_started
     model.eval()
     quantiles = []
     fractions = []
@@ -323,8 +420,16 @@ def _train_direct(
     result = JointPrediction(
         quantiles_db=np.concatenate(quantiles), detection_fraction=np.concatenate(fractions)
     )
-    checkpoint = output / f"checkpoint-{updates}.pt"
-    return result, str(checkpoint), scaler, elapsed
+    resources = {
+        "train_seconds": elapsed,
+        "resume_verification_seconds": verification_elapsed,
+        "resume_equivalent": True,
+        "resume_verified_updates": updates - midpoint,
+        "midpoint_checkpoint": str(midway_path),
+        "peak_process_rss_bytes": peak_rss,
+        "gpu_peak_reserved_bytes": torch.cuda.max_memory_reserved() if device == "cuda" else None,
+    }
+    return result, str(checkpoint), scaler, resources
 
 
 def execute_development(
@@ -344,8 +449,14 @@ def execute_development(
     """Fit the declared first ridge/direct slice; no validation selection or test access."""
     if not _valid_hash(protocol_sha256):
         raise ValueError("A frozen protocol SHA-256 is required.")
+    if not fixture_only and protocol_sha256 != V2_PROTOCOL_SHA256:
+        raise ValueError("Real v2 development requires the reviewed frozen protocol digest.")
     if updates != 128 and not fixture_only:
         raise ValueError("Real v2 development uses exactly 128 direct updates.")
+    if not fixture_only and batch_size != 16:
+        raise ValueError("Real v2 development requires batch size 16.")
+    if not fixture_only and model_config is not None and model_config != ModelConfig():
+        raise ValueError("Real v2 development requires the default compact model configuration.")
     if not 1 <= updates <= 128 or not 1 <= batch_size <= 16 or device not in ("cpu", "cuda"):
         raise ValueError("Invalid bounded development execution parameters.")
     input_digest, source_hashes = _validate_rows(fit, assess, fixture_only=fixture_only)
@@ -364,7 +475,7 @@ def execute_development(
     try:
         ridge = DevelopmentRidge(alpha=1.0).fit(fit)
         ridge_prediction = ridge.predict(assess)
-        direct_prediction, checkpoint, scaler, elapsed = _train_direct(
+        direct_prediction, checkpoint, scaler, resources = _train_direct(
             fit,
             assess,
             staging,
@@ -383,6 +494,7 @@ def execute_development(
             "review_sha256": review_sha256 if not fixture_only else None,
             "fit_rows": len(fit),
             "assessment_rows": len(assess),
+            "model_config": asdict(model_config or ModelConfig()),
             "ridge": {},
             "direct": {},
         }
@@ -392,19 +504,17 @@ def execute_development(
             result[family] = {
                 "predictions": str(output / path.name),
                 "prediction_sha256": _sha256(path),
-                "metrics": _score(assess, prediction),
+                "metrics": _verify_predictions(path, assess),
             }
+        resources["midpoint_checkpoint"] = str(output / Path(resources["midpoint_checkpoint"]).name)
         result["direct"].update(
             {
                 "updates": updates,
                 "checkpoint": str(output / Path(checkpoint).name),
                 "checkpoint_sha256": _sha256(Path(checkpoint)),
                 "train_scaler": scaler.__dict__,
-                "train_seconds": elapsed,
                 "device": device,
-                "gpu_peak_reserved_bytes": torch.cuda.max_memory_reserved()
-                if device == "cuda"
-                else None,
+                **resources,
             }
         )
         (staging / "run.json").write_text(

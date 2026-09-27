@@ -10,7 +10,11 @@ import pytest
 import torch
 
 from marine_echo.models.compact import ModelConfig
-from marine_echo.training.v2_executor import execute_development
+from marine_echo.training.v2_executor import (
+    V2_PROTOCOL_SHA256,
+    _verify_predictions,
+    execute_development,
+)
 from marine_echo.training.v2_stream import HourlyWindow
 
 
@@ -64,6 +68,9 @@ def test_fixture_development_writes_real_updates_and_aligned_rows(tmp_path: Path
     )
     assert result["status"] == "COMPLETED_SYNTHETIC_FIXTURE"
     assert result["direct"]["updates"] == 2
+    assert result["direct"]["resume_equivalent"] is True
+    assert result["direct"]["resume_verified_updates"] == 1
+    assert result["direct"]["peak_process_rss_bytes"] > 0
     assert Path(result["direct"]["checkpoint"]).is_file()
     for family in ("ridge", "direct"):
         with np.load(result[family]["predictions"], allow_pickle=False) as saved:
@@ -71,6 +78,7 @@ def test_fixture_development_writes_real_updates_and_aligned_rows(tmp_path: Path
             assert saved["quantiles_db"].shape == (8, 3, 5)
             assert saved["target_mask"].shape == (8, 3)
             assert saved["detection_fraction"].shape == (8, 3)
+        assert _verify_predictions(Path(result[family]["predictions"]), assess)["issued_rows"] == 8
     with pytest.raises(FileExistsError):
         execute_development(
             fit,
@@ -95,6 +103,26 @@ def test_development_rejects_overlapping_or_protected_rows(tmp_path: Path) -> No
             protocol_sha256="b" * 64,
             fixture_only=True,
             updates=2,
+        )
+
+
+def test_real_development_requires_exact_batch_and_model_config(tmp_path: Path) -> None:
+    fit, assess = _rows("2020-02-18"), _rows("2020-04-02")
+    with pytest.raises(ValueError, match="batch size 16"):
+        execute_development(
+            fit,
+            assess,
+            tmp_path / "batch",
+            protocol_sha256=V2_PROTOCOL_SHA256,
+            batch_size=4,
+        )
+    with pytest.raises(ValueError, match="model configuration"):
+        execute_development(
+            fit,
+            assess,
+            tmp_path / "model",
+            protocol_sha256=V2_PROTOCOL_SHA256,
+            model_config=ModelConfig(width=16, layers=1, heads=4),
         )
     with pytest.raises(ValueError, match="TRAIN"):
         execute_development(

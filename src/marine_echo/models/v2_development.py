@@ -15,6 +15,7 @@ from sklearn.preprocessing import StandardScaler
 from torch import nn
 
 from marine_echo.models.compact import DirectForecaster, ModelConfig, TemporalJEPA
+from marine_echo.models.sigreg import SlicedEppsPulley
 from marine_echo.training.v2_stream import HourlyWindow
 
 QUANTILES = (0.05, 0.25, 0.5, 0.75, 0.95)
@@ -163,9 +164,16 @@ class JointJEPAForecaster(nn.Module):
         *,
         mode: Literal["ema", "shared_sigreg"],
         sigreg_weight: float = 0.04,
+        ema_regularizer_weight: float = 0.03,
     ) -> None:
         super().__init__()
+        if mode == "ema" and ema_regularizer_weight not in (0.03, 0.1):
+            raise ValueError("EMA development regularizer must use the frozen grid.")
         self.base = TemporalJEPA(config, mode=mode, sigreg_weight=sigreg_weight)
+        if mode == "shared_sigreg":
+            self.base.sigreg = SlicedEppsPulley(num_slices=64, n_points=17)
+        self.ema_regularizer_weight = ema_regularizer_weight
+        self.ema_regularizer = SlicedEppsPulley(num_slices=64) if mode == "ema" else None
         self.aux_project = nn.Linear(96 * 4, config.width)
         self.fraction_head = nn.Linear(config.width, 1)
 
@@ -176,7 +184,17 @@ class JointJEPAForecaster(nn.Module):
         future: torch.Tensor,
         future_mask: torch.Tensor,
     ) -> torch.Tensor:
-        return self.base.objective(context, context_mask, future, future_mask).loss
+        objective = self.base.objective(context, context_mask, future, future_mask)
+        if self.ema_regularizer is None:
+            return objective.loss
+        with torch.no_grad():
+            _, valid = self.base.encode_future(future, future_mask)
+        support = valid & objective.eligible[:, None, None]
+        if support.sum() < 2:
+            return objective.loss
+        return objective.loss + self.ema_regularizer_weight * self.ema_regularizer(
+            objective.predicted[support]
+        )
 
     def freeze_encoder(self) -> None:
         for parameter in self.base.encoder.parameters():

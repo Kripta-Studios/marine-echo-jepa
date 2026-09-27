@@ -1,0 +1,16 @@
+
+=================================== ERRORS ====================================
+____ ERROR collecting tests/integration/test_v2_representation_executor.py ____
+ImportError while importing test module 'C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa-v2-execution\tests\integration\test_v2_representation_executor.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\AppData\Roaming\uv\python\cpython-3.11-windows-x86_64-none\Lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\integration\test_v2_representation_executor.py:12: in <module>
+    from marine_echo.training.v2_representation import execute_representation
+E   ModuleNotFoundError: No module named 'marine_echo.training.v2_representation'
+=========================== short test summary info ===========================
+ERROR tests/integration/test_v2_representation_executor.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 2.16s
