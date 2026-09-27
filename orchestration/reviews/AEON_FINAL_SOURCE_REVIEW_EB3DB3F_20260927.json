@@ -1,0 +1,57 @@
+{
+  "task": "R3-AEON-FINAL-SOURCE-REVIEW-EB3DB3F-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "status": "REQUEST_CHANGES",
+  "disposition": "REJECT_FINAL_SOURCE_CLAIM_CONTRADICTION_BEFORE_PACKAGE_APPROVAL",
+  "source_commit": "eb3db3f145b2813d3659b4843c7a05d9bd07b0a1",
+  "source_sha256": {
+    "src/marine_echo/serving/aeon_final.py": "6cf14014471af46966a23877004b34d1acec13c62a45bd60ee6af63b87551198",
+    "src/marine_echo/serving/aeon_study.py": "71e2afb437c1ab12ebf3e88c481a1199e73bae015682321b219bdbcbc94b921c",
+    "src/marine_echo/serving/aeon_portable.py": "c6bcffde1dd9f8b89395395614a3e703538f9168200487300c2909fa9fa17f45",
+    "src/marine_echo/serving/api.py": "a578131d70dcb0f6800d157e9ad000c6142dc4990d4924e8453136f3319aaac1",
+    "web/src/api/client.ts": "3fcd95bfed712316782c96970665a5554e6f52a97790bec8487d9f90481f3a71",
+    "web/src/pages/AeonStudyPage.tsx": "be4c4d55361c602c0ffd52df1fcfbeb925999bba163f045816548a18536907c4",
+    "tests/unit/test_aeon_final_release.py": "3ecb47aea73088ce30ef215eccf16a395253207f33c8b441f7caef731fa27cee"
+  },
+  "pinned_outcome": {
+    "test_score_sha256": "23f9d350528e9f99b35949c6281c39d209dff7f7db44a992d241d64ccde8bd89",
+    "test_outcome_review_sha256": "75a241f00d34f8d373ccbd4c5b2e2c35397e2c0ff0a20a6e112ce4953f13489a",
+    "reviewed_result": "EMA_JEPA_FORECAST_FAMILY_PASSED_COMPLETE_FROZEN_WITHIN_STUDY_RETROSPECTIVE_GATE",
+    "representation_attribution": "NOT_ESTABLISHED"
+  },
+  "findings": [
+    {
+      "severity": "BLOCKING_CLAIM_CONSISTENCY",
+      "location": "src/marine_echo/serving/aeon_study.py:379",
+      "finding": "The packaged study limitation says the release does not claim that JEPA incremental value passed, contradicting the pinned outcome review and adjacent report field that the EMA-JEPA forecast family passed the complete frozen within-study retrospective gate.",
+      "required_fix": "State that the selected EMA-JEPA forecast family passed the frozen within-study retrospective comparison, while learned-representation attribution, general JEPA value, SOTA, external generalization and business validation remain unestablished."
+    },
+    {
+      "severity": "BLOCKING_CLAIM_CONSISTENCY",
+      "location": "src/marine_echo/serving/aeon_portable.py:234",
+      "finding": "The shipped README says no JEPA incremental-value gate is claimed, contradicting the exact reviewed result bundled into the same package.",
+      "required_fix": "Use the same bounded within-study pass plus attribution/generalization caveat as the independently reviewed outcome."
+    },
+    {
+      "severity": "MAJOR_PROTOCOL_WORDING",
+      "location": "web/src/pages/AeonStudyPage.tsx:186",
+      "finding": "The UI calls the gate prespecified even though family selection was frozen post hoc after development outcomes. The gate was frozen before TEST, but the full study choice was not prospective.",
+      "required_fix": "Replace prespecified with frozen before TEST or an equally precise phrase."
+    }
+  ],
+  "nonblocking_observations": [
+    "The loader byte-pins the exact TEST outcome review, score, upstream selection/CAL/pretest lineage and all three forecast arrays before emitting report or replay.",
+    "The replay contains row identity, source-clock cutoff and saved quantiles only; it does not include target values and it is isolated from the UTC forecast endpoint.",
+    "API model identity, page size, source-clock basis, replay/study score identity and artifact digests fail closed.",
+    "The release preserves the retrospective-not-sealed classification and does not assert species, biomass, catch, causal, operational or SOTA conclusions."
+  ],
+  "independent_execution": {
+    "source_inspection": "Inspected the exact eb3db3f diff and full final loader, study builder, portable wrapper, API replay endpoint, page types/rendering and synthetic boundary tests.",
+    "tests": "Deferred exact source and package approval tests until the blocking claim repair is integrated; builder-reported checks are not treated as independent execution.",
+    "test_outcome_reopened": false
+  },
+  "next_action": "Repair the three claim strings without changing evidence, replay data or model logic, then obtain a new exact source review before final package approval."
+}
