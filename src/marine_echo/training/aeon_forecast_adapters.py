@@ -9,17 +9,27 @@ from __future__ import annotations
 
 import hashlib
 import json
+from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Literal, Protocol, Sequence
+from typing import Any, Literal, Protocol
 
 import joblib  # type: ignore[import-untyped]
 import numpy as np
 import torch
 from numpy.typing import NDArray
 
+from marine_echo.models import aeon_forward_ssl, aeon_ssl, sigreg
 from marine_echo.models.aeon_forward_ssl import AeonForwardSSL
 from marine_echo.models.aeon_ssl import AeonDirect, AeonTemporalSSL
+from marine_echo.training import (
+    aeon_campaign,
+    aeon_chronos,
+    aeon_development,
+    aeon_hybrid,
+    aeon_sota_supervised,
+    aeon_windows,
+)
 from marine_echo.training.aeon_campaign import _past_features
 from marine_echo.training.aeon_chronos import (
     CHRONOS_QUANTILES,
@@ -30,12 +40,6 @@ from marine_echo.training.aeon_chronos import (
 from marine_echo.training.aeon_development import _context_tensors
 from marine_echo.training.aeon_sota_supervised import _features
 from marine_echo.training.aeon_windows import AeonHourlyWindow
-from marine_echo.training import (
-    aeon_campaign, aeon_chronos, aeon_development, aeon_hybrid,
-    aeon_sota_supervised, aeon_windows,
-)
-from marine_echo.models import aeon_forward_ssl, aeon_ssl, sigreg
-
 
 SOURCE_SHA256 = "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde"
 PROTOCOL_SHA256 = "d83392832a1bde3ae3e096de0a664ca9cfc27762a18bb10fb5ace3a97e787435"
@@ -55,10 +59,6 @@ class FrozenArtifact:
 
     path: Path
     sha256: str
-
-
-class _Predictor(Protocol):
-    def predict(self, values: NDArray[np.float64]) -> object: ...
 
 
 class _ChronosLike(Protocol):
@@ -225,7 +225,7 @@ def _scaler(saved: dict[str, Any]) -> tuple[float, float, float, float]:
 def _torch_checkpoint(artifact: FrozenArtifact) -> dict[str, Any]:
     saved = torch.load(_checked(artifact), map_location="cpu", weights_only=True)
     if not isinstance(saved, dict) or not isinstance(saved.get("model_state_dict"), dict):
-        raise ValueError("AEON PyTorch checkpoint schema differs.")
+        raise TypeError("AEON PyTorch checkpoint schema differs.")
     return saved
 
 

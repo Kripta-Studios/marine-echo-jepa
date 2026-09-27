@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import itertools
 import json
 import os
 import re
@@ -117,7 +118,7 @@ def _json(path: Path, expected_sha256: str | None = None) -> tuple[dict[str, Any
         raise ValueError(f"AEON artifact digest differs: {path.name}.")
     value = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(value, dict):
-        raise ValueError(f"AEON JSON contract is not an object: {path.name}.")
+        raise TypeError(f"AEON JSON contract is not an object: {path.name}.")
     return value, actual
 
 
@@ -363,7 +364,7 @@ def _execute_forecast_plan(
             options = entry.get("options")
             components = entry.get("component_artifacts")
             if not isinstance(options, dict) or not isinstance(components, list):
-                raise ValueError("AEON adapter plan lacks options or component artifacts.")
+                raise TypeError("AEON adapter plan lacks options or component artifacts.")
             artifacts = [_plan_artifact(directory, item) for item in components]
             family = options.get("family")
             recipe_sha256 = options.get("recipe_sha256")
@@ -499,7 +500,7 @@ def _rows(reader: _WindowReader, partition: str) -> list[AeonHourlyWindow]:
         not rows
         or any(row.partition != partition for row in rows)
         or len(set(ids)) != len(ids)
-        or any(right <= left for left, right in zip(cutoffs, cutoffs[1:]))
+        or any(right <= left for left, right in itertools.pairwise(cutoffs))
     ):
         raise ValueError("AEON issued rows are empty, duplicated, reordered or cross-partition.")
     return rows
@@ -557,7 +558,7 @@ def execute_calibration(
     fixture_forecaster: _FixtureForecaster | None = None,
 ) -> dict[str, Any]:
     """Fit only nonnegative CAL interval widening for every frozen model."""
-    config, config_sha = _config(config_path)
+    _, config_sha = _config(config_path)
     selection, selection_sha = _selection(selection_freeze_path)
     forecast_plan, manifest_sha = _forecast_plan(
         forecast_manifest_path, "calibration", selection, selection_sha, None
@@ -754,7 +755,7 @@ def execute_retrospective_test(
     fixture_forecaster: _FixtureForecaster | None = None,
 ) -> dict[str, Any]:
     """Open TEST once, forecast issued rows in-process, then score those same rows."""
-    config, config_sha = _config(config_path)
+    _, config_sha = _config(config_path)
     selection, selection_sha = _selection(selection_freeze_path)
     calibration, calibration_sha = _json(calibration_artifact_path)
     if (
@@ -814,7 +815,7 @@ def execute_retrospective_test(
         prediction = generated[model_id]
         model_calibration = calibration["models"].get(model_id)
         if not isinstance(model_calibration, dict):
-            raise ValueError("AEON calibration is missing a frozen selected model.")
+            raise TypeError("AEON calibration is missing a frozen selected model.")
         adjustment = np.asarray(model_calibration.get("adjustment_db"), dtype=np.float64)
         widened = apply_interval_widening(prediction, adjustment)
         raw_metrics = daily_pinball(truth, prediction, observed, times)
@@ -933,13 +934,14 @@ def main() -> None:
     parser.add_argument("--pretest-freeze", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
-    common = dict(
-        archive=args.archive, reader_review_path=args.reader_review,
-        reader_review_sha256=args.reader_review_sha256,
-        runner_review_path=args.runner_review, runner_review_sha256=args.runner_review_sha256,
-        config_path=args.config, selection_freeze_path=args.selection_freeze,
-        forecast_manifest_path=args.forecast_manifest, output=args.output,
-    )
+    common = {
+        "archive": args.archive, "reader_review_path": args.reader_review,
+        "reader_review_sha256": args.reader_review_sha256,
+        "runner_review_path": args.runner_review,
+        "runner_review_sha256": args.runner_review_sha256,
+        "config_path": args.config, "selection_freeze_path": args.selection_freeze,
+        "forecast_manifest_path": args.forecast_manifest, "output": args.output,
+    }
     if args.stage == "calibrate":
         if (
             args.candidate_contract is not None

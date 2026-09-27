@@ -8,11 +8,12 @@ from pathlib import Path
 
 import joblib  # type: ignore[import-untyped]
 import numpy as np
-import torch
 import pytest
+import torch
 
 from marine_echo.models.aeon_forward_ssl import AeonForwardSSL
 from marine_echo.models.aeon_ssl import AeonDirect, AeonTemporalSSL
+from marine_echo.training import aeon_forecast_adapters
 from marine_echo.training.aeon_forecast_adapters import (
     FrozenArtifact,
     adapt_chronos2,
@@ -22,7 +23,6 @@ from marine_echo.training.aeon_forecast_adapters import (
     adapt_lightgbm,
     emit_forecast_only,
 )
-from marine_echo.training import aeon_forecast_adapters
 from marine_echo.training.aeon_windows import AeonHourlyWindow
 
 
