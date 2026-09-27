@@ -1,0 +1,296 @@
+{
+  "study_id": "D1_NATIVE_DETECTION_CONDITIONED_V2",
+  "status": "PROSPECTIVE_FREEZE_PENDING_DATA_ADEQUACY",
+  "historical_v1_status": "INELIGIBLE_UNDER_ORIGINAL_PROTOCOL",
+  "source": {
+    "dataset": "PANGAEA949811",
+    "instrument": "AZFP55170",
+    "orientation": "downward",
+    "frequency_hz": 38000,
+    "slant_range_m": [
+      10,
+      100
+    ],
+    "quantity": "detection-conditioned sampled Sv",
+    "linear_units": "m^-1",
+    "reported_index": "10 log10(range-length weighted mean linear Sv / 1 m^-1)",
+    "calibration": "factory certificate with fixed retrospective regional environmental assumption; no field calibration claim",
+    "detection_rule": "pinned per-ping 10-range-sample background subtraction and 3 dB SNR; fixed saturation, proximal range and tilt rejection",
+    "detection_fraction": "detected native range-overlap length / geometrically available native range-overlap length over observed pings",
+    "acquisition_coverage": "observed scheduled pings / scheduled pings, separate from detection fraction",
+    "known_future_acquisition_status": "actual future timing, validity and counts forbidden as model inputs",
+    "numerical_acoustic_input_frequencies_hz": [
+      38000
+    ],
+    "strong_echo_selection": "3 dB censoring preferentially retains stronger returns. Conditional index cannot describe total 10-100 m acoustic state.",
+    "separate_states": [
+      "scheduled acquisition missing",
+      "observed acquisition with invalid measurement",
+      "finite calibrated return below detection",
+      "valid detected return",
+      "missing conditional index target"
+    ],
+    "missing_state_rule": "No missing, invalid or below-detection state is zero Sv or imputed truth.",
+    "native_target_formula": "S=sum(overlap_m*detected*linear_Sv); W=sum(overlap_m*detected); target=10log10((S/W)/(1 m^-1)); zero W means missing index."
+  },
+  "calendar_utc": {
+    "train": [
+      "2020-02-17T00:00:00Z",
+      "2020-05-27T00:00:00Z"
+    ],
+    "validation": [
+      "2020-05-27T00:00:00Z",
+      "2020-06-21T00:00:00Z"
+    ],
+    "interval_calibration": [
+      "2020-06-21T00:00:00Z",
+      "2020-07-07T00:00:00Z"
+    ],
+    "retrospective_evaluation": [
+      "2020-07-07T00:00:00Z",
+      "2020-08-02T00:00:00Z"
+    ],
+    "development_fit": [
+      "2020-02-17T00:00:00Z",
+      "2020-04-01T00:00:00Z"
+    ],
+    "development_assessment": [
+      "2020-04-01T00:00:00Z",
+      "2020-04-15T00:00:00Z"
+    ]
+  },
+  "issuance": {
+    "cadence_hours": 1,
+    "context_hours": 24,
+    "context_slots_minutes": 15,
+    "horizon_hours": [
+      1,
+      3,
+      6
+    ],
+    "future_intervals_relative_to_cutoff_hours": [
+      [
+        0,
+        1
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        5,
+        6
+      ]
+    ],
+    "last_past_hour_minimum_observed_pings": 120,
+    "past_24h_minimum_acquired_hours": 12,
+    "known_single_configuration_required": true,
+    "missing_past_values": "mask and age; no future interpolation or truth imputation",
+    "replay_availability": "zero latency at observed bin end; real telemetry availability unknown",
+    "context_profile": "Trailing 96 15-minute detection-conditioned native-overlap profiles represented on fixed 2 m grid; carry exact overlap weights, masks, observed acquisition counts, detection fractions and elapsed ages available at cutoff.",
+    "scalar_aggregation": "S/W directly from native range-length sums, never unweighted conditional grid-cell means.",
+    "future_truth_isolation": "All issued rows receive prediction before future mask/target matching; future values, times, validity and fractions are score-only.",
+    "last_past_hour_defined_conditional_index": "W>0 among detected native intervals, in addition to >=120 observed pings; no 10% detection floor on past issuance.",
+    "configuration_population": "Only observed quarter-hours participate in single-configuration check; empty quarters remain missing acquisition, not a new configuration."
+  },
+  "scoring": {
+    "minimum_future_observed_pings_per_hour": 120,
+    "minimum_native_detected_range_fraction": 0.1,
+    "per_horizon_common_issued_and_score_rows": true,
+    "abstentions_retained_in_issued_denominator": true,
+    "primary": "daily equally weighted mean quantile pinball loss in detection-conditioned sampled Sv dB, equal horizons and quantiles",
+    "quantiles": [
+      0.05,
+      0.25,
+      0.5,
+      0.75,
+      0.95
+    ],
+    "secondary": [
+      "median absolute error by horizon",
+      "detection fraction MAE and MSE",
+      "issued and scored coverage",
+      "48-hour block counts",
+      "raw and adjusted interval coverage/width",
+      "resource and latency"
+    ],
+    "selection_partition": "validation only",
+    "interval_adjustment_partition": "interval_calibration only after model freeze",
+    "final_evaluation_label": "RETROSPECTIVE_TEMPORAL_HOLDOUT",
+    "seal_claim": false,
+    "no_fit_overlap": "context plus horizon support contained in a single partition; raw timestamps cannot cross partition",
+    "train_only_statistics_and_ssl": true
+  },
+  "sample_adequacy": {
+    "development_fit_target_days_per_horizon": 20,
+    "development_assessment_target_days_per_horizon": 5,
+    "train_target_days_per_horizon": 20,
+    "validation_target_days_per_horizon": 5,
+    "calibration_target_days_per_horizon": 5,
+    "evaluation_target_days_per_horizon": 5,
+    "block_duration_hours": 48,
+    "minimum_evaluation_blocks_for_inferential_superiority": 10,
+    "require_unique_days_episodes_blocks_and_window_counts": true,
+    "limits": "Single deployment and overlapping windows do not imply independent fleets or statistical power"
+  },
+  "training": {
+    "seeds": [
+      7,
+      13,
+      23
+    ],
+    "direct_development_configurations": 2,
+    "ema_development_configurations": 2,
+    "shared_sigreg_development_configurations": 2,
+    "controls_per_jepa_family_at_seed7": [
+      "random_encoder",
+      "temporally_shuffled_train_targets"
+    ],
+    "max_updates_per_training_phase": 3000,
+    "max_tree_configurations": 8,
+    "optimizer": "AdamW",
+    "learning_rates": [
+      0.0003,
+      0.001
+    ],
+    "weight_decay": 0.0001,
+    "gradient_clip_norm": 1.0,
+    "joint_supervision": "Masked mean TRAIN-standardized index quantile pinball plus 1.0 times masked mean detection-fraction MSE; each on its own valid cohort, equally over available horizons; skip an absent component, fail batch when both absent.",
+    "profile_supervision_in_development_smoke": false,
+    "engineering_smoke_updates": 128,
+    "engineering_smoke_scores_may_select_campaign": false,
+    "conventional_fraction_head": "Matched TRAIN-fitted regression or persistence head predicts detection fraction for each horizon.",
+    "jepa_temporal_contract": "Nonzero temporal representation prediction objective in TRAIN-only pretraining; frozen-encoder supervised joint probes thereafter; EMA teacher receives no gradient, shared encoder receives target path gradient.",
+    "engineering_smoke": {
+      "ridge_alpha": 1.0,
+      "ridge_quantiles": "TRAIN residual quantiles",
+      "neural_architecture": "matched existing compact direct encoder",
+      "seed": 7,
+      "optimizer": "AdamW",
+      "learning_rate": 0.0003,
+      "weight_decay": 0.0001,
+      "gradient_clip_norm": 1.0,
+      "batch_size": 16,
+      "updates": 128,
+      "warmup_updates": 16,
+      "checkpoint_updates": [
+        64,
+        128
+      ],
+      "resume_check": "interruption at64 versus uninterrupted same batch sequence",
+      "campaign_selection_from_smoke_forbidden": true,
+      "campaign_core_slots_consumed": 0
+    },
+    "campaign": {
+      "optimizer_betas": [
+        0.9,
+        0.95
+      ],
+      "learning_rate_default": 0.0003,
+      "direct_validation_grid_learning_rates": [
+        0.0003,
+        0.001
+      ],
+      "ema_validation_grid_regularizer_weights": [
+        0.03,
+        0.1
+      ],
+      "shared_sigreg_validation_grid_weights": [
+        0.04,
+        0.1
+      ],
+      "sigreg_random_projections": 64,
+      "sigreg_quadrature_points": 17,
+      "ema_decay": 0.99,
+      "warmup_updates": 150,
+      "validation_every_updates": 250,
+      "early_stopping_validation_checks": 4,
+      "minimum_updates_before_early_stopping": 1000,
+      "checkpoint_every_updates": 250,
+      "conventional_max_openmp_threads": 4,
+      "quantile_ordering": "monotone parameterization or fixed rearrangement; never change truth or score cohort",
+      "candidate_grid_source": "configs/experiments.json original frozen finite budget; candidate2 uses same per-family settings"
+    },
+    "resource_limits": {
+      "target_peak_gpu_allocated_gib_below": 10,
+      "target_peak_gpu_reserved_gib_below": 10,
+      "process_ram_gib_below": 22,
+      "training_processes": 1,
+      "broad_sweeps": false,
+      "paid_cloud": false,
+      "custom_cuda_required": false,
+      "torch_compile_required": false
+    }
+  },
+  "finite_core_slot_counts": {
+    "conventional_persistence_seasonal_ridge_histogram_boosting": 4,
+    "direct_seeds_and_two_development_configurations": 5,
+    "ema_jepa_seeds_two_development_and_two_controls": 7,
+    "shared_sigreg_seeds_two_development_and_two_controls": 7,
+    "ema_plus_raw_and_shared_plus_raw": 2,
+    "total": 25,
+    "namespace": "v2_only"
+  },
+  "uncertainty_and_value": {
+    "interval_rule": "frozen nonnegative widening fitted on calibration only if empirically supported",
+    "paired_block_resamples": 2000,
+    "resampling_seed": 20260926,
+    "historical_v1_relative_improvement_hurdle": 0.05,
+    "v2_research_hurdle": "at least 5% relative primary loss improvement with paired 95% block interval favoring JEPA and no horizon worse by more than 10%; only assess if enough blocks",
+    "negative_or_inconclusive_result_allowed": true
+  },
+  "claim_limits": [
+    "no tuna biomass, species, catch, fuel savings or production integration",
+    "no causal biological or device-intervention effect",
+    "no full-band continuous-hour backscatter claim",
+    "no untouched sealed holdout claim",
+    "commercial Marine validation not evaluated"
+  ],
+  "physical_processing_scope": "TRAIN development only until later independent review",
+  "references": [
+    "docs/adr/0005-prospective-observation-aligned-v2.md",
+    "docs/adr/0006-native-observation-population-v2.md",
+    "evidence/v2/native_candidate_freeze_v3.json"
+  ],
+  "selection_history": {
+    "candidate1": "Conservative 2 m all-overlap 38 kHz detected-cell target failed frozen 10% support: zero eligible original TRAIN fit hourly index targets; no model fitted.",
+    "candidate1_report": "evidence/v2/support/eligibility_v2.json",
+    "candidate1_report_sha256": "2c8c097fc36da80da32547317d3599f158a1b9e740e7279ecdddfd24f2a42511",
+    "candidate2": "Native range-length sampled detected-Sv target prospectively frozen after the Candidate 1 measurement-support failure, before candidate2 support or model scores.",
+    "candidate2_freeze_sha256": "1cbcdfa88df619ddac2f06b200385786cddf2a4078061fa0991a8b1843889bf3",
+    "stop_rule": "If Candidate 2 fails frozen support/adequacy, stop D1 calibrated-target and support search in this continuation; do not invent Candidate 3 from its results.",
+    "historical_v1_gates": {
+      "minimum_usable_days": 90,
+      "minimum_calibration_days": 12,
+      "minimum_test_days": 20,
+      "minimum_sample_target_support": 0.8,
+      "blocked_registry_slots": 25,
+      "registry_sha256": "e01953c56acf1230d6853e43f3dad5c9832fb4615b923d53a0f006bd32859575"
+    },
+    "historical_r2_sha256": "df02ff06cbbb05d967f8c157423c0c76b2acf66ddb16f1a1fcfbe36a710a5cc3",
+    "v2_namespace": "reports/v2; historical v1 registry and release never overwritten"
+  },
+  "freshness_study": {
+    "ages_hours": [
+      1,
+      3,
+      6
+    ],
+    "input_rule": "Fixed past-only observations/masks/elapsed age degraded at issuance; no replacement future values or future residuals.",
+    "truth_rule": "Identical frozen target truth and score cohort at each age; report abstention and error by age.",
+    "seeds": [
+      7,
+      13,
+      23
+    ],
+    "status": "NOT_RUN",
+    "scenarios": [
+      "stale_observations_1_3_6_hours",
+      "channel_dropout",
+      "contiguous_past_block_dropout"
+    ],
+    "dropout_note": "The sole 38 kHz acoustic channel can become fully unavailable; report abstention, not a fabricated forecast.",
+    "dropout_patterns_and_masks_status": "DEFERRED_PRE_EXECUTION_FREEZE_REQUIRED",
+    "execution_gate": "After core selection and before freshness replay, freeze exact channel/block masks and seeds; do not execute the freshness study until that freeze is independently checked."
+  }
+}

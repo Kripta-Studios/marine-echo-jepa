@@ -1,0 +1,12 @@
+{
+  "record_type": "COORDINATOR_TRANSCRIPTION_OF_DISTINCT_REVIEWER_MESSAGE",
+  "reviewer_session": "/root/v2_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "host_permissions": "danger-full-access; behavioral read-only",
+  "disposition": "APPROVE_NATIVE_SUPPORT_AUDIT",
+  "driver_sha256": "ffed103f9d238656b6548632915ed98989bd8e4560d9aa91420007964d7bd9e0",
+  "shared_audit_sha256": "e21b4224e0a57d0a83da05000c185603163b7045a90cf002e27f1cf12d3519cc",
+  "freeze_sha256": "1cbcdfa88df619ddac2f06b200385786cddf2a4078061fa0991a8b1843889bf3",
+  "scope": "Support-only output after exact58dayTRAIN development index complete; result requires independent review; no fitting, scores, non-TRAIN payload, evaluation or release."
+}

@@ -2,18 +2,40 @@
 
 from __future__ import annotations
 
+import argparse
 import json
 from datetime import date, timedelta
 from pathlib import Path
 from typing import Any
 
 import numpy as np
-from v2_support_audit import audit_partition, sha
+
+from tools.v2_support_audit import audit_partition, sha
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def validate_support_review(
+    index: dict, review: dict, freeze_hash: str, driver_hash: str, shared_hash: str
+) -> None:
+    if index.get("data_kind") != "REAL" or index.get("study_id") != "v2_candidate2":
+        raise ValueError("A REAL Candidate 2 index is required")
+    if index.get("bindings", {}).get("native_freeze", {}).get("sha256") != freeze_hash:
+        raise ValueError("Native index freeze differs from current reviewed freeze")
+    if (
+        review.get("disposition") != "APPROVE_NATIVE_SUPPORT_AUDIT"
+        or review.get("reviewer_session") != "/root/v2_reviewer"
+        or review.get("driver_sha256") != driver_hash
+        or review.get("shared_audit_sha256") != shared_hash
+        or review.get("freeze_sha256") != freeze_hash
+    ):
+        raise ValueError("Exact distinct-session support review required")
+
+
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--review", type=Path, required=True)
+    args = parser.parse_args()
     index_path = ROOT / "evidence/v2/native-development/index.json"
     index = json.loads(index_path.read_text())
     freeze_path = ROOT / "evidence/v2/native_candidate_freeze_v3.json"
@@ -24,6 +46,11 @@ def main() -> None:
         != freeze["inherited_contract"]["sha256"]
     ):
         raise ValueError("Native frozen contract changed")
+    driver_hash = sha(Path(__file__))
+    shared_hash = sha(ROOT / "tools/v2_support_audit.py")
+    validate_support_review(
+        index, json.loads(args.review.read_text()), sha(freeze_path), driver_hash, shared_hash
+    )
     expected_days = [(date(2020, 2, 17) + timedelta(days=i)).isoformat() for i in range(58)]
     if list(index["days"]) != expected_days:
         raise ValueError("Exact complete 58-day development calendar required")
@@ -102,8 +129,8 @@ def main() -> None:
         "partitions": partitions,
         "artifact_sha256": bindings,
         "freeze_sha256": sha(freeze_path),
-        "code_sha256": sha(Path(__file__)),
-        "support_code_sha256": sha(ROOT / "tools/v2_support_audit.py"),
+        "code_sha256": driver_hash,
+        "support_code_sha256": shared_hash,
         "model_scores_computed": False,
         "non_train_acoustic_payloads_read": False,
     }
