@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "study_id": "aeon3_geb_2024_hourly_sv_v1",
+  "workstream": "frozen_chronos2_zero_shot_baseline",
+  "status": "BLOCKED_BEFORE_INFERENCE",
+  "classification": "DEVELOPMENT_NOT_FINAL_EVALUATION",
+  "model_repo_id": "amazon/chronos-2",
+  "model_revision": "29ec3766d36d6f73f0696f85560a422f50e8498c",
+  "model_cache_verification": "PASSED_FOUR_FILES",
+  "dependency": {
+    "name": "chronos-forecasting",
+    "required_version": "2.3.2",
+    "installed": false,
+    "reason": "Shared lockfile ownership and dependency installation remain with the coordinator."
+  },
+  "prefit_independent_review": "NOT_RUN",
+  "gpu_owner_authorization": "NOT_GRANTED_FOR_INFERENCE",
+  "calibration_access": "PROHIBITED",
+  "test_access": "PROHIBITED",
+  "numeric_result": null,
+  "infrastructure_cost_usd": 0
+}

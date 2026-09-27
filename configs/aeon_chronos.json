@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "study_id": "aeon3_geb_2024_hourly_sv_v1",
+  "phase": "train_validation_frozen_chronos2_zero_shot",
+  "status": "PROPOSED_FOR_INDEPENDENT_PREFIT_REVIEW",
+  "source_sha256": "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde",
+  "calibration_access": "PROHIBITED_IN_THIS_PHASE",
+  "test_access": "PROHIBITED_IN_THIS_PHASE",
+  "model": {
+    "repo_id": "amazon/chronos-2",
+    "revision": "29ec3766d36d6f73f0696f85560a422f50e8498c",
+    "license": "Apache-2.0",
+    "package": "chronos-forecasting",
+    "package_version": "2.3.2",
+    "package_wheel_sha256": "0f0d9a1972f252d6cf584b9fa749bd1b389b3c1cf05a889c4130cb10652c2117",
+    "package_sdist_sha256": "910b0891310b74598a937bb9fe8447ea16393bcc2e1ad8d328c1f8099f909201",
+    "model_card_url": "https://huggingface.co/amazon/chronos-2",
+    "package_source_url": "https://github.com/amazon-science/chronos-forecasting/tree/v2.3.2",
+    "snapshot_files_sha256": {
+      ".gitattributes": "11ad7efa24975ee4b0c3c3a38ed18737f0658a5f75a0a96787b576a78a023361",
+      "README.md": "c7b29bc88f5bc3ebc6e7213b6353be80090d671fefa4aa74ed20498838c16558",
+      "config.json": "ef1143bfdc9c0376d9a056eefca46cb4b1ec3d0ffacd541ff56feb40fb708031",
+      "model.safetensors": "ddcda3c7508bf2528087723e98a20707cc04b7f370ae275a9fd88078ddba4f42"
+    }
+  },
+  "input": {
+    "layout": "multivariate_4x24",
+    "frequencies_hz": [38000, 125000, 200000, 455000],
+    "missing_values": "nan_native_observation_mask",
+    "target_variate_index": 0
+  },
+  "prediction_length": 6,
+  "horizon_zero_based_indices": [0, 2, 5],
+  "quantiles": [0.05, 0.25, 0.5, 0.75, 0.95],
+  "quantile_monotonicity": "sort_each_horizon_five_outputs",
+  "cross_learning": false,
+  "context_length": 24,
+  "rows_per_resume_shard": 16,
+  "pipeline_series_batch_size": 64,
+  "peak_process_rss_limit_bytes": 23622320128,
+  "peak_gpu_reserved_limit_bytes": 10737418240,
+  "max_gpu_seconds": 7200,
+  "fit_behavior": "frozen_zero_shot_no_training_or_fitting",
+  "assessment_partition": "validation",
+  "evaluation": "eligible_target_source_dates_with_at_least_18_scored_anchors_per_horizon"
+}

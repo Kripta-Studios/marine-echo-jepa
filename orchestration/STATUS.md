@@ -167,6 +167,14 @@ checkpoint. Its subsequent review and development execution are recorded below.
 
 ## AEON prospective study execution — 2026-09-27
 
+The optional frozen Chronos-2 TRAIN/validation baseline now has a separate hash-bound,
+restart-safe implementation on `impl/aeon-chronos`. Its official multivariate input choice,
+native NaN missingness path, exact model/package digests and resource caps are recorded in
+`configs/aeon_chronos.json` and the implementation report. The exact model snapshot is cached
+and verified. Inference is `BLOCKED_BEFORE_INFERENCE`: `chronos-forecasting==2.3.2` is absent,
+the independent prefit review is not yet recorded, and the coordinator has not assigned the
+single GPU for inference. No calibration or test acoustic outcome was opened.
+
 ADR 0008 and its row-level split amendment received distinct independent approval for
 TRAIN/validation development only in `orchestration/reviews/AEON_SPLIT_AMENDMENT_20260927.json`.
 The source-reported conditioned 38 kHz hourly FullDepth `Sv_mean` is a different
