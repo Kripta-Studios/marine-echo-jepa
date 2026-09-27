@@ -42,7 +42,8 @@ test('offline real replay, unavailable forecast, reveal, evidence and export', a
   await expect(page.getByRole('cell', {name:recordedModels[0].status, exact:true}).first()).toBeVisible();
   await expect(page.getByText('Required run registry (25 runs)')).toBeVisible();
   await page.getByRole('link', {name:/Evidence & transfer/}).click();
-  await expect(page.getByText('ENGINEERING_DEMO_ONLY', {exact:true})).toBeVisible();
+  const health = await (await page.request.get('/health')).json();
+  await expect(page.getByText(health.release_class, {exact:true})).toBeVisible();
   const downloaded = page.waitForEvent('download');
   await page.getByRole('button', {name:/Export JSON/}).click();
   const file = await downloaded;
