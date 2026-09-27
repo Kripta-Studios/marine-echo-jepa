@@ -1,0 +1,65 @@
+{
+  "task": "R2-AEON-FORWARD-EMA-PREFIT-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "reviewed_commits": [
+    "00f4c7b",
+    "6514339",
+    "d6bfd0ad28d53ffff7c75860fa09b3273ee3153f",
+    "44925d5a6aa8d0ba7fb904b2820dc3d92ab1b107",
+    "33317ea2bbf36921cc9e4ea0119cc763b4c0bfb6"
+  ],
+  "status": "APPROVED_AEON_FORWARD_PREFIT",
+  "disposition": "APPROVE_FIXED_POST_HOC_TRAIN_VALIDATION_FORWARD_CAMPAIGN_ONLY",
+  "code_sha256": "8d923fe0ffb371d1f13baf77f46092a6d9614a70a49f06b0300663beb6ddd30e",
+  "config_sha256": "2b115b5712e0f039a5178143c051c6c540f3bd676f7340b09e3f4e28af3bd8c3",
+  "split_review_sha256": "b8031e2e113e39630c066cee65b4371f69b229ee905a72d832e53e6f505f297b",
+  "pair_inventory_sha256": "d0f7bc48feff89c73346535a4eda56297b072a1949008cd7d32344ae88723d06",
+  "cohort_sha256": "5e475f6af798025f187c70ae638710d2b4362f688db2ad43d60ec436dda3e25d",
+  "core_campaign_manifest_sha256": "67ae5224657524cceb5c26f17c3a1ee399a1e886577552211d42ef2fe35a32ac",
+  "core_validation_rescore_sha256": "32cea9f8141fbad220a3e47d9e840039ad23b4f8e893efbcfb90f52944214c46",
+  "core_validation_rescore_review_sha256": "16bb9ef931f5e2d8f8a3322fa609c5cb1c769f99f5e4a89a5ef519a0fb52f44f",
+  "pair_contract": {
+    "train_issued_rows": 4965,
+    "pretrain_pair_rows": 4923,
+    "pair_id_and_interval_sha256": "9a3afbb17c6cc9694062b65c66b70f95df258c467814f23c75e40ecccce0b7bc",
+    "pair_target_values_and_mask_sha256": "892dca28a542c956023878c6c4e68c25ea8a2803f6b44da2f9685d407c0b71ec",
+    "first_cutoff_interval_id": 474958,
+    "last_cutoff_interval_id": 480090,
+    "partition": "train"
+  },
+  "independent_execution": {
+    "focused_tests": "12 passed",
+    "ruff": "All checks passed",
+    "mypy": "Success: no issues found in 3 source files before the final one-line dependency-digest addition; builder reported the final two-file check clean.",
+    "real_pair_reconstruction": "Rebuilt the exact 4,965-row TRAIN cohort and all 4,923 exact six-future-product pairs from the immutable source archive. The stored row IDs, interval IDs, future values and masks reproduced exactly.",
+    "synthetic_real_artifacts": "Executed one-step main, random-encoder and temporally shuffled controls through checkpoint, prediction and corrected validation-metric creation.",
+    "calibration_or_test_outcomes_opened": false
+  },
+  "approved_contract": [
+    "Three forward-EMA seeds use 1,500 TRAIN-only six-future-product pretraining updates followed by 1,500 supervised TRAIN updates and final-endpoint checkpoints.",
+    "The detached EMA teacher sees only the exact next six TRAIN source products; the online future branch receives gradients only through the fixed variance and covariance regularizers.",
+    "The fixed loss is 25 times Smooth L1 prediction loss plus 25 times the mean two-view variance penalty plus one times the mean two-view off-diagonal covariance penalty.",
+    "The random-encoder seed-7 control receives no pretraining and only 1,500 learned head updates; its unequal learned-update budget is explicitly disclosed.",
+    "The shuffled seed-7 control uses false future targets from distinct TRAIN windows at least 24 source interval IDs apart.",
+    "The direct reference remains the immutable three-seed core direct family with 3,000 supervised updates per seed and identical validation support.",
+    "The run is explicitly post-hoc development, preserves SOTA claim NOT_ESTABLISHED and uses the corrected eligible-target-source-date evaluator.",
+    "The final exact code digest binds the pairer, objective, shared encoder, cohort reader, prediction writer, artifact reader and evaluator."
+  ],
+  "execution_conditions": [
+    "Run the five slots serially under the configured device, RAM and GPU-memory gates.",
+    "Do not change the config, source, split, pair inventory, evaluator, artifact reader or approved dependency hashes after this review.",
+    "Obtain independent post-run checkpoint, prediction, metric, representation-diagnostic and control review before any development selection.",
+    "A failed slot may restart the same fixed endpoint recipe; do not tune from partial or validation results."
+  ],
+  "scientific_limits": [
+    "This extension was designed after core development evidence and is post-hoc, not a preregistered confirmatory arm.",
+    "The main forward family has half the supervised-label update budget of the direct reference; equal total updates do not imply equal labeled supervision.",
+    "The anti-collapse loss does not guarantee useful or noncollapsed representations; TRAIN-only rank, variance, covariance and scale diagnostics and validation controls must decide that empirically.",
+    "Validation performance cannot establish SOTA, external validity, calibrated absolute backscatter, biological causality or production value."
+  ],
+  "classification": "POST_HOC_DEVELOPMENT_NOT_FINAL_EVALUATION",
+  "sota_claim": "NOT_ESTABLISHED",
+  "calibration_access": "PROHIBITED",
+  "test_access": "PROHIBITED"
+}

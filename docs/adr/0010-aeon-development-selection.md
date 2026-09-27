@@ -45,7 +45,8 @@ models that the offline app can actually serve.
 
 Report primary and per-horizon scores, valid coverage, 90% raw interval
 coverage/width and paired daily loss differences for every completed family.
-Use the same 48-hour source-date blocks and 2,000 draws with seed 20260927 for
+Use the existing pure evaluator's 48-hour source-date blocks and 2,000 draws
+with its fixed seed 20260926 for
 paired bootstrap 95% intervals; these intervals describe this deployment and
 do not establish external generalization. State the number of distinct source
 dates and blocks, selection-induced optimism and the unknown source-clock
