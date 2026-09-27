@@ -73,12 +73,18 @@
       "outcome_review_sha256": "d08932b0c88f322ceb573ef2ee30198aed0ceb3c5611b6e865e0e562f640138d",
       "primary_daily_mean_pinball_db": 0.6384597244651752
     },
-    "chronos_2": "NOT_RUN_PENDING_INDEPENDENT_PREFIT_REVIEW",
-    "forward_ema_jepa": "NOT_RUN_PENDING_INDEPENDENT_PREFIT_REVIEW"
+    "chronos_2": "NOT_RUN_APPROVED_PREFIT_WAITING_FOR_SINGLE_GPU_OWNER",
+    "forward_ema_jepa": {
+      "status": "RUNNING_REVIEWED_POST_HOC_TRAIN_VALIDATION_CAMPAIGN",
+      "manifest": "outputs/aeon3_geb_2024_hourly_sv_v1/forward_ema_development/manifest.json",
+      "prefit_review_sha256": "7275f5c0e9c70daccbc60fb26a952ea8514746a93ee2dbb1c73b2468efe35ffa",
+      "device": "cuda",
+      "completed_slots": 0
+    }
   },
   "calibration": "NOT_RUN",
   "retrospective_test": "NOT_RUN",
   "jepa_value_gate": "NOT_EVALUATED",
-  "gpu_owner": "NONE",
+  "gpu_owner": "forward_ema_jepa_serial_train_process",
   "paid_cost_usd": 0
 }

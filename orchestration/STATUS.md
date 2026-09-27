@@ -261,8 +261,9 @@ development difference with no significance or SOTA claim. The exact model and
 prediction files were reloaded and all 15 heads' predictions reproduced
 bit-exactly by the reviewer; see
 `orchestration/reviews/AEON_SOTA_SUPERVISED_OUTCOME_REVIEW_20260927.json`.
-Chronos-2's exact public checkpoint is locally cached and its runner implemented;
-inference awaits distinct prefit review. The forward-EMA JEPA adaptation with
-fixed VICReg-style anti-collapse penalties is implemented and awaits prefit
-review. CAL/TEST acoustic outcomes remain unopened pending final selection and
-freeze.
+Chronos-2's exact public checkpoint and zero-shot runner passed distinct prefit
+review; inference waits for the one active trainer to finish. The forward-EMA
+JEPA adaptation with fixed VICReg-style anti-collapse penalties passed distinct
+prefit review and its five-slot serial TRAIN/validation campaign is running on
+CUDA under the reviewed memory caps. Neither extension has an outcome yet.
+CAL/TEST acoustic outcomes remain unopened pending final selection and freeze.
