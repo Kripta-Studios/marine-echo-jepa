@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "study_id": "aeon3_geb_2024_hourly_sv_v1",
+  "minimum_eligible_dates": {
+    "calibration": 12,
+    "test": 20
+  },
+  "minimum_anchors_per_date": 18,
+  "horizons_hours": [1, 3, 6],
+  "quantiles": [0.05, 0.25, 0.5, 0.75, 0.95],
+  "bootstrap": {
+    "block_hours": 48,
+    "draws": 2000,
+    "seed": 20260926
+  },
+  "incremental_loss_gate": 0.05,
+  "per_horizon_regression_guard": 0.10
+}
