@@ -55,9 +55,34 @@ def test_daily_loss_uses_equal_source_dates_and_horizons() -> None:
     assert metrics["scored_rows_per_horizon"] == [48, 48, 48]
     assert metrics["scored_days_per_horizon"] == [2, 2, 2]
     assert metrics["primary_daily_mean_pinball_db"] > 0
+    assert len(metrics["daily_mean_pinball_db_by_horizon_quantile"]) == 3
+    assert all(len(row) == 5 for row in metrics["daily_mean_pinball_db_by_horizon_quantile"])
+    assert metrics["median_mae_db_per_horizon"] == [1.0, 1.0, 1.0]
+    assert metrics["coverage90_per_horizon"] == [1.0, 1.0, 1.0]
+    assert metrics["width90_db_per_horizon"] == [4.0, 4.0, 4.0]
+    assert metrics["scored_fraction_per_horizon"] == [1.0, 1.0, 1.0]
+    assert metrics["profile_mae"] == "NOT_APPLICABLE_FULL_DEPTH_SCALAR_STUDY"
     mask[0, 1] = False
     masked = daily_pinball(truth, forecast, mask, _times(2, 24))
     assert masked["scored_rows_per_horizon"] == [48, 47, 48]
+
+
+def test_low_support_day_is_excluded_from_scores_and_bootstrap() -> None:
+    forecast = _forecast(72)
+    truth = np.zeros((72, 3))
+    truth[48:] = 1000.0
+    mask = np.ones((72, 3), dtype=bool)
+    mask[49:] = False
+    expected = daily_pinball(truth[:48], forecast[:48], mask[:48], _times(2, 24))
+    actual = daily_pinball(truth, forecast, mask, _times(3, 24))
+    assert actual["primary_daily_mean_pinball_db"] == expected["primary_daily_mean_pinball_db"]
+    assert actual["eligible_days_per_horizon"] == [2, 2, 2]
+    np.testing.assert_array_equal(
+        paired_48h_bootstrap(truth, forecast, forecast + 1, mask, _times(3, 24)),
+        paired_48h_bootstrap(
+            truth[:48], forecast[:48], forecast[:48] + 1, mask[:48], _times(2, 24)
+        ),
+    )
 
 
 def test_paired_bootstrap_is_seeded_and_preserves_pairing() -> None:
