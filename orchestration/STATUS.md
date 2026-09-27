@@ -298,8 +298,10 @@ No CAL or TEST numeric run has started.
 
 The independently approved five-source neutral validation comparator executed
 exit zero and saved all individual/control and equal-weight three-seed family
-scores on identical support, plus paired 48-hour bootstrap diagnostics. It
-selected no model and awaits independent outcome review. The lowest development
+scores on identical support, plus paired 48-hour bootstrap diagnostics. A
+distinct reviewer reproduced all 40 candidates, 49 bound files, every daily
+score and all fixed-seed bootstrap intervals exactly. It selected no model.
+The lowest development
 scores are post-hoc LightGBM 0.638460 dB, core direct ensemble 0.639062 dB,
 and core EMA-JEPA ensemble 0.642170 dB; the tiny LightGBM difference is not a
 SOTA or inferential claim. Final evaluator/adapter review still requests exact
