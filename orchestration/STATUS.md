@@ -158,3 +158,9 @@ and one 11.3 MB deployment ZIP were downloaded and publisher-hash verified. The 
 hourly CSVs have records on 174 dates, including 172 dates with 24 interval IDs, but
 valid-target support, calibration lineage and the 15-minute-contract mismatch remain
 unresolved. This is a prospective candidate, not an eligibility or model result.
+
+The longer AEON3 March 2024–February 2025 archive was subsequently downloaded and
+publisher-hash verified as the proposed new-study source. Metadata-only inspection found
+360 date fields, including 356 with 24 hourly interval IDs and all four AZFP channels.
+ADR 0008 proposes a distinct hourly source-product study; independent prefit review,
+validity/support QC and all model runs remain pending.

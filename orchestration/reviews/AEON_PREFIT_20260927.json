@@ -1,0 +1,43 @@
+{
+  "task": "R0/R1-AEON-PREFIT-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "disposition": "APPROVE_TRAIN_VALIDATION_DEVELOPMENT_ONLY",
+  "reviewed_adr": "docs/adr/0008-aeon-hourly-sv-study.md",
+  "reviewed_adr_sha256": "2ef8679947f082b0283066d6efe4ea9bcca2d26d74600db9f601c12897016c55",
+  "source_archive_sha256": "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde",
+  "publisher_md5": "083769f09573164ea8f43ce273971ec0",
+  "confirmed_metadata": {
+    "unique_38khz_full_depth_interval_rows": 8616,
+    "source_dates": 360,
+    "intervals_per_date": {"24": 356, "23": 2, "21": 1, "5": 1},
+    "fixed_target_layer_m": [0, 200],
+    "four_frequency_interval_ids_aligned": true,
+    "partial_integration_rows_below_150_pings": 12,
+    "cross_month_interval_ids_stable": true,
+    "interval_gaps_detectable": 3,
+    "acoustic_values_inspected": false,
+    "retrospective_test_outcomes_inspected": false
+  },
+  "physical_label": "source-reported conditioned Sv, not independently field-calibrated absolute backscatter",
+  "clock_basis": "SOURCE_REPORTED_UNSPECIFIED",
+  "approved_scope": [
+    "AEON corpus and window implementation",
+    "eligibility computation",
+    "baseline and neural TRAIN/validation development",
+    "fixed 24x4 FullDepth values and masks",
+    "1/3/6 source-interval-step targets"
+  ],
+  "excluded_scope": [
+    "retrospective test acoustic outcome access",
+    "final evaluation",
+    "absolute field calibration claim",
+    "biomass, fish-density or live operational claim"
+  ],
+  "required_before_test": "Separate independent pre-test freeze binding exact code, cohort and source hashes, selected checkpoints, calibration rule, metrics and block-bootstrap procedure.",
+  "material_limitations": [
+    "Unknown source clock timezone and product availability latency",
+    "Manual exclusions and variable effective analysis domains",
+    "Exact configuration, ECS files, certificate binding and raw hashes not independently verified"
+  ]
+}

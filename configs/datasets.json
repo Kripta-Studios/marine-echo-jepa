@@ -7,7 +7,11 @@
     "doi.org",
     "download.pangaea.de",
     "rawdata.oceanobservatories.org",
-    "echopype-examples.readthedocs.io"
+    "echopype-examples.readthedocs.io",
+    "figshare.com",
+    "api.figshare.com",
+    "ndownloader.figshare.com",
+    "eos.unh.edu"
   ],
   "max_total_raw_gib": 40,
   "max_single_download_gib": 8,
@@ -84,6 +88,28 @@
       "extended_date_range": null,
       "calibration_status": "NOT_VERIFIED",
       "warning": "Example alone is insufficient. Inventory adjacent same-deployment dates and re-freeze protocol before training."
+    },
+    {
+      "id": "aeon3_geb_2024_hourly_sv_v1",
+      "role": "prospective_new_study",
+      "domain": "Georges Basin fixed bottom lander, AEON monitoring period 5",
+      "data_kind": "public_real_processed",
+      "catalog_url": "https://figshare.com/articles/dataset/AZFP/29247113",
+      "catalog_version": 2,
+      "license": "CC-BY-4.0",
+      "source_file_id": 61937281,
+      "source_url": "https://ndownloader.figshare.com/files/61937281",
+      "local_path": "data/prospective/aeon-azfp-20260927/AEON3_GEB_Mar2024-Mar2025_AZFP_Sv.zip",
+      "source_bytes": 44727557,
+      "publisher_md5": "083769f09573164ea8f43ce273971ec0",
+      "local_sha256": "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde",
+      "expanded_bytes": 340711670,
+      "instrument_serial": 55144,
+      "frequencies_hz": [38000, 125000, 200000, 455000],
+      "product": "Echoview-conditioned hourly Sv_mean CSV",
+      "calibration_status": "SOURCE_REPORTED_NOT_INDEPENDENTLY_LINEAGE_VERIFIED",
+      "protocol_status": "PROPOSED_REVIEW_PENDING",
+      "historical_v1_v2_registry_unchanged": true
     }
   ]
 }
