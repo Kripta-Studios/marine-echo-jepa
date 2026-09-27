@@ -267,3 +267,9 @@ JEPA adaptation with fixed VICReg-style anti-collapse penalties passed distinct
 prefit review and its five-slot serial TRAIN/validation campaign is running on
 CUDA under the reviewed memory caps. Neither extension has an outcome yet.
 CAL/TEST acoustic outcomes remain unopened pending final selection and freeze.
+
+The separately reviewed metadata-only TEST scanner completed one real pass over
+the source archive and inventoried 1,216 candidate cutoff interval IDs. Its
+saved report leaves actual issued and scored rows explicitly unknown until the
+one-time numerical QC/materialization boundary. Independent outcome review of
+this candidate inventory is pending; no TEST `Sv_mean` values were parsed.

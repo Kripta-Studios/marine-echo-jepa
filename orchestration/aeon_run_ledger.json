@@ -82,6 +82,15 @@
       "completed_slots": 0
     }
   },
+  "test_metadata_candidates": {
+    "status": "METADATA_ONLY_SCAN_COMPLETED_PENDING_INDEPENDENT_OUTCOME_REVIEW",
+    "artifact": "outputs/aeon3_geb_2024_hourly_sv_v1/test_metadata_candidates/metadata-candidates.json",
+    "artifact_sha256": "40510cfb321cbb57bc24f309f0e11cd0a2d274c181370ae6d13efdc26972be93",
+    "candidate_count": 1216,
+    "candidate_sha256": "6b475b41a462b46ab8784fc5a17590860f5b1fb759a96c028776df820f56dbae",
+    "actual_issued_rows": "UNKNOWN_NUMERIC_QC_NOT_OPENED",
+    "actual_scored_rows": "UNKNOWN_NUMERIC_QC_NOT_OPENED"
+  },
   "calibration": "NOT_RUN",
   "retrospective_test": "NOT_RUN",
   "jepa_value_gate": "NOT_EVALUATED",
