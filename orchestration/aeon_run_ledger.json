@@ -125,6 +125,13 @@
     "independent_review_sha256": "a600dcb6bcc19ab8da09feeeab00096470f0cf64de10501a553b798656f93300",
     "aeon_cached_forecasts": 0
   },
+  "portable_development_release": {
+    "status": "APPROVED_SOURCE_DEVELOPMENT_ONLY_NOT_FINAL_SCIENTIFIC_RELEASE",
+    "source_commit": "419be6c221234fd612b6b540d544d7f283b9e5f7",
+    "independent_review_sha256": "a7e99f8337195aa676073820a3234a0aaa3de8d76cce8af1b828b234f26c9001",
+    "release_class": "OFFLINE_RESEARCH_MIXED_STUDIES_DEVELOPMENT_ONLY",
+    "aeon_cached_forecasts": 0
+  },
   "calibration": "NOT_RUN",
   "retrospective_test": "NOT_RUN",
   "jepa_value_gate": "NOT_EVALUATED",

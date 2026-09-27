@@ -1,0 +1,63 @@
+{
+  "task": "R3-AEON-PORTABLE-DEVELOPMENT-RELEASE-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "status": "APPROVED_AEON_PORTABLE_DEVELOPMENT_RELEASE_BUILDER",
+  "disposition": "APPROVE_EXACT_PORTABLE_DEVELOPMENT_ONLY_RELEASE_SOURCE",
+  "reviewed_commit": "419be6c221234fd612b6b540d544d7f283b9e5f7",
+  "reviewed_files_sha256": {
+    "src/marine_echo/serving/aeon_portable.py": "62e10800259ed66f9be6133f0c552806cdc2ed7653ec57a8eaba471f8c751bce",
+    "release/aeon_portable/Run-AEON-Research.ps1": "9efef98416315047c0e314705a3206cc4644ff29fc87c934594f3aca581ca080",
+    "release/aeon_portable/Serve-AEON-Research.py": "7162f2af8cc492e6edfa1e217aa103ba5005b6993c1e78c9013e7e3d2d458a68",
+    "release/aeon_portable/Verify-Release.py": "8aad877a36e3b3ac4805a0ab83b798b76eea81cf651a7fbaf115700949dbe644",
+    "release/aeon_portable/requirements-app.txt": "f5b0eb327c52b4cc545ac833c240300af5fb84df944c9a899839a35d770ceee4"
+  },
+  "verified_contract": [
+    "The wrapper builds from the separately reviewed AEON development study artifact and keeps the historical MOSAiC v1/v2 payload and 25-row blocked experiment registry intact.",
+    "The output is explicitly classified OFFLINE_RESEARCH_MIXED_STUDIES_DEVELOPMENT_ONLY, records no final CAL/TEST evaluation, serves no AEON cached forecast and marks independent final-release review false.",
+    "All 22 Windows Python 3.12 wheels must exactly match the previously verified historical offline wheelhouse manifest before they are copied.",
+    "Every packaged file except SHA256SUMS is inventoried and byte-hashed; symlinks, missing files, extra files and changed bytes fail verification. The ZIP has fixed member timestamps and an adjacent archive SHA-256 sidecar.",
+    "The launcher creates a local Python 3.12 environment offline, verifies packaged bytes before dependency installation, installs only from the bundled wheelhouse and binds the server to 127.0.0.1.",
+    "The package includes the five exact independent development-outcome review records and does not redistribute the source acoustic archive."
+  ],
+  "independent_execution": {
+    "focused_tests": "2 passed in 3.49s",
+    "real_temporary_build": {
+      "source_commit": "419be6c221234fd612b6b540d544d7f283b9e5f7",
+      "asset_count": 52,
+      "zip_entry_count": 53,
+      "zip_crc_first_bad_member": null,
+      "historical_registry_rows": 25,
+      "cached_forecast_count": 0,
+      "wheel_count": 22,
+      "release_class": "OFFLINE_RESEARCH_MIXED_STUDIES_DEVELOPMENT_ONLY",
+      "aeon_study_sha256": "6b7289d14982690bdc51c25f9697725a79f5de016f7c9da919064a3320b82830",
+      "temporary_archive_sha256": "f12c49ceccf5a3e1391fb953def91987f1c8ea9b69e26d7a758f35075f307c67"
+    },
+    "fresh_environment": {
+      "python": "offline cached CPython 3.12",
+      "wheel_install": "passed with --offline --no-index from packaged wheelhouse",
+      "verify_before_install": "52 packaged files verified",
+      "verify_after_install": "52 packaged files verified",
+      "api_import": "passed from packaged source",
+      "aeon_route_present": true,
+      "loopback_server_binding_inspected": true
+    },
+    "calibration_numeric_access": false,
+    "test_numeric_access": false
+  },
+  "claims_review": [
+    "README and metadata consistently label the package development-only and state that CAL and retrospective TEST are not final-evaluated.",
+    "Source time zone, publication latency and independent field calibration remain explicitly unverified.",
+    "The package makes no species, biomass, catch, fuel, operational-benefit, SOTA or incremental-JEPA claim."
+  ],
+  "limitations": [
+    "The temporary archive digest above binds the independently rebuilt commit-419be6c package only. A persistent archive built from a different source commit requires its own byte-level outcome review.",
+    "This approval does not cover a later app or package that adds model selection, calibrated intervals or retrospective TEST results.",
+    "The launcher assumes uv and a locally available Python 3.12 interpreter; it does not download either dependency."
+  ],
+  "final_scientific_release_approved": false,
+  "sota_claim": "NOT_ESTABLISHED",
+  "calibration_access": "NOT_GRANTED_BY_THIS_REVIEW",
+  "test_access": "PROHIBITED"
+}

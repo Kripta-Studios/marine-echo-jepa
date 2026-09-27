@@ -319,8 +319,10 @@ forecasts. It is not the final research release.
 The AEON portable offline research wrapper is integrated on main and passed its
 focused tests. Its isolated smoke ZIP was verified after fresh extraction,
 offline dependency installation, loopback API serving and headless Chromium
-page inspection; distinct release review is pending. It remains development
-only, with no AEON CAL/TEST forecasts. Final evaluator review found additional
+page inspection. Distinct source review approved this exact development-only
+wrapper (review SHA-256
+`a7e99f8337195aa676073820a3234a0aaa3de8d76cce8af1b828b234f26c9001`).
+It remains development only, with no AEON CAL/TEST forecasts. Final evaluator review found additional
 real-access and lineage weaknesses, so CAL and TEST numeric values remain
 unopened while those checks are repaired and re-reviewed. One stronger
 supervised architecture is being trialled on TRAIN/validation only as a
