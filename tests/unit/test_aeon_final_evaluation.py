@@ -165,7 +165,7 @@ def _pretest(
     config_sha: str, forecast_manifest_sha: str,
 ) -> tuple[Path, str]:
     path = tmp_path / "pretest-freeze.json"
-    digest = _write_json(path, {
+    value = {
         "schema_version": "1.0", "status": "FROZEN_AEON_RETROSPECTIVE_TEST_PREACCESS",
         "study_id": "aeon3_geb_2024_hourly_sv_v1",
         "source_archive_sha256": "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde",
@@ -173,6 +173,7 @@ def _pretest(
         "metadata_candidate_review_sha256": "9d9c6ca4580d6a4ead4117a00a1a872710bf6e323eb17d491837e24c1011bebe",
         "selection_freeze_sha256": selection_sha,
         "calibration_artifact_sha256": calibration_sha, "config_sha256": config_sha,
+        "calibration_outcome_review_sha256": "7b61385b29836be53d0e2c5a0b5e3f5db7e2dcb8983e534d17711ed0b44c1428",
         "forecast_manifest_sha256": forecast_manifest_sha,
         "runner_code_sha256": artifact_sha256(Path(aeon_final_evaluation.__file__)),
         "evaluation_code_sha256": artifact_sha256(Path(daily_pinball.__code__.co_filename)),
@@ -182,7 +183,52 @@ def _pretest(
         "primary_metric": "RAW_FIVE_QUANTILE_ELIGIBLE_TARGET_DATE_PINBALL",
         "bootstrap": {"block_hours": 48, "draws": 2000, "seed": 20260926},
         "test_access": "PROHIBITED_PENDING_INDEPENDENT_APPROVAL",
-    })
+    }
+    path.write_text(json.dumps(value), encoding="utf-8")
+    digest = artifact_sha256(path)
+    return path, digest
+
+
+def _calibration_artifact(
+    tmp_path: Path, selection_sha: str, config: Path,
+    adjustments: dict[str, list[float]],
+) -> tuple[Path, str]:
+    classifications = {
+        "baseline": "CORE_CONVENTIONAL_SELECTION",
+        "core_jepa": "CORE_JEPA_SELECTION",
+        "candidate": "POST_HOC_DEVELOPMENT_SELECTION",
+    }
+    path = tmp_path / "calibration.json"
+    value = {
+        "status": "COMPLETED_AEON_CALIBRATION_INTERVAL_WIDENING",
+        "study_id": "aeon3_geb_2024_hourly_sv_v1", "partition": "calibration",
+        "test_access": "PROHIBITED",
+        "source_archive_sha256": "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde",
+        "selection_freeze_sha256": selection_sha, "forecast_manifest_sha256": "6" * 64,
+        "config_sha256": artifact_sha256(config), "runner_review_sha256": "7" * 64,
+        "runner_code_sha256": artifact_sha256(Path(aeon_final_evaluation.__file__)),
+        "evaluation_code_sha256": artifact_sha256(Path(daily_pinball.__code__.co_filename)),
+        "reader_composite_sha256": reader_composite_sha256(),
+        "adapter_composite_sha256": adapter_composite_sha256(),
+        "reader_review_sha256": "8" * 64,
+        "issued_row_ids": [hashlib.sha256(b"calibration-row").hexdigest()],
+        "models": {
+            model_id: {
+                "adjustment_db": adjustment,
+                "eligible_days_per_horizon": [12, 12, 12],
+                "eligible_rows_per_horizon": [216, 216, 216],
+                "all_scored_days_per_horizon": [12, 12, 12],
+                "eligible_source_dates_by_horizon": [
+                    [f"2024-12-{day:02d}" for day in range(1, 13)] for _ in range(3)
+                ],
+                "selection_classification": classifications[model_id],
+                "raw_interval_metrics": {}, "widened_interval_metrics": {},
+            }
+            for model_id, adjustment in adjustments.items()
+        },
+    }
+    path.write_text(json.dumps(value), encoding="utf-8")
+    digest = artifact_sha256(path)
     return path, digest
 
 
@@ -652,13 +698,9 @@ def test_test_scoring_requires_candidate_and_calibration_hashes(tmp_path: Path) 
     config, selection, selection_sha, _, _, manifest, _ = _contract(
         tmp_path, "test", rows
     )
-    calibration = tmp_path / "calibration.json"
-    calibration_sha = _write_json(calibration, {
-        "status": "COMPLETED_AEON_CALIBRATION_INTERVAL_WIDENING",
-        "study_id": "aeon3_geb_2024_hourly_sv_v1", "selection_freeze_sha256": selection_sha,
-        "models": {"baseline": {"adjustment_db": [0., 0., 0.]},
-                   "core_jepa": {"adjustment_db": [0.05, 0.05, 0.05]},
-                   "candidate": {"adjustment_db": [0.1, 0.1, 0.1]}},
+    calibration, calibration_sha = _calibration_artifact(tmp_path, selection_sha, config, {
+        "baseline": [0., 0., 0.], "core_jepa": [0.05, 0.05, 0.05],
+        "candidate": [0.1, 0.1, 0.1],
     })
     candidate, candidate_sha = _candidate_contract(tmp_path, rows)
     manifest_sha = _bind_candidate(manifest, candidate_sha)
@@ -698,18 +740,62 @@ def test_test_scoring_requires_candidate_and_calibration_hashes(tmp_path: Path) 
         assert set(saved.files) == {"row_ids", "quantiles_db"}
 
 
+def test_existing_test_output_rejects_before_reader(tmp_path: Path) -> None:
+    output = tmp_path / "existing-output"
+    output.mkdir()
+    reader = _Reader([_window(0, "test", "2025-01-06")])
+    missing = tmp_path / "not-opened.json"
+    with pytest.raises(FileExistsError, match="output already exists"):
+        execute_retrospective_test(
+            archive=tmp_path, reader_review_path=missing, reader_review_sha256="0" * 64,
+            runner_review_path=missing, runner_review_sha256="0" * 64,
+            config_path=missing, selection_freeze_path=missing,
+            candidate_contract_path=missing, calibration_artifact_path=missing,
+            pretest_freeze_path=missing, forecast_manifest_path=missing,
+            output=output, fixture_reader=reader, fixture_forecaster=_fixture_forecaster,
+        )
+    assert not reader.opened
+
+
+@pytest.mark.parametrize("mutation", ["missing_model", "invalid_adjustment"])
+def test_malformed_calibration_rejects_before_test_reader(
+    tmp_path: Path, mutation: str,
+) -> None:
+    rows = [_window(i, "test", "2025-01-06") for i in range(20 * 24)]
+    config, selection, selection_sha, _, _, manifest, _ = _contract(tmp_path, "test", rows)
+    calibration, _ = _calibration_artifact(tmp_path, selection_sha, config, {
+        "baseline": [0., 0., 0.], "core_jepa": [0., 0., 0.],
+        "candidate": [0., 0., 0.],
+    })
+    value = json.loads(calibration.read_text())
+    if mutation == "missing_model":
+        del value["models"]["core_jepa"]
+    else:
+        value["models"]["core_jepa"]["adjustment_db"] = [0., -0.1, 0.]
+    _write_json(calibration, value)
+    reader = _Reader(rows)
+    missing = tmp_path / "not-opened.json"
+    with pytest.raises(ValueError, match="calibration"):
+        execute_retrospective_test(
+            archive=tmp_path, reader_review_path=missing, reader_review_sha256="0" * 64,
+            runner_review_path=missing, runner_review_sha256="0" * 64,
+            config_path=config, selection_freeze_path=selection,
+            candidate_contract_path=missing, calibration_artifact_path=calibration,
+            pretest_freeze_path=missing, forecast_manifest_path=manifest,
+            output=tmp_path / "never", fixture_reader=reader,
+            fixture_forecaster=_fixture_forecaster,
+        )
+    assert not reader.opened
+
+
 def test_test_candidate_contract_rejects_unfrozen_issued_row(tmp_path: Path) -> None:
     rows = [_window(i, "test", "2025-01-06") for i in range(20 * 24)]
     config, selection, selection_sha, _, _, manifest, _ = _contract(
         tmp_path, "test", rows
     )
-    calibration = tmp_path / "calibration.json"
-    calibration_sha = _write_json(calibration, {
-        "status": "COMPLETED_AEON_CALIBRATION_INTERVAL_WIDENING",
-        "study_id": "aeon3_geb_2024_hourly_sv_v1", "selection_freeze_sha256": selection_sha,
-        "models": {"baseline": {"adjustment_db": [0., 0., 0.]},
-                   "core_jepa": {"adjustment_db": [0., 0., 0.]},
-                   "candidate": {"adjustment_db": [0., 0., 0.]}},
+    calibration, calibration_sha = _calibration_artifact(tmp_path, selection_sha, config, {
+        "baseline": [0., 0., 0.], "core_jepa": [0., 0., 0.],
+        "candidate": [0., 0., 0.],
     })
     candidate, _ = _candidate_contract(tmp_path, rows)
     doc = json.loads(candidate.read_text())
@@ -743,13 +829,9 @@ def test_test_candidate_contract_rejects_unfrozen_issued_row(tmp_path: Path) -> 
 def test_test_candidate_matching_includes_exact_row_id(tmp_path: Path) -> None:
     rows = [_window(i, "test", "2025-01-06") for i in range(20 * 24)]
     config, selection, selection_sha, _, _, manifest, _ = _contract(tmp_path, "test", rows)
-    calibration = tmp_path / "calibration.json"
-    calibration_sha = _write_json(calibration, {
-        "status": "COMPLETED_AEON_CALIBRATION_INTERVAL_WIDENING",
-        "study_id": "aeon3_geb_2024_hourly_sv_v1",
-        "selection_freeze_sha256": selection_sha,
-        "models": {model: {"adjustment_db": [0., 0., 0.]}
-                   for model in ("baseline", "core_jepa", "candidate")},
+    calibration, calibration_sha = _calibration_artifact(tmp_path, selection_sha, config, {
+        "baseline": [0., 0., 0.], "core_jepa": [0., 0., 0.],
+        "candidate": [0., 0., 0.],
     })
     candidate, _ = _candidate_contract(tmp_path, rows)
     candidate_doc = json.loads(candidate.read_text())

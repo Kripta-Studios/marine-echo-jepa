@@ -76,6 +76,9 @@ _HEX = set("0123456789abcdef")
 _MODEL_ID = re.compile(r"[A-Za-z0-9][A-Za-z0-9_.-]{0,79}")
 _TRUSTED_REVIEWER_SESSION = "/root/aeon_reviewer"
 _LIGHTGBM_RECIPE_SHA256 = "3feee4089ce790c66adb189ff82ad4e006c350822a23aaa494e86afaef884eea"
+_CALIBRATION_OUTCOME_REVIEW_SHA256 = (
+    "7b61385b29836be53d0e2c5a0b5e3f5db7e2dcb8983e534d17711ed0b44c1428"
+)
 
 
 class _WindowReader(Protocol):
@@ -676,6 +679,7 @@ def execute_calibration(
         "study_id": _STUDY,
         "partition": "calibration",
         "test_access": "PROHIBITED",
+        "source_archive_sha256": _SOURCE_SHA256,
         "selection_freeze_sha256": selection_sha,
         "forecast_manifest_sha256": manifest_sha,
         "config_sha256": config_sha,
@@ -755,6 +759,7 @@ def _pretest_freeze(
         "metadata_candidate_review_sha256": _METADATA_OUTCOME_REVIEW_SHA256,
         "selection_freeze_sha256": selection_sha,
         "calibration_artifact_sha256": calibration_sha,
+        "calibration_outcome_review_sha256": _CALIBRATION_OUTCOME_REVIEW_SHA256,
         "config_sha256": config_sha,
         "forecast_manifest_sha256": forecast_manifest_sha,
         "runner_code_sha256": artifact_sha256(Path(__file__)),
@@ -832,6 +837,84 @@ def _comparison_gates(
     }
 
 
+def _validate_calibration_artifact(
+    value: dict[str, Any], selection: dict[str, Any], selection_sha: str, config_sha: str,
+) -> None:
+    models = value.get("models")
+    expected_model_ids = [model["model_id"] for model in selection["models"]]
+    if (
+        set(value) != {
+            "status", "study_id", "partition", "test_access", "source_archive_sha256",
+            "selection_freeze_sha256", "forecast_manifest_sha256", "config_sha256",
+            "runner_review_sha256", "runner_code_sha256", "evaluation_code_sha256",
+            "reader_composite_sha256", "adapter_composite_sha256", "reader_review_sha256",
+            "issued_row_ids", "models",
+        }
+        or value.get("status") != "COMPLETED_AEON_CALIBRATION_INTERVAL_WIDENING"
+        or value.get("study_id") != _STUDY
+        or value.get("partition") != "calibration"
+        or value.get("test_access") != "PROHIBITED"
+        or value.get("source_archive_sha256") != _SOURCE_SHA256
+        or value.get("selection_freeze_sha256") != selection_sha
+        or value.get("config_sha256") != config_sha
+        or not _digest(value.get("forecast_manifest_sha256"))
+        or not _digest(value.get("runner_review_sha256"))
+        or value.get("runner_code_sha256") != artifact_sha256(Path(__file__))
+        or value.get("evaluation_code_sha256")
+        != artifact_sha256(Path(daily_pinball.__code__.co_filename))
+        or value.get("reader_composite_sha256") != reader_composite_sha256()
+        or value.get("adapter_composite_sha256") != adapter_composite_sha256()
+        or not _digest(value.get("reader_review_sha256"))
+        or not isinstance(value.get("issued_row_ids"), list)
+        or not value["issued_row_ids"]
+        or any(not _digest(row_id) for row_id in value["issued_row_ids"])
+        or len(value["issued_row_ids"]) != len(set(value["issued_row_ids"]))
+        or not isinstance(models, dict)
+        or list(models) != expected_model_ids
+    ):
+        raise ValueError("AEON calibration artifact lineage or selected model set differs.")
+    classifications = {
+        model["model_id"]: model["selection_classification"] for model in selection["models"]
+    }
+    for model_id, model in models.items():
+        if (
+            not isinstance(model, dict)
+            or set(model) != {
+                "adjustment_db", "eligible_days_per_horizon",
+                "eligible_rows_per_horizon", "all_scored_days_per_horizon",
+                "eligible_source_dates_by_horizon", "selection_classification",
+                "raw_interval_metrics", "widened_interval_metrics",
+            }
+            or model.get("selection_classification") != classifications[model_id]
+            or not isinstance(model.get("raw_interval_metrics"), dict)
+            or not isinstance(model.get("widened_interval_metrics"), dict)
+        ):
+            raise ValueError("AEON calibration model schema differs.")
+        adjustment = np.asarray(model.get("adjustment_db"), dtype=np.float64)
+        days = model.get("eligible_days_per_horizon")
+        eligible_rows = model.get("eligible_rows_per_horizon")
+        all_days = model.get("all_scored_days_per_horizon")
+        source_dates = model.get("eligible_source_dates_by_horizon")
+        if (
+            adjustment.shape != (3,)
+            or not np.isfinite(adjustment).all()
+            or (adjustment < 0).any()
+            or not isinstance(days, list)
+            or len(days) != 3
+            or any(not isinstance(day, int) or day < 12 for day in days)
+            or not isinstance(all_days, list)
+            or len(all_days) != 3
+            or any(not isinstance(day, int) or day < 12 for day in all_days)
+            or not isinstance(source_dates, list)
+            or len(source_dates) != 3
+            or any(not isinstance(items, list) or len(items) < 12 for items in source_dates)
+            or not isinstance(eligible_rows, list)
+            or len(eligible_rows) != 3
+            or any(not isinstance(count, int) or count < 1 for count in eligible_rows)
+        ):
+            raise ValueError("AEON calibration adjustment or eligibility evidence is invalid.")
+
+
 def execute_retrospective_test(
     *, archive: Path, reader_review_path: Path, reader_review_sha256: str,
     runner_review_path: Path, runner_review_sha256: str, config_path: Path,
@@ -842,16 +925,13 @@ def execute_retrospective_test(
     fixture_forecaster: _FixtureForecaster | None = None,
 ) -> dict[str, Any]:
     """Open TEST once, forecast issued rows in-process, then score those same rows."""
+    output = output.resolve()
+    if output.exists():
+        raise FileExistsError("AEON retrospective TEST output already exists.")
     _, config_sha = _config(config_path)
     selection, selection_sha = _selection(selection_freeze_path)
     calibration, calibration_sha = _json(calibration_artifact_path)
-    if (
-        calibration.get("status") != "COMPLETED_AEON_CALIBRATION_INTERVAL_WIDENING"
-        or calibration.get("study_id") != _STUDY
-        or calibration.get("selection_freeze_sha256") != selection_sha
-        or not isinstance(calibration.get("models"), dict)
-    ):
-        raise ValueError("AEON calibration artifact differs from the frozen selection.")
+    _validate_calibration_artifact(calibration, selection, selection_sha, config_sha)
     candidate, candidate_sha = _candidate(candidate_contract_path)
     forecast_plan, manifest_sha = _test_forecast_plan(
         forecast_manifest_path, selection, selection_sha, candidate_sha
