@@ -222,7 +222,7 @@ def run_hybrids(
     hybrid_review_path: Path,
     output: Path,
 ) -> dict[str, Any]:
-    """Fit two fixed hybrids only after exact independent prefit review."""
+    """Fit ten fixed hybrids only after exact independent prefit review."""
     core_sha256 = _sha256(core_config_path)
     core = json.loads(core_config_path.read_text(encoding="utf-8"))
     hybrid_sha256 = _sha256(hybrid_config_path)
@@ -350,6 +350,7 @@ def run_hybrids(
         scaler = _normalizer(fit)
         for slot_id in HYBRID_SLOTS:
             source_id, mode, seed, phase = _source_spec(slot_id)
+            expected_family = source_id.rsplit("_seed", 1)[0]
             source_dir = campaign_output / source_id
             source_record = json.loads(_artifact(
                 source_dir, "slot.json", entries[source_id]["slot_sha256"]
@@ -361,7 +362,7 @@ def run_hybrids(
             if (
                 len(checkpoints) != 1
                 or source_record.get("run_id") != source_id
-                or source_record.get("family") != source_id.rsplit("_seed", 1)[0]
+                or source_record.get("family") != expected_family
                 or source_record.get("seed") != seed
             ):
                 raise ValueError("AEON hybrid final pretrain checkpoint is absent or repeated.")
@@ -371,7 +372,7 @@ def run_hybrids(
                 checkpoint, mode, core, scaler,
                 source_sha256=hybrid["source_sha256"],
                 protocol_sha256=hybrid["protocol_sha256"],
-                family=source_record.get("family"), seed=seed, phase=phase,
+                family=expected_family, seed=seed, phase=phase,
             )
             latent_fit = _latent_features(model, fit, scaler)
             latent_assess = _latent_features(model, assess, scaler)
