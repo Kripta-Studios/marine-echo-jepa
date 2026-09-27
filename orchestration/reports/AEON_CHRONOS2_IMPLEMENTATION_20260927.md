@@ -37,7 +37,9 @@ least 18 scored target-source-date anchors per horizon.
 The external shard size is 16 issuance rows and the official pipeline series batch size
 is 64, accounting for four variates per issuance. The executor checks a 22 GiB process-tree
 RSS cap, a 10 GiB peak reserved GPU cap and a two-GPU-hour elapsed cap after every batch.
-No training or parameter update API is called.
+Elapsed inference time and peak resource maxima persist cumulatively across restarts. Final
+assembly accepts only the canonical batch-name sequence and revalidates every shard's schema,
+row IDs, finite values and quantile order. No training or parameter update API is called.
 
 ## Current execution state
 

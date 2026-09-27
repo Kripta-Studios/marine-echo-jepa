@@ -145,12 +145,36 @@ def _verify_snapshot(snapshot: Path, expected: dict[str, str]) -> dict[str, str]
 def _row_sha256(rows: Sequence[AeonHourlyWindow]) -> str:
     digest = hashlib.sha256()
     for row in rows:
-        digest.update(row.row_id.encode("ascii"))
-        digest.update(np.ascontiguousarray(row.context_interval_ids).tobytes())
-        digest.update(np.ascontiguousarray(row.target_interval_ids).tobytes())
-        digest.update(np.ascontiguousarray(row.target_source_timestamps).tobytes())
-        digest.update(np.ascontiguousarray(row.target_db).tobytes())
-        digest.update(np.ascontiguousarray(row.target_mask).tobytes())
+        metadata = {
+            "row_id": row.row_id,
+            "partition": row.partition,
+            "source_archive_sha256": row.source_archive_sha256,
+            "past_members": list(row.past_members),
+            "target_members": list(row.target_members),
+            "target_qc_status": list(row.target_qc_status),
+            "cutoff_interval_id": row.cutoff_interval_id,
+        }
+        encoded = json.dumps(
+            metadata, sort_keys=True, separators=(",", ":"), allow_nan=False
+        ).encode("utf-8")
+        digest.update(np.asarray(len(encoded), dtype=np.int64).tobytes())
+        digest.update(encoded)
+        arrays = (
+            np.asarray(row.cutoff_source_timestamp, dtype="datetime64[us]"),
+            row.context_db,
+            row.context_mask,
+            row.context_interval_ids,
+            row.context_source_timestamps,
+            row.target_interval_ids,
+            row.target_source_timestamps,
+            row.target_db,
+            row.target_mask,
+        )
+        for array in arrays:
+            contiguous = np.ascontiguousarray(array)
+            digest.update(str(contiguous.dtype).encode("ascii"))
+            digest.update(np.asarray(contiguous.shape, dtype=np.int64).tobytes())
+            digest.update(contiguous.tobytes())
     return digest.hexdigest()
 
 
@@ -248,6 +272,57 @@ def _resource_usage() -> tuple[int, int | None]:
     return rss, gpu_reserved
 
 
+def _record_inference_resources(
+    manifest_path: Path,
+    manifest: dict[str, Any],
+    config: dict[str, Any],
+    *,
+    elapsed_seconds: float,
+) -> None:
+    cumulative = manifest.get("cumulative_inference_seconds")
+    previous_rss = manifest.get("peak_process_tree_rss_bytes")
+    previous_gpu = manifest.get("peak_gpu_reserved_bytes")
+    if (
+        not isinstance(cumulative, (int, float))
+        or cumulative < 0
+        or not isinstance(previous_rss, int)
+        or previous_rss < 0
+        or (previous_gpu is not None and (not isinstance(previous_gpu, int) or previous_gpu < 0))
+        or not np.isfinite(elapsed_seconds)
+        or elapsed_seconds < 0
+    ):
+        raise ValueError("Chronos-2 resume resource state is invalid.")
+    rss, gpu = _resource_usage()
+    manifest["cumulative_inference_seconds"] = float(cumulative) + elapsed_seconds
+    manifest["peak_process_tree_rss_bytes"] = max(previous_rss, rss)
+    if gpu is not None:
+        manifest["peak_gpu_reserved_bytes"] = max(previous_gpu or 0, gpu)
+    _atomic_json(manifest_path, manifest)
+    if manifest["peak_process_tree_rss_bytes"] > config["peak_process_rss_limit_bytes"] or (
+        manifest["peak_gpu_reserved_bytes"] is not None
+        and manifest["peak_gpu_reserved_bytes"] > config["peak_gpu_reserved_limit_bytes"]
+    ):
+        raise MemoryError("Chronos-2 inference exceeded the frozen local resource cap.")
+    if manifest["cumulative_inference_seconds"] > config["max_gpu_seconds"]:
+        raise TimeoutError("Chronos-2 inference exceeded the cumulative two-GPU-hour cap.")
+
+
+def _load_shard(path: Path, expected_row_ids: NDArray[np.str_]) -> NDArray[np.float64]:
+    with np.load(path, allow_pickle=False) as saved:
+        if set(saved.files) != {"row_ids", "quantiles_db"}:
+            raise ValueError("Chronos-2 resume shard schema differs.")
+        row_ids = saved["row_ids"]
+        quantiles = saved["quantiles_db"].copy()
+    if (
+        not np.array_equal(row_ids, expected_row_ids)
+        or quantiles.shape != (len(expected_row_ids), 3, 5)
+        or not np.isfinite(quantiles).all()
+        or (np.diff(quantiles, axis=-1) < 0).any()
+    ):
+        raise ValueError("Chronos-2 resume shard rows or quantiles differ.")
+    return quantiles
+
+
 def _load_official_pipeline(snapshot: Path, *, device: str) -> Chronos2Like:
     try:
         installed_version = importlib.metadata.version("chronos-forecasting")
@@ -316,11 +391,6 @@ def execute_zero_shot(
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         if manifest.get("binding") != binding:
             raise ValueError("Chronos-2 resume binding differs from the existing run.")
-        if manifest.get("status", "").startswith("COMPLETED"):
-            prediction_path = output / "validation-predictions.npz"
-            if _sha256(prediction_path) != manifest.get("prediction_sha256"):
-                raise ValueError("Completed Chronos-2 prediction artifact digest differs.")
-            return manifest
     else:
         manifest = {
             "status": "IN_PROGRESS",
@@ -330,15 +400,21 @@ def execute_zero_shot(
             "test_access": "PROHIBITED",
             "binding": binding,
             "completed_shards": {},
+            "cumulative_inference_seconds": 0.0,
+            "peak_process_tree_rss_bytes": 0,
+            "peak_gpu_reserved_bytes": None,
         }
         _atomic_json(manifest_path, manifest)
     completed = manifest.get("completed_shards")
     if not isinstance(completed, dict):
         raise TypeError("Chronos-2 resume manifest has invalid shard state.")
     rows_per_shard = config["rows_per_resume_shard"]
-    started = time.perf_counter()
-    peak_rss = 0
-    peak_gpu = 0
+    expected_names = [
+        f"batch-{index:06d}.npz" for index, _ in enumerate(range(0, len(rows), rows_per_shard))
+    ]
+    if list(completed) != expected_names[: len(completed)]:
+        raise ValueError("Chronos-2 completed shard keys are not a canonical prefix.")
+    _record_inference_resources(manifest_path, manifest, config, elapsed_seconds=0.0)
     for batch_index, start in enumerate(range(0, len(rows), rows_per_shard)):
         stop = min(start + rows_per_shard, len(rows))
         name = f"batch-{batch_index:06d}.npz"
@@ -347,47 +423,43 @@ def execute_zero_shot(
         if name in completed:
             if not shard.is_file() or _sha256(shard) != completed[name]:
                 raise ValueError("Chronos-2 completed resume shard digest differs.")
-            with np.load(shard, allow_pickle=False) as saved:
-                if not np.array_equal(saved["row_ids"], expected_ids):
-                    raise ValueError("Chronos-2 completed resume shard rows differ.")
+            _load_shard(shard, expected_ids)
             continue
         if shard.exists():
-            with np.load(shard, allow_pickle=False) as saved:
-                if (
-                    set(saved.files) != {"row_ids", "quantiles_db"}
-                    or not np.array_equal(saved["row_ids"], expected_ids)
-                    or saved["quantiles_db"].shape != (stop - start, 3, 5)
-                ):
-                    raise ValueError("Chronos-2 orphan resume shard is invalid.")
+            _load_shard(shard, expected_ids)
             completed[name] = _sha256(shard)
             _atomic_json(manifest_path, manifest)
             continue
-        if pipeline is None:
-            pipeline = _load_official_pipeline(model_snapshot, device=device)
-        prediction = _predict_batch(pipeline, context[start:stop], config)
+        if manifest["cumulative_inference_seconds"] >= config["max_gpu_seconds"]:
+            raise TimeoutError("Chronos-2 exhausted its cumulative two-GPU-hour cap.")
+        inference_started = time.perf_counter()
+        try:
+            if pipeline is None:
+                pipeline = _load_official_pipeline(model_snapshot, device=device)
+            prediction = _predict_batch(pipeline, context[start:stop], config)
+        finally:
+            _record_inference_resources(
+                manifest_path,
+                manifest,
+                config,
+                elapsed_seconds=time.perf_counter() - inference_started,
+            )
         temporary = shard.with_suffix(".tmp.npz")
         np.savez_compressed(temporary, row_ids=expected_ids, quantiles_db=prediction)
         os.replace(temporary, shard)
         completed[name] = _sha256(shard)
-        rss, gpu = _resource_usage()
-        peak_rss = max(peak_rss, rss)
-        peak_gpu = max(peak_gpu, gpu or 0)
-        if rss > config["peak_process_rss_limit_bytes"] or (
-            gpu is not None and gpu > config["peak_gpu_reserved_limit_bytes"]
-        ):
-            raise MemoryError("Chronos-2 inference exceeded the frozen local resource cap.")
-        if device == "cuda" and time.perf_counter() - started > config["max_gpu_seconds"]:
-            raise TimeoutError("Chronos-2 inference exceeded the frozen two-GPU-hour cap.")
-        manifest["peak_process_tree_rss_bytes"] = peak_rss
-        manifest["peak_gpu_reserved_bytes"] = peak_gpu if gpu is not None else None
         _atomic_json(manifest_path, manifest)
-    forecasts = []
-    for name in completed:
+    if list(completed) != expected_names:
+        raise ValueError("Chronos-2 cannot assemble an incomplete canonical shard sequence.")
+    forecasts: list[NDArray[np.float64]] = []
+    for batch_index, name in enumerate(expected_names):
+        start = batch_index * rows_per_shard
+        stop = min(start + rows_per_shard, len(rows))
+        expected_ids = np.asarray([row.row_id for row in rows[start:stop]])
         shard = shards / name
         if _sha256(shard) != completed[name]:
             raise ValueError("Chronos-2 resume shard changed before assembly.")
-        with np.load(shard, allow_pickle=False) as saved:
-            forecasts.append(saved["quantiles_db"].copy())
+        forecasts.append(_load_shard(shard, expected_ids))
     quantiles_db = np.concatenate(forecasts)
     if quantiles_db.shape != (len(rows), 3, 5):
         raise ValueError("Chronos-2 assembled forecast geometry differs from validation rows.")
@@ -414,7 +486,7 @@ def execute_zero_shot(
             "prediction_path": prediction_path.name,
             "prediction_sha256": _sha256(prediction_path),
             "metrics": metrics,
-            "elapsed_inference_seconds": time.perf_counter() - started,
+            "elapsed_inference_seconds": manifest["cumulative_inference_seconds"],
             "model_input_decision": (
                 "Four native target variates with NaN missingness; evaluate only 38 kHz "
                 "at source steps 1, 3 and 6."

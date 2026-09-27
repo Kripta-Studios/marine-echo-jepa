@@ -195,6 +195,10 @@ def test_interrupted_run_resumes_only_missing_hash_bound_shards(tmp_path: Path) 
     manifest = json.loads((output / "manifest.json").read_text(encoding="utf-8"))
     assert manifest["status"] == "IN_PROGRESS"
     assert list(manifest["completed_shards"]) == ["batch-000000.npz"]
+    first_elapsed = manifest["cumulative_inference_seconds"]
+    first_rss = manifest["peak_process_tree_rss_bytes"]
+    assert first_elapsed > 0
+    assert first_rss > 0
     resumed = _FakePipeline()
     result = execute_zero_shot(
         rows,
@@ -208,6 +212,9 @@ def test_interrupted_run_resumes_only_missing_hash_bound_shards(tmp_path: Path) 
     )
     assert result["status"].startswith("COMPLETED")
     assert len(resumed.calls) == 11
+    assert result["cumulative_inference_seconds"] >= first_elapsed
+    assert result["elapsed_inference_seconds"] == result["cumulative_inference_seconds"]
+    assert result["peak_process_tree_rss_bytes"] >= first_rss
     manifest = json.loads((output / "manifest.json").read_text(encoding="utf-8"))
     manifest["status"] = "IN_PROGRESS"
     (output / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
@@ -224,6 +231,103 @@ def test_interrupted_run_resumes_only_missing_hash_bound_shards(tmp_path: Path) 
     )
     assert result["status"].startswith("COMPLETED")
     assert recovered.calls == []
+
+
+def test_resume_rejects_mutated_context_even_when_row_id_is_unchanged(tmp_path: Path) -> None:
+    config, review, snapshot = _config(tmp_path)
+    rows = [_row(index) for index in range(24)]
+    output = tmp_path / "run"
+    with pytest.raises(RuntimeError, match="injected interruption"):
+        execute_zero_shot(
+            rows,
+            output=output,
+            config_path=config,
+            review_path=review,
+            model_snapshot=snapshot,
+            cohort_sha256="b" * 64,
+            pipeline=_FakePipeline(fail_on_call=2),
+            device="cuda",
+        )
+    rows[0].context_db[0, 0] += 1.0
+    resumed = _FakePipeline()
+    with pytest.raises(ValueError, match="resume binding"):
+        execute_zero_shot(
+            rows,
+            output=output,
+            config_path=config,
+            review_path=review,
+            model_snapshot=snapshot,
+            cohort_sha256="b" * 64,
+            pipeline=resumed,
+            device="cuda",
+        )
+    assert resumed.calls == []
+
+
+def test_resume_rejects_reordered_completed_shard_keys(tmp_path: Path) -> None:
+    config, review, snapshot = _config(tmp_path)
+    rows = [_row(index) for index in range(24)]
+    output = tmp_path / "run"
+    with pytest.raises(RuntimeError, match="injected interruption"):
+        execute_zero_shot(
+            rows,
+            output=output,
+            config_path=config,
+            review_path=review,
+            model_snapshot=snapshot,
+            cohort_sha256="b" * 64,
+            pipeline=_FakePipeline(fail_on_call=3),
+            device="cuda",
+        )
+    manifest_path = output / "manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["completed_shards"] = dict(reversed(list(manifest["completed_shards"].items())))
+    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+    with pytest.raises(ValueError, match="canonical prefix"):
+        execute_zero_shot(
+            rows,
+            output=output,
+            config_path=config,
+            review_path=review,
+            model_snapshot=snapshot,
+            cohort_sha256="b" * 64,
+            pipeline=_FakePipeline(),
+            device="cuda",
+        )
+
+
+def test_resume_enforces_cumulative_inference_cap_before_next_batch(tmp_path: Path) -> None:
+    config, review, snapshot = _config(tmp_path)
+    rows = [_row(index) for index in range(24)]
+    output = tmp_path / "run"
+    with pytest.raises(RuntimeError, match="injected interruption"):
+        execute_zero_shot(
+            rows,
+            output=output,
+            config_path=config,
+            review_path=review,
+            model_snapshot=snapshot,
+            cohort_sha256="b" * 64,
+            pipeline=_FakePipeline(fail_on_call=2),
+            device="cuda",
+        )
+    manifest_path = output / "manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["cumulative_inference_seconds"] = 7200.0
+    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+    resumed = _FakePipeline()
+    with pytest.raises(TimeoutError, match="cumulative"):
+        execute_zero_shot(
+            rows,
+            output=output,
+            config_path=config,
+            review_path=review,
+            model_snapshot=snapshot,
+            cohort_sha256="b" * 64,
+            pipeline=resumed,
+            device="cuda",
+        )
+    assert resumed.calls == []
 
 
 def test_snapshot_hash_or_review_mismatch_blocks_before_pipeline_call(tmp_path: Path) -> None:
