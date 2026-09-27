@@ -142,3 +142,13 @@ resolution within owner scope. The current Campaign command correctly exits 2 an
 its scientific and real-executor blockers. It cannot approve or open the final test.
 
 Final detail: orchestration/reports/CONTINUATION_OUTCOME_20260927.md.
+
+## Prospective source scout — 2026-09-27
+
+The Hugging Face source preflight downloaded and hash-verified four bounded metadata/index
+files (13,297,604 bytes total). No inspected Hub candidate supplies the required calibrated
+longitudinal 38 kHz Sv target; no acoustic payload was admitted or training initiated.
+The Norwegian cabled EK60 observatory is a promising but unacquired lead whose catalog
+routes data access through email and lacks a public file manifest and calibration lineage.
+Evidence and acquisition decision: `orchestration/reports/HF_SOURCE_SCOUT_20260927.md`
+and `evidence/continuation/hf_source_scout_20260927.json`.
