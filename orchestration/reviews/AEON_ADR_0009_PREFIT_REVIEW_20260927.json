@@ -1,0 +1,24 @@
+{
+  "task": "R2-AEON-ADR-0009-PREFIT-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "disposition": "APPROVE_PROSPECTIVE_TWO_STAGE_EVALUATION_AMENDMENT",
+  "reviewed_commit": "b1aa08c",
+  "reviewed_adr": "docs/adr/0009-aeon-eligible-date-and-evaluation-freeze.md",
+  "reviewed_adr_sha256": "0c503c17cf3c5f4ca9d521c17c77974382fdb100879c08633a615a988642b2a9",
+  "findings": [
+    "The amendment preserves original campaign metrics as non-protocol diagnostics and forbids their use for selection.",
+    "Corrected validation aggregation retains the pre-existing target-source-date basis, unknown source-clock timezone and fixed >=18 anchors per horizon/date.",
+    "Calibration is restricted to >=18-anchor eligible calibration dates, cannot select models and changes only frozen 0.05/0.95 interval endpoints; raw quantiles remain the primary comparison.",
+    "The two-stage freeze resolves the impossibility of knowing numeric-Sv-qualified issued IDs without opening outcomes: bind metadata candidate IDs and exact code first, then materialize numeric issuance/scoring once and preserve every exclusion.",
+    "The retrospective label, prior exposure history, 48-hour paired bootstrap, 2000 draws, 5% gate and per-horizon regression guard remain explicit."
+  ],
+  "approval_scope": "Prospective interpretation and procedure only; integrate this exact ADR before any calibration or retrospective test numeric access.",
+  "conditions": [
+    "Validation selection must use independently reviewed corrected metrics for all 17 final endpoints.",
+    "A separate pretest freeze must bind selected checkpoint, calibration adjustment, metadata candidate universe, reader/QC/issuance code, metrics and bootstrap hashes.",
+    "The one-time post-freeze materialization must persist actual issued/scored IDs and all abstention/QC reasons without outcome-selected repair."
+  ],
+  "calibration_or_test_outcomes_opened": false,
+  "test_access": "PROHIBITED_PENDING_SEPARATE_PRETEST_FREEZE"
+}

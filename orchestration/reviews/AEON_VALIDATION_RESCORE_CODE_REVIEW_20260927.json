@@ -1,0 +1,31 @@
+{
+  "task": "R2-AEON-VALIDATION-RESCORE-RUNNER-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "disposition": "APPROVE_VALIDATION_RESCORE_RUNNER_CODE",
+  "reviewed_commit": "f45a1320cf60009b6424cdfcd8e2a7ba23cfb15d",
+  "reviewed_file_sha256": {
+    "src/marine_echo/training/aeon_rescore.py": "529742e197df5042b9962285c207e9f012a542d178005590dbfc7126e114ef5b",
+    "tests/integration/test_aeon_rescore.py": "ee522feee8a94a3093f9971f24a1e5ef487c00ad6027216aeae31f091f22d193",
+    "src/marine_echo/evaluation/aeon.py": "5dff72c1baf2f5528f13f369936d2ca5710eeb8b8a6e6cae12a0ef95366225ff"
+  },
+  "independent_execution": {
+    "focused_tests": "11 passed in 37.77s: validation rescore integration plus pure evaluator tests",
+    "ruff": "All checks passed",
+    "calibration_or_test_outcomes_opened": false
+  },
+  "findings": [
+    "The runner requires all 17 completed hash-bound campaign slots and the metric-correction disposition before rescoring.",
+    "It verifies slot identity including seed, ledger/slot metric agreement, prediction/model/checkpoint hashes and identical validation row/truth/mask/time support across all models.",
+    "It computes corrected eligible-target-source-date metrics for every final endpoint, persists exact date lists and hashes, and labels old all-scored-day metrics non-protocol.",
+    "It emits no ranking or selection and is deterministic on an existing output."
+  ],
+  "approval_scope": "Run the deterministic validation-only rescore after all 17 campaign slots complete.",
+  "excluded_scope": [
+    "Approval of real rescore outcomes or model selection",
+    "Calibration or retrospective test access",
+    "Retraining or configuration changes"
+  ],
+  "required_after_execution": "Distinct independent review must recompute the report and approve validation selection before calibration numeric access.",
+  "test_access": "PROHIBITED"
+}
