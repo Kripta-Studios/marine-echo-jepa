@@ -187,6 +187,8 @@ test('packaged reviewed development artifact renders its complete real cohort', 
   expect(artifact.direct_checkpoint_128_sha256).toHaveLength(64);
   expect(artifact.horizons.map((horizon: {eligible_rows: number}) => horizon.eligible_rows)).toEqual([176, 140, 135]);
   await page.goto('/#experiment-lab');
+  await expect(page.getByRole('link', {name:/Protocol and evidence/})).toBeVisible();
+  await expect(page.getByRole('link', {name:/Frozen protocol/})).toHaveCount(0);
   const resultTable = page.getByRole('table', {name: /All TRAIN-development predictions and truths/});
   await expect(resultTable.locator('tbody tr')).toHaveCount(636);
   await expect(page.getByText('12.23123253969628', {exact: true})).toBeVisible();

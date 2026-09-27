@@ -1,0 +1,14 @@
+{
+  "record_type": "COORDINATOR_TRANSCRIPTION_OF_DISTINCT_REVIEWER_MESSAGE",
+  "reviewer_session": "/root/v2_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "disposition": "REQUEST_CHANGES_FINAL_RELEASE",
+  "reviewed_archive": "release/marine-echo-v2-research-20260927.zip",
+  "reviewed_archive_sha256": "20df1e7c7292f09a16dea0b641b82da12efff4c2660d2a9159fa599f53b2d2e6",
+  "reviewed_source_commit": "52f63f9bfe366ee70e05462a00f662709bcdeafa",
+  "defect": "Experiment Lab labeled a link 'Frozen protocol' while the linked packaged record stated DRAFT_REQUIRES_R1_AND_R2 and NOT_FROZEN.",
+  "required_change": "Use a truthful protocol/evidence label, preserve the rejected archive, rebuild under a new identity, and repeat checksum, relocation and browser validation.",
+  "accepted_scope_checks": "Archive structure, CRC and all 332 manifest-covered payload hashes; relocated verifier; source-match; unchanged historical r2 and v1 evidence hashes; 25 blocked/null/zero-update v1 runs; exact 212 cutoff and 636 horizon raw prediction row match to reviewed NPZs; metrics/checkpoint/review hashes; calibrated/JEPA/final/commercial claim boundaries. Browser evidence eight expected passes and p95 49.19 ms inspected, not independently rerun.",
+  "acoustic_payload_or_final_evaluation_inspected": false
+}

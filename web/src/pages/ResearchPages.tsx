@@ -575,7 +575,7 @@ export function ExperimentLabPage({
         trailing={
           protocolHref ? (
             <a className="text-button" href={protocolHref}>
-              Frozen protocol <span aria-hidden="true">↗</span>
+              Protocol and evidence <span aria-hidden="true">↗</span>
             </a>
           ) : (
             <span className="unit-chip">Protocol link not supplied</span>
