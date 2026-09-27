@@ -359,11 +359,19 @@
     "native_support_execution": "evidence/v2/native_support_execution.json",
     "native_support_report_sha256": "befcfe4434fa37b555320105ab538b4912fa26ad666562666d56a33f5027a9fb",
     "native_support_result_review": "orchestration/reviews/V2_NATIVE_SUPPORT_RESULT_20260927.json",
-    "candidate2_fit_target_days_1_3_6": [21, 22, 21],
-    "candidate2_assessment_target_days_1_3_6": [0, 0, 0],
+    "candidate2_fit_target_days_1_3_6": [
+      21,
+      22,
+      21
+    ],
+    "candidate2_assessment_target_days_1_3_6": [
+      0,
+      0,
+      0
+    ],
     "candidate2_fit_allowed": false,
     "raw_response_contract": "docs/adr/0007-raw-instrument-response-development.md",
-    "raw_response_status": "DETERMINISTIC_REAL_BASELINE_DIRECT_COMPLETE_PENDING_RESULT_REVIEW",
+    "raw_response_status": "INDEPENDENTLY_REVIEWED_REAL_TRAIN_DEVELOPMENT_RIDGE_BETTER_ALL_HORIZONS",
     "raw_response_target_review": "orchestration/reviews/V2_RAW_RESPONSE_TARGET_20260927.json",
     "raw_response_processing_review": "orchestration/reviews/V2_RAW_RESPONSE_FULL_PROCESSING_20260927.json",
     "raw_response_full_index_sha256": "c6754334465b32e15bdfdcc9799b75408775ed38c19c3e7a93ea6c49dde869d1",
@@ -375,13 +383,39 @@
     "raw_response_first_attempt_promoted": false,
     "raw_response_deterministic_execution": "evidence/v2/raw_response_deterministic_execution.json",
     "raw_response_deterministic_result_sha256": "4237f375ba129fce95be952325e56cf5bc9615a5d89b2ed9ba91dfc8771cb49d",
-    "raw_response_deterministic_result_review": "PENDING",
-    "raw_response_fit_target_days_1_3_6": [42, 42, 42],
-    "raw_response_assessment_target_days_1_3_6": [13, 13, 13],
-    "raw_response_assessment_blocks_1_3_6": [7, 7, 7],
+    "raw_response_deterministic_result_review": "orchestration/reviews/V2_RAW_RESPONSE_DEVELOPMENT_RESULT_20260927.json",
+    "raw_response_fit_target_days_1_3_6": [
+      42,
+      42,
+      42
+    ],
+    "raw_response_assessment_target_days_1_3_6": [
+      13,
+      13,
+      13
+    ],
+    "raw_response_assessment_blocks_1_3_6": [
+      7,
+      7,
+      7
+    ],
     "raw_response_observed_pings": 259083,
     "raw_response_target_valid_pings": 259083,
     "raw_response_model_fits": 4,
-    "raw_response_completed_development_comparisons": 1
+    "raw_response_completed_development_comparisons": 1,
+    "raw_response_completed_model_runs": 2,
+    "raw_response_daily_mean_pinball_ridge_1_3_6": [
+      12.23123253969628,
+      19.99904935613097,
+      30.045008449033883
+    ],
+    "raw_response_daily_mean_pinball_direct_1_3_6": [
+      64.90600628919915,
+      64.38861003274744,
+      65.9336750840553
+    ],
+    "raw_response_final_evaluation": false,
+    "calibrated_v2_core_status": "NOT_RUN_INELIGIBLE_CANDIDATE2_ASSESSMENT_SUPPORT_ZERO",
+    "jepa_value_status": "NOT_EVALUATED_NO_JEPA_RUN"
   }
 }

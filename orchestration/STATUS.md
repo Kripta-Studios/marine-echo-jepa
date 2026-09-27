@@ -39,8 +39,12 @@ No direct prediction or result was promoted from that attempt. Its output and
 failure evidence remain preserved. The distinct reviewer approved a deterministic
 CUDA remedy under a new run identity. That single real TRAIN-development ridge
 and direct run exited zero, wrote 212 issued-row prediction files for both models,
-and restored an exact 64-to-128 weight replay with 128 updates. Its metrics and
-checkpoint are in independent result review; no final evaluation ran. This route
+and restored an exact 64-to-128 weight replay with 128 updates. The distinct
+reviewer independently recomputed the saved prediction-row metrics and loaded
+both checkpoints, approving the real development result. Ridge daily mean
+pinball code was 12.231/19.999/30.045 at 1/3/6 hours versus direct neural
+64.906/64.389/65.934. Direct was worse at every horizon. The reviewed
+checkpoint hashes are in the result review. No final evaluation ran. This route
 cannot complete the calibrated-acoustic v2 MVP or consume its 25 campaign slots.
 V1 census and any-band audit were not rerun. The builder's real calibrated-v2
 campaign backend is integrated as code and fixtures, with no real D1 fit.

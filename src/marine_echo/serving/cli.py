@@ -9,7 +9,7 @@ from typing import Any
 import typer
 
 from marine_echo.evaluation.protocol import create_protocol, digest_file, verify_seal
-from marine_echo.serving.release import REASON, build_diagnostic, run_registry
+from marine_echo.serving.release import REASON, build_diagnostic, build_v2_research, run_registry
 
 app = typer.Typer(no_args_is_help=True)
 data = typer.Typer(no_args_is_help=True)
@@ -258,6 +258,12 @@ def report(protocol: str = "active") -> None:
 @release.command("build")
 def release_build(protocol: str = "active", output: Path = Path("release/demo")) -> None:
     emit(build_diagnostic(root_path(), output))
+
+
+@release.command("build-v2-research")
+def release_build_v2_research(output: Path = Path("release/v2-research-offline")) -> None:
+    """Build a separate offline research artifact from reviewed raw-code development."""
+    emit(build_v2_research(root_path(), output))
 
 
 @app.command()

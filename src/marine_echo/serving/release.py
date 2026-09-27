@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from marine_echo.evaluation.protocol import digest_file
+from marine_echo.serving.raw_development import build_raw_development_report
 
 REASON = "No eligible independently reviewed physical-unit corpus or completed benchmark is available. Calibration assumptions and TRAIN-only QC evidence do not authorize forecasts."
 FAMILIES = [
@@ -128,6 +129,82 @@ def build_diagnostic(root: Path, output: Path) -> dict[str, Any]:
         staged.rename(output)
         result["output"] = str(output)
         return result
+    finally:
+        if staged.exists():
+            shutil.rmtree(staged)
+
+
+def build_v2_research(root: Path, output: Path) -> dict[str, Any]:
+    """Publish reviewed raw-code development beside preserved blocked v1 evidence."""
+    if output.exists() or output.is_symlink():
+        raise FileExistsError("Research output exists. Choose a new directory.")
+    report = build_raw_development_report(root)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    staged = Path(tempfile.mkdtemp(prefix=".v2-research-stage-", dir=output.parent))
+    try:
+        _build_diagnostic(root, staged)
+        artifacts = staged / "artifacts"
+        catalog = json.loads((artifacts / "catalog.json").read_text(encoding="utf-8"))
+        evidence = json.loads((artifacts / "research.json").read_text(encoding="utf-8"))
+        evidence["title"] = "Marine Echo JEPA — v1 failure and v2 raw-code development"
+        evidence["gates"].update(
+            {
+                "G0_DATA": "CALIBRATED_V2_INELIGIBLE_RAW_CODE_ENGINEERING_ONLY",
+                "G1_ENGINEERING": "REAL_RAW_CODE_DEVELOPMENT_EXECUTED_OFFLINE_RELEASE_PENDING_REVIEW",
+                "G2_EXPERIMENT": "BLOCKED_CALIBRATED_CORE_0_OF_25",
+                "G3_INCREMENTAL_VALUE": "NOT_EVALUATED_NO_JEPA_RUN",
+            }
+        )
+        evidence["raw_development"] = {
+            "study_id": report["study_id"],
+            "run_id": report["run_id"],
+            "status": report["status"],
+            "quantity": report["quantity"],
+            "unit": report["unit"],
+            "source_result_sha256": report["source_result_sha256"],
+            "review_record_sha256": report["review_record_sha256"],
+            "horizons": report["horizons"],
+            "all_issued_rows_artifact": "raw-development",
+        }
+        evidence["limitations"].extend(report["limitations"])
+        evidence["limitations"].append(
+            "The preserved 25-slot v1 registry is a historical blocked registry; the separate raw-code ridge/direct development does not turn those runs into completed calibrated experiments."
+        )
+        catalog["release_class"] = "OFFLINE_RESEARCH_ENGINEERING_ONLY"
+        evidence["release_class"] = catalog["release_class"]
+        research_path = artifacts / "research.json"
+        export_path = artifacts / "research-export.json"
+        for path in (research_path, export_path):
+            path.write_text(
+                json.dumps(evidence, indent=2, allow_nan=False) + "\n", encoding="utf-8"
+            )
+        catalog["artifacts"]["research"]["sha256"] = digest_file(research_path)
+        catalog["artifacts"]["research-export"]["sha256"] = digest_file(export_path)
+        report_path = artifacts / "raw-development.json"
+        report_path.write_text(
+            json.dumps(report, indent=2, allow_nan=False) + "\n", encoding="utf-8"
+        )
+        catalog["artifacts"]["raw-development"] = {
+            "path": report_path.name,
+            "sha256": digest_file(report_path),
+            "kind": "evidence",
+        }
+        catalog["artifacts"]["raw-development-export"] = {
+            "path": report_path.name,
+            "sha256": digest_file(report_path),
+            "kind": "export",
+        }
+        catalog["exports"].append("raw-development-export")
+        for path in (artifacts / "catalog.json", staged / "catalog.json"):
+            path.write_text(json.dumps(catalog, indent=2, allow_nan=False) + "\n", encoding="utf-8")
+        staged.rename(output)
+        return {
+            "status": catalog["release_class"],
+            "output": str(output),
+            "raw_development_rows": len(report["rows"]),
+            "calibrated_benchmark_runs": 0,
+            "raw_development_sha256": digest_file(output / "artifacts/raw-development.json"),
+        }
     finally:
         if staged.exists():
             shutil.rmtree(staged)
