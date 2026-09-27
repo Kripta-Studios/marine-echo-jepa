@@ -15,7 +15,7 @@ from marine_echo.models.compact import ModelConfig
 from marine_echo.models.v2_development import JointDirectForecaster, JointJEPAForecaster
 from marine_echo.training import v2_campaign_backend as backend_module
 from marine_echo.training.v2_campaign import execute_v2_campaign, v2_plan
-from marine_echo.training.v2_campaign_backend import NativeCampaignBackend
+from marine_echo.training.v2_campaign_backend import NativeCampaignBackend, _selected_milestone
 from marine_echo.training.v2_representation import _future
 from marine_echo.training.v2_stream import HourlyWindow
 
@@ -606,3 +606,32 @@ def test_synthetic_pretraining_early_stop_restores_best_checkpoint(
     best_state = torch.load(selected, map_location="cpu", weights_only=True)["model"]
     for name, value in model.state_dict().items():
         torch.testing.assert_close(value, best_state[name], rtol=0, atol=0)
+    replay_scores = iter((0.1, 0.2, 0.3, 0.4, 0.5))
+    monkeypatch.setattr(backend, "_pretrain_validation_loss", lambda *_: next(replay_scores))
+    recovered = JointJEPAForecaster(backend.model_config, mode="ema")
+    recovered_phase = backend._recover_pretrain_phase(
+        recovered,
+        slot,
+        0,
+        output,
+        validation_tensors,
+        validation_future,
+        validation_future_mask,
+    )
+    assert recovered_phase.updates == 1250
+    for name, value in recovered.state_dict().items():
+        torch.testing.assert_close(value, best_state[name], rtol=0, atol=0)
+
+
+def test_hybrid_parent_selects_best_probe_milestone_before_stale_stop() -> None:
+    phase = {
+        "name": "probe",
+        "validation_scores": [0.1, 0.2, 0.3, 0.4, 0.5],
+        "checkpoints": [
+            {"step": step, "path": f"probe-checkpoint-{step}.pt", "sha256": "a" * 64}
+            for step in (250, 500, 750, 1000, 1250)
+        ],
+    }
+    assert _selected_milestone(phase)["step"] == 250
+    phase["validation_scores"] = [0.1, 0.1, 0.3, 0.4, 0.5]
+    assert _selected_milestone(phase)["step"] == 250

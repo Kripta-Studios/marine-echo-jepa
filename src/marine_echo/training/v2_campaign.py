@@ -9,6 +9,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import tempfile
 from collections.abc import Callable
 from dataclasses import asdict, dataclass
@@ -16,6 +17,7 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
+import psutil
 import torch
 
 from marine_echo.training.v2_executor import (
@@ -260,6 +262,10 @@ def _canonical_digest(value: Any) -> str:
     ).hexdigest()
 
 
+def _slot_record(slot: V2Slot) -> dict[str, Any]:
+    return json.loads(json.dumps(asdict(slot)))
+
+
 def _validation_digest(rows: list[HourlyWindow]) -> str:
     return _rows_digest(rows)
 
@@ -275,6 +281,154 @@ def _write_ledger(path: Path, ledger: dict[str, Any]) -> None:
         os.replace(name, path)
     finally:
         Path(name).unlink(missing_ok=True)
+
+
+def _stage_files(staging: Path) -> list[dict[str, str]]:
+    files = []
+    resolved_staging = staging.resolve(strict=True)
+    for path in sorted(staging.rglob("*")):
+        if path.is_symlink() or not path.resolve(strict=True).is_relative_to(resolved_staging):
+            raise ValueError("Interrupted campaign staging contains an escaping path.")
+        if path.is_file():
+            files.append({"path": path.relative_to(staging).as_posix(), "sha256": _sha256(path)})
+    return files
+
+
+def _verify_attempt(
+    run: dict[str, Any], slot: V2Slot, identity: dict[str, Any], root: Path
+) -> Path:
+    attempt = run.get("attempt")
+    if not isinstance(attempt, dict) or run.get("attempt_sha256") is None:
+        raise ValueError("Interrupted campaign slot lacks registered attempt metadata.")
+    staging = Path(attempt.get("staging", ""))
+    if (
+        staging.is_symlink()
+        or not staging.is_dir()
+        or staging.resolve(strict=True).parent != (root / "runs").resolve(strict=True)
+        or not staging.name.startswith(slot.run_id + ".stage.")
+        or attempt.get("slot") != _slot_record(slot)
+        or attempt.get("campaign_identity_sha256") != _canonical_digest(identity)
+        or attempt.get("code_sha256") != _code_digest()
+        or attempt.get("selected_configuration") not in (0, 1)
+        or attempt.get("run_id") != slot.run_id
+        or (root / "runs" / slot.run_id).exists()
+    ):
+        raise ValueError("Interrupted campaign staging or slot identity differs.")
+    record = staging / ".attempt.json"
+    if (
+        not record.is_file()
+        or record.is_symlink()
+        or _sha256(record) != run["attempt_sha256"]
+        or json.loads(record.read_text(encoding="utf-8")) != attempt
+    ):
+        raise ValueError("Interrupted campaign attempt metadata differs.")
+    return staging
+
+
+def interrupted_slot_review_request(root: Path, run_id: str) -> dict[str, Any]:
+    """Describe exact interrupted files for a distinct reviewer; this grants no approval."""
+    root = root.resolve(strict=True)
+    ledger = json.loads((root / "ledger.json").read_text(encoding="utf-8"))
+    slot = next((item for item in v2_plan() if item.run_id == run_id), None)
+    if slot is None or slot.family not in LEARNED:
+        raise ValueError("Only interrupted learned slots can request checkpoint review.")
+    run = ledger["runs"][run_id]
+    if run.get("status") not in ("RUNNING", "FAILED"):
+        raise ValueError("Campaign slot is not interrupted.")
+    staging = _verify_attempt(run, slot, ledger["identity"], root)
+    staging_files = _stage_files(staging)
+    phases = ("supervised",) if slot.family == "direct" else ("probe", "pretrain")
+    checkpoint: Path | None = None
+    phase_name = ""
+    step = 0
+    for phase in phases:
+        candidates = []
+        for path in staging.glob(f"{phase}-checkpoint-*.pt"):
+            match = re.fullmatch(rf"{phase}-checkpoint-(\d+)\.pt", path.name)
+            if match:
+                candidates.append((int(match.group(1)), path))
+        if candidates:
+            step, checkpoint = max(candidates)
+            phase_name = phase
+            break
+    if (
+        checkpoint is None
+        or step < 1
+        or (ledger["identity"]["scope"] != "synthetic-fixture-only" and step % 250)
+    ):
+        raise ValueError("Interrupted learned slot has no complete frozen checkpoint.")
+    if phase_name == "pretrain" and ledger["identity"]["scope"] != "synthetic-fixture-only":
+        scores = []
+        for prior_step in range(250, step + 1, 250):
+            path = staging / f"pretrain-validation-{prior_step}.json"
+            recorded = json.loads(path.read_text(encoding="utf-8"))
+            if recorded.get("step") != prior_step:
+                raise ValueError("Interrupted pretraining validation cadence differs.")
+            scores.append(recorded["score"])
+        try:
+            validate_update_cadence(
+                updates=step,
+                checkpoint_steps=tuple(range(250, step + 1, 250)),
+                validation_scores=tuple(scores),
+            )
+        except ValueError as error:
+            if "stopped before 3,000" not in str(error):
+                raise
+        else:
+            phase_name = "pretrain_complete"
+    state = torch.load(checkpoint, map_location="cpu", weights_only=True)
+    if (
+        state.get("step") != step
+        or state.get("protocol_sha256") != ledger["identity"]["protocol_sha256"]
+        or not state.get("model")
+        or not state.get("optimizer")
+        or "rng_cpu" not in state
+    ):
+        raise ValueError("Interrupted checkpoint state or protocol differs.")
+    return {
+        "run_id": run_id,
+        "slot": _slot_record(slot),
+        "selected_configuration": run["attempt"]["selected_configuration"],
+        "campaign_identity_sha256": _canonical_digest(ledger["identity"]),
+        "attempt_sha256": run["attempt_sha256"],
+        "staging": str(staging),
+        "staging_files": staging_files,
+        "resume_phase": phase_name,
+        "resume_checkpoint": {
+            "path": checkpoint.relative_to(staging).as_posix(),
+            "sha256": _sha256(checkpoint),
+            "step": step,
+        },
+        "code_sha256": _code_digest(),
+    }
+
+
+def _validated_restart_review(
+    root: Path, run_id: str, path: Path | None, digest: str | None
+) -> dict[str, Any]:
+    if path is None or digest is None or not _valid_hash(digest) or _sha256(path) != digest:
+        raise ValueError("Interrupted slot needs an exact independent restart review.")
+    review = json.loads(path.read_text(encoding="utf-8"))
+    if (
+        review.get("status") != "APPROVED_V2_INTERRUPTED_SLOT_RESTART"
+        or review.get("reviewer_role") != "independent_reviewer"
+        or not review.get("reviewer_session")
+    ):
+        raise ValueError("Interrupted slot restart lacks a distinct reviewer decision.")
+    expected = interrupted_slot_review_request(root, run_id)
+    if {key: review.get(key) for key in expected} != expected:
+        raise ValueError("Interrupted slot staging, checkpoint or review identity differs.")
+    ledger = json.loads((root / "ledger.json").read_text(encoding="utf-8"))
+    run = ledger["runs"][run_id]
+    if run["status"] == "RUNNING":
+        attempt = run["attempt"]
+        try:
+            process = psutil.Process(attempt["pid"])
+            if process.create_time() == attempt["process_create_time"]:
+                raise ValueError("Interrupted campaign process is still running.")
+        except psutil.NoSuchProcess:
+            pass
+    return review
 
 
 def _gate(
@@ -352,6 +506,8 @@ def _verify_ledger(
         if run["status"] not in success:
             if run["status"] not in ("PENDING", "RUNNING", "FAILED"):
                 raise ValueError("Campaign ledger has an unknown run status.")
+            if run["status"] in ("RUNNING", "FAILED"):
+                _verify_attempt(run, slot, identity, root)
             continue
         source = run
         if run["status"].startswith("REUSED"):
@@ -370,8 +526,18 @@ def _verify_ledger(
             source = ledger["runs"].get(run["reuse_of"])
             if source is None or source["status"] != f"COMPLETED_{suffix}":
                 raise ValueError("Campaign reuse source is not completed.")
-            if run.get("updates") != source.get("updates"):
-                raise ValueError("Reused campaign slot updates differ from their source.")
+            expected_reuse = {
+                **source,
+                "status": f"REUSED_{suffix}",
+                "reuse_of": run["reuse_of"],
+                "family": slot.family,
+                "phase": slot.phase,
+                "seed": slot.seed,
+                "selected_configuration": run["selected_configuration"],
+                "reusable_seed7": False,
+            }
+            if run != expected_reuse:
+                raise ValueError("Reused campaign slot artifacts differ from their source.")
         elif (
             run.get("family") != slot.family
             or run.get("phase") != slot.phase
@@ -411,6 +577,19 @@ def _verify_ledger(
         registered_files = {item["path"]: item["sha256"] for item in source.get("artifacts", [])}
         if actual_files != registered_files:
             raise ValueError("Campaign model or resource artifacts differ on resume.")
+        if not run["status"].startswith("REUSED"):
+            attempt_file = artifact_root / ".attempt.json"
+            if (
+                run.get("attempt_sha256") != _sha256(attempt_file)
+                or json.loads(attempt_file.read_text(encoding="utf-8")) != run.get("attempt")
+                or run["attempt"].get("slot") != _slot_record(slot)
+                or run["attempt"].get("campaign_identity_sha256") != _canonical_digest(identity)
+                or run["attempt"].get("code_sha256") != _code_digest()
+            ):
+                raise ValueError("Completed campaign attempt identity differs.")
+            for index, digest in enumerate(run.get("resume_review_sha256s", []), start=1):
+                if _sha256(artifact_root / f"resume-review-{index}.json") != digest:
+                    raise ValueError("Completed campaign restart review differs.")
         recorded_slot = json.loads((artifact_root / "slot-result.json").read_text(encoding="utf-8"))
         if recorded_slot != {
             key: source.get(key)
@@ -502,6 +681,8 @@ def execute_v2_campaign(
     support_report_path: Path | None = None,
     support_report_sha256: str | None = None,
     max_slots: int | None = None,
+    restart_review_path: Path | None = None,
+    restart_review_sha256: str | None = None,
 ) -> dict[str, Any]:
     """Run pending slots serially; select only from saved validation predictions."""
     if not _valid_hash(protocol_sha256) or max_slots is not None and max_slots < 1:
@@ -560,7 +741,10 @@ def execute_v2_campaign(
         run = ledger["runs"][slot.run_id]
         if run["status"].startswith(("COMPLETED", "REUSED")):
             continue
-        if run["status"] != "PENDING":
+        resuming = run["status"] in ("RUNNING", "FAILED")
+        if run["status"] != "PENDING" and not resuming:
+            raise RuntimeError(f"Campaign slot {slot.run_id} needs interruption review.")
+        if resuming and (restart_review_path is None or restart_review_sha256 is None):
             raise RuntimeError(f"Campaign slot {slot.run_id} needs interruption review.")
         if max_slots is not None and completed_this_call >= max_slots:
             break
@@ -581,7 +765,9 @@ def execute_v2_campaign(
             if prior is not None and prior != selected:
                 raise ValueError("Saved campaign selection differs from validation metrics.")
             ledger["selected_configs"][slot.family] = selected
-        if slot.phase == "selected" and slot.seed == 7:
+        if resuming and selected != run["attempt"]["selected_configuration"]:
+            raise ValueError("Interrupted campaign configuration differs from frozen selection.")
+        if not resuming and slot.phase == "selected" and slot.seed == 7:
             source_id = f"{slot.family}-development{selected}-seed7"
             source = ledger["runs"][source_id]
             if source["reusable_seed7"]:
@@ -600,14 +786,56 @@ def execute_v2_campaign(
                 _write_ledger(ledger_path, ledger)
                 continue
         slot_dir = root / "runs" / slot.run_id
-        if slot_dir.exists():
-            raise FileExistsError("Unregistered campaign slot directory already exists.")
-        slot_dir.parent.mkdir(parents=True, exist_ok=True)
-        staging = Path(tempfile.mkdtemp(prefix=slot.run_id + ".stage.", dir=slot_dir.parent))
-        run["status"] = "RUNNING"
-        _write_ledger(ledger_path, ledger)
+        if resuming:
+            review = _validated_restart_review(
+                root, slot.run_id, restart_review_path, restart_review_sha256
+            )
+            staging = _verify_attempt(run, slot, identity, root)
+            reviews = run.setdefault("resume_review_sha256s", [])
+            review_copy = staging / f"resume-review-{len(reviews) + 1}.json"
+            if review_copy.exists():
+                raise FileExistsError("Interrupted review copy already exists.")
+            review_copy.write_bytes(restart_review_path.read_bytes())  # type: ignore[union-attr]
+            reviews.append(restart_review_sha256)
+            run["status"] = "RUNNING"
+            _write_ledger(ledger_path, ledger)
+        else:
+            if slot_dir.exists():
+                raise FileExistsError("Unregistered campaign slot directory already exists.")
+            slot_dir.parent.mkdir(parents=True, exist_ok=True)
+            staging = Path(tempfile.mkdtemp(prefix=slot.run_id + ".stage.", dir=slot_dir.parent))
+            process = psutil.Process()
+            attempt = {
+                "version": 1,
+                "run_id": slot.run_id,
+                "slot": _slot_record(slot),
+                "selected_configuration": selected,
+                "campaign_identity_sha256": _canonical_digest(identity),
+                "code_sha256": _code_digest(),
+                "staging": str(staging.resolve()),
+                "nonce": os.urandom(16).hex(),
+                "pid": process.pid,
+                "process_create_time": process.create_time(),
+            }
+            attempt_file = staging / ".attempt.json"
+            attempt_file.write_text(json.dumps(attempt, sort_keys=True), encoding="utf-8")
+            run.update(
+                status="RUNNING",
+                attempt=attempt,
+                attempt_sha256=_sha256(attempt_file),
+                resume_review_sha256s=[],
+            )
+            _write_ledger(ledger_path, ledger)
         try:
-            result = executor(slot, selected, staging)
+            if resuming:
+                resume = getattr(executor, "resume_slot", None)
+                if resume is None or slot.family not in LEARNED:
+                    raise ValueError(
+                        "Interrupted learned slot lacks a checkpoint restart executor."
+                    )
+                result = resume(slot, selected, staging, review)
+            else:
+                result = executor(slot, selected, staging)
             path = result.predictions.resolve(strict=True)
             if (
                 path.is_symlink()
@@ -666,6 +894,9 @@ def execute_v2_campaign(
                 "reusable_seed7": result.reusable_seed7,
                 "training_phases": phase_manifest,
                 "reuse_of": None,
+                "attempt": run["attempt"],
+                "attempt_sha256": run["attempt_sha256"],
+                "resume_review_sha256s": run["resume_review_sha256s"],
             }
             completed_this_call += 1
             ledger["completed_slots"] += 1

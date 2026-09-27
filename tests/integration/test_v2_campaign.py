@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+from copy import deepcopy
 from dataclasses import replace
 from pathlib import Path
 
@@ -13,6 +14,7 @@ import pytest
 from marine_echo.models.v2_development import JointPrediction
 from marine_echo.training.v2_campaign import (
     SlotResult,
+    _canonical_digest,
     _validation_digest,
     _verified_training_phases,
     _verify_ledger,
@@ -274,6 +276,13 @@ def test_real_ledger_revalidates_declared_training_phases(tmp_path: Path) -> Non
     for run in ledger["runs"].values():
         if run["status"] == "COMPLETED_SYNTHETIC_FIXTURE":
             run["status"] = "COMPLETED_TRAIN_VALIDATION"
+            run["attempt"]["campaign_identity_sha256"] = _canonical_digest(ledger["identity"])
+            attempt_path = Path(run["artifact_root"]) / ".attempt.json"
+            attempt_path.write_text(json.dumps(run["attempt"], sort_keys=True), encoding="utf-8")
+            run["attempt_sha256"] = hashlib.sha256(attempt_path.read_bytes()).hexdigest()
+            for item in run["artifacts"]:
+                if item["path"] == ".attempt.json":
+                    item["sha256"] = run["attempt_sha256"]
     with pytest.raises(ValueError, match="declared training phases"):
         _verify_ledger(
             ledger,
@@ -282,3 +291,47 @@ def test_real_ledger_revalidates_declared_training_phases(tmp_path: Path) -> Non
             rows=rows,
             root=root,
         )
+
+
+def test_reused_slot_metadata_must_exactly_copy_selected_source(tmp_path: Path) -> None:
+    rows = [_validation_row()]
+    root = tmp_path / "campaign"
+
+    def backend(slot, selected_config, run_dir):  # type: ignore[no-untyped-def]
+        path = run_dir / "validation-predictions.npz"
+        _write_predictions(
+            path,
+            rows,
+            JointPrediction(np.full((1, 3, 5), -90.0), np.full((1, 3), 0.2)),
+        )
+        return SlotResult(path, updates=0, reusable_seed7=slot.phase == "development")
+
+    ledger = execute_v2_campaign(
+        root,
+        validation_rows=rows,
+        executor=backend,
+        protocol_sha256="b" * 64,
+        fixture_only=True,
+    )
+    reused_id = "ema_jepa-seed7"
+    assert ledger["runs"][reused_id]["status"] == "REUSED_SYNTHETIC_FIXTURE"
+    original = deepcopy(ledger["runs"][reused_id])
+    ledger_path = root / "ledger.json"
+    for field, value in (
+        ("artifact_root", "C:/wrong-artifact"),
+        ("artifacts", []),
+        ("prediction_sha256", "c" * 64),
+        ("training_phases", [{"name": "forged"}]),
+    ):
+        ledger["runs"][reused_id] = {**original, field: value}
+        ledger_path.write_text(json.dumps(ledger), encoding="utf-8")
+        with pytest.raises(ValueError, match="Reused campaign slot artifacts"):
+            execute_v2_campaign(
+                root,
+                validation_rows=rows,
+                executor=backend,
+                protocol_sha256="b" * 64,
+                fixture_only=True,
+            )
+    ledger["runs"][reused_id] = original
+    ledger_path.write_text(json.dumps(ledger), encoding="utf-8")

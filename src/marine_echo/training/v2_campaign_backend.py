@@ -35,6 +35,7 @@ from marine_echo.training.v2_campaign import (
     TrainingPhase,
     V2Slot,
     _primary,
+    validate_update_cadence,
 )
 from marine_echo.training.v2_cohort import verify_support_rows
 from marine_echo.training.v2_executor import (
@@ -58,6 +59,20 @@ from marine_echo.training.v2_stream import HourlyWindow
 
 def _source_hashes(rows: list[HourlyWindow]) -> list[str]:
     return sorted({digest for row in rows for digest in row.source_sha256})
+
+
+def _selected_milestone(phase: dict[str, Any]) -> dict[str, Any]:
+    scores = phase.get("validation_scores", [])
+    checkpoints = phase.get("checkpoints", [])
+    if (
+        not scores
+        or len(scores) != len(checkpoints)
+        or any(not np.isfinite(score) for score in scores)
+    ):
+        raise ValueError("Parent probe lacks finite checkpoint validation scores.")
+    return cast(
+        dict[str, Any], checkpoints[min(range(len(scores)), key=lambda index: scores[index])]
+    )
 
 
 def _verify_cohort_rows(fit: list[HourlyWindow], validation: list[HourlyWindow]) -> None:
@@ -211,8 +226,11 @@ class NativeCampaignBackend:
             raise RuntimeError("CUDA requested but unavailable.")
 
     def __call__(self, slot: V2Slot, selected_config: int | None, output: Path) -> SlotResult:
-        if not output.is_dir() or any(output.iterdir()):
-            raise ValueError("Campaign slot output must be an empty existing directory.")
+        if not output.is_dir() or {path.name for path in output.iterdir()} not in (
+            set(),
+            {".attempt.json"},
+        ):
+            raise ValueError("Campaign slot output must contain only its attempt metadata.")
         if not self.fixture_only:
             ledger_path = output.parent.parent / "ledger.json"
             if not output.name.startswith(slot.run_id + ".stage.") or not ledger_path.is_file():
@@ -223,6 +241,8 @@ class NativeCampaignBackend:
                 or ledger.get("identity", {}).get("validation_sha256")
                 != _rows_digest(self.validation)
                 or ledger.get("runs", {}).get(slot.run_id, {}).get("status") != "RUNNING"
+                or ledger["runs"][slot.run_id].get("attempt_sha256")
+                != _sha256(output / ".attempt.json")
             ):
                 raise ValueError("Real backend slot or validation cohort differs from its ledger.")
             if slot.family in LEARNED:
@@ -260,6 +280,82 @@ class NativeCampaignBackend:
                     "gpu_peak_reserved_bytes": torch.cuda.max_memory_reserved()
                     if self.device == "cuda"
                     else None,
+                },
+                allow_nan=False,
+            ),
+            encoding="utf-8",
+        )
+        return result
+
+    def resume_slot(
+        self,
+        slot: V2Slot,
+        selected_config: int | None,
+        output: Path,
+        review: dict[str, Any],
+    ) -> SlotResult:
+        """Continue one reviewed learned phase in its original staging directory."""
+        if slot.family not in LEARNED or selected_config not in (0, 1):
+            raise ValueError("Only learned campaign slots can resume from checkpoints.")
+        if any(
+            (output / name).exists()
+            for name in (
+                "validation-predictions.npz",
+                "endpoint.json",
+                "resources.json",
+                "slot-result.json",
+            )
+        ):
+            raise ValueError(
+                "Interrupted slot already has final artifacts; manual review is required."
+            )
+        ledger_path = output.parent.parent / "ledger.json"
+        ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
+        run = ledger.get("runs", {}).get(slot.run_id, {})
+        reviews = run.get("resume_review_sha256s", [])
+        review_copy = output / f"resume-review-{len(reviews)}.json"
+        if (
+            run.get("status") != "RUNNING"
+            or not reviews
+            or _sha256(review_copy) != reviews[-1]
+            or json.loads(review_copy.read_text(encoding="utf-8")) != review
+            or run.get("attempt_sha256") != _sha256(output / ".attempt.json")
+            or ledger.get("identity", {}).get("protocol_sha256") != self.protocol_sha256
+            or ledger.get("identity", {}).get("validation_sha256") != _rows_digest(self.validation)
+            or run["attempt"]["selected_configuration"] != selected_config
+        ):
+            raise ValueError("Interrupted backend slot differs from reviewed running attempt.")
+        phase = review["resume_phase"]
+        checkpoint = output / review["resume_checkpoint"]["path"]
+        started = time.perf_counter()
+        self._peak_rss = psutil.Process().memory_info().rss
+        if self.device == "cuda":
+            torch.cuda.reset_peak_memory_stats()
+        result = (
+            self._direct(slot, selected_config, output, resume_checkpoint=checkpoint)
+            if slot.family == "direct" and phase == "supervised"
+            else self._representation(
+                slot,
+                selected_config,
+                output,
+                resume_checkpoint=checkpoint,
+                resume_phase=phase,
+            )
+            if slot.family != "direct" and phase in ("pretrain", "pretrain_complete", "probe")
+            else None
+        )
+        if result is None:
+            raise ValueError("Interrupted checkpoint phase differs from learned family.")
+        self._resource_guard(psutil.Process())
+        (output / "resources.json").write_text(
+            json.dumps(
+                {
+                    "wall_seconds": time.perf_counter() - started,
+                    "peak_process_rss_bytes": self._peak_rss,
+                    "gpu_peak_reserved_bytes": torch.cuda.max_memory_reserved()
+                    if self.device == "cuda"
+                    else None,
+                    "resumed_from_step": review["resume_checkpoint"]["step"],
                 },
                 allow_nan=False,
             ),
@@ -494,7 +590,9 @@ class NativeCampaignBackend:
             selected,
         )
 
-    def _direct(self, slot: V2Slot, config: int, output: Path) -> SlotResult:
+    def _direct(
+        self, slot: V2Slot, config: int, output: Path, *, resume_checkpoint: Path | None = None
+    ) -> SlotResult:
         torch.manual_seed(slot.seed)
         if self.device == "cuda":
             torch.cuda.reset_peak_memory_stats()
@@ -515,6 +613,7 @@ class NativeCampaignBackend:
             seed=slot.seed,
             learning_rate=(3e-4, 1e-3)[config],
             name="supervised",
+            resume_checkpoint=resume_checkpoint,
         )
         path = output / "validation-predictions.npz"
         _write_predictions(
@@ -696,7 +795,70 @@ class NativeCampaignBackend:
             validation_score_files=tuple(score_paths),
         )
 
-    def _representation(self, slot: V2Slot, config: int, output: Path) -> SlotResult:
+    def _recover_pretrain_phase(
+        self,
+        model: JointJEPAForecaster,
+        slot: V2Slot,
+        config: int,
+        output: Path,
+        validation_tensors: Any,
+        validation_future: torch.Tensor,
+        validation_future_mask: torch.Tensor,
+    ) -> TrainingPhase:
+        identity = self._checkpoint_identity(slot, config, "pretrain")
+        optimizer = torch.optim.AdamW(
+            (parameter for parameter in model.parameters() if parameter.requires_grad),
+            lr=3e-4,
+            weight_decay=1e-4,
+            betas=(0.9, 0.95),
+        )
+        checkpoints: list[Path] = []
+        scores: list[float] = []
+        score_paths: list[Path] = []
+        step = 250
+        while (output / f"pretrain-checkpoint-{step}.pt").exists():
+            checkpoint = output / f"pretrain-checkpoint-{step}.pt"
+            if self._load_phase_checkpoint(checkpoint, output, model, optimizer, identity) != step:
+                raise ValueError("Recovered pretraining checkpoint step differs.")
+            score = self._pretrain_validation_loss(
+                model, validation_tensors, validation_future, validation_future_mask
+            )
+            score_path = output / f"pretrain-validation-{step}.json"
+            if json.loads(score_path.read_text(encoding="utf-8")) != {
+                "step": step,
+                "score": score,
+                "identity": identity,
+            }:
+                raise ValueError("Recovered pretraining loss differs from checkpoint.")
+            checkpoints.append(checkpoint)
+            scores.append(score)
+            score_paths.append(score_path)
+            step += 250
+        updates = step - 250
+        validate_update_cadence(
+            updates=updates,
+            checkpoint_steps=tuple(range(250, updates + 1, 250)),
+            validation_scores=tuple(scores),
+        )
+        selected = checkpoints[min(range(len(scores)), key=lambda index: scores[index])]
+        self._load_phase_checkpoint(selected, output, model, optimizer, identity)
+        return TrainingPhase(
+            "pretrain",
+            updates,
+            tuple(checkpoints),
+            tuple(scores),
+            validation_score_files=tuple(score_paths),
+        )
+
+    def _representation(
+        self,
+        slot: V2Slot,
+        config: int,
+        output: Path,
+        *,
+        resume_checkpoint: Path | None = None,
+        resume_phase: str | None = None,
+    ) -> SlotResult:
         torch.manual_seed(slot.seed)
         if self.device == "cuda":
             torch.cuda.reset_peak_memory_stats()
@@ -712,24 +874,37 @@ class NativeCampaignBackend:
         control = slot.phase if slot.phase in ("random_encoder", "shuffled_future") else None
         pretrain_phase = None
         if control != "random_encoder":
-            shuffle = (
-                _separated_shuffle(self.fit)
-                if control == "shuffled_future"
-                else np.arange(len(self.fit))
-            )
-            pretrain_phase = self._pretrain_phase(
-                model,
-                slot=slot,
-                configuration=config,
-                fit_tensors=fit_tensors,
-                validation_tensors=validation_tensors,
-                future=future,
-                future_mask=future_mask,
-                validation_future=validation_future,
-                validation_future_mask=validation_future_mask,
-                shuffle=shuffle,
-                output=output,
-            )
+            if resume_phase in ("probe", "pretrain_complete"):
+                if not self.fixture_only:
+                    pretrain_phase = self._recover_pretrain_phase(
+                        model,
+                        slot,
+                        config,
+                        output,
+                        validation_tensors,
+                        validation_future,
+                        validation_future_mask,
+                    )
+            else:
+                shuffle = (
+                    _separated_shuffle(self.fit)
+                    if control == "shuffled_future"
+                    else np.arange(len(self.fit))
+                )
+                pretrain_phase = self._pretrain_phase(
+                    model,
+                    slot=slot,
+                    configuration=config,
+                    fit_tensors=fit_tensors,
+                    validation_tensors=validation_tensors,
+                    future=future,
+                    future_mask=future_mask,
+                    validation_future=validation_future,
+                    validation_future_mask=validation_future_mask,
+                    shuffle=shuffle,
+                    output=output,
+                    resume_checkpoint=resume_checkpoint if resume_phase == "pretrain" else None,
+                )
         model.freeze_encoder()
         optimizer = torch.optim.AdamW(
             (parameter for parameter in model.parameters() if parameter.requires_grad),
@@ -749,6 +924,7 @@ class NativeCampaignBackend:
             seed=slot.seed,
             learning_rate=3e-4,
             name="probe",
+            resume_checkpoint=resume_checkpoint if resume_phase == "probe" else None,
         )
         path = output / "validation-predictions.npz"
         _write_predictions(
@@ -790,9 +966,15 @@ class NativeCampaignBackend:
             raise ValueError("Hybrid parent checkpoint escapes its reviewed artifact.")
         if not self.fixture_only:
             phases = run.get("training_phases", [])
-            if not phases or phases[-1]["checkpoints"][-1]["sha256"] != _sha256(checkpoint):
+            if not phases or phases[-1].get("name") != "probe":
+                raise ValueError("Hybrid parent lacks a supervised probe phase.")
+            selected_milestone = _selected_milestone(phases[-1])
+            if (
+                selected_milestone["sha256"] != _sha256(checkpoint)
+                or (artifact_root / selected_milestone["path"]).resolve(strict=True) != checkpoint
+            ):
                 raise ValueError(
-                    "Hybrid parent checkpoint differs from reviewed campaign milestone."
+                    "Hybrid parent checkpoint differs from best reviewed probe milestone."
                 )
         model = JointJEPAForecaster(
             self.model_config,

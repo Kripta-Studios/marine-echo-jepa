@@ -1,0 +1,13 @@
+RED evidence for reviewed interrupted-slot restart. Synthetic CPU fixtures only.
+
+Command (GPU-capable Python environment, PYTHONPATH=src; no CUDA use):
+python -m pytest -q tests/integration/test_v2_campaign_restart.py
+Observed before implementation: collection error in 2.54s.
+ImportError: cannot import name 'interrupted_slot_review_request' from
+'marine_echo.training.v2_campaign'. The scheduler had no reviewed restart entry point.
+
+The independent reviewer also identified two additional pre-existing defects:
+the hybrid expected the final stale checkpoint instead of the earliest best probe
+checkpoint, and reused-slot ledger fields were not required to copy the selected
+source. Those findings were supplied by the reviewer; they are not claimed as
+locally executed RED tests.
