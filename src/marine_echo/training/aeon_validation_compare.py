@@ -65,6 +65,21 @@ def _sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+def _comparison_code_sha256() -> str:
+    """Bind the comparator and the imported scoring and row-integrity contracts."""
+    root = Path(__file__).resolve().parents[1]
+    dependencies = (
+        Path(__file__),
+        root / "evaluation/aeon.py",
+        Path(__file__).with_name("aeon_rescore.py"),
+    )
+    digest = hashlib.sha256()
+    for path in dependencies:
+        digest.update(path.name.encode("ascii"))
+        digest.update(path.read_bytes())
+    return digest.hexdigest()
+
+
 def _bound_path(spec: dict[str, Any]) -> Path:
     if set(spec) != {"path", "sha256"} or not isinstance(spec["path"], str):
         raise ValueError("Comparison artifact path and digest must be explicit.")
@@ -289,7 +304,7 @@ def compare_validation(input_path: Path, approval_path: Path, output_path: Path)
     input_sha = _sha256(input_path)
     config = json.loads(input_path.read_text(encoding="utf-8"))
     reports, source_hashes = _load_sources(config)
-    code_sha = _sha256(Path(__file__))
+    code_sha = _comparison_code_sha256()
     approval = json.loads(approval_path.resolve(strict=True).read_text(encoding="utf-8"))
     _verify_outer_approval(approval, code_sha, input_sha, source_hashes)
     rows_reference: dict[str, np.ndarray] | None = None

@@ -11,12 +11,28 @@ import pytest
 
 from marine_echo.training.aeon_validation_compare import (
     SOURCE_CONTRACTS,
+    _comparison_code_sha256,
     _compare_arrays,
     _load_sources,
     _source_report_status,
     _validate_manifest,
     _verify_outer_approval,
 )
+
+
+@pytest.mark.parametrize("dependency", ["aeon.py", "aeon_rescore.py"])
+def test_comparison_approval_digest_binds_imported_contracts(
+    monkeypatch: pytest.MonkeyPatch, dependency: str,
+) -> None:
+    baseline = _comparison_code_sha256()
+    original = Path.read_bytes
+
+    def changed_read(path: Path) -> bytes:
+        content = original(path)
+        return content + b"dependency_changed" if path.name == dependency else content
+
+    monkeypatch.setattr(Path, "read_bytes", changed_read)
+    assert _comparison_code_sha256() != baseline
 
 
 def _forecast(value: float, rows: int = 36) -> np.ndarray:
