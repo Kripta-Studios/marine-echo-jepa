@@ -44,7 +44,11 @@ for source, target in (
     (root / "data/manifests", "provenance/source-manifests"),
 ):
     shutil.copytree(source, output / target, ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
-for name in ("docs/06_EXPERIMENT_PROTOCOL.md", "docs/20_DEFINITION_OF_DONE.md"):
+for name in (
+    "docs/06_EXPERIMENT_PROTOCOL.md",
+    "docs/20_DEFINITION_OF_DONE.md",
+    "orchestration/reports/V2_RESEARCH_OUTCOME_20260927.md",
+):
     destination = output / "provenance" / Path(name).name
     shutil.copy2(root / name, destination)
 (output / "SOURCE_REVISION.json").write_text(
