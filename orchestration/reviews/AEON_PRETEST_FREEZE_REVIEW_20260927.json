@@ -1,0 +1,110 @@
+{
+  "task": "R3-AEON-PRETEST-FREEZE-REVIEW-20260927",
+  "parent_dependencies": [
+    "R3-AEON-PRETEST-SOURCE-APPROVAL-20260927",
+    "R2-AEON-CALIBRATION-OUTCOME-REVIEW-20260927",
+    "R2-AEON-TEST-METADATA-CANDIDATE-OUTCOME-20260927"
+  ],
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "status": "APPROVED_AEON_RETROSPECTIVE_TEST_PREACCESS_FREEZE",
+  "disposition": "APPROVE_EXACT_PRETEST_DEPENDENCY_GRAPH_FOR_DISTINCT_READER_AND_RUNNER_ACCESS_REVIEWS",
+  "source_commit": "fd054d9",
+  "freeze_commit": "c923cd8",
+  "owned_path": "orchestration/reviews/AEON_PRETEST_FREEZE_REVIEW_20260927.json",
+  "pretest_freeze_path": "AEON_PRETEST_FREEZE_20260927.json",
+  "pretest_freeze_sha256": "f9062592b6196f49e86cf938205215670800a14c03c4542576c0b341a6018281",
+  "pretest_freeze_status": "FROZEN_AEON_RETROSPECTIVE_TEST_PREACCESS",
+  "frozen_inputs": {
+    "source_archive_sha256": "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde",
+    "protocol_sha256": "d83392832a1bde3ae3e096de0a664ca9cfc27762a18bb10fb5ace3a97e787435",
+    "selection_freeze_sha256": "b3940ab8e159ac8808843b15b455ffb3c42f2d3db322190af15b80e543edff58",
+    "metadata_candidate_report_sha256": "40510cfb321cbb57bc24f309f0e11cd0a2d274c181370ae6d13efdc26972be93",
+    "metadata_candidate_review_sha256": "9d9c6ca4580d6a4ead4117a00a1a872710bf6e323eb17d491837e24c1011bebe",
+    "metadata_candidate_count": 1216,
+    "calibration_artifact_sha256": "a6e35bc5fa5c27b2b0669e7fb9fe7f8ff1bdd69952193418bbbe130e46438c94",
+    "calibration_outcome_review_sha256": "7b61385b29836be53d0e2c5a0b5e3f5db7e2dcb8983e534d17711ed0b44c1428",
+    "test_forecast_plan_sha256": "b393663c95ba99666626542f790ab4b8b69260dd82cec7c394393b2826d0ef63",
+    "config_sha256": "9003865b288a3c5afdf4b7cdba3f401c346f6067a53a255b833dde8e3a668c4c",
+    "pretest_source_approval_sha256": "22389e7af10dd89f108efd5e271b723fbe3e4335722828fbab319ed6a98ebf24"
+  },
+  "source_bindings": {
+    "runner_code_sha256": "fa3a4db0665eefd02ecf77032451dd17f940c2b3c58c86fd3c9dfa52872324a7",
+    "evaluation_code_sha256": "5dff72c1baf2f5528f13f369936d2ca5710eeb8b8a6e6cae12a0ef95366225ff",
+    "reader_code_sha256": "735ac1d4d03b29a7ebfb23259bd355137463e12d6ac9c9127df81b338828e380",
+    "reader_composite_sha256": "121facf774cc81e55f1ced6d4d6ec82927614a7dadc0deab66b557f35dd5563f",
+    "adapter_composite_sha256": "c8ccc0c54b720676b9f6d19cdd5ed7ffd1a5daf58ed22c469479a9272d1b77f9"
+  },
+  "selected_models": {
+    "core_direct_equal_three_seed_ensemble": {
+      "role": "baseline",
+      "classification": "CORE_CONVENTIONAL_SELECTION",
+      "family": "direct",
+      "device": "cpu",
+      "component_sha256": [
+        "a616f9160f359e54a6da5d87dc3b7a46edfee46e449e2944af7a69be8ae25c95",
+        "eb6ca62f4c68024b43ea8b2102a0754d646623fd91cbf1ad31fb72218faf48dc",
+        "ee3ae09ebf05bc41ec762e946a1d0046be33fff4ea47472a992893a294054761"
+      ]
+    },
+    "core_ema_equal_three_seed_ensemble": {
+      "role": "candidate",
+      "classification": "CORE_JEPA_SELECTION",
+      "family": "ema_jepa",
+      "device": "cpu",
+      "component_sha256": [
+        "f1fc41860e21cb2c47868488b051c68cd951487d717fc0fe033e63b8dfcc664c",
+        "59cb3d1e6d79ca2d9807f24c5e816d0e5c89fad0e274e703d6e9da5b44024633",
+        "4a7c63931a31a48f60323b944110df9292856f39cb822ce0b891371a10a16a15"
+      ]
+    },
+    "post_hoc_lightgbm": {
+      "role": "candidate",
+      "classification": "POST_HOC_DEVELOPMENT_SELECTION",
+      "model_sha256": "164389731cd5d2e0694d1fb5228196196e7701fc73269e79ef84d85520fb168b",
+      "recipe_sha256": "3feee4089ce790c66adb189ff82ad4e006c350822a23aaa494e86afaef884eea"
+    }
+  },
+  "test_contract": {
+    "partition_start_source_date_inclusive": "2025-01-06",
+    "partition_end_source_date_exclusive": "2025-03-01",
+    "source_time_basis": "SOURCE_REPORTED_UNSPECIFIED_NOT_UTC",
+    "issued_row_rule": "EXACT_24_PRIOR_INTERVAL_IDS_OBSERVED_38KHZ",
+    "minimum_anchors_per_target_source_date_and_horizon": 18,
+    "minimum_eligible_dates_per_horizon": 20,
+    "primary_metric": "RAW_FIVE_QUANTILE_ELIGIBLE_TARGET_SOURCE_DATE_PINBALL",
+    "interval_reporting": "RAW_AND_CAL_WIDENED_90_PERCENT_INTERVALS",
+    "bootstrap": {
+      "block_hours": 48,
+      "draws": 2000,
+      "seed": 20260926
+    },
+    "promotion_rule": "FIVE_PERCENT_POINT_IMPROVEMENT_AND_PAIRED_INTERVAL_BELOW_ZERO_AND_EACH_HORIZON_WITHIN_TEN_PERCENT"
+  },
+  "independent_execution": {
+    "freeze_validation": "Executed the production _config, _selection, _candidate, _test_forecast_plan, _preflight_forecast_plan, _validate_calibration_artifact and _pretest_freeze validators on the exact local artifacts; all completed without constructing the TEST reader.",
+    "component_hash_validation": "Independently rehashed all six neural checkpoints, the LightGBM model and its recipe through the production preflight. Every path stayed within the plan directory and every digest, family, option and CPU device matched the reviewed selection.",
+    "lineage_validation": "Rehashed the archive, selection, metadata candidate report and review, calibration artifact and review, configuration, forecast plan, runner, evaluator, reader and both composites. All values match the freeze.",
+    "candidate_validation": "The production metadata-candidate validator accepted 1,216 ordered unique candidates. The reviewed report contains metadata-only statuses and leaves issued and scored support unknown.",
+    "output_absence_check": "outputs/aeon3_geb_2024_hourly_sv_v1/retrospective_test was absent during this review.",
+    "test_reader_constructed": false,
+    "test_numeric_access": false
+  },
+  "findings": [],
+  "limitations": [
+    "This review approves the frozen dependency graph; it does not by itself authorize TEST numeric access.",
+    "Actual issued rows, scored rows and eligible TEST dates remain unknown until the single reviewed numeric materialization.",
+    "The TEST comparison is retrospective and is not a sealed holdout.",
+    "The post-hoc LightGBM arm is exploratory; the core JEPA-value comparison is EMA versus the direct ensemble.",
+    "No SOTA, calibrated absolute backscatter, external-generalization, biological, production or business-value claim is authorized."
+  ],
+  "resource_and_cost_evidence": {
+    "training_or_inference_run": false,
+    "cloud_or_paid_resource_use": false,
+    "cost_usd": 0
+  },
+  "next_action": "Issue exact reader and runner access reviews bound to this review, then execute the one reviewed retrospective TEST materialization once.",
+  "test_access": "PROHIBITED_PENDING_DISTINCT_READER_AND_RUNNER_ACCESS_REVIEWS"
+}

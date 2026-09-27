@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0",
+  "task": "R3-AEON-TEST-RUNNER-ACCESS-20260927",
+  "parent_dependencies": [
+    "R3-AEON-PRETEST-FREEZE-REVIEW-20260927",
+    "R3-AEON-TEST-READER-ACCESS-20260927"
+  ],
+  "status": "APPROVED_AEON_RETROSPECTIVE_TEST_ACCESS",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "data_kind": "REAL",
+  "partition": "test",
+  "partition_access": "RETROSPECTIVE_TEST_NUMERIC_ACCESS_APPROVED",
+  "study_id": "aeon3_geb_2024_hourly_sv_v1",
+  "source_archive_sha256": "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde",
+  "protocol_sha256": "d83392832a1bde3ae3e096de0a664ca9cfc27762a18bb10fb5ace3a97e787435",
+  "source_approval_sha256": "22389e7af10dd89f108efd5e271b723fbe3e4335722828fbab319ed6a98ebf24",
+  "selection_review_sha256": "4fca86c94049d6dafce6fa4fa6bdad182649e331d3f2fb10a1cea1b18483e9e5",
+  "selection_freeze_sha256": "b3940ab8e159ac8808843b15b455ffb3c42f2d3db322190af15b80e543edff58",
+  "metadata_candidate_report_sha256": "40510cfb321cbb57bc24f309f0e11cd0a2d274c181370ae6d13efdc26972be93",
+  "metadata_candidate_review_sha256": "9d9c6ca4580d6a4ead4117a00a1a872710bf6e323eb17d491837e24c1011bebe",
+  "calibration_artifact_sha256": "a6e35bc5fa5c27b2b0669e7fb9fe7f8ff1bdd69952193418bbbe130e46438c94",
+  "calibration_outcome_review_sha256": "7b61385b29836be53d0e2c5a0b5e3f5db7e2dcb8983e534d17711ed0b44c1428",
+  "pretest_freeze_sha256": "f9062592b6196f49e86cf938205215670800a14c03c4542576c0b341a6018281",
+  "forecast_manifest_sha256": "b393663c95ba99666626542f790ab4b8b69260dd82cec7c394393b2826d0ef63",
+  "config_sha256": "9003865b288a3c5afdf4b7cdba3f401c346f6067a53a255b833dde8e3a668c4c",
+  "reader_review_sha256": "42496508acd454d6680ae9d3e0a35c8e51eb8aa20dae3f59b4777e0a60d6c741",
+  "runner_code_sha256": "fa3a4db0665eefd02ecf77032451dd17f940c2b3c58c86fd3c9dfa52872324a7",
+  "evaluation_code_sha256": "5dff72c1baf2f5528f13f369936d2ca5710eeb8b8a6e6cae12a0ef95366225ff",
+  "reader_composite_sha256": "121facf774cc81e55f1ced6d4d6ec82927614a7dadc0deab66b557f35dd5563f",
+  "adapter_composite_sha256": "c8ccc0c54b720676b9f6d19cdd5ed7ffd1a5daf58ed22c469479a9272d1b77f9",
+  "approved_command_scope": "marine_echo.training.aeon_final_evaluation score-test",
+  "approved_output": "outputs/aeon3_geb_2024_hourly_sv_v1/retrospective_test",
+  "retrospective_test_contract": {
+    "selected_models": [
+      "core_direct_equal_three_seed_ensemble",
+      "core_ema_equal_three_seed_ensemble",
+      "post_hoc_lightgbm"
+    ],
+    "baseline_model": "core_direct_equal_three_seed_ensemble",
+    "core_jepa_candidate": "core_ema_equal_three_seed_ensemble",
+    "post_hoc_candidate": "post_hoc_lightgbm",
+    "forecast_before_target_extraction": true,
+    "single_numeric_reader_pass": true,
+    "candidate_triplet_subset_check": true,
+    "minimum_anchors_per_target_source_date_and_horizon": 18,
+    "minimum_eligible_dates_per_horizon": 20,
+    "primary": "RAW_FIVE_QUANTILE_ELIGIBLE_TARGET_SOURCE_DATE_PINBALL",
+    "widening": "EXACT_REVIEWED_NONNEGATIVE_CAL_ADJUSTMENTS_FOR_INTERVAL_REPORTING_ONLY",
+    "paired_bootstrap": {
+      "block_hours": 48,
+      "draws": 2000,
+      "seed": 20260926
+    },
+    "promotion_rule": "FIVE_PERCENT_POINT_IMPROVEMENT_AND_PAIRED_INTERVAL_BELOW_ZERO_AND_EACH_HORIZON_WITHIN_TEN_PERCENT",
+    "classification": "RETROSPECTIVE_EVALUATION_NOT_SEALED"
+  },
+  "authorization_conditions": [
+    "Use the exact archive, config, selection, candidate contract, reviewed CAL artifact, pretest freeze, forecast plan, reader review and runner review bytes bound here.",
+    "Confirm the approved output path is absent immediately before execution; an existing path invalidates this authorization.",
+    "All selected model bytes and adapter options must pass pre-reader preflight before the TEST reader is constructed.",
+    "Run one serial score-test process. Do not alter selected models, CAL adjustments, issuance, metrics, bootstrap, thresholds or support floors after access.",
+    "Preserve truth-free forecast NPZ files, the materialized forecast manifest, the complete score, all issued identities and every candidate abstention in the atomic output bundle.",
+    "Submit the complete immutable output bundle to a separate independent outcome reconstruction before app/release final claims."
+  ],
+  "independent_execution": {
+    "pre_reader_validation": "Executed the exact production config, selection, metadata-candidate, CAL artifact, TEST plan, component-byte preflight and pretest-freeze validators successfully without constructing the TEST reader.",
+    "negative_gate_evidence": "The approved source review independently executed altered-CAL, missing-model and negative-adjustment pre-reader failures; the focused source suite also demonstrated early existing-output rejection.",
+    "output_absence_check": "outputs/aeon3_geb_2024_hourly_sv_v1/retrospective_test was absent when this access review was issued.",
+    "test_numeric_access_during_review": false
+  },
+  "scientific_constraints": [
+    "The core JEPA-value decision is EMA versus the direct ensemble under the full prespecified gate.",
+    "LightGBM remains a post-hoc exploratory operational comparison and cannot establish SOTA or a core confirmatory result.",
+    "A negative JEPA result is scientifically valid; failure to meet the gate must be reported without model substitution.",
+    "The evaluation is retrospective, from one fixed deployment and source clock of unspecified timezone."
+  ],
+  "authorization": "ONE_EXACT_HASH_BOUND_RETROSPECTIVE_TEST_EXECUTION",
+  "test_access": "RETROSPECTIVE_NUMERIC_ACCESS_APPROVED_FOR_EXACT_BOUND_RUN",
+  "cloud_or_paid_resource_use": false,
+  "cost_usd": 0,
+  "next_action": "Execute the exact bound score-test command once, then independently reconstruct every forecast, support count, metric, bootstrap interval and gate from the immutable output bundle."
+}
