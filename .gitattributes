@@ -11,6 +11,9 @@
 
 # Preserve exact bytes for hash-addressed execution evidence and signed review records.
 evidence/continuation/** -text whitespace=-blank-at-eol,-blank-at-eof
+evidence/v2/** -text whitespace=-blank-at-eol,-blank-at-eof
+evidence/v2-execution/** -text whitespace=-blank-at-eol,-blank-at-eof
+reports/v2/** -text whitespace=-blank-at-eol,-blank-at-eof
 orchestration/reviews/** -text whitespace=cr-at-eol
 # This already executed Windows source is frozen by the census identity.
 tools/train_census.py -text whitespace=cr-at-eol
