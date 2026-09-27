@@ -1,0 +1,35 @@
+{
+  "archive_sha256": "20df1e7c7292f09a16dea0b641b82da12efff4c2660d2a9159fa599f53b2d2e6",
+  "relocated": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\v2-research-relocated-20260927",
+  "network_policy": "uv offline/no-index; browser test denies non-loopback requests",
+  "steps": [
+    {
+      "phase": "first_offline_install_and_start",
+      "seconds": 3.397744400001102,
+      "health": {
+        "ready": true,
+        "version": "0.1.0",
+        "release_class": "OFFLINE_RESEARCH_ENGINEERING_ONLY"
+      },
+      "raw_development_rows": 212,
+      "historical_blocked_registry_rows": 25
+    },
+    {
+      "phase": "cold_start_existing_environment",
+      "seconds": 1.1360225999997056,
+      "health": {
+        "ready": true,
+        "version": "0.1.0",
+        "release_class": "OFFLINE_RESEARCH_ENGINEERING_ONLY"
+      },
+      "raw_development_rows": 212,
+      "historical_blocked_registry_rows": 25
+    }
+  ],
+  "integrity_clean_corrupt_restored": [
+    0,
+    2,
+    0
+  ],
+  "status": "PASS_OFFLINE_RESEARCH_ENGINEERING_ONLY"
+}

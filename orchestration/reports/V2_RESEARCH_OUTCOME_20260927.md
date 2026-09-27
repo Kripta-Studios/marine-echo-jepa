@@ -69,3 +69,13 @@ approved in `orchestration/reviews/V2_CALIBRATED_EXECUTOR_CODE_20260927.json`.
 That code approval does not override the failed calibrated data gate. The
 research app's real-artifact browser suite passed eight journeys, including
 rendering all 636 cutoff-by-horizon prediction rows.
+
+The offline archive `release/marine-echo-v2-research-20260927.zip` is
+20,421,117 bytes with SHA-256
+`20df1e7c7292f09a16dea0b641b82da12efff4c2660d2a9159fa599f53b2d2e6`.
+It contains 332 hashed payload files and was built from commit `52f63f9`.
+Fresh relocation verification passed a clean/corrupt/restored integrity cycle,
+offline dependency install, first start in 3.398 seconds, and cold restart in
+1.136 seconds. The extracted package passed eight offline browser journeys,
+including the complete real prediction table. Exact records are under
+`evidence/v2-release/`. Independent final release review remains pending.

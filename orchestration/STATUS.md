@@ -52,7 +52,13 @@ distinct reviewer approved the final scheduler/restart, hybrid best-checkpoint,
 and reused-slot lineage implementation at commit `23b180b`. Active restarted
 processes are protected by immutable per-generation leases. This is code
 approval only; calibrated Candidate 2's zero April support still bars the
-25-slot campaign and JEPA runs.
+25-slot campaign and JEPA runs. The separate raw-code offline research app
+renders all 212 reviewed cutoffs (636 cutoff-by-horizon rows) and the verified
+direct checkpoint hash. Its eight browser journeys passed on the built app and
+again on the relocated archive. The 20,421,117-byte archive SHA-256 is
+`20df1e7c7292f09a16dea0b641b82da12efff4c2660d2a9159fa599f53b2d2e6`.
+Offline install/start, clean/corrupt/restored hash verification and local API
+checks passed; independent final release review is pending.
 
 The existing GPU environment passed a CUDA kernel smoke with PyTorch 2.11.0+cu128;
 this is not a training-memory measurement. Data-environment PyTorch is absent and
