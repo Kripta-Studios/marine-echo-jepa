@@ -1,0 +1,35 @@
+{
+  "task": "R3-AEON-OFFLINE-PACKAGE-R3-REVIEW-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "status": "REQUEST_CHANGES",
+  "disposition": "REJECT_R3_PACKAGE_CONTRADICTORY_BROWSER_ROUTE_METADATA",
+  "archive_path": "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-aeon-final-release-prep/outputs/aeon3_geb_2024_hourly_sv_v1/aeon-offline-retrospective-candidate-20260927-r3.zip",
+  "archive_sha256": "0c7255ba383e7fe618e0bcbab2de3fc9bd25b2da2bffb833f151e947993bd232",
+  "archive_entry_count": 79,
+  "packaged_source_commit": "22e048f6e9ba08fa138759d37d3bf0c2e02ca2e0",
+  "packaged_release_class": "OFFLINE_RESEARCH_MIXED_STUDIES_TEST_REVIEWED_RELEASE_REVIEW_PENDING",
+  "browser_evidence_path": "outputs/aeon-r3-browser-smoke.png",
+  "browser_evidence_sha256": "da65a2a8e68671c75690aee65d87edaf792c752c3ac7712a7d5bdac81fd560a4",
+  "finding": {
+    "severity": "BLOCKING_USER_VISIBLE_CLAIM_CONTRADICTION",
+    "location": "AEON page route metadata header in the relocated r3 package",
+    "observed": "The header says MODE 'Validation evidence · no forecast replay' and UNCERTAINTY 'No final evaluation'. The same rendered page contains the reviewed retrospective TEST table and a 1,216-row saved prediction replay.",
+    "impact": "The first-screen release metadata denies two capabilities/evidence states that the exact package presents below, so a user cannot determine the study status consistently.",
+    "required_fix": "Bind the AEON route header to retrospective reviewed TEST and saved historical replay, while retaining the non-sealed, non-live and representation-attribution limits. Rebuild a new archive and repeat relocated API/browser/integrity review."
+  },
+  "independent_execution": {
+    "archive_hash": "Recomputed the r3 archive SHA-256 and inspected its 79-entry central directory.",
+    "packaged_metadata": "Read SOURCE_REVISION.json, catalog and aeon-study directly from the archive; the package contains 3,648 cached model-row predictions, reviewed retrospective TEST classification and final_evaluation=true.",
+    "browser_evidence": "Independently inspected the full-page Chromium screenshot produced from the relocated r3 loopback package and confirmed the contradictory header and the reviewed TEST/replay sections on the same page.",
+    "builder_checks": "Builder reported checksum verification, offline/no-index package installation and HTTP 200; those checks do not override the visible claim defect."
+  },
+  "preserved_evidence": [
+    "The reviewed TEST table displays the exact direct, EMA-JEPA and post-hoc LightGBM metrics and bounded interpretation.",
+    "The replay is visibly labelled historical, saved, truth-free, source-clock and not live.",
+    "The historical v1/v2 evidence remains packaged."
+  ],
+  "next_action": "Build and independently review r4 after correcting the AEON route header; do not promote or rename r3 as the final release."
+}
