@@ -324,6 +324,9 @@ wrapper (review SHA-256
 `a7e99f8337195aa676073820a3234a0aaa3de8d76cce8af1b828b234f26c9001`).
 It remains development only, with no AEON CAL/TEST forecasts. Final evaluator review found additional
 real-access and lineage weaknesses, so CAL and TEST numeric values remain
-unopened while those checks are repaired and re-reviewed. One stronger
+unopened while those checks are repaired and re-reviewed. The latest distinct
+review of `7ed4003` still requires CAL forecasts to be generated from frozen
+components inside the reviewed access path, an exact trusted reviewer identity
+on both access artifacts, and full-file Ruff cleanup. One stronger
 supervised architecture is being trialled on TRAIN/validation only as a
 separate post-hoc exploratory experiment under local GPU limits.
