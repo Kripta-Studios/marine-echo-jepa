@@ -1,0 +1,113 @@
+{
+  "task": "R2-AEON-FORWARD-EMA-OUTCOME-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "status": "APPROVED_AEON_FORWARD_OUTCOME_NO_SELECTION",
+  "disposition": "APPROVE_POST_HOC_TRAIN_VALIDATION_OUTCOME_FOR_FROZEN_COMPARISON_ONLY",
+  "classification": "POST_HOC_DEVELOPMENT_NOT_FINAL_EVALUATION",
+  "sota_claim": "NOT_ESTABLISHED",
+  "manifest_path": "outputs/aeon3_geb_2024_hourly_sv_v1/forward_ema_development/manifest.json",
+  "manifest_sha256": "a77f96d63ae06fb6c6d349ecd641d3862eff17dfe0348643d9c6e03fa7095f49",
+  "prefit_review_sha256": "7275f5c0e9c70daccbc60fb26a952ea8514746a93ee2dbb1c73b2468efe35ffa",
+  "code_sha256": "8d923fe0ffb371d1f13baf77f46092a6d9614a70a49f06b0300663beb6ddd30e",
+  "config_sha256": "2b115b5712e0f039a5178143c051c6c540f3bd676f7340b09e3f4e28af3bd8c3",
+  "split_review_sha256": "b8031e2e113e39630c066cee65b4371f69b229ee905a72d832e53e6f505f297b",
+  "cohort_sha256": "5e475f6af798025f187c70ae638710d2b4362f688db2ad43d60ec436dda3e25d",
+  "pair_inventory_sha256": "d0f7bc48feff89c73346535a4eda56297b072a1949008cd7d32344ae88723d06",
+  "validation_row_sha256": "9ce5ed6d60c4082efd3f342b3ee09ddadc5cf6286be6d6a3e953ab0f6166a99f",
+  "validation_issued_rows": 1219,
+  "eligible_source_dates_per_horizon": [50, 50, 50],
+  "slots": {
+    "forward_ema_seed7": {
+      "slot_sha256": "c446339d6dc19f3559c0a17d9aec996cec099b8b0fc1a1bebc682f2cf089368b",
+      "checkpoint_sha256": "1cde00a84a942a463cce27f8968b5e2fe2e508c6279b7df7d7e7e67e00a3a3e2",
+      "prediction_sha256": "e26b7bac70188e09dcd85e6404de1d963806cc2ce1d535184a56537e0d896da8",
+      "primary_daily_mean_pinball_db": 0.6675243069324198,
+      "target_effective_rank_of_128": 11.931598388335399,
+      "target_dimension_variance_mean": 0.5058640202267988,
+      "prediction_target_rms_ratio": 0.9765380397911345
+    },
+    "forward_ema_seed13": {
+      "slot_sha256": "841651394f8cc96765520ded7ea2c69a3eb1376fdf3549548b0398b964609604",
+      "checkpoint_sha256": "3492e33f42e0b8179d01076911595f1e44d77629b915414d121c7cb78dd156b3",
+      "prediction_sha256": "4f1ec1adff856e42df8c4dad2e84d4f3d86606ad895383fd36c65f0306acd1fe",
+      "primary_daily_mean_pinball_db": 0.6576794760272057,
+      "target_effective_rank_of_128": 13.452412452323232,
+      "target_dimension_variance_mean": 0.5257930071227745,
+      "prediction_target_rms_ratio": 0.9479836184150869
+    },
+    "forward_ema_seed23": {
+      "slot_sha256": "caf004e182c711541fe41509ef35d3ea47f99107e3f23de31714c01be97c4742",
+      "checkpoint_sha256": "2de1dae37d1b95d3313a0d748e69370a743791cd94892028f7170be2b63fae54",
+      "prediction_sha256": "da271dc2dbb672b5b9ea48e43dda96ba025d4ebb9c45a6b2e30385cd908c6869",
+      "primary_daily_mean_pinball_db": 0.659481498100634,
+      "target_effective_rank_of_128": 12.988678980885505,
+      "target_dimension_variance_mean": 0.5079077051701175,
+      "prediction_target_rms_ratio": 0.9683528051875245
+    },
+    "random_encoder_seed7": {
+      "slot_sha256": "ac9f1b567b0828aaea36ac548c704376955f57f7634b137533c230581e3fa6ba",
+      "checkpoint_sha256": "2b8e876f9ecf00fb54161754642c039754411306c8bf715c9b859288caed025b",
+      "prediction_sha256": "ebebb0e0de54e5179f70e6085c0ce424ceb2965a780ba3d3593c7243bc567953",
+      "primary_daily_mean_pinball_db": 0.7577410883124109,
+      "target_effective_rank_of_128": 6.34581820482057,
+      "target_dimension_variance_mean": 0.00003934291591144031,
+      "prediction_target_rms_ratio": 1.7932017066338457,
+      "encoder_matches_exact_seed7_initialization": true
+    },
+    "temporally_shuffled_future_target_seed7": {
+      "slot_sha256": "5e8ce40a5c902c039aabca2432c4cffab502b69702a688f9bbdd833f12395b15",
+      "checkpoint_sha256": "14e9f954e3727337cbe191d5e439280561d2e90f1d9a5f9b26be9fe304479dc9",
+      "prediction_sha256": "94f2b1a93700faecd1f4f293ab58f289e6411c9012d60a29a9fdb617a9aeab39",
+      "primary_daily_mean_pinball_db": 0.6863962134932415,
+      "target_effective_rank_of_128": 10.499835112797333,
+      "target_dimension_variance_mean": 0.46633721569153086,
+      "prediction_target_rms_ratio": 0.8960648121102743
+    }
+  },
+  "fixed_three_seed_forward_ensemble": {
+    "method": "arithmetic_mean_of_three_saved_forecasts_then_monotone_quantile_sort",
+    "primary_daily_mean_pinball_db": 0.6533145184149417,
+    "daily_mean_pinball_db_per_horizon": [
+      0.5907220614323335,
+      0.6776896123725087,
+      0.6915318814399829
+    ],
+    "direct_three_seed_reference_primary_daily_mean_pinball_db": 0.6390617417693784,
+    "direct_three_seed_reference_daily_mean_pinball_db_per_horizon": [
+      0.582455182208629,
+      0.6625173732304345,
+      0.6722126698690717
+    ],
+    "development_interpretation": "The forward-EMA ensemble is worse than the frozen direct-neural ensemble overall and at every horizon on corrected validation support. It therefore does not establish incremental value or SOTA."
+  },
+  "control_interpretation": [
+    "At matched seed 7 and supervised-update count, meaningful future pairing scored better than the temporally shuffled control and the frozen-random encoder control.",
+    "The variance floor raised every teacher dimension well above near-zero variance, but effective rank remained only 11.93 to 13.45 of 128 and predictor effective rank remained 6.82 to 7.33; the representation is not fully high-rank.",
+    "The single-seed controls are diagnostic and cannot replace the frozen three-seed family comparison."
+  ],
+  "independent_execution": {
+    "focused_tests": "12 passed in 9.32s",
+    "artifact_hash_audit": "All five slot JSON files, all saved checkpoints, final checkpoints and prediction artifacts matched their declared SHA-256 digests and every manifest slot was DONE.",
+    "cohort_reconstruction": "Re-read TRAIN and validation through the frozen reader; reproduced 4,965 TRAIN rows, 4,923 forward pairs, 1,219 validation rows, the exact cohort and row digests, truth, masks and target source timestamps.",
+    "metric_recomputation": "Recomputed each complete corrected eligible-date metric dictionary exactly from the saved prediction rows; recomputed the frozen three-seed forward and direct ensembles.",
+    "checkpoint_reload": "Loaded every final state_dict strictly on CPU and reproduced every saved forecast with maximum absolute device difference 7.62939453125e-06 dB.",
+    "diagnostic_recomputation": "Reloaded the final pretrain endpoint for trained slots and the frozen random endpoint, then reproduced every stored TRAIN-only representation diagnostic exactly.",
+    "nonconstant_predictions": "All five prediction arrays were finite, monotone by quantile and nonconstant; standard deviations ranged from 3.0734 to 3.8875 dB.",
+    "calibration_or_test_numeric_access": false
+  },
+  "resource_evidence": {
+    "device": "cuda",
+    "maximum_reported_process_rss_bytes": 2138431488,
+    "maximum_reported_gpu_reserved_bytes": 25165824,
+    "within_repository_limits": true
+  },
+  "limitations": [
+    "This was a post-hoc TRAIN/validation extension designed after core development evidence.",
+    "The forward family used 1,500 supervised updates per seed versus 3,000 for the direct reference, so total updates are matched while labeled-update budgets differ.",
+    "Validation and single-deployment representation diagnostics do not establish external generalization, causal biology, calibrated absolute backscatter, or production value.",
+    "No model selection, calibration, retrospective TEST access, or final value-gate decision is approved by this outcome review."
+  ],
+  "calibration_access": "PROHIBITED_PENDING_COMPLETE_SELECTION_AND_SEPARATE_REVIEW",
+  "test_access": "PROHIBITED"
+}
