@@ -1,0 +1,66 @@
+{
+  "task": "R3-AEON-FINAL-SOURCE-APPROVAL-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "status": "APPROVED_AEON_FINAL_SOURCE_AND_TRUTH_FREE_REPLAY",
+  "disposition": "APPROVE_CORRECTED_SOURCE_FOR_SEPARATE_EXACT_OFFLINE_PACKAGE_REVIEW",
+  "source_commit": "0671a6a9351b3b50107d0334b7f3ae5071de7ed3",
+  "superseded_request_changes_review_sha256": "bb2b18a0e301170b1182a08273017c819340b30e7497263b5fe8156b63b06abb",
+  "source_sha256": {
+    "src/marine_echo/serving/aeon_final.py": "6cf14014471af46966a23877004b34d1acec13c62a45bd60ee6af63b87551198",
+    "src/marine_echo/serving/aeon_study.py": "1797d500c56f190e2f7064b6c265f87eaef193d5e50fe8d3054a30b6e87d8cd2",
+    "src/marine_echo/serving/aeon_portable.py": "59f4552aee6b019df5beac1060eb7a47bdc773bd39e52a42b2e463f2a51183bb",
+    "src/marine_echo/serving/api.py": "a578131d70dcb0f6800d157e9ad000c6142dc4990d4924e8453136f3319aaac1",
+    "release/aeon_portable/Run-AEON-Research.ps1": "890c6317447936ab9fcec6652b714ac749d0a554725b869c34cd13551cf73e71",
+    "web/src/api/client.ts": "3fcd95bfed712316782c96970665a5554e6f52a97790bec8487d9f90481f3a71",
+    "web/src/pages/AeonStudyPage.tsx": "a94db925dd3abd1c0d411992dba410b9d5aa1711a3b0cbc2285b3752c39eedf7",
+    "tests/unit/test_aeon_final_release.py": "3ecb47aea73088ce30ef215eccf16a395253207f33c8b441f7caef731fa27cee"
+  },
+  "evidence_bindings": {
+    "test_score_sha256": "23f9d350528e9f99b35949c6281c39d209dff7f7db44a992d241d64ccde8bd89",
+    "test_outcome_review_sha256": "75a241f00d34f8d373ccbd4c5b2e2c35397e2c0ff0a20a6e112ce4953f13489a",
+    "metadata_candidate_report_sha256": "40510cfb321cbb57bc24f309f0e11cd0a2d274c181370ae6d13efdc26972be93",
+    "calibration_artifact_sha256": "a6e35bc5fa5c27b2b0669e7fb9fe7f8ff1bdd69952193418bbbe130e46438c94",
+    "selection_freeze_sha256": "b3940ab8e159ac8808843b15b455ffb3c42f2d3db322190af15b80e543edff58",
+    "pretest_freeze_sha256": "f9062592b6196f49e86cf938205215670800a14c03c4542576c0b341a6018281",
+    "forecast_sha256": {
+      "core_direct_equal_three_seed_ensemble": "780c1e3d5dea0278af507266095dc1901885f5441c03f9a20bcd55122480e3a8",
+      "core_ema_equal_three_seed_ensemble": "7506ec42d4488f660d42ee444a97b63756c8b992dbb9858931dcea3d0fc194c6",
+      "post_hoc_lightgbm": "b48812bf26d6c611edd2dba032885f68f10b9ed28c05f611b12794acef340638"
+    }
+  },
+  "resolved_findings": [
+    "The study and portable README now state that the EMA-JEPA forecast family passed the frozen within-study retrospective gate while representation attribution, SOTA, external generalization and business validation remain unestablished.",
+    "The UI now says family selection was post hoc in development and frozen before TEST; it no longer calls the full comparison prespecified."
+  ],
+  "independent_execution": {
+    "python_tests": "13 passed in 6.82s: Python 3.14 pytest tests/unit/test_aeon_final_release.py tests/unit/test_aeon_study_release.py -q -p no:cacheprovider",
+    "ruff": "All checks passed on the final loader, study builder, portable wrapper, API and final-release tests.",
+    "exact_loader": "Loaded the byte-pinned real TEST score, review, metadata candidate report and three forecast NPZ files; obtained 1,216 truth-free replay rows and the exact bounded within-study gate plus attribution status.",
+    "temporary_package_and_api": "Built an exact temporary research package, preserved the 25 historical blocked registry rows, produced 3,648 saved model-row predictions, returned HTTP 200 from the study and paged replay APIs, rejected an unknown model, and kept AEON off the UTC forecast endpoint.",
+    "web_tests": "Vitest: 1 file and 2 tests passed in 1.91s.",
+    "typescript": "tsc --noEmit exited 0.",
+    "eslint": "eslint src exited 0.",
+    "production_build": "Vite 8.3.1 production build exited 0 with 23 modules transformed.",
+    "claim_search": "No superseded no-JEPA-gate or prespecified-within-study wording remains in source, release template or report."
+  },
+  "security_and_data_review": [
+    "Production fails closed on the exact independent review, score, selection, CAL, pretest, candidate and forecast digests before serving replay.",
+    "Replay contains only row identity, source-reported cutoff, interval identity and saved quantiles. It contains no target values and is explicitly historical, retrospective, source-clock and non-live.",
+    "The replay endpoint restricts model identity and page size, binds the replay score to the study score, and remains separate from the UTC forecast route.",
+    "The package retains the original failed v1/v2 evidence and 25-row blocked registry while adding the separately labelled AEON study."
+  ],
+  "scientific_claim_review": [
+    "The UI and report accurately show the exact direct, EMA-JEPA and post-hoc LightGBM retrospective metrics and distinguish the full EMA gate pass from the LightGBM five-percent failure.",
+    "The source says the family selection was post hoc in development and frozen before TEST; TEST is not described as sealed or externally replicated.",
+    "The passed forecast-family gate is not presented as proof of learned-representation causality, SOTA, external generalization, calibrated absolute backscatter, biology, production or business value."
+  ],
+  "findings": [],
+  "limitations": [
+    "This artifact approves source behavior at commit 0671a6a. It does not approve any archive built from different bytes.",
+    "The exact relocated offline archive, checksums, offline installation, loopback server and browser-visible page/replay still require a separate package review."
+  ],
+  "next_action": "Audit the exact r3 relocated offline archive and issue a distinct package disposition only if integrity, offline startup, API and browser checks pass."
+}
