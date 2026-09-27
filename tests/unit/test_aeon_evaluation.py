@@ -33,16 +33,34 @@ def test_eligible_dates_require_18_observed_issued_anchors_per_horizon() -> None
 
 
 def test_calibration_only_widens_extreme_quantiles_without_touching_middle() -> None:
-    forecast = _forecast(5)
-    truth = np.array([[0.0, 4.0, -4.0]] * 5)
-    mask = np.ones((5, 3), dtype=bool)
-    adjustment = calibrate_interval_widening(truth, forecast, mask, partition="calibration")
-    np.testing.assert_array_equal(adjustment, [0.0, 2.0, 2.0])
-    widened = apply_interval_widening(forecast, adjustment)
+    forecast = _forecast(24)
+    truth = np.array([[0.0, 4.0, -4.0]] * 24)
+    mask = np.ones((24, 3), dtype=bool)
+    result = calibrate_interval_widening(
+        truth, forecast, mask, _times(1, 24), partition="calibration"
+    )
+    assert result["adjustment_db"] == [0.0, 2.0, 2.0]
+    assert result["eligible_days_per_horizon"] == [1, 1, 1]
+    widened = apply_interval_widening(forecast, np.asarray(result["adjustment_db"]))
     np.testing.assert_array_equal(widened[..., 1:4], forecast[..., 1:4])
     assert (np.diff(widened, axis=-1) >= 0).all()
     with pytest.raises(ValueError, match="calibration"):
-        calibrate_interval_widening(truth, forecast, mask, partition="test")
+        calibrate_interval_widening(truth, forecast, mask, _times(1, 24), partition="test")
+
+
+def test_calibration_excludes_low_support_extreme_outlier_day() -> None:
+    forecast = _forecast(48)
+    truth = np.zeros((48, 3))
+    truth[24] = 1000.0
+    mask = np.ones((48, 3), dtype=bool)
+    mask[25:] = False
+    result = calibrate_interval_widening(
+        truth, forecast, mask, _times(2, 24), partition="calibration"
+    )
+    assert result["adjustment_db"] == [0.0, 0.0, 0.0]
+    assert result["eligible_days_per_horizon"] == [1, 1, 1]
+    assert result["eligible_rows_per_horizon"] == [24, 24, 24]
+    assert result["all_scored_days_per_horizon"] == [2, 2, 2]
 
 
 def test_daily_loss_uses_equal_source_dates_and_horizons() -> None:
@@ -77,6 +95,7 @@ def test_low_support_day_is_excluded_from_scores_and_bootstrap() -> None:
     actual = daily_pinball(truth, forecast, mask, _times(3, 24))
     assert actual["primary_daily_mean_pinball_db"] == expected["primary_daily_mean_pinball_db"]
     assert actual["eligible_days_per_horizon"] == [2, 2, 2]
+    assert actual["all_scored_days_per_horizon"] == [3, 3, 3]
     np.testing.assert_array_equal(
         paired_48h_bootstrap(truth, forecast, forecast + 1, mask, _times(3, 24)),
         paired_48h_bootstrap(
@@ -97,3 +116,16 @@ def test_paired_bootstrap_is_seeded_and_preserves_pairing() -> None:
     assert first.shape == (2000,)
     assert np.isfinite(first).all()
     assert (first >= 0).all()
+
+
+def test_paired_bootstrap_does_not_require_one_row_with_all_horizons() -> None:
+    times = _times(3, 24)
+    truth = np.zeros((72, 3))
+    mask = np.zeros_like(truth, dtype=bool)
+    mask[:18, 0] = True
+    mask[24:42, 1] = True
+    mask[48:66, 2] = True
+    assert not mask.all(axis=1).any()
+    result = paired_48h_bootstrap(truth, _forecast(72), _forecast(72) + 1, mask, times)
+    assert result.shape == (2000,)
+    assert np.isfinite(result).all()

@@ -126,6 +126,9 @@ def daily_pinball(
     return {
         "issued_rows": len(truth),
         "scored_rows_per_horizon": observed.sum(axis=0).astype(int).tolist(),
+        "all_scored_days_per_horizon": [
+            len(np.unique(dates[observed[:, index], index])) for index in range(3)
+        ],
         "scored_fraction_per_horizon": observed.mean(axis=0).astype(float).tolist(),
         "eligible_scored_rows_per_horizon": eligible_rows,
         "eligible_days_per_horizon": scored_days,
@@ -145,24 +148,37 @@ def calibrate_interval_widening(
     truth: NDArray[np.float64],
     forecast: NDArray[np.float64],
     observed: NDArray[np.bool_],
+    source_times: NDArray[np.datetime64],
     *,
     partition: str,
-) -> NDArray[np.float64]:
+) -> dict[str, object]:
     """Fit nonnegative 90% interval widening on calibration outcomes only."""
     if partition != "calibration":
         raise ValueError("AEON interval widening may fit calibration only.")
-    _validate(truth, forecast, observed)
+    _validate(truth, forecast, observed, source_times)
+    dates = source_times.astype("datetime64[D]")
+    eligible_days = _eligible_dates_by_horizon(source_times, observed)
     adjustments = []
+    eligible_rows = []
     for horizon in range(3):
-        valid = observed[:, horizon]
+        valid = observed[:, horizon] & np.isin(dates[:, horizon], eligible_days[horizon])
         if not valid.any():
-            raise ValueError("Every AEON calibration horizon needs observed outcomes.")
+            raise ValueError("Every AEON calibration horizon needs eligible source dates.")
         score = np.maximum(
             forecast[valid, horizon, 0] - truth[valid, horizon],
             truth[valid, horizon] - forecast[valid, horizon, 4],
         )
         adjustments.append(max(0.0, float(np.quantile(score, 0.9, method="higher"))))
-    return np.asarray(adjustments, dtype=np.float64)
+        eligible_rows.append(int(valid.sum()))
+    return {
+        "adjustment_db": adjustments,
+        "eligible_days_per_horizon": [len(days) for days in eligible_days],
+        "eligible_rows_per_horizon": eligible_rows,
+        "all_scored_days_per_horizon": [
+            len(np.unique(dates[observed[:, index], index])) for index in range(3)
+        ],
+        "eligible_source_dates_by_horizon": [days.astype(str).tolist() for days in eligible_days],
+    }
 
 
 def apply_interval_widening(
