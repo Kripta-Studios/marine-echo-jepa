@@ -45,7 +45,7 @@ SOURCE_CONTRACTS = {
     "hybrid": ("APPROVED_AEON_HYBRID_OUTCOME_NO_SELECTION", "hybrid_report", set(HYBRID_SLOTS)),
     "lightgbm": ("APPROVED_AEON_POST_HOC_SUPERVISED_OUTCOME_NO_SELECTION", "report", {"post_hoc_lightgbm"}),
     "forward": ("APPROVED_AEON_FORWARD_OUTCOME_NO_SELECTION", "forward_manifest", set(FORWARD_SLOTS)),
-    "chronos": ("APPROVED_AEON_CHRONOS_OUTCOME_NO_SELECTION", "chronos_manifest", {"post_hoc_chronos2"}),
+    "chronos": ("APPROVED_AEON_CHRONOS2_OUTCOME_NO_SELECTION", "chronos_manifest", {"post_hoc_chronos2"}),
 }
 ENSEMBLES = {
     "core_direct_equal_three_seed_ensemble": tuple(f"direct_seed{seed}" for seed in (7, 13, 23)),
