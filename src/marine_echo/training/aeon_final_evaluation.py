@@ -331,7 +331,56 @@ def _plan_artifact(directory: Path, value: dict[str, Any]) -> Any:
     path = Path(value["path"])
     if path.is_absolute() or ".." in path.parts:
         raise ValueError("AEON adapter-plan artifact escapes its directory.")
-    return FrozenArtifact((directory / path).resolve(strict=True), value["sha256"])
+    resolved_directory = directory.resolve(strict=True)
+    resolved = (resolved_directory / path).resolve(strict=True)
+    if not resolved.is_relative_to(resolved_directory):
+        raise ValueError("AEON adapter-plan artifact escapes its directory.")
+    return FrozenArtifact(resolved, value["sha256"])
+
+
+def _preflight_forecast_plan(
+    entries: list[dict[str, Any]], directory: Path, *, fixture: bool,
+) -> None:
+    """Validate all model bytes and options before opening a numeric partition."""
+    if fixture:
+        if any(entry.get("adapter") != "SYNTHETIC_FIXTURE" for entry in entries):
+            raise ValueError("Synthetic AEON review contains a real adapter plan.")
+        return
+    from marine_echo.training.aeon_forecast_adapters import preflight_chronos_snapshot
+
+    for entry in entries:
+        adapter = entry["adapter"]
+        options = entry.get("options")
+        components = entry.get("component_artifacts")
+        if not isinstance(options, dict) or not isinstance(components, list):
+            raise TypeError("AEON adapter plan lacks options or component artifacts.")
+        artifacts = [_plan_artifact(directory, item) for item in components]
+        if any(artifact_sha256(item.path) != item.sha256 for item in artifacts):
+            raise ValueError("AEON adapter-plan component digest differs.")
+        family = options.get("family")
+        if adapter == "conventional":
+            valid = len(artifacts) == 1 and isinstance(family, str)
+        elif adapter == "core_neural_ensemble":
+            valid = len(artifacts) == 3 and isinstance(family, str)
+        elif adapter == "lightgbm":
+            valid = (
+                len(artifacts) == 2
+                and options.get("recipe_sha256") == components[1].get("sha256")
+            )
+        elif adapter == "forward_ema_ensemble":
+            valid = len(artifacts) == 3 and isinstance(options.get("config_sha256"), str)
+        elif adapter == "chronos2" and not artifacts:
+            snapshot = Path(options.get("snapshot", ""))
+            if snapshot.is_absolute() or ".." in snapshot.parts:
+                raise ValueError("Chronos snapshot escapes the adapter-plan directory.")
+            preflight_chronos_snapshot(
+                directory / snapshot, options.get("snapshot_files_sha256")
+            )
+            valid = True
+        else:
+            valid = False
+        if not valid:
+            raise ValueError(f"Unsupported or malformed AEON adapter plan: {adapter}.")
 
 
 def _execute_forecast_plan(
@@ -574,6 +623,7 @@ def execute_calibration(
     _reader_review_gate(
         reader_review_path, reader_review_sha256, "calibration", fixture,
     )
+    _preflight_forecast_plan(forecast_plan, forecast_manifest_path.parent, fixture=fixture)
     reader = _reader(
         archive=archive, review_path=reader_review_path, review_sha256=reader_review_sha256,
         partition="calibration", fixture=fixture, fixture_reader=fixture_reader,
@@ -787,6 +837,7 @@ def execute_retrospective_test(
     _reader_review_gate(
         reader_review_path, reader_review_sha256, "test", fixture,
     )
+    _preflight_forecast_plan(forecast_plan, forecast_manifest_path.parent, fixture=fixture)
     reader = _reader(
         archive=archive, review_path=reader_review_path, review_sha256=reader_review_sha256,
         partition="test", fixture=fixture, fixture_reader=fixture_reader,

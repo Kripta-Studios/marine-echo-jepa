@@ -313,6 +313,45 @@ def test_calibration_component_substitution_precedes_reader(tmp_path: Path) -> N
     assert not reader.opened
 
 
+def test_missing_real_component_bytes_precede_reader_construction(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    rows = [_window(i, "calibration", "2024-12-01") for i in range(12 * 24)]
+    config, selection, selection_sha, _, _, manifest, manifest_sha = _contract(
+        tmp_path, "calibration", rows
+    )
+    reader = _Reader(rows)
+    review, review_sha = _review(tmp_path, "calibration", {
+        "selection_freeze_sha256": selection_sha,
+        "forecast_manifest_sha256": manifest_sha,
+        "config_sha256": artifact_sha256(config),
+        "reader_review_sha256": _reader_review(tmp_path, "calibration")[1],
+    })
+    real_entry = {
+        "adapter": "conventional",
+        "options": {"family": "persistence"},
+        "component_artifacts": [{
+            "artifact_id": "missing-model", "path": "missing.joblib", "sha256": "a" * 64,
+        }],
+    }
+    original = aeon_final_evaluation._preflight_forecast_plan
+
+    def missing_preflight(*_args: object, **_kwargs: object) -> None:
+        original([real_entry], tmp_path, fixture=False)
+
+    monkeypatch.setattr(aeon_final_evaluation, "_preflight_forecast_plan", missing_preflight)
+    with pytest.raises(FileNotFoundError):
+        execute_calibration(
+            archive=tmp_path, reader_review_path=_reader_review(tmp_path, "calibration")[0],
+            reader_review_sha256=_reader_review(tmp_path, "calibration")[1],
+            runner_review_path=review, runner_review_sha256=review_sha, config_path=config,
+            selection_freeze_path=selection, forecast_manifest_path=manifest,
+            output=tmp_path / "never", fixture_reader=reader,
+            fixture_forecaster=_fixture_forecaster,
+        )
+    assert not reader.opened
+
+
 def test_real_review_rejects_synthetic_selection_before_reader(tmp_path: Path) -> None:
     rows = [_window(i, "calibration", "2024-12-01") for i in range(12 * 24)]
     config, selection, selection_sha, _, _, manifest, manifest_sha = _contract(

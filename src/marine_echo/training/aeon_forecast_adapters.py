@@ -315,6 +315,23 @@ def _chronos_context(rows: Sequence[AeonHourlyWindow]) -> NDArray[np.float64]:
     return values.transpose(0, 2, 1)
 
 
+def preflight_chronos_snapshot(
+    snapshot: Path, snapshot_files_sha256: dict[str, str] | None,
+) -> Path:
+    """Validate the exact local Chronos snapshot without loading the model."""
+    if snapshot_files_sha256 != CHRONOS_SNAPSHOT_SHA256:
+        raise ValueError("Chronos-2 snapshot differs from exact revision " + MODEL_REVISION + ".")
+    resolved = snapshot.resolve(strict=True)
+    present = {path.name for path in resolved.iterdir()}
+    if present != set(CHRONOS_SNAPSHOT_SHA256) or any(
+        not (resolved / name).is_file() for name in present
+    ):
+        raise ValueError("Chronos-2 snapshot contains missing or extra files.")
+    if any(_sha256(resolved / name) != digest for name, digest in snapshot_files_sha256.items()):
+        raise ValueError("Chronos-2 snapshot digest differs.")
+    return resolved
+
+
 def adapt_chronos2(
     rows: Sequence[AeonHourlyWindow], *, snapshot: Path | None = None,
     snapshot_files_sha256: dict[str, str] | None = None,
@@ -328,16 +345,7 @@ def adapt_chronos2(
     if pipeline is None:
         if fixture_only or snapshot is None or snapshot_files_sha256 is None:
             raise ValueError("Real Chronos adaptation needs the exact reviewed local snapshot.")
-        if snapshot_files_sha256 != CHRONOS_SNAPSHOT_SHA256:
-            raise ValueError("Chronos-2 snapshot differs from exact revision " + MODEL_REVISION + ".")
-        snapshot = snapshot.resolve(strict=True)
-        present = {path.name for path in snapshot.iterdir()}
-        if present != set(CHRONOS_SNAPSHOT_SHA256) or any(
-            not (snapshot / name).is_file() for name in present
-        ):
-            raise ValueError("Chronos-2 snapshot contains missing or extra files.")
-        if any(_sha256(snapshot / name) != digest for name, digest in snapshot_files_sha256.items()):
-            raise ValueError("Chronos-2 snapshot digest differs.")
+        snapshot = preflight_chronos_snapshot(snapshot, snapshot_files_sha256)
         pipeline = _load_official_pipeline(snapshot, device=device)
     quantiles, _ = pipeline.predict_quantiles(
         inputs=_chronos_context(rows), prediction_length=6,
