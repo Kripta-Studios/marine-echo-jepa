@@ -1,0 +1,43 @@
+{
+  "source_url": "https://download.pangaea.de/dataset/953621/files/azfp55171-bioacoustics.zip",
+  "archive_bytes": 11130360245,
+  "documents": {
+    "20012206.DPL": {
+      "method": 8,
+      "crc32": 1276925304,
+      "compressed_bytes": 756,
+      "uncompressed_bytes": 6264,
+      "local_header_offset": 3876,
+      "sha256": "84fa495b368fbe28844d8bd5acb4d2016aa6615a1acde55bc52210748d5cc167",
+      "path": "data\\raw\\pangaea\\mosaic_azfp_up_2020_metadata\\20012206.DPL"
+    },
+    "20012206.XML": {
+      "method": 8,
+      "crc32": 3240502284,
+      "compressed_bytes": 1868,
+      "uncompressed_bytes": 14125,
+      "local_header_offset": 0,
+      "sha256": "418ae6600c0d48e1ffb503179197fc0a3211af79b4e500bf1e7bc8c7660b8c24",
+      "path": "data\\raw\\pangaea\\mosaic_azfp_up_2020_metadata\\20012206.XML"
+    },
+    "20080307.DPL": {
+      "method": 8,
+      "crc32": 2879867020,
+      "compressed_bytes": 755,
+      "uncompressed_bytes": 6264,
+      "local_header_offset": 4702,
+      "sha256": "1366e31e8af4118ac45df6ca5eb53f0e3cd4bba58c533b85dc5bee9b2f5d0c8d",
+      "path": "data\\raw\\pangaea\\mosaic_azfp_up_2020_metadata\\20080307.DPL"
+    },
+    "20080307.XML": {
+      "method": 8,
+      "crc32": 3240502284,
+      "compressed_bytes": 1868,
+      "uncompressed_bytes": 14125,
+      "local_header_offset": 1938,
+      "sha256": "418ae6600c0d48e1ffb503179197fc0a3211af79b4e500bf1e7bc8c7660b8c24",
+      "path": "data\\raw\\pangaea\\mosaic_azfp_up_2020_metadata\\20080307.XML"
+    }
+  },
+  "acoustic_payload_bytes_read": 0
+}

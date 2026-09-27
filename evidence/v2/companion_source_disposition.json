@@ -1,0 +1,32 @@
+{
+  "source_id": "pangaea_953621_upward_azfp",
+  "source_title": "Data from upward looking Acoustic zooplankton and fish profiler (AZFP) deployed on drifting sea ice in the Arctic during MOSAiC expedition",
+  "publisher_doi": "10.1594/PANGAEA.953621",
+  "publisher_catalog_url": "https://doi.pangaea.de/10.1594/PANGAEA.953621?format=html",
+  "publisher_license": "CC-BY-4.0",
+  "publisher_orientation": "upward-looking",
+  "publisher_claimed_frequencies_khz": [38, 125, 200, 455],
+  "publisher_coverage_utc": ["2020-01-29T11:55:00", "2020-08-03T08:17:00"],
+  "archive_url": "https://download.pangaea.de/dataset/953621/files/azfp55171-bioacoustics.zip",
+  "head_status": 200,
+  "archive_bytes": 11130360245,
+  "etag": "\"63bbeb20-2976bd1b5\"",
+  "last_modified": "Mon, 09 Jan 2023 10:23:28 GMT",
+  "zip64_member_count": 5015,
+  "zip64_directory_range_bytes": [11129914837, 11130360146],
+  "zip64_directory_sha256": "b25d6b372a00a9582723127074b809ecf0a9af4d9ab359577ad51645c6a2999b",
+  "catalog_and_document_scope": "The publisher calls the instrument upward-looking. Two byte-identical XMLs name serial 55171, four nominal frequencies and multiple sampling phases; two DPLs were also extracted. No acoustic member or certificate was obtained.",
+  "metadata_conflicts": [
+    "DPL says Average Burst Pings yes while XML AverageBurstPings is 0; format semantics require a raw-header check.",
+    "DPL/XML frequency metadata use Hz labels with 38/125/200/455 values; units require confirmation.",
+    "Sampling phases include 15-second and 4-second periods and zero pulse-length configurations; no homogeneous full-deployment assumption is permitted."
+  ],
+  "calibration_status": "NOT_ESTABLISHED_FOR_SERIAL_55171",
+  "acquisition_status": "BLOCKED_BY_8_GIB_SINGLE_FILE_CAP_AND_UNRESOLVED_CALIBRATION",
+  "single_file_cap_bytes": 8589934592,
+  "archive_downloaded": false,
+  "acoustic_payload_bytes_read": 0,
+  "archive_metadata_path": "evidence/v2/companion_archive_metadata.json",
+  "document_inventory_path": "evidence/v2/companion_document_inventory.json",
+  "reviewer_disposition": "Bounded metadata probe accepted; companion source not approved for calibrated processing or bulk acquisition."
+}

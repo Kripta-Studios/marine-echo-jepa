@@ -1,0 +1,41 @@
+{
+  "source_url": "https://download.pangaea.de/dataset/953621/files/azfp55171-bioacoustics.zip",
+  "head_status": 200,
+  "archive_bytes": 11130360245,
+  "single_file_cap_bytes": 8589934592,
+  "archive_exceeds_single_file_cap": true,
+  "metadata_bytes_transferred": 576382,
+  "zip64_member_count": 5015,
+  "zip64_directory_bytes": 445310,
+  "documentation_members": [
+    {
+      "name": "20012206.XML",
+      "compressed_bytes": 1868,
+      "uncompressed_bytes": 14125
+    },
+    {
+      "name": "20080307.XML",
+      "compressed_bytes": 1868,
+      "uncompressed_bytes": 14125
+    },
+    {
+      "name": "20012206.DPL",
+      "compressed_bytes": 756,
+      "uncompressed_bytes": 6264
+    },
+    {
+      "name": "20080307.DPL",
+      "compressed_bytes": 755,
+      "uncompressed_bytes": 6264
+    }
+  ],
+  "first_five_member_names": [
+    "20012206.XML",
+    "20080307.XML",
+    "20012206.DPL",
+    "20080307.DPL",
+    "20062115.05B"
+  ],
+  "acoustic_payload_bytes_read": 0,
+  "archive_downloaded": false
+}
