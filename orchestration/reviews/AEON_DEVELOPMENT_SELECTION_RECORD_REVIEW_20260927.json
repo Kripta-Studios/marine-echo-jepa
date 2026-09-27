@@ -1,0 +1,73 @@
+{
+  "task": "R2-AEON-REVIEWED-DEVELOPMENT-SELECTION-RECORD-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "status": "APPROVED_AEON_REVIEWED_DEVELOPMENT_SELECTION_RECORD",
+  "disposition": "APPROVE_ADR_0011_SELECTION_RECORD_ONLY",
+  "selection_adr_path": "docs/adr/0011-aeon-reviewed-development-selection.md",
+  "selection_adr_sha256": "cd9ea9c7180b5e60d5271feb86436a634b6b8b971048715fa491bf639401ae73",
+  "evidence_binding": {
+    "neutral_comparison_sha256": "f4a0f4771868866ff7c330f4033c5ca9da7c6c36cdb19a1758cf2f383146757b",
+    "neutral_comparison_outcome_review_sha256": "53a3a164915eea4ab3bc8851c096bbc42821cb05330eb4c2829039df83df3e07",
+    "selection_rule_adr_sha256": "93a0e89f96dd04aa42d55e6f974a047b30270896d6046287585612f0a1829872",
+    "selection_rule_review_sha256": "dd3dcbdf5e93d42e021abbaf4bf310bec0b40ea52d53411802e00770840127b2"
+  },
+  "verified_choices": {
+    "core_conventional": {
+      "family": "direct_neural_equal_three_seed_ensemble",
+      "validation_primary_daily_mean_pinball_db": 0.6390617417693784,
+      "weights": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "checkpoint_sha256_by_seed": {
+        "7": "a616f9160f359e54a6da5d87dc3b7a46edfee46e449e2944af7a69be8ae25c95",
+        "13": "eb6ca62f4c68024b43ea8b2102a0754d646623fd91cbf1ad31fb72218faf48dc",
+        "23": "ee3ae09ebf05bc41ec762e946a1d0046be33fff4ea47472a992893a294054761"
+      }
+    },
+    "core_jepa": {
+      "family": "ema_jepa_equal_three_seed_ensemble",
+      "validation_primary_daily_mean_pinball_db": 0.6421704480588958,
+      "weights": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "checkpoint_sha256_by_seed": {
+        "7": "f1fc41860e21cb2c47868488b051c68cd951487d717fc0fe033e63b8dfcc664c",
+        "13": "59cb3d1e6d79ca2d9807f24c5e816d0e5c89fad0e274e703d6e9da5b44024633",
+        "23": "4a7c63931a31a48f60323b944110df9292856f39cb822ce0b891371a10a16a15"
+      }
+    },
+    "post_hoc_operational": {
+      "family": "lightgbm_15_quantile_heads",
+      "classification": "POST_HOC_DEVELOPMENT_SELECTION",
+      "validation_primary_daily_mean_pinball_db": 0.6384597244651752,
+      "model_sha256": "164389731cd5d2e0694d1fb5228196196e7701fc73269e79ef84d85520fb168b",
+      "recipe_sha256": "3feee4089ce790c66adb189ff82ad4e006c350822a23aaa494e86afaef884eea"
+    }
+  },
+  "independent_checks": [
+    "Applied ADR 0010's fixed family categories and lowest-score rule to the independently reconstructed 40-candidate neutral comparison.",
+    "Verified all six selected neural checkpoint hashes, the LightGBM model hash and its frozen recipe hash directly from local immutable artifacts.",
+    "Verified that the core EMA ensemble is the lowest eligible core JEPA family and that neither hybrid ensemble is selected.",
+    "Verified that LightGBM is the lowest eligible post-hoc operational candidate and remains separately classified from both core choices."
+  ],
+  "scientific_interpretation": [
+    "Core EMA is 0.0031087062895174267 dB, or 0.4864485051022319 percent, worse than the direct ensemble on development validation; its paired interval crosses zero.",
+    "LightGBM is 0.0006020173042031729 dB, or 0.09420330851544327 percent, better than the direct ensemble on development validation; its paired interval crosses zero.",
+    "The choices are post-hoc development selections subject to selection-induced optimism. They establish neither incremental JEPA value nor state of the art."
+  ],
+  "conditions_before_calibration_numeric_access": [
+    "Create and independently approve a machine-readable freeze that binds these exact components, canonical ensemble member order and weights, forecast adapter dependency graph, corrected scorer, CAL widening rule and metadata-only TEST candidate universe.",
+    "The evaluator must reject every component substitution and must retain distinct core-conventional, core-JEPA and post-hoc classifications.",
+    "Calibration may alter only each frozen model's 90 percent interval endpoints and may not alter model choice, thresholds, horizons or target."
+  ],
+  "selection_is_confirmatory": false,
+  "sota_claim": "NOT_ESTABLISHED",
+  "incremental_jepa_value": "NOT_ESTABLISHED",
+  "calibration_access": "PROHIBITED_PENDING_MACHINE_READABLE_FREEZE_AND_EVALUATOR_APPROVAL",
+  "test_access": "PROHIBITED"
+}
