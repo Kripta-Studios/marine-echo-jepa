@@ -1,0 +1,101 @@
+{
+  "task": "R2-AEON-CHRONOS2-OUTCOME-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "status": "APPROVED_AEON_CHRONOS2_OUTCOME_NO_SELECTION",
+  "disposition": "APPROVE_FROZEN_ZERO_SHOT_TRAIN_VALIDATION_OUTCOME_FOR_POST_HOC_COMPARISON_ONLY",
+  "classification": "POST_HOC_TRAIN_VALIDATION_DEVELOPMENT",
+  "sota_claim": "NOT_ESTABLISHED",
+  "fit_behavior": "FROZEN_ZERO_SHOT_NO_TRAINING",
+  "manifest_path": "outputs/aeon3_geb_2024_hourly_sv_v1/chronos2_zero_shot/manifest.json",
+  "manifest_sha256": "b327153ea05504e38d1edfe35de77b625d28e48106ad9095d80eb62a8ec099cc",
+  "prediction_sha256": "b435d3b126e4dd1272639392cc0919ffe381f21963b2674a94df81ea11ed3266",
+  "prefit_review_sha256": "0d20c3e3fbe3b965928d068c9a5b66f83d1e618bd7893add32f932808a64d17d",
+  "config_sha256": "c0d8962fecdddef9ab4a771640a6ac07342805b50809b008a3ec490585d2104a",
+  "code_sha256": "07f98018af4e4914a5090c0b36f8cbdc244fa5a18b8dc3f37a557e275478b39b",
+  "source_archive_sha256": "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde",
+  "split_review_sha256": "b8031e2e113e39630c066cee65b4371f69b229ee905a72d832e53e6f505f297b",
+  "cohort_sha256": "5e475f6af798025f187c70ae638710d2b4362f688db2ad43d60ec436dda3e25d",
+  "corrected_validation_rescore_sha256": "32cea9f8141fbad220a3e47d9e840039ad23b4f8e893efbcfb90f52944214c46",
+  "corrected_validation_outcome_review_sha256": "16bb9ef931f5e2d8f8a3322fa609c5cb1c769f99f5e4a89a5ef519a0fb52f44f",
+  "validation_row_sha256": "9ce5ed6d60c4082efd3f342b3ee09ddadc5cf6286be6d6a3e953ab0f6166a99f",
+  "context_row_sha256": "ea6728982ca445a2bc3317b4d8e26e5e367c1bf48dea1a2e4002a900f732202d",
+  "model": {
+    "repo_id": "amazon/chronos-2",
+    "revision": "29ec3766d36d6f73f0696f85560a422f50e8498c",
+    "package": "chronos-forecasting",
+    "package_version": "2.3.2",
+    "license": "Apache-2.0",
+    "snapshot_files_sha256": {
+      ".gitattributes": "11ad7efa24975ee4b0c3c3a38ed18737f0658a5f75a0a96787b576a78a023361",
+      "README.md": "c7b29bc88f5bc3ebc6e7213b6353be80090d671fefa4aa74ed20498838c16558",
+      "config.json": "ef1143bfdc9c0376d9a056eefca46cb4b1ec3d0ffacd541ff56feb40fb708031",
+      "model.safetensors": "ddcda3c7508bf2528087723e98a20707cc04b7f370ae275a9fd88078ddba4f42"
+    }
+  },
+  "artifact_integrity": {
+    "completed_shards": 77,
+    "canonical_first_shard": "batch-000000.npz",
+    "canonical_first_shard_sha256": "9730566b362d0f6d0da5b9d8b89d9db85a3b28cc5667d3a47e0600f7c728db94",
+    "canonical_last_shard": "batch-000076.npz",
+    "canonical_last_shard_sha256": "f4c0ec949727ca065f30d4e2be27e5ee457935f951a5a71f42bdb49bb2ade165",
+    "all_declared_shard_hashes_verified": true,
+    "canonical_assembly_matches_prediction_exactly": true
+  },
+  "validation_metrics": {
+    "issued_rows": 1219,
+    "scored_rows_per_horizon": [1217, 1217, 1217],
+    "eligible_scored_rows_per_horizon": [1194, 1192, 1189],
+    "eligible_source_dates_per_horizon": [50, 50, 50],
+    "primary_daily_mean_pinball_db": 0.6935176150003005,
+    "daily_mean_pinball_db_per_horizon": [
+      0.6090728945950558,
+      0.722378062691163,
+      0.749101887714683
+    ],
+    "median_mae_db_per_horizon": [
+      1.9015699493238492,
+      2.270173760946184,
+      2.3196148082323647
+    ],
+    "raw_90_percent_coverage_per_horizon": [
+      0.914572864321608,
+      0.9387583892617449,
+      0.9562657695542472
+    ],
+    "raw_90_percent_width_db_per_horizon": [
+      8.717964664376161,
+      11.276730419005323,
+      12.948961452038175
+    ]
+  },
+  "development_interpretation": [
+    "Chronos-2 produced genuine finite, nonconstant, monotone five-quantile forecasts for every frozen validation issuance.",
+    "Its corrected validation primary loss 0.6935176150 dB is worse than the independently reconstructed direct-neural ensemble loss 0.6390617418 dB and the post-hoc forward-EMA ensemble loss 0.6533145184 dB.",
+    "This local zero-shot result does not establish state of the art and is eligible only for the prespecified neutral post-hoc development comparison."
+  ],
+  "independent_execution": {
+    "focused_and_adapter_tests": "14 passed in 8.44s; 24 pre-existing NumPy generic-timedelta deprecation warnings",
+    "cohort_reconstruction": "Re-read the exact 1,219 validation windows and reproduced the cohort, standard validation-row and full context/input SHA-256 digests.",
+    "model_snapshot_audit": "Rehashed the exact four-file local snapshot; every file matched the pinned revision contract.",
+    "shard_audit": "Rehashed and loaded all 77 canonical shards, verified exact row order and monotone finite geometry, and assembled an array bit-identical to the saved final prediction artifact.",
+    "metric_recomputation": "Recomputed the complete corrected eligible-target-source-date metric dictionary exactly from saved rows and predictions.",
+    "real_model_reproduction": "Reloaded the official Chronos2Pipeline from the pinned local snapshot on CUDA and independently reproduced the first 16-row shard bit exactly (maximum absolute difference 0.0 dB).",
+    "nonconstant_predictions": "The final forecast tensor has standard deviation 4.4288212999920695 dB and range -101.4232177734375 to -57.44981002807617 dB.",
+    "calibration_or_test_numeric_access": false
+  },
+  "resource_evidence": {
+    "device": "cuda",
+    "cumulative_inference_seconds": 175.7929507000008,
+    "peak_process_tree_rss_bytes": 1612664832,
+    "peak_gpu_reserved_bytes": 515899392,
+    "within_repository_limits": true
+  },
+  "limitations": [
+    "This model was introduced after core development evidence and the run is post-hoc validation development.",
+    "The result covers one fixed AEON source deployment and does not establish external generalization, calibrated absolute backscatter, biological causality, or production value.",
+    "No model selection, calibration, retrospective TEST access, or final value-gate decision is approved by this review."
+  ],
+  "calibration_access": "PROHIBITED_PENDING_COMPLETE_SELECTION_AND_SEPARATE_REVIEW",
+  "test_access": "PROHIBITED"
+}
