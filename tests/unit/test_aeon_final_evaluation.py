@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+import importlib.metadata
 import json
 from pathlib import Path
 
@@ -103,56 +104,30 @@ def _contract(tmp_path: Path, partition: str, rows: list[AeonHourlyWindow]):
     })
     predictions = []
     model_specs = (
-        ("baseline", "baseline", "CORE_CONVENTIONAL_SELECTION", "3" * 64, 0.0),
-        ("core_jepa", "candidate", "CORE_JEPA_SELECTION", "4" * 64, 0.1),
-        ("candidate", "candidate", "POST_HOC_DEVELOPMENT_SELECTION", "5" * 64, 0.2),
+        ("baseline", "baseline", "CORE_CONVENTIONAL_SELECTION", "3" * 64),
+        ("core_jepa", "candidate", "CORE_JEPA_SELECTION", "4" * 64),
+        ("candidate", "candidate", "POST_HOC_DEVELOPMENT_SELECTION", "5" * 64),
     )
-    for model, role, classification, component_sha, shift in model_specs:
-        if partition == "calibration":
-            artifact = tmp_path / f"{partition}-{model}.npz"
-            q = np.broadcast_to(np.array([-2., -1., 0., 1., 2.]) + shift,
-                                (len(rows), 3, 5)).copy()
-            np.savez_compressed(
-                artifact, row_ids=np.asarray([r.row_id for r in rows]), quantiles_db=q
-            )
-            predictions.append({
-                "model_id": model, "role": role,
-                "selection_classification": classification,
-                "adapter": "SYNTHETIC_FIXTURE",
-                "component_artifacts": [{
-                    "artifact_id": (
-                        "baseline-model" if model == "baseline" else
-                        "core-jepa-models" if model == "core_jepa" else "post-hoc-model"
-                    ),
-                    "sha256": component_sha,
-                }],
-                "ensemble_weights": [1.0],
-                "adapter_composite_sha256": adapter_composite_sha256(),
-                "artifact": artifact.name,
-                "artifact_sha256": artifact_sha256(artifact),
-            })
-        else:
-            predictions.append({
-                "model_id": model, "role": role,
-                "selection_classification": classification,
-                "adapter": "SYNTHETIC_FIXTURE",
-                "ensemble_weights": [1.0],
-                "component_artifacts": [{
-                    "artifact_id": (
-                        "baseline-model" if model == "baseline" else
-                        "core-jepa-models" if model == "core_jepa" else "post-hoc-model"
-                    ),
-                    "path": f"{model}.fixture", "sha256": component_sha,
-                }],
-            })
+    for model, role, classification, component_sha in model_specs:
+        predictions.append({
+            "model_id": model, "role": role,
+            "selection_classification": classification,
+            "adapter": "SYNTHETIC_FIXTURE",
+            "ensemble_weights": [1.0],
+            "component_artifacts": [{
+                "artifact_id": (
+                    "baseline-model" if model == "baseline" else
+                    "core-jepa-models" if model == "core_jepa" else "post-hoc-model"
+                ),
+                "path": f"{model}.fixture", "sha256": component_sha,
+            }],
+        })
     candidate = None
     candidate_sha = None
     manifest = tmp_path / f"{partition}-forecasts.json"
     manifest_sha = _write_json(manifest, {
-        "schema_version": "1.0", "status": (
-            "FROZEN_AEON_PARTITION_FORECASTS" if partition == "calibration"
-            else "FROZEN_AEON_TEST_FORECAST_ADAPTER_PLAN"
-        ),
+        "schema_version": "1.0",
+        "status": f"FROZEN_AEON_{partition.upper()}_FORECAST_ADAPTER_PLAN",
         "study_id": "aeon3_geb_2024_hourly_sv_v1", "partition": partition,
         "selection_freeze_sha256": selection_sha,
         "candidate_contract_sha256": candidate_sha,
@@ -225,7 +200,7 @@ def _review(tmp_path: Path, partition: str, bindings: dict[str, str]) -> tuple[P
     reader_review = tmp_path / f"{partition}-reader-review.json"
     _write_json(reader_review, {
         "partition": partition,
-        "reviewer_session": "/reviewer/reader",
+        "reviewer_session": "/root/aeon_reviewer",
         "partition_access": (
             "CALIBRATION_FIXTURE_ONLY" if partition == "calibration"
             else "RETROSPECTIVE_TEST_FIXTURE_ONLY"
@@ -236,7 +211,7 @@ def _review(tmp_path: Path, partition: str, bindings: dict[str, str]) -> tuple[P
         "status": ("APPROVED_AEON_CALIBRATION_RUNNER_FIXTURE" if partition == "calibration"
                    else "APPROVED_AEON_RETROSPECTIVE_TEST_RUNNER_FIXTURE"),
         "data_kind": "SYNTHETIC_FIXTURE", "partition": partition,
-        "reviewer_session": "/reviewer/runner",
+        "reviewer_session": "/root/aeon_reviewer",
         "partition_access": (
             "CALIBRATION_FIXTURE_ONLY" if partition == "calibration"
             else "RETROSPECTIVE_TEST_FIXTURE_ONLY"
@@ -255,7 +230,7 @@ def _reader_review(tmp_path: Path, partition: str) -> tuple[Path, str]:
     if not path.exists():
         _write_json(path, {
             "partition": partition,
-            "reviewer_session": "/reviewer/reader",
+            "reviewer_session": "/root/aeon_reviewer",
             "partition_access": (
                 "CALIBRATION_FIXTURE_ONLY" if partition == "calibration"
                 else "RETROSPECTIVE_TEST_FIXTURE_ONLY"
@@ -282,6 +257,7 @@ def test_calibration_is_hash_gated_and_requires_twelve_eligible_dates(tmp_path: 
         runner_review_path=review, runner_review_sha256=review_sha, config_path=config,
         selection_freeze_path=selection, forecast_manifest_path=manifest,
         output=tmp_path / "calibration-output", fixture_reader=reader,
+        fixture_forecaster=_fixture_forecaster,
     )
     assert result["status"] == "COMPLETED_AEON_CALIBRATION_INTERVAL_WIDENING"
     assert result["models"]["baseline"]["eligible_days_per_horizon"] == [12, 12, 12]
@@ -326,7 +302,7 @@ def test_calibration_component_substitution_precedes_reader(tmp_path: Path) -> N
         "config_sha256": artifact_sha256(config),
         "reader_review_sha256": _reader_review(tmp_path, "calibration")[1],
     })
-    with pytest.raises(ValueError, match="forecast provenance"):
+    with pytest.raises(ValueError, match="adapter plan differs"):
         execute_calibration(
             archive=tmp_path, reader_review_path=_reader_review(tmp_path, "calibration")[0],
             reader_review_sha256=_reader_review(tmp_path, "calibration")[1],
@@ -365,10 +341,10 @@ def test_real_review_rejects_synthetic_selection_before_reader(tmp_path: Path) -
 
 
 @pytest.mark.parametrize(("field", "value"), [
-    ("reviewer_session", "/reviewer/runner"),
+    ("reviewer_session", "/reviewer/arbitrary"),
     ("partition_access", "RETROSPECTIVE_TEST_FIXTURE_ONLY"),
 ])
-def test_reader_review_requires_distinct_partition_approval(
+def test_reader_review_requires_trusted_partition_approval(
     tmp_path: Path, field: str, value: str,
 ) -> None:
     rows = [_window(i, "calibration", "2024-12-01") for i in range(12 * 24)]
@@ -389,7 +365,7 @@ def test_reader_review_requires_distinct_partition_approval(
     review_value = json.loads(review.read_text())
     review_value["reader_review_sha256"] = reader_sha
     review_sha = _write_json(review, review_value)
-    with pytest.raises(ValueError, match="distinct partition-specific approval"):
+    with pytest.raises(ValueError, match="trusted partition-specific approval"):
         execute_calibration(
             archive=tmp_path, reader_review_path=reader_path,
             reader_review_sha256=reader_sha, runner_review_path=review,
@@ -445,6 +421,14 @@ def test_adapter_dependency_mutation_changes_composite_gate(
     mutated.write_bytes(Path(dependency.__file__).read_bytes() + b"\n# mutation\n")
     monkeypatch.setattr(dependency, "__file__", str(mutated))
     assert adapter_composite_sha256() != original
+
+
+def test_adapter_composite_is_independent_of_installed_distribution_versions(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    original = adapter_composite_sha256()
+    monkeypatch.setattr(importlib.metadata, "version", lambda _name: "arbitrary-environment")
+    assert adapter_composite_sha256() == original
 
 
 def test_selection_categories_and_component_set_are_exact(tmp_path: Path) -> None:
@@ -543,29 +527,29 @@ def test_incremental_gate_is_separate_from_full_horizon_promotion() -> None:
     assert result["passes_full_unnarrowed_promotion_rule"] is False
 
 
-def test_forecasts_must_match_exact_issued_row_order(tmp_path: Path) -> None:
+def test_calibration_adapter_output_shape_is_checked(tmp_path: Path) -> None:
     rows = [_window(i, "calibration", "2024-12-01") for i in range(12 * 24)]
     config, selection, selection_sha, _, _, manifest, manifest_sha = _contract(
         tmp_path, "calibration", rows
     )
-    with np.load(tmp_path / "calibration-baseline.npz", allow_pickle=False) as saved:
-        ids, q = saved["row_ids"][::-1], saved["quantiles_db"][::-1]
-    np.savez_compressed(tmp_path / "calibration-baseline.npz", row_ids=ids, quantiles_db=q)
-    doc = json.loads(manifest.read_text())
-    doc["models"][0]["artifact_sha256"] = artifact_sha256(tmp_path / "calibration-baseline.npz")
-    manifest_sha = _write_json(manifest, doc)
     review, review_sha = _review(tmp_path, "calibration", {
         "selection_freeze_sha256": selection_sha, "forecast_manifest_sha256": manifest_sha,
         "config_sha256": artifact_sha256(config),
         "reader_review_sha256": _reader_review(tmp_path, "calibration")[1],
     })
-    with pytest.raises(ValueError, match="row order"):
+    def malformed(issued: list[AeonHourlyWindow]) -> dict[str, np.ndarray]:
+        result = _fixture_forecaster(issued)
+        result["baseline"] = result["baseline"][:-1]
+        return result
+
+    with pytest.raises(ValueError, match="invalid quantiles"):
         execute_calibration(
             archive=tmp_path, reader_review_path=_reader_review(tmp_path, "calibration")[0],
             reader_review_sha256=_reader_review(tmp_path, "calibration")[1],
             runner_review_path=review, runner_review_sha256=review_sha, config_path=config,
             selection_freeze_path=selection, forecast_manifest_path=manifest,
             output=tmp_path / "never", fixture_reader=_Reader(rows),
+            fixture_forecaster=malformed,
         )
 
 

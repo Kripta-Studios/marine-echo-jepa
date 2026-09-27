@@ -8,7 +8,6 @@ select a model, fit a parameter, calibrate an interval, or score an outcome.
 from __future__ import annotations
 
 import hashlib
-import importlib.metadata
 import json
 from dataclasses import dataclass
 from pathlib import Path
@@ -89,14 +88,11 @@ def adapter_composite_sha256() -> str:
         path = Path(module_file).resolve(strict=True)
         digest.update(path.name.encode("ascii"))
         digest.update(path.read_bytes())
-    for distribution in (
-        "numpy", "torch", "scikit-learn", "joblib", "lightgbm", "chronos-forecasting",
-    ):
-        try:
-            version = importlib.metadata.version(distribution)
-        except importlib.metadata.PackageNotFoundError:
-            version = "NOT_INSTALLED"
-        digest.update(f"{distribution}=={version}\n".encode("ascii"))
+    repository = Path(__file__).resolve().parents[3]
+    for name in ("pyproject.toml", "uv.lock"):
+        dependency_spec = (repository / name).resolve(strict=True)
+        digest.update(name.encode("ascii"))
+        digest.update(dependency_spec.read_bytes())
     return digest.hexdigest()
 
 

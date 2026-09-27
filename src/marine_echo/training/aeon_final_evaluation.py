@@ -73,6 +73,7 @@ _SELECTED_MODEL_SPECS: dict[str, tuple[str, str, tuple[tuple[str, str], ...]]] =
 }
 _HEX = set("0123456789abcdef")
 _MODEL_ID = re.compile(r"[A-Za-z0-9][A-Za-z0-9_.-]{0,79}")
+_TRUSTED_REVIEWER_SESSION = "/root/aeon_reviewer"
 
 
 class _WindowReader(Protocol):
@@ -263,94 +264,11 @@ def _selection(path: Path) -> tuple[dict[str, Any], str]:
     return value, digest
 
 
-def _safe_artifact(directory: Path, name: object, digest: object) -> Path:
-    if not isinstance(name, str) or not _digest(digest):
-        raise ValueError("AEON forecast artifact reference is malformed.")
-    relative = Path(name)
-    if relative.is_absolute() or len(relative.parts) != 1 or relative.name in (".", ".."):
-        raise ValueError("AEON forecast artifact escapes its manifest directory.")
-    path = (directory / relative).resolve(strict=True)
-    if not path.is_relative_to(directory.resolve()) or artifact_sha256(path) != digest:
-        raise ValueError("AEON forecast artifact digest or location differs.")
-    return path
-
-
-def _forecast_manifest(
-    path: Path,
-    partition: str,
-    selection: dict[str, Any],
-    selection_sha256: str,
+def _forecast_plan(
+    path: Path, partition: str, selection: dict[str, Any], selection_sha256: str,
     candidate_sha256: str | None,
-) -> tuple[list[tuple[str, str, Path]], str]:
-    value, digest = _json(path)
-    entries = value.get("models")
-    expected_ids = [model["model_id"] for model in selection["models"]]
-    expected_bindings = {
-        model["model_id"]: (
-            model["role"], model["selection_classification"], model["adapter"],
-            tuple(
-                (item["artifact_id"], item["sha256"])
-                for item in model["component_artifacts"]
-            ),
-            tuple(model["ensemble_weights"]),
-        )
-        for model in selection["models"]
-    }
-    if (
-        set(value) != {
-            "schema_version", "status", "study_id", "partition",
-            "selection_freeze_sha256", "candidate_contract_sha256",
-            "adapter_composite_sha256", "models",
-        }
-        or value.get("schema_version") != "1.0"
-        or value.get("status") != "FROZEN_AEON_PARTITION_FORECASTS"
-        or value.get("study_id") != _STUDY
-        or value.get("partition") != partition
-        or value.get("selection_freeze_sha256") != selection_sha256
-        or value.get("candidate_contract_sha256") != candidate_sha256
-        or value.get("adapter_composite_sha256") != selection["adapter_composite_sha256"]
-        or value.get("adapter_composite_sha256") != adapter_composite_sha256()
-        or not isinstance(entries, list)
-        or [entry.get("model_id") for entry in entries if isinstance(entry, dict)] != expected_ids
-    ):
-        raise ValueError("AEON forecast manifest differs from the frozen selection or partition.")
-    result = []
-    roles = {model["model_id"]: model["role"] for model in selection["models"]}
-    for entry in entries:
-        if (
-            not isinstance(entry, dict)
-            or set(entry) != {
-                "model_id", "role", "selection_classification", "adapter",
-                "component_artifacts", "ensemble_weights", "adapter_composite_sha256",
-                "artifact", "artifact_sha256",
-            }
-        ):
-            raise ValueError("AEON forecast manifest model entry is malformed.")
-        components = entry.get("component_artifacts")
-        binding = (
-            entry.get("role"), entry.get("selection_classification"), entry.get("adapter"),
-            tuple(
-                (item.get("artifact_id"), item.get("sha256"))
-                for item in components
-                if isinstance(item, dict)
-            ) if isinstance(components, list) else (),
-            tuple(entry.get("ensemble_weights", ())),
-        )
-        if (
-            binding != expected_bindings[entry["model_id"]]
-            or entry.get("adapter_composite_sha256") != adapter_composite_sha256()
-        ):
-            raise ValueError("AEON forecast provenance differs from the frozen selection.")
-        result.append((entry["model_id"], roles[entry["model_id"]], _safe_artifact(
-            path.parent, entry["artifact"], entry["artifact_sha256"]
-        )))
-    return result, digest
-
-
-def _test_forecast_plan(
-    path: Path, selection: dict[str, Any], selection_sha256: str, candidate_sha256: str,
 ) -> tuple[list[dict[str, Any]], str]:
-    """Validate the pre-access adapter plan; it contains no issued-row forecasts."""
+    """Validate a pre-access adapter plan containing no issued-row forecasts."""
     value, digest = _json(path)
     entries = value.get("models")
     if not isinstance(entries, list) or not all(isinstance(entry, dict) for entry in entries):
@@ -384,17 +302,24 @@ def _test_forecast_plan(
     }
     if (
         value.get("schema_version") != "1.0"
-        or value.get("status") != "FROZEN_AEON_TEST_FORECAST_ADAPTER_PLAN"
+        or value.get("status") != f"FROZEN_AEON_{partition.upper()}_FORECAST_ADAPTER_PLAN"
         or value.get("study_id") != _STUDY
-        or value.get("partition") != "test"
+        or value.get("partition") != partition
         or value.get("selection_freeze_sha256") != selection_sha256
         or value.get("candidate_contract_sha256") != candidate_sha256
         or value.get("adapter_composite_sha256") != adapter_composite_sha256()
         or actual != expected
         or any(entry.get("adapter") not in allowed for entry in typed_entries)
     ):
-        raise ValueError("AEON TEST forecast adapter plan differs from the frozen selection.")
+        raise ValueError("AEON forecast adapter plan differs from the frozen selection.")
     return typed_entries, digest
+
+
+def _test_forecast_plan(
+    path: Path, selection: dict[str, Any], selection_sha256: str, candidate_sha256: str,
+) -> tuple[list[dict[str, Any]], str]:
+    """Compatibility wrapper for the frozen TEST adapter-plan validator."""
+    return _forecast_plan(path, "test", selection, selection_sha256, candidate_sha256)
 
 
 def _plan_artifact(directory: Path, value: dict[str, Any]) -> Any:
@@ -525,8 +450,7 @@ def _review(
     if (
         value.get("status") != expected_status
         or value.get("partition") != partition
-        or not isinstance(value.get("reviewer_session"), str)
-        or not value["reviewer_session"]
+        or value.get("reviewer_session") != _TRUSTED_REVIEWER_SESSION
         or value.get("partition_access") != expected_access
         or any(value.get(key) != digest for key, digest in bindings.items())
         or any(value.get(key) != digest for key, digest in code_bindings.items())
@@ -537,7 +461,6 @@ def _review(
 
 def _reader_review_gate(
     path: Path, expected_sha256: str, partition: str, fixture: bool,
-    runner_reviewer_session: str,
 ) -> None:
     value, _ = _json(path, expected_sha256)
     expected_access = {
@@ -549,11 +472,9 @@ def _reader_review_gate(
     if (
         value.get("partition") != partition
         or value.get("partition_access") != expected_access
-        or not isinstance(value.get("reviewer_session"), str)
-        or not value["reviewer_session"]
-        or value["reviewer_session"] == runner_reviewer_session
+        or value.get("reviewer_session") != _TRUSTED_REVIEWER_SESSION
     ):
-        raise ValueError("AEON reader review lacks distinct partition-specific approval.")
+        raise ValueError("AEON reader review lacks trusted partition-specific approval.")
 
 
 def _reader(
@@ -582,24 +503,6 @@ def _rows(reader: _WindowReader, partition: str) -> list[AeonHourlyWindow]:
     ):
         raise ValueError("AEON issued rows are empty, duplicated, reordered or cross-partition.")
     return rows
-
-
-def _forecast(path: Path, rows: list[AeonHourlyWindow]) -> np.ndarray:
-    with np.load(path, allow_pickle=False) as saved:
-        if set(saved.files) != {"row_ids", "quantiles_db"}:
-            raise ValueError("AEON forecast-only artifact schema differs.")
-        row_ids = saved["row_ids"].copy()
-        quantiles = saved["quantiles_db"].copy()
-    expected = np.asarray([row.row_id for row in rows])
-    if not np.array_equal(row_ids, expected):
-        raise ValueError("AEON forecast row order differs from exact issued rows.")
-    if (
-        quantiles.shape != (len(rows), 3, 5)
-        or not np.isfinite(quantiles).all()
-        or (np.diff(quantiles, axis=-1) < 0).any()
-    ):
-        raise ValueError("AEON forecast quantiles are nonfinite, nonmonotone or mis-shaped.")
-    return quantiles.astype(np.float64, copy=False)
 
 
 def _targets(rows: list[AeonHourlyWindow]) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
@@ -651,14 +554,15 @@ def execute_calibration(
     runner_review_path: Path, runner_review_sha256: str, config_path: Path,
     selection_freeze_path: Path, forecast_manifest_path: Path, output: Path,
     fixture_reader: _WindowReader | None = None,
+    fixture_forecaster: _FixtureForecaster | None = None,
 ) -> dict[str, Any]:
     """Fit only nonnegative CAL interval widening for every frozen model."""
     config, config_sha = _config(config_path)
     selection, selection_sha = _selection(selection_freeze_path)
-    forecasts, manifest_sha = _forecast_manifest(
+    forecast_plan, manifest_sha = _forecast_plan(
         forecast_manifest_path, "calibration", selection, selection_sha, None
     )
-    runner_review, fixture = _review(runner_review_path, runner_review_sha256, "calibration", {
+    _, fixture = _review(runner_review_path, runner_review_sha256, "calibration", {
         "selection_freeze_sha256": selection_sha,
         "forecast_manifest_sha256": manifest_sha,
         "config_sha256": config_sha,
@@ -668,13 +572,16 @@ def execute_calibration(
         raise ValueError("AEON selection fixture mode differs from the reviewed data access mode.")
     _reader_review_gate(
         reader_review_path, reader_review_sha256, "calibration", fixture,
-        runner_review["reviewer_session"],
     )
     reader = _reader(
         archive=archive, review_path=reader_review_path, review_sha256=reader_review_sha256,
         partition="calibration", fixture=fixture, fixture_reader=fixture_reader,
     )
     rows = _rows(reader, "calibration")
+    generated = _execute_forecast_plan(
+        forecast_plan, rows, forecast_manifest_path.parent,
+        fixture=fixture, fixture_forecaster=fixture_forecaster,
+    )
     truth, observed, times = _targets(rows)
     result: dict[str, Any] = {
         "status": "COMPLETED_AEON_CALIBRATION_INTERVAL_WIDENING",
@@ -693,8 +600,9 @@ def execute_calibration(
         "issued_row_ids": [row.row_id for row in rows],
         "models": {},
     }
-    for model_id, _, artifact in forecasts:
-        prediction = _forecast(artifact, rows)
+    for model in selection["models"]:
+        model_id = model["model_id"]
+        prediction = generated[model_id]
         calibration = calibrate_interval_widening(
             truth, prediction, observed, times, partition="calibration"
         )
@@ -702,7 +610,7 @@ def execute_calibration(
         widened = apply_interval_widening(prediction, np.asarray(calibration["adjustment_db"]))
         result["models"][model_id] = {
             **calibration,
-            "forecast_artifact_sha256": artifact_sha256(artifact),
+            "selection_classification": model["selection_classification"],
             "raw_interval_metrics": daily_pinball(truth, prediction, observed, times),
             "widened_interval_metrics": daily_pinball(truth, widened, observed, times),
         }
@@ -865,7 +773,7 @@ def execute_retrospective_test(
         calibration_sha=calibration_sha, config_sha=config_sha,
         forecast_manifest_sha=manifest_sha,
     )
-    runner_review, fixture = _review(runner_review_path, runner_review_sha256, "test", {
+    _, fixture = _review(runner_review_path, runner_review_sha256, "test", {
         "selection_freeze_sha256": selection_sha,
         "config_sha256": config_sha,
         "calibration_artifact_sha256": calibration_sha,
@@ -877,7 +785,6 @@ def execute_retrospective_test(
         raise ValueError("AEON selection fixture mode differs from the reviewed data access mode.")
     _reader_review_gate(
         reader_review_path, reader_review_sha256, "test", fixture,
-        runner_review["reviewer_session"],
     )
     reader = _reader(
         archive=archive, review_path=reader_review_path, review_sha256=reader_review_sha256,
