@@ -14,6 +14,8 @@ evidence/continuation/** -text whitespace=-blank-at-eol,-blank-at-eof
 evidence/v2/** -text whitespace=-blank-at-eol,-blank-at-eof
 evidence/v2-execution/** -text whitespace=-blank-at-eol,-blank-at-eof
 reports/v2/** -text whitespace=-blank-at-eol,-blank-at-eof
+outputs/raw-response-development-v1-20260927/** -text whitespace=cr-at-eol
+outputs/raw-response-development-v1-deterministic-20260927/** -text whitespace=cr-at-eol
 orchestration/reviews/** -text whitespace=cr-at-eol
 # This already executed Windows source is frozen by the census identity.
 tools/train_census.py -text whitespace=cr-at-eol

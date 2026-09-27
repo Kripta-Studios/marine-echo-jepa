@@ -1,0 +1,20 @@
+{
+  "record_type": "COORDINATOR_TRANSCRIPTION_OF_DISTINCT_REVIEWER_MESSAGE",
+  "reviewer_session": "/root/v2_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "disposition": "REQUEST_CHANGES_RAW_RESPONSE_PREFIT",
+  "reviewed_sha256": {
+    "windows": "7a455bfb111c8cfa6f736dc6aa8528abbef0b6f13c02a2c0302029159420ea9c",
+    "cohort": "38f485e16beeac699b4c73410f39e85ac4273aab273cca16e5b7c123d9cd6a1b",
+    "executor": "63710b16a3eda43facc8c1344c5d95f647feedb16a8395ae050b1a52d7ac923e",
+    "runner": "e73a6d0947a7f4d75a9e0cf581ebd4e11a94f726585a89a22877bd528197e3a2"
+  },
+  "findings": [
+    "Midpoint checkpoint was saved but resume and 64-to-128 equivalence were not implemented.",
+    "Pre-fit gate omitted window, runner, model and complete fixed-configuration bindings.",
+    "Checkpoint omitted full provenance and validated only step and fit-row hash.",
+    "All-unlabelled batches silently became zero-loss optimizer updates."
+  ],
+  "scope": "Read-only code, test and row-mask/count review. No response sums, scores, real fit or approval. Findings preserved before repair."
+}

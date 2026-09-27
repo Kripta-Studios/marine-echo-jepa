@@ -31,8 +31,16 @@ zero or nonfinite code exclusions in the fixed segment. The reviewer independent
 accepted the exact processing and support results. Fit target days are 42/42/42;
 April assessment target days are 13/13/13, with all seven fixed 48-hour blocks
 populated at each horizon. These meet ADR 0007's engineering support gates only.
-The hash-bound real cohort reader and ridge/direct development executor are in
-independent pre-fit review; no model fit or forecast score has yet run. This route
+The first hash-bound real ridge/direct engineering execution passed pre-fit review
+and loaded only the fixed TRAIN-development cohort. It wrote a ridge assessment
+prediction file and direct checkpoints at 64 and 128 updates, then failed the
+frozen 64-to-128 weight-equivalence gate (maximum absolute difference 2.09e-5).
+No direct prediction or result was promoted from that attempt. Its output and
+failure evidence remain preserved. The distinct reviewer approved a deterministic
+CUDA remedy under a new run identity. That single real TRAIN-development ridge
+and direct run exited zero, wrote 212 issued-row prediction files for both models,
+and restored an exact 64-to-128 weight replay with 128 updates. Its metrics and
+checkpoint are in independent result review; no final evaluation ran. This route
 cannot complete the calibrated-acoustic v2 MVP or consume its 25 campaign slots.
 V1 census and any-band audit were not rerun. The builder's real calibrated-v2
 campaign backend is integrated as code and fixtures, with no real D1 fit.

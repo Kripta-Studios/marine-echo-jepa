@@ -1,0 +1,34 @@
+{
+  "study_id": "raw_response_development_v1",
+  "run_id": "raw_response_development_deterministic_20260927",
+  "status": "REAL_TRAIN_DEVELOPMENT_COMPLETED_PENDING_INDEPENDENT_RESULT_REVIEW",
+  "command": "PowerShell: $env:PYTHONPATH = (Resolve-Path src).Path; ../EVOCON_JEPA_Codex_Handoff/e-jepa-ttc/.venv/Scripts/python.exe -m tools.v2_run_raw_development --review orchestration/reviews/V2_RAW_RESPONSE_DETERMINISTIC_PREFIT_20260927.json --output outputs/raw-response-development-v1-deterministic-20260927 --device cuda",
+  "runner_environment": {
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+    "torch_deterministic_algorithms": true,
+    "cuda_matmul_allow_tf32": false,
+    "cudnn_allow_tf32": false,
+    "python_environment": "../EVOCON_JEPA_Codex_Handoff/e-jepa-ttc/.venv/Scripts/python.exe",
+    "PYTHONPATH": "repository src"
+  },
+  "exit_code": 0,
+  "review_sha256": "3e1127e8646be87e3bbd033379c420cb0cae80cdbe5da512515f867fe40d8db4",
+  "output_sha256": {
+    "result.json": "4237f375ba129fce95be952325e56cf5bc9615a5d89b2ed9ba91dfc8771cb49d",
+    "ridge-assessment-predictions.npz": "8d6223e56961b9858218a5b987367ede8255fa2a7a969f7cd706bd3051af8a68",
+    "direct-assessment-predictions.npz": "eb72a0aa6df5f93640dffd3a33708e3939c0861857d8c068e54ab5b3fa7fc0fc",
+    "direct-checkpoint-64.pt": "b5a41721ec904fdd65ddf771c10d1039c9f858387ca91cd63c28e18f9f137877",
+    "direct-checkpoint-128.pt": "713e4dba5bf94f8f29abd2df60c674b68a9b6b89dbaa3f7ce64fc386c1848e49",
+    "evidence/v2/raw_response_deterministic_development_run.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "resource_result": {
+    "direct_updates": 128,
+    "train_seconds": 2.336210299999948,
+    "peak_process_rss_bytes": 2068160512,
+    "peak_gpu_reserved_bytes": 102760448,
+    "resume_equivalent": true,
+    "resume_max_abs_weight_difference": 0.0
+  },
+  "calibrated_core_slots_consumed": 0,
+  "final_evaluation": "NOT_RUN"
+}

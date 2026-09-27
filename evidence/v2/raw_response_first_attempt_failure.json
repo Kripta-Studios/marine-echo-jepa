@@ -1,0 +1,21 @@
+{
+  "study_id": "raw_response_development_v1",
+  "run_id": "raw_response_development_first_real_20260927",
+  "status": "FAILED_CHECKPOINT_REPLAY_NOT_PROMOTED",
+  "data_kind": "REAL_TRAIN_DEVELOPMENT",
+  "approved_namespace": "outputs/raw-response-development-v1-20260927",
+  "prefit_review": "orchestration/reviews/V2_RAW_RESPONSE_PREFIT_CORRECTED_20260927.json",
+  "failure": "Direct step-64 to step-128 replay weights exceeded the frozen rtol=1e-6, atol=1e-7 equivalence gate. No direct prediction or result.json was written.",
+  "diagnostic_max_abs_weight_difference": 0.000020907013094983995,
+  "diagnostic_worst_parameter": "encoder.transformer.layers.1.self_attn.in_proj_bias",
+  "files_sha256": {
+    "evidence/v2/raw_response_development_import_failure.log": "2d8f059da4eaec373b607edffe19564e70c623e8f886a94004dbb3c6160f48c1",
+    "evidence/v2/raw_response_development_hash_failure.log": "833df81981223a48a9f6a7a9c41f80b6814ed9638f627a6f62b1644468e29f00",
+    "evidence/v2/raw_response_development_run.log": "3019af50c69f1c992f8cbddf4c5629d44bb7ebd18fbffa0727ee35f5159fddf9",
+    "evidence/v2/raw_response_resume_diagnostic.log": "1afea1e4c78303eab23c893939c90701c2e80f4f81bcfea2bc7e308f1346eefd",
+    "outputs/raw-response-development-v1-20260927/ridge-assessment-predictions.npz": "8d6223e56961b9858218a5b987367ede8255fa2a7a969f7cd706bd3051af8a68",
+    "outputs/raw-response-development-v1-20260927/direct-checkpoint-64.pt": "4169249dc61698c31f0722eb760ea0ba94a3ab5ddc9599d6aecf89b4f54d8974",
+    "outputs/raw-response-development-v1-20260927/direct-checkpoint-128.pt": "f79ea0bff3a19a657a48e689d4b61fc5ed7ef42a382d4a8de3095a80e7bff9ef"
+  },
+  "metric_interpretation": "No promoted direct model metrics or conclusion. The ridge file is an incomplete-run artifact until independently verified and explicitly labelled. This failed attempt does not consume a calibrated v2 core slot."
+}

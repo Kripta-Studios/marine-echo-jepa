@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tools\v2_run_raw_development.py", line 24, in <module>
+    main()
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tools\v2_run_raw_development.py", line 20, in main
+    execute(Path.cwd(), args.output, args.review, device=args.device, resume=args.resume)
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\src\marine_echo\training\raw_response_development.py", line 408, in execute
+    fit, assess = load_raw_cohorts(root, review_path=review_path)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\src\marine_echo\training\raw_response_cohort.py", line 231, in load_raw_cohorts
+    raise ValueError("Exact independent raw-response pre-fit approval is required")
+ValueError: Exact independent raw-response pre-fit approval is required

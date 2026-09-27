@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tools\v2_run_raw_development.py", line 8, in <module>
+    from marine_echo.training.raw_response_development import execute
+ModuleNotFoundError: No module named 'marine_echo'

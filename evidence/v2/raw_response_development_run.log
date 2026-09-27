@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tools\v2_run_raw_development.py", line 24, in <module>
+    main()
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tools\v2_run_raw_development.py", line 20, in main
+    execute(Path.cwd(), args.output, args.review, device=args.device, resume=args.resume)
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\src\marine_echo\training\raw_response_development.py", line 434, in execute
+    direct_prediction, resources = _direct(fit, assess, output, root, device=device, resume=resume)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\src\marine_echo\training\raw_response_development.py", line 360, in _direct
+    raise ValueError("Midpoint continuation diverged from independent reference")
+ValueError: Midpoint continuation diverged from independent reference

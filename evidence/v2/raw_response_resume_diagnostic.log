@@ -1,0 +1,6 @@
+{
+  "max_abs_difference": 2.0907013094983995e-05,
+  "max_relative_difference": 6.8526458740234375,
+  "worst_parameter": "encoder.transformer.layers.1.self_attn.in_proj_bias",
+  "allclose_1e_6_1e_7": false
+}

@@ -1,0 +1,203 @@
+{
+  "study_id": "raw_response_development_v1",
+  "run_id": "raw_response_development_deterministic_20260927",
+  "data_kind": "REAL",
+  "quantity": "complete_positive_azfp_backscatter_r_code_mean",
+  "scientific_scope": "engineering TRAIN development only; not calibrated Sv or final evaluation",
+  "review_sha256": "3e1127e8646be87e3bbd033379c420cb0cae80cdbe5da512515f867fe40d8db4",
+  "fit_rows_sha256": "8ef760ebf72c86ce0f3528a0709e15c2ea2e577c1d32bb7d63fa6a46fe34339d",
+  "assessment_rows_sha256": "99f9b9d8b0307516e9e75fbe12d4b228738ef022c2fb5eede757c5c2e3f5077b",
+  "index_sha256": "c6754334465b32e15bdfdcc9799b75408775ed38c19c3e7a93ea6c49dde869d1",
+  "support_sha256": "95cbb5ceb0b5bc462c7dd01a3057ed75f37a133c9b7acc70850abe37c3302aaa",
+  "run_config": {
+    "run_id": "raw_response_development_deterministic_20260927",
+    "output_path": "outputs/raw-response-development-v1-deterministic-20260927",
+    "device": "cuda",
+    "deterministic_cuda": true,
+    "cublas_workspace_config": ":4096:8",
+    "allow_tf32": false,
+    "ridge_alpha": 1.0,
+    "quantiles": [
+      0.05,
+      0.25,
+      0.5,
+      0.75,
+      0.95
+    ],
+    "direct_width": 48,
+    "direct_layers": 2,
+    "direct_heads": 4,
+    "seed": 7,
+    "batch_size": 8,
+    "updates": 128,
+    "warmup_updates": 16,
+    "checkpoints": [
+      64,
+      128
+    ],
+    "optimizer": "AdamW",
+    "learning_rate": 0.0003,
+    "weight_decay": 0.0001,
+    "adamw_betas": [
+      0.9,
+      0.999
+    ],
+    "adamw_eps": 1e-08,
+    "gradient_clip_norm": 1.0
+  },
+  "device": "cuda",
+  "torch_version": "2.11.0+cu128",
+  "numpy_version": "2.4.6",
+  "sklearn_version": "1.9.0",
+  "models": {
+    "ridge": {
+      "path": "outputs\\raw-response-development-v1-deterministic-20260927\\ridge-assessment-predictions.npz",
+      "sha256": "8d6223e56961b9858218a5b987367ede8255fa2a7a969f7cd706bd3051af8a68",
+      "metrics": {
+        "issued_rows": 212,
+        "horizons": {
+          "1": {
+            "eligible_rows": 176,
+            "target_days": 13,
+            "issued_but_unscored": 36,
+            "daily_mean_pinball_code": 12.23123253969628,
+            "mae_code_median": 37.583393124562775,
+            "empirical_90pct_interval_coverage": 0.9659090909090909
+          },
+          "3": {
+            "eligible_rows": 140,
+            "target_days": 13,
+            "issued_but_unscored": 72,
+            "daily_mean_pinball_code": 19.99904935613097,
+            "mae_code_median": 62.537873453629736,
+            "empirical_90pct_interval_coverage": 0.9785714285714285
+          },
+          "6": {
+            "eligible_rows": 135,
+            "target_days": 13,
+            "issued_but_unscored": 77,
+            "daily_mean_pinball_code": 30.045008449033883,
+            "mae_code_median": 97.41319414661554,
+            "empirical_90pct_interval_coverage": 0.9925925925925926
+          }
+        }
+      }
+    },
+    "direct_neural": {
+      "path": "outputs\\raw-response-development-v1-deterministic-20260927\\direct-assessment-predictions.npz",
+      "sha256": "eb72a0aa6df5f93640dffd3a33708e3939c0861857d8c068e54ab5b3fa7fc0fc",
+      "metrics": {
+        "issued_rows": 212,
+        "horizons": {
+          "1": {
+            "eligible_rows": 176,
+            "target_days": 13,
+            "issued_but_unscored": 36,
+            "daily_mean_pinball_code": 64.90600628919915,
+            "mae_code_median": 210.54342100537244,
+            "empirical_90pct_interval_coverage": 0.6534090909090909
+          },
+          "3": {
+            "eligible_rows": 140,
+            "target_days": 13,
+            "issued_but_unscored": 72,
+            "daily_mean_pinball_code": 64.38861003274744,
+            "mae_code_median": 207.40755532854942,
+            "empirical_90pct_interval_coverage": 0.6785714285714286
+          },
+          "6": {
+            "eligible_rows": 135,
+            "target_days": 13,
+            "issued_but_unscored": 77,
+            "daily_mean_pinball_code": 65.9336750840553,
+            "mae_code_median": 215.92355305106025,
+            "empirical_90pct_interval_coverage": 0.6074074074074074
+          }
+        }
+      }
+    }
+  },
+  "direct_resources": {
+    "updates": 128,
+    "batch_size": 8,
+    "seed": 7,
+    "seconds_train": 2.336210299999948,
+    "peak_process_rss_bytes": 2068160512,
+    "peak_gpu_reserved_bytes": 102760448,
+    "checkpoint_path": "outputs\\raw-response-development-v1-deterministic-20260927\\direct-checkpoint-128.pt",
+    "checkpoint_sha256": "713e4dba5bf94f8f29abd2df60c674b68a9b6b89dbaa3f7ce64fc386c1848e49",
+    "midpoint_checkpoint_sha256": "b5a41721ec904fdd65ddf771c10d1039c9f858387ca91cd63c28e18f9f137877",
+    "resumed_from_interruption": false,
+    "resumed_from_step": 0,
+    "resume_equivalent": true,
+    "resume_max_abs_weight_difference": 0.0,
+    "resume_verification_seconds": 1.2015905000007479,
+    "checkpoint_identity": {
+      "study_id": "raw_response_development_v1",
+      "index_sha256": "c6754334465b32e15bdfdcc9799b75408775ed38c19c3e7a93ea6c49dde869d1",
+      "support_sha256": "95cbb5ceb0b5bc462c7dd01a3057ed75f37a133c9b7acc70850abe37c3302aaa",
+      "fit_rows_sha256": "8ef760ebf72c86ce0f3528a0709e15c2ea2e577c1d32bb7d63fa6a46fe34339d",
+      "assessment_rows_sha256": "99f9b9d8b0307516e9e75fbe12d4b228738ef022c2fb5eede757c5c2e3f5077b",
+      "run_config": {
+        "run_id": "raw_response_development_deterministic_20260927",
+        "output_path": "outputs/raw-response-development-v1-deterministic-20260927",
+        "device": "cuda",
+        "deterministic_cuda": true,
+        "cublas_workspace_config": ":4096:8",
+        "allow_tf32": false,
+        "ridge_alpha": 1.0,
+        "quantiles": [
+          0.05,
+          0.25,
+          0.5,
+          0.75,
+          0.95
+        ],
+        "direct_width": 48,
+        "direct_layers": 2,
+        "direct_heads": 4,
+        "seed": 7,
+        "batch_size": 8,
+        "updates": 128,
+        "warmup_updates": 16,
+        "checkpoints": [
+          64,
+          128
+        ],
+        "optimizer": "AdamW",
+        "learning_rate": 0.0003,
+        "weight_decay": 0.0001,
+        "adamw_betas": [
+          0.9,
+          0.999
+        ],
+        "adamw_eps": 1e-08,
+        "gradient_clip_norm": 1.0
+      },
+      "environment": {
+        "numpy": "2.4.6",
+        "sklearn": "1.9.0",
+        "torch": "2.11.0+cu128",
+        "torch_cuda": "12.8",
+        "cublas_workspace_config": ":4096:8",
+        "deterministic_algorithms": true,
+        "cuda_matmul_allow_tf32": false,
+        "cudnn_allow_tf32": false
+      },
+      "normalizer": {
+        "context_mean": 12364.882243973148,
+        "context_std": 2518.4337946413207,
+        "target_mean": 11455.096350221056,
+        "target_std": 308.4902922577705
+      },
+      "code_sha256": {
+        "windows": "7a455bfb111c8cfa6f736dc6aa8528abfef0b6f13c02a2c0302029159420ea9c",
+        "cohort": "bd666938cffe55bef106fcd904aaae0bb21f51332b06f602e528b147fd87f30c",
+        "executor": "85e03ef6f8bf10af7ed13243583b84f65863642e3238187b880d48921a158b68",
+        "runner": "16b07e134d4f53f5bc630d3083091c780ce29c5534ab1478278ad65d2fe53eb4",
+        "model": "7e5178daaa024fac587a581f1bbd3bf7ea400ac0116a5d599fee450f8dfcad37"
+      }
+    }
+  },
+  "calibrated_core_slots_consumed": 0
+}
