@@ -1,0 +1,41 @@
+{
+  "task": "R2-AEON-PRECAL-SOURCE-REVIEW-3E80072-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "status": "REQUEST_CHANGES_AEON_PRECAL_SOURCE",
+  "disposition": "REJECT_NUMERIC_CALIBRATION_OR_TEST_ACCESS_UNDER_THIS_SOURCE",
+  "source_commit": "3e800726b7d3d54e8780e85e51970dd534d39d38",
+  "source_sha256": {
+    "src/marine_echo/training/aeon_final_evaluation.py": "b1192b0f862830da6178f2057d4bc39398df1290a125dd92798d735221537627",
+    "src/marine_echo/training/aeon_forecast_adapters.py": "06392b0714a692c16645294ade9e7c3eaa5b6798eaf2b37662109a9b5f27f7c9",
+    "src/marine_echo/evaluation/aeon.py": "5dff72c1baf2f5528f13f369936d2ca5710eeb8b8a6e6cae12a0ef95366225ff",
+    "configs/aeon_final_evaluation.json": "9003865b288a3c5afdf4b7cdb3a3f401c346f6067a53a255b833dde8e3a668c4c"
+  },
+  "resolved_findings": [
+    "Every declared component path is confined to the plan directory and every declared component byte digest is checked before partition reader construction.",
+    "The complete four-file pinned Chronos snapshot is also byte-checked before partition reader construction.",
+    "Component paths and digests are revalidated during forecast execution after the pre-reader check."
+  ],
+  "blocking_findings": [
+    {
+      "severity": "BLOCKER",
+      "location": "src/marine_echo/training/aeon_final_evaluation.py:268-316,341-382,422-456",
+      "finding": "The frozen plan's model options are not compared to the selected model ID and the pre-reader gate accepts any string family for a core neural ensemble and any unvalidated device. The selected direct ensemble can therefore pass the pre-reader gate with `family=shared_sigreg`, while the selected EMA ensemble can pass with `family=direct`; invalid or unavailable devices also reach adapter execution only after numeric rows are opened.",
+      "reproduction": "Keep the independently selected component IDs, hashes, roles and weights unchanged, but set the direct plan entry to `options.family=shared_sigreg` or `options.device=invalid`. `_forecast_plan` and `_preflight_forecast_plan` accept the plan; only `adapt_core_neural_ensemble` or `_infer_torch` rejects after reader materialization.",
+      "required_fix": "Before reader construction, enforce an exact option schema by selected model ID: direct must use family `direct`; EMA must use `ema_jepa`; LightGBM must use the exact frozen recipe digest; reject unknown option keys; restrict devices to explicit supported values and reject unavailable CUDA. Add adversarial real-plan tests that assert the reader remains unopened for swapped family, extra options and invalid or unavailable device."
+    }
+  ],
+  "independent_execution": {
+    "focused_tests": "30 passed in 49.42s",
+    "ruff": "All checks passed",
+    "mypy": "Success: no issues found in 2 source files",
+    "source_inspection": "Independently traced plan-to-selection comparison, component-byte preflight, device/family handling, reader construction and adapter execution order.",
+    "calibration_or_test_numeric_access": false
+  },
+  "unresolved_uncertainty": [
+    "No selection freeze, adapter plan or access review may be issued against this rejected source commit.",
+    "The corrected source must receive a new exact independent review with new source and composite digests."
+  ],
+  "calibration_access": "PROHIBITED",
+  "test_access": "PROHIBITED"
+}
