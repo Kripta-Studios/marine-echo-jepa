@@ -112,6 +112,19 @@
     "outcome_review_sha256": "53a3a164915eea4ab3bc8851c096bbc42821cb05330eb4c2829039df83df3e07",
     "selection": "NOT_PERFORMED"
   },
+  "development_selection_record": {
+    "status": "APPROVED_POST_HOC_DEVELOPMENT_CHOICES_MACHINE_FREEZE_PENDING",
+    "adr": "docs/adr/0011-aeon-reviewed-development-selection.md",
+    "independent_review_sha256": "527bf68313cac2354ced78d8cf2673153a92e2f2d08845451ee9afaccfab47c8",
+    "core_conventional": "direct_equal_three_seed_ensemble",
+    "core_jepa": "ema_equal_three_seed_ensemble",
+    "post_hoc_operational": "lightgbm"
+  },
+  "development_app": {
+    "status": "APPROVED_DEVELOPMENT_ONLY_APP_INTEGRATION_FINAL_RELEASE_PENDING",
+    "independent_review_sha256": "a600dcb6bcc19ab8da09feeeab00096470f0cf64de10501a553b798656f93300",
+    "aeon_cached_forecasts": 0
+  },
   "calibration": "NOT_RUN",
   "retrospective_test": "NOT_RUN",
   "jepa_value_gate": "NOT_EVALUATED",

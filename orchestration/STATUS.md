@@ -306,3 +306,12 @@ scores are post-hoc LightGBM 0.638460 dB, core direct ensemble 0.639062 dB,
 and core EMA-JEPA ensemble 0.642170 dB; the tiny LightGBM difference is not a
 SOTA or inferential claim. Final evaluator/adapter review still requests exact
 artifact and transitive-code bindings before CAL or TEST access.
+
+ADR 0011 records the resulting reviewed development choices: direct-neural
+three-seed core conventional, EMA-JEPA three-seed core comparison, and LightGBM
+as the exploratory post-hoc operational candidate. A distinct reviewer checked
+all six neural checkpoint and LightGBM model/recipe hashes and approved the
+record; the machine-readable component freeze remains pending. The separate
+AEON development-only app/API package passed independent review with the five
+approved model outcomes, 25 historical blocked entries and zero AEON cached
+forecasts. It is not the final research release.
