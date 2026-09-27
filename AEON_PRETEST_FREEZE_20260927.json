@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "status": "FROZEN_AEON_RETROSPECTIVE_TEST_PREACCESS",
+  "study_id": "aeon3_geb_2024_hourly_sv_v1",
+  "source_archive_sha256": "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde",
+  "metadata_candidate_report_sha256": "40510cfb321cbb57bc24f309f0e11cd0a2d274c181370ae6d13efdc26972be93",
+  "metadata_candidate_review_sha256": "9d9c6ca4580d6a4ead4117a00a1a872710bf6e323eb17d491837e24c1011bebe",
+  "selection_freeze_sha256": "b3940ab8e159ac8808843b15b455ffb3c42f2d3db322190af15b80e543edff58",
+  "calibration_artifact_sha256": "a6e35bc5fa5c27b2b0669e7fb9fe7f8ff1bdd69952193418bbbe130e46438c94",
+  "calibration_outcome_review_sha256": "7b61385b29836be53d0e2c5a0b5e3f5db7e2dcb8983e534d17711ed0b44c1428",
+  "config_sha256": "9003865b288a3c5afdf4b7cdba3f401c346f6067a53a255b833dde8e3a668c4c",
+  "forecast_manifest_sha256": "b393663c95ba99666626542f790ab4b8b69260dd82cec7c394393b2826d0ef63",
+  "runner_code_sha256": "fa3a4db0665eefd02ecf77032451dd17f940c2b3c58c86fd3c9dfa52872324a7",
+  "evaluation_code_sha256": "5dff72c1baf2f5528f13f369936d2ca5710eeb8b8a6e6cae12a0ef95366225ff",
+  "reader_composite_sha256": "121facf774cc81e55f1ced6d4d6ec82927614a7dadc0deab66b557f35dd5563f",
+  "adapter_composite_sha256": "c8ccc0c54b720676b9f6d19cdd5ed7ffd1a5daf58ed22c469479a9272d1b77f9",
+  "issued_row_rule": "EXACT_24_PRIOR_INTERVAL_IDS_OBSERVED_38KHZ",
+  "primary_metric": "RAW_FIVE_QUANTILE_ELIGIBLE_TARGET_DATE_PINBALL",
+  "bootstrap": {
+    "block_hours": 48,
+    "draws": 2000,
+    "seed": 20260926
+  },
+  "test_access": "PROHIBITED_PENDING_INDEPENDENT_APPROVAL"
+}
