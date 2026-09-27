@@ -74,10 +74,13 @@
       "primary_daily_mean_pinball_db": 0.6384597244651752
     },
     "chronos_2": {
-      "status": "RUNNING_REVIEWED_FROZEN_ZERO_SHOT_VALIDATION_INFERENCE",
+      "status": "COMPLETED_FROZEN_ZERO_SHOT_VALIDATION_PENDING_INDEPENDENT_OUTCOME_REVIEW",
       "manifest": "outputs/aeon3_geb_2024_hourly_sv_v1/chronos2_zero_shot/manifest.json",
+      "manifest_sha256": "b327153ea05504e38d1edfe35de77b625d28e48106ad9095d80eb62a8ec099cc",
+      "prediction_sha256": "b435d3b126e4dd1272639392cc0919ffe381f21963b2674a94df81ea11ed3266",
       "prefit_review_sha256": "0d20c3e3fbe3b965928d068c9a5b66f83d1e618bd7893add32f932808a64d17d",
-      "device": "cuda"
+      "device": "cuda",
+      "primary_daily_mean_pinball_db": 0.6935176150003005
     },
     "forward_ema_jepa": {
       "status": "COMPLETED_POST_HOC_TRAIN_VALIDATION_PENDING_INDEPENDENT_OUTCOME_REVIEW",
@@ -100,6 +103,6 @@
   "calibration": "NOT_RUN",
   "retrospective_test": "NOT_RUN",
   "jepa_value_gate": "NOT_EVALUATED",
-  "gpu_owner": "chronos2_frozen_zero_shot_inference_process",
+  "gpu_owner": "NONE",
   "paid_cost_usd": 0
 }

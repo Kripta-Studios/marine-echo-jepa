@@ -262,7 +262,10 @@ prediction files were reloaded and all 15 heads' predictions reproduced
 bit-exactly by the reviewer; see
 `orchestration/reviews/AEON_SOTA_SUPERVISED_OUTCOME_REVIEW_20260927.json`.
 Chronos-2's exact public checkpoint and zero-shot runner passed distinct prefit
-review; its frozen zero-shot TRAIN/validation inference is running on CUDA.
+review; its frozen zero-shot TRAIN/validation inference completed on CUDA with
+exit status zero and 1,219 real validation forecasts. Its corrected primary
+pinball is 0.693518 dB, behind the direct-neural and LightGBM development
+results; distinct outcome review is pending.
 The forward-EMA JEPA adaptation with fixed VICReg-style anti-collapse penalties
 completed all five serial TRAIN/validation slots on CUDA with exit status zero,
 real checkpoints and forecasts; distinct outcome review is pending. Its three
