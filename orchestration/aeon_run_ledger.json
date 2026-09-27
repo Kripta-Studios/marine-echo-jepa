@@ -183,6 +183,20 @@
     "independent_review": "APPROVED_NEGATIVE_EXPLORATORY_OUTCOME_NO_SELECTION",
     "independent_review_sha256": "232f453e1584472e1dcc1ea1d8812c76104a40d4cd9645f19720b25e0423adec"
   },
+  "offline_research_release": {
+    "status": "APPROVED_EXACT_R4_ARCHIVE_RETROSPECTIVE_NOT_SEALED",
+    "archive": "release/aeon-offline-retrospective-candidate-20260927-r4.zip",
+    "archive_sha256": "619fabfae8c880a2079d4fdc3399d1f4de248c4575d97c59d9a617e1b4063d63",
+    "checksum_sidecar": "release/aeon-offline-retrospective-candidate-20260927-r4.zip.sha256",
+    "source_approval_sha256": "455eb471a7a9dbe2246c1018d6dd53fa480fddbbf0bf88c19313ba9b5bbb4e93",
+    "independent_package_review_sha256": "fb0c2cd75e6823eed2226bb614b391597293b1e083aa165110d1fb995196787d",
+    "packaged_file_count": 78,
+    "offline_installed_package_count": 13,
+    "reviewed_historical_replay_model_rows": 3648,
+    "historical_v1_blocked_registry_rows": 25,
+    "live_forecast": false,
+    "cloud_or_paid_resource_use": false
+  },
   "gpu_owner": "NONE",
   "paid_cost_usd": 0
 }

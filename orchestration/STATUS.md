@@ -377,4 +377,23 @@ This positive one-deployment forecast-family result is retrospective, not
 sealed or SOTA; post-hoc family selection, a validation non-result and the
 random-hybrid control limit JEPA mechanism attribution. The CAL-only app integration separately passed
 independent review, retaining historical blocked rows and zero AEON cached
-forecasts; final TEST app/release integration remains pending.
+forecasts.
+
+The separate AEON final source and offline package are now independently
+approved. The exact reviewed release is
+`release/aeon-offline-retrospective-candidate-20260927-r4.zip`, SHA-256
+`619fabfae8c880a2079d4fdc3399d1f4de248c4575d97c59d9a617e1b4063d63`.
+Its preserved builder name is an archive identity; the external exact-byte
+review `orchestration/reviews/AEON_OFFLINE_PACKAGE_R4_REVIEW_20260927.json`
+(SHA-256 `fb0c2cd75e6823eed2226bb614b391597293b1e083aa165110d1fb995196787d`)
+approves it as an offline research release. The rejected first source claim
+review and r3 header contradiction remain recorded, not silently overwritten.
+Fresh relocation verified all 78 packaged files, installed 13 wheels without
+network access, served the reviewed study and bounded replay on loopback, and
+passed a Chromium page, model-switch and pagination smoke with no page errors.
+The package contains 3,648 saved model-row forecasts over 1,216 cutoffs,
+retains all 25 historical blocked registry rows, and has no live AEON
+forecasting or raw acoustic archive. Its build-time metadata still says
+release review pending; the independent external record approves the immutable
+bytes without rebuilding them. This is a retrospective non-sealed research
+release, not a production or business-validation gate.

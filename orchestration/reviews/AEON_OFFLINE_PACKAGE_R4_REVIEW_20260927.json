@@ -1,0 +1,59 @@
+{
+  "task": "R3-AEON-OFFLINE-PACKAGE-R4-REVIEW-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "status": "APPROVED_AEON_OFFLINE_RESEARCH_RELEASE_R4",
+  "disposition": "APPROVE_EXACT_R4_ARCHIVE_FOR_OFFLINE_RESEARCH_RELEASE",
+  "archive_path": "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-aeon-final-release-prep/outputs/aeon3_geb_2024_hourly_sv_v1/aeon-offline-retrospective-candidate-20260927-r4.zip",
+  "archive_sha256": "619fabfae8c880a2079d4fdc3399d1f4de248c4575d97c59d9a617e1b4063d63",
+  "archive_entry_count": 79,
+  "packaged_file_count_excluding_checksum_manifest": 78,
+  "packaged_source_commit": "451ca8c2f625c9ba70200f716726d91f1f2a12c2",
+  "integrated_source_commit": "68861339fcac0aa32f3639d1cec860ca4327194e",
+  "packaged_release_class": "OFFLINE_RESEARCH_MIXED_STUDIES_TEST_REVIEWED_RELEASE_REVIEW_PENDING",
+  "superseded_r3_request_changes_review_sha256": "9ac527b0540c48f2392680c3673da58dc9b9398da31345b39953235f6692bd3b",
+  "source_and_outcome_bindings": {
+    "corrected_final_source_review_sha256": "455eb471a7a9dbe2246c1018d6dd53fa480fddbbf0bf88c19313ba9b5bbb4e93",
+    "retrospective_test_score_sha256": "23f9d350528e9f99b35949c6281c39d209dff7f7db44a992d241d64ccde8bd89",
+    "retrospective_test_outcome_review_sha256": "75a241f00d34f8d373ccbd4c5b2e2c35397e2c0ff0a20a6e112ce4953f13489a",
+    "calibration_artifact_sha256": "a6e35bc5fa5c27b2b0669e7fb9fe7f8ff1bdd69952193418bbbe130e46438c94",
+    "calibration_outcome_review_sha256": "7b61385b29836be53d0e2c5a0b5e3f5db7e2dcb8983e534d17711ed0b44c1428",
+    "aeon_study_sha256": "d82b0a46a9fe84bac7f1dc484b2493e1cf131104c8e74cd7dd9883d9da8d75b3",
+    "source_archive_sha256": "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde"
+  },
+  "browser_evidence": {
+    "path": "outputs/aeon-r4-browser-smoke.png",
+    "sha256": "bd494104fc77836daf731603867c06145ab8cbe4991eff3377b721aa807de60d",
+    "executor": "leader session /root, independently from the package builder",
+    "reviewer_action": "The reviewer independently inspected the full-page screenshot and the reported browser observations; the reviewer did not claim to have driven Playwright.",
+    "observations": [
+      "The AEON route header says reviewed retrospective replay and retrospective evaluation not sealed; the superseded no-forecast-replay and no-final-evaluation strings are absent.",
+      "The reviewed TEST result, 0.5340 EMA score, 1,216-row support and gate status are visible.",
+      "Paging advanced to rows 13-24 of 1,216, the EMA model selector worked and the browser reported no page errors."
+    ]
+  },
+  "independent_execution": {
+    "archive_integrity": "Recomputed the archive SHA-256 and sidecar; inspected 79 unique central-directory entries with one top-level directory and no absolute path, parent traversal or symlink entries.",
+    "checksum_manifest": "Extracted the archive into a temporary directory, verified that SHA256SUMS covered exactly 78 other files and recomputed every digest successfully.",
+    "packaged_verifier": "Ran Verify-Release.py from the extracted archive with Python 3.14; exit 0 and 'Verified 78 packaged files.'",
+    "offline_install": "Created an independent Python 3.12.13 temporary environment and installed requirements-app.txt using uv pip --offline --no-index against only the packaged wheelhouse; 13 packages installed and FastAPI 0.141.1, Uvicorn 0.54.0 and Pydantic 2.13.5 imported successfully.",
+    "relocated_api": "Against the relocated loopback package, the AEON study endpoint returned the reviewed non-sealed retrospective study with 1,216 issued rows and exact EMA score; paged EMA replay returned 12 rows at offset 12; unknown model, excessive page size and AEON use through the UTC forecast endpoint were rejected.",
+    "packaged_evidence": "Read SOURCE_REVISION.json, catalog, study, replay, data card, model card and README from the package and confirmed the exact CAL/TEST review bindings, 3,648 truth-free cached predictions, 25 preserved historical blocked rows and absence of the original acoustic archive."
+  },
+  "release_and_claim_review": [
+    "The r3 blocking route-header contradiction is corrected in r4 without weakening the non-sealed, retrospective, historical and non-live qualifiers.",
+    "The package preserves v1/v2 historical failure evidence and presents AEON as a separately labelled study.",
+    "The package reports the frozen within-study retrospective forecast-family gate accurately and does not claim a sealed holdout, SOTA, external generalization, causal learned-representation attribution, calibrated absolute backscatter, biology, production integration or business value.",
+    "The replay is truth-free and saved: it contains 3,648 model-row predictions over 1,216 issued rows and is not presented as live forecasting.",
+    "The subtitle beginning 'Reviewed TRAIN/validation development of' remains factually true and is immediately accompanied by the reviewed TEST/replay section and corrected route metadata; it does not materially misstate the page scope."
+  ],
+  "findings": [],
+  "limitations": [
+    "Approval applies only to the exact archive SHA-256 619fabfae8c880a2079d4fdc3399d1f4de248c4575d97c59d9a617e1b4063d63. Any rebuilt or modified archive requires a new digest and review.",
+    "SOURCE_REVISION.json retains independent_final_release_review=false and a review-pending release class because those fields record the immutable package's build-time state. This external exact-byte review supplies the final independent approval without rewriting the reviewed archive.",
+    "This is an offline research release with a reviewed retrospective, non-sealed TEST evaluation. It is not a production deployment or an external replication."
+  ],
+  "next_action": "Copy the byte-identical archive and checksum sidecar into the main release location, verify the destination digest remains exact, and bind this external review in the status and run ledger. Do not rebuild or edit the approved archive."
+}
