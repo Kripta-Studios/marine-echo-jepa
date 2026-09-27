@@ -17,6 +17,7 @@ import {
   type Observations,
   type Model,
   type Evidence,
+  type RawDevelopmentEvidence,
 } from "./api/client";
 import { RawEchogram } from "./charts/RawEchogram";
 import { safeCutoff } from "./api/cutoff";
@@ -26,6 +27,11 @@ function App() {
   const [datasets, setDatasets] = useState<Dataset[]>([]);
   const [models, setModels] = useState<Model[]>([]);
   const [evidence, setEvidence] = useState<Evidence | null>(null);
+  const [rawDevelopment, setRawDevelopment] =
+    useState<RawDevelopmentEvidence | null>(null);
+  const [rawDevelopmentState, setRawDevelopmentState] = useState<
+    "loading" | "success" | "not-executed"
+  >("loading");
   const blocked =
     evidence?.forecast_unavailability_reason ??
     "Physical-unit forecasts are unavailable. No eligible independently reviewed corpus or completed benchmark is available. See the loaded evidence report for its scope and limitations.";
@@ -62,6 +68,24 @@ function App() {
       })
       .catch((e) => {
         if (e.name !== "AbortError") setError(e.message);
+      });
+    return () => controller.abort();
+  }, []);
+  useEffect(() => {
+    const controller = new AbortController();
+    getJson<RawDevelopmentEvidence>(
+      "/api/v1/evidence/raw-development",
+      controller.signal,
+    )
+      .then((result) => {
+        setRawDevelopment(result);
+        setRawDevelopmentState("success");
+      })
+      .catch((requestError: Error) => {
+        if (requestError.name !== "AbortError") {
+          setRawDevelopment(null);
+          setRawDevelopmentState("not-executed");
+        }
       });
     return () => controller.abort();
   }, []);
@@ -303,6 +327,8 @@ function App() {
           <ExperimentLabPage
             state="not-executed"
             stateMessage={blocked}
+            rawDevelopment={rawDevelopment}
+            rawDevelopmentState={rawDevelopmentState}
             selectedScope={scope}
             onScopeChange={setScope}
             rows={models.map((m) => ({
@@ -329,8 +355,12 @@ function App() {
           evidence={[
             {
               label: "Release class",
-              value: "ENGINEERING_DEMO_ONLY",
-              detail: "The full P0 forecasting MVP is incomplete.",
+              value: evidence?.release_class ?? "ENGINEERING_DEMO_ONLY",
+              detail:
+                evidence?.release_class ===
+                "OFFLINE_RESEARCH_ENGINEERING_ONLY"
+                  ? "Offline research engineering only. Calibrated core and final evaluation remain blocked."
+                  : "The full P0 forecasting MVP is incomplete.",
             },
             {
               label: "Source",

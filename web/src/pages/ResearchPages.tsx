@@ -7,6 +7,7 @@ import {
   type ReadoutField,
   type ResearchState,
 } from "../components/ResearchPrimitives";
+import type { RawDevelopmentEvidence } from "../api/client";
 
 export interface DeploymentReplayPageProps {
   state: ResearchState;
@@ -544,6 +545,8 @@ export interface ExperimentLabPageProps {
   state: ResearchState;
   stateMessage: string;
   rows?: readonly ExperimentRow[];
+  rawDevelopment?: RawDevelopmentEvidence | null;
+  rawDevelopmentState?: "loading" | "success" | "not-executed";
   selectedScope?: ExperimentReportScope;
   onScopeChange?: (scope: ExperimentReportScope) => void;
   pairedDifferenceChart?: ReactNode;
@@ -555,6 +558,8 @@ export function ExperimentLabPage({
   state,
   stateMessage,
   rows,
+  rawDevelopment,
+  rawDevelopmentState = "not-executed",
   selectedScope,
   onScopeChange,
   pairedDifferenceChart,
@@ -649,6 +654,32 @@ export function ExperimentLabPage({
         </div>
       </section>
 
+      <section className="panel raw-development-panel" aria-labelledby="raw-development-title">
+        <SectionHeading
+          eyebrow="REAL TRAIN DEVELOPMENT · ENGINEERING ONLY"
+          title="Raw response-code TRAIN development"
+          description="A complete-positive transformed AZFP backscatter_r code mean study. These development metrics use raw response codes, not calibrated Sv. This is not a JEPA result, and no final evaluation was run."
+          id="raw-development-title"
+        />
+        {rawDevelopment ? (
+          <RawDevelopmentResult evidence={rawDevelopment} />
+        ) : (
+          <ResearchStateNotice
+            state={rawDevelopmentState}
+            title={
+              rawDevelopmentState === "loading"
+                ? "Loading raw development evidence"
+                : "Raw development evidence unavailable"
+            }
+            message={
+              rawDevelopmentState === "loading"
+                ? "Reading the local TRAIN-development evidence artifact."
+                : "The local service did not provide the raw TRAIN-development artifact. No prediction or performance result is displayed."
+            }
+          />
+        )}
+      </section>
+
       <section className="panel panel--subtle">
         <SectionHeading
           eyebrow="PAIRED COMPARISON"
@@ -665,6 +696,145 @@ export function ExperimentLabPage({
           />
         )}
       </section>
+    </div>
+  );
+}
+
+function RawDevelopmentResult({
+  evidence,
+}: {
+  evidence: RawDevelopmentEvidence;
+}) {
+  const predictionRows = evidence.rows.flatMap((row) =>
+    row.horizons.map((horizon) => ({
+      cutoff_utc: row.cutoff_utc,
+      ...horizon,
+    })),
+  );
+  const directWorseAtEveryHorizon =
+    evidence.horizons.length === 3 &&
+    evidence.horizons.every(
+      (horizon) =>
+        horizon.direct_neural.daily_mean_pinball_code >
+          horizon.ridge.daily_mean_pinball_code &&
+        horizon.direct_neural.mae_code_median > horizon.ridge.mae_code_median,
+    );
+
+  return (
+    <div className="raw-development-content">
+      <ResearchStateNotice
+        state="partial"
+        title="TRAIN-development artifact · engineering only"
+        message={`${evidence.status} · ${evidence.study_id} · ${evidence.run_id}. The reported comparison is ${evidence.comparison_label}.`}
+      />
+      <dl className="raw-development-facts">
+        <div>
+          <dt>Quantity</dt>
+          <dd>{evidence.quantity}</dd>
+        </div>
+        <div>
+          <dt>Unit</dt>
+          <dd>{evidence.unit}</dd>
+        </div>
+        <div>
+          <dt>Calibration</dt>
+          <dd>{evidence.calibrated ? "Calibrated" : "Uncalibrated · not Sv"}</dd>
+        </div>
+        <div>
+          <dt>Final evaluation</dt>
+          <dd>{evidence.final_evaluation ? "Performed" : "Not performed"}</dd>
+        </div>
+      </dl>
+      <p className="raw-development-conclusion">
+        {directWorseAtEveryHorizon
+          ? "Direct neural is worse than ridge on both reported metrics at all three horizons."
+          : evidence.comparison_label}
+      </p>
+
+      <div
+        className="raw-development-metrics-scroll"
+        role="region"
+        tabIndex={0}
+        aria-label="Scrollable three-horizon development metrics"
+      >
+        <table className="raw-development-metrics">
+          <caption>Recorded TRAIN-development metrics by forecast horizon</caption>
+          <thead>
+            <tr>
+              <th scope="col" rowSpan={2}>Horizon</th>
+              <th scope="col" rowSpan={2}>Eligible rows</th>
+              <th scope="col" rowSpan={2}>Target days</th>
+              <th scope="colgroup" colSpan={2}>Ridge</th>
+              <th scope="colgroup" colSpan={2}>Direct neural</th>
+            </tr>
+            <tr>
+              <th scope="col">Daily mean pinball (code)</th>
+              <th scope="col">Median MAE (code)</th>
+              <th scope="col">Daily mean pinball (code)</th>
+              <th scope="col">Median MAE (code)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {evidence.horizons.map((horizon) => (
+              <tr key={horizon.horizon_hours}>
+                <th scope="row">{horizon.horizon_hours} h</th>
+                <td>{horizon.eligible_rows}</td>
+                <td>{horizon.target_days}</td>
+                <td>{String(horizon.ridge.daily_mean_pinball_code)}</td>
+                <td>{String(horizon.ridge.mae_code_median)}</td>
+                <td>{String(horizon.direct_neural.daily_mean_pinball_code)}</td>
+                <td>{String(horizon.direct_neural.mae_code_median)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div
+        className="raw-development-predictions-scroll"
+        role="region"
+        tabIndex={0}
+        aria-label="All raw TRAIN-development cutoff and horizon predictions"
+      >
+        <table className="raw-development-predictions">
+          <caption>
+            All TRAIN-development predictions and truths · {evidence.rows.length} cutoffs · {predictionRows.length} cutoff-by-horizon rows · no rows omitted
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Cutoff (UTC)</th>
+              <th scope="col">Horizon</th>
+              <th scope="col">Target start (UTC)</th>
+              <th scope="col">Eligible</th>
+              <th scope="col">Truth code</th>
+              <th scope="col">Ridge quantile codes (source order)</th>
+              <th scope="col">Direct neural quantile codes (source order)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {predictionRows.map((row) => (
+              <tr key={`${row.cutoff_utc}-${row.horizon_hours}`}>
+                <th scope="row">{row.cutoff_utc}</th>
+                <td>{row.horizon_hours} h</td>
+                <td>{row.target_start_utc}</td>
+                <td>{row.eligible ? "Eligible" : "Ineligible"}</td>
+                <td>{row.truth_code === null ? "Not scored" : String(row.truth_code)}</td>
+                <td><code>{row.ridge_quantiles_code.map(String).join(", ")}</code></td>
+                <td><code>{row.direct_quantiles_code.map(String).join(", ")}</code></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="raw-development-limitations">
+        <h4>Study limitations</h4>
+        <ul>
+          {evidence.limitations.map((limitation, index) => (
+            <li key={`${index}-${limitation}`}>{limitation}</li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

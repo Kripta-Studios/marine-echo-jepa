@@ -107,3 +107,70 @@ test('bounded replay navigation meets the declared latency target', async ({page
   writeFileSync(resolve(import.meta.dirname,'../../evidence/browser/navigation-latency.json'),JSON.stringify({metric:'UI cutoff change through rendered observation canvas',samples_ms:samples,p95_ms:p95,target_ms:300,live_forecast_latency:null,live_forecast_status:'NOT_RUN_NO_MODEL'},null,2));
   expect(p95).toBeLessThanOrEqual(300);
 });
+
+test('raw TRAIN-development evidence shows all predictions and current release class', async ({page}) => {
+  const cutoffs = [
+    '2020-03-01T00:00:00Z',
+    '2020-03-02T00:00:00Z',
+  ];
+  const horizons = [1, 3, 6].map((horizon_hours) => ({
+    horizon_hours,
+    eligible_rows: 2,
+    target_days: 2,
+    ridge: { daily_mean_pinball_code: 1, mae_code_median: 2 },
+    direct_neural: { daily_mean_pinball_code: 3, mae_code_median: 4 },
+  }));
+  const artifact = {
+    study_id: 'raw_response_development_v1',
+    run_id: 'browser-contract-fixture',
+    status: 'REAL_TRAIN_DEVELOPMENT_ONLY',
+    quantity: 'complete_positive_azfp_backscatter_r_code_mean',
+    unit: 'transformed AZFP response code (not calibrated Sv)',
+    calibrated: false,
+    final_evaluation: false,
+    comparison_label: 'Direct neural is worse than ridge in this contract fixture.',
+    horizons,
+    rows: cutoffs.map((cutoff_utc, cutoff_index) => ({
+      cutoff_utc,
+      horizons: [1, 3, 6].map((horizon_hours) => ({
+        horizon_hours,
+        target_start_utc: `2020-03-0${cutoff_index + 2}T${String(horizon_hours).padStart(2, '0')}:00:00Z`,
+        eligible: true,
+        truth_code: 10 + cutoff_index + horizon_hours,
+        ridge_quantiles_code: [1, 2, 3, 4, 5],
+        direct_quantiles_code: [6, 7, 8, 9, 10],
+      })),
+    })),
+    limitations: ['Browser contract fixture only; no experimental claim.'],
+  };
+  await page.route('**/api/v1/evidence/raw-development', (route) =>
+    route.fulfill({ status: 200, json: artifact }),
+  );
+  await page.route('**/api/v1/evidence/research', async (route) => {
+    const response = await route.fetch();
+    const body = await response.json();
+    await route.fulfill({ response, json: { ...body, release_class: 'OFFLINE_RESEARCH_ENGINEERING_ONLY' } });
+  });
+
+  await page.goto('/#experiment-lab');
+  await expect(page.getByRole('heading', { name: 'Raw response-code TRAIN development' })).toBeVisible();
+  const resultTable = page.getByRole('table', { name: /All TRAIN-development predictions and truths/ });
+  await expect(resultTable.locator('tbody tr')).toHaveCount(6);
+  await expect(resultTable.getByRole('columnheader', { name: 'Ridge quantile codes (source order)' })).toBeAttached();
+  await expect(resultTable.getByRole('cell', { name: '12', exact: true })).toBeVisible();
+  await expect(resultTable.getByRole('cell', { name: '17', exact: true })).toBeVisible();
+  await expect(page.getByText('Direct neural is worse than ridge on both reported metrics at all three horizons.')).toBeVisible();
+
+  await page.getByRole('link', { name: /Evidence & transfer/ }).click();
+  await expect(page.getByText('OFFLINE_RESEARCH_ENGINEERING_ONLY', { exact: true })).toBeVisible();
+  await expect(page.getByText(/calibrated core and final evaluation remain blocked/i)).toBeVisible();
+});
+
+test('missing raw TRAIN-development artifact has an honest unavailable state', async ({page}) => {
+  await page.route('**/api/v1/evidence/raw-development', (route) =>
+    route.fulfill({ status: 404, json: { detail: 'Artifact unavailable.' } }),
+  );
+  await page.goto('/#experiment-lab');
+  await expect(page.getByRole('heading', { name: 'Raw development evidence unavailable' })).toBeVisible();
+  await expect(page.getByText(/no prediction or performance result is displayed/i)).toBeVisible();
+});
