@@ -117,7 +117,8 @@ class AeonTemporalSSL(nn.Module):
             raise ValueError("Temporal SSL needs at least two TRAIN windows per batch.")
         predicted = self.predictor(self.context_view(values, mask))
         target = self.teacher_view(values, mask)
-        prediction_loss = F.smooth_l1_loss(predicted, target.detach())
+        predictive_target = target.detach() if self.mode == "ema" else target
+        prediction_loss = F.smooth_l1_loss(predicted, predictive_target)
         regularized = predicted if self.mode == "ema" else target
         return prediction_loss + self.regularizer_weight * self.regularizer(regularized)
 

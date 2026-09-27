@@ -41,6 +41,20 @@ def test_shared_sigreg_propagates_gradient_to_shared_encoder() -> None:
     )
 
 
+def test_shared_predictive_target_keeps_gradient_through_held_out_past() -> None:
+    for mode in ("ema", "shared_sigreg"):
+        values, mask = _batch()
+        values.requires_grad_(True)
+        model = AeonTemporalSSL(mode=mode, width=128, layers=3, regularizer_weight=0)
+        model.pretrain_loss(values, mask).backward()
+        assert values.grad is not None
+        target_gradient = values.grad[:, 18:].abs().sum().item()
+        if mode == "ema":
+            assert target_gradient == 0
+        else:
+            assert target_gradient > 0
+
+
 def test_masked_context_view_cannot_read_later_six_products() -> None:
     values, mask = _batch()
     model = AeonTemporalSSL(mode="ema", width=128, layers=3)
