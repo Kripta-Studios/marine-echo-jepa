@@ -1,0 +1,11 @@
+RED evidence, synthetic fixture tests only. No D1 model fit.
+
+Command (GPU-capable sibling environment, PYTHONPATH=src):
+python -m pytest -q tests/integration/test_v2_campaign_backend.py -k 'phase_resume or resume_rejects'
+Observed before implementation: 4 failed, 11 deselected in 15.84s.
+All four failures: NativeCampaignBackend._supervised_phase() got an unexpected keyword argument 'slot'.
+
+Command (same environment):
+python -m pytest -q tests/integration/test_v2_campaign_backend.py -k 'pretraining_resume'
+Observed before pretraining implementation: 2 failed, 15 deselected in 2.97s.
+Both failures: NativeCampaignBackend._pretrain_phase() got an unexpected keyword argument 'configuration'.

@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 import time
+from dataclasses import asdict
 from itertools import pairwise
 from pathlib import Path
 from typing import Any, cast
@@ -27,7 +28,7 @@ from marine_echo.models.v2_development import (
     joint_supervised_loss,
 )
 from marine_echo.models.v2_hybrid import NativeHybridRidge
-from marine_echo.training.loop import save_checkpoint
+from marine_echo.training.loop import load_checkpoint, save_checkpoint
 from marine_echo.training.v2_campaign import (
     LEARNED,
     SlotResult,
@@ -113,6 +114,11 @@ class NativeCampaignBackend:
         self.fixture_updates = fixture_updates
         self.tree_max_iter = tree_max_iter
         self.device = device
+        self.cohort_review_sha256 = cohort_review_sha256
+        self.support_report_sha256 = support_report_sha256
+        self.fit_support_rows_sha256 = fit_support_rows_sha256
+        self.validation_support_rows_sha256 = validation_support_rows_sha256
+        self.native_index_sha256 = native_index_sha256
         if not fixture_only:
             if (
                 cohort_review_path is None
@@ -309,6 +315,66 @@ class NativeCampaignBackend:
         if self.device == "cuda" and torch.cuda.max_memory_reserved() >= 10 * 1024**3:
             raise MemoryError("Campaign GPU reserve reached the 10 GiB target.")
 
+    def _checkpoint_identity(self, slot: V2Slot, configuration: int, phase: str) -> dict[str, Any]:
+        identity = {
+            "protocol_sha256": self.protocol_sha256,
+            "code_sha256": _code_digest(),
+            "fit_sha256": _rows_digest(self.fit),
+            "validation_sha256": _rows_digest(self.validation),
+            "fit_source_sha256": _source_hashes(self.fit),
+            "validation_source_sha256": _source_hashes(self.validation),
+            "cohort_review_sha256": self.cohort_review_sha256,
+            "support_report_sha256": self.support_report_sha256,
+            "fit_support_rows_sha256": self.fit_support_rows_sha256,
+            "validation_support_rows_sha256": self.validation_support_rows_sha256,
+            "native_index_sha256": self.native_index_sha256,
+            "slot": asdict(slot),
+            "configuration": configuration,
+            "phase": phase,
+            "model_config": asdict(self.model_config),
+            "batch_size": self.batch_size,
+            "device": self.device,
+            "fixture_only": self.fixture_only,
+        }
+        return cast(dict[str, Any], json.loads(json.dumps(identity, sort_keys=True)))
+
+    def _save_phase_checkpoint(
+        self,
+        path: Path,
+        model: JointDirectForecaster | JointJEPAForecaster,
+        optimizer: torch.optim.Optimizer,
+        *,
+        step: int,
+        identity: dict[str, Any],
+    ) -> None:
+        save_checkpoint(path, model, optimizer, step=step, protocol_sha256=self.protocol_sha256)
+        path.with_suffix(".identity.json").write_text(
+            json.dumps({"identity": identity, "checkpoint_sha256": _sha256(path)}, sort_keys=True),
+            encoding="utf-8",
+        )
+
+    def _load_phase_checkpoint(
+        self,
+        path: Path,
+        output: Path,
+        model: JointDirectForecaster | JointJEPAForecaster,
+        optimizer: torch.optim.Optimizer,
+        identity: dict[str, Any],
+    ) -> int:
+        sidecar = path.with_suffix(".identity.json")
+        if (
+            not path.is_file()
+            or path.is_symlink()
+            or not sidecar.is_file()
+            or sidecar.is_symlink()
+            or path.resolve(strict=True).parent != output.resolve(strict=True)
+        ):
+            raise ValueError("Campaign resume checkpoint escapes its slot output.")
+        recorded = json.loads(sidecar.read_text(encoding="utf-8"))
+        if recorded != {"identity": identity, "checkpoint_sha256": _sha256(path)}:
+            raise ValueError("Campaign resume checkpoint identity or digest differs.")
+        return load_checkpoint(path, model, optimizer, protocol_sha256=self.protocol_sha256)
+
     def _supervised_phase(
         self,
         model: JointDirectForecaster | JointJEPAForecaster,
@@ -318,9 +384,12 @@ class NativeCampaignBackend:
         validation_tensors: Any,
         scaler: _Scaler,
         output: Path,
+        slot: V2Slot,
+        configuration: int,
         seed: int,
         learning_rate: float,
         name: str,
+        resume_checkpoint: Path | None = None,
     ) -> tuple[TrainingPhase | None, Path]:
         candidates = np.flatnonzero(
             (fit_tensors.target_mask | fit_tensors.fraction_mask).any(dim=1).numpy()
@@ -334,7 +403,39 @@ class NativeCampaignBackend:
         scores: list[float] = []
         best = float("inf")
         stale = 0
-        for step in range(1, max_updates + 1):
+        identity = self._checkpoint_identity(slot, configuration, name)
+        start_step = 0
+        if resume_checkpoint is not None:
+            start_step = self._load_phase_checkpoint(
+                resume_checkpoint, output, model, optimizer, identity
+            )
+            if (
+                resume_checkpoint.name != f"{name}-checkpoint-{start_step}.pt"
+                or not 0 < start_step < max_updates
+                or (not self.fixture_only and start_step % 250)
+            ):
+                raise ValueError("Campaign resume step differs from its frozen phase.")
+            if not self.fixture_only:
+                for prior_step in range(250, start_step + 1, 250):
+                    prior = output / f"{name}-checkpoint-{prior_step}.pt"
+                    if (
+                        self._load_phase_checkpoint(prior, output, model, optimizer, identity)
+                        != prior_step
+                    ):
+                        raise ValueError("Campaign prior checkpoint step differs.")
+                    path = output / f"{name}-validation-{prior_step}.npz"
+                    score = _primary(_verify_predictions(path, self.validation))
+                    checkpoints.append(prior)
+                    validation_paths.append(path)
+                    scores.append(score)
+                    if score < best:
+                        best, stale = score, 0
+                    else:
+                        stale += 1
+                self._load_phase_checkpoint(resume_checkpoint, output, model, optimizer, identity)
+                if start_step >= 1000 and stale >= 4:
+                    raise ValueError("Campaign cannot resume after the frozen early stop.")
+        for step in range(start_step + 1, max_updates + 1):
             rng = np.random.default_rng(np.random.SeedSequence([seed, step, 41]))
             chosen = rng.choice(
                 candidates, size=self.batch_size, replace=len(candidates) < self.batch_size
@@ -363,8 +464,8 @@ class NativeCampaignBackend:
             self._resource_guard(process)
             if not self.fixture_only and step % 250 == 0:
                 checkpoint = output / f"{name}-checkpoint-{step}.pt"
-                save_checkpoint(
-                    checkpoint, model, optimizer, step=step, protocol_sha256=self.protocol_sha256
+                self._save_phase_checkpoint(
+                    checkpoint, model, optimizer, step=step, identity=identity
                 )
                 checkpoints.append(checkpoint)
                 path = output / f"{name}-validation-{step}.npz"
@@ -384,9 +485,7 @@ class NativeCampaignBackend:
                     break
         if self.fixture_only:
             checkpoint = output / f"{name}-checkpoint-{step}.pt"
-            save_checkpoint(
-                checkpoint, model, optimizer, step=step, protocol_sha256=self.protocol_sha256
-            )
+            self._save_phase_checkpoint(checkpoint, model, optimizer, step=step, identity=identity)
             return None, checkpoint
         return (
             TrainingPhase(name, step, tuple(checkpoints), tuple(scores), tuple(validation_paths)),
@@ -409,6 +508,8 @@ class NativeCampaignBackend:
             validation_tensors=validation_tensors,
             scaler=scaler,
             output=output,
+            slot=slot,
+            configuration=config,
             seed=slot.seed,
             learning_rate=(3e-4, 1e-3)[config],
             name="supervised",
@@ -462,6 +563,7 @@ class NativeCampaignBackend:
         model: JointJEPAForecaster,
         *,
         slot: V2Slot,
+        configuration: int,
         fit_tensors: Any,
         validation_tensors: Any,
         future: torch.Tensor,
@@ -470,6 +572,7 @@ class NativeCampaignBackend:
         validation_future_mask: torch.Tensor,
         shuffle: np.ndarray,
         output: Path,
+        resume_checkpoint: Path | None = None,
     ) -> TrainingPhase | None:
         optimizer = torch.optim.AdamW(
             (parameter for parameter in model.parameters() if parameter.requires_grad),
@@ -486,7 +589,39 @@ class NativeCampaignBackend:
         scores: list[float] = []
         best = float("inf")
         stale = 0
-        for step in range(1, max_updates + 1):
+        identity = self._checkpoint_identity(slot, configuration, "pretrain")
+        start_step = 0
+        if resume_checkpoint is not None:
+            start_step = self._load_phase_checkpoint(
+                resume_checkpoint, output, model, optimizer, identity
+            )
+            if (
+                resume_checkpoint.name != f"pretrain-checkpoint-{start_step}.pt"
+                or not 0 < start_step < max_updates
+                or (not self.fixture_only and start_step % 250)
+            ):
+                raise ValueError("Campaign pretraining resume step differs.")
+            if not self.fixture_only:
+                for prior_step in range(250, start_step + 1, 250):
+                    prior = output / f"pretrain-checkpoint-{prior_step}.pt"
+                    if (
+                        self._load_phase_checkpoint(prior, output, model, optimizer, identity)
+                        != prior_step
+                    ):
+                        raise ValueError("Campaign prior pretraining checkpoint step differs.")
+                    score = self._pretrain_validation_loss(
+                        model, validation_tensors, validation_future, validation_future_mask
+                    )
+                    checkpoints.append(prior)
+                    scores.append(score)
+                    if score < best:
+                        best, stale = score, 0
+                    else:
+                        stale += 1
+                self._load_phase_checkpoint(resume_checkpoint, output, model, optimizer, identity)
+                if start_step >= 1000 and stale >= 4:
+                    raise ValueError("Campaign cannot resume after the frozen early stop.")
+        for step in range(start_step + 1, max_updates + 1):
             rng = np.random.default_rng(np.random.SeedSequence([slot.seed, step, 17]))
             chosen = rng.choice(
                 candidates, size=self.batch_size, replace=len(candidates) < self.batch_size
@@ -512,8 +647,8 @@ class NativeCampaignBackend:
             self._resource_guard(process)
             if not self.fixture_only and step % 250 == 0:
                 checkpoint = output / f"pretrain-checkpoint-{step}.pt"
-                save_checkpoint(
-                    checkpoint, model, optimizer, step=step, protocol_sha256=self.protocol_sha256
+                self._save_phase_checkpoint(
+                    checkpoint, model, optimizer, step=step, identity=identity
                 )
                 checkpoints.append(checkpoint)
                 score = self._pretrain_validation_loss(
@@ -527,12 +662,12 @@ class NativeCampaignBackend:
                 if step >= 1000 and stale >= 4:
                     break
         if self.fixture_only:
-            save_checkpoint(
+            self._save_phase_checkpoint(
                 output / f"pretrain-checkpoint-{step}.pt",
                 model,
                 optimizer,
                 step=step,
-                protocol_sha256=self.protocol_sha256,
+                identity=identity,
             )
             return None
         return TrainingPhase("pretrain", step, tuple(checkpoints), tuple(scores))
@@ -561,6 +696,7 @@ class NativeCampaignBackend:
             pretrain_phase = self._pretrain_phase(
                 model,
                 slot=slot,
+                configuration=config,
                 fit_tensors=fit_tensors,
                 validation_tensors=validation_tensors,
                 future=future,
@@ -584,6 +720,8 @@ class NativeCampaignBackend:
             validation_tensors=validation_tensors,
             scaler=scaler,
             output=output,
+            slot=slot,
+            configuration=config,
             seed=slot.seed,
             learning_rate=3e-4,
             name="probe",

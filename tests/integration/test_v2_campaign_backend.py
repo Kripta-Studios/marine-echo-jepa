@@ -12,8 +12,10 @@ import pytest
 import torch
 
 from marine_echo.models.compact import ModelConfig
+from marine_echo.models.v2_development import JointDirectForecaster, JointJEPAForecaster
 from marine_echo.training.v2_campaign import execute_v2_campaign, v2_plan
 from marine_echo.training.v2_campaign_backend import NativeCampaignBackend
+from marine_echo.training.v2_representation import _future
 from marine_echo.training.v2_stream import HourlyWindow
 
 
@@ -205,3 +207,315 @@ def test_backend_direct_prediction_ignores_validation_future_truth(tmp_path: Pat
             outputs.append((saved["quantiles_db"], saved["detection_fraction"]))
     np.testing.assert_array_equal(outputs[0][0], outputs[1][0])
     np.testing.assert_array_equal(outputs[0][1], outputs[1][1])
+
+
+@pytest.mark.parametrize("family", ["direct", "ema_jepa", "shared_sigreg"])
+def test_campaign_phase_resume_matches_uninterrupted_updates(family: str, tmp_path: Path) -> None:
+    torch.set_num_threads(1)
+    backend = NativeCampaignBackend(
+        _rows("2020-02-18", "train"),
+        _rows("2020-05-28", "validation"),
+        fixture_only=True,
+        fixture_updates=2,
+        batch_size=4,
+        model_config=ModelConfig(width=16, layers=1, heads=4),
+    )
+    backend._peak_rss = 0
+    slot = next(slot for slot in v2_plan() if slot.run_id == f"{family}-development0-seed7")
+    scaler, fit_tensors, validation_tensors = backend._scaler_tensors()
+    uninterrupted_dir = tmp_path / "uninterrupted"
+    resumed_dir = tmp_path / "resumed"
+    uninterrupted_dir.mkdir()
+    resumed_dir.mkdir()
+
+    def make_model() -> tuple[JointDirectForecaster | JointJEPAForecaster, torch.optim.Optimizer]:
+        torch.manual_seed(7)
+        if family == "direct":
+            model = JointDirectForecaster(backend.model_config)
+        else:
+            model = JointJEPAForecaster(
+                backend.model_config,
+                mode="ema" if family == "ema_jepa" else "shared_sigreg",
+            )
+        optimizer = torch.optim.AdamW(model.parameters(), lr=3e-4)
+        return model, optimizer
+
+    def phase(
+        model: JointDirectForecaster | JointJEPAForecaster,
+        optimizer: torch.optim.Optimizer,
+        output: Path,
+        resume_checkpoint: Path | None = None,
+    ) -> Path:
+        _, checkpoint = backend._supervised_phase(
+            model,
+            optimizer=optimizer,
+            fit_tensors=fit_tensors,
+            validation_tensors=validation_tensors,
+            scaler=scaler,
+            output=output,
+            slot=slot,
+            configuration=0,
+            seed=7,
+            learning_rate=3e-4,
+            name="supervised",
+            resume_checkpoint=resume_checkpoint,
+        )
+        return checkpoint
+
+    uninterrupted, uninterrupted_optimizer = make_model()
+    phase(uninterrupted, uninterrupted_optimizer, uninterrupted_dir)
+    first, first_optimizer = make_model()
+    backend.fixture_updates = 1
+    midpoint = phase(first, first_optimizer, resumed_dir)
+    backend.fixture_updates = 2
+    resumed, resumed_optimizer = make_model()
+    phase(resumed, resumed_optimizer, resumed_dir, midpoint)
+    for name, value in uninterrupted.state_dict().items():
+        torch.testing.assert_close(value, resumed.state_dict()[name], rtol=0, atol=0)
+
+
+def test_campaign_resume_rejects_wrong_slot_identity(tmp_path: Path) -> None:
+    torch.set_num_threads(1)
+    backend = NativeCampaignBackend(
+        _rows("2020-02-18", "train"),
+        _rows("2020-05-28", "validation"),
+        fixture_only=True,
+        fixture_updates=1,
+        batch_size=4,
+        model_config=ModelConfig(width=16, layers=1, heads=4),
+    )
+    backend._peak_rss = 0
+    scaler, fit_tensors, validation_tensors = backend._scaler_tensors()
+    slot = next(slot for slot in v2_plan() if slot.run_id == "direct-development0-seed7")
+    output = tmp_path / "run"
+    output.mkdir()
+    torch.manual_seed(7)
+    model = JointDirectForecaster(backend.model_config)
+    optimizer = torch.optim.AdamW(model.parameters(), lr=3e-4)
+    _, checkpoint = backend._supervised_phase(
+        model,
+        optimizer=optimizer,
+        fit_tensors=fit_tensors,
+        validation_tensors=validation_tensors,
+        scaler=scaler,
+        output=output,
+        slot=slot,
+        configuration=0,
+        seed=7,
+        learning_rate=3e-4,
+        name="supervised",
+    )
+    backend.fixture_updates = 2
+    wrong_slot = replace(slot, run_id="direct-development1-seed7", configuration=1)
+    with pytest.raises(ValueError, match="identity"):
+        backend._supervised_phase(
+            model,
+            optimizer=optimizer,
+            fit_tensors=fit_tensors,
+            validation_tensors=validation_tensors,
+            scaler=scaler,
+            output=output,
+            slot=wrong_slot,
+            configuration=1,
+            seed=7,
+            learning_rate=3e-4,
+            name="supervised",
+            resume_checkpoint=checkpoint,
+        )
+
+
+@pytest.mark.parametrize("family", ["ema_jepa", "shared_sigreg"])
+def test_campaign_pretraining_resume_matches_uninterrupted_updates(
+    family: str, tmp_path: Path
+) -> None:
+    torch.set_num_threads(1)
+    backend = NativeCampaignBackend(
+        _rows("2020-02-18", "train"),
+        _rows("2020-05-28", "validation"),
+        fixture_only=True,
+        fixture_updates=2,
+        batch_size=4,
+        model_config=ModelConfig(width=16, layers=1, heads=4),
+    )
+    backend._peak_rss = 0
+    slot = next(slot for slot in v2_plan() if slot.run_id == f"{family}-development0-seed7")
+    scaler, fit_tensors, validation_tensors = backend._scaler_tensors()
+    future, future_mask = _future(backend.fit, scaler)
+    validation_future, validation_future_mask = _future(backend.validation, scaler)
+    uninterrupted_dir = tmp_path / "uninterrupted"
+    resumed_dir = tmp_path / "resumed"
+    uninterrupted_dir.mkdir()
+    resumed_dir.mkdir()
+
+    def make_model() -> JointJEPAForecaster:
+        torch.manual_seed(7)
+        return JointJEPAForecaster(
+            backend.model_config,
+            mode="ema" if family == "ema_jepa" else "shared_sigreg",
+        )
+
+    def phase(
+        model: JointJEPAForecaster, output: Path, resume_checkpoint: Path | None = None
+    ) -> None:
+        backend._pretrain_phase(
+            model,
+            slot=slot,
+            configuration=0,
+            fit_tensors=fit_tensors,
+            validation_tensors=validation_tensors,
+            future=future,
+            future_mask=future_mask,
+            validation_future=validation_future,
+            validation_future_mask=validation_future_mask,
+            shuffle=np.arange(len(backend.fit)),
+            output=output,
+            resume_checkpoint=resume_checkpoint,
+        )
+
+    uninterrupted = make_model()
+    phase(uninterrupted, uninterrupted_dir)
+    first = make_model()
+    backend.fixture_updates = 1
+    phase(first, resumed_dir)
+    backend.fixture_updates = 2
+    resumed = make_model()
+    phase(resumed, resumed_dir, resumed_dir / "pretrain-checkpoint-1.pt")
+    for name, value in uninterrupted.state_dict().items():
+        torch.testing.assert_close(value, resumed.state_dict()[name], rtol=0, atol=0)
+
+
+def test_synthetic_campaign_reloads_real_250_update_milestone(tmp_path: Path) -> None:
+    torch.set_num_threads(1)
+    backend = NativeCampaignBackend(
+        _rows("2020-02-18", "train"),
+        _rows("2020-05-28", "validation"),
+        fixture_only=True,
+        batch_size=4,
+        model_config=ModelConfig(width=16, layers=1, heads=4),
+    )
+    # Exercise the production 250-step cadence only on synthetic rows.
+    backend.fixture_only = False
+    backend._peak_rss = 0
+    slot = next(slot for slot in v2_plan() if slot.run_id == "direct-development0-seed7")
+    scaler, fit_tensors, validation_tensors = backend._scaler_tensors()
+    output = tmp_path / "interrupted"
+    output.mkdir()
+
+    def make_model() -> tuple[JointDirectForecaster, torch.optim.Optimizer]:
+        torch.manual_seed(7)
+        model = JointDirectForecaster(backend.model_config)
+        return model, torch.optim.AdamW(model.parameters(), lr=3e-4)
+
+    def phase(
+        model: JointDirectForecaster,
+        optimizer: torch.optim.Optimizer,
+        resume_checkpoint: Path | None = None,
+    ) -> None:
+        backend._supervised_phase(
+            model,
+            optimizer=optimizer,
+            fit_tensors=fit_tensors,
+            validation_tensors=validation_tensors,
+            scaler=scaler,
+            output=output,
+            slot=slot,
+            configuration=0,
+            seed=7,
+            learning_rate=3e-4,
+            name="supervised",
+            resume_checkpoint=resume_checkpoint,
+        )
+
+    class PlannedInterruption(Exception):
+        pass
+
+    calls = 0
+
+    def interrupt_after_251(_: object) -> None:
+        nonlocal calls
+        calls += 1
+        if calls == 251:
+            raise PlannedInterruption
+
+    backend._resource_guard = interrupt_after_251  # type: ignore[method-assign]
+    uninterrupted, optimizer = make_model()
+    with pytest.raises(PlannedInterruption):
+        phase(uninterrupted, optimizer)
+    checkpoint = output / "supervised-checkpoint-250.pt"
+    assert checkpoint.is_file()
+    assert (output / "supervised-validation-250.npz").is_file()
+    calls = 250
+    resumed, resumed_optimizer = make_model()
+    with pytest.raises(PlannedInterruption):
+        phase(resumed, resumed_optimizer, checkpoint)
+    for name, value in uninterrupted.state_dict().items():
+        torch.testing.assert_close(value, resumed.state_dict()[name], rtol=0, atol=0)
+
+
+@pytest.mark.parametrize("family", ["ema_jepa", "shared_sigreg"])
+def test_synthetic_pretraining_reloads_real_250_update_milestone(
+    family: str, tmp_path: Path
+) -> None:
+    torch.set_num_threads(1)
+    backend = NativeCampaignBackend(
+        _rows("2020-02-18", "train"),
+        _rows("2020-05-28", "validation"),
+        fixture_only=True,
+        batch_size=4,
+        model_config=ModelConfig(width=16, layers=1, heads=4),
+    )
+    backend.fixture_only = False
+    backend._peak_rss = 0
+    slot = next(slot for slot in v2_plan() if slot.run_id == f"{family}-development0-seed7")
+    scaler, fit_tensors, validation_tensors = backend._scaler_tensors()
+    future, future_mask = _future(backend.fit, scaler)
+    validation_future, validation_future_mask = _future(backend.validation, scaler)
+    output = tmp_path / "interrupted"
+    output.mkdir()
+
+    def make_model() -> JointJEPAForecaster:
+        torch.manual_seed(7)
+        return JointJEPAForecaster(
+            backend.model_config,
+            mode="ema" if family == "ema_jepa" else "shared_sigreg",
+        )
+
+    def phase(model: JointJEPAForecaster, resume_checkpoint: Path | None = None) -> None:
+        backend._pretrain_phase(
+            model,
+            slot=slot,
+            configuration=0,
+            fit_tensors=fit_tensors,
+            validation_tensors=validation_tensors,
+            future=future,
+            future_mask=future_mask,
+            validation_future=validation_future,
+            validation_future_mask=validation_future_mask,
+            shuffle=np.arange(len(backend.fit)),
+            output=output,
+            resume_checkpoint=resume_checkpoint,
+        )
+
+    class PlannedInterruption(Exception):
+        pass
+
+    calls = 0
+
+    def interrupt_after_251(_: object) -> None:
+        nonlocal calls
+        calls += 1
+        if calls == 251:
+            raise PlannedInterruption
+
+    backend._resource_guard = interrupt_after_251  # type: ignore[method-assign]
+    uninterrupted = make_model()
+    with pytest.raises(PlannedInterruption):
+        phase(uninterrupted)
+    checkpoint = output / "pretrain-checkpoint-250.pt"
+    assert checkpoint.is_file()
+    calls = 250
+    resumed = make_model()
+    with pytest.raises(PlannedInterruption):
+        phase(resumed, checkpoint)
+    for name, value in uninterrupted.state_dict().items():
+        torch.testing.assert_close(value, resumed.state_dict()[name], rtol=0, atol=0)
