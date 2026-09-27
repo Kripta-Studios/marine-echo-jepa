@@ -9,6 +9,7 @@ import pytest
 import torch
 
 from marine_echo.models.aeon_ssl import AeonTemporalSSL
+from marine_echo.training import aeon_random_diagnostics
 from marine_echo.training.aeon_random_diagnostics import _checkpoint_diagnostic
 from marine_echo.training.aeon_windows import AeonHourlyWindow
 
@@ -71,3 +72,11 @@ def test_random_checkpoint_diagnostic_uses_train_rows_and_frozen_encoder(
     with pytest.raises(ValueError, match="representation weights changed"):
         _checkpoint_diagnostic(checkpoint, "random_encoder_ema", rows, config,
                                expected_source="a" * 64, expected_protocol="b" * 64)
+
+
+def test_post_run_diagnostic_rejects_changed_campaign_code_before_train_read(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(aeon_random_diagnostics, "_campaign_code_sha256", lambda: "b" * 64)
+    with pytest.raises(ValueError, match="campaign code changed"):
+        aeon_random_diagnostics._verify_campaign_code({"code_sha256": "a" * 64})

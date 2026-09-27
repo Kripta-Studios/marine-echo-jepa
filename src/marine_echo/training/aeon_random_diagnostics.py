@@ -13,6 +13,7 @@ import torch
 
 from marine_echo.models.aeon_ssl import AeonTemporalSSL
 from marine_echo.training.aeon_campaign import (
+    _campaign_code_sha256,
     _config_gate,
     _representation_diagnostics,
     campaign_slots,
@@ -21,6 +22,11 @@ from marine_echo.training.aeon_corpus import AeonDevelopmentReader
 from marine_echo.training.aeon_development import _context_tensors, _normalizer, _sha256
 from marine_echo.training.aeon_rescore import _artifact
 from marine_echo.training.aeon_windows import AeonHourlyWindow, AeonWindowPlan, iter_aeon_windows
+
+
+def _verify_campaign_code(manifest: dict[str, Any]) -> None:
+    if _campaign_code_sha256() != manifest.get("code_sha256"):
+        raise ValueError("AEON approved campaign code changed before TRAIN diagnostics.")
 
 
 def _checkpoint_diagnostic(
@@ -112,6 +118,7 @@ def analyze_random_controls(
         or set(rescore.get("slots", {})) != set(entries)
     ):
         raise ValueError("AEON random diagnostic needs the completed, independently rescored campaign.")
+    _verify_campaign_code(manifest)
     split_sha256 = _sha256(split_review)
     reader = AeonDevelopmentReader(archive, review_path=split_review, review_sha256=split_sha256)
     train_rows = list(iter_aeon_windows(
