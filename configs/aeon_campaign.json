@@ -51,19 +51,20 @@
     "ema_teacher_momentum": 0.996,
     "ema_sigreg_weight": 0.03,
     "shared_sigreg_weight": 0.04,
-    "pretrain_view": "first_18_vs_full_24_past_source_products",
+    "pretrain_view": "first_18_vs_last_6_of_24_past_source_products",
     "quantile_monotonicity": "sort_each_horizon_five_outputs",
     "normalizer": "train_only_observed_values_and_targets"
   },
   "controls": {
     "seed": 7,
-    "random_encoder": "frozen_random_encoder_supervised_head",
-    "temporally_shuffled_pretrain_target": "train_only_pairing_separated_by_at_least_24_source_intervals",
+    "modes": ["ema", "shared_sigreg"],
+    "random_encoder": "frozen_random_encoder_supervised_head_per_mode",
+    "temporally_shuffled_pretrain_target": "mode_specific_train_only_pairing_separated_by_at_least_24_source_intervals",
     "random_encoder_pretrain_updates": 0,
     "random_encoder_supervised_updates": 1500,
     "shuffled_pretrain_updates": 1500,
     "shuffled_supervised_updates": 1500,
-    "random_encoder_has_unequal_learned_update_budget": true
+    "random_encoder_has_unequal_total_learned_update_budget": true
   },
   "device_policy": {
     "preferred": "cuda",
