@@ -1,0 +1,68 @@
+{
+  "task": "R2-AEON-CHRONOS2-PREFIT-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "reviewed_commits": [
+    "8c12739",
+    "3fff8d477c1d42089a4b810844f702dd571c745c",
+    "1eb6fef81fa91e4c39d52bc6386a01ed75543ede"
+  ],
+  "disposition": "APPROVE_CHRONOS2_TRAIN_VALIDATION_ZERO_SHOT_ONLY",
+  "config_sha256": "c0d8962fecdddef9ab4a771640a6ac07342805b50809b008a3ec490585d2104a",
+  "implementation_code_sha256": "07f98018af4e4914a5090c0b36f8cbdc244fa5a18b8dc3f37a557e275478b39b",
+  "model_revision": "29ec3766d36d6f73f0696f85560a422f50e8498c",
+  "source_archive_sha256": "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde",
+  "split_review_sha256": "b8031e2e113e39630c066cee65b4371f69b229ee905a72d832e53e6f505f297b",
+  "cohort_sha256": "5e475f6af798025f187c70ae638710d2b4362f688db2ad43d60ec436dda3e25d",
+  "corrected_rescore_sha256": "32cea9f8141fbad220a3e47d9e840039ad23b4f8e893efbcfb90f52944214c46",
+  "outcome_review_sha256": "16bb9ef931f5e2d8f8a3322fa609c5cb1c769f99f5e4a89a5ef519a0fb52f44f",
+  "validation_row_sha256": "9ce5ed6d60c4082efd3f342b3ee09ddadc5cf6286be6d6a3e953ab0f6166a99f",
+  "context_row_sha256": "ea6728982ca445a2bc3317b4d8e26e5e367c1bf48dea1a2e4002a900f732202d",
+  "classification": "POST_HOC_TRAIN_VALIDATION_DEVELOPMENT",
+  "sota_claim": "NOT_ESTABLISHED",
+  "model_and_dependency_binding": {
+    "repo_id": "amazon/chronos-2",
+    "package": "chronos-forecasting",
+    "package_version": "2.3.2",
+    "package_wheel_sha256": "0f0d9a1972f252d6cf584b9fa749bd1b389b3c1cf05a889c4130cb10652c2117",
+    "package_sdist_sha256": "910b0891310b74598a937bb9fe8447ea16393bcc2e1ad8d328c1f8099f909201",
+    "license": "Apache-2.0",
+    "snapshot_files_sha256": {
+      ".gitattributes": "11ad7efa24975ee4b0c3c3a38ed18737f0658a5f75a0a96787b576a78a023361",
+      "README.md": "c7b29bc88f5bc3ebc6e7213b6353be80090d671fefa4aa74ed20498838c16558",
+      "config.json": "ef1143bfdc9c0376d9a056eefca46cb4b1ec3d0ffacd541ff56feb40fb708031",
+      "model.safetensors": "ddcda3c7508bf2528087723e98a20707cc04b7f370ae275a9fd88078ddba4f42"
+    }
+  },
+  "independent_execution": {
+    "focused_and_adapter_tests": "14 passed in 33.31s",
+    "ruff": "All checks passed",
+    "mypy": "Builder reported clean; the independent strict invocation was stopped after prolonged environment startup and is not claimed as independent evidence.",
+    "real_cohort_reconstruction": "Reconstructed 4,965 TRAIN and 1,219 validation windows and exactly reproduced the frozen split, cohort, standard validation-row and full context/input digests.",
+    "hugging_face_snapshot": "Verified the exact local four-file snapshot and each configured SHA-256; hf cache verification passed for the pinned revision.",
+    "official_api_review": "Inspected the official Amazon Chronos v2.3.2 pipeline source. It accepts batch-by-variate-by-history arrays, native NaN missingness, cross_learning=False and returns per-input variate-by-horizon-by-quantile tensors matching the runner extraction.",
+    "calibration_or_test_outcomes_opened": false,
+    "real_model_inference_run": false
+  },
+  "approved_contract": [
+    "One frozen zero-shot inference pass over exactly the reviewed 1,219 validation issuance rows; no fitting, fine-tuning or parameter update is permitted.",
+    "Each issuance supplies the prior 24 source intervals for four frequency channels. Missing non-38-kHz channel values remain NaN for the official observation mask, while the required 38-kHz history is fully observed.",
+    "Cross-learning across issuance rows is disabled. The runner extracts the 38-kHz outputs at source-interval steps 1, 3 and 6 and the fixed five protocol quantiles.",
+    "Inference shards, final assembly and restart state are bound to full model inputs, masks, times, provenance, exact canonical batch order and all source/model/config/review hashes.",
+    "Cumulative inference time, process-tree RSS and peak GPU reserved memory persist across restarts and enforce the frozen two-hour, 22-GiB and 10-GiB limits.",
+    "The output remains explicitly post-hoc TRAIN/validation development with SOTA claim NOT_ESTABLISHED."
+  ],
+  "execution_conditions": [
+    "Run only after the currently active forward training process releases the single GPU owner lock or use the explicit CPU path without concurrent fitting.",
+    "Use chronos-forecasting 2.3.2 and the exact locally verified model snapshot; no network fallback, alternative revision or paid resource is approved.",
+    "Preserve the fixed validation row/context digests and corrected eligible-day evaluator; any code, config, source, split, cohort, model or review hash change invalidates this approval.",
+    "Obtain an independent post-run shard, prediction, metric and resource audit before using the result in development selection."
+  ],
+  "scientific_limits": [
+    "This candidate was introduced after core development evidence and is post-hoc, not a preregistered confirmatory arm.",
+    "A result on the single AEON validation cohort cannot establish state of the art, external validity, calibrated absolute backscatter, biological causality or production value.",
+    "The four channels are treated as native multivariate targets. This is a fixed model-input choice, not evidence that the channels are interchangeable or causally related."
+  ],
+  "calibration_access": "PROHIBITED",
+  "test_access": "PROHIBITED"
+}
