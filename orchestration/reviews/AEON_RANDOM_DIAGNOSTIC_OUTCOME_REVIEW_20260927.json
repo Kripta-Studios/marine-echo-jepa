@@ -1,0 +1,61 @@
+{
+  "task": "R2-AEON-FROZEN-RANDOM-DIAGNOSTIC-OUTCOME-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "status": "APPROVED_AEON_TRAIN_ONLY_RANDOM_DIAGNOSTIC_OUTCOME",
+  "disposition": "APPROVE_DIAGNOSTIC_EVIDENCE_WITH_COLLAPSE_LIMITATION",
+  "artifact_sha256": {
+    "random_diagnostic_report": "b5ae9d80246d68cfb341906a503d1e217405e7ef1795c02061092379853bba29",
+    "diagnostic_code": "3a0aa37263fac8325f69a4b6ec380638f25d195623249b28bb0901a43dda473f",
+    "diagnostic_code_review": "6c1ab6a37eb221c687a27f41e961f4898f09be3c3a90c2d16369950d89e74a86",
+    "campaign_manifest": "67ae5224657524cceb5c26f17c3a1ee399a1e886577552211d42ef2fe35a32ac",
+    "rescore_report": "32cea9f8141fbad220a3e47d9e840039ad23b4f8e893efbcfb90f52944214c46"
+  },
+  "independent_execution": {
+    "scope": "Both frozen-random seed-7 representation controls on the exact 512-row TRAIN diagnostic subset",
+    "result": "Reconstructed all 4,965 TRAIN windows, hash-loaded both final random-control checkpoints, recomputed both diagnostic dictionaries and obtained exact equality with the saved report.",
+    "same_support": "Random and corresponding learned representations use identical row IDs and cutoff interval IDs.",
+    "exit_status": 0,
+    "calibration_or_test_outcomes_opened": false
+  },
+  "results": {
+    "random_encoder_ema_seed7": {
+      "checkpoint_sha256": "966e7a089eb49bce0cdacf7fc5664f375445bf50bf7a7be501ec96618c0a0d06",
+      "slot_sha256": "b7955a477bfac5ba9fcd07e7823a752d0bdc2bf11aaa67b6bee89ac88764b482",
+      "random_target_effective_rank_of_128": 6.365734628582925,
+      "ema_target_effective_rank_of_128": 3.967494297297482,
+      "random_target_variance_mean": 0.00003924226312777192,
+      "ema_target_variance_mean": 0.00012308786196837146,
+      "random_predictor_target_rms_ratio": 1.7882104643066643,
+      "ema_predictor_target_rms_ratio": 25.244765447474094,
+      "random_predictor_target_variance_ratio": 0.07305001304964942,
+      "ema_predictor_target_variance_ratio": 10026.297065307366
+    },
+    "random_encoder_shared_sigreg_seed7": {
+      "checkpoint_sha256": "a103c21c616aafd9108cdbf2e6e4fcea70f232a78657b7dc03ea9f30eb3f6733",
+      "slot_sha256": "75f6503edef0f6336ee82be8d10ff720da976ddb24cd1ff56ee81630d6293b4b",
+      "random_target_effective_rank_of_128": 6.365734628582925,
+      "shared_target_effective_rank_of_128": 3.529878230857809,
+      "random_target_variance_mean": 0.00003924226312777192,
+      "shared_target_variance_mean": 1.0150562471008855,
+      "random_predictor_target_rms_ratio": 1.7882104643066643,
+      "shared_predictor_target_rms_ratio": 0.7184303189179845,
+      "random_predictor_target_variance_ratio": 0.07305001304964942,
+      "shared_predictor_target_variance_ratio": 0.5060312499287151
+    }
+  },
+  "interpretation": [
+    "The random encoder is already highly concentrated at effective rank 6.37 of 128 on this fixed dataset/architecture subset, so raw rank cannot be interpreted against a full-rank ideal alone.",
+    "Both learned seed-7 targets reduce effective rank further than their identical random initialization control: EMA to 3.97 and shared-SIGReg to 3.53. This is a severe dimensional-concentration and collapse signal.",
+    "EMA additionally shows a pathological predictor/target scale mismatch: RMS ratio 25.24 and variance ratio about 10,026, versus 1.79 and 0.073 for the random control.",
+    "Shared-SIGReg avoids the EMA scale mismatch and has substantial per-dimension variance, but its lower effective rank still prevents a representation-quality success claim.",
+    "Downstream validation metrics and hybrid heads must be reported separately; a favorable forecast cannot erase this representation diagnostic."
+  ],
+  "excluded_scope": [
+    "Validation model selection",
+    "Hybrid outcome review",
+    "Calibration or retrospective test access",
+    "Final evaluation or JEPA representation-success claim"
+  ],
+  "test_access": "PROHIBITED"
+}

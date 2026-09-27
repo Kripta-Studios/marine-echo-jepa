@@ -1,0 +1,53 @@
+{
+  "task": "R2-AEON-FROZEN-PRETRAIN-HYBRID-PREFIT-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "reviewed_commit": "46f709403207c3c0a464ac7b1101d731f723255a",
+  "status": "APPROVED_AEON_TRAIN_VALIDATION_HYBRID",
+  "disposition": "APPROVE_TEN_FROZEN_REPRESENTATION_HYBRID_DEVELOPMENT_RUNS",
+  "hybrid_code_sha256": "a0dc4d4c5e807aab1a866fd4207af982b06c81d34d60bb9d0a75f23ae362a668",
+  "hybrid_test_sha256": "b1ec72f1b430e2e3cfffb816ee93fc921f8651d126cd6304b26592c2540a0fa5",
+  "hybrid_config_sha256": "f933bd2ce4b61b4cde3368e34258ade3c27052cf806db5dff9348874f5b587af",
+  "campaign_manifest_sha256": "67ae5224657524cceb5c26f17c3a1ee399a1e886577552211d42ef2fe35a32ac",
+  "rescore_report_sha256": "32cea9f8141fbad220a3e47d9e840039ad23b4f8e893efbcfb90f52944214c46",
+  "split_review_sha256": "b8031e2e113e39630c066cee65b4371f69b229ee905a72d832e53e6f505f297b",
+  "cohort_sha256": "5e475f6af798025f187c70ae638710d2b4362f688db2ad43d60ec436dda3e25d",
+  "protocol_sha256": "d83392832a1bde3ae3e096de0a664ca9cfc27762a18bb10fb5ace3a97e787435",
+  "source_archive_sha256": "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde",
+  "independent_execution": {
+    "focused_tests": "5 passed in 33.14s",
+    "ruff": "All checks passed",
+    "mypy": "Success: no issues found in 1 source file",
+    "real_checkpoint_preflight": "Loaded and lineage-checked all ten real source checkpoints, reconstructed 4,965 TRAIN and 1,219 validation windows, and obtained finite 128-dimensional features for sampled boundary/midpoint rows.",
+    "exit_status": 0,
+    "calibration_or_test_outcomes_opened": false
+  },
+  "approved_contract": [
+    "Ten finite slots: EMA and shared-SIGReg final-pretrain encoders for seeds 7, 13 and 23, plus seed-7 frozen-random and temporally shuffled controls for both modes.",
+    "Main and shuffled representations come from the exact step-1500 PRETRAIN checkpoint before supervised fine-tuning; frozen-random representations come from a bitwise-verified unchanged encoder at the step-1500 supervised checkpoint.",
+    "Every slot uses the same 4,965 TRAIN rows, 1,219 validation-issued rows, 18 raw past-only features, 128 frozen encoder features and fifteen matched HGB quantile heads.",
+    "The raw-only B3 comparator is hash-loaded from the completed campaign, reproduced bit-for-bit from its fifteen saved heads, and checked against the independently corrected validation rescore.",
+    "Checkpoint phase, step, exact expected family, seed, source archive, protocol and TRAIN-only scaler are fail-closed; the fixed all-ten source map is covered by a focused test.",
+    "Saved hybrid forecasts must retain the identical validation row identity/support and equal their in-memory forecasts bit-for-bit before corrected eligible-date metrics are reported.",
+    "The runner emits no ranking and labels all results development, not final evaluation."
+  ],
+  "scientific_limits": [
+    "The four seed-7 control hybrids are diagnostic only and cannot enter family selection or be promoted as independent replications.",
+    "A favorable downstream hybrid score would not negate the separately observed low effective rank of the learned representations.",
+    "The HGB heads use the same recipe and rows as B3, but representation pretraining budgets differ by control as declared; comparisons must retain those budget labels.",
+    "Source dates use the source-reported clock with unknown timezone, and validation is retrospective development evidence.",
+    "The frozen-ridge representation diagnostic described in docs/05 is outside this ten-slot HGB approval and remains a separate completion obligation if still required by the final study claim."
+  ],
+  "required_after_execution": [
+    "Independently verify every saved hybrid model, prediction and source-checkpoint digest and recompute metrics from saved rows.",
+    "Apply the prospectively frozen three-seed ensemble and family selection rule only after all ten slots finish; do not choose a seed or drop a control from observed validation outcomes.",
+    "Keep calibration and retrospective test outcomes closed until the separate selection review and pre-test freeze."
+  ],
+  "excluded_scope": [
+    "Hybrid outcome approval or family selection",
+    "Calibration access or interval widening",
+    "Retrospective test access or final evaluation",
+    "SOTA, representation-success, sealed-holdout, biological or deployment claims"
+  ],
+  "test_access": "PROHIBITED"
+}
