@@ -16,6 +16,7 @@ dependencies = [
 [project.optional-dependencies]
 data = ["echopype==0.11.1", "pypdf==6.19.0", "gsw==3.6.23"]
 train = ["torch==2.11.0"]
+sota = ["lightgbm==4.6.0"]
 
 [dependency-groups]
 dev = [
