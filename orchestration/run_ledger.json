@@ -416,6 +416,11 @@
     ],
     "raw_response_final_evaluation": false,
     "calibrated_v2_core_status": "NOT_RUN_INELIGIBLE_CANDIDATE2_ASSESSMENT_SUPPORT_ZERO",
-    "jepa_value_status": "NOT_EVALUATED_NO_JEPA_RUN"
+    "jepa_value_status": "NOT_EVALUATED_NO_JEPA_RUN",
+    "calibrated_executor_code_status": "INDEPENDENTLY_APPROVED_CODE_NO_CALIBRATED_FIT",
+    "calibrated_executor_code_review": "orchestration/reviews/V2_CALIBRATED_EXECUTOR_CODE_20260927.json",
+    "calibrated_executor_reviewed_commit": "23b180b2431277cda9967827eaccceabbc2e7e30",
+    "offline_research_app_status": "REAL_RAW_RESPONSE_RESULTS_BROWSER_8_PASS_PACKAGE_PENDING",
+    "offline_research_browser_evidence": "evidence/v2-release/browser/playwright-results.json"
   }
 }

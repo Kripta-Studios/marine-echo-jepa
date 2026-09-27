@@ -63,3 +63,9 @@ The separate v2 offline package is an engineering research release. It shows
 all reviewed issued rows, metrics, checkpoint provenance, and explicit gates.
 The normal calibrated forecasting MVP and JEPA-value gates are incomplete.
 The historical v1 preview and r2 package are not promoted or rewritten by it.
+The calibrated campaign executor code, including independently reviewed
+same-slot restart leases and hybrid/source lineage checks, is implemented and
+approved in `orchestration/reviews/V2_CALIBRATED_EXECUTOR_CODE_20260927.json`.
+That code approval does not override the failed calibrated data gate. The
+research app's real-artifact browser suite passed eight journeys, including
+rendering all 636 cutoff-by-horizon prediction rows.

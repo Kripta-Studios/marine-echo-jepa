@@ -47,7 +47,12 @@ pinball code was 12.231/19.999/30.045 at 1/3/6 hours versus direct neural
 checkpoint hashes are in the result review. No final evaluation ran. This route
 cannot complete the calibrated-acoustic v2 MVP or consume its 25 campaign slots.
 V1 census and any-band audit were not rerun. The builder's real calibrated-v2
-campaign backend is integrated as code and fixtures, with no real D1 fit.
+campaign backend is integrated as code and fixtures, with no real D1 fit. The
+distinct reviewer approved the final scheduler/restart, hybrid best-checkpoint,
+and reused-slot lineage implementation at commit `23b180b`. Active restarted
+processes are protected by immutable per-generation leases. This is code
+approval only; calibrated Candidate 2's zero April support still bars the
+25-slot campaign and JEPA runs.
 
 The existing GPU environment passed a CUDA kernel smoke with PyTorch 2.11.0+cu128;
 this is not a training-memory measurement. Data-environment PyTorch is absent and

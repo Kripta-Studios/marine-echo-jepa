@@ -1,0 +1,22 @@
+{
+  "record_type": "COORDINATOR_TRANSCRIPTION_OF_DISTINCT_REVIEWER_MESSAGE",
+  "reviewer_session": "/root/v2_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "disposition": "APPROVE_CALIBRATED_EXECUTOR_CODE",
+  "reviewed_commit": "23b180b2431277cda9967827eaccceabbc2e7e30",
+  "campaign_sha256": "ffe0997042fba9165c0b76f095e15a528717e028f5ccdd7f2db24f017337ce08",
+  "backend_sha256": "51f59fd8741065f89b3fcbce75e134d442ab2d9d55831d6573659098b92ae9c8",
+  "restart_tests_sha256": "f1c10884935ae1fff6447757c6774ad639f3d731d6544e1c2a9617f1dc211003",
+  "campaign_tests_sha256": "353489712e3a03b6d25b48626cffb7f63f2029fb2082b56fc1205ef4e0346bdd",
+  "red_evidence_sha256": "6e3adedb9db688de5730c35469d5586a0e706290e8ab2bf1a9d12c36db660cf2",
+  "stored_green_evidence_sha256": "64a739e4dcf4687e2521c75bbae29f7d3bb70feff19919cdea6aaf5bc81ac4fd",
+  "independent_focused_tests": "7 passed in 7.38s: four reviewed restarts, reused lineage, hybrid best milestone, and real native-support fail-closed stop.",
+  "findings_closed": [
+    "Scheduler supports independently reviewed same-slot learned restart.",
+    "Hybrid loads the verified earliest best probe checkpoint.",
+    "Reused slot fields are exactly bound to their source artifact lineage.",
+    "Current restart-generation lease PID and creation time block concurrent entry while a resumed process runs."
+  ],
+  "scope": "Executor code approval only. Calibrated Candidate2 remains ineligible; core 25 and JEPA are NOT_RUN. No real D1 campaign or held-out payload/result is authorized."
+}
