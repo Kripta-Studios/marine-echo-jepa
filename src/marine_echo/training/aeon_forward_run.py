@@ -219,6 +219,10 @@ def _config_gate(config: dict[str, Any]) -> None:
         or model.get("train_representation_diagnostics", {}).get("views") != ["online_context", "online_future_target", "ema_future_teacher", "predictor"]
         or controls.get("seed") != 7
         or controls.get("random_encoder_has_unequal_total_learned_update_budget") is not True
+        or device.get("preferred") != "cuda"
+        or device.get("fallback") != "cpu"
+        or not isinstance(device.get("minimum_free_gpu_bytes"), int)
+        or device["minimum_free_gpu_bytes"] < 2 * 1024**3
         or device.get("peak_process_rss_limit_bytes") != 22 * 1024**3
         or device.get("peak_gpu_reserved_limit_bytes") != 10 * 1024**3
         or device.get("one_training_process") is not True
@@ -546,10 +550,12 @@ def run_forward_campaign(
             "prediction_sha256": slot["prediction_sha256"],
             "protocol_validation_metrics": rescore["slots"][slot_id]["protocol_validation_metrics"],
         }
+    device = _resolve_device(config)
     output = output.resolve()
     output.mkdir(parents=True, exist_ok=True)
     manifest_path = output / "manifest.json"
     identity = {
+        "device": device,
         "status": "TRAIN_VALIDATION_FORWARD_IN_PROGRESS",
         "classification": "POST_HOC_DEVELOPMENT_NOT_FINAL_EVALUATION",
         "test_access": "PROHIBITED",
@@ -573,7 +579,6 @@ def run_forward_campaign(
         entries = {}
         current = {**identity, "slots": entries}
         _atomic_json(manifest_path, current)
-    device = _resolve_device(config)
     for slot_id in FORWARD_SLOTS:
         prior = entries.get(slot_id)
         if prior is not None and prior.get("status") == "DONE":
