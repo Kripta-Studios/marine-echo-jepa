@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "task": "R2-AEON-CALIBRATION-RUNNER-ACCESS-V2-20260927",
+  "status": "APPROVED_AEON_CALIBRATION_ACCESS",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "data_kind": "REAL",
+  "partition": "calibration",
+  "partition_access": "CALIBRATION_NUMERIC_ACCESS_APPROVED",
+  "study_id": "aeon3_geb_2024_hourly_sv_v1",
+  "source_archive_sha256": "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde",
+  "protocol_sha256": "d83392832a1bde3ae3e096de0a664ca9cfc27762a18bb10fb5ace3a97e787435",
+  "source_approval_sha256": "e03c94e78956bb00c307c3310b0efd6b8b1cb84424b2db83c829c4de80a5168a",
+  "selection_plan_review_sha256": "a3135b776aee08b81643fb7ff8ceb10d486e109bce14b9d2ac84a0d6d356feb6",
+  "selection_freeze_sha256": "b3940ab8e159ac8808843b15b455ffb3c42f2d3db322190af15b80e543edff58",
+  "forecast_manifest_sha256": "790cfc22e059e398a1aefa6358c4dca5bae63ac2ba0291f5333f7d3f85661ede",
+  "config_sha256": "9003865b288a3c5afdf4b7cdba3f401c346f6067a53a255b833dde8e3a668c4c",
+  "reader_review_sha256": "006d931b99dda41886bc54cdcf39c2a5a1f13114463469a5f2f22024c4e447d5",
+  "runner_code_sha256": "25d9a33b8746501dc76888e1e30a9e0128f3fa7c9c45a664a65d686b178a57a5",
+  "evaluation_code_sha256": "5dff72c1baf2f5528f13f369936d2ca5710eeb8b8a6e6cae12a0ef95366225ff",
+  "reader_composite_sha256": "121facf774cc81e55f1ced6d4d6ec82927614a7dadc0deab66b557f35dd5563f",
+  "adapter_composite_sha256": "c8ccc0c54b720676b9f6d19cdd5ed7ffd1a5daf58ed22c469479a9272d1b77f9",
+  "approved_command_scope": "marine_echo.training.aeon_final_evaluation calibrate",
+  "approved_output": "outputs/aeon3_geb_2024_hourly_sv_v1/calibration",
+  "calibration_contract": {
+    "selected_models": [
+      "core_direct_equal_three_seed_ensemble",
+      "core_ema_equal_three_seed_ensemble",
+      "post_hoc_lightgbm"
+    ],
+    "forecast_before_target_extraction": true,
+    "minimum_anchors_per_target_source_date_and_horizon": 18,
+    "minimum_eligible_dates_per_horizon": 12,
+    "fit": "NONNEGATIVE_90_PERCENT_INTERVAL_WIDENING_ONLY",
+    "primary": "RAW_FIVE_QUANTILE_FORECAST_METRICS",
+    "test_access": "PROHIBITED"
+  },
+  "authorization_conditions": [
+    "The command must use the exact archive, source, config, selection, plan, reader-review and runner-review bytes bound above.",
+    "All model bytes and options must pass the source preflight before the CAL reader is constructed.",
+    "The output path must be absent before execution and the generated calibration artifact must receive a separate independent outcome review.",
+    "No TEST command or TEST reader is authorized by this review."
+  ],
+  "calibration_access": "CALIBRATION_NUMERIC_ACCESS_APPROVED_FOR_EXACT_BOUND_RUN",
+  "test_access": "PROHIBITED",
+  "supersedes_review_sha256": "702cc65d86effdf2e35ae654c54e583f9f7e217f7c16fa8eba4b435ec1cb890b",
+  "correction": "Correct the transcribed config SHA-256 and bind the corrected upstream and reader reviews; exact run scope is unchanged."
+}
