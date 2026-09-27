@@ -186,7 +186,17 @@ scores and checkpoint predictions and approved the bounded development artifact 
 development outcomes, not final evaluation or JEPA evidence. The first run remains
 preserved with its historical code hash; no result was silently replaced.
 
-The larger 128-wide, three-layer, three-seed AEON core campaign is specified in
-`configs/aeon_campaign.json` and awaiting final executor implementation and independent
-prefit code/config review. No AEON JEPA, calibration, or test run has yet executed.
+The larger 128-wide, three-layer, three-seed AEON core campaign was specified in
+`configs/aeon_campaign.json` for independent prefit code/config review. At that
+checkpoint no AEON JEPA, calibration, or test run had executed.
 Machine state is `orchestration/aeon_run_ledger.json`; the v1 blocked ledger is unchanged.
+
+The 17-slot TRAIN/validation campaign later received exact independent prefit approval
+in `orchestration/reviews/AEON_CAMPAIGN_PREFIT_20260927.json` and is now running serially
+under the local GPU/RAM caps. Its conventional and three direct-neural slots have
+completed; JEPA and controls remain in progress. A review addendum found that the
+campaign's saved all-scored-day validation metric includes low-anchor days. Preserve
+those values as `NON_PROTOCOL_DIAGNOSTIC` and use none for model selection. Every final
+row prediction will be rescored under the preregistered >=18-anchor/day/horizon rule
+before any selection or CAL/TEST access. See
+`orchestration/reviews/AEON_CAMPAIGN_PREFIT_METRIC_CORRECTION_20260927.json`.

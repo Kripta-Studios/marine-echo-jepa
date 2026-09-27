@@ -31,10 +31,17 @@
     }
   ],
   "development_ssl_review_sha256": "1f037917378d8e06f05637028704030535e617783163bc32c1049f4db4d477a5",
-  "core_campaign": "NOT_RUN_AWAITING_CODE_AND_INDEPENDENT_PREFIT_REVIEW",
+  "core_campaign": {
+    "status": "TRAIN_VALIDATION_CAMPAIGN_IN_PROGRESS",
+    "manifest": "outputs/aeon3_geb_2024_hourly_sv_v1/core_campaign/manifest.json",
+    "prefit_review_sha256": "682ee6c2a13a34165a4b5d5457e503f254007486bc664dbe73438c6512a8cbc2",
+    "metric_correction_review_sha256": "b6750436026f0e8ad575a67a11d4238b2a8bcbc2753ec56d8f4eadcb6ff54fc1",
+    "slot_count": 17,
+    "slot_metrics_classification": "NON_PROTOCOL_DIAGNOSTIC_PENDING_ELIGIBLE_DATE_RESCORE"
+  },
   "calibration": "NOT_RUN",
   "retrospective_test": "NOT_RUN",
   "jepa_value_gate": "NOT_EVALUATED",
-  "gpu_owner": null,
+  "gpu_owner": "aeon_core_campaign_serial_process",
   "paid_cost_usd": 0
 }

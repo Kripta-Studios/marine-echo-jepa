@@ -1,0 +1,35 @@
+{
+  "task": "R1/R2-AEON-CAMPAIGN-PREFIT-METRIC-CORRECTION-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "disposition": "APPROVE_EXECUTION_ONLY_SELECTION_REQUIRES_PROTOCOL_RESCORE",
+  "superseded_scope_only": "Validation metric and model-selection approval in AEON_CAMPAIGN_PREFIT_20260927.json",
+  "original_review_sha256": "682ee6c2a13a34165a4b5d5457e503f254007486bc664dbe73438c6512a8cbc2",
+  "campaign_code_sha256": "8054f0c95962bee496bda75559583bb0dd189324d1636a9e7667833ee51a4e83",
+  "config_sha256": "d7440553e209eb03431bb9e7ecfd7f64f6d76ed98c9bb245aa9547429a1f6f68",
+  "finding": {
+    "severity": "BLOCKING_FOR_SELECTION_NOT_FOR_EXECUTION",
+    "location": "src/marine_echo/training/aeon_development.py::_verify_and_score",
+    "description": "The recorded daily pinball metric averages every source date with at least one scored row. The frozen protocol requires equal averaging only over dates with at least 18 scored hourly anchors for the relevant horizon.",
+    "known_validation_effect": "The raw campaign reports 52 or 53 scored dates by horizon; the protocol-eligible validation count is 50 dates per horizon.",
+    "training_or_prediction_impact": "None. Model updates, final-only checkpoints and saved row predictions do not depend on this aggregation."
+  },
+  "preserved_valid_scope": [
+    "Execute all 17 frozen TRAIN/validation slots exactly once.",
+    "Preserve every final checkpoint, row-level validation prediction and raw all-scored-day metric.",
+    "Retain TRAIN-only preprocessing, pretraining and collapse diagnostics."
+  ],
+  "prohibited_uses": [
+    "Do not call the existing primary_daily_mean_pinball_db the protocol primary metric.",
+    "Do not use existing all-scored-day values for family ranking, model selection, CAL access or pretest freeze.",
+    "Do not retrain, change configuration or choose another endpoint after comparing old and corrected scores."
+  ],
+  "required_repair_before_selection": [
+    "Rescore every completed final-endpoint validation prediction with the prespecified >=18 scored anchors per source date and horizon.",
+    "Persist exact eligible source-date sets and hashes, per-horizon counts, per-horizon-by-quantile daily losses and the corrected equal-horizon primary metric.",
+    "Mark the original all-scored-day values NON_PROTOCOL_DIAGNOSTIC without deleting them.",
+    "Obtain distinct independent review of the deterministic rescore and resulting validation selection before opening calibration outcomes."
+  ],
+  "calibration_or_test_outcomes_opened": false,
+  "test_access": "PROHIBITED"
+}
