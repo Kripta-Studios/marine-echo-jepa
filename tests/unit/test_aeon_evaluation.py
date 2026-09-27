@@ -75,6 +75,12 @@ def test_daily_loss_uses_equal_source_dates_and_horizons() -> None:
     assert metrics["primary_daily_mean_pinball_db"] > 0
     assert len(metrics["daily_mean_pinball_db_by_horizon_quantile"]) == 3
     assert all(len(row) == 5 for row in metrics["daily_mean_pinball_db_by_horizon_quantile"])
+    assert [
+        row["source_date"] for row in metrics["daily_pinball_db_by_horizon_date_quantile"][0]
+    ] == [
+        "2024-01-01",
+        "2024-01-02",
+    ]
     assert metrics["median_mae_db_per_horizon"] == [1.0, 1.0, 1.0]
     assert metrics["coverage90_per_horizon"] == [1.0, 1.0, 1.0]
     assert metrics["width90_db_per_horizon"] == [4.0, 4.0, 4.0]

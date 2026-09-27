@@ -95,6 +95,7 @@ def daily_pinball(
     eligible_days = _eligible_dates_by_horizon(source_times, observed)
     daily_means: list[float] = []
     quantile_means: list[list[float]] = []
+    daily_quantiles: list[list[dict[str, object]]] = []
     scored_days: list[int] = []
     eligible_rows: list[int] = []
     median_mae: list[float] = []
@@ -110,6 +111,12 @@ def daily_pinball(
         )
         by_quantile = by_day.mean(axis=0)
         quantile_means.append(by_quantile.astype(float).tolist())
+        daily_quantiles.append(
+            [
+                {"source_date": str(day), "quantile_losses_db": loss.astype(float).tolist()}
+                for day, loss in zip(days, by_day, strict=True)
+            ]
+        )
         daily_means.append(float(by_quantile.mean()))
         scored_days.append(len(days))
         eligible_rows.append(int(valid.sum()))
@@ -135,6 +142,7 @@ def daily_pinball(
         "scored_days_per_horizon": scored_days,
         "eligible_source_dates_by_horizon": [days.astype(str).tolist() for days in eligible_days],
         "daily_mean_pinball_db_by_horizon_quantile": quantile_means,
+        "daily_pinball_db_by_horizon_date_quantile": daily_quantiles,
         "daily_mean_pinball_db_per_horizon": daily_means,
         "primary_daily_mean_pinball_db": float(np.mean(daily_means)),
         "median_mae_db_per_horizon": median_mae,
