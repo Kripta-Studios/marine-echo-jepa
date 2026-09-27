@@ -41,6 +41,7 @@ for source, target in (
     (root / "orchestration/reviews", "provenance/reviews"),
     (root / "docs/adr", "provenance/adr"),
     (root / "evidence/v2", "provenance/data-evidence"),
+    (root / "evidence/v2-release/browser", "provenance/browser"),
     (root / "data/manifests", "provenance/source-manifests"),
 ):
     shutil.copytree(source, output / target, ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
