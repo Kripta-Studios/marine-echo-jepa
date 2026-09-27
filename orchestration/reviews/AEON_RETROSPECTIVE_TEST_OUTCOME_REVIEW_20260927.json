@@ -1,0 +1,199 @@
+{
+  "task": "R3-AEON-RETROSPECTIVE-TEST-OUTCOME-REVIEW-20260927",
+  "parent_dependencies": [
+    "R3-AEON-PRETEST-FREEZE-REVIEW-20260927",
+    "R3-AEON-TEST-READER-ACCESS-20260927",
+    "R3-AEON-TEST-RUNNER-ACCESS-20260927"
+  ],
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "status": "APPROVED_AEON_RETROSPECTIVE_TEST_OUTCOME",
+  "disposition": "APPROVE_EXACT_RETROSPECTIVE_OUTCOME_CORE_EMA_PASSED_FROZEN_WITHIN_STUDY_GATE",
+  "classification": "RETROSPECTIVE_EVALUATION_NOT_SEALED",
+  "study_id": "aeon3_geb_2024_hourly_sv_v1",
+  "source_commit": "fd054d9",
+  "access_review_commit": "944a4c3",
+  "output_path": "outputs/aeon3_geb_2024_hourly_sv_v1/retrospective_test",
+  "artifact_sha256": {
+    "test_score": "23f9d350528e9f99b35949c6281c39d209dff7f7db44a992d241d64ccde8bd89",
+    "materialized_forecast_manifest": "a181430ce6191653f97ac7d1323c6424eedc1d28a8dc6b12dce7b141550324f0",
+    "core_direct_equal_three_seed_ensemble_forecast": "780c1e3d5dea0278af507266095dc1901885f5441c03f9a20bcd55122480e3a8",
+    "core_ema_equal_three_seed_ensemble_forecast": "7506ec42d4488f660d42ee444a97b63756c8b992dbb9858931dcea3d0fc194c6",
+    "post_hoc_lightgbm_forecast": "b48812bf26d6c611edd2dba032885f68f10b9ed28c05f611b12794acef340638"
+  },
+  "frozen_lineage_sha256": {
+    "source_archive": "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde",
+    "protocol": "d83392832a1bde3ae3e096de0a664ca9cfc27762a18bb10fb5ace3a97e787435",
+    "selection_freeze": "b3940ab8e159ac8808843b15b455ffb3c42f2d3db322190af15b80e543edff58",
+    "metadata_candidate_report": "40510cfb321cbb57bc24f309f0e11cd0a2d274c181370ae6d13efdc26972be93",
+    "metadata_candidate_review": "9d9c6ca4580d6a4ead4117a00a1a872710bf6e323eb17d491837e24c1011bebe",
+    "calibration_artifact": "a6e35bc5fa5c27b2b0669e7fb9fe7f8ff1bdd69952193418bbbe130e46438c94",
+    "calibration_outcome_review": "7b61385b29836be53d0e2c5a0b5e3f5db7e2dcb8983e534d17711ed0b44c1428",
+    "pretest_freeze": "f9062592b6196f49e86cf938205215670800a14c03c4542576c0b341a6018281",
+    "test_forecast_plan": "b393663c95ba99666626542f790ab4b8b69260dd82cec7c394393b2826d0ef63",
+    "final_evaluation_config": "9003865b288a3c5afdf4b7cdba3f401c346f6067a53a255b833dde8e3a668c4c",
+    "pretest_source_approval": "22389e7af10dd89f108efd5e271b723fbe3e4335722828fbab319ed6a98ebf24",
+    "pretest_freeze_review": "4fca86c94049d6dafce6fa4fa6bdad182649e331d3f2fb10a1cea1b18483e9e5",
+    "test_reader_review": "42496508acd454d6680ae9d3e0a35c8e51eb8aa20dae3f59b4777e0a60d6c741",
+    "test_runner_review": "9de79a0bfe7b8774261a4f84dac6630877d38d27eaf3a3fef9f3ad217144efaf",
+    "runner_code": "fa3a4db0665eefd02ecf77032451dd17f940c2b3c58c86fd3c9dfa52872324a7",
+    "evaluation_code": "5dff72c1baf2f5528f13f369936d2ca5710eeb8b8a6e6cae12a0ef95366225ff",
+    "reader_composite": "121facf774cc81e55f1ced6d4d6ec82927614a7dadc0deab66b557f35dd5563f",
+    "adapter_composite": "c8ccc0c54b720676b9f6d19cdd5ed7ffd1a5daf58ed22c469479a9272d1b77f9"
+  },
+  "support": {
+    "metadata_candidate_rows": 1216,
+    "issued_rows": 1216,
+    "unique_issued_row_ids": 1216,
+    "candidate_not_issued": 0,
+    "scored_rows_per_horizon": [1214, 1214, 1213],
+    "eligible_scored_rows_per_horizon": [1175, 1189, 1204],
+    "eligible_source_dates_per_horizon": [49, 50, 51],
+    "minimum_anchors_per_eligible_target_source_date": 18,
+    "minimum_eligible_source_dates_required": 20,
+    "target_qc_counts_by_horizon": {
+      "1": {
+        "OBSERVED_SOURCE_PRODUCT": 1214,
+        "PARTIAL_SOURCE_INTERVAL": 1,
+        "MISSING_INTERVAL": 1
+      },
+      "3": {
+        "OBSERVED_SOURCE_PRODUCT": 1214,
+        "PARTIAL_SOURCE_INTERVAL": 1,
+        "MISSING_INTERVAL": 1
+      },
+      "6": {
+        "OBSERVED_SOURCE_PRODUCT": 1213,
+        "PARTIAL_SOURCE_INTERVAL": 2,
+        "MISSING_INTERVAL": 1
+      }
+    }
+  },
+  "models": {
+    "core_direct_equal_three_seed_ensemble": {
+      "selection_classification": "CORE_CONVENTIONAL_SELECTION",
+      "raw_primary_daily_mean_pinball_db": 0.5633867034944277,
+      "raw_daily_mean_pinball_db_per_horizon": [
+        0.4837072709210563,
+        0.5887880820250126,
+        0.6176647575372138
+      ],
+      "raw_coverage90_per_horizon": [
+        0.88,
+        0.8494533221194281,
+        0.8313953488372093
+      ],
+      "widened_primary_daily_mean_pinball_db": 0.5632629378761075,
+      "widened_coverage90_per_horizon": [
+        0.9395744680851064,
+        0.9293523969722456,
+        0.9086378737541528
+      ]
+    },
+    "core_ema_equal_three_seed_ensemble": {
+      "selection_classification": "CORE_JEPA_SELECTION",
+      "raw_primary_daily_mean_pinball_db": 0.5339537702702358,
+      "raw_daily_mean_pinball_db_per_horizon": [
+        0.46003850913607625,
+        0.5546976207221542,
+        0.5871251809524771
+      ],
+      "raw_coverage90_per_horizon": [
+        0.902127659574468,
+        0.8713204373423045,
+        0.8762458471760798
+      ],
+      "widened_primary_daily_mean_pinball_db": 0.535787070551622,
+      "widened_coverage90_per_horizon": [
+        0.9497872340425532,
+        0.9411269974768713,
+        0.9310631229235881
+      ]
+    },
+    "post_hoc_lightgbm": {
+      "selection_classification": "POST_HOC_DEVELOPMENT_SELECTION",
+      "raw_primary_daily_mean_pinball_db": 0.5422019858421969,
+      "raw_daily_mean_pinball_db_per_horizon": [
+        0.45627352872467863,
+        0.5766208894362793,
+        0.5937115393656327
+      ],
+      "raw_coverage90_per_horizon": [
+        0.9004255319148936,
+        0.87973086627418,
+        0.8687707641196013
+      ],
+      "widened_primary_daily_mean_pinball_db": 0.5426547977165531,
+      "widened_coverage90_per_horizon": [
+        0.9285106382978724,
+        0.9217830109335576,
+        0.9244186046511628
+      ]
+    }
+  },
+  "comparisons": {
+    "core_ema_equal_three_seed_ensemble_minus_direct": {
+      "primary_relative_loss_change": -0.05224286097210484,
+      "relative_loss_change_per_horizon": [
+        -0.04893199504715107,
+        -0.05789937388951805,
+        -0.049443611946560995
+      ],
+      "paired_95_percent_interval_db": [
+        -0.04545647235636897,
+        -0.014496624191030266
+      ],
+      "passes_prespecified_five_percent_point_improvement": true,
+      "passes_paired_95_percent_interval_strictly_favoring_candidate": true,
+      "passes_incremental_loss_gate": true,
+      "passes_per_horizon_ten_percent_regression_guard": true,
+      "passes_full_unnarrowed_promotion_rule": true
+    },
+    "post_hoc_lightgbm_minus_direct": {
+      "primary_relative_loss_change": -0.03760244521361922,
+      "relative_loss_change_per_horizon": [
+        -0.05671558780611141,
+        -0.02066480786582303,
+        -0.03878028959769164
+      ],
+      "paired_95_percent_interval_db": [
+        -0.041936143880723635,
+        -0.0033358281692626034
+      ],
+      "passes_prespecified_five_percent_point_improvement": false,
+      "passes_paired_95_percent_interval_strictly_favoring_candidate": true,
+      "passes_incremental_loss_gate": false,
+      "passes_per_horizon_ten_percent_regression_guard": true,
+      "passes_full_unnarrowed_promotion_rule": false
+    }
+  },
+  "independent_execution": {
+    "lineage_audit": "Rehashed the immutable source, candidate universe, selection, CAL artifact, pretest freeze, plan, configuration, reader/runner reviews, source files, composites and complete TEST output bundle. Every saved lineage field matches.",
+    "source_and_issuance_reconstruction": "Reopened the exact approved retrospective source during outcome review and reconstructed the fixed reader/QC/issuance path. All 1,216 ordered candidate triplets were issued, every row ID and target interval identity matched, and every saved target QC decision matched.",
+    "forecast_reconstruction": "Reloaded all six selected neural checkpoints plus the exact LightGBM model and recipe under the frozen CPU plan. All three 1,216 by 3 by 5 forecast tensors reproduced the materialized NPZ arrays bit exactly; maximum absolute difference was 0.0 dB for every model.",
+    "metric_recomputation": "Recomputed every complete raw and CAL-widened eligible-target-source-date metric dictionary from the source truth and materialized forecasts. All saved values match exactly on common support.",
+    "bootstrap_and_gate_recomputation": "Recomputed the fixed 48-hour-block, 2,000-draw, seed-20260926 paired bootstrap arrays, daily paired differences, intervals, relative losses and all point, interval and per-horizon gates. Every saved draw and decision matches exactly.",
+    "new_test_evaluator_run": false,
+    "new_output_materialization": false,
+    "selection_or_tuning_after_test_access": false
+  },
+  "scientific_interpretation": [
+    "The frozen equal-three-seed EMA-JEPA ensemble reduced the retrospective TEST primary raw pinball loss by 5.2243 percent relative to the frozen direct ensemble, its fixed paired interval excludes zero in the favorable direction, and every horizon stayed below the regression guard. It therefore passes the complete frozen within-study retrospective gate.",
+    "This is positive performance evidence for the selected EMA-JEPA forecast family on this one retrospective AEON deployment and time split. It is not a sealed-holdout, SOTA, external-generalization or universal JEPA claim.",
+    "The validation comparison had not established an EMA advantage, the family-selection rule was frozen post hoc after development outcomes, and TRAIN diagnostics showed low effective rank while a frozen-random hybrid beat learned hybrids in development. Those facts continue to limit attribution of the TEST gain specifically to learned JEPA representations.",
+    "The exploratory post-hoc LightGBM arm improved on direct by 3.7602 percent and its paired interval excludes zero, but it fails the fixed five-percent point requirement and therefore fails the incremental and full promotion rules.",
+    "CAL widening raised retrospective TEST interval coverage above 90 percent for all models and horizons. Raw five-quantile pinball remains the primary score; widened intervals are calibration diagnostics rather than a new selection criterion."
+  ],
+  "limitations": [
+    "The source clock timezone and product availability latency remain unspecified; source dates are source-reported rather than UTC.",
+    "This single fixed lander and conditioned hourly FullDepth product do not establish calibrated absolute backscatter, species, biomass, catch, causality, operational savings, production readiness or business value.",
+    "Publisher preprocessing, filtering and manual exclusions are not independently reprocessed from raw echograms.",
+    "The result must be integrated with its retrospective, post-hoc-selection and representation-diagnostic caveats; the historical v1 failed eligibility findings and blocked registry remain unchanged."
+  ],
+  "cloud_or_paid_resource_use": false,
+  "cost_usd": 0,
+  "next_action": "Bind this exact outcome review into the app and a new offline research release, then perform a fresh independent source, API, browser, package-integrity and claim review.",
+  "test_access": "COMPLETED_ONCE_AND_INDEPENDENTLY_REVIEWED"
+}

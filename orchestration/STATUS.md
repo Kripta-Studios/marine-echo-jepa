@@ -363,12 +363,18 @@ the single-read score plus three forecast files under
 `outputs/aeon3_geb_2024_hourly_sv_v1/retrospective_test/`. The score JSON SHA-256
 is `23f9d350528e9f99b35949c6281c39d209dff7f7db44a992d241d64ccde8bd89`.
 All 1,216 metadata candidates became issued rows; actual eligible target-source
-dates are 49/50/51 at 1/3/6 hours, above the frozen 20-date floor. Preliminary
-raw primary daily pinball is 0.563387 dB for direct, 0.533954 dB for EMA-JEPA
-and 0.542202 dB for LightGBM. The saved comparison reports a 5.224% EMA-JEPA
-point improvement with its paired 95% interval below zero and the per-horizon
-guard satisfied; LightGBM misses the 5% point criterion. These outcomes are
-under independent artifact/metric/bootstrap review and are retrospective,
-not sealed or SOTA claims. The CAL-only app integration separately passed
+dates are 49/50/51 at 1/3/6 hours, above the frozen 20-date floor. Independently
+reviewed raw primary daily pinball is 0.563387 dB for direct, 0.533954 dB for
+EMA-JEPA and 0.542202 dB for LightGBM. The frozen EMA-JEPA comparison improved
+the direct loss by 5.224%, with a paired 95% candidate-minus-direct interval
+[-0.045456, -0.014497] dB and no per-horizon guard breach. It passes the full
+within-study retrospective rule. LightGBM misses the 5% point criterion.
+The distinct reviewer reconstructed issuance/QC, all model forecasts bit
+exactly from checkpoints, metrics, widening, 2,000 bootstrap draws and gates,
+approving the exact outcome (review SHA-256
+`75a241f00d34f8d373ccbd4c5b2e2c35397e2c0ff0a20a6e112ce4953f13489a`).
+This positive one-deployment forecast-family result is retrospective, not
+sealed or SOTA; post-hoc family selection, a validation non-result and the
+random-hybrid control limit JEPA mechanism attribution. The CAL-only app integration separately passed
 independent review, retaining historical blocked rows and zero AEON cached
 forecasts; final TEST app/release integration remains pending.

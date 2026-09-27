@@ -5,7 +5,7 @@
   "source_archive_sha256": "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde",
   "protocol_sha256": "d83392832a1bde3ae3e096de0a664ca9cfc27762a18bb10fb5ace3a97e787435",
   "train_validation_review_sha256": "b8031e2e113e39630c066cee65b4371f69b229ee905a72d832e53e6f505f297b",
-  "test_access": "PROHIBITED_PENDING_SEPARATE_PRETEST_FREEZE",
+  "test_access": "COMPLETED_ONCE_AND_INDEPENDENTLY_REVIEWED_RETROSPECTIVE",
   "runs": [
     {
       "run_id": "first_development_seed7_original",
@@ -139,7 +139,7 @@
     "aeon_cached_forecasts": 0
   },
   "calibration": {
-    "status": "COMPLETED_REAL_CALIBRATION_PENDING_INDEPENDENT_OUTCOME_REVIEW",
+    "status": "COMPLETED_REAL_CALIBRATION_INDEPENDENTLY_REVIEWED",
     "artifact": "outputs/aeon3_geb_2024_hourly_sv_v1/calibration/calibration.json",
     "artifact_sha256": "a6e35bc5fa5c27b2b0669e7fb9fe7f8ff1bdd69952193418bbbe130e46438c94",
     "selection_freeze_sha256": "b3940ab8e159ac8808843b15b455ffb3c42f2d3db322190af15b80e543edff58",
@@ -152,7 +152,7 @@
     "independent_outcome_review_sha256": "7b61385b29836be53d0e2c5a0b5e3f5db7e2dcb8983e534d17711ed0b44c1428"
   },
   "retrospective_test": {
-    "status": "COMPLETED_REAL_RETROSPECTIVE_TEST_PENDING_INDEPENDENT_OUTCOME_REVIEW",
+    "status": "COMPLETED_REAL_RETROSPECTIVE_TEST_INDEPENDENTLY_REVIEWED",
     "classification": "RETROSPECTIVE_EVALUATION_NOT_SEALED",
     "artifact": "outputs/aeon3_geb_2024_hourly_sv_v1/retrospective_test/test-score.json",
     "artifact_sha256": "23f9d350528e9f99b35949c6281c39d209dff7f7db44a992d241d64ccde8bd89",
@@ -161,9 +161,16 @@
     "runner_access_review_sha256": "9de79a0bfe7b8774261a4f84dac6630877d38d27eaf3a3fef9f3ad217144efaf",
     "issued_rows": 1216,
     "eligible_source_dates_per_horizon": [49, 50, 51],
-    "independent_outcome_review": "PENDING"
+    "independent_outcome_review": "APPROVED_AEON_RETROSPECTIVE_TEST_OUTCOME",
+    "independent_outcome_review_sha256": "75a241f00d34f8d373ccbd4c5b2e2c35397e2c0ff0a20a6e112ce4953f13489a",
+    "core_direct_raw_daily_pinball_db": 0.5633867034944277,
+    "core_ema_raw_daily_pinball_db": 0.5339537702702358,
+    "post_hoc_lightgbm_raw_daily_pinball_db": 0.5422019858421969,
+    "core_ema_relative_loss_change": -0.05224286097210484,
+    "core_ema_full_frozen_within_study_gate": "PASS_RETROSPECTIVE_NOT_SEALED",
+    "post_hoc_lightgbm_full_frozen_within_study_gate": "FAIL_FIVE_PERCENT_POINT_REQUIREMENT"
   },
-  "jepa_value_gate": "NOT_EVALUATED",
+  "jepa_value_gate": "PASS_FROZEN_CORE_RETROSPECTIVE_COMPARISON_ONLY_MECHANISM_ATTRIBUTION_NOT_ESTABLISHED",
   "exploratory_patchtst_challenger": {
     "status": "SEED7_COMPLETED_NOT_PROMISING_SEEDS13_23_NOT_RUN",
     "classification": "POST_HOC_TRAIN_VALIDATION_EXPLORATORY_NOT_SELECTION_OR_FINAL_EVALUATION",

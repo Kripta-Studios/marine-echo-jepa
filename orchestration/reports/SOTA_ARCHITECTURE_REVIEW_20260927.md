@@ -1,6 +1,6 @@
 # September 2026 forecasting and JEPA evidence for the AEON study
 
-Status: source-grounded research and executed post-hoc TRAIN/validation development extension. It does not change the reviewed 17-slot core campaign, historical v1/v2 evidence, calibration boundary, or retrospective TEST rule. No model below is called state of the art on AEON without AEON evaluation.
+Status: source-grounded research and executed post-hoc TRAIN/validation development extension, followed by separately frozen CAL and retrospective TEST execution. It does not change the reviewed 17-slot core campaign or historical v1/v2 evidence. No model below is called state of the art on AEON.
 
 ## Task fit
 
@@ -14,6 +14,7 @@ The current target is the source-reported, conditioned 38 kHz full-depth hourly 
 | VICReg / VISReg | [VICReg](https://arxiv.org/abs/2105.04906) explicitly penalizes low per-dimension variance; [VISReg](https://arxiv.org/abs/2606.02572), June 2026, reports that SIGReg-style sketching can have weak collapse gradients and adds scale control. VISReg's evidence is image SSL. | Motivates a fixed variance-floor ablation for AEON's collapsed EMA representations; do not transplant its image benchmark claim. A single reviewed coefficient and no validation sweep. |
 | LeJEPA / SIGReg | [Paper](https://arxiv.org/abs/2511.08544) and [author code](https://github.com/galilai-group/lejepa) propose a shared-encoder SIGReg objective. | Current shared-SIGReg arm is a related acoustic adaptation; its TRAIN effective rank is only 3.5–5.2/128, despite adequate scale. Preserve those diagnostics and compare frozen-random controls before assigning value. |
 | Distributed JEPA / HEPA | [Distributed JEPA](https://arxiv.org/abs/2609.17029), posted 15 September 2026, combines masked latent prediction with covariance and temporal-variance penalties for heterogeneous energy-series forecasting; its authors report effective ranks 185–235 and resilience to degraded inputs. [HEPA](https://arxiv.org/abs/2605.11130) uses horizon-conditioned future-latent prediction for event-oriented time series. | These are relevant anti-collapse and future-target design precedents, but neither is a validated marine hourly `Sv_mean` forecaster. AEON's fixed forward-EMA/VICReg adaptation tests the shared principle without claiming reproduction; its reviewed ensemble score is 0.653315 dB versus 0.639062 dB for matched direct neural, so improved latent rank alone did not improve this forecast. |
+| Phys-JEPA | [Preliminary manuscript](https://arxiv.org/abs/2606.16076), June 2026, structures latent physical and residual states using known physical variables; its reported gains concern climate, traffic and electricity series. | AEON has unresolved calibration and source-clock lineage and no established dynamical state law for this conditioned hourly product. A physics-consistency loss here would encode an unverified assumption, so it was documented but not trained as an AEON arm. |
 | Chronos-2 | [Amazon paper](https://arxiv.org/abs/2510.15821), [official repository](https://github.com/amazon-science/chronos-forecasting), and [model card](https://huggingface.co/amazon/chronos-2): 120M encoder-only probabilistic model supporting univariate/multivariate zero-shot forecasting. Its card reports leading public zero-shot benchmark results, not AEON results. | Add one frozen zero-shot arm on exactly the issued VAL rows, 24 past source steps and 1/3/6 horizons, five fixed quantiles. Exact HF revision `29ec3766d36d6f73f0696f85560a422f50e8498c`, Apache-2.0, 119,477,664 F32 parameters, 477,930,472 repository bytes. No future covariates or local tuning. Limit initial inference to two GPU-hours and stay below local memory caps. |
 | TimesFM 3.0 / 2.5 | [Google official repository](https://github.com/google-research/timesfm): 3.0 adds native multivariate forecasting and authors report top benchmark ranks; its pretrained weights are noncommercial. 2.5 weights are Apache-2.0, 200M class, but older univariate architecture. | Do not bundle 3.0 weights in a commercial-capable offline release. Chronos-2 is the smaller, permissively licensed multivariate zero-shot baseline. No TimesFM download in this extension. |
 | PatchTST / iTransformer / TimeMixer | [PatchTST](https://arxiv.org/abs/2211.14730) patches and channel-independent masked pretraining; [iTransformer](https://arxiv.org/abs/2310.06625) treats variables as tokens; [TimeMixer](https://arxiv.org/abs/2405.14616) mixes multiple temporal scales. Their benchmark claims concern different data scales/tasks. | At only 24 history steps and four channels, a larger transformer is not automatically apt. A compact fixed-lag boosted-tree arm is a more informative local supervised challenger than architecture-size escalation alone. |
@@ -55,9 +56,9 @@ five-source comparison was independently reconstructed across all 40
 candidates and selected no model. ADR 0011 records the subsequently reviewed
 development choices: the direct three-seed ensemble as the core conventional
 reference, EMA-JEPA three-seed ensemble as the core JEPA comparator, and
-LightGBM as a post-hoc exploratory candidate. The machine-readable component
-freeze and CAL/TEST access gates are still under independent review; neither
-partition's numeric values have been opened.
+LightGBM as a post-hoc exploratory candidate. The machine-readable freeze,
+CAL and retrospective TEST have since completed under separate independent
+access and outcome reviews. Their actual result is recorded below.
 
 A further single PatchTST-style supervised architecture completed one fixed
 3,000-update TRAIN seed on the same validation support under the expanded local
@@ -68,3 +69,9 @@ and exact resource record are preserved. Distinct outcome review reproduced
 the score, row identities and checkpoint forecasts and approved this negative
 exploratory record only. This post-hoc single-seed trial does not change ADR 0011 or
 establish an architecture-wide ranking.
+
+## Reviewed retrospective outcome
+
+The independent [TEST outcome review](../reviews/AEON_RETROSPECTIVE_TEST_OUTCOME_REVIEW_20260927.json) reconstructed the 1,216 issued rows, all three forecast tensors bit exactly from saved models, the target/QC decisions, eligible-day metrics, CAL widening and fixed 2,000-draw paired bootstrap. The source-date support is 49/50/51 eligible dates at 1/3/6 source intervals. The raw five-quantile daily mean pinball score is 0.563387 dB for the frozen direct ensemble, 0.533954 dB for the frozen EMA-JEPA ensemble and 0.542202 dB for the post-hoc LightGBM arm. EMA-JEPA's 5.2243% lower loss versus direct passes the frozen within-study 5% point, paired-interval and per-horizon guards; the paired 95% interval for candidate-minus-direct loss is [-0.045456, -0.014497] dB. LightGBM's 3.7602% reduction fails the fixed 5% point/full promotion rule.
+
+This is a positive retrospective result for the selected EMA-JEPA forecast family on one instrument deployment. It does not establish a sealed holdout, general JEPA mechanism advantage or SOTA performance. The core validation comparison did not show an EMA advantage, the family choice followed development results, and a frozen-random hybrid outperformed learned hybrids on development; these materially limit representation attribution. The source clock, publisher conditioning and calibration lineage remain unresolved. The source-reported `Sv_mean` is not independently calibrated absolute backscatter or a biological endpoint.
