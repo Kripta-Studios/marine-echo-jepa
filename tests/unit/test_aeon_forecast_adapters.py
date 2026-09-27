@@ -22,6 +22,7 @@ from marine_echo.training.aeon_forecast_adapters import (
     adapt_lightgbm,
     emit_forecast_only,
 )
+from marine_echo.training import aeon_forecast_adapters
 from marine_echo.training.aeon_windows import AeonHourlyWindow
 
 
@@ -169,3 +170,20 @@ def test_chronos_fixture_uses_multivariate_mask_and_exact_output(tmp_path: Path)
     prediction = adapt_chronos2(_rows(), pipeline=_Chronos(), fixture_only=True)
     assert prediction.shape == (3, 3, 5)
     np.testing.assert_array_equal(prediction[0, 0], np.arange(5))
+
+
+def test_chronos_snapshot_rejects_extra_file(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    snapshot = tmp_path / "snapshot"
+    snapshot.mkdir()
+    names = (".gitattributes", "README.md", "config.json", "model.safetensors")
+    for name in names:
+        (snapshot / name).write_text(name, encoding="utf-8")
+    expected = {name: _sha(snapshot / name) for name in names}
+    monkeypatch.setattr(aeon_forecast_adapters, "CHRONOS_SNAPSHOT_SHA256", expected)
+    (snapshot / "unexpected.bin").write_bytes(b"extra")
+    with pytest.raises(ValueError, match="extra files"):
+        adapt_chronos2(
+            _rows(), snapshot=snapshot, snapshot_files_sha256=expected, device="cpu"
+        )

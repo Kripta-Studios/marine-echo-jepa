@@ -13,11 +13,16 @@ from marine_echo.training.aeon_final_evaluation import (
     artifact_sha256,
     execute_calibration,
     execute_retrospective_test,
+    adapter_composite_sha256,
+    _selection,
+    _test_forecast_plan,
+    _comparison_gates,
     reader_composite_sha256,
 )
 from marine_echo.evaluation.aeon import daily_pinball
 from marine_echo.training import aeon_final_evaluation
 from marine_echo.training import aeon_windows
+from marine_echo.training import aeon_forecast_adapters
 from marine_echo.training.aeon_windows import AeonHourlyWindow
 
 
@@ -76,22 +81,29 @@ def _contract(tmp_path: Path, partition: str, rows: list[AeonHourlyWindow]):
         "schema_version": "1.0", "status": "FROZEN_AEON_MODEL_SELECTION",
         "study_id": "aeon3_geb_2024_hourly_sv_v1", "test_access": "PROHIBITED",
         "selection_rule_review_sha256": "dd3dcbdf5e93d42e021abbaf4bf310bec0b40ea52d53411802e00770840127b2",
+        "adapter_composite_sha256": adapter_composite_sha256(),
         "corrected_validation_rescore_sha256": "32cea9f8141fbad220a3e47d9e840039ad23b4f8e893efbcfb90f52944214c46",
         "corrected_validation_outcome_review_sha256": "16bb9ef931f5e2d8f8a3322fa609c5cb1c769f99f5e4a89a5ef519a0fb52f44f",
         "validation_row_sha256": "9ce5ed6d60c4082efd3f342b3ee09ddadc5cf6286be6d6a3e953ab0f6166a99f",
         "models": [
-            {"model_id": "baseline", "role": "baseline",
+            {"model_id": "baseline", "role": "baseline", "adapter": "SYNTHETIC_FIXTURE",
              "selection_classification": "CORE_CONVENTIONAL_SELECTION",
-             "checkpoint_sha256": "3" * 64,
-             "predictor_code_sha256": "4" * 64},
-            {"model_id": "candidate", "role": "candidate",
+             "component_artifacts": [{"artifact_id": "baseline-model", "sha256": "3" * 64}]},
+            {"model_id": "core_jepa", "role": "candidate", "adapter": "SYNTHETIC_FIXTURE",
+             "selection_classification": "CORE_JEPA_SELECTION",
+             "component_artifacts": [{"artifact_id": "core-jepa-models", "sha256": "4" * 64}]},
+            {"model_id": "candidate", "role": "candidate", "adapter": "SYNTHETIC_FIXTURE",
              "selection_classification": "POST_HOC_DEVELOPMENT_SELECTION",
-             "checkpoint_sha256": "5" * 64,
-             "predictor_code_sha256": "6" * 64},
+             "component_artifacts": [{"artifact_id": "post-hoc-model", "sha256": "5" * 64}]},
         ],
     })
     predictions = []
-    for model, shift in (("baseline", 0.0), ("candidate", 0.2)):
+    model_specs = (
+        ("baseline", "baseline", "CORE_CONVENTIONAL_SELECTION", "3" * 64, 0.0),
+        ("core_jepa", "candidate", "CORE_JEPA_SELECTION", "4" * 64, 0.1),
+        ("candidate", "candidate", "POST_HOC_DEVELOPMENT_SELECTION", "5" * 64, 0.2),
+    )
+    for model, role, classification, component_sha, shift in model_specs:
         if partition == "calibration":
             artifact = tmp_path / f"{partition}-{model}.npz"
             q = np.broadcast_to(np.array([-2., -1., 0., 1., 2.]) + shift,
@@ -103,13 +115,16 @@ def _contract(tmp_path: Path, partition: str, rows: list[AeonHourlyWindow]):
                                 "artifact_sha256": artifact_sha256(artifact)})
         else:
             predictions.append({
-                "model_id": model, "role": "baseline" if model == "baseline" else "candidate",
-                "selection_classification": (
-                    "CORE_CONVENTIONAL_SELECTION" if model == "baseline"
-                    else "POST_HOC_DEVELOPMENT_SELECTION"
-                ),
+                "model_id": model, "role": role,
+                "selection_classification": classification,
                 "adapter": "SYNTHETIC_FIXTURE",
-                "adapter_code_sha256": "4" * 64 if model == "baseline" else "6" * 64,
+                "component_artifacts": [{
+                    "artifact_id": (
+                        "baseline-model" if model == "baseline" else
+                        "core-jepa-models" if model == "core_jepa" else "post-hoc-model"
+                    ),
+                    "path": f"{model}.fixture", "sha256": component_sha,
+                }],
             })
     candidate = None
     candidate_sha = None
@@ -122,6 +137,7 @@ def _contract(tmp_path: Path, partition: str, rows: list[AeonHourlyWindow]):
         "study_id": "aeon3_geb_2024_hourly_sv_v1", "partition": partition,
         "selection_freeze_sha256": selection_sha,
         "candidate_contract_sha256": candidate_sha,
+        "adapter_composite_sha256": adapter_composite_sha256(),
         "models": predictions,
     })
     return config, selection, selection_sha, candidate, candidate_sha, manifest, manifest_sha
@@ -166,6 +182,7 @@ def _pretest(
         "runner_code_sha256": artifact_sha256(Path(aeon_final_evaluation.__file__)),
         "evaluation_code_sha256": artifact_sha256(Path(daily_pinball.__code__.co_filename)),
         "reader_composite_sha256": reader_composite_sha256(),
+        "adapter_composite_sha256": adapter_composite_sha256(),
         "issued_row_rule": "EXACT_24_PRIOR_INTERVAL_IDS_OBSERVED_38KHZ",
         "primary_metric": "RAW_FIVE_QUANTILE_ELIGIBLE_TARGET_DATE_PINBALL",
         "bootstrap": {"block_hours": 48, "draws": 2000, "seed": 20260926},
@@ -182,7 +199,7 @@ def _bind_candidate(manifest: Path, candidate_sha: str) -> str:
 
 def _fixture_forecaster(rows: list[AeonHourlyWindow]) -> dict[str, np.ndarray]:
     base = np.broadcast_to(np.array([-2., -1., 0., 1., 2.]), (len(rows), 3, 5)).copy()
-    return {"baseline": base, "candidate": base * 0.5}
+    return {"baseline": base, "core_jepa": base * 0.75, "candidate": base * 0.5}
 
 
 def _review(tmp_path: Path, partition: str, bindings: dict[str, str]) -> tuple[Path, str]:
@@ -194,6 +211,7 @@ def _review(tmp_path: Path, partition: str, bindings: dict[str, str]) -> tuple[P
         "runner_code_sha256": artifact_sha256(Path(aeon_final_evaluation.__file__)),
         "evaluation_code_sha256": artifact_sha256(Path(daily_pinball.__code__.co_filename)),
         "reader_composite_sha256": reader_composite_sha256(),
+        "adapter_composite_sha256": adapter_composite_sha256(),
         **bindings,
     })
     return path, digest
@@ -279,6 +297,56 @@ def test_reader_dependency_mutation_changes_composite_gate(
     assert reader_composite_sha256() != original
 
 
+def test_adapter_dependency_mutation_changes_composite_gate(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    original = adapter_composite_sha256()
+    dependency = aeon_forecast_adapters.aeon_ssl
+    mutated = tmp_path / "aeon_ssl.py"
+    mutated.write_bytes(Path(dependency.__file__).read_bytes() + b"\n# mutation\n")
+    monkeypatch.setattr(dependency, "__file__", str(mutated))
+    assert adapter_composite_sha256() != original
+
+
+def test_selection_categories_and_component_set_are_exact(tmp_path: Path) -> None:
+    rows = [_window(i, "test", "2025-01-06") for i in range(20 * 24)]
+    _, selection_path, selection_sha, _, _, plan, _ = _contract(tmp_path, "test", rows)
+    candidate, candidate_sha = _candidate_contract(tmp_path, rows)
+    del candidate
+    _bind_candidate(plan, candidate_sha)
+    selection, _ = _selection(selection_path)
+    changed = json.loads(plan.read_text())
+    changed["models"][1]["component_artifacts"][0]["sha256"] = "f" * 64
+    _write_json(plan, changed)
+    with pytest.raises(ValueError, match="differs from the frozen selection"):
+        _test_forecast_plan(plan, selection, selection_sha, candidate_sha)
+
+    invalid = json.loads(selection_path.read_text())
+    invalid["models"][1]["selection_classification"] = "POST_HOC_DEVELOPMENT_SELECTION"
+    _write_json(selection_path, invalid)
+    with pytest.raises(ValueError, match="at least one core JEPA"):
+        _selection(selection_path)
+
+    unsupported = selection.copy()
+    unsupported["models"] = [dict(model) for model in selection["models"]]
+    unsupported["models"][1]["adapter"] = "hybrid_raw_latent_hgb_ensemble"
+    _write_json(selection_path, unsupported)
+    with pytest.raises(ValueError, match="hybrid selection is unsupported"):
+        _selection(selection_path)
+
+
+def test_incremental_gate_is_separate_from_full_horizon_promotion() -> None:
+    result = _comparison_gates(
+        baseline_primary=1.0, candidate_primary=0.8,
+        baseline_horizons=np.asarray([1.0, 1.0, 1.0]),
+        candidate_horizons=np.asarray([0.5, 0.5, 1.11]),
+        paired_interval=[-0.3, -0.01],
+    )
+    assert result["passes_incremental_loss_gate"] is True
+    assert result["passes_per_horizon_ten_percent_regression_guard"] is False
+    assert result["passes_full_unnarrowed_promotion_rule"] is False
+
+
 def test_forecasts_must_match_exact_issued_row_order(tmp_path: Path) -> None:
     rows = [_window(i, "calibration", "2024-12-01") for i in range(12 * 24)]
     config, selection, selection_sha, _, _, manifest, manifest_sha = _contract(
@@ -314,6 +382,7 @@ def test_test_scoring_requires_candidate_and_calibration_hashes(tmp_path: Path) 
         "status": "COMPLETED_AEON_CALIBRATION_INTERVAL_WIDENING",
         "study_id": "aeon3_geb_2024_hourly_sv_v1", "selection_freeze_sha256": selection_sha,
         "models": {"baseline": {"adjustment_db": [0., 0., 0.]},
+                   "core_jepa": {"adjustment_db": [0.05, 0.05, 0.05]},
                    "candidate": {"adjustment_db": [0.1, 0.1, 0.1]}},
     })
     candidate, candidate_sha = _candidate_contract(tmp_path, rows)
@@ -347,7 +416,8 @@ def test_test_scoring_requires_candidate_and_calibration_hashes(tmp_path: Path) 
     assert comparison["passes_prespecified_five_percent_point_improvement"] is True
     assert comparison["passes_paired_95_percent_interval_strictly_favoring_candidate"] is True
     assert comparison["passes_per_horizon_ten_percent_regression_guard"] is True
-    assert comparison["passes_full_incremental_loss_gate"] is True
+    assert comparison["passes_incremental_loss_gate"] is True
+    assert comparison["passes_full_unnarrowed_promotion_rule"] is True
     with np.load(tmp_path / "test-output" / "baseline-forecast.npz", allow_pickle=False) as saved:
         assert set(saved.files) == {"row_ids", "quantiles_db"}
 
@@ -362,6 +432,7 @@ def test_test_candidate_contract_rejects_unfrozen_issued_row(tmp_path: Path) -> 
         "status": "COMPLETED_AEON_CALIBRATION_INTERVAL_WIDENING",
         "study_id": "aeon3_geb_2024_hourly_sv_v1", "selection_freeze_sha256": selection_sha,
         "models": {"baseline": {"adjustment_db": [0., 0., 0.]},
+                   "core_jepa": {"adjustment_db": [0., 0., 0.]},
                    "candidate": {"adjustment_db": [0., 0., 0.]}},
     })
     candidate, _ = _candidate_contract(tmp_path, rows)

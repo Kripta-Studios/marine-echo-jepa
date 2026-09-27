@@ -8,6 +8,7 @@ select a model, fit a parameter, calibrate an interval, or score an outcome.
 from __future__ import annotations
 
 import hashlib
+import importlib.metadata
 import json
 from dataclasses import dataclass
 from pathlib import Path
@@ -30,6 +31,11 @@ from marine_echo.training.aeon_chronos import (
 from marine_echo.training.aeon_development import _context_tensors
 from marine_echo.training.aeon_sota_supervised import _features
 from marine_echo.training.aeon_windows import AeonHourlyWindow
+from marine_echo.training import (
+    aeon_campaign, aeon_chronos, aeon_development, aeon_hybrid,
+    aeon_sota_supervised, aeon_windows,
+)
+from marine_echo.models import aeon_forward_ssl, aeon_ssl, sigreg
 
 
 SOURCE_SHA256 = "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde"
@@ -65,6 +71,33 @@ class _ChronosLike(Protocol):
 def _sha256(path: Path) -> str:
     with path.open("rb") as stream:
         return hashlib.file_digest(stream, "sha256").hexdigest()
+
+
+def adapter_composite_sha256() -> str:
+    """Bind all repository inference dependencies used by any supported adapter."""
+    modules = (
+        aeon_campaign, aeon_chronos, aeon_development, aeon_hybrid,
+        aeon_sota_supervised, aeon_windows, aeon_forward_ssl, aeon_ssl, sigreg,
+    )
+    digest = hashlib.sha256()
+    digest.update(Path(__file__).name.encode("ascii"))
+    digest.update(Path(__file__).read_bytes())
+    for module in modules:
+        module_file = module.__file__
+        if module_file is None:
+            raise RuntimeError("AEON adapter dependency lacks a filesystem source path.")
+        path = Path(module_file).resolve(strict=True)
+        digest.update(path.name.encode("ascii"))
+        digest.update(path.read_bytes())
+    for distribution in (
+        "numpy", "torch", "scikit-learn", "joblib", "lightgbm", "chronos-forecasting",
+    ):
+        try:
+            version = importlib.metadata.version(distribution)
+        except importlib.metadata.PackageNotFoundError:
+            version = "NOT_INSTALLED"
+        digest.update(f"{distribution}=={version}\n".encode("ascii"))
+    return digest.hexdigest()
 
 
 def _checked(artifact: FrozenArtifact) -> Path:
@@ -302,6 +335,11 @@ def adapt_chronos2(
         if snapshot_files_sha256 != CHRONOS_SNAPSHOT_SHA256:
             raise ValueError("Chronos-2 snapshot differs from exact revision " + MODEL_REVISION + ".")
         snapshot = snapshot.resolve(strict=True)
+        present = {path.name for path in snapshot.iterdir()}
+        if present != set(CHRONOS_SNAPSHOT_SHA256) or any(
+            not (snapshot / name).is_file() for name in present
+        ):
+            raise ValueError("Chronos-2 snapshot contains missing or extra files.")
         if any(_sha256(snapshot / name) != digest for name, digest in snapshot_files_sha256.items()):
             raise ValueError("Chronos-2 snapshot digest differs.")
         pipeline = _load_official_pipeline(snapshot, device=device)
@@ -348,6 +386,7 @@ def emit_forecast_only(
         "family": family,
         "model_revision": MODEL_REVISION if family == "chronos2" else None,
         "adapter_code_sha256": _sha256(Path(__file__)),
+        "adapter_composite_sha256": adapter_composite_sha256(),
         "component_artifacts": [
             {"path": artifact.path.name, "sha256": artifact.sha256} for artifact in components
         ],

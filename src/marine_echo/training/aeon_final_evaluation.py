@@ -26,6 +26,7 @@ from marine_echo.evaluation.aeon import (
 )
 from marine_echo.training.aeon_evaluation_reader import AeonEvaluationReader
 from marine_echo.training import aeon_corpus, aeon_evaluation_reader, aeon_windows
+from marine_echo.training.aeon_forecast_adapters import adapter_composite_sha256
 from marine_echo.training.aeon_windows import AeonHourlyWindow
 
 
@@ -110,6 +111,7 @@ def _selection(path: Path) -> tuple[dict[str, Any], str]:
         set(value) != {
             "schema_version", "status", "study_id", "test_access",
             "selection_rule_review_sha256",
+            "adapter_composite_sha256",
             "corrected_validation_rescore_sha256",
             "corrected_validation_outcome_review_sha256", "validation_row_sha256", "models",
         }
@@ -119,6 +121,7 @@ def _selection(path: Path) -> tuple[dict[str, Any], str]:
         or value.get("study_id") != _STUDY
         or value.get("test_access") != "PROHIBITED"
         or value.get("selection_rule_review_sha256") != _SELECTION_RULE_REVIEW_SHA256
+        or value.get("adapter_composite_sha256") != adapter_composite_sha256()
         or value.get("validation_row_sha256") != _VALIDATION_ROW_SHA256
         or value.get("corrected_validation_rescore_sha256") != _CORRECTED_RESCORE_SHA256
         or value.get("corrected_validation_outcome_review_sha256") != _RESCORE_OUTCOME_REVIEW_SHA256
@@ -129,11 +132,16 @@ def _selection(path: Path) -> tuple[dict[str, Any], str]:
     ids: set[str] = set()
     roles: list[str] = []
     for model in models:
+        if isinstance(model, dict) and model.get("adapter") == "hybrid_raw_latent_hgb_ensemble":
+            raise ValueError(
+                "AEON raw-plus-latent hybrid selection is unsupported; freeze its exact three "
+                "head models and three representation checkpoints before evaluation."
+            )
         if (
             not isinstance(model, dict)
             or set(model) != {
-                "model_id", "role", "selection_classification",
-                "checkpoint_sha256", "predictor_code_sha256",
+                "model_id", "role", "selection_classification", "adapter",
+                "component_artifacts",
             }
             or not isinstance(model.get("model_id"), str)
             or not model["model_id"]
@@ -144,18 +152,48 @@ def _selection(path: Path) -> tuple[dict[str, Any], str]:
                 "CORE_CONVENTIONAL_SELECTION", "CORE_JEPA_SELECTION",
                 "POST_HOC_DEVELOPMENT_SELECTION",
             )
-            or not _digest(model.get("checkpoint_sha256"))
-            or not _digest(model.get("predictor_code_sha256"))
+            or model.get("adapter") not in {
+                "conventional", "core_neural_ensemble", "lightgbm",
+                "forward_ema_ensemble", "chronos2", "SYNTHETIC_FIXTURE",
+            }
+            or not isinstance(model.get("component_artifacts"), list)
+            or not model["component_artifacts"]
+            or any(
+                not isinstance(item, dict)
+                or set(item) != {"artifact_id", "sha256"}
+                or not isinstance(item.get("artifact_id"), str)
+                or not _digest(item.get("sha256"))
+                for item in model["component_artifacts"]
+            )
         ):
             raise ValueError("AEON selected-model identity or artifact binding is invalid.")
+        artifact_ids = [item["artifact_id"] for item in model["component_artifacts"]]
+        if len(artifact_ids) != len(set(artifact_ids)):
+            raise ValueError("AEON selected model repeats a component artifact identity.")
         ids.add(model["model_id"])
         roles.append(model["role"])
-    if roles.count("baseline") != 1 or "candidate" not in roles:
-        raise ValueError("AEON selection needs one baseline and at least one candidate.")
-    if not any(
-        model["selection_classification"].startswith("CORE_") for model in models
+    core_conventional = [
+        model for model in models
+        if model["selection_classification"] == "CORE_CONVENTIONAL_SELECTION"
+    ]
+    core_jepa = [
+        model for model in models if model["selection_classification"] == "CORE_JEPA_SELECTION"
+    ]
+    post_hoc = [
+        model for model in models
+        if model["selection_classification"] == "POST_HOC_DEVELOPMENT_SELECTION"
+    ]
+    if (
+        len(core_conventional) != 1
+        or core_conventional[0]["role"] != "baseline"
+        or not core_jepa
+        or any(model["role"] != "candidate" for model in core_jepa + post_hoc)
+        or roles.count("baseline") != 1
     ):
-        raise ValueError("AEON selection freeze loses the ADR 0010 core comparison category.")
+        raise ValueError(
+            "AEON selection needs exactly one core conventional baseline, at least one "
+            "core JEPA candidate, and optional post-hoc candidates."
+        )
     return value, digest
 
 
@@ -215,14 +253,20 @@ def _test_forecast_plan(
     expected = [
         (
             model["model_id"], model["role"], model["selection_classification"],
-            model["predictor_code_sha256"],
+            model["adapter"],
+            [(item["artifact_id"], item["sha256"]) for item in model["component_artifacts"]],
         )
         for model in selection["models"]
     ]
     actual = [
         (
             entry.get("model_id"), entry.get("role"), entry.get("selection_classification"),
-            entry.get("adapter_code_sha256"),
+            entry.get("adapter"),
+            [
+                (item.get("artifact_id"), item.get("sha256"))
+                for item in entry.get("component_artifacts", [])
+                if isinstance(item, dict)
+            ],
         )
         for entry in typed_entries
     ]
@@ -237,6 +281,7 @@ def _test_forecast_plan(
         or value.get("partition") != "test"
         or value.get("selection_freeze_sha256") != selection_sha256
         or value.get("candidate_contract_sha256") != candidate_sha256
+        or value.get("adapter_composite_sha256") != adapter_composite_sha256()
         or actual != expected
         or any(entry.get("adapter") not in allowed for entry in typed_entries)
     ):
@@ -247,7 +292,7 @@ def _test_forecast_plan(
 def _plan_artifact(directory: Path, value: dict[str, Any]) -> Any:
     from marine_echo.training.aeon_forecast_adapters import FrozenArtifact
 
-    if set(value) != {"path", "sha256"}:
+    if set(value) != {"artifact_id", "path", "sha256"}:
         raise ValueError("AEON adapter-plan artifact reference is malformed.")
     path = Path(value["path"])
     if path.is_absolute() or ".." in path.parts:
@@ -272,11 +317,11 @@ def _execute_forecast_plan(
         )
         from marine_echo.training import aeon_forecast_adapters
 
-        adapter_sha256 = artifact_sha256(Path(aeon_forecast_adapters.__file__))
+        adapter_sha256 = aeon_forecast_adapters.adapter_composite_sha256()
 
         result = {}
         for entry in entries:
-            if entry.get("adapter_code_sha256") != adapter_sha256:
+            if adapter_sha256 != adapter_composite_sha256():
                 raise ValueError("AEON frozen adapter code digest differs at execution.")
             adapter = entry["adapter"]
             options = entry.get("options")
@@ -355,6 +400,7 @@ def _review(
         "runner_code_sha256": artifact_sha256(Path(__file__)),
         "evaluation_code_sha256": artifact_sha256(Path(daily_pinball.__code__.co_filename)),
         "reader_composite_sha256": reader_composite_sha256(),
+        "adapter_composite_sha256": adapter_composite_sha256(),
     }
     if (
         value.get("status") != expected_status
@@ -492,6 +538,7 @@ def execute_calibration(
         "runner_code_sha256": artifact_sha256(Path(__file__)),
         "evaluation_code_sha256": artifact_sha256(Path(daily_pinball.__code__.co_filename)),
         "reader_composite_sha256": reader_composite_sha256(),
+        "adapter_composite_sha256": adapter_composite_sha256(),
         "reader_review_sha256": reader_review_sha256,
         "issued_row_ids": [row.row_id for row in rows],
         "models": {},
@@ -564,6 +611,7 @@ def _pretest_freeze(
         "runner_code_sha256": artifact_sha256(Path(__file__)),
         "evaluation_code_sha256": artifact_sha256(Path(daily_pinball.__code__.co_filename)),
         "reader_composite_sha256": reader_composite_sha256(),
+        "adapter_composite_sha256": adapter_composite_sha256(),
         "issued_row_rule": "EXACT_24_PRIOR_INTERVAL_IDS_OBSERVED_38KHZ",
         "primary_metric": "RAW_FIVE_QUANTILE_ELIGIBLE_TARGET_DATE_PINBALL",
         "bootstrap": {"block_hours": 48, "draws": 2000, "seed": 20260926},
@@ -616,6 +664,23 @@ def _write_test_bundle(
             stage.rmdir()
         raise
     return result
+
+
+def _comparison_gates(
+    *, baseline_primary: float, candidate_primary: float,
+    baseline_horizons: np.ndarray, candidate_horizons: np.ndarray,
+    paired_interval: list[float],
+) -> dict[str, bool]:
+    point_pass = candidate_primary <= 0.95 * baseline_primary
+    interval_pass = paired_interval[1] < 0.0
+    horizon_pass = bool(np.all(candidate_horizons <= 1.10 * baseline_horizons))
+    return {
+        "passes_prespecified_five_percent_point_improvement": point_pass,
+        "passes_paired_95_percent_interval_strictly_favoring_candidate": interval_pass,
+        "passes_incremental_loss_gate": point_pass and interval_pass,
+        "passes_per_horizon_ten_percent_regression_guard": horizon_pass,
+        "passes_full_unnarrowed_promotion_rule": point_pass and interval_pass and horizon_pass,
+    }
 
 
 def execute_retrospective_test(
@@ -731,20 +796,19 @@ def execute_retrospective_test(
             })
         bounds = np.asarray(np.quantile(boot, [0.025, 0.975]), dtype=np.float64).reshape(2)
         interval = [float(bounds[0]), float(bounds[1])]
-        point_pass = candidate_primary <= 0.95 * base_primary
-        horizon_pass = bool(np.all(candidate_h <= 1.10 * base_h))
-        interval_pass = interval[1] < 0.0
+        gates = _comparison_gates(
+            baseline_primary=base_primary, candidate_primary=candidate_primary,
+            baseline_horizons=base_h, candidate_horizons=candidate_h,
+            paired_interval=interval,
+        )
         comparisons[model_id] = {
             "baseline_model_id": baseline_id,
             "selection_classification": model["selection_classification"],
             "primary_relative_loss_change": (
                 candidate_primary / base_primary - 1.0 if base_primary > 0 else None
             ),
-            "passes_prespecified_five_percent_point_improvement": point_pass,
             "relative_loss_change_per_horizon": relative_horizon,
-            "passes_per_horizon_ten_percent_regression_guard": horizon_pass,
-            "passes_paired_95_percent_interval_strictly_favoring_candidate": interval_pass,
-            "passes_full_incremental_loss_gate": point_pass and horizon_pass and interval_pass,
+            **gates,
             "daily_paired_differences": daily_differences,
             "paired_95_percent_interval_db": interval,
             "bootstrap_candidate_minus_baseline_db": boot.tolist(),
@@ -764,6 +828,7 @@ def execute_retrospective_test(
         "runner_code_sha256": artifact_sha256(Path(__file__)),
         "evaluation_code_sha256": artifact_sha256(Path(daily_pinball.__code__.co_filename)),
         "reader_composite_sha256": reader_composite_sha256(),
+        "adapter_composite_sha256": adapter_composite_sha256(),
         "reader_review_sha256": reader_review_sha256,
         "issued_row_ids": [row.row_id for row in rows],
         "scored_target_interval_ids_by_row": [
