@@ -1,0 +1,14 @@
+{
+  "record_type": "COORDINATOR_TRANSCRIPTION_OF_DISTINCT_REVIEWER_MESSAGE",
+  "reviewer_session": "/root/v2_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "host_permissions": "danger-full-access; behavioral read-only",
+  "disposition": "APPROVE_NATIVE_PROCESSING_IMPLEMENTATION",
+  "processor_sha256": "5ab32855cc0a28dafb9f09aca8b7faa99d9ed93c16edaf61f284392eeb33a172",
+  "aggregation_sha256": "a74c17f984cc26aad459369feedd85e14fa3761865bd7b5115eb3b2e03b2b54c",
+  "freeze_sha256": "1cbcdfa88df619ddac2f06b200385786cddf2a4078061fa0991a8b1843889bf3",
+  "approved_start": "2020-02-17",
+  "approved_end": "2020-02-18",
+  "scope": "One TRAIN-day native processing pilot only; return actual outputs/resources for review. No fitting or further dates."
+}

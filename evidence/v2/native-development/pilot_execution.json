@@ -1,0 +1,11 @@
+{
+  "status": "PILOT_COMPLETED_REAL_TRAIN",
+  "command": "set PYTHONPATH=src&& .venv\\Scripts\\python.exe tools\\v2_process_native.py --start 2020-02-17 --end 2020-02-18 --review orchestration\\reviews\\V2_NATIVE_PILOT_20260927.json",
+  "exit_code": 0,
+  "logged_utc": "2026-09-27T10:21:46.990232+00:00",
+  "index_sha256": "f7225535e92927ffb7c6a052b70369c6dc86413d4e87622fdb64ba7370b2f1da",
+  "manifest_path": "evidence\\v2\\native-development\\2020-02-17.json",
+  "manifest_sha256": "bc8777b871d2337afda5953c276e6f1556d7d5217cf771306d67cc8f1297bf43",
+  "shard_sha256": "994a4938eaeb72db06e0b35cf6b607d1baf6bdc062e64b252a1f3248662e5b3d",
+  "note": "The initially restricted sandbox attempt failed during sibling XML read before any native output. Host access was restored, then this exact command completed; stdout and exit status inspected in the unified command result."
+}

@@ -339,7 +339,7 @@
     "infrastructure_committed_usd": 0
   },
   "v2": {
-    "status": "DEVELOPMENT_CONTRACT_REVIEW",
+    "status": "NATIVE_TRAIN_PILOT_COMPLETE_PENDING_REVIEW",
     "owner_amendment_authorized": true,
     "data_design_owner": "/root",
     "executor_owner": "/root/v2_builder",

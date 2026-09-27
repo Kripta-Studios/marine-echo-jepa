@@ -1,0 +1,58 @@
+{
+  "data_kind": "REAL",
+  "study_id": "v2_candidate2",
+  "bindings": {
+    "native_freeze": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\v2\\native_candidate_freeze_v3.json",
+      "sha256": "1cbcdfa88df619ddac2f06b200385786cddf2a4078061fa0991a8b1843889bf3"
+    },
+    "processor": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\v2_process_native.py",
+      "sha256": "5ab32855cc0a28dafb9f09aca8b7faa99d9ed93c16edaf61f284392eeb33a172"
+    },
+    "aggregation": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\native_observations.py",
+      "sha256": "a74c17f984cc26aad459369feedd85e14fa3761865bd7b5115eb3b2e03b2b54c"
+    },
+    "qc": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\candidate_qc.py",
+      "sha256": "b46e0448e9caa7f2d6fd4196ea8b7e3f934023e5df389665b8bebf2414b0460a"
+    },
+    "compat": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\azfp_compat.py",
+      "sha256": "4a60f0287f538f674f947ecc3f2f20f302e1b70bbe66360adf419f607e22bbf5"
+    },
+    "environment": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\continuation\\depth_environment_sensitivity.json",
+      "sha256": "bb3aa8c36b5a19b56bb30435743956ec842257e6e3ce6a921bfcbabd1a6a8018"
+    },
+    "slant": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\continuation\\slant_environment_sensitivity.json",
+      "sha256": "c11ea92a183f9ff7af6a0c05a5e47229c43cf05afbc709b189024826866d5da2"
+    },
+    "certificate": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\data\\raw\\calibration\\azfp55170\\ASL-AZFP55170-calibration-20190326.pdf",
+      "sha256": "6541fbe21f6af64e0731f53784a2763b87d8527ff79ddcba178bd0dd5eb3f464"
+    },
+    "xml": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\data\\raw\\pangaea\\mosaic_azfp_down_2020_extracted\\20021600.XML",
+      "sha256": "8efaf894f10b60a1e80885dd8e38366a72319cf6af64c3b0e914b28f6b6437f7"
+    },
+    "upstream_noise": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\echopype\\clean\\api.py",
+      "sha256": "63f6b1d7d3f75d6496a5c6af3c4ab2b9435bcc646be5d0261d7c9f5fadd55115"
+    },
+    "upstream_range": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\echopype\\calibrate\\range.py",
+      "sha256": "d73da1d649b330e964c45d2153b3cf8e55a0c77310a3aad2ea0b372a1786fbfe"
+    }
+  },
+  "days": {
+    "2020-02-17": {
+      "manifest_path": "evidence\\v2\\native-development\\2020-02-17.json",
+      "manifest_sha256": "bc8777b871d2337afda5953c276e6f1556d7d5217cf771306d67cc8f1297bf43",
+      "shard_sha256": "994a4938eaeb72db06e0b35cf6b607d1baf6bdc062e64b252a1f3248662e5b3d",
+      "elapsed_seconds": 9.155999999999949
+    }
+  }
+}

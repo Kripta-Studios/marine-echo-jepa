@@ -7,10 +7,17 @@ prompt. The leader owns data/design; `/root/v2_builder` owns real executors in t
 separate `impl/v2-execution` worktree; `/root/v2_reviewer` independently reviews
 `continuation_v2/REVIEW_V2.md`. V1 evidence below remains historical and unchanged.
 
-One detection-conditioned, observation-aligned target is proposed in ADR 0005 before
-candidate support inspection. Existing acquisition/QC records are being inspected;
-the completed census and any-band audit are not being rerun. The real reader and
-causal batch implementation are underway. No v2 scientific run has executed yet.
+ADR 0005's single conservative two-metre-grid candidate failed its frozen 10%
+detected support rule: zero eligible hourly targets on original TRAIN. The failed
+v2 candidate and immutable row report are preserved under `evidence/v2/support/`.
+The distinct reviewer approved prospective native range-length Candidate 2's
+contract in ADR 0006 and a one-day TRAIN processing pilot. That pilot completed
+on 17 February: 5713 observed pings, 48 source chunks, 0.255 GiB sampled peak
+process RSS, 9.156 seconds, and an exact hash-bound shard/manifest. Native
+support for the full fixed development interval awaits independent pilot review;
+no v2 model fit or scientific prediction has executed yet. The v1 census and
+any-band audit were not rerun. Real reader, causal batches and model executors
+continue in the separate builder worktree.
 
 The existing GPU environment passed a CUDA kernel smoke with PyTorch 2.11.0+cu128;
 this is not a training-memory measurement. Data-environment PyTorch is absent and
