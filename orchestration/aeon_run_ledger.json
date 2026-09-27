@@ -135,6 +135,6 @@
   "calibration": "NOT_RUN",
   "retrospective_test": "NOT_RUN",
   "jepa_value_gate": "NOT_EVALUATED",
-  "gpu_owner": "NONE",
+  "gpu_owner": "aeon_patchtst_challenger:/root/aeon_builder",
   "paid_cost_usd": 0
 }
