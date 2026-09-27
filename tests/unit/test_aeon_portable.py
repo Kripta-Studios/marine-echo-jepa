@@ -6,7 +6,11 @@ from pathlib import Path
 
 import pytest
 
-from marine_echo.serving.aeon_portable import build_aeon_portable, verify_package
+from marine_echo.serving.aeon_portable import (
+    _write_final_documents,
+    build_aeon_portable,
+    verify_package,
+)
 
 
 def _digest(path: Path) -> str:
@@ -55,3 +59,25 @@ def test_rejects_unverified_wheel_and_existing_output(tmp_path: Path) -> None:
     (tmp_path / "out").mkdir()
     with pytest.raises(FileExistsError):
         build_aeon_portable(tmp_path, tmp_path / "out", source, sums, payload)
+
+
+def test_final_cards_are_sourced_and_retain_review_pending_label(tmp_path: Path) -> None:
+    study = {
+        "source": {"archive_sha256": "a" * 64, "publisher": "Fixture publisher"},
+        "target": {"unit": "source-reported Sv dB", "product": "60minFullDepth"},
+        "retrospective_test": {
+            "issued_rows": 1216, "eligible_days_per_horizon": [49, 50, 51],
+            "test_score_sha256": "b" * 64,
+            "test_outcome_review_sha256": "c" * 64,
+            "models": {"core_direct_equal_three_seed_ensemble": {
+                "raw_primary_daily_mean_pinball_db": 0.56},
+                "core_ema_equal_three_seed_ensemble": {
+                    "raw_primary_daily_mean_pinball_db": 0.53}},
+        },
+    }
+    _write_final_documents(tmp_path, study)
+    assert "0.5300" in (tmp_path / "REPORT.md").read_text()
+    assert "release review pending" in (tmp_path / "README_RUN.md").read_text().lower()
+    assert "not independently field verified" in (tmp_path / "DATA_CARD.md").read_text().lower()
+    assert "post hoc" in (tmp_path / "MODEL_CARD.md").read_text().lower()
+    assert (tmp_path / "MARINE_DATA_REQUEST.md").is_file()

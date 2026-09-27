@@ -87,6 +87,76 @@ def _archive(package: Path, archive: Path) -> None:
                 out.writestr(entry, path.read_bytes(), compress_type=zipfile.ZIP_DEFLATED, compresslevel=9)
 
 
+def _write_final_documents(stage: Path, study: dict[str, Any]) -> None:
+    """Write concise cards from the reviewed payload, preserving release-review status."""
+    outcome = study["retrospective_test"]
+    models = outcome["models"]
+    direct = models["core_direct_equal_three_seed_ensemble"]["raw_primary_daily_mean_pinball_db"]
+    ema = models["core_ema_equal_three_seed_ensemble"]["raw_primary_daily_mean_pinball_db"]
+    documents = {
+        "README_RUN.md": (
+            "# Run this offline research package\n\n"
+            "Final release review pending. On Windows with offline Python 3.12 and uv already "
+            "available, run `Run-AEON-Research.ps1`; it verifies SHA256SUMS, installs only "
+            "bundled wheels and serves 127.0.0.1. The adjacent ZIP checksum verifies the "
+            "archive before extraction. Historical MOSAiC v1/v2 remains separate.\n"
+        ),
+        "REPORT.md": (
+            "# Reviewed AEON retrospective study\n\n"
+            f"Source: {study['source']['publisher']}. Archive SHA-256: "
+            f"`{study['source']['archive_sha256']}`.\n\n"
+            f"TEST issued {outcome['issued_rows']} rows; eligible source dates by +1/+3/+6 "
+            f"interval: {outcome['eligible_days_per_horizon']}. Raw primary daily pinball: "
+            f"direct {direct:.4f} dB, EMA-JEPA {ema:.4f} dB. The frozen EMA family passed "
+            "its within-study retrospective comparison; selection was post hoc in development "
+            "and frozen before TEST. Learned-representation attribution is unestablished. "
+            "This is not sealed or external evaluation.\n\n"
+            f"TEST score SHA-256: `{outcome['test_score_sha256']}`. Independent outcome "
+            f"review SHA-256: `{outcome['test_outcome_review_sha256']}`. "
+            "The full score, paired block draws and saved prediction arrays are packaged as "
+            "reviewed evidence. Final package review remains pending.\n"
+        ),
+        "DATA_CARD.md": (
+            "# AEON data card\n\n"
+            "AEON3 Georges Basin fixed lander, published hourly processed AZFP Sv product, "
+            "38 kHz 60minFullDepth, nominal 0–200 m. The target is source-reported conditioned "
+            "Sv_mean in dB re 1 m^-1; source clock timezone and publication latency are unknown. "
+            "Conditioning and manual exclusions were performed by the publisher. Absolute "
+            "calibration is not independently field verified. The original source archive is "
+            "not redistributed. Candidate metadata, row QC and forecast provenance are under "
+            "`provenance/retrospective_test/`.\n"
+        ),
+        "MODEL_CARD.md": (
+            "# Frozen forecast-family card\n\n"
+            "The core comparison is an equal-three-seed direct neural ensemble versus an "
+            "equal-three-seed EMA-JEPA ensemble, both using 24 past hourly four-frequency "
+            "source products with masks to predict 38-kHz Sv quantiles at +1/+3/+6 source "
+            "intervals. LightGBM is a post hoc exploratory challenger. Family selection was "
+            "post hoc in development but frozen before TEST. The saved TEST arrays support "
+            "truth-free historical replay only; there is no live forecasting service. "
+            "A within-study EMA forecast gain does not isolate learned JEPA representation value.\n"
+        ),
+        "LIMITATIONS.md": (
+            "# Research limitations\n\n"
+            "This retrospective TEST is one deployment and not sealed or externally replicated. "
+            "The source clock is not verified UTC and operational availability is unknown. "
+            "Processed Sv is not species, biomass, catch, fuel savings or causal device impact. "
+            "Publisher conditioning cannot be independently reconstructed from these products. "
+            "No state-of-the-art, production or business-validation claim follows. "
+            "The historical MOSAiC v1/v2 eligibility failures remain unchanged.\n"
+        ),
+        "MARINE_DATA_REQUEST.md": (
+            "# Further marine data request\n\n"
+            "No institution was contacted by this release process. Independent external "
+            "replication would require a new source with documented clock timezone, "
+            "acquisition latency, calibration coefficients, processing exclusions and sufficient "
+            "hourly multi-frequency coverage. Any access request needs owner authorization.\n"
+        ),
+    }
+    for name, content in documents.items():
+        (stage / name).write_text(content, encoding="utf-8")
+
+
 def build_aeon_portable(
     root: Path, output: Path, wheelhouse: Path, upstream_sums: Path,
     payload: Path | None = None, calibration_artifact: Path | None = None,
@@ -172,6 +242,28 @@ def build_aeon_portable(
                     shutil.copy2(test_forecasts / name, stage / "provenance/retrospective_test" / name)
                 outcome_report = root / "orchestration/reports/AEON_RETROSPECTIVE_OUTCOME_20260927.md"
                 shutil.copy2(outcome_report, stage / "provenance/retrospective_test" / outcome_report.name)
+                _write_final_documents(stage, study)
+                evidence = stage / "evidence"
+                (evidence / "protocol").mkdir(parents=True)
+                (stage / "requirements-locks").mkdir()
+                shutil.copy2(stage / "requirements-app.txt", stage / "requirements-locks/requirements-app.txt")
+                for name in (
+                    "0008-aeon-hourly-sv-study.md",
+                    "0009-aeon-eligible-date-and-evaluation-freeze.md",
+                    "0010-aeon-development-selection.md",
+                    "0011-aeon-reviewed-development-selection.md",
+                ):
+                    shutil.copy2(root / "docs/adr" / name, evidence / "protocol" / name)
+                for name in ("aeon_final_selection.json", "aeon_final_evaluation.json"):
+                    shutil.copy2(root / "configs" / name, evidence / "protocol" / name)
+                shutil.copy2(root / "orchestration/aeon_run_ledger.json", evidence / "aeon_run_ledger.json")
+                shutil.copy2(test_score, evidence / "metrics.json")
+                (evidence / "runtime.json").write_text(json.dumps({
+                    "status": "NOT_MEASURED_DURING_PACKAGE_BUILD",
+                    "offline_install": "REQUIRES_RELOCATED_SMOKE",
+                    "api_and_browser": "REQUIRES_RELOCATED_SMOKE",
+                    "live_cpu_inference": "NOT_PROVIDED_TRUTH_FREE_REPLAY_ONLY",
+                }, indent=2) + "\n", encoding="utf-8")
         frontend_licenses = {
             "react": "19.3.0", "react-dom": "19.3.0", "scheduler": "0.28.0",
         }
