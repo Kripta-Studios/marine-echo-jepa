@@ -1,0 +1,78 @@
+{
+  "task": "R2-AEON-CALIBRATION-SELECTION-PLAN-REVIEW-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "status": "APPROVED_AEON_CALIBRATION_SELECTION_PLAN_FREEZE",
+  "disposition": "APPROVE_EXACT_SELECTION_AND_CAL_PLAN_FOR_SEPARATE_CAL_ACCESS_GATES",
+  "source_commit": "6ef76da5b2bb29a3aeaa86766f679a5fd9f3a7f2",
+  "freeze_commit": "b546be2",
+  "source_approval_sha256": "8dc1de78aa952f72eab85897d107d85f17c410f67c4cb0c1da0be945eaecd03b",
+  "selection_path": "configs/aeon_final_selection.json",
+  "selection_sha256": "b3940ab8e159ac8808843b15b455ffb3c42f2d3db322190af15b80e543edff58",
+  "calibration_forecast_plan_path": "AEON_CALIBRATION_FORECAST_PLAN_20260927.json",
+  "calibration_forecast_plan_sha256": "790cfc22e059e398a1aefa6358c4dca5bae63ac2ba0291f5333f7d3f85661ede",
+  "adapter_composite_sha256": "c8ccc0c54b720676b9f6d19cdd5ed7ffd1a5daf58ed22c469479a9272d1b77f9",
+  "config_sha256": "9003865b288a3c5afdf4b7cdb3a3f401c346f6067a53a255b833dde8e3a668c4c",
+  "selection_lineage": {
+    "adr_0011_sha256": "cd9ea9c7180b5e60d5271feb86436a634b6b8b971048715fa491bf639401ae73",
+    "development_selection_rule_review_sha256": "dd3dcbdf5e93d42e021abbaf4bf310bec0b40ea52d53411802e00770840127b2",
+    "development_selection_record_review_sha256": "527bf68313cac2354ced78d8cf2673153a92e2f2d08845451ee9afaccfab47c8",
+    "neutral_validation_comparison_sha256": "f4a0f4771868866ff7c330f4033c5ca9da7c6c36cdb19a1758cf2f383146757b",
+    "neutral_validation_comparison_review_sha256": "53a3a164915eea4ab3bc8851c096bbc42821cb05330eb4c2829039df83df3e07",
+    "corrected_validation_rescore_sha256": "32cea9f8141fbad220a3e47d9e840039ad23b4f8e893efbcfb90f52944214c46",
+    "corrected_validation_rescore_review_sha256": "16bb9ef931f5e2d8f8a3322fa609c5cb1c769f99f5e4a89a5ef519a0fb52f44f",
+    "validation_row_sha256": "9ce5ed6d60c4082efd3f342b3ee09ddadc5cf6286be6d6a3e953ab0f6166a99f"
+  },
+  "models": {
+    "core_direct_equal_three_seed_ensemble": {
+      "role": "baseline",
+      "classification": "CORE_CONVENTIONAL_SELECTION",
+      "family": "direct",
+      "device": "cpu",
+      "weights": [0.3333333333333333, 0.3333333333333333, 0.3333333333333333],
+      "components_sha256": {
+        "direct_seed7": "a616f9160f359e54a6da5d87dc3b7a46edfee46e449e2944af7a69be8ae25c95",
+        "direct_seed13": "eb6ca62f4c68024b43ea8b2102a0754d646623fd91cbf1ad31fb72218faf48dc",
+        "direct_seed23": "ee3ae09ebf05bc41ec762e946a1d0046be33fff4ea47472a992893a294054761"
+      }
+    },
+    "core_ema_equal_three_seed_ensemble": {
+      "role": "candidate",
+      "classification": "CORE_JEPA_SELECTION",
+      "family": "ema_jepa",
+      "device": "cpu",
+      "weights": [0.3333333333333333, 0.3333333333333333, 0.3333333333333333],
+      "components_sha256": {
+        "ema_jepa_seed7": "f1fc41860e21cb2c47868488b051c68cd951487d717fc0fe033e63b8dfcc664c",
+        "ema_jepa_seed13": "59cb3d1e6d79ca2d9807f24c5e816d0e5c89fad0e274e703d6e9da5b44024633",
+        "ema_jepa_seed23": "4a7c63931a31a48f60323b944110df9292856f39cb822ce0b891371a10a16a15"
+      }
+    },
+    "post_hoc_lightgbm": {
+      "role": "candidate",
+      "classification": "POST_HOC_DEVELOPMENT_SELECTION",
+      "model_sha256": "164389731cd5d2e0694d1fb5228196196e7701fc73269e79ef84d85520fb168b",
+      "recipe_sha256": "3feee4089ce790c66adb189ff82ad4e006c350822a23aaa494e86afaef884eea"
+    }
+  },
+  "independent_execution": {
+    "schema_and_gate_check": "`_selection`, `_forecast_plan(..., calibration)` and `_preflight_forecast_plan` completed successfully on the exact artifacts without constructing or invoking the CAL reader.",
+    "component_hash_check": "Independently rehashed all six neural checkpoints, the LightGBM model and its recipe; all eight files match the selection and plan.",
+    "path_check": "Every component path is relative, resolves within the directory containing the plan and points to the independently reviewed artifact identity.",
+    "model_execution_check": "Executed all three exact plan entries on the already reviewed 1,219 validation contexts after replacing target fields with redacted sentinels. LightGBM reproduced its saved validation forecasts bit exactly; CPU direct and EMA ensembles matched their saved CUDA development forecasts within 1.52587890625e-05 dB. All forecasts were finite and monotone.",
+    "calibration_metadata_check": "Inspected ZIP member names only and found exactly the expected four FullDepth frequency members for each of 2024-12 and 2025-01; no CSV acoustic row or CAL target value was opened.",
+    "calibration_or_test_numeric_access": false
+  },
+  "scientific_disposition": [
+    "The baseline is the reviewed equal three-seed direct ensemble.",
+    "The core JEPA candidate is the reviewed equal three-seed EMA ensemble; its development evidence did not establish incremental JEPA value.",
+    "LightGBM remains explicitly post-hoc and cannot establish a core confirmatory or SOTA claim.",
+    "CAL may alter only the outer 90 percent interval by nonnegative widening; raw five-quantile forecasts remain primary."
+  ],
+  "limitations": [
+    "This review freezes identities, bytes, options and paths; it does not by itself grant numeric CAL access.",
+    "No TEST plan, pretest freeze, TEST access or final scientific claim is approved."
+  ],
+  "calibration_access": "PROHIBITED_PENDING_DISTINCT_READER_AND_RUNNER_ACCESS_REVIEWS",
+  "test_access": "PROHIBITED"
+}

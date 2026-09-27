@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0",
+  "task": "R2-AEON-CALIBRATION-READER-ACCESS-20260927",
+  "status": "APPROVED_AEON_CALIBRATION_ACCESS",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "data_kind": "REAL",
+  "partition": "calibration",
+  "partition_access": "CALIBRATION_NUMERIC_ACCESS_APPROVED",
+  "study_id": "aeon3_geb_2024_hourly_sv_v1",
+  "source_archive_sha256": "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde",
+  "protocol_sha256": "d83392832a1bde3ae3e096de0a664ca9cfc27762a18bb10fb5ace3a97e787435",
+  "reader_code_sha256": "735ac1d4d03b29a7ebfb23259bd355137463e12d6ac9c9127df81b338828e380",
+  "reader_composite_sha256": "121facf774cc81e55f1ced6d4d6ec82927614a7dadc0deab66b557f35dd5563f",
+  "runner_code_sha256": "25d9a33b8746501dc76888e1e30a9e0128f3fa7c9c45a664a65d686b178a57a5",
+  "adapter_composite_sha256": "c8ccc0c54b720676b9f6d19cdd5ed7ffd1a5daf58ed22c469479a9272d1b77f9",
+  "source_approval_sha256": "8dc1de78aa952f72eab85897d107d85f17c410f67c4cb0c1da0be945eaecd03b",
+  "selection_review_sha256": "aa423f5928bbadac87909f718c28fe33da27ae7df995f50da167567cc7e809e5",
+  "selection_freeze_sha256": "b3940ab8e159ac8808843b15b455ffb3c42f2d3db322190af15b80e543edff58",
+  "forecast_manifest_sha256": "790cfc22e059e398a1aefa6358c4dca5bae63ac2ba0291f5333f7d3f85661ede",
+  "config_sha256": "9003865b288a3c5afdf4b7cdb3a3f401c346f6067a53a255b833dde8e3a668c4c",
+  "start": "2024-12-01",
+  "end_exclusive": "2025-01-06",
+  "permitted_members": [
+    "AEON3_Mar2024-Mar2025_Sv/AEON3_55144_038_2024_12_60minFullDepth.csv",
+    "AEON3_Mar2024-Mar2025_Sv/AEON3_55144_038_2025_01_60minFullDepth.csv",
+    "AEON3_Mar2024-Mar2025_Sv/AEON3_55144_125_2024_12_60minFullDepth.csv",
+    "AEON3_Mar2024-Mar2025_Sv/AEON3_55144_125_2025_01_60minFullDepth.csv",
+    "AEON3_Mar2024-Mar2025_Sv/AEON3_55144_200_2024_12_60minFullDepth.csv",
+    "AEON3_Mar2024-Mar2025_Sv/AEON3_55144_200_2025_01_60minFullDepth.csv",
+    "AEON3_Mar2024-Mar2025_Sv/AEON3_55144_455_2024_12_60minFullDepth.csv",
+    "AEON3_Mar2024-Mar2025_Sv/AEON3_55144_455_2025_01_60minFullDepth.csv"
+  ],
+  "issued_row_rule": "EXACT_24_PRIOR_INTERVAL_IDS_OBSERVED_38KHZ",
+  "target_qc_rule": "PUBLISHED_FULLDEPTH_SV_MEAN_FINITE_NON_SPECIAL_EXACT_150_PINGS",
+  "authorization_scope": "ONE_HASH_BOUND_CALIBRATION_EXECUTION_WITH_THE_SEPARATE_RUNNER_ACCESS_REVIEW",
+  "prohibitions": [
+    "Do not read TEST acoustic rows or outcomes.",
+    "Do not change selected model bytes, plan options, CAL bounds, issuance, support floor, quantiles or metrics.",
+    "Do not use CAL outcomes for model selection or parameter tuning beyond the frozen nonnegative interval-widening rule."
+  ],
+  "test_access": "PROHIBITED"
+}
