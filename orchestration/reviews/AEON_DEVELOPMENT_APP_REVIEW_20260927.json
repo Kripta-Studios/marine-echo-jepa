@@ -1,0 +1,49 @@
+{
+  "task": "R3-AEON-DEVELOPMENT-APP-INTEGRATION-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "status": "APPROVED_AEON_DEVELOPMENT_ONLY_APP_INTEGRATION",
+  "disposition": "APPROVE_EXACT_DEVELOPMENT_ONLY_OFFLINE_SURFACE_NOT_FINAL_RELEASE",
+  "reviewed_files_sha256": {
+    "src/marine_echo/serving/aeon_study.py": "15cc6df319bb91523fe38fc0ccad14128f43b5827fb485206c113e65da88b639",
+    "src/marine_echo/serving/api.py": "462bb9bdd7413757936529d6b758150ae5ee45448191a78950b776395c1c6eba",
+    "src/marine_echo/serving/cli.py": "823834acaf8d7fe4bbb67e1e62f7fcd5592c66579191e4761bc8571e8bdc1e12",
+    "web/src/api/client.ts": "706332888782e252c568f4fd4a7054a3b8465a34e25a1e8250d59bf315a484b2",
+    "web/src/components/AppShell.tsx": "277741a33d45f1f24e9a67166929f0c24a084eab23c7e97b80c5091ba59e2eea",
+    "web/src/main.tsx": "e9c02e4c99b12e0a03e85a793dbc3928092d5c6eb6ad05b68687c1ce640f05a6",
+    "web/src/pages/AeonStudyPage.tsx": "62486f18c11f10e3fb8f073c4bc1e0c7a4fa8007ca5fedefc3def0409fa8c0e0"
+  },
+  "verified_behavior": [
+    "The app adds a separate AEON3 Georges Basin route and does not relabel or overwrite the historical MOSAiC v1/v2 study.",
+    "The packaged AEON artifact is generated only from five exact independent development outcome reviews whose byte digests are hard-pinned.",
+    "The target is labelled source-reported conditioned 38 kHz Sv_mean over the published 60minFullDepth nominal 0-200 m product; independent field calibration and source-clock UTC are not claimed.",
+    "The page labels all values TRAIN/validation development, distinguishes post-hoc arms, states no model selection or final evaluation, and makes no SOTA, biomass, species, catch or operational-value claim.",
+    "The release exposes no AEON cached forecast and offers no AEON forecast action."
+  ],
+  "independent_execution": {
+    "python_tests": "16 passed in 7.28s for AEON release and read-only API tests",
+    "web_tests": "3 passed",
+    "web_typecheck": "passed",
+    "web_lint": "passed",
+    "web_production_build": "passed",
+    "temporary_offline_release_build": {
+      "status": "OFFLINE_RESEARCH_MIXED_STUDIES_DEVELOPMENT_ONLY",
+      "aeon_study_sha256": "6b7289d14982690bdc51c25f9697725a79f5de016f7c9da919064a3320b82830",
+      "packaged_asset_count": 10,
+      "historical_registry_rows": 25,
+      "aeon_cached_forecasts": 0,
+      "checksum_mismatches": 0,
+      "api_response_matches_packaged_artifact": true
+    }
+  },
+  "limitations": [
+    "This review covers the development-only app state before the reviewed ADR 0011 selection and before any CAL or retrospective TEST outcome; it is not approval of a final scientific release.",
+    "A later release that adds selection, calibrated intervals or final evaluation must update the evidence surface, bind those new artifacts and receive a new independent review.",
+    "The displayed validation values are descriptive and selection-optimistic; the app correctly serves no operational AEON forecast in this state."
+  ],
+  "historical_v1_blocked_registry_preserved": true,
+  "final_release_approved": false,
+  "sota_claim": "NOT_ESTABLISHED",
+  "calibration_access": "NOT_GRANTED_BY_THIS_REVIEW",
+  "test_access": "PROHIBITED"
+}
