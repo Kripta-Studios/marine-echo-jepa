@@ -119,6 +119,9 @@ class HourlyWindow:
     future_train_db: NDArray[np.float64]
     future_train_mask: NDArray[np.bool_]
     source_sha256: tuple[str, ...]
+    context_index_db: NDArray[np.float64] | None = None
+    past_source_sha256: tuple[str, ...] = ()
+    target_source_sha256: tuple[str, ...] = ()
 
 
 class CandidateTrainStream:
@@ -418,6 +421,14 @@ def iter_hourly_windows(
             out=np.full(96, np.nan),
             where=observed_context > 0,
         )
+        context_index = np.full(96, np.nan)
+        for index in range(96):
+            weights = input_counts[index, 0, 5:50]
+            if weights.sum() > 0:
+                values = linear[index, 0, 5:50]
+                context_index[index] = 10 * np.log10(
+                    np.sum(values * weights, where=weights > 0) / weights.sum()
+                )
         target_groups = [sequence[first : first + 4] for first in (96, 104, 116)]
         future_linear = np.stack([[item.linear_sv for item in group] for group in target_groups])
         future_count = np.stack(
@@ -448,6 +459,19 @@ def iter_hourly_windows(
                     )
                     target_mask[horizon] = True
         sources = tuple(sorted({digest for item in sequence for digest in item.source_sha256}))
+        past_sources = tuple(
+            sorted({digest for item in context_slots for digest in item.source_sha256})
+        )
+        target_sources = tuple(
+            sorted(
+                {
+                    digest
+                    for group in target_groups
+                    for item in group
+                    for digest in item.source_sha256
+                }
+            )
+        )
         row_id = hashlib.sha256((str(cutoff) + ":sampled-detected-v2").encode()).hexdigest()
         yield HourlyWindow(
             row_id=row_id,
@@ -470,4 +494,7 @@ def iter_hourly_windows(
             future_train_db=future_db,
             future_train_mask=future_mask,
             source_sha256=sources,
+            context_index_db=context_index,
+            past_source_sha256=past_sources,
+            target_source_sha256=target_sources,
         )

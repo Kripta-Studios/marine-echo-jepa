@@ -12,6 +12,7 @@ from marine_echo.models.compact import ModelConfig
 from marine_echo.models.v2_development import (
     DevelopmentRidge,
     JointDirectForecaster,
+    JointJEPAForecaster,
     joint_supervised_loss,
 )
 from marine_echo.training.v2_stream import HourlyWindow
@@ -87,3 +88,30 @@ def test_joint_direct_masks_missing_index_but_learns_fraction() -> None:
     target[:, 1] = 1000
     changed = joint_supervised_loss(prediction, target, target_mask, fraction, fraction_mask)
     assert torch.equal(loss.detach(), changed.detach())
+
+
+@pytest.mark.parametrize("mode", ["ema", "shared_sigreg"])
+def test_joint_jepa_pretraining_then_frozen_encoder_probe(mode: str) -> None:
+    torch.set_num_threads(1)
+    torch.manual_seed(7)
+    model = JointJEPAForecaster(
+        ModelConfig(width=16, layers=1, heads=4), mode=mode, sigreg_weight=0.04
+    )
+    context = torch.randn(2, 96, 4, 64)
+    mask = torch.ones_like(context, dtype=torch.bool)
+    future = torch.randn(2, 3, 4, 4, 64)
+    future_mask = torch.ones_like(future, dtype=torch.bool)
+    objective = model.pretrain_objective(context, mask, future, future_mask)
+    assert torch.isfinite(objective)
+    objective.backward()
+    model.freeze_encoder()
+    assert not any(parameter.requires_grad for parameter in model.base.encoder.parameters())
+    prediction = model(context, mask, torch.zeros(2, 96, 4))
+    loss = joint_supervised_loss(
+        prediction,
+        torch.zeros(2, 3),
+        torch.ones(2, 3, dtype=torch.bool),
+        torch.full((2, 3), 0.5),
+        torch.ones(2, 3, dtype=torch.bool),
+    )
+    assert torch.isfinite(loss)

@@ -1,0 +1,1 @@
+{'index_sha256': 'f7225535e92927ffb7c6a052b70369c6dc86413d4e87622fdb64ba7370b2f1da', 'start': '2020-02-17T00:00:00.000000000', 'end': '2020-02-17T00:15:00.000000000', 'source_hashes': 2, 'shape': (4, 64), 'observed_pings': 59, 'detected_range_ping_m': 627.4075334961415}

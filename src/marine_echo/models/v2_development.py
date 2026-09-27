@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import Literal
 
 import numpy as np
 import torch
@@ -13,7 +14,7 @@ from sklearn.pipeline import Pipeline, make_pipeline
 from sklearn.preprocessing import StandardScaler
 from torch import nn
 
-from marine_echo.models.compact import DirectForecaster, ModelConfig
+from marine_echo.models.compact import DirectForecaster, ModelConfig, TemporalJEPA
 from marine_echo.training.v2_stream import HourlyWindow
 
 QUANTILES = (0.05, 0.25, 0.5, 0.75, 0.95)
@@ -36,12 +37,19 @@ def past_features(row: HourlyWindow) -> NDArray[np.float64]:
     """Fixed past summaries; no future field is accessed."""
     if row.context.shape != (96, 4, 64) or row.context_mask.shape != row.context.shape:
         raise ValueError("Expected the frozen 96-bin acoustic context.")
-    valid = row.context_mask[:, 0, 5:50]
-    profile = row.context[:, 0, 5:50]
-    linear = np.where(valid, np.power(10.0, np.clip(profile, -180, 80) / 10.0), 0)
-    count = valid.sum(axis=1)
-    mean_linear = np.divide(linear.sum(axis=1), count, out=np.full(96, np.nan), where=count > 0)
-    index = 10 * np.log10(np.maximum(mean_linear, 1e-18))
+    if row.context_index_db is None:
+        # Artificial/legacy fixtures lack native overlap weights. Reviewed native
+        # development rows must provide the exact length-weighted past index.
+        valid = row.context_mask[:, 0, 5:50]
+        profile = row.context[:, 0, 5:50]
+        linear = np.where(valid, np.power(10.0, np.clip(profile, -180, 80) / 10.0), 0)
+        count = valid.sum(axis=1)
+        mean_linear = np.divide(linear.sum(axis=1), count, out=np.full(96, np.nan), where=count > 0)
+        index = 10 * np.log10(np.maximum(mean_linear, 1e-18))
+    else:
+        if row.context_index_db.shape != (96,):
+            raise ValueError("Exact past conditional index must have 96 bins.")
+        index = row.context_index_db
     sections = (slice(0, 96), slice(48, 96), slice(80, 96), slice(92, 96))
     parts: list[float] = []
     for series in (
@@ -131,6 +139,48 @@ class JointDirectForecaster(nn.Module):
         self.base = DirectForecaster(config)
         self.aux_project = nn.Linear(96 * 4, config.width)
         self.fraction_head = nn.Linear(config.width, 1)
+
+    def forward(
+        self, context: torch.Tensor, context_mask: torch.Tensor, past_aux: torch.Tensor
+    ) -> JointTorchPrediction:
+        if past_aux.shape != (len(context), 96, 4):
+            raise ValueError("Expected four past-only auxiliary features per context bin.")
+        encoded, valid = self.base.encoder(context, context_mask)
+        predicted = self.base.predictor(encoded, valid)
+        auxiliary = torch.where(torch.isfinite(past_aux), past_aux, 0).flatten(start_dim=1)
+        predicted = predicted + self.aux_project(auxiliary)[:, None, None, :]
+        forecast = self.base.head(predicted, valid.any(dim=1))
+        fraction = torch.sigmoid(self.fraction_head(predicted.mean(dim=2)).squeeze(-1))
+        return JointTorchPrediction(forecast.quantiles, fraction, forecast.eligible)
+
+
+class JointJEPAForecaster(nn.Module):
+    """Pretrained temporal encoder with a frozen-encoder joint forecast probe."""
+
+    def __init__(
+        self,
+        config: ModelConfig,
+        *,
+        mode: Literal["ema", "shared_sigreg"],
+        sigreg_weight: float = 0.04,
+    ) -> None:
+        super().__init__()
+        self.base = TemporalJEPA(config, mode=mode, sigreg_weight=sigreg_weight)
+        self.aux_project = nn.Linear(96 * 4, config.width)
+        self.fraction_head = nn.Linear(config.width, 1)
+
+    def pretrain_objective(
+        self,
+        context: torch.Tensor,
+        context_mask: torch.Tensor,
+        future: torch.Tensor,
+        future_mask: torch.Tensor,
+    ) -> torch.Tensor:
+        return self.base.objective(context, context_mask, future, future_mask).loss
+
+    def freeze_encoder(self) -> None:
+        for parameter in self.base.encoder.parameters():
+            parameter.requires_grad_(False)
 
     def forward(
         self, context: torch.Tensor, context_mask: torch.Tensor, past_aux: torch.Tensor
