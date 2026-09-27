@@ -265,7 +265,10 @@ Chronos-2's exact public checkpoint and zero-shot runner passed distinct prefit
 review; its frozen zero-shot TRAIN/validation inference completed on CUDA with
 exit status zero and 1,219 real validation forecasts. Its corrected primary
 pinball is 0.693518 dB, behind the direct-neural and LightGBM development
-results; distinct outcome review is pending.
+results. Distinct outcome review verified all 77 shard hashes and bit-exact
+assembly, reproduced the full corrected metric and one pinned-model CUDA shard,
+and approved neutral post-hoc comparison only. No SOTA or incremental JEPA
+value follows from this outcome.
 The forward-EMA JEPA adaptation with fixed VICReg-style anti-collapse penalties
 completed all five serial TRAIN/validation slots on CUDA with exit status zero,
 real checkpoints and forecasts. Distinct outcome review recomputed all five

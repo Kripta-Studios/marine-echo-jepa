@@ -14,10 +14,22 @@ from marine_echo.training.aeon_validation_compare import (
     _comparison_code_sha256,
     _compare_arrays,
     _load_sources,
+    _report_lineage,
+    _reviewed_report_digest,
     _source_report_status,
     _validate_manifest,
     _verify_outer_approval,
 )
+
+
+def test_forward_and_chronos_reviews_bind_manifests_and_nested_lineage() -> None:
+    review = {"manifest_sha256": "a" * 64, "artifact_sha256": {"report": "b" * 64}}
+    assert _reviewed_report_digest("forward", review, "forward_manifest") == "a" * 64
+    assert _reviewed_report_digest("chronos", review, "chronos_manifest") == "a" * 64
+    assert _reviewed_report_digest("lightgbm", review, "report") == "b" * 64
+    assert _report_lineage("chronos", {"binding": {"cohort_sha256": "c" * 64}})[
+        "cohort_sha256"
+    ] == "c" * 64
 
 
 @pytest.mark.parametrize("dependency", ["aeon.py", "aeon_rescore.py"])
@@ -144,6 +156,12 @@ def test_all_source_groups_need_exact_reviewed_report_and_slot_hashes(tmp_path: 
         }
         if kind == "hybrid":
             report["slots"]["raw_only_hgb"] = {"prediction_sha256": "d" * 64}
+        if kind == "chronos":
+            report["binding"] = {
+                "validation_row_sha256": "b" * 64,
+                "cohort_sha256": "a" * 64,
+                "source_archive_sha256": "c" * 64,
+            }
         report_path = tmp_path / f"{kind}-report.json"
         report_path.write_text(json.dumps(report), encoding="utf-8")
         report_sha = hashlib.sha256(report_path.read_bytes()).hexdigest()
@@ -153,6 +171,8 @@ def test_all_source_groups_need_exact_reviewed_report_and_slot_hashes(tmp_path: 
             "artifact_sha256": {report_key: report_sha},
             "test_access": "PROHIBITED",
         }
+        if kind in ("forward", "chronos"):
+            review["manifest_sha256"] = report_sha
         review_path = tmp_path / f"{kind}-review.json"
         review_path.write_text(json.dumps(review), encoding="utf-8")
         predictions = {

@@ -135,6 +135,16 @@ def _source_report_status(kind: str) -> str:
     }[kind]
 
 
+def _reviewed_report_digest(kind: str, review: dict[str, Any], review_key: str) -> Any:
+    if kind in ("forward", "chronos"):
+        return review.get("manifest_sha256")
+    return review.get("artifact_sha256", {}).get(review_key)
+
+
+def _report_lineage(kind: str, report: dict[str, Any]) -> dict[str, Any]:
+    return report.get("binding", {}) if kind == "chronos" else report
+
+
 def _validate_manifest(config: dict[str, Any]) -> dict[str, Any]:
     if (
         config.get("schema_version") != "1.0"
@@ -170,16 +180,17 @@ def _load_sources(config: dict[str, Any]) -> tuple[dict[str, Any], dict[str, str
         review_path = _bound_path(source["review"])
         report = json.loads(report_path.read_text(encoding="utf-8"))
         review = json.loads(review_path.read_text(encoding="utf-8"))
+        lineage = _report_lineage(kind, report)
         if (
             report.get("status") != _source_report_status(kind)
             or review.get("status") != status
             or review.get("reviewer_session") != "/root/aeon_reviewer"
-            or review.get("artifact_sha256", {}).get(review_key) != source["report"]["sha256"]
+            or _reviewed_report_digest(kind, review, review_key) != source["report"]["sha256"]
             or review.get("test_access") != "PROHIBITED"
             or report.get("test_access") != "PROHIBITED"
-            or (kind != "forward" and report.get("validation_row_sha256") != config["validation_row_sha256"])
-            or (kind != "core" and report.get("cohort_sha256") != config["cohort_sha256"])
-            or (kind not in ("core", "forward") and report.get("source_archive_sha256") != config["source_archive_sha256"])
+            or (kind != "forward" and lineage.get("validation_row_sha256") != config["validation_row_sha256"])
+            or (kind != "core" and lineage.get("cohort_sha256") != config["cohort_sha256"])
+            or (kind not in ("core", "forward") and lineage.get("source_archive_sha256") != config["source_archive_sha256"])
         ):
             raise ValueError(f"AEON {kind} outcome lacks exact independent review.")
         report_slots = report.get("slots", {})
