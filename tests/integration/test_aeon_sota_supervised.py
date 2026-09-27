@@ -14,6 +14,7 @@ from marine_echo.training.aeon_sota_supervised import (
     _fit_quantiles,
     _recipe_gate,
     _verified_b3_score,
+    _validation_rows,
 )
 
 
@@ -87,3 +88,19 @@ def test_b3_comparison_recomputes_score_and_binds_evaluator() -> None:
     rescore["evaluation_code_sha256"] = _sha256(Path(daily_pinball.__code__.co_filename))
     with pytest.raises(ValueError, match="B3 score"):
         _verified_b3_score(truth, forecast + 1, observed, times, rescore)
+
+
+def test_validation_row_probe_creates_exclusive_fresh_path() -> None:
+    row = SimpleNamespace(
+        row_id="fixture-row", cutoff_source_timestamp=np.datetime64("2024-10-09T00:00"),
+        target_source_timestamps=np.array([
+            "2024-10-09T01:00", "2024-10-09T03:00", "2024-10-09T06:00"
+        ], dtype="datetime64[us]"),
+        target_interval_ids=np.array([101, 103, 106]),
+        target_db=np.array([-70.0, -71.0, -72.0]),
+        target_mask=np.ones(3, dtype=bool),
+        target_qc_status=("OBSERVED", "OBSERVED", "OBSERVED"),
+        past_members=("past.csv",), target_members=("future.csv",),
+    )
+    rows = _validation_rows([row], np.zeros((1, 3, 5)))
+    assert rows["row_ids"].tolist() == ["fixture-row"]

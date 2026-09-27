@@ -143,6 +143,17 @@ def _verified_b3_score(
     return score
 
 
+def _validation_rows(
+    assess: list[AeonHourlyWindow], forecast: np.ndarray
+) -> dict[str, np.ndarray]:
+    """Probe the standard saved-row schema using a fresh exclusive-write path."""
+    with tempfile.TemporaryDirectory(prefix="aeon-supervised-row-check-") as directory:
+        path = Path(directory) / "cohort-check.npz"
+        _save_predictions(path, assess, forecast)
+        rows, _ = _load_prediction(path)
+    return rows
+
+
 def run_supervised(
     archive: Path,
     split_review: Path,
@@ -209,14 +220,7 @@ def run_supervised(
     ).read_text(encoding="utf-8"))
     raw_path = _artifact(raw_dir, raw_record["prediction_path"], raw_record["prediction_sha256"])
     raw_rows, raw_forecast = _load_prediction(raw_path)
-    check = tempfile.NamedTemporaryFile(suffix=".npz", delete=False)
-    check.close()
-    check_path = Path(check.name)
-    try:
-        _save_predictions(check_path, assess, raw_forecast)
-        cohort_rows, _ = _load_prediction(check_path)
-    finally:
-        check_path.unlink(missing_ok=True)
+    cohort_rows = _validation_rows(assess, raw_forecast)
     if (
         not _same_rows(raw_rows, cohort_rows)
         or rescore["slots"]["hist_gradient_boosting"]["prediction_sha256"]
