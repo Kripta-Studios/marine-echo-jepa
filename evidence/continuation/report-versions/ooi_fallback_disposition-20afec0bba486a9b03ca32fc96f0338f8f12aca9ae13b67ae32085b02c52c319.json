@@ -1,0 +1,138 @@
+{
+  "record_type": "COORDINATOR_TRANSCRIPTION_OF_DISTINCT_REVIEWER_METADATA_AUDIT",
+  "reviewer_session": "/root/continuation_review",
+  "status": "RESOURCE_PLAN_AND_CALIBRATION_PROVENANCE_BLOCKED_WITHIN_CURRENT_PROTOCOL",
+  "source_root": "https://rawdata.oceanobservatories.org/files/CE04OSPS/PC01B/ZPLSCB102/processed/",
+  "example_period": "20170820-20170827",
+  "anonymous_http_status": 200,
+  "content_type": "application/x-netcdf",
+  "entity_bytes": 1104839294,
+  "etag": "\"41da827e-61883e90d2880\"",
+  "last_modified": "2024-05-15",
+  "range_status": 206,
+  "reader": "ExistingGPUenvironment h5py3.16/HDF5 2.0/requests2.34.2, CPU metadata probe; no installations",
+  "transport_bytes": 164478,
+  "transport_requests": 3,
+  "transport_cap_bytes": 8388608,
+  "acoustic_Sv_values_indexed_or_read": false,
+  "sv_layout": {
+    "dtype": "float32",
+    "shape": [
+      3,
+      85829,
+      1072
+    ],
+    "chunks": null,
+    "compression": null,
+    "byte_offset": 10186,
+    "storage_bytes": 1104104256
+  },
+  "coordinates_only": {
+    "frequencies_hz": [
+      38000,
+      120000,
+      200000
+    ],
+    "band10_100m_center_indices_inclusive": [
+      53,
+      522
+    ],
+    "cells": 470,
+    "first_last_range_m": [
+      10.13454,
+      99.81567
+    ],
+    "first_last_ping_utc": [
+      "2017-08-20T00:00:00.053455Z",
+      "2017-08-20T23:54:59.205469Z"
+    ]
+  },
+  "averaged_weekly_product": "Scientifically ineligible for unchanged protocol: official historical code uses15-minute median inSv and interpolates gaps<45minutes; valid linear means/support and originalmissingness cannot be recovered from that product.",
+  "calibration_limitations": "FullNC preliminary products do not retain exact raw hashes/coefficient lineage/Echopypeversion/generationcommit. Historicalcode defaultsT9C,SP33,pressure~200m,upward,tilt0; applicability/sensitivity unresolved. CurrentcodeSP34 differs.",
+  "license": "OOIdata freeuse withOOI/NSFacknowledgment andcitation;processingcodeMIT.",
+  "primary_sources": [
+    "https://github.com/oceanobservatories/ooi-zpls-echograms",
+    "https://raw.githubusercontent.com/oceanobservatories/ooi-zpls-echograms/2655423f245e4aeead91bf4adab25e52ae50c061/ooi_zpls_echograms/zpls_echogram.py",
+    "https://oceanobservatories.org/how-to-use-acknowledge-and-cite-data/"
+  ],
+  "action": "Bounded discovery stopped after official metadata and existing raw header checks. No new protocol, bulk acquisition or sparse extractor. A separately approved feasible resource/data plan and calibration lineage are required. Not a proof every conceivable representation is impossible.",
+  "benchmark_eligible": false,
+  "completed_benchmark_runs": 0,
+  "example_entity_url": "https://rawdata.oceanobservatories.org/files/CE04OSPS/PC01B/ZPLSCB102/processed/20170820-20170827/CE04OSPS_Bioacoustic_Echogram_20170820-20170827_Calibrated_Sv_Full_20170820.nc",
+  "example_day_exact_subset_and_134day_extrapolation": {
+    "bytes_per_day_three_channels": 484075560,
+    "minimum_calendar_days_for_20_test_days_at15pct": 134,
+    "gib_134days": 60.4113,
+    "configured_total_raw_gib_cap": 40,
+    "note": "Exact payload for inspected2017-08-20 day, extrapolated134times. Not a proved lowerbound for everypossible future date selection. ExtendedD2range remains unfrozen. Metadata/HTTP overhead and existingD1downloads excluded."
+  },
+  "fixed_example_week_entity_bytes": [
+    1104839294,
+    1104350158,
+    1104633342,
+    1104504622,
+    1104646214,
+    1104607598,
+    1104478878
+  ],
+  "fixed_example_week_scope": "Seven anonymousHEAD requests only; noSvvalues read. Similar entitysizes support the sizeestimate but do not establish fullcorpus calibration or eligibility.",
+  "official_deployment_metadata": {
+    "repository_tree": "6a5e0e18e6d5520af6d7d85db4462515bfa113a2",
+    "tree_bytes": 2900805,
+    "tree_truncated": false,
+    "deployment_csv_url": "https://raw.githubusercontent.com/oceanobservatories/asset-management/6a5e0e18e6d5520af6d7d85db4462515bfa113a2/deployment/CE04OSPS_Deploy.csv",
+    "deployment_csv_sha256": "ac4bbb7389d3a2cca65feb368e62029f1be5c1f754a92f8db381b757ca6949b7",
+    "deployment": 4,
+    "start": "2017-07-29T05:00:00Z",
+    "end": "2018-07-17T15:00:00Z",
+    "refdes": "CE04OSPS-PC01B-05-ZPLSCB102",
+    "sensor_uid": "ATOSU-63259-00002",
+    "sensor_depth_m": 193,
+    "water_depth_m": 574,
+    "latitude": 44.374163,
+    "longitude": -124.95648,
+    "matching_external_calibration_paths": 0,
+    "unrelated_calibration": "ATOSU-63259-00003__20150802.csv must not be applied",
+    "ingestion_csv_url": "https://raw.githubusercontent.com/oceanobservatories/ingestion-csvs/a7ceef6b26bca3b913e4435d40c3094b5c4110a0/CE04OSPS/CE04OSPS_ingest.csv",
+    "ingestion_csv_sha256": "3936b24ea25597b0a95d192dd257527fe0bbbcc8c7f8d3c9c4d1d76f9e4dad11"
+  },
+  "existing_raw_header_audit": {
+    "reviewer_session": "/root/continuation_review",
+    "path": "data/raw/ooi/diagnostic/OOI-D20170821-T000000.raw",
+    "file_bytes": 52436316,
+    "source_sha256": "27248617a52ace72f1d4a39d3d4c3d1e350316f842ed4e0446013a04ce399f7c",
+    "read_cap_bytes": 65536,
+    "read_bytes": 1496,
+    "datagram": "CON0 only; matching 1488-byte leading/trailing framing",
+    "sample_datagrams_read": false,
+    "parser": "Echopype 0.11.1 SimradConfigParser",
+    "parser_source_sha256": "baadac2600e6b5e898904595f7e2f56bc0942067c5700444a77ed7ea9b51d8e9",
+    "timestamp": "2017-08-21T00:00:00.055054Z",
+    "sounder": "ER60",
+    "software": "2.4.3",
+    "channels": [
+      {
+        "frequency_hz": 120000,
+        "channel_id": "GPT 120 kHz 00907208a0b1 3-1 ES120-7CD",
+        "gain_db": 25,
+        "equivalent_beam_angle_db": -20.7000007629
+      },
+      {
+        "frequency_hz": 38000,
+        "channel_id": "GPT  38 kHz 00907208dd13 5-1 OOI.38|200",
+        "gain_db": 26.5,
+        "equivalent_beam_angle_db": -20.6000003815
+      },
+      {
+        "frequency_hz": 200000,
+        "channel_id": "GPT 200 kHz 00907208dd13 5-2 OOI38|200",
+        "gain_db": 25,
+        "equivalent_beam_angle_db": -20.7000007629
+      }
+    ],
+    "all_sa_corrections": 0,
+    "all_offsets_positions_directions": 0,
+    "limitations": "Normal embedded acquisition coefficients are present. No asset UID/certificate date/GPT-to-asset mapping/environmental provenance/FullNC generation version or raw hashes. This August21 header is not the August20 FullNC entity source proof."
+  },
+  "single_frequency_route": "Not authorized by current three-native-channel D2 contract. Full38kHz slab estimate ~46GiB/134days exceeds raw cap; ideal strided10\u2013100m ~20.1GiB entails ~11.5million disjoint ranges without demonstrated server subset behavior. No extractor or material input amendment approved."
+}

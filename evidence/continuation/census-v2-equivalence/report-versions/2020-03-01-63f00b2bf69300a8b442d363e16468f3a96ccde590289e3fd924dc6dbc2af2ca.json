@@ -1,0 +1,24 @@
+{
+  "status": "EXACT_ARRAY_EQUIVALENCE",
+  "date": "2020-03-01",
+  "previous_shard_sha256": "a1ec44541553928b3b1ba672dff3c95eb4517a10dc683be924c7823be9a6d3f2",
+  "new_shard_sha256": "a1ec44541553928b3b1ba672dff3c95eb4517a10dc683be924c7823be9a6d3f2",
+  "fields": [
+    "bin_start",
+    "bin_end",
+    "linear_sv",
+    "valid_ping_count",
+    "expected_ping_count",
+    "observed_ping_count",
+    "ping_count",
+    "support_denominator_ping_count",
+    "excess_ping_count",
+    "cell_support",
+    "raw_ping_time",
+    "primary_support",
+    "range_edges_m",
+    "frequency_hz",
+    "configuration_boundary"
+  ],
+  "scope": "All arrays including count/time/config masks and linear Sv, TRAIN only; no tolerance or outcome selection"
+}

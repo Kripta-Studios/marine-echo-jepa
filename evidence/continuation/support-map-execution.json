@@ -1,0 +1,18 @@
+{
+  "command": [
+    "powershell",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "scripts/Continue-Local.ps1",
+    "-Stage",
+    "SupportMap"
+  ],
+  "exit_code": 0,
+  "seconds": 5.735000000000582,
+  "peak_sampled_process_tree_rss_gib": 0.154266357421875,
+  "resource_or_time_stop": false,
+  "log": "evidence/continuation/support-map-execution.log",
+  "benchmark_runs": 0
+}

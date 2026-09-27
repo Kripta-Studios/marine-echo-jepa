@@ -1,0 +1,7 @@
+{
+  "status": "TRAIN_CANDIDATE_PROCESSED_REQUIRES_QC_REVIEW",
+  "expected_pings": 5760,
+  "observed_pings": 0,
+  "primary_bins_at_least_80pct": 0,
+  "elapsed_seconds": 0.2649999999994179
+}

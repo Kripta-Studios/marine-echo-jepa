@@ -1,0 +1,16 @@
+{
+  "scope": "Complete TRAIN daily count visualization only; not per-cell target eligibility",
+  "source_sha256": "340df813be4ce254ae5224637945e8992116dd1ab6b1190476f9447e17878c88",
+  "code_sha256": "03f26fbd0a143f166c272afd93afe311b1786cef90c270fad64d304540a190bd",
+  "color_scale": [
+    0,
+    1
+  ],
+  "shape": [
+    100,
+    4,
+    64
+  ],
+  "all_dates_channels_ranges_shown": true,
+  "png_sha256": "f330fb0bd17edc0fd43ee2c98f5e9e854afe63e43cd606597ff926a3805aea4b"
+}

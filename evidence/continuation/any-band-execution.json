@@ -1,0 +1,17 @@
+{
+  "command": [
+    "powershell",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "scripts/Continue-Local.ps1",
+    "-Stage",
+    "AnyBand"
+  ],
+  "exit_code": 0,
+  "seconds": 11.125,
+  "peak_sampled_process_tree_rss_gib": 0.17479324340820312,
+  "log": "evidence/continuation/any-band-execution.log",
+  "benchmark_runs": 0
+}

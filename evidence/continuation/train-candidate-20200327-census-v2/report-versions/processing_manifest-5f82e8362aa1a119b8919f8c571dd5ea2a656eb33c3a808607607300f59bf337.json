@@ -1,0 +1,19 @@
+{
+  "status": "RUNNING_TRAIN_CANDIDATE",
+  "bindings": {
+    "contract_sha256": "581141caa866b3cf3756fecdda49e379e38df7ea89e19f156c9074b3f5961e0c",
+    "protocol_sha256": "8473ecb568d7c102521e7118197a2bbe61426df9d02a0ed7b73933f49ca7815b",
+    "environment_report_sha256": "bb3aa8c36b5a19b56bb30435743956ec842257e6e3ce6a921bfcbabd1a6a8018",
+    "slant_report_sha256": "c11ea92a183f9ff7af6a0c05a5e47229c43cf05afbc709b189024826866d5da2",
+    "certificate_sha256": "6541fbe21f6af64e0731f53784a2763b87d8527ff79ddcba178bd0dd5eb3f464",
+    "xml_sha256": "8efaf894f10b60a1e80885dd8e38366a72319cf6af64c3b0e914b28f6b6437f7",
+    "code_sha256": "a0ddb50f64a4a92fcf45e657aeb385aa27ddbd32cdd30af50571cd79b6bd0e4d",
+    "qc_code_sha256": "b46e0448e9caa7f2d6fd4196ea8b7e3f934023e5df389665b8bebf2414b0460a",
+    "regrid_code_sha256": "21ef36fa66d4aa762fe1aa85e8a39d03a0a6e61531514d2aa5ae1aef8a4f5b33",
+    "upstream_noise_code_sha256": "63f6b1d7d3f75d6496a5c6af3c4ab2b9435bcc646be5d0261d7c9f5fadd55115",
+    "upstream_range_code_sha256": "d73da1d649b330e964c45d2153b3cf8e55a0c77310a3aad2ea0b372a1786fbfe",
+    "compat_code_sha256": "4a60f0287f538f674f947ecc3f2f20f302e1b70bbe66360adf419f607e22bbf5"
+  },
+  "start": "2020-03-27",
+  "benchmark_eligible": false
+}

@@ -1,0 +1,39 @@
+{
+  "status": "D1_INELIGIBLE_ANY_38KHZ_BAND_SUPPORT_UPPER_BOUND",
+  "scope": "TRAIN_ONLY_ANY_FIXED_38KHZ_BAND_NECESSARY_SUPPORT_BOUND_NOT_BENCHMARK",
+  "contract_sha256": "ee26559926e66cd48224be10508def0245cb7cd01b9b0fe65daa3971cb8993da",
+  "review_sha256": "a20ca26335f47c6ec14bea2a765b4faa6dbe68ad4362afcf98861c313546e44b",
+  "code_sha256": "362ec290d8a443d36be96b034f26840bc89b810302cc0bb7b30a9af8caadfca6",
+  "support_map_sha256": "340df813be4ce254ae5224637945e8992116dd1ab6b1190476f9447e17878c88",
+  "support_map_result_acceptance_sha256": "1eef7f720e0c6bede64606e7b6a3ca99a267be3c8364be9b95495a5d1e675aeb",
+  "execution_report_sha256": "415563522356775e1e4ac5ccf444ac5a48725da8659ee1399f3cb1f629e1c407",
+  "census_generation": "census-v2",
+  "processed_train_calendar_days": 100,
+  "frequency_hz": 38000,
+  "range_cells": 64,
+  "support_threshold": 0.8,
+  "target_offsets_quarter_hours": [
+    0,
+    8,
+    20
+  ],
+  "target_width_quarter_hours": 4,
+  "anchor_stride_quarter_hours": 4,
+  "any_band_supported_train_hourly_anchors_upper_bound": 9,
+  "any_band_supported_train_anchor_days_upper_bound": 6,
+  "qualifying_cutoff_dates": [
+    "2020-02-17",
+    "2020-02-18",
+    "2020-02-22",
+    "2020-03-01",
+    "2020-03-02",
+    "2020-03-05"
+  ],
+  "unmeasured_nontrain_day_upper_bound": 67,
+  "overall_eligible_day_upper_bound": 73,
+  "minimum_overall_days": 90,
+  "held_out_acoustic_payloads_processed": false,
+  "completed_benchmark_runs": 0,
+  "benchmark_eligible": false,
+  "interpretation": "Necessary support bound only; different cells may satisfy different horizons and no band was selected"
+}

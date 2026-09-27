@@ -1,0 +1,525 @@
+{
+  "status": "D1_INELIGIBLE_TARGET_SUPPORT_UPPER_BOUND",
+  "contract_sha256": "774f7bcac90ca275eb486d243a5b3a20488814c1d1de2060bc8a188322dd769f",
+  "input_contract_sha256": "1b27db9b08eedf3f937f363fbabcb522633d73175c7836e926f7248c9434c4ef",
+  "census_generation": "census-v2",
+  "code_sha256": "699142b1d0b79a57988c13b86beffc5152438980c9f08e9799387bdae6141ffd",
+  "execution_report_sha256": "415563522356775e1e4ac5ccf444ac5a48725da8659ee1399f3cb1f629e1c407",
+  "strict_context_report_sha256": "6bc08cabb7e630b64f168b4e4eb1c655a79ecf47be103a820b0b135d53a3d3b1",
+  "strict_context_report_disposition": "Strict context rule remains subject to R1; only this context-independent target bound can establish global ineligibility.",
+  "processed_train_calendar_days": 100,
+  "target_supported_train_anchor_days_upper_bound": 0,
+  "target_supported_train_hourly_anchors_upper_bound": 0,
+  "target_supported_dates": [],
+  "unmeasured_nontrain_day_upper_bound": 67,
+  "overall_eligible_day_upper_bound": 67,
+  "minimum_overall_days": 90,
+  "interval_calibration_days": "NOT_EVALUATED",
+  "test_days": "NOT_EVALUATED",
+  "held_out_acoustic_payloads_processed": false,
+  "completed_benchmark_runs": 0,
+  "benchmark_eligible": false,
+  "daily_support": [
+    {
+      "date": "2020-02-17",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.05962962962962963
+    },
+    {
+      "date": "2020-02-18",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.07074074074074074
+    },
+    {
+      "date": "2020-02-19",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.01037037037037037
+    },
+    {
+      "date": "2020-02-20",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.01037037037037037
+    },
+    {
+      "date": "2020-02-21",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.006296296296296296
+    },
+    {
+      "date": "2020-02-22",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.08407407407407408
+    },
+    {
+      "date": "2020-02-23",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.04
+    },
+    {
+      "date": "2020-02-24",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.014814814814814815
+    },
+    {
+      "date": "2020-02-25",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.014074074074074074
+    },
+    {
+      "date": "2020-02-26",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.046296296296296294
+    },
+    {
+      "date": "2020-02-27",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.051111111111111114
+    },
+    {
+      "date": "2020-02-28",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.06259259259259259
+    },
+    {
+      "date": "2020-02-29",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.06814814814814815
+    },
+    {
+      "date": "2020-03-01",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.06037037037037037
+    },
+    {
+      "date": "2020-03-02",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.05592592592592593
+    },
+    {
+      "date": "2020-03-03",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.05592592592592593
+    },
+    {
+      "date": "2020-03-04",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.04666666666666667
+    },
+    {
+      "date": "2020-03-05",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.034444444444444444
+    },
+    {
+      "date": "2020-03-06",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.052592592592592594
+    },
+    {
+      "date": "2020-03-07",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.03259259259259259
+    },
+    {
+      "date": "2020-03-08",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.03111111111111111
+    },
+    {
+      "date": "2020-03-09",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.02074074074074074
+    },
+    {
+      "date": "2020-03-10",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.01814814814814815
+    },
+    {
+      "date": "2020-03-11",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.03481481481481481
+    },
+    {
+      "date": "2020-03-12",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.012592592592592593
+    },
+    {
+      "date": "2020-03-13",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.01037037037037037
+    },
+    {
+      "date": "2020-03-14",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.007407407407407408
+    },
+    {
+      "date": "2020-03-15",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.006296296296296296
+    },
+    {
+      "date": "2020-03-16",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.006296296296296296
+    },
+    {
+      "date": "2020-03-17",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.003703703703703704
+    },
+    {
+      "date": "2020-03-18",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.01074074074074074
+    },
+    {
+      "date": "2020-03-19",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.008518518518518519
+    },
+    {
+      "date": "2020-03-20",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0044444444444444444
+    },
+    {
+      "date": "2020-03-21",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.00037037037037037035
+    },
+    {
+      "date": "2020-03-22",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0
+    },
+    {
+      "date": "2020-03-23",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0
+    },
+    {
+      "date": "2020-03-24",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0025925925925925925
+    },
+    {
+      "date": "2020-03-25",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.002962962962962963
+    },
+    {
+      "date": "2020-03-26",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0025925925925925925
+    },
+    {
+      "date": "2020-03-27",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.006296296296296296
+    },
+    {
+      "date": "2020-03-28",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.006296296296296296
+    },
+    {
+      "date": "2020-03-29",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.01
+    },
+    {
+      "date": "2020-03-30",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.016666666666666666
+    },
+    {
+      "date": "2020-03-31",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.008148148148148147
+    },
+    {
+      "date": "2020-04-01",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0077777777777777776
+    },
+    {
+      "date": "2020-04-02",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0033333333333333335
+    },
+    {
+      "date": "2020-04-03",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.002962962962962963
+    },
+    {
+      "date": "2020-04-04",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0044444444444444444
+    },
+    {
+      "date": "2020-04-05",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0044444444444444444
+    },
+    {
+      "date": "2020-04-06",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.006666666666666667
+    },
+    {
+      "date": "2020-04-07",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0
+    },
+    {
+      "date": "2020-04-08",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.00037037037037037035
+    },
+    {
+      "date": "2020-04-09",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0
+    },
+    {
+      "date": "2020-04-10",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0
+    },
+    {
+      "date": "2020-04-11",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0
+    },
+    {
+      "date": "2020-04-12",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0
+    },
+    {
+      "date": "2020-04-13",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0
+    },
+    {
+      "date": "2020-04-14",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0044444444444444444
+    },
+    {
+      "date": "2020-04-15",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.008518518518518519
+    },
+    {
+      "date": "2020-04-16",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0044444444444444444
+    },
+    {
+      "date": "2020-04-17",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0
+    },
+    {
+      "date": "2020-04-18",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0
+    },
+    {
+      "date": "2020-04-19",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.022222222222222223
+    },
+    {
+      "date": "2020-04-20",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.001851851851851852
+    },
+    {
+      "date": "2020-04-21",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0007407407407407407
+    },
+    {
+      "date": "2020-04-22",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0
+    },
+    {
+      "date": "2020-04-23",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0
+    },
+    {
+      "date": "2020-04-24",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0
+    },
+    {
+      "date": "2020-04-25",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0
+    },
+    {
+      "date": "2020-04-26",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0
+    },
+    {
+      "date": "2020-04-27",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0
+    },
+    {
+      "date": "2020-04-28",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.004814814814814815
+    },
+    {
+      "date": "2020-04-29",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.00037037037037037035
+    },
+    {
+      "date": "2020-04-30",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0
+    },
+    {
+      "date": "2020-05-01",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0
+    },
+    {
+      "date": "2020-05-02",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0
+    },
+    {
+      "date": "2020-05-03",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0
+    },
+    {
+      "date": "2020-05-04",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.001851851851851852
+    },
+    {
+      "date": "2020-05-05",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0033333333333333335
+    },
+    {
+      "date": "2020-05-06",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.017407407407407406
+    },
+    {
+      "date": "2020-05-07",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0011111111111111111
+    },
+    {
+      "date": "2020-05-08",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0007407407407407407
+    },
+    {
+      "date": "2020-05-09",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.00037037037037037035
+    },
+    {
+      "date": "2020-05-10",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0007407407407407407
+    },
+    {
+      "date": "2020-05-11",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0011111111111111111
+    },
+    {
+      "date": "2020-05-12",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.003703703703703704
+    },
+    {
+      "date": "2020-05-13",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.020370370370370372
+    },
+    {
+      "date": "2020-05-14",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.015925925925925927
+    },
+    {
+      "date": "2020-05-15",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.02074074074074074
+    },
+    {
+      "date": "2020-05-16",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0
+    },
+    {
+      "date": "2020-05-17",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.0
+    },
+    {
+      "date": "2020-05-18",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.00037037037037037035
+    },
+    {
+      "date": "2020-05-19",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.026296296296296297
+    },
+    {
+      "date": "2020-05-20",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.020370370370370372
+    },
+    {
+      "date": "2020-05-21",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.018518518518518517
+    },
+    {
+      "date": "2020-05-22",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.014814814814814815
+    },
+    {
+      "date": "2020-05-23",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.014814814814814815
+    },
+    {
+      "date": "2020-05-24",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.018518518518518517
+    },
+    {
+      "date": "2020-05-25",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.012222222222222223
+    },
+    {
+      "date": "2020-05-26",
+      "quarter_hours_at_least_80pct": 0,
+      "max_quarter_hour_support": 0.016666666666666666
+    }
+  ],
+  "limitations": "Fixed reviewed noise/QC method; necessary target support only. Ignores all context/config restrictions. Not a JEPA outcome or real-corpus approval."
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "review_id": "TRAIN_SUPPORT_MAP_RESULT_20260927",
+  "reviewer_session": "/root/continuation_review",
+  "disposition": "ACCEPT_TRAIN_SUPPORT_MAP_RESULT",
+  "support_map_sha256": "340df813be4ce254ae5224637945e8992116dd1ab6b1190476f9447e17878c88",
+  "reviewed_plot_code_sha256": "03f26fbd0a143f166c272afd93afe311b1786cef90c270fad64d304540a190bd",
+  "target_only_bound_sha256": "ad3ab2c3a0cd5723ec5b450c777bdfcc9438f8fe31db11418b28c10c7f861015",
+  "census_execution_sha256": "415563522356775e1e4ac5ccf444ac5a48725da8659ee1399f3cb1f629e1c407",
+  "strict_context_report_sha256": "6bc08cabb7e630b64f168b4e4eb1c655a79ecf47be103a820b0b135d53a3d3b1",
+  "support_map_method_review_sha256": "4d375ab9bc18768e7fb467d0834674e59cc156a7d0bb5143cd149fa09276cc07",
+  "support_map_code_sha256": "b75c44b849c56d0cdaab096796ad9dc70dcee5a2128fbdb8ef6edfaaf0efef86",
+  "support_map_contract_sha256": "43781ca5e2b00cab52c0729cde0d969a53a985622f39d4dfe0ecc71616d9f32f",
+  "verification": {
+    "deep_equal_independent_recomputation": true,
+    "processed_train_calendar_days": 100,
+    "cells": 256,
+    "artifact_hashes": 316,
+    "original_target_supported_train_hourly_anchors": 0,
+    "original_target_supported_train_anchor_days": 0,
+    "original_target_overall_day_upper_bound": 67,
+    "held_out_acoustic_payloads_processed": false,
+    "completed_benchmark_runs": 0,
+    "benchmark_eligible": false
+  },
+  "scope": "Exact complete census-v2 TRAIN count-support result and original fixed-target necessary bound only; no Sv values, held-out payloads, band selection, target amendment, corpus promotion, benchmark or model claim",
+  "holdout_statement": "TRAIN timestamp containment verified; historical holdout seal remains NOT_ESTABLISHED"
+}

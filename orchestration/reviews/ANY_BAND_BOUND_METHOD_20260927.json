@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "review_id": "ANY_BAND_BOUND_METHOD_20260927",
+  "reviewer_session": "/root/continuation_review",
+  "disposition": "APPROVE_ANY_BAND_BOUND_METHOD",
+  "reviewed_contract_sha256": "ee26559926e66cd48224be10508def0245cb7cd01b9b0fe65daa3971cb8993da",
+  "reviewed_code_sha256": "362ec290d8a443d36be96b034f26840bc89b810302cc0bb7b30a9af8caadfca6",
+  "reviewed_test_sha256": "b75260c9d178fc4df634bab9c48c26739ccc0604a7e4ff9806084578af00ac4f",
+  "core_green_log_sha256": "768c09957cdd56182d6f06f4e8d0890c0b67c98a4a3b3fb0d034ee0926297a9d",
+  "integrated_green_log_sha256": "b788b8d40eeb75764428d1f30fed2b113d585b3863462b38ff64f3758c41e6d3",
+  "scope": "TRAIN-only necessary support upper bound for every fixed nonnegative-weight band over the existing64-cell38-kHz grid; no band selection, target amendment, held-out payload, corpus promotion, benchmark or model claim",
+  "conditions": [
+    "Execute only after the exact support-map result acceptance record binds SHA256340df813be4ce254ae5224637945e8992116dd1ab6b1190476f9447e17878c88",
+    "Preserve80percent, offsets0/8/20, width4, stride4,100 TRAIN days,+67 non-TRAIN ceiling and90-day minimum exactly",
+    "Interpret a below90 result only within unchanged38-kHz QC/support rules; any source or contract change requires new independent review"
+  ]
+}

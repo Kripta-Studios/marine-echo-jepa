@@ -1,0 +1,23 @@
+{
+  "status": "D1_INELIGIBLE_TARGET_SUPPORT_UPPER_BOUND",
+  "contract_sha256": "774f7bcac90ca275eb486d243a5b3a20488814c1d1de2060bc8a188322dd769f",
+  "input_contract_sha256": "1b27db9b08eedf3f937f363fbabcb522633d73175c7836e926f7248c9434c4ef",
+  "census_generation": "census-v2",
+  "code_sha256": "699142b1d0b79a57988c13b86beffc5152438980c9f08e9799387bdae6141ffd",
+  "execution_report_sha256": "415563522356775e1e4ac5ccf444ac5a48725da8659ee1399f3cb1f629e1c407",
+  "strict_context_report_sha256": "6bc08cabb7e630b64f168b4e4eb1c655a79ecf47be103a820b0b135d53a3d3b1",
+  "strict_context_report_disposition": "Strict context rule remains subject to R1; only this context-independent target bound can establish global ineligibility.",
+  "processed_train_calendar_days": 100,
+  "target_supported_train_anchor_days_upper_bound": 0,
+  "target_supported_train_hourly_anchors_upper_bound": 0,
+  "target_supported_dates": [],
+  "unmeasured_nontrain_day_upper_bound": 67,
+  "overall_eligible_day_upper_bound": 67,
+  "minimum_overall_days": 90,
+  "interval_calibration_days": "NOT_EVALUATED",
+  "test_days": "NOT_EVALUATED",
+  "held_out_acoustic_payloads_processed": false,
+  "completed_benchmark_runs": 0,
+  "benchmark_eligible": false,
+  "limitations": "Fixed reviewed noise/QC method; necessary target support only. Ignores all context/config restrictions. Not a JEPA outcome or real-corpus approval."
+}

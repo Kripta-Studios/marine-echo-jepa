@@ -1,0 +1,36 @@
+{"file": "20021900.01A", "pings": 55, "elapsed_s": 0.20300000000133878}
+{"file": "20021901.01A", "pings": 240, "elapsed_s": 0.7030000000013388}
+{"file": "20021902.01A", "pings": 5, "elapsed_s": 0.8130000000019209}
+{"file": "20021902.01B", "pings": 123, "elapsed_s": 1.125}
+{"file": "20021903.01A", "pings": 240, "elapsed_s": 1.6409999999959837}
+{"file": "20021904.01A", "pings": 240, "elapsed_s": 2.313000000001921}
+{"file": "20021905.01A", "pings": 3, "elapsed_s": 2.438000000001921}
+{"file": "20021905.01B", "pings": 136, "elapsed_s": 2.7819999999992433}
+{"file": "20021906.01A", "pings": 240, "elapsed_s": 3.188000000001921}
+{"file": "20021907.01A", "pings": 240, "elapsed_s": 3.7189999999973224}
+{"file": "20021908.01A", "pings": 240, "elapsed_s": 4.313000000001921}
+{"file": "20021909.01A", "pings": 240, "elapsed_s": 4.938000000001921}
+{"file": "20021910.01A", "pings": 240, "elapsed_s": 5.765999999995984}
+{"file": "20021911.01A", "pings": 240, "elapsed_s": 6.625}
+{"file": "20021912.01A", "pings": 240, "elapsed_s": 7.671999999998661}
+{"file": "20021913.01A", "pings": 240, "elapsed_s": 8.296999999998661}
+{"file": "20021914.01A", "pings": 240, "elapsed_s": 8.75}
+{"file": "20021915.01A", "pings": 240, "elapsed_s": 9.171999999998661}
+{"file": "20021916.01A", "pings": 240, "elapsed_s": 9.718999999997322}
+{"file": "20021917.01A", "pings": 3, "elapsed_s": 9.860000000000582}
+{"file": "20021919.01A", "pings": 169, "elapsed_s": 10.343999999997322}
+{"file": "20021920.01A", "pings": 5, "elapsed_s": 10.468999999997322}
+{"file": "20021920.01B", "pings": 199, "elapsed_s": 10.953000000001339}
+{"file": "20021921.01A", "pings": 5, "elapsed_s": 11.078000000001339}
+{"file": "20021921.01B", "pings": 233, "elapsed_s": 11.625}
+{"file": "20021922.01A", "pings": 3, "elapsed_s": 11.781999999999243}
+{"file": "20021922.01B", "pings": 235, "elapsed_s": 12.421999999998661}
+{"file": "20021923.01A", "pings": 4, "elapsed_s": 12.593999999997322}
+{"file": "20021923.01B", "pings": 235, "elapsed_s": 13.18800000000192}
+{
+  "status": "TRAIN_CANDIDATE_PROCESSED_REQUIRES_QC_REVIEW",
+  "expected_pings": 5760,
+  "observed_pings": 4773,
+  "primary_bins_at_least_80pct": 0,
+  "elapsed_seconds": 13.265999999995984
+}

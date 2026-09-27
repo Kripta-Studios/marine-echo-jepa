@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "review_id": "ANY_BAND_BOUND_RESULT_20260927",
+  "reviewer_session": "/root/continuation_review",
+  "disposition": "ACCEPT_ANY_BAND_BOUND_RESULT",
+  "any_band_bound_sha256": "dc959350312671165697b83a8d8bda1a6859a198db45eba37d69b9fa8b2302ed",
+  "method_review_sha256": "a20ca26335f47c6ec14bea2a765b4faa6dbe68ad4362afcf98861c313546e44b",
+  "reviewed_code_sha256": "362ec290d8a443d36be96b034f26840bc89b810302cc0bb7b30a9af8caadfca6",
+  "reviewed_contract_sha256": "ee26559926e66cd48224be10508def0245cb7cd01b9b0fe65daa3971cb8993da",
+  "support_map_sha256": "340df813be4ce254ae5224637945e8992116dd1ab6b1190476f9447e17878c88",
+  "support_map_result_acceptance_sha256": "1eef7f720e0c6bede64606e7b6a3ca99a267be3c8364be9b95495a5d1e675aeb",
+  "census_execution_sha256": "415563522356775e1e4ac5ccf444ac5a48725da8659ee1399f3cb1f629e1c407",
+  "verification": {
+    "deep_equal_independent_recomputation": true,
+    "processed_train_calendar_days": 100,
+    "generous_supported_train_hourly_anchors": 9,
+    "generous_supported_train_anchor_days": 6,
+    "unmeasured_nontrain_day_upper_bound": 67,
+    "overall_eligible_day_upper_bound": 73,
+    "minimum_overall_days": 90,
+    "held_out_acoustic_payloads_processed": false,
+    "completed_benchmark_runs": 0,
+    "benchmark_eligible": false
+  },
+  "scope": "Necessary support bound for every fixed nonnegative-weight band on the existing64-cell38-kHz grid under unchanged QC; no selected band, target amendment, held-out payload, benchmark or model claim",
+  "r0_r1_disposition": "BLOCKED_REQUEST_CHANGES_NO_ELIGIBLE_D1_CORPUS_UNDER_FROZEN_SUPPORT_RULE",
+  "interpretation": "Negative data-eligibility result only; missing model experiments are not a negative JEPA result"
+}

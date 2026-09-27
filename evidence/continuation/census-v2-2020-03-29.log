@@ -1,0 +1,28 @@
+{"file": "20032901.01A", "pings": 62, "elapsed_s": 0.3899999999994179}
+{"file": "20032902.01A", "pings": 240, "elapsed_s": 1.375}
+{"file": "20032903.01A", "pings": 240, "elapsed_s": 3.5}
+{"file": "20032904.01A", "pings": 240, "elapsed_s": 5.030999999995402}
+{"file": "20032905.01A", "pings": 240, "elapsed_s": 5.655999999995402}
+{"file": "20032906.01A", "pings": 240, "elapsed_s": 6.203000000001339}
+{"file": "20032907.01A", "pings": 237, "elapsed_s": 6.671999999998661}
+{"file": "20032909.01A", "pings": 62, "elapsed_s": 6.843000000000757}
+{"file": "20032910.01A", "pings": 240, "elapsed_s": 7.73399999999674}
+{"file": "20032911.01A", "pings": 240, "elapsed_s": 8.389999999999418}
+{"file": "20032912.01A", "pings": 240, "elapsed_s": 8.875}
+{"file": "20032913.01A", "pings": 240, "elapsed_s": 9.328000000001339}
+{"file": "20032914.01A", "pings": 240, "elapsed_s": 9.75}
+{"file": "20032915.01A", "pings": 238, "elapsed_s": 10.296999999998661}
+{"file": "20032917.01A", "pings": 62, "elapsed_s": 10.843000000000757}
+{"file": "20032918.01A", "pings": 240, "elapsed_s": 11.905999999995402}
+{"file": "20032919.01A", "pings": 240, "elapsed_s": 13.671999999998661}
+{"file": "20032920.01A", "pings": 240, "elapsed_s": 14.921999999998661}
+{"file": "20032921.01A", "pings": 240, "elapsed_s": 15.453000000001339}
+{"file": "20032922.01A", "pings": 240, "elapsed_s": 15.875}
+{"file": "20032923.01A", "pings": 239, "elapsed_s": 16.29699999999866}
+{
+  "status": "TRAIN_CANDIDATE_PROCESSED_REQUIRES_QC_REVIEW",
+  "expected_pings": 5760,
+  "observed_pings": 4500,
+  "primary_bins_at_least_80pct": 0,
+  "elapsed_seconds": 16.375
+}

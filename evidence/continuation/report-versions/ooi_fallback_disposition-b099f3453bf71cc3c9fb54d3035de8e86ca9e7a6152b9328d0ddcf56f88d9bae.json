@@ -1,0 +1,68 @@
+{
+  "record_type": "COORDINATOR_TRANSCRIPTION_OF_DISTINCT_REVIEWER_METADATA_AUDIT",
+  "reviewer_session": "/root/continuation_review",
+  "status": "RESOURCE_PLAN_BLOCKED_WITHIN_CURRENT_PROTOCOL",
+  "source_root": "https://rawdata.oceanobservatories.org/files/CE04OSPS/PC01B/ZPLSCB102/processed/",
+  "example_period": "20170820-20170827",
+  "anonymous_http_status": 200,
+  "content_type": "application/x-netcdf",
+  "entity_bytes": 1104839294,
+  "etag": "\"41da827e-61883e90d2880\"",
+  "last_modified": "2024-05-15",
+  "range_status": 206,
+  "reader": "ExistingGPUenvironment h5py3.16/HDF5 2.0/requests2.34.2, CPU metadata probe; no installations",
+  "transport_bytes": 164478,
+  "transport_requests": 3,
+  "transport_cap_bytes": 8388608,
+  "acoustic_Sv_values_indexed_or_read": false,
+  "sv_layout": {
+    "dtype": "float32",
+    "shape": [
+      3,
+      85829,
+      1072
+    ],
+    "chunks": null,
+    "compression": null,
+    "byte_offset": 10186,
+    "storage_bytes": 1104104256
+  },
+  "coordinates_only": {
+    "frequencies_hz": [
+      38000,
+      120000,
+      200000
+    ],
+    "band10_100m_center_indices_inclusive": [
+      53,
+      522
+    ],
+    "cells": 470,
+    "first_last_range_m": [
+      10.13454,
+      99.81567
+    ],
+    "first_last_ping_utc": [
+      "2017-08-20T00:00:00.053455Z",
+      "2017-08-20T23:54:59.205469Z"
+    ]
+  },
+  "ideal_payload_lower_bound": {
+    "bytes_per_day_three_channels": 484075560,
+    "minimum_calendar_days_for_20_test_days_at15pct": 134,
+    "gib_134days": 60.4113,
+    "configured_total_raw_gib_cap": 40,
+    "note": "Ignores metadata/headers/HTTP overhead and existingD1 downloads. Even ideal exact range extraction exceeds cap. Full0..128m representation costs more."
+  },
+  "averaged_weekly_product": "Scientifically ineligible for unchanged protocol: official historical code uses15-minute median inSv and interpolates gaps<45minutes; valid linear means/support and originalmissingness cannot be recovered from that product.",
+  "calibration_limitations": "FullNC preliminary products do not retain exact raw hashes/coefficient lineage/Echopypeversion/generationcommit. Historicalcode defaultsT9C,SP33,pressure~200m,upward,tilt0; applicability/sensitivity unresolved. CurrentcodeSP34 differs.",
+  "license": "OOIdata freeuse withOOI/NSFacknowledgment andcitation;processingcodeMIT.",
+  "primary_sources": [
+    "https://github.com/oceanobservatories/ooi-zpls-echograms",
+    "https://raw.githubusercontent.com/oceanobservatories/ooi-zpls-echograms/2655423f245e4aeead91bf4adab25e52ae50c061/ooi_zpls_echograms/zpls_echogram.py",
+    "https://oceanobservatories.org/how-to-use-acknowledge-and-cite-data/"
+  ],
+  "action": "No dataset switch or bulk acquisition. A different prospective resource/protocol decision or suitable source is required; no current authorization to exceed cap.",
+  "benchmark_eligible": false,
+  "completed_benchmark_runs": 0
+}

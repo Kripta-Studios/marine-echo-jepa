@@ -1,0 +1,18 @@
+{
+  "command": [
+    "../EVOCON_JEPA_Codex_Handoff/e-jepa-ttc/.venv/Scripts/python.exe",
+    "-X",
+    "utf8",
+    "tools/plot_train_support_map.py"
+  ],
+  "exit_code": 0,
+  "execution_session_id": 65664,
+  "resource_measurement": "NOT_CAPTURED_FOR_THIS_SHORT_CPU_RENDER",
+  "gpu_training": false,
+  "source_report_sha256": "340df813be4ce254ae5224637945e8992116dd1ab6b1190476f9447e17878c88",
+  "files": {
+    "evidence/continuation/train-support-map-figure/provenance.json": "b6273aba2ab70d71524171414e23612fcbdfc4e8de34b6dd41b6770454c0215a",
+    "evidence/continuation/train-support-map-figure/support.png": "f330fb0bd17edc0fd43ee2c98f5e9e854afe63e43cd606597ff926a3805aea4b"
+  },
+  "coordinator_visual_check": "All four frequency panels, all 100 dates and range 0-128m retained; fixed 0-1 support color scale and axes legible; no target band selected."
+}

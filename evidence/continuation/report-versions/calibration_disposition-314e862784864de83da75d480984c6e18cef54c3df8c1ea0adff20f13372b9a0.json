@@ -1,0 +1,64 @@
+{
+  "status": "FACTORY_FIXED_REGIONAL_METHOD_ACCEPTED_FOR_TRAIN_QC_ONLY",
+  "physical_calibration_distinct_from_prediction_interval_calibration": true,
+  "instrument": "AZFP55170",
+  "factory_certificate": {
+    "path": "evidence/continuation/factory_certificate.json",
+    "sha256": "88bd4cc6564baa6983002b0304ecaac7e3d5d23c2dc4b52e91e6ce83ee2accd6"
+  },
+  "factory_mapping": "Distinct reviewer accepted certificate serial55170 and XML TVR/VTX/BP/EL/DS mapping. Swapped public attachment names were resolved by certificate contents. Historical manual55169 is not applicable calibration authority.",
+  "environment": "Fixed TRAIN March3 nominalT/SP/P; retrospective regional envelopes from composite and recoveredSIT records. Not co-located field calibration and not issue-time predictor covariates.",
+  "nominal": {
+    "temperature": -1.8118900122480823,
+    "salinity": 33.06896920965461,
+    "pressure": 51.0017728686292,
+    "sound_speed": 1438.678132300255
+  },
+  "sensitivity": [
+    {
+      "path": "evidence/continuation/fixed_environment_sensitivity.json",
+      "sha256": "2af7aa209bcb25f7493542b77ccfe10ca822b65f96cabdcbe70a19718067e710"
+    },
+    {
+      "path": "evidence/continuation/depth_environment_sensitivity.json",
+      "sha256": "bb3aa8c36b5a19b56bb30435743956ec842257e6e3ce6a921bfcbabd1a6a8018"
+    },
+    {
+      "path": "evidence/continuation/slant_environment_sensitivity.json",
+      "sha256": "c11ea92a183f9ff7af6a0c05a5e47229c43cf05afbc709b189024826866d5da2"
+    }
+  ],
+  "failed_assay_preserved": "Global rectangular/path38kHz bound1.080721dB exceeded unchanged1dB limit. Later prospective depth-stratified and slant methods are distinct reviewed refinements; original failure remains visible.",
+  "accepted_conditional_slant_maxima": {
+    "primary_38khz_db": 0.1620290466,
+    "range_displacement_m": 0.6088934519,
+    "sampled_depth_angle_scenarios": 1886
+  },
+  "geometry": "Beam-face depth0..10m is an engineering interval, not measured depth; finite manufacturer beam width and raw tilt support candidate<30deg orientation rule. No biological depth claim.",
+  "upstream": "Echopype0.11.1 parser/calibration; independent scalar comparison on fixed realTRAIN hour and tested TEOS conversion. GSW3.6.23.",
+  "QC": "Unchanged per-ping10range-sample background estimate,3dB SNR, proximal10m, tilt<30deg, equivalent fullscale count rejection; conservative linear range overlap and valid/max(expected,observed) support. Bottom mask not applied after fixed TRAIN review; uncertainty retained.",
+  "review_records": [
+    {
+      "path": "orchestration/reviews/SLANT_TRAIN_PARTIAL_20260926.md",
+      "sha256": "0c7290f2609382bf43d76d3ca58117916d2c37418d1abc41b5179a5e60213461"
+    },
+    {
+      "path": "orchestration/reviews/TRAIN_CENSUS_METHOD_20260927.json",
+      "sha256": "708e6b04f99e75759b12b3df79738c25eb4201a7850c420afb45fe56b296654e"
+    },
+    {
+      "path": "orchestration/reviews/TRAIN_CENSUS_LAUNCH_20260927.json",
+      "sha256": "50256e880ec5a2c0efa760b4d023fbcaaf278b678c6f418cf4e305141e070dc7"
+    },
+    {
+      "path": "orchestration/reviews/TARGET_ONLY_BOUND_20260927.json",
+      "sha256": "b2431411563f69b7b34c2ff19a7ef431246c0daab8c88bc5bac7c57c68d6c4d7"
+    }
+  ],
+  "supersedes_interpretation_of": "calibration_report.json is a preserved earlier numerical assay, not the latest applicability decision. Census candidate manifests retain an obsolete slant-pending limitation from their frozen predecessor; slant method acceptance is documented here and in review records. No executed bytes were edited.",
+  "corpus_promotion": "NOT_APPROVED_R0_R1",
+  "eligibility": "TRAIN_CENSUS_RUNNING_TARGET_ONLY_BOUND_REQUIRED",
+  "benchmark_eligible": false,
+  "completed_benchmark_runs": 0,
+  "test_exposure": "No known test acoustic exposure in audited replay artifacts; incomplete historical record, not proof of seal."
+}

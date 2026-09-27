@@ -99,3 +99,15 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/Continue-Local.ps1 -
 The optional full-map figure additionally requires independent acceptance of the
 actual map bytes and exact plotting code. Neither command starts a model or opens
 held-out acoustic payloads.
+
+The independently accepted complete census and support-map results now exist. Do not
+overwrite them. The reviewed any-fixed-band necessary bound is also complete:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/Continue-Local.ps1 -Stage AnyBand
+```
+
+That command refuses existing output. Its recorded exit was 0, but its disposition
+is INELIGIBLE: even the generous bound permits at most 73 overall days, below 90.
+It does not select a band. Rerunning is unnecessary; inspect
+`evidence/continuation/any_band_bound.json` and its independent result review.

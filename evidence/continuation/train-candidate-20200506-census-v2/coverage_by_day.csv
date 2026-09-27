@@ -1,0 +1,2 @@
+date,expected_pings,observed_pings,primary_bins_at_least_80pct,approved_eligible_days
+2020-05-06,5760,3648,0,0

@@ -1,0 +1,19 @@
+{
+  "record_type": "COORDINATOR_TRANSCRIPTION_OF_DISTINCT_REVIEWER_MESSAGE",
+  "reviewer_session": "/root/continuation_review",
+  "disposition": "AUTHORIZED_PROSPECTIVE_ANY_38KHZ_BAND_NECESSARY_BOUND_SCOPE",
+  "proof": "Per target hour, every fixed nonnegative-weight band support is a weighted mean of cell valid/effective support with a common denominator, and cannot exceed the maximum single-cell support. Allowing a different maximizing cell per horizon and anchor is deliberately more permissive than any fixed band.",
+  "method": "Same hourly anchors as original target-only bound; each of three four-quarter intervals at offsets 0,8,20 must have some 38 kHz cell with >=80% support. Count TRAIN anchor dates and add all 67 non-TRAIN calendar days. An upper bound below90 excludes every fixed band on the existing64x2m grid under unchanged QC.",
+  "conditions": [
+    "Exact method/code review before execution",
+    "Completed exact census-v2, original target-only report and independently accepted full support-map JSON first",
+    "Revalidate all count/time/grid/shard lineage and valid<=observed<=effective=max(expected,observed)",
+    "Counts/dates only; no winning cells, rankings, bands, score optimization or maxima-based band proposal",
+    "No held-out acoustic access, zero benchmarks, no corpus promotion or R1/R2 approval"
+  ],
+  "limits": [
+    "Only original38kHz and existing64x2m grid under unchangedQC/support/day gates",
+    "Does not rule out a frequency/QC/support change or separately reviewed new protocol",
+    "An upper bound>=90 establishes no eligible fixed band"
+  ]
+}

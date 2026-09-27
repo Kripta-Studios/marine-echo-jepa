@@ -1,0 +1,16 @@
+{
+  "scope": "TRAIN-only CPU census; not a benchmark",
+  "driver_pid": 21260,
+  "driver_created_utc": "2026-09-26T22:42:01.203000+00:00",
+  "driver_created_epoch_seconds": 1790462521.2030003,
+  "observed_utc": "2026-09-26T23:55:18.523504+00:00",
+  "observed_driver_and_children_rss_gib": 0.3291587829589844,
+  "gpu_training_processes": 0,
+  "infrastructure_usd": 0,
+  "status": "COMPLETE",
+  "exit_code": 0,
+  "processed_train_calendar_days": 100,
+  "worker_elapsed_seconds_sum": 4648.435999999994,
+  "peak_sampled_worker_process_tree_rss_gib": 0.31938934326171875,
+  "creation_to_final_ledger_write_seconds": 4667.160044908524
+}

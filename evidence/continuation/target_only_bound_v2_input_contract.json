@@ -1,0 +1,13 @@
+{
+  "id": "target-only-bound-v2-input-binding",
+  "method_contract_sha256": "774f7bcac90ca275eb486d243a5b3a20488814c1d1de2060bc8a188322dd769f",
+  "method_change": false,
+  "reason": "Censusv1stopped on a pinned upstream singletonheader bug; independently reviewed censusv2reruns all100TRAINdates and verifies exactprevious16arrays. Nochanges to target-only bound,support,QCrules,splits or data selection.",
+  "execution_path": "evidence/continuation/train_census_v2_execution.json",
+  "strict_report_path": "evidence/continuation/train_census_v2_eligibility.json",
+  "driver_sha256": "a5f4194989f2a8051b10881c21666c46c85b76ac79a614d42010d2afeafa3265",
+  "preprocessor_sha256": "a0ddb50f64a4a92fcf45e657aeb385aa27ddbd32cdd30af50571cd79b6bd0e4d",
+  "census_contract_sha256": "581141caa866b3cf3756fecdda49e379e38df7ea89e19f156c9074b3f5961e0c",
+  "compat_code_sha256": "4a60f0287f538f674f947ecc3f2f20f302e1b70bbe66360adf419f607e22bbf5",
+  "condition": "Only complete100-dayv2 execution with intact hashes,strictreportlinkageand16equivalencechecks. Originalfailedv1 is retained and cannot supply finalcounts."
+}
