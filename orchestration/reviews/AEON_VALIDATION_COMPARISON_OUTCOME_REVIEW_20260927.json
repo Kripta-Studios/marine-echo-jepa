@@ -1,0 +1,127 @@
+{
+  "task": "R2-AEON-NEUTRAL-VALIDATION-COMPARISON-OUTCOME-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "status": "APPROVED_AEON_NEUTRAL_VALIDATION_COMPARISON_OUTCOME_NO_SELECTION",
+  "disposition": "APPROVE_EXACT_NEUTRAL_TRAIN_VALIDATION_COMPARISON_ONLY",
+  "artifact_sha256": {
+    "comparison_report": "f4a0f4771868866ff7c330f4033c5ca9da7c6c36cdb19a1758cf2f383146757b"
+  },
+  "comparison_report_path": "outputs/aeon3_geb_2024_hourly_sv_v1/validation_comparison/comparison.json",
+  "binding": {
+    "comparison_input_sha256": "616d583ad25f11eb32c5ee5e5b50c34614c6bdb45776a26c2cfb35cd6a713911",
+    "comparison_prefit_approval_sha256": "64f0ceaea3c3b6c3a542307eef781c7ecf33ce3f0d8c7de3b51f4b5b8a72a08b",
+    "comparison_code_sha256": "af1f183a6eecad04b90509cc0b2382c2138b9cc82cb7f2a1a45ac44c28ce7e5d",
+    "evaluation_code_sha256": "5dff72c1baf2f5528f13f369936d2ca5710eeb8b8a6e6cae12a0ef95366225ff",
+    "validation_row_sha256": "9ce5ed6d60c4082efd3f342b3ee09ddadc5cf6286be6d6a3e953ab0f6166a99f",
+    "source_report_sha256": {
+      "core": "32cea9f8141fbad220a3e47d9e840039ad23b4f8e893efbcfb90f52944214c46",
+      "hybrid": "0e83129ae1d2b91998c1defcc86204c375c50a4394144d67c2fb2589ff82e2b8",
+      "lightgbm": "b7f4b180eb9d5f29e0d25bc34f9940bfee7ee5f7121812b43559b81cd6dad65b",
+      "forward": "a77f96d63ae06fb6c6d349ecd641d3862eff17dfe0348643d9c6e03fa7095f49",
+      "chronos": "b327153ea05504e38d1edfe35de77b625d28e48106ad9095d80eb62a8ec099cc"
+    }
+  },
+  "verified_scope": {
+    "validation_issued_rows": 1219,
+    "comparison_candidates_including_ensembles": 40,
+    "immutable_prediction_artifacts": 34,
+    "equal_weight_three_seed_ensembles": 6,
+    "bound_files_verified": 49,
+    "eligible_source_dates_per_horizon": [
+      50,
+      50,
+      50
+    ],
+    "eligible_source_date_sha256_by_horizon": [
+      "5d26e8b41caa05ad7189fc1a402b977ff368a7c13b9ab4fecb1694f2f6c10ae1",
+      "5d26e8b41caa05ad7189fc1a402b977ff368a7c13b9ab4fecb1694f2f6c10ae1",
+      "5d26e8b41caa05ad7189fc1a402b977ff368a7c13b9ab4fecb1694f2f6c10ae1"
+    ],
+    "distinct_eligible_source_dates": 50,
+    "nonempty_48_hour_blocks": 27,
+    "bootstrap_draws": 2000,
+    "bootstrap_seed": 20260926,
+    "source_clock_basis": "SOURCE_REPORTED_UNSPECIFIED_NOT_UTC"
+  },
+  "independent_execution": {
+    "full_report_regeneration": "The approved comparator was independently rerun to a temporary output. The regenerated JSON was text-exact and SHA-256-exact to the saved report.",
+    "independent_numeric_reconstruction": "A separate temporary review script loaded every immutable NPZ directly, verified identical row fields, recomputed eligible-day pinball metrics, formed all six row-level equal-weight ensembles with quantile rearrangement, reconstructed every per-day paired difference and reran every 48-hour 2,000-draw bootstrap interval.",
+    "score_mismatches": 0,
+    "bootstrap_interval_mismatches": 0,
+    "daily_difference_mismatches": 0,
+    "focused_tests": "8 passed in 31.20s",
+    "calibration_numeric_access": false,
+    "test_numeric_access": false
+  },
+  "key_validation_results": {
+    "core_conventional_lowest_under_adr_0010_rule": {
+      "candidate": "core_direct_equal_three_seed_ensemble",
+      "primary_daily_mean_pinball_db": 0.6390617417693784,
+      "daily_mean_pinball_db_per_horizon": [
+        0.582455182208629,
+        0.6625173732304345,
+        0.6722126698690717
+      ]
+    },
+    "core_jepa_lowest_under_adr_0010_rule": {
+      "candidate": "core_ema_equal_three_seed_ensemble",
+      "primary_daily_mean_pinball_db": 0.6421704480588958,
+      "candidate_minus_direct_db": 0.0031087062895174267,
+      "candidate_minus_direct_percent": 0.4864485051022319,
+      "paired_95_percent_interval_db": [
+        -0.0014904189398253157,
+        0.0077075333852044525
+      ]
+    },
+    "post_hoc_lowest_under_adr_0010_rule": {
+      "candidate": "lightgbm:post_hoc_lightgbm",
+      "primary_daily_mean_pinball_db": 0.6384597244651752,
+      "candidate_minus_direct_db": -0.0006020173042031729,
+      "candidate_minus_direct_percent": -0.09420330851544327,
+      "paired_95_percent_interval_db": [
+        -0.00976511289224232,
+        0.00876441527449641
+      ]
+    },
+    "other_family_ensembles": {
+      "core_shared_sigreg": 0.6486432448794395,
+      "hybrid_ema": 0.6595442938836366,
+      "hybrid_shared_sigreg": 0.6654519287051324,
+      "forward_ema_post_hoc": 0.6533145184149417,
+      "chronos2_post_hoc": 0.6935176150003005
+    }
+  },
+  "findings": [
+    {
+      "severity": "PASS",
+      "finding": "The saved report is a deterministic, exact reconstruction of all 34 reviewed forecast artifacts plus the six predeclared equal-weight ensembles on one identical 1,219-row validation cohort."
+    },
+    {
+      "severity": "PASS",
+      "finding": "The report preserves neutral status and performs no model selection. Controls remain present and labelled diagnostic; core, hybrid and post-hoc provenance remain distinguishable."
+    },
+    {
+      "severity": "SCIENTIFIC_NEGATIVE",
+      "finding": "The lowest core JEPA family, the core EMA ensemble, is 0.486% worse than the matched direct ensemble on validation. Its paired interval crosses zero, so this validation comparison provides no evidence of incremental JEPA value."
+    },
+    {
+      "severity": "SCIENTIFIC_LIMIT",
+      "finding": "The post-hoc LightGBM score is only 0.094% lower than direct and its paired interval crosses zero. This is a negligible exploratory validation difference and does not establish SOTA or external generalization."
+    },
+    {
+      "severity": "SCIENTIFIC_LIMIT",
+      "finding": "Every comparison is development validation evidence subject to selection-induced optimism. The source clock timezone remains unknown, and no CAL or retrospective TEST acoustic outcome was accessed in this review."
+    }
+  ],
+  "decision_boundary": [
+    "This review approves the exact neutral comparison artifact only; it does not itself select or promote a model.",
+    "Any selection record must apply the separately reviewed ADR 0010 rule without reopening or filtering the candidate set.",
+    "Any later CAL or TEST execution must bind the exact selected model artifacts, reader, QC, scoring code, metadata candidate universe and independent pre-access approvals."
+  ],
+  "sota_claim": "NOT_ESTABLISHED",
+  "incremental_jepa_value_on_validation": "NOT_ESTABLISHED",
+  "model_selection": "NOT_PERFORMED",
+  "calibration_access": "PROHIBITED",
+  "test_access": "PROHIBITED"
+}
