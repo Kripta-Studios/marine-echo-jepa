@@ -1,0 +1,35 @@
+{
+  "task": "R2-AEON-FROZEN-RANDOM-DIAGNOSTIC-CODE-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "disposition": "APPROVE_TRAIN_ONLY_RANDOM_DIAGNOSTIC_CODE",
+  "reviewed_commits": [
+    "56c2d88ebdb5e89fcd585ca6dc0363825a8410f0",
+    "bbf42fe4fbfb13f1795798411a2b51de54d497e3",
+    "4aa0ca7817402f7693bafcf11a40dcc7a17f305f"
+  ],
+  "reviewed_file_sha256": {
+    "src/marine_echo/training/aeon_random_diagnostics.py": "3a0aa37263fac8325f69a4b6ec380638f25d195623249b28bb0901a43dda473f",
+    "tests/integration/test_aeon_random_diagnostics.py": "20f8c340e73c41a0a8e14215ee9f20bb462a0f6badf4b1022dd2c6dc9555f8f7"
+  },
+  "independent_execution": {
+    "focused_tests": "3 passed in 25.53s",
+    "ruff": "All checks passed",
+    "calibration_or_test_outcomes_opened": false
+  },
+  "findings": [
+    "The analyzer requires a completed 17-slot campaign and matching protocol rescore, then reconstructs TRAIN rows only.",
+    "Current campaign reader/window/model code must match the frozen campaign code hash before TRAIN values are read.",
+    "Random EMA/shared encoder, predictor and teacher weights must match their seeded initialization bit-for-bit; only the supervised head may have changed.",
+    "Checkpoint family, seed, endpoint, source, protocol and TRAIN-only scaler are verified.",
+    "Random and true-pretraining diagnostics use the exact same row IDs and cutoff interval IDs.",
+    "The corrected implementation binds EMA to ema_sigreg_weight and shared-SIGReg to shared_sigreg_weight; the focused test now executes both control modes and would reproduce the prior shared-key failure."
+  ],
+  "approval_scope": "Run the frozen-random TRAIN-only representation diagnostic after the completed campaign and validation rescore.",
+  "excluded_scope": [
+    "Validation selection or representation-success claim",
+    "Calibration/test access",
+    "Any training or checkpoint mutation"
+  ],
+  "test_access": "PROHIBITED"
+}

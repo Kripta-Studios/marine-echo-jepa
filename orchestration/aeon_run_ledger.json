@@ -32,16 +32,25 @@
   ],
   "development_ssl_review_sha256": "1f037917378d8e06f05637028704030535e617783163bc32c1049f4db4d477a5",
   "core_campaign": {
-    "status": "TRAIN_VALIDATION_CAMPAIGN_IN_PROGRESS",
+    "status": "COMPLETED_TRAIN_VALIDATION_CAMPAIGN_NOT_FINAL_EVALUATION",
     "manifest": "outputs/aeon3_geb_2024_hourly_sv_v1/core_campaign/manifest.json",
     "prefit_review_sha256": "682ee6c2a13a34165a4b5d5457e503f254007486bc664dbe73438c6512a8cbc2",
     "metric_correction_review_sha256": "b6750436026f0e8ad575a67a11d4238b2a8bcbc2753ec56d8f4eadcb6ff54fc1",
     "slot_count": 17,
-    "slot_metrics_classification": "NON_PROTOCOL_DIAGNOSTIC_PENDING_ELIGIBLE_DATE_RESCORE"
+    "slot_metrics_classification": "NON_PROTOCOL_DIAGNOSTIC",
+    "manifest_sha256": "67ae5224657524cceb5c26f17c3a1ee399a1e886577552211d42ef2fe35a32ac"
+  },
+  "validation_rescore": {
+    "status": "APPROVED_CORRECTED_VALIDATION_METRICS_NO_SELECTION",
+    "artifact": "outputs/aeon3_geb_2024_hourly_sv_v1/validation_rescore/rescore.json",
+    "artifact_sha256": "32cea9f8141fbad220a3e47d9e840039ad23b4f8e893efbcfb90f52944214c46",
+    "independent_review_sha256": "16bb9ef931f5e2d8f8a3322fa609c5cb1c769f99f5e4a89a5ef519a0fb52f44f",
+    "eligible_source_dates_per_horizon": [50, 50, 50],
+    "selection": "NOT_PERFORMED_PENDING_HYBRID_AND_POST_HOC_EXTENSION_REVIEWS"
   },
   "calibration": "NOT_RUN",
   "retrospective_test": "NOT_RUN",
   "jepa_value_gate": "NOT_EVALUATED",
-  "gpu_owner": "aeon_core_campaign_serial_process",
+  "gpu_owner": "NONE_CORE_CAMPAIGN_COMPLETED",
   "paid_cost_usd": 0
 }

@@ -200,3 +200,27 @@ those values as `NON_PROTOCOL_DIAGNOSTIC` and use none for model selection. Ever
 row prediction will be rescored under the preregistered >=18-anchor/day/horizon rule
 before any selection or CAL/TEST access. See
 `orchestration/reviews/AEON_CAMPAIGN_PREFIT_METRIC_CORRECTION_20260927.json`.
+
+The full 17-slot core campaign subsequently completed with exit status zero,
+real final-endpoint model artifacts and 1,219 issued validation predictions per
+slot. The reviewed deterministic rescore retained the original printed values as
+`NON_PROTOCOL_DIAGNOSTIC` and recomputed the frozen 18-anchor/day metric on 50
+eligible source dates per horizon (1,194/1,192/1,189 scored rows). The distinct
+reviewer independently recomputed every score and checked all 17 checkpoint,
+model, prediction and row hashes in
+`orchestration/reviews/AEON_VALIDATION_RESCORE_OUTCOME_REVIEW_20260927.json`.
+The best individual direct seed scored 0.644897 dB daily mean pinball; EMA-JEPA
+seeds scored 0.648805/0.647989/0.647978 dB and shared-SIGReg seeds
+0.652222/0.657561/0.663477 dB. These are TRAIN/validation development
+results, with no family selection or final evaluation yet. Hybrid fitting awaits
+its separate exact prefit review. TRAIN-only frozen-random representation
+diagnostics are executing under refreshed code approval. CAL/TEST acoustic
+outcomes remain unopened.
+
+A September 2026 primary-source architecture survey and explicitly post-hoc
+development extension are recorded in
+`orchestration/reports/SOTA_ARCHITECTURE_REVIEW_20260927.md`. That extension
+considers a fixed supervised tree, pinned Chronos-2 zero-shot comparator and
+future-block EMA-JEPA with an anti-collapse variance floor. It does not turn
+the completed core validation run into preregistered confirmation. New models
+remain unfitted pending separate code/config review and the one-trainer rule.

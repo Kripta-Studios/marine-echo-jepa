@@ -1,0 +1,71 @@
+{
+  "task": "R2-AEON-VALIDATION-RESCORE-OUTCOME-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "status": "APPROVED_AEON_VALIDATION_RESCORE_OUTCOME_NO_SELECTION",
+  "disposition": "APPROVE_CORRECTED_VALIDATION_METRICS_ONLY",
+  "artifact_sha256": {
+    "campaign_manifest": "67ae5224657524cceb5c26f17c3a1ee399a1e886577552211d42ef2fe35a32ac",
+    "campaign_config": "d7440553e209eb03431bb9e7ecfd7f64f6d76ed98c9bb245aa9547429a1f6f68",
+    "campaign_code": "8054f0c95962bee496bda75559583bb0dd189324d1636a9e7667833ee51a4e83",
+    "rescore_report": "32cea9f8141fbad220a3e47d9e840039ad23b4f8e893efbcfb90f52944214c46",
+    "rescore_code": "529742e197df5042b9962285c207e9f012a542d178005590dbfc7126e114ef5b",
+    "evaluation_code": "5dff72c1baf2f5528f13f369936d2ca5710eeb8b8a6e6cae12a0ef95366225ff",
+    "metric_correction_review": "b6750436026f0e8ad575a67a11d4238b2a8bcbc2753ec56d8f4eadcb6ff54fc1"
+  },
+  "independent_execution": {
+    "scope": "All 17 immutable final-endpoint validation prediction artifacts",
+    "checks": [
+      "Recomputed every protocol_validation_metrics object from its saved row predictions with the approved evaluator and obtained exact JSON equality.",
+      "Verified the manifest and all 17 slot JSON, final prediction, model, checkpoint and validation-check SHA-256 digests.",
+      "Verified identical row identity, truth, mask, source-time and provenance support across all 17 slots.",
+      "Verified finite, componentwise-monotone and nonconstant predictions for every slot."
+    ],
+    "exit_status": 0,
+    "calibration_or_test_outcomes_opened": false
+  },
+  "support": {
+    "issued_rows": 1219,
+    "validation_row_sha256": "9ce5ed6d60c4082efd3f342b3ee09ddadc5cf6286be6d6a3e953ab0f6166a99f",
+    "eligible_days_per_horizon": [50, 50, 50],
+    "eligible_scored_rows_per_horizon": [1194, 1192, 1189],
+    "eligible_source_date_sha256_by_horizon": [
+      "5d26e8b41caa05ad7189fc1a402b977ff368a7c13b9ab4fecb1694f2f6c10ae1",
+      "5d26e8b41caa05ad7189fc1a402b977ff368a7c13b9ab4fecb1694f2f6c10ae1",
+      "5d26e8b41caa05ad7189fc1a402b977ff368a7c13b9ab4fecb1694f2f6c10ae1"
+    ]
+  },
+  "primary_daily_mean_pinball_db_by_slot": {
+    "persistence": 0.880173348635,
+    "seasonal_24_source_intervals": 0.815990738297,
+    "ridge": 0.667654356946,
+    "hist_gradient_boosting": 0.669378755724,
+    "direct_seed7": 0.651154151856,
+    "direct_seed13": 0.647964416429,
+    "direct_seed23": 0.644896715879,
+    "ema_jepa_seed7": 0.648804634203,
+    "ema_jepa_seed13": 0.647988997618,
+    "ema_jepa_seed23": 0.647977890720,
+    "shared_sigreg_seed7": 0.652221569383,
+    "shared_sigreg_seed13": 0.657561589542,
+    "shared_sigreg_seed23": 0.663476751859,
+    "random_encoder_ema_seed7": 0.757741088312,
+    "random_encoder_shared_sigreg_seed7": 0.757741088312,
+    "temporally_shuffled_pretrain_target_ema_seed7": 0.660223544829,
+    "temporally_shuffled_pretrain_target_shared_sigreg_seed7": 0.657630416051
+  },
+  "interpretation": [
+    "These are retrospective TRAIN/validation development results under source-reported dates with an unspecified clock basis.",
+    "The earlier all-scored-date campaign metrics remain NON_PROTOCOL_DIAGNOSTIC and are not approved for selection.",
+    "The corrected values may be used by the separately frozen family and ensemble selection procedure only after the proposed hybrid candidates and controls have completed and received independent outcome review.",
+    "This review does not infer JEPA representation quality from downstream validation loss; TRAIN-only collapse diagnostics remain a separate required result."
+  ],
+  "excluded_scope": [
+    "Model or family selection",
+    "Hybrid outcome review",
+    "Calibration access, interval widening or pre-test freeze",
+    "Retrospective test access or final evaluation",
+    "Sealed-holdout, external-validity, biological or operational claims"
+  ],
+  "test_access": "PROHIBITED"
+}
