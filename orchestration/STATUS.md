@@ -262,14 +262,24 @@ prediction files were reloaded and all 15 heads' predictions reproduced
 bit-exactly by the reviewer; see
 `orchestration/reviews/AEON_SOTA_SUPERVISED_OUTCOME_REVIEW_20260927.json`.
 Chronos-2's exact public checkpoint and zero-shot runner passed distinct prefit
-review; inference waits for the one active trainer to finish. The forward-EMA
-JEPA adaptation with fixed VICReg-style anti-collapse penalties passed distinct
-prefit review and its five-slot serial TRAIN/validation campaign is running on
-CUDA under the reviewed memory caps. Neither extension has an outcome yet.
+review; its frozen zero-shot TRAIN/validation inference is running on CUDA.
+The forward-EMA JEPA adaptation with fixed VICReg-style anti-collapse penalties
+completed all five serial TRAIN/validation slots on CUDA with exit status zero,
+real checkpoints and forecasts; distinct outcome review is pending. Its three
+individual post-hoc validation scores are 0.667524, 0.657679 and 0.659481 dB,
+with no selection or final inference from them yet.
 CAL/TEST acoustic outcomes remain unopened pending final selection and freeze.
 
 The separately reviewed metadata-only TEST scanner completed one real pass over
 the source archive and inventoried 1,216 candidate cutoff interval IDs. Its
 saved report leaves actual issued and scored rows explicitly unknown until the
-one-time numerical QC/materialization boundary. Independent outcome review of
-this candidate inventory is pending; no TEST `Sv_mean` values were parsed.
+one-time numerical QC/materialization boundary. Distinct outcome review
+reconstructed all candidates and 76 excluded cutoffs/reasons from metadata,
+then froze the inventory. The 49 source dates with at least 18 metadata
+candidates are only an upper bound on numerical eligibility. No TEST
+`Sv_mean` values were parsed.
+
+A draft final CAL/TEST scorer has synthetic tests but received independent
+`REQUEST_CHANGES` before any numeric access: its test issuance/forecast order,
+exact review and transitive code bindings, exploratory-arm labels, and full
+incremental-value gate need repair. No CAL or TEST numeric run has started.

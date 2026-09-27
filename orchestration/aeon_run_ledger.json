@@ -73,27 +73,33 @@
       "outcome_review_sha256": "d08932b0c88f322ceb573ef2ee30198aed0ceb3c5611b6e865e0e562f640138d",
       "primary_daily_mean_pinball_db": 0.6384597244651752
     },
-    "chronos_2": "NOT_RUN_APPROVED_PREFIT_WAITING_FOR_SINGLE_GPU_OWNER",
+    "chronos_2": {
+      "status": "RUNNING_REVIEWED_FROZEN_ZERO_SHOT_VALIDATION_INFERENCE",
+      "manifest": "outputs/aeon3_geb_2024_hourly_sv_v1/chronos2_zero_shot/manifest.json",
+      "prefit_review_sha256": "0d20c3e3fbe3b965928d068c9a5b66f83d1e618bd7893add32f932808a64d17d",
+      "device": "cuda"
+    },
     "forward_ema_jepa": {
-      "status": "RUNNING_REVIEWED_POST_HOC_TRAIN_VALIDATION_CAMPAIGN",
+      "status": "COMPLETED_POST_HOC_TRAIN_VALIDATION_PENDING_INDEPENDENT_OUTCOME_REVIEW",
       "manifest": "outputs/aeon3_geb_2024_hourly_sv_v1/forward_ema_development/manifest.json",
       "prefit_review_sha256": "7275f5c0e9c70daccbc60fb26a952ea8514746a93ee2dbb1c73b2468efe35ffa",
       "device": "cuda",
-      "completed_slots": 0
+      "completed_slots": 5
     }
   },
   "test_metadata_candidates": {
-    "status": "METADATA_ONLY_SCAN_COMPLETED_PENDING_INDEPENDENT_OUTCOME_REVIEW",
+    "status": "FROZEN_METADATA_ONLY_CANDIDATE_UNIVERSE_NO_NUMERIC_TEST_ACCESS",
     "artifact": "outputs/aeon3_geb_2024_hourly_sv_v1/test_metadata_candidates/metadata-candidates.json",
     "artifact_sha256": "40510cfb321cbb57bc24f309f0e11cd0a2d274c181370ae6d13efdc26972be93",
     "candidate_count": 1216,
     "candidate_sha256": "6b475b41a462b46ab8784fc5a17590860f5b1fb759a96c028776df820f56dbae",
+    "outcome_review_sha256": "9d9c6ca4580d6a4ead4117a00a1a872710bf6e323eb17d491837e24c1011bebe",
     "actual_issued_rows": "UNKNOWN_NUMERIC_QC_NOT_OPENED",
     "actual_scored_rows": "UNKNOWN_NUMERIC_QC_NOT_OPENED"
   },
   "calibration": "NOT_RUN",
   "retrospective_test": "NOT_RUN",
   "jepa_value_gate": "NOT_EVALUATED",
-  "gpu_owner": "forward_ema_jepa_serial_train_process",
+  "gpu_owner": "chronos2_frozen_zero_shot_inference_process",
   "paid_cost_usd": 0
 }
