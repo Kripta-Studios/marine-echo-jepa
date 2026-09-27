@@ -1,0 +1,41 @@
+{
+  "date": "2026-09-27",
+  "record_type": "PROSPECTIVE_SOURCE_PREFLIGHT",
+  "tool": "hf CLI 1.23.0",
+  "searched_terms": ["AZFP", "EK60", "echosounder", "hydroacoustic", "acoustic backscatter", "sonar", "OOI"],
+  "bulk_acoustic_payload_downloaded": false,
+  "dataset_admitted_for_confirmatory_study": false,
+  "bounded_downloads": [
+    {
+      "repository": "DORI-SRKW/DORI-OOI",
+      "revision": "41401ca2d5b4d70f7ada3c0572ac4b129a41c59b",
+      "files": [
+        {"path": "data/prospective/hf-dori-ooi-20260927/README.md", "bytes": 1575, "sha256": "deb4d6252f3e81905b95f8724c4e036d3389334700ed1bc4e976c0c0a2b4b0ee"},
+        {"path": "data/prospective/hf-dori-ooi-20260927/DORI.csv", "bytes": 13276712, "sha256": "d0d264a9226bb4bac8c2419d6d58fc4a253947ef27fb5de8c1620bd5d50bdb39"}
+      ],
+      "disposition": "REJECT_WRONG_SENSOR_PASSIVE_HYDROPHONE_AUDIO"
+    },
+    {
+      "repository": "perona-lab/cfc26",
+      "revision": "d564d2a6933c88f99f947da9f8eb3b9ae7c846b6",
+      "files": [
+        {"path": "data/prospective/hf-cfc26-20260927/README.md", "bytes": 8513, "sha256": "a3b61736d24049c2631f9d1dd22d4a4fd0627d5db77e66b24ea1354f4aa29617"},
+        {"path": "data/prospective/hf-cfc26-20260927/croissant.json", "bytes": 10804, "sha256": "07572b3e4ce8843526536f2b09e11590d1e033bb70b7258e188130cca96562e4"}
+      ],
+      "disposition": "REJECT_WRONG_TASK_ARIS_VIDEO_DETECTION"
+    }
+  ],
+  "prospective_non_hf_lead": {
+    "doi": "10.21335/NMDC-1243831716",
+    "catalog_url": "https://metadata.nmdc.no/metadata-api/landingpage/73073a8b13dad04344dc9ecfa4280453",
+    "catalog_period": ["2010-10-07", "2011-08-15"],
+    "reported_frequencies_hz": [38000, 120000, 200000],
+    "access": "CATALOG_MAILTO_NO_PUBLIC_FILE_MANIFEST",
+    "calibration_lineage": "NOT_OBTAINED",
+    "daily_support": "NOT_EVALUATED",
+    "bulk_size": "UNKNOWN",
+    "status": "PROSPECTIVE_UNACQUIRED"
+  },
+  "training_runs_started": 0,
+  "heldout_acoustic_outcomes_inspected": false
+}
