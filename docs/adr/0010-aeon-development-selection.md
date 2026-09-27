@@ -1,11 +1,13 @@
 # ADR 0010: AEON development candidate selection
 
 Date: 2026-09-27. Status: PROPOSED FOR INDEPENDENT REVIEW.
-Study: `aeon3_geb_2024_hourly_sv_v1`. This prospective rule is written before
-the forward-EMA JEPA and Chronos-2 validation outcomes are opened. It resolves
-the family/seed ambiguity in `docs/06_EXPERIMENT_PROTOCOL.md` for this new
-study; it does not change historical v1/v2 decisions or make the post-hoc
-extension confirmatory.
+Study: `aeon3_geb_2024_hourly_sv_v1`. This is a **post-hoc development
+selection freeze** drafted after the core, hybrid and LightGBM validation
+outcomes were available, but before the forward-EMA JEPA and Chronos-2
+validation outcomes were opened. The family categories came from
+`docs/06_EXPERIMENT_PROTOCOL.md`; the precise seed-versus-ensemble ranking
+rule was fixed late. Neither the resulting core choices nor the post-hoc
+extension are confirmatory. This ADR does not change historical v1/v2 decisions.
 
 ## Fixed validation support and score
 
@@ -28,14 +30,17 @@ The core conventional reference is the lowest-scoring one among persistence,
 seasonal, ridge, raw-only histogram gradient boosting and the direct-neural
 three-seed ensemble. The core JEPA comparator is the lowest-scoring one among
 EMA-JEPA, shared-SIGReg and their corresponding raw-plus-latent hybrid
-three-seed ensembles. These are the protocol-family choices. Record their
-scores and selected checkpoint/model hashes before numerical CAL access.
+three-seed ensembles. These are the core-family development choices under this
+late-frozen rule. Record their scores and selected checkpoint/model hashes
+before numerical CAL access. A learned hybrid selected by validation cannot
+override its matched random-feature control failure or establish incremental
+JEPA value by itself.
 
 The post-hoc extension compares one LightGBM model, the fixed three-seed
 forward-EMA JEPA ensemble, and frozen Chronos-2 against both core choices.
 Its lowest validation score may identify an exploratory operational candidate,
-but must be labelled `POST_HOC_DEVELOPMENT_SELECTION` and cannot repair the
-core confirmatory claim. Report the core and exploratory choices separately.
+but must be labelled `POST_HOC_DEVELOPMENT_SELECTION`. Report the core and
+exploratory choices separately without a confirmatory claim.
 If a reviewed candidate cannot complete, record its exact failed/not-run
 status and do not silently replace it or select from a partially fitted seed
 family. Any operational default must be chosen only from completed, reviewed
@@ -46,8 +51,8 @@ models that the offline app can actually serve.
 Report primary and per-horizon scores, valid coverage, 90% raw interval
 coverage/width and paired daily loss differences for every completed family.
 Use the existing pure evaluator's 48-hour source-date blocks and 2,000 draws
-with its fixed seed 20260926 for
-paired bootstrap 95% intervals; these intervals describe this deployment and
+with its fixed seed 20260926 for paired bootstrap 95% intervals; these
+intervals describe this deployment and
 do not establish external generalization. State the number of distinct source
 dates and blocks, selection-induced optimism and the unknown source-clock
 timezone. The bootstrap is descriptive on validation, not a new tuning target.
