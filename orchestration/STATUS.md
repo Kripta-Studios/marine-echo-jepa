@@ -328,5 +328,15 @@ unopened while those checks are repaired and re-reviewed. The latest distinct
 review of `7ed4003` still requires CAL forecasts to be generated from frozen
 components inside the reviewed access path, an exact trusted reviewer identity
 on both access artifacts, and full-file Ruff cleanup. One stronger
-supervised architecture is being trialled on TRAIN/validation only as a
-separate post-hoc exploratory experiment under local GPU limits.
+supervised architecture was trialled on TRAIN/validation only as a separate
+post-hoc exploratory experiment under local GPU limits. Its fixed first seed
+completed 3,000 updates and scored 0.929989 dB on the same eligible validation
+dates, worse than the reviewed direct ensemble's 0.639062 dB. The fixed
+continuation gate failed, so its other two seeds were not run. The checkpoint,
+predictions and report are preserved under `outputs/aeon_patchtst_exploratory_20260927_r2/`;
+distinct outcome review reproduced the score, row identity and checkpoint
+forecasts and approved the negative exploratory record only (SHA-256
+`232f453e1584472e1dcc1ea1d8812c76104a40d4cd9645f19720b25e0423adec`).
+The evaluator's one-pass CAL repair and
+full-file Ruff cleanup are now integrated and await a new exact independent
+source approval before any held-out numeric read.

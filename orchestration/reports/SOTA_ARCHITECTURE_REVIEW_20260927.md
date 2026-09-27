@@ -59,7 +59,12 @@ LightGBM as a post-hoc exploratory candidate. The machine-readable component
 freeze and CAL/TEST access gates are still under independent review; neither
 partition's numeric values have been opened.
 
-A further single supervised architecture trial is being undertaken on the same
-TRAIN/validation support under the expanded local compute authorization. It
-remains exploratory and cannot be imported into the already reviewed selection
-without a new explicit comparison and independent selection review.
+A further single PatchTST-style supervised architecture completed one fixed
+3,000-update TRAIN seed on the same validation support under the expanded local
+compute authorization. Its daily pinball was 0.929989 dB, versus 0.639062 dB
+for the reviewed direct ensemble; the predefined 0.671015 dB continuation
+threshold failed, so seeds 13 and 23 were not run. Its checkpoint, predictions
+and exact resource record are preserved. Distinct outcome review reproduced
+the score, row identities and checkpoint forecasts and approved this negative
+exploratory record only. This post-hoc single-seed trial does not change ADR 0011 or
+establish an architecture-wide ranking.

@@ -144,7 +144,8 @@
     "seed7_validation_daily_pinball_db": 0.9299893352789196,
     "seed7_checkpoint_sha256": "e8728ae34be00ca18d2cc3571f470ca2092e77031e594f93d2eb80ccd9827d50",
     "seed7_predictions_sha256": "12ade00f0de191e61179cc59e55493f6104e46fb572839a78597dc171b80a9e7",
-    "independent_review": "PENDING"
+    "independent_review": "APPROVED_NEGATIVE_EXPLORATORY_OUTCOME_NO_SELECTION",
+    "independent_review_sha256": "232f453e1584472e1dcc1ea1d8812c76104a40d4cd9645f19720b25e0423adec"
   },
   "gpu_owner": "NONE",
   "paid_cost_usd": 0

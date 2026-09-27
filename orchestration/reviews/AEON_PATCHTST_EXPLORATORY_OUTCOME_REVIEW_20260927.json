@@ -1,0 +1,95 @@
+{
+  "task": "R2-AEON-PATCHTST-EXPLORATORY-OUTCOME-20260927",
+  "reviewer_session": "/root/aeon_reviewer",
+  "reviewer_role": "distinct_read_only_independent_reviewer",
+  "status": "APPROVED_AEON_PATCHTST_EXPLORATORY_NEGATIVE_OUTCOME_NO_SELECTION",
+  "disposition": "APPROVE_POST_HOC_TRAIN_VALIDATION_NEGATIVE_OUTCOME_FOR_RECORD_ONLY",
+  "classification": "POST_HOC_TRAIN_VALIDATION_EXPLORATORY_NOT_SELECTION_OR_FINAL_EVALUATION",
+  "sota_claim": "NOT_ESTABLISHED",
+  "selection_effect": "NONE_ADR_0011_SELECTION_UNCHANGED",
+  "source_commits": {
+    "implementation_main": "fdc6954933cba18070d09dc80a6b9d4e45512218",
+    "outcome_record_main": "2077d6c885a97e1c26e2fd071321d9a4fc6e9419",
+    "isolated_builder_final": "e4e6afbe4149c3e72d5cd53248157f334173368a"
+  },
+  "source_archive_sha256": "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde",
+  "split_review_sha256": "b8031e2e113e39630c066cee65b4371f69b229ee905a72d832e53e6f505f297b",
+  "cohort_sha256": "5e475f6af798025f187c70ae638710d2b4362f688db2ad43d60ec436dda3e25d",
+  "config_sha256": "995de7560ffd30fed24aad9654d77fea123797f9f3431153b1454d028225842f",
+  "code_sha256": "c10d66ef76602537980bb9491955a814b7eebb3c201a648e5988e4287913198b",
+  "source_files_sha256": {
+    "src/marine_echo/models/aeon_patchtst.py": "18c8039d872b2bb402f1139481b5f7792accdc4f47eb0321bb9bbf648376a010",
+    "src/marine_echo/training/aeon_patchtst.py": "86f8270c19c57e2fc1f877b1dd7d08379cf1e9c6a9373b6c3add396c58470307"
+  },
+  "artifacts": {
+    "report_path": "outputs/aeon_patchtst_exploratory_20260927_r2/report.json",
+    "report_sha256": "0c40bc70e2adeaa0bb54a1f5ef8777505232d3fc694ad04b69d4f8e31edb29a6",
+    "result_path": "outputs/aeon_patchtst_exploratory_20260927_r2/seed7/result.json",
+    "result_sha256": "459df46ec2383b6f7da84b3482fa3558deeda2bb850c5c92cd39c009f34096bf",
+    "checkpoint_path": "outputs/aeon_patchtst_exploratory_20260927_r2/seed7/checkpoint-final-3000.pt",
+    "checkpoint_sha256": "e8728ae34be00ca18d2cc3571f470ca2092e77031e594f93d2eb80ccd9827d50",
+    "prediction_path": "outputs/aeon_patchtst_exploratory_20260927_r2/seed7/validation-predictions.npz",
+    "prediction_sha256": "12ade00f0de191e61179cc59e55493f6104e46fb572839a78597dc171b80a9e7",
+    "narrative_report_sha256": "c3e77061fea383446f5da26eee02b04df642e614676b13f5eb8a368ece57abf2"
+  },
+  "run_contract": {
+    "fit_partition": "train",
+    "assessment_partition": "validation",
+    "seed": 7,
+    "updates": 3000,
+    "fit_rows": 4965,
+    "validation_rows": 1219,
+    "checkpoint_selection": "final_endpoint_only",
+    "continuation_threshold_rule": "seed7_primary_at_most_1.05_times_fixed_reviewed_direct_ensemble_reference",
+    "fixed_direct_reference_db": 0.6390617418,
+    "fixed_continuation_threshold_db": 0.67101482889,
+    "seed7_passed_continuation_gate": false,
+    "seed13_status": "NOT_RUN_BY_FIXED_GATE",
+    "seed23_status": "NOT_RUN_BY_FIXED_GATE"
+  },
+  "validation_metrics": {
+    "issued_rows": 1219,
+    "scored_rows_per_horizon": [1217, 1217, 1217],
+    "eligible_scored_rows_per_horizon": [1194, 1192, 1189],
+    "eligible_source_dates_per_horizon": [50, 50, 50],
+    "primary_daily_mean_pinball_db": 0.9299893352789196,
+    "daily_mean_pinball_db_per_horizon": [
+      0.8216756248032775,
+      0.9513441587439235,
+      1.0169482222895578
+    ],
+    "reviewed_direct_ensemble_reference_db": 0.6390617417693784,
+    "absolute_difference_vs_direct_db": 0.2909275935095412,
+    "interpretation": "The single completed exploratory seed is substantially worse than the reviewed direct three-seed ensemble and fails its predeclared continuation threshold. This is a bounded negative local development result, not a general architecture ranking."
+  },
+  "independent_execution": {
+    "focused_tests": "4 passed in 28.78s",
+    "ruff": "All checks passed",
+    "mypy": "Success: no issues found in 2 source files",
+    "artifact_hash_audit": "Rehashed the source archive, config, split review, report, result, checkpoint and prediction artifact; all matched their declared SHA-256 digests.",
+    "chronology_audit": "The fixed config file and implementation commit predate the completed output timestamps; the abandoned first output contains only an empty seed7 directory.",
+    "cohort_reconstruction": "Re-read the frozen source archive and split review, reproducing 4,965 TRAIN rows, 1,219 validation rows and the exact cohort digest.",
+    "row_identity_audit": "PatchTST and core direct seed-7 validation files have identical row IDs, cutoff timestamps, interval IDs, target masks, QC status and provenance; observed target timestamps and truths are identical, with matching NaT/NaN sentinels for unobserved cells.",
+    "metric_recomputation": "Independently recomputed pinball loss from saved rows by target source date, retaining dates with at least 18 observed anchors per horizon, then equally averaging quantiles and horizons; every reported horizon and primary value matched exactly.",
+    "checkpoint_reload": "Loaded the saved final state_dict and TRAIN-only scaler strictly, reconstructed the model, and reproduced the complete saved CUDA forecast array bit exactly (maximum absolute difference 0.0 dB).",
+    "prediction_integrity": "All 1,219 by 3 by 5 forecasts are finite, monotone by quantile and nonconstant; standard deviation is 2.44109291818829 dB with range -95.12113952636719 to -74.23208618164062 dB.",
+    "past_future_order": "Every observed target source timestamp is later than its cutoff; the model input is the frozen preceding 24 by 4 source-product context and mask.",
+    "calibration_or_test_numeric_access": false
+  },
+  "resource_evidence": {
+    "device": "cuda",
+    "fit_seconds": 296.81954889999906,
+    "peak_process_rss_bytes": 1922793472,
+    "peak_gpu_reserved_bytes": 113246208,
+    "within_repository_limits": true
+  },
+  "limitations": [
+    "This challenger was introduced post-hoc and was not part of the frozen core campaign or ADR 0011 selection.",
+    "Only seed 7 ran because the prospectively fixed continuation rule failed; seeds 13 and 23 are deliberately unexecuted and must not be described as negative seed outcomes.",
+    "The completed result covers one deployment and validation period and does not establish external generalization, calibrated absolute backscatter, biological causality, production value or state of the art.",
+    "The first launch produced only an empty output directory; its exit-1 account was inspected from the builder report, while this review independently inspected the completed retry artifacts.",
+    "No model selection, calibration, retrospective TEST access or final value-gate decision is approved by this review."
+  ],
+  "calibration_access": "PROHIBITED_PENDING_SEPARATE_FINAL_EVALUATION_FREEZE_AND_REVIEW",
+  "test_access": "PROHIBITED"
+}
