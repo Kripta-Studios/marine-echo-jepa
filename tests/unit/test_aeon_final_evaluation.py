@@ -203,7 +203,6 @@ def _calibration_artifact(
         "status": "COMPLETED_AEON_CALIBRATION_INTERVAL_WIDENING",
         "study_id": "aeon3_geb_2024_hourly_sv_v1", "partition": "calibration",
         "test_access": "PROHIBITED",
-        "source_archive_sha256": "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde",
         "selection_freeze_sha256": selection_sha, "forecast_manifest_sha256": "6" * 64,
         "config_sha256": artifact_sha256(config), "runner_review_sha256": "7" * 64,
         "runner_code_sha256": artifact_sha256(Path(aeon_final_evaluation.__file__)),

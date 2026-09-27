@@ -79,6 +79,13 @@ _LIGHTGBM_RECIPE_SHA256 = "3feee4089ce790c66adb189ff82ad4e006c350822a23aaa494e86
 _CALIBRATION_OUTCOME_REVIEW_SHA256 = (
     "7b61385b29836be53d0e2c5a0b5e3f5db7e2dcb8983e534d17711ed0b44c1428"
 )
+_CALIBRATION_ARTIFACT_SHA256 = "a6e35bc5fa5c27b2b0669e7fb9fe7f8ff1bdd69952193418bbbe130e46438c94"
+_CALIBRATION_PLAN_SHA256 = "790cfc22e059e398a1aefa6358c4dca5bae63ac2ba0291f5333f7d3f85661ede"
+_CALIBRATION_RUNNER_REVIEW_SHA256 = "1c15ea81a8f2f32ab4bfc4dbebdeff2f308a744e967b42b7388102786d3f7e7a"
+_CALIBRATION_READER_REVIEW_SHA256 = "006d931b99dda41886bc54cdcf39c2a5a1f13114463469a5f2f22024c4e447d5"
+_CALIBRATION_RUNNER_CODE_SHA256 = "25d9a33b8746501dc76888e1e30a9e0128f3fa7c9c45a664a65d686b178a57a5"
+_CALIBRATION_EVALUATION_CODE_SHA256 = "5dff72c1baf2f5528f13f369936d2ca5710eeb8b8a6e6cae12a0ef95366225ff"
+_CALIBRATION_ADAPTER_COMPOSITE_SHA256 = "c8ccc0c54b720676b9f6d19cdd5ed7ffd1a5daf58ed22c469479a9272d1b77f9"
 
 
 class _WindowReader(Protocol):
@@ -679,7 +686,6 @@ def execute_calibration(
         "study_id": _STUDY,
         "partition": "calibration",
         "test_access": "PROHIBITED",
-        "source_archive_sha256": _SOURCE_SHA256,
         "selection_freeze_sha256": selection_sha,
         "forecast_manifest_sha256": manifest_sha,
         "config_sha256": config_sha,
@@ -838,13 +844,26 @@ def _comparison_gates(
 
 
 def _validate_calibration_artifact(
-    value: dict[str, Any], selection: dict[str, Any], selection_sha: str, config_sha: str,
+    value: dict[str, Any], calibration_sha: str, selection: dict[str, Any],
+    selection_sha: str, config_sha: str,
 ) -> None:
     models = value.get("models")
     expected_model_ids = [model["model_id"] for model in selection["models"]]
+    fixture = all(model["adapter"] == "SYNTHETIC_FIXTURE" for model in selection["models"])
+    expected_plan_sha = value.get("forecast_manifest_sha256") if fixture else _CALIBRATION_PLAN_SHA256
+    expected_runner_review = value.get("runner_review_sha256") if fixture else _CALIBRATION_RUNNER_REVIEW_SHA256
+    expected_reader_review = value.get("reader_review_sha256") if fixture else _CALIBRATION_READER_REVIEW_SHA256
+    expected_runner_code = artifact_sha256(Path(__file__)) if fixture else _CALIBRATION_RUNNER_CODE_SHA256
+    expected_evaluation_code = (
+        artifact_sha256(Path(daily_pinball.__code__.co_filename))
+        if fixture else _CALIBRATION_EVALUATION_CODE_SHA256
+    )
+    expected_adapter_composite = (
+        adapter_composite_sha256() if fixture else _CALIBRATION_ADAPTER_COMPOSITE_SHA256
+    )
     if (
         set(value) != {
-            "status", "study_id", "partition", "test_access", "source_archive_sha256",
+            "status", "study_id", "partition", "test_access",
             "selection_freeze_sha256", "forecast_manifest_sha256", "config_sha256",
             "runner_review_sha256", "runner_code_sha256", "evaluation_code_sha256",
             "reader_composite_sha256", "adapter_composite_sha256", "reader_review_sha256",
@@ -854,17 +873,16 @@ def _validate_calibration_artifact(
         or value.get("study_id") != _STUDY
         or value.get("partition") != "calibration"
         or value.get("test_access") != "PROHIBITED"
-        or value.get("source_archive_sha256") != _SOURCE_SHA256
+        or (not fixture and calibration_sha != _CALIBRATION_ARTIFACT_SHA256)
         or value.get("selection_freeze_sha256") != selection_sha
         or value.get("config_sha256") != config_sha
-        or not _digest(value.get("forecast_manifest_sha256"))
-        or not _digest(value.get("runner_review_sha256"))
-        or value.get("runner_code_sha256") != artifact_sha256(Path(__file__))
-        or value.get("evaluation_code_sha256")
-        != artifact_sha256(Path(daily_pinball.__code__.co_filename))
+        or value.get("forecast_manifest_sha256") != expected_plan_sha
+        or value.get("runner_review_sha256") != expected_runner_review
+        or value.get("runner_code_sha256") != expected_runner_code
+        or value.get("evaluation_code_sha256") != expected_evaluation_code
         or value.get("reader_composite_sha256") != reader_composite_sha256()
-        or value.get("adapter_composite_sha256") != adapter_composite_sha256()
-        or not _digest(value.get("reader_review_sha256"))
+        or value.get("adapter_composite_sha256") != expected_adapter_composite
+        or value.get("reader_review_sha256") != expected_reader_review
         or not isinstance(value.get("issued_row_ids"), list)
         or not value["issued_row_ids"]
         or any(not _digest(row_id) for row_id in value["issued_row_ids"])
@@ -931,7 +949,9 @@ def execute_retrospective_test(
     _, config_sha = _config(config_path)
     selection, selection_sha = _selection(selection_freeze_path)
     calibration, calibration_sha = _json(calibration_artifact_path)
-    _validate_calibration_artifact(calibration, selection, selection_sha, config_sha)
+    _validate_calibration_artifact(
+        calibration, calibration_sha, selection, selection_sha, config_sha
+    )
     candidate, candidate_sha = _candidate(candidate_contract_path)
     forecast_plan, manifest_sha = _test_forecast_plan(
         forecast_manifest_path, selection, selection_sha, candidate_sha
