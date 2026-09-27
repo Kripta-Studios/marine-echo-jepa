@@ -16,6 +16,7 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
+import torch
 
 from marine_echo.training.v2_executor import (
     V2_PROTOCOL_SHA256,
@@ -48,9 +49,133 @@ class SlotResult:
     predictions: Path
     updates: int
     reusable_seed7: bool = False
+    training_phases: tuple[TrainingPhase, ...] = ()
+
+
+@dataclass(frozen=True)
+class TrainingPhase:
+    name: str
+    updates: int
+    checkpoints: tuple[Path, ...]
+    validation_scores: tuple[float, ...]
+    validation_predictions: tuple[Path, ...] = ()
 
 
 SlotExecutor = Callable[[V2Slot, int | None, Path], SlotResult]
+
+
+def validate_update_cadence(
+    *, updates: int, checkpoint_steps: tuple[int, ...], validation_scores: tuple[float, ...]
+) -> None:
+    """Require 250-update checks and the frozen four-check patience after 1,000 updates."""
+    if not 250 <= updates <= 3000 or updates % 250:
+        raise ValueError("Campaign updates must end on a 250-update checkpoint by 3,000.")
+    expected = tuple(range(250, updates + 1, 250))
+    if checkpoint_steps != expected or len(validation_scores) != len(expected):
+        raise ValueError("Campaign checkpoint and validation checks must occur every 250 updates.")
+    best = float("inf")
+    stale = 0
+    first_stop = None
+    for step, score in zip(expected, validation_scores):
+        if not np.isfinite(score) or score < 0:
+            raise ValueError("Campaign validation score must be finite and nonnegative.")
+        if score < best:
+            best = score
+            stale = 0
+        else:
+            stale += 1
+        if stale >= 4 and step >= 1000 and first_stop is None:
+            first_stop = step
+    if first_stop is not None and first_stop != updates:
+        raise ValueError("Campaign ran beyond the frozen validation early stop.")
+    if first_stop is None and updates != 3000:
+        raise ValueError("Campaign stopped before 3,000 updates without a frozen early stop.")
+
+
+def _verified_training_phases(
+    slot: V2Slot,
+    result: SlotResult,
+    staging: Path,
+    rows: list[HourlyWindow],
+    protocol_sha256: str,
+) -> list[dict[str, Any]]:
+    if slot.family not in LEARNED or slot.phase == "hybrid":
+        if result.training_phases or result.updates != 0:
+            raise ValueError("Conventional and hybrid slots cannot claim neural updates.")
+        return []
+    expected = (
+        ("supervised",)
+        if slot.family == "direct"
+        else (("probe",) if slot.phase == "random_encoder" else ("pretrain", "probe"))
+    )
+    if tuple(phase.name for phase in result.training_phases) != expected:
+        raise ValueError("Learned campaign slot lacks its declared training phases.")
+    if result.updates != result.training_phases[-1].updates:
+        raise ValueError("Campaign endpoint update count differs from its final phase.")
+    manifest = []
+    for phase in result.training_phases:
+        steps = tuple(range(250, phase.updates + 1, 250))
+        validate_update_cadence(
+            updates=phase.updates,
+            checkpoint_steps=steps if len(phase.checkpoints) == len(steps) else (),
+            validation_scores=phase.validation_scores,
+        )
+        if phase.name != "pretrain" and len(phase.validation_predictions) != len(steps):
+            raise ValueError(
+                "Supervised campaign checks need saved validation rows every 250 updates."
+            )
+        if phase.name == "pretrain" and phase.validation_predictions:
+            raise ValueError("Pretraining checks use objective loss, not forecast rows.")
+        checkpoints = []
+        validations = []
+        for index, step in enumerate(steps):
+            raw_checkpoint = phase.checkpoints[index]
+            checkpoint = raw_checkpoint.resolve(strict=True)
+            if raw_checkpoint.is_symlink() or not checkpoint.is_relative_to(staging.resolve()):
+                raise ValueError("Campaign checkpoint escapes its slot output.")
+            checkpoint_state = torch.load(checkpoint, map_location="cpu", weights_only=True)
+            if (
+                checkpoint_state.get("step") != step
+                or checkpoint_state.get("protocol_sha256") != protocol_sha256
+                or not checkpoint_state.get("model")
+                or not checkpoint_state.get("optimizer")
+            ):
+                raise ValueError("Campaign checkpoint step, optimizer or protocol differs.")
+            checkpoints.append(
+                {
+                    "step": step,
+                    "path": str(checkpoint.relative_to(staging)),
+                    "sha256": _sha256(checkpoint),
+                }
+            )
+            if phase.name != "pretrain":
+                raw_prediction = phase.validation_predictions[index]
+                prediction = raw_prediction.resolve(strict=True)
+                if raw_prediction.is_symlink() or not prediction.is_relative_to(staging.resolve()):
+                    raise ValueError("Campaign validation artifact escapes its slot output.")
+                score = _primary(_verify_predictions(prediction, rows))
+                if score != phase.validation_scores[index]:
+                    raise ValueError(
+                        "Campaign validation score differs from saved checkpoint rows."
+                    )
+                validations.append(
+                    {
+                        "step": step,
+                        "path": str(prediction.relative_to(staging)),
+                        "sha256": _sha256(prediction),
+                        "metric": score,
+                    }
+                )
+        manifest.append(
+            {
+                "name": phase.name,
+                "updates": phase.updates,
+                "validation_scores": phase.validation_scores,
+                "checkpoints": checkpoints,
+                "validation_predictions": validations,
+            }
+        )
+    return manifest
 
 
 def v2_plan() -> tuple[V2Slot, ...]:
@@ -229,6 +354,17 @@ def _verify_ledger(
         metric = _primary(_verify_predictions(path, rows))
         if metric != source["validation_metric"] or metric != run["validation_metric"]:
             raise ValueError("Campaign validation metric differs from saved rows.")
+        artifact_root = Path(source["artifact_root"])
+        for phase in source.get("training_phases", []):
+            for item in phase["checkpoints"] + phase["validation_predictions"]:
+                file = (artifact_root / item["path"]).resolve(strict=True)
+                if (
+                    not file.is_relative_to(artifact_root.resolve())
+                    or _sha256(file) != item["sha256"]
+                ):
+                    raise ValueError("Campaign training milestone artifact differs on resume.")
+                if "metric" in item and _primary(_verify_predictions(file, rows)) != item["metric"]:
+                    raise ValueError("Campaign training milestone metric differs on resume.")
     completed = sum(run["status"] in success for run in ledger["runs"].values())
     suffix = (
         "SYNTHETIC_FIXTURE" if identity["scope"] == "synthetic-fixture-only" else "TRAIN_VALIDATION"
@@ -378,6 +514,13 @@ def execute_v2_campaign(
                 raise ValueError("Campaign executor result exceeds the finite slot contract.")
             metrics = _verify_predictions(path, validation_rows)
             score = _primary(metrics)
+            phase_manifest = (
+                []
+                if fixture_only
+                else _verified_training_phases(
+                    slot, result, staging, validation_rows, protocol_sha256
+                )
+            )
             name = path.relative_to(staging)
             digest = _sha256(path)
             os.replace(staging, slot_dir)
@@ -388,10 +531,12 @@ def execute_v2_campaign(
                 "seed": slot.seed,
                 "selected_configuration": selected,
                 "predictions": str(slot_dir / name),
+                "artifact_root": str(slot_dir),
                 "prediction_sha256": digest,
                 "validation_metric": score,
                 "updates": result.updates,
                 "reusable_seed7": result.reusable_seed7,
+                "training_phases": phase_manifest,
                 "reuse_of": None,
             }
             completed_this_call += 1

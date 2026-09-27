@@ -10,7 +10,13 @@ import numpy as np
 import pytest
 
 from marine_echo.models.v2_development import JointPrediction
-from marine_echo.training.v2_campaign import SlotResult, execute_v2_campaign, v2_plan
+from marine_echo.training.v2_campaign import (
+    SlotResult,
+    _verified_training_phases,
+    execute_v2_campaign,
+    v2_plan,
+    validate_update_cadence,
+)
 from marine_echo.training.v2_executor import V2_PROTOCOL_SHA256, _write_predictions
 from marine_echo.training.v2_stream import HourlyWindow
 
@@ -51,6 +57,39 @@ def test_v2_plan_has_exact_finite_dependencies() -> None:
     for slot in plan:
         assert set(slot.dependencies).issubset(seen)
         seen.add(slot.run_id)
+
+
+def test_frozen_250_update_cadence_and_early_stop() -> None:
+    scores = (0.5, 0.4, 0.5, 0.5, 0.5, 0.5)
+    validate_update_cadence(
+        updates=1500,
+        checkpoint_steps=(250, 500, 750, 1000, 1250, 1500),
+        validation_scores=scores,
+    )
+    with pytest.raises(ValueError, match="early stop"):
+        validate_update_cadence(
+            updates=1750,
+            checkpoint_steps=(250, 500, 750, 1000, 1250, 1500, 1750),
+            validation_scores=(*scores, 0.6),
+        )
+    with pytest.raises(ValueError, match="250"):
+        validate_update_cadence(
+            updates=1000,
+            checkpoint_steps=(250, 500, 1000),
+            validation_scores=(0.5, 0.4, 0.3, 0.2),
+        )
+
+
+def test_real_learned_slot_cannot_skip_checkpoint_phases(tmp_path: Path) -> None:
+    slot = next(slot for slot in v2_plan() if slot.run_id == "direct-development0-seed7")
+    with pytest.raises(ValueError, match="declared training phases"):
+        _verified_training_phases(
+            slot,
+            SlotResult(tmp_path / "absent.npz", updates=3000),
+            tmp_path,
+            [_validation_row()],
+            V2_PROTOCOL_SHA256,
+        )
 
 
 def test_fixture_campaign_selects_from_saved_rows_and_reuses_seed7(tmp_path: Path) -> None:
