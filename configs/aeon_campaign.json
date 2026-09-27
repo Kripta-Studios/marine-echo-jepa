@@ -30,6 +30,8 @@
     "hist_gradient_boosting_max_iter": 128,
     "hist_gradient_boosting_max_depth": 4,
     "hist_gradient_boosting_learning_rate": 0.05,
+    "hist_gradient_boosting_loss": "quantile",
+    "hist_gradient_boosting_heads": 15,
     "random_state": 7,
     "max_threads": 4
   },
