@@ -105,6 +105,8 @@ def test_forward_slot_executes_one_step_fixture_with_real_artifacts(tmp_path, sl
     is_random = slot_id == "random_encoder_seed7"
     assert result["pretrain_updates"] == (0 if is_random else 1)
     assert result["supervised_updates"] == 1
+    assert result["classification"] == "POST_HOC_DEVELOPMENT_NOT_FINAL_EVALUATION"
+    assert result["sota_claim"] == "NOT_ESTABLISHED"
     assert len(result["checkpoints"]) == (1 if is_random else 2)
     assert (tmp_path / result["prediction_path"]).exists()
     assert (tmp_path / result["final_checkpoint_path"]).exists()
@@ -113,4 +115,3 @@ def test_forward_slot_executes_one_step_fixture_with_real_artifacts(tmp_path, sl
         "online_context", "online_future_target", "ema_future_teacher", "predictor"
     }
     assert result["protocol_validation_metrics"]["eligible_days_per_horizon"] == [1, 1, 1]
-

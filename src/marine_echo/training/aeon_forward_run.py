@@ -158,6 +158,7 @@ def _code_sha256() -> str:
         Path(__file__).with_name("aeon_corpus.py"),
         Path(__file__).with_name("aeon_windows.py"),
         Path(__file__).with_name("aeon_development.py"),
+        root / "evaluation/aeon.py",
     )
     digest = hashlib.sha256()
     for path in paths:
@@ -417,7 +418,9 @@ def _train_slot(
         )
         result = {
             "slot_id": slot_id, "seed": seed, "source_partition": "train",
-            "assessment_partition": "validation", "classification": "DEVELOPMENT_NOT_FINAL_EVALUATION",
+            "assessment_partition": "validation",
+            "classification": "POST_HOC_DEVELOPMENT_NOT_FINAL_EVALUATION",
+            "sota_claim": "NOT_ESTABLISHED",
             "pretrain_updates": 0 if is_random else model_config["pretrain_updates"],
             "supervised_updates": model_config["supervised_updates"],
             "random_unequal_total_learned_update_budget": is_random,
@@ -470,6 +473,7 @@ def run_forward_campaign(
     core_config_path: Path,
     core_campaign_output: Path,
     core_rescore_path: Path,
+    core_rescore_review_path: Path,
     pair_inventory_path: Path,
     config_path: Path,
     prefit_review_path: Path,
@@ -485,6 +489,8 @@ def run_forward_campaign(
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     rescore_sha256 = _sha256(core_rescore_path)
     rescore = json.loads(core_rescore_path.read_text(encoding="utf-8"))
+    rescore_review_sha256 = _sha256(core_rescore_review_path)
+    rescore_review = json.loads(core_rescore_review_path.read_text(encoding="utf-8"))
     inventory_sha256 = _sha256(pair_inventory_path)
     inventory = json.loads(pair_inventory_path.read_text(encoding="utf-8"))
     split_sha256 = _sha256(split_review)
@@ -495,17 +501,24 @@ def run_forward_campaign(
         config.get("core_campaign_config_sha256") != core_config_sha256
         or config.get("core_campaign_manifest_sha256") != manifest_sha256
         or config.get("core_validation_rescore_sha256") != rescore_sha256
+        or config.get("core_validation_rescore_review_sha256") != rescore_review_sha256
         or config.get("pair_inventory_sha256") != inventory_sha256
         or config.get("split_review_sha256") != split_sha256
         or manifest.get("status") != "COMPLETED_TRAIN_VALIDATION_CAMPAIGN_NOT_FINAL_EVALUATION"
         or manifest.get("code_sha256") != _campaign_code_sha256()
         or rescore.get("campaign_manifest_sha256") != manifest_sha256
         or rescore.get("status") != "PROTOCOL_VALIDATION_RESCORE_PENDING_INDEPENDENT_SELECTION_REVIEW"
+        or rescore_review.get("status") != "APPROVED_AEON_VALIDATION_RESCORE_OUTCOME_NO_SELECTION"
+        or rescore_review.get("artifact_sha256", {}).get("rescore_report") != rescore_sha256
+        or rescore_review.get("artifact_sha256", {}).get("evaluation_code") != _sha256(
+            Path(__file__).resolve().parents[1] / "evaluation/aeon.py"
+        )
         or review.get("status") != "APPROVED_AEON_FORWARD_PREFIT"
         or review.get("code_sha256") != code_sha256
         or review.get("config_sha256") != config_sha256
         or review.get("split_review_sha256") != split_sha256
         or review.get("pair_inventory_sha256") != inventory_sha256
+        or review.get("core_validation_rescore_review_sha256") != rescore_review_sha256
         or review.get("cohort_sha256") != config.get("cohort_sha256")
         or review.get("test_access") != "PROHIBITED"
     ):
@@ -558,6 +571,7 @@ def run_forward_campaign(
         "device": device,
         "status": "TRAIN_VALIDATION_FORWARD_IN_PROGRESS",
         "classification": "POST_HOC_DEVELOPMENT_NOT_FINAL_EVALUATION",
+        "sota_claim": "NOT_ESTABLISHED",
         "test_access": "PROHIBITED",
         "config_sha256": config_sha256,
         "code_sha256": code_sha256,
@@ -566,6 +580,7 @@ def run_forward_campaign(
         "pair_inventory_sha256": inventory_sha256,
         "core_campaign_manifest_sha256": manifest_sha256,
         "core_validation_rescore_sha256": rescore_sha256,
+        "core_validation_rescore_review_sha256": rescore_review_sha256,
         "direct_reference": reference,
     }
     if manifest_path.exists():
@@ -605,7 +620,7 @@ def run_forward_campaign(
             entries[slot_id] = {"status": "FAILED", "slot_id": slot_id}
             _atomic_json(manifest_path, current)
             raise
-    current["status"] = "COMPLETED_FORWARD_TRAIN_VALIDATION_DEVELOPMENT_NOT_FINAL_EVALUATION"
+    current["status"] = "COMPLETED_POST_HOC_FORWARD_TRAIN_VALIDATION_DEVELOPMENT_NOT_FINAL_EVALUATION"
     _atomic_json(manifest_path, current)
     return current
 
@@ -614,13 +629,15 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     for name in (
         "archive", "split-review", "core-config", "core-campaign-output",
-        "core-rescore", "pair-inventory", "config", "prefit-review", "output",
+        "core-rescore", "core-rescore-review", "pair-inventory", "config",
+        "prefit-review", "output",
     ):
         parser.add_argument(f"--{name}", type=Path, required=True)
     arguments = parser.parse_args()
     result = run_forward_campaign(
         arguments.archive, arguments.split_review, arguments.core_config,
-        arguments.core_campaign_output, arguments.core_rescore, arguments.pair_inventory,
+        arguments.core_campaign_output, arguments.core_rescore, arguments.core_rescore_review,
+        arguments.pair_inventory,
         arguments.config, arguments.prefit_review, arguments.output,
     )
     print(json.dumps(result, indent=2, allow_nan=False))
@@ -628,5 +645,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
 
