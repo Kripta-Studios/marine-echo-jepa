@@ -37,6 +37,41 @@ _CORRECTED_RESCORE_SHA256 = "32cea9f8141fbad220a3e47d9e840039ad23b4f8e893efbcfb9
 _RESCORE_OUTCOME_REVIEW_SHA256 = "16bb9ef931f5e2d8f8a3322fa609c5cb1c769f99f5e4a89a5ef519a0fb52f44f"
 _METADATA_OUTCOME_REVIEW_SHA256 = "9d9c6ca4580d6a4ead4117a00a1a872710bf6e323eb17d491837e24c1011bebe"
 _SELECTION_RULE_REVIEW_SHA256 = "dd3dcbdf5e93d42e021abbaf4bf310bec0b40ea52d53411802e00770840127b2"
+_NEUTRAL_COMPARISON_SHA256 = "f4a0f4771868866ff7c330f4033c5ca9da7c6c36cdb19a1758cf2f383146757b"
+_NEUTRAL_COMPARISON_REVIEW_SHA256 = (
+    "53a3a164915eea4ab3bc8851c096bbc42821cb05330eb4c2829039df83df3e07"
+)
+_DEVELOPMENT_SELECTION_RECORD_REVIEW_SHA256 = (
+    "527bf68313cac2354ced78d8cf2673153a92e2f2d08845451ee9afaccfab47c8"
+)
+_SELECTED_MODEL_SPECS: dict[str, tuple[str, str, tuple[tuple[str, str], ...]]] = {
+    "core_direct_equal_three_seed_ensemble": (
+        "CORE_CONVENTIONAL_SELECTION",
+        "core_neural_ensemble",
+        (
+            ("direct_seed7", "a616f9160f359e54a6da5d87dc3b7a46edfee46e449e2944af7a69be8ae25c95"),
+            ("direct_seed13", "eb6ca62f4c68024b43ea8b2102a0754d646623fd91cbf1ad31fb72218faf48dc"),
+            ("direct_seed23", "ee3ae09ebf05bc41ec762e946a1d0046be33fff4ea47472a992893a294054761"),
+        ),
+    ),
+    "core_ema_equal_three_seed_ensemble": (
+        "CORE_JEPA_SELECTION",
+        "core_neural_ensemble",
+        (
+            ("ema_jepa_seed7", "f1fc41860e21cb2c47868488b051c68cd951487d717fc0fe033e63b8dfcc664c"),
+            ("ema_jepa_seed13", "59cb3d1e6d79ca2d9807f24c5e816d0e5c89fad0e274e703d6e9da5b44024633"),
+            ("ema_jepa_seed23", "4a7c63931a31a48f60323b944110df9292856f39cb822ce0b891371a10a16a15"),
+        ),
+    ),
+    "post_hoc_lightgbm": (
+        "POST_HOC_DEVELOPMENT_SELECTION",
+        "lightgbm",
+        (
+            ("lightgbm_model", "164389731cd5d2e0694d1fb5228196196e7701fc73269e79ef84d85520fb168b"),
+            ("lightgbm_recipe", "3feee4089ce790c66adb189ff82ad4e006c350822a23aaa494e86afaef884eea"),
+        ),
+    ),
+}
 _HEX = set("0123456789abcdef")
 _MODEL_ID = re.compile(r"[A-Za-z0-9][A-Za-z0-9_.-]{0,79}")
 
@@ -111,6 +146,8 @@ def _selection(path: Path) -> tuple[dict[str, Any], str]:
         set(value) != {
             "schema_version", "status", "study_id", "test_access",
             "selection_rule_review_sha256",
+            "neutral_comparison_sha256", "neutral_comparison_outcome_review_sha256",
+            "development_selection_record_review_sha256",
             "adapter_composite_sha256",
             "corrected_validation_rescore_sha256",
             "corrected_validation_outcome_review_sha256", "validation_row_sha256", "models",
@@ -121,6 +158,11 @@ def _selection(path: Path) -> tuple[dict[str, Any], str]:
         or value.get("study_id") != _STUDY
         or value.get("test_access") != "PROHIBITED"
         or value.get("selection_rule_review_sha256") != _SELECTION_RULE_REVIEW_SHA256
+        or value.get("neutral_comparison_sha256") != _NEUTRAL_COMPARISON_SHA256
+        or value.get("neutral_comparison_outcome_review_sha256")
+        != _NEUTRAL_COMPARISON_REVIEW_SHA256
+        or value.get("development_selection_record_review_sha256")
+        != _DEVELOPMENT_SELECTION_RECORD_REVIEW_SHA256
         or value.get("adapter_composite_sha256") != adapter_composite_sha256()
         or value.get("validation_row_sha256") != _VALIDATION_ROW_SHA256
         or value.get("corrected_validation_rescore_sha256") != _CORRECTED_RESCORE_SHA256
@@ -141,7 +183,7 @@ def _selection(path: Path) -> tuple[dict[str, Any], str]:
             not isinstance(model, dict)
             or set(model) != {
                 "model_id", "role", "selection_classification", "adapter",
-                "component_artifacts",
+                "component_artifacts", "ensemble_weights",
             }
             or not isinstance(model.get("model_id"), str)
             or not model["model_id"]
@@ -165,11 +207,20 @@ def _selection(path: Path) -> tuple[dict[str, Any], str]:
                 or not _digest(item.get("sha256"))
                 for item in model["component_artifacts"]
             )
+            or not isinstance(model.get("ensemble_weights"), list)
+            or not all(isinstance(weight, (int, float)) for weight in model["ensemble_weights"])
         ):
             raise ValueError("AEON selected-model identity or artifact binding is invalid.")
         artifact_ids = [item["artifact_id"] for item in model["component_artifacts"]]
         if len(artifact_ids) != len(set(artifact_ids)):
             raise ValueError("AEON selected model repeats a component artifact identity.")
+        expected_weights = (
+            [1 / 3, 1 / 3, 1 / 3]
+            if model["adapter"] in ("core_neural_ensemble", "forward_ema_ensemble")
+            else [1.0]
+        )
+        if model["ensemble_weights"] != expected_weights:
+            raise ValueError("AEON selected-model ensemble weights differ from the frozen rule.")
         ids.add(model["model_id"])
         roles.append(model["role"])
     core_conventional = [
@@ -194,6 +245,22 @@ def _selection(path: Path) -> tuple[dict[str, Any], str]:
             "AEON selection needs exactly one core conventional baseline, at least one "
             "core JEPA candidate, and optional post-hoc candidates."
         )
+    if not all(model["adapter"] == "SYNTHETIC_FIXTURE" for model in models):
+        selected_specs = {
+            model["model_id"]: (
+                model["selection_classification"],
+                model["adapter"],
+                tuple(
+                    (artifact["artifact_id"], artifact["sha256"])
+                    for artifact in model["component_artifacts"]
+                ),
+            )
+            for model in models
+        }
+        if selected_specs != _SELECTED_MODEL_SPECS:
+            raise ValueError(
+                "AEON selected component artifacts differ from the reviewed selection rule."
+            )
     return value, digest
 
 
@@ -255,6 +322,7 @@ def _test_forecast_plan(
             model["model_id"], model["role"], model["selection_classification"],
             model["adapter"],
             [(item["artifact_id"], item["sha256"]) for item in model["component_artifacts"]],
+            model["ensemble_weights"],
         )
         for model in selection["models"]
     ]
@@ -267,6 +335,7 @@ def _test_forecast_plan(
                 for item in entry.get("component_artifacts", [])
                 if isinstance(item, dict)
             ],
+            entry.get("ensemble_weights"),
         )
         for entry in typed_entries
     ]
@@ -344,8 +413,11 @@ def _execute_forecast_plan(
                 prediction = adapt_core_neural_ensemble(
                     rows, artifacts, family=family, device=options.get("device", "cpu")
                 )
-            elif adapter == "lightgbm" and len(artifacts) == 1:
-                if not isinstance(recipe_sha256, str):
+            elif adapter == "lightgbm" and len(artifacts) == 2:
+                if (
+                    not isinstance(recipe_sha256, str)
+                    or recipe_sha256 != components[1].get("sha256")
+                ):
                     raise ValueError("AEON LightGBM recipe digest is malformed.")
                 prediction = adapt_lightgbm(
                     rows, artifacts[0], recipe_sha256=recipe_sha256
