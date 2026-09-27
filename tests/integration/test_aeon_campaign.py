@@ -8,7 +8,9 @@ from pathlib import Path
 
 import numpy as np
 import pytest
+import torch
 
+from marine_echo.models.aeon_ssl import AeonTemporalSSL
 from marine_echo.training import aeon_campaign
 from marine_echo.training.aeon_windows import AeonHourlyWindow
 
@@ -44,9 +46,9 @@ def test_campaign_has_finite_slot_order_and_test_access_gate() -> None:
     config = _config()
     aeon_campaign._config_gate(config)
     slots = aeon_campaign.campaign_slots(config)
-    assert len(slots) == 15
+    assert len(slots) == 17
     assert [slot.run_id for slot in slots[:4]] == list(aeon_campaign.CONVENTIONAL)
-    assert slots[-1].run_id == "temporally_shuffled_pretrain_target_seed7"
+    assert slots[-1].run_id == "temporally_shuffled_pretrain_target_shared_sigreg_seed7"
     config["test_access"] = "ALLOWED"
     with pytest.raises(ValueError, match="source/split"):
         aeon_campaign._config_gate(config)
@@ -78,10 +80,10 @@ def test_campaign_manifest_restarts_and_detects_artifact_tamper(
     )
     result = aeon_campaign.execute_campaign_slots([], assess, output, **args)
     assert result["status"] == "COMPLETED_TRAIN_VALIDATION_CAMPAIGN_NOT_FINAL_EVALUATION"
-    assert len(calls) == 15
-    assert len(result["slots"]) == 15
+    assert len(calls) == 17
+    assert len(result["slots"]) == 17
     aeon_campaign.execute_campaign_slots([], assess, output, **args)
-    assert len(calls) == 15
+    assert len(calls) == 17
     (output / "direct_seed7/model.bin").write_bytes(b"tampered")
     with pytest.raises(ValueError, match="artifact digest"):
         aeon_campaign.execute_campaign_slots([], assess, output, **args)
@@ -102,3 +104,65 @@ def test_seasonal_24_step_reference_uses_matching_hour_for_each_horizon(tmp_path
     )
     assert model_path.exists()
     assert np.array_equal(forecast[0, :, 2], [101.0, 103.0, 106.0])
+
+
+def test_shuffled_control_preserves_mode_specific_target_gradient() -> None:
+    for mode in ("ema", "shared_sigreg"):
+        torch.manual_seed(7)
+        model = AeonTemporalSSL(mode=mode, width=16, layers=2, regularizer_weight=0)
+        values = torch.randn(8, 24, 4, requires_grad=True)
+        mask = torch.ones_like(values, dtype=torch.bool)
+        aeon_campaign._shuffled_pretrain_loss(model, values, mask, shift=1).backward()
+        assert values.grad is not None
+        held_out_gradient = values.grad[:, 18:].abs().sum().item()
+        if mode == "ema":
+            assert held_out_gradient == 0
+        else:
+            assert held_out_gradient > 0
+
+
+def test_all_neural_campaign_families_execute_bounded_fixture(tmp_path: Path) -> None:
+    base = _row()
+    fit = [
+        replace(
+            base,
+            row_id=f"{index:064x}",
+            partition="train",
+            cutoff_interval_id=480120 + 24 * index,
+            context_db=np.full((24, 4), -80.0 + index),
+            target_db=np.array([-79.0, -78.0, -77.0]) + index,
+        )
+        for index in range(8)
+    ]
+    config = _config()
+    config["neural"].update(
+        {
+            "encoder_width": 16,
+            "encoder_layers": 2,
+            "batch_size": 8,
+            "direct_supervised_updates": 1,
+            "ssl_pretrain_updates": 1,
+            "ssl_supervised_updates": 1,
+            "checkpoint_every_updates": 1,
+        }
+    )
+    config["controls"].update(
+        {"random_encoder_supervised_updates": 1, "shuffled_pretrain_updates": 1}
+    )
+    for family in ("direct", "ema_jepa", "shared_sigreg") + aeon_campaign.CONTROLS:
+        stage = tmp_path / family
+        stage.mkdir()
+        slot = aeon_campaign.CampaignSlot(family + "_seed7", family, 7)
+        forecast, checkpoint, details = aeon_campaign._neural_prediction(
+            slot, fit, [base], config, stage, "cpu"
+        )
+        assert forecast.shape == (1, 3, 5)
+        assert np.isfinite(forecast).all()
+        assert checkpoint.exists()
+        assert len(details["validation_checks"]) == 1
+        assert details["supervised_updates"] == 1
+        expected_pretrain = 0 if family == "direct" or family.startswith("random_encoder") else 1
+        assert details["pretrain_updates"] == expected_pretrain
+        assert details["random_encoder_unequal_total_learned_update_budget"] == family.startswith(
+            "random_encoder"
+        )

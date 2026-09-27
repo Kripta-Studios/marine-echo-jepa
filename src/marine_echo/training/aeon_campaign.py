@@ -10,7 +10,7 @@ import tempfile
 import time
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any, Callable, Literal
 
 import joblib  # type: ignore[import-untyped]
 import numpy as np
@@ -24,6 +24,7 @@ from threadpoolctl import threadpool_limits  # type: ignore[import-untyped]
 from torch import nn
 from torch.nn import functional as F
 
+from marine_echo.models.aeon_ssl import AeonDirect, AeonTemporalSSL
 from marine_echo.training.aeon_corpus import AEON_ADR_SHA256, AEON_SOURCE_SHA256, AeonDevelopmentReader
 from marine_echo.training.aeon_development import (
     _context_tensors,
@@ -42,7 +43,12 @@ CONVENTIONAL = (
     "persistence", "seasonal_24_source_intervals", "ridge", "hist_gradient_boosting"
 )
 NEURAL = ("direct", "ema_jepa", "shared_sigreg")
-CONTROLS = ("random_encoder", "temporally_shuffled_pretrain_target")
+CONTROLS = (
+    "random_encoder_ema",
+    "random_encoder_shared_sigreg",
+    "temporally_shuffled_pretrain_target_ema",
+    "temporally_shuffled_pretrain_target_shared_sigreg",
+)
 
 
 @dataclass(frozen=True)
@@ -163,6 +169,7 @@ def _config_gate(config: dict[str, Any]) -> None:
         or neural.get("ssl_supervised_updates") != 1500
         or neural.get("checkpoint_every_updates") != 500
         or neural.get("checkpoint_selection") != "final_endpoint_only"
+        or neural.get("pretrain_view") != "first_18_vs_last_6_of_24_past_source_products"
         or neural.get("learning_rate") != 3e-4
         or neural.get("weight_decay") != 1e-4
         or neural.get("gradient_clip_norm") != 1.0
@@ -170,11 +177,12 @@ def _config_gate(config: dict[str, Any]) -> None:
         or neural.get("ema_sigreg_weight") != 0.03
         or neural.get("shared_sigreg_weight") != 0.04
         or controls.get("seed") != 7
+        or controls.get("modes") != ["ema", "shared_sigreg"]
         or controls.get("random_encoder_pretrain_updates") != 0
         or controls.get("random_encoder_supervised_updates") != 1500
         or controls.get("shuffled_pretrain_updates") != 1500
         or controls.get("shuffled_supervised_updates") != 1500
-        or controls.get("random_encoder_has_unequal_learned_update_budget") is not True
+        or controls.get("random_encoder_has_unequal_total_learned_update_budget") is not True
         or resource.get("peak_process_rss_limit_bytes") != 22 * 1024**3
         or resource.get("peak_gpu_reserved_limit_bytes") != 10 * 1024**3
         or resource.get("one_training_process") is not True
@@ -492,6 +500,31 @@ def _execute_slot(
     return _neural_prediction(slot, fit, assess, config, stage, device)
 
 
+def _is_random_control(family: str) -> bool:
+    return family.startswith("random_encoder_")
+
+
+def _is_shuffled_control(family: str) -> bool:
+    return family.startswith("temporally_shuffled_pretrain_target_")
+
+
+def _shuffled_pretrain_loss(
+    model: AeonTemporalSSL, values: torch.Tensor, mask: torch.Tensor, *, shift: int
+) -> torch.Tensor:
+    """Mode-faithful false-pair objective on disjoint TRAIN histories."""
+    if not 1 <= shift < len(values):
+        raise ValueError("Shuffled TRAIN target pairing needs a nonzero batch rotation.")
+    predicted = model.predictor(model.context_view(values, mask))
+    target = model.teacher_view(values, mask)
+    if model.mode == "ema":
+        target = target.detach()
+    target = target.roll(shifts=shift, dims=0)
+    regularized = predicted if model.mode == "ema" else target
+    return F.smooth_l1_loss(predicted, target) + model.regularizer_weight * model.regularizer(
+        regularized
+    )
+
+
 def _neural_prediction(
     slot: CampaignSlot,
     fit: list[AeonHourlyWindow],
@@ -500,8 +533,6 @@ def _neural_prediction(
     stage: Path,
     device: str,
 ) -> tuple[np.ndarray, Path, dict[str, Any]]:
-    from marine_echo.models.aeon_ssl import AeonDirect, AeonTemporalSSL
-
     if slot.seed is None:
         raise ValueError("AEON neural slot requires a declared seed.")
     neural = config["neural"]
@@ -518,7 +549,9 @@ def _neural_prediction(
                 width=neural["encoder_width"], layers=neural["encoder_layers"]
             )
         else:
-            mode = "shared_sigreg" if slot.family == "shared_sigreg" else "ema"
+            mode: Literal["ema", "shared_sigreg"] = (
+                "shared_sigreg" if slot.family.endswith("shared_sigreg") else "ema"
+            )
             weight = (
                 neural["shared_sigreg_weight"]
                 if mode == "shared_sigreg"
@@ -531,7 +564,7 @@ def _neural_prediction(
                 regularizer_weight=weight,
             )
         model = model.to(device)
-        if slot.family == "random_encoder":
+        if _is_random_control(slot.family):
             assert isinstance(model, AeonTemporalSSL)
             model.encoder.requires_grad_(False)
             model.predictor.requires_grad_(False)
@@ -593,7 +626,7 @@ def _neural_prediction(
                     predicted.append(output.cpu().numpy() * scaler[3] + scaler[2])
             return np.concatenate(predicted)
 
-        if slot.family in ("ema_jepa", "shared_sigreg", "temporally_shuffled_pretrain_target"):
+        if slot.family in ("ema_jepa", "shared_sigreg") or _is_shuffled_control(slot.family):
             assert isinstance(model, AeonTemporalSSL)
             pretrain_optimizer = torch.optim.AdamW(
                 (parameter for parameter in model.parameters() if parameter.requires_grad),
@@ -602,7 +635,7 @@ def _neural_prediction(
             )
             rng = np.random.default_rng(np.random.SeedSequence([seed, 1]))
             residues: dict[int, np.ndarray] = {}
-            if slot.family == "temporally_shuffled_pretrain_target":
+            if _is_shuffled_control(slot.family):
                 interval_ids = np.asarray([row.cutoff_interval_id for row in fit])
                 for residue in range(24):
                     indices = np.flatnonzero(interval_ids % 24 == residue)
@@ -622,12 +655,9 @@ def _neural_prediction(
                     )
                 values = x_fit[selected].to(device)
                 mask = m_fit[selected].to(device)
-                if slot.family == "temporally_shuffled_pretrain_target":
-                    predicted = model.predictor(model.context_view(values, mask))
-                    target = model.teacher_view(values, mask).detach()
+                if _is_shuffled_control(slot.family):
                     shift = int(rng.integers(1, len(selected)))
-                    target = target.roll(shifts=shift, dims=0)
-                    loss = F.smooth_l1_loss(predicted, target) + model.regularizer_weight * model.regularizer(predicted)
+                    loss = _shuffled_pretrain_loss(model, values, mask, shift=shift)
                 else:
                     loss = model.pretrain_loss(values, mask)
                 if not torch.isfinite(loss):
@@ -643,11 +673,11 @@ def _neural_prediction(
                 if model.teacher is not None:
                     model.update_teacher(momentum=neural["ema_teacher_momentum"])
                 check_resources()
-                if step % 500 == 0:
+                if step % neural["checkpoint_every_updates"] == 0:
                     save_checkpoint("pretrain", step, pretrain_optimizer)
             pretrain_seconds = time.perf_counter() - started
 
-        if slot.family == "random_encoder":
+        if _is_random_control(slot.family):
             supervised_updates = config["controls"]["random_encoder_supervised_updates"]
         elif slot.family == "direct":
             supervised_updates = neural["direct_supervised_updates"]
@@ -686,7 +716,7 @@ def _neural_prediction(
             )
             supervised_optimizer.step()
             check_resources()
-            if step % 500 == 0:
+            if step % neural["checkpoint_every_updates"] == 0:
                 checkpoint = save_checkpoint("supervised", step, supervised_optimizer)
                 prediction = forecast()
                 validation_path = stage / f"validation-at-supervised-{step}.npz"
@@ -708,7 +738,7 @@ def _neural_prediction(
             raise ValueError("AEON neural run lacks a final supervised endpoint.")
         metadata = {
             "pretrain_updates": 0
-            if slot.family in ("direct", "random_encoder")
+            if slot.family == "direct" or _is_random_control(slot.family)
             else neural["ssl_pretrain_updates"],
             "supervised_updates": supervised_updates,
             "pretrain_seconds": pretrain_seconds,
@@ -716,7 +746,7 @@ def _neural_prediction(
             "checkpoints": checkpoints,
             "validation_checks": validation_checks,
             "selection": "FINAL_ENDPOINT_ONLY",
-            "random_encoder_unequal_learned_update_budget": slot.family == "random_encoder",
+            "random_encoder_unequal_total_learned_update_budget": _is_random_control(slot.family),
             "peak_process_rss_bytes": peak_rss,
             "gpu_peak_reserved_bytes": torch.cuda.max_memory_reserved() if device == "cuda" else None,
             "scaler_fit_only": scaler,
