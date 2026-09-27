@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0",
+  "status": "FROZEN_AEON_TEST_FORECAST_ADAPTER_PLAN",
+  "study_id": "aeon3_geb_2024_hourly_sv_v1",
+  "partition": "test",
+  "selection_freeze_sha256": "b3940ab8e159ac8808843b15b455ffb3c42f2d3db322190af15b80e543edff58",
+  "candidate_contract_sha256": "40510cfb321cbb57bc24f309f0e11cd0a2d274c181370ae6d13efdc26972be93",
+  "adapter_composite_sha256": "c8ccc0c54b720676b9f6d19cdd5ed7ffd1a5daf58ed22c469479a9272d1b77f9",
+  "models": [
+    {
+      "model_id": "core_direct_equal_three_seed_ensemble",
+      "role": "baseline",
+      "selection_classification": "CORE_CONVENTIONAL_SELECTION",
+      "adapter": "core_neural_ensemble",
+      "component_artifacts": [
+        {
+          "artifact_id": "direct_seed7",
+          "path": "outputs/aeon3_geb_2024_hourly_sv_v1/core_campaign/direct_seed7/checkpoint-supervised-3000.pt",
+          "sha256": "a616f9160f359e54a6da5d87dc3b7a46edfee46e449e2944af7a69be8ae25c95"
+        },
+        {
+          "artifact_id": "direct_seed13",
+          "path": "outputs/aeon3_geb_2024_hourly_sv_v1/core_campaign/direct_seed13/checkpoint-supervised-3000.pt",
+          "sha256": "eb6ca62f4c68024b43ea8b2102a0754d646623fd91cbf1ad31fb72218faf48dc"
+        },
+        {
+          "artifact_id": "direct_seed23",
+          "path": "outputs/aeon3_geb_2024_hourly_sv_v1/core_campaign/direct_seed23/checkpoint-supervised-3000.pt",
+          "sha256": "ee3ae09ebf05bc41ec762e946a1d0046be33fff4ea47472a992893a294054761"
+        }
+      ],
+      "ensemble_weights": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "options": {
+        "family": "direct",
+        "device": "cpu"
+      }
+    },
+    {
+      "model_id": "core_ema_equal_three_seed_ensemble",
+      "role": "candidate",
+      "selection_classification": "CORE_JEPA_SELECTION",
+      "adapter": "core_neural_ensemble",
+      "component_artifacts": [
+        {
+          "artifact_id": "ema_jepa_seed7",
+          "path": "outputs/aeon3_geb_2024_hourly_sv_v1/core_campaign/ema_jepa_seed7/checkpoint-supervised-1500.pt",
+          "sha256": "f1fc41860e21cb2c47868488b051c68cd951487d717fc0fe033e63b8dfcc664c"
+        },
+        {
+          "artifact_id": "ema_jepa_seed13",
+          "path": "outputs/aeon3_geb_2024_hourly_sv_v1/core_campaign/ema_jepa_seed13/checkpoint-supervised-1500.pt",
+          "sha256": "59cb3d1e6d79ca2d9807f24c5e816d0e5c89fad0e274e703d6e9da5b44024633"
+        },
+        {
+          "artifact_id": "ema_jepa_seed23",
+          "path": "outputs/aeon3_geb_2024_hourly_sv_v1/core_campaign/ema_jepa_seed23/checkpoint-supervised-1500.pt",
+          "sha256": "4a7c63931a31a48f60323b944110df9292856f39cb822ce0b891371a10a16a15"
+        }
+      ],
+      "ensemble_weights": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "options": {
+        "family": "ema_jepa",
+        "device": "cpu"
+      }
+    },
+    {
+      "model_id": "post_hoc_lightgbm",
+      "role": "candidate",
+      "selection_classification": "POST_HOC_DEVELOPMENT_SELECTION",
+      "adapter": "lightgbm",
+      "component_artifacts": [
+        {
+          "artifact_id": "lightgbm_model",
+          "path": "outputs/aeon3_geb_2024_hourly_sv_v1/sota_supervised_lightgbm/model.joblib",
+          "sha256": "164389731cd5d2e0694d1fb5228196196e7701fc73269e79ef84d85520fb168b"
+        },
+        {
+          "artifact_id": "lightgbm_recipe",
+          "path": "configs/aeon_sota_supervised.json",
+          "sha256": "3feee4089ce790c66adb189ff82ad4e006c350822a23aaa494e86afaef884eea"
+        }
+      ],
+      "ensemble_weights": [
+        1
+      ],
+      "options": {
+        "recipe_sha256": "3feee4089ce790c66adb189ff82ad4e006c350822a23aaa494e86afaef884eea"
+      }
+    }
+  ]
+}
