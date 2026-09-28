@@ -51,7 +51,17 @@ release approval: two lint defects, a time-of-check/time-of-use gap in
 external evidence copying, and missing hardlink rejection. The r1 archive
 (SHA-256 `7bbbba8e1e0e5e0594662b7523a141a2b9759cc41308990261b1c892b0dae3a3`)
 is preserved locally as unapproved; a corrected r2 build requires code fixes
-and a separate review.
+and a separate review. The reviewed fix pins exact evidence hashes through
+copy and rejects hardlinks; red-to-green regressions, 18 focused tests, Ruff,
+mypy and independent source re-review passed. Its approval SHA-256 is
+`6056ee55ffa2769aa7dae5d80a78c96fd740d8f584e751ef64616217c9fef0f1`.
+The new r2 candidate ZIP SHA-256 is
+`f0a529ef7c3353ef880af04af3ea2106baa68cdfbfd9173d86e20c7e44b3a40d`.
+It passed an 86-file checksum verification, relocated Python 3.12 offline
+installation of 13 bundled wheels, loopback API and Chromium section/replay
+smokes with no page errors. `orchestration/reports/AEON_EXTERNAL_OFFLINE_R2_VALIDATION_20260928.md`
+records exact local evidence. Distinct exact-archive review remains pending;
+the package is not yet release-approved.
 
 ## Prospective v2 continuation - active 27 September 2026
 
