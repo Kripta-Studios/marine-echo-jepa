@@ -38,7 +38,10 @@ def test_portable_package_has_exact_inventory_and_archive(tmp_path: Path) -> Non
     assert (package / "Run-AEON-Research.ps1").is_file()
     assert (package / "src/marine_echo/serving/api.py").is_file()
     assert not (package / "src/marine_echo/training").exists()
-    assert "development-only" in (package / "README_AEON_RESEARCH.md").read_text().lower()
+    readme = (package / "README_AEON_RESEARCH.md").read_text()
+    assert "development-only" in readme.lower()
+    assert "provenance/scaling_development/outcome-review.json" in readme
+    assert "provenance/expanded_train_development/outcome-review.json" in readme
     with zipfile.ZipFile(result["archive"]) as archive:
         assert "portable/SHA256SUMS" in archive.namelist()
     (package / "artifacts/catalog.json").write_text('{"tampered": true}')

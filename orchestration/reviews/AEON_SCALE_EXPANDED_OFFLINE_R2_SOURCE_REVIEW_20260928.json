@@ -1,0 +1,21 @@
+{
+  "status": "APPROVED_AEON_SCALE_EXPANDED_OFFLINE_R2_README_SOURCE_CORRECTION",
+  "reviewer_session": "/root/scale_reviewer",
+  "reviewer_role": "distinct_read_only_scientific_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "prior_candidate": "aeon-offline-scale-expanded-20260928-r1",
+  "prior_candidate_status": "REQUEST_CHANGES_PRESERVED_UNAPPROVED",
+  "source_file": "src/marine_echo/serving/aeon_portable.py",
+  "source_file_sha256": "82ec70aab8b7bcaf761275289953f2adc88a50af901bf3e68e3b04cd32da817d",
+  "test_file": "tests/unit/test_aeon_portable.py",
+  "test_file_sha256": "8bad683887870ef8b7d3bd31e9ff54c335b35cdbb414e970acf9c016de985e89",
+  "change": "The README now locates historical reviews at provenance/reviews/ and the two new outcome reviews at their exact study-specific provenance paths. No package inventory, model evidence, metric, API behavior or scientific claim changed.",
+  "independent_checks": [
+    "Three targeted portable tests passed",
+    "Targeted Ruff passed",
+    "Diff check clean",
+    "Rejected r1 archive, sidecar, checksum manifest and README bytes preserved"
+  ],
+  "scope": "Source correction approval only; the new r2 package needs separate exact-output review."
+}

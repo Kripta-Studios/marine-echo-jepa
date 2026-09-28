@@ -414,7 +414,10 @@ def build_aeon_portable(
             "The original acoustic archive is not redistributed.\n\n"
             "`SHA256SUMS` covers every packaged file except itself; the adjacent `.zip.sha256` "
             "records the archive digest. `SOURCE_REVISION.json` records source and evidence. "
-            "Exact development-outcome review records are in `provenance/reviews/`.\n",
+            "Historical outcome reviews are in `provenance/reviews/`. When included, "
+            "the new outcome reviews are in "
+            "`provenance/scaling_development/outcome-review.json` and "
+            "`provenance/expanded_train_development/outcome-review.json`.\n",
             encoding="utf-8",
         )
         (stage / "THIRD_PARTY_NOTICES.md").write_text(

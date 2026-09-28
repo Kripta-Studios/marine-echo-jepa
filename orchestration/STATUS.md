@@ -60,7 +60,8 @@ inventory checks and offline API/browser smoke. Exact-output independent review
 requested one correction: the SHA-bound README pointed the two new outcome
 reviews at the historical reviews folder instead of their study-specific
 provenance folders. The r1 candidate is preserved unapproved; the corrected
-source passed a red-to-green regression and awaits narrow re-review before r2.
+source passed a red-to-green regression and distinct narrow re-review. A new
+r2 candidate will be built without changing the preserved r1 bytes.
 The detailed investigation is
 `orchestration/reports/AEON_SCALING_AND_EXPANDED_TRAIN_INVESTIGATION_20260928.md`.
 The historical prior-year external-transfer finding is preserved, but it cannot
