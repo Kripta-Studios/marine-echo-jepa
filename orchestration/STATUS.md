@@ -35,8 +35,17 @@ The exact report is `E:\marine-echo-jepa-scale\aeon_expanded_3k\cohort.json`
 (SHA-256 `90b834c89600e2e61301d781403d2fa69f5ac672405580918344a19b861981bc`).
 A second, cohort-bound independent review reconstructed the counts, digest,
 validation lineage, zero raw interval overlap and original corrected baselines,
-and approved exactly two frozen equal-compute seed-7 development fits. Those
-two fits are now running in one GPU process after the 30k Stage-2 gate exited.
+and approved exactly two frozen equal-compute seed-7 development fits. Both
+fits exited zero after the 30k Stage-2 gate, saving real checkpoints and
+1,219 × 3 × 5 predictions. Preliminary corrected daily pinball is 0.640615
+dB for direct and 0.654855 dB for EMA-JEPA, versus original 3k seed-7 scores
+0.651154 and 0.648805 dB respectively. A distinct reviewer rebuilt the
+cohort/scaler/sampling, all checkpoint and prediction hashes, and corrected
+metrics. The direct loss is 1.62% lower on this repeatedly inspected VAL;
+EMA-JEPA loss is 0.93% higher than its original-only comparator. This is a
+reviewed development observation, not a causal data-volume effect or an
+external/final evaluation. The complete limitations are in
+`orchestration/reports/AEON_EXPANDED_3K_OUTCOME_20260928.md`.
 The historical prior-year external-transfer finding is preserved, but it cannot
 serve as an external test of a model trained on that source.
 

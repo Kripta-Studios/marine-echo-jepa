@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "study_id": "aeon3_geb_2024_hourly_sv_scale_30k_development_v1",
   "classification": "POST_HOC_TRAIN_VALIDATION_DEVELOPMENT_NOT_FINAL_EVALUATION",
-  "status": "STAGE_1_30K_INDEPENDENTLY_REVIEWED_NEGATIVE_STAGE_2_NOT_AUTHORIZED_EXPANDED_3K_RUNNING",
+  "status": "STAGE_1_30K_NEGATIVE_STAGE_2_NOT_AUTHORIZED_EXPANDED_3K_INDEPENDENTLY_REVIEWED_DEVELOPMENT_ONLY",
   "original_3k_campaign": "PRESERVED_UNCHANGED",
   "historical_v1_v2": "PRESERVED_UNCHANGED",
   "calibration_access": "PROHIBITED",
@@ -21,8 +21,13 @@
   "stage_2_30k": "NOT_RUN_BY_PREDECLARED_ONE_PERCENT_STAGE_1_GATE",
   "fifty_thousand_update_extension": "NOT_RUN_PENDING_30K_EVIDENCE_AND_SEPARATE_REVIEW",
   "expanded_data_study": "aeon3_geb_expanded_train_3k_development_v1",
-  "expanded_data_status": "NUMERIC_COHORT_BUILT_AND_INDEPENDENT_PREFIT_APPROVED_TRAINING_RUNNING",
-  "expanded_data_training": "RUNNING_TWO_FROZEN_SEED7_EQUAL_COMPUTE_3K_SLOTS",
+  "expanded_data_status": "TWO_FROZEN_SEED7_EQUAL_COMPUTE_3K_SLOTS_DONE_INDEPENDENTLY_REVIEWED_DEVELOPMENT_ONLY",
+  "expanded_data_training": "COMPLETED_REAL_CHECKPOINTS_VALIDATION_PREDICTIONS_AND_CORRECTED_METRICS",
+  "expanded_data_manifest_sha256": "6d5c5653553570e8fb43eee0b96f6b5feadaa7cc19aff42d26ffce8859f3db3c",
+  "expanded_data_direct_seed7_corrected_daily_pinball_db": 0.640614632904252,
+  "expanded_data_ema_seed7_corrected_daily_pinball_db": 0.6548551285493684,
+  "expanded_data_outcome_review": "orchestration/reviews/AEON_EXPANDED_3K_OUTCOME_REVIEW_20260928.json",
+  "expanded_data_outcome_disposition": "APPROVED_AEON_EXPANDED_3K_OUTCOME_POST_HOC_DEVELOPMENT_ONLY",
   "expanded_data_preaccess_review": "orchestration/reviews/AEON_EXPANDED_NUMERIC_COHORT_PREACCESS_REVIEW_20260928.json",
   "expanded_data_prefit_review": "orchestration/reviews/AEON_EXPANDED_3K_PREFIT_REVIEW_20260928.json",
   "expanded_data_prefit_disposition": "APPROVED_AEON_EXPANDED_TRAIN_VALIDATION_ONLY",
@@ -42,5 +47,5 @@
   "metadata_report": "evidence/aeon_scale/metadata_scout_20260928.json",
   "metadata_report_sha256": "b6fd10e84019accc61db261675e6823ecb811e398ab34ac30674acce5a486195",
   "metadata_review_scope": "DISTINCT_REVIEWER_VERIFIED_ARCHIVE_DIGESTS_AND_ONE_MEMBER_PER_ARCHIVE_METADATA_SPOT_CHECK",
-  "gpu_owner": "AEON_EXPANDED_3K_TRAINING"
+  "gpu_owner": "NONE"
 }
