@@ -18,9 +18,13 @@ metadata runner. Its one real two-source scan exited zero. The unreviewed
 metadata output has zero AEON2 candidates because all 8,682 38 kHz hourly
 rows use source-defined 0–230 m geometry, while the frozen target is 0–200 m.
 AEON3 prior-year has 8,507 metadata-only candidates on 357 source dates;
-actual issuance, numerical support and scores remain unknown. A distinct
-Stage 1 outcome reconstruction is pending. No external acoustic values,
-predictions or scores have been opened or produced. Machine state:
+actual issuance, numerical support and scores remain unknown. The distinct
+reviewer independently reconstructed both complete metadata reports and
+approved this outcome. The AEON2 primary is metadata-ineligible, its JEPA
+gate is NOT_EVALUATED, and its acoustic values must stay closed. The secondary
+may only run as a descriptive same-site/prior-year transfer after a separate
+Stage 2 pre-numeric approval. No external acoustic values, predictions or
+scores have been opened or produced. Machine state:
 `orchestration/aeon_external_run_ledger.json`.
 
 ## Prospective v2 continuation - active 27 September 2026
