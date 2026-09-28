@@ -87,7 +87,14 @@
   },
   "distinct_outcome_review": "orchestration/reviews/AEON_EXTERNAL_STAGE2_OUTCOME_REVIEW_20260928.json",
   "distinct_outcome_review_sha256": "ec1ad3ecc437d28f47c53063d6abc6c8f9efe08c36a0f39dec4bda8ef9ad255d",
-  "app_integration": "NOT_RUN",
-  "release": "NOT_RUN",
+  "app_integration": "FIRST_SOURCE_REVIEW_REQUEST_CHANGES_EVIDENCE_COPY_PINNING_AND_LINT_FIX_IN_PROGRESS",
+  "release_candidate_r1": {
+    "status": "UNAPPROVED_SOURCE_REVIEW_REQUEST_CHANGES",
+    "archive": "release/aeon-offline-external-transfer-20260928-r1.zip",
+    "archive_sha256": "7bbbba8e1e0e5e0594662b7523a141a2b9759cc41308990261b1c892b0dae3a3",
+    "packaged_file_count": 86,
+    "disposition": "PRESERVED_LOCALLY_NOT_PROMOTED_OR_PUBLISHED"
+  },
+  "release": "NOT_APPROVED_NEW_CANDIDATE_REQUIRED",
   "original_aeon_test_and_historical_v1_v2_status": "PRESERVED_UNCHANGED"
 }

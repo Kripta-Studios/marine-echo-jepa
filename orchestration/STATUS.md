@@ -44,6 +44,15 @@ This is a reviewed descriptive negative prior-year same-site comparison and cann
 for the metadata-ineligible AEON2 primary. Machine state:
 `orchestration/aeon_external_run_ledger.json`.
 
+The first integrated app candidate passed 46 relevant Python tests and a
+production web build. Its first offline archive candidate exited zero, with
+86 packaged files, but distinct source review requested changes before any
+release approval: two lint defects, a time-of-check/time-of-use gap in
+external evidence copying, and missing hardlink rejection. The r1 archive
+(SHA-256 `7bbbba8e1e0e5e0594662b7523a141a2b9759cc41308990261b1c892b0dae3a3`)
+is preserved locally as unapproved; a corrected r2 build requires code fixes
+and a separate review.
+
 ## Prospective v2 continuation - active 27 September 2026
 
 Owner authorization for the documented v2 amendment is recorded in the continuation
