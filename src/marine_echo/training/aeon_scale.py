@@ -23,7 +23,6 @@ from marine_echo.training.aeon_corpus import AEON_SOURCE_SHA256
 from marine_echo.training.aeon_development import _save_predictions, _sha256, _verify_and_score
 from marine_echo.training.aeon_rescore import _date_hashes
 
-
 _STUDY = "aeon3_geb_2024_hourly_sv_scale_30k_development_v1"
 
 

@@ -43,7 +43,11 @@ exit 0, including a test that excludes a one-anchor date from the corrected
 metric. `python -m pytest tests/integration/test_aeon_campaign.py
 tests/unit/test_aeon_evaluation.py -q` passed 14 tests in 49.50 seconds,
 exit 0. `python -m ruff check src/marine_echo/training/aeon_scale.py
-tests/integration/test_aeon_scale.py` passed, exit 0. `git diff --check`
+tests/integration/test_aeon_scale.py` passed, exit 0. A reviewer-requested
+`python -m ruff check --select I src/marine_echo/training/aeon_scale.py
+tests/integration/test_aeon_scale.py` first caught I001 import ordering;
+the import-only fix then passed the same check, exit 0, and focused tests
+passed again (5 tests in 25.34 seconds). `git diff --check`
 passed, exit 0. The config/code digest command passed after adding `src`
 to the ad hoc Python import path; the first invocation lacked that path and
 failed `ModuleNotFoundError`, which was an invocation issue, not a product
@@ -54,8 +58,8 @@ Contract digests at this handoff: ADR SHA-256
 config SHA-256
 `81baa528607570ef3d0b251fdfb2d8d591c8ae7580ba9b727f1debebfcaa837e`,
 combined scale/campaign/evaluation/rescore code digest
-`7ab20744d39d66543eb559db0eb595ee47c39ba7a6ee1d84492896a3cc0636d4`.
-The commit ID is supplied in the parent handoff message after commit.
+`116371f6c14d00ef62c1273c2357bc1ac84e342ccc4a570cfaefa868792b5464`.
+The final commit ID is supplied in the parent handoff message after commit.
 
 Real TRAIN/validation cohort loading, GPU training, runtime/VRAM/RSS
 measurement, predictions and metric outcomes: **NOT_RUN by this builder**.
