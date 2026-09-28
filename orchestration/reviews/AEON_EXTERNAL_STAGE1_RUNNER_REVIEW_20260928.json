@@ -1,0 +1,113 @@
+{
+  "schema_version": "1.0",
+  "review_id": "AEON_EXTERNAL_STAGE1_RUNNER_REVIEW_20260928",
+  "reviewed_at": "2026-09-28",
+  "task_id": "aeon_external_transfer_stage1_metadata_access_review",
+  "study_id": "aeon_external_transfer_20260928_v1",
+  "reviewer_task": "/root/external_reviewer",
+  "reviewer_role": "distinct_read_only_scientific_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "runtime_model_binding_verification": "NOT_EXPOSED_TO_REVIEWER_SESSION",
+  "implementer_separation": "Reviewer did not author the scanner, runner, tests, ADR, contract or source archives.",
+  "verdict": "APPROVE_STAGE1_METADATA_RUNNER",
+  "severity": "NONE",
+  "metadata_row_access": "APPROVED_EXACT_TWO_SOURCE_SCAN",
+  "numeric_external_sv_access": "PROHIBITED",
+  "classification": "METADATA_ONLY_CANDIDATES_NOT_ISSUED_OR_SCORED",
+  "bindings": {
+    "config_path": "configs/aeon_external_transfer.json",
+    "config_sha256": "eae5c0e40b16d416ae7ab5fc01b9a58444734ab5ba1e405b4f2244b4843dfe02",
+    "adr_path": "docs/adr/0012-aeon-external-conditioned-product-transfer.md",
+    "adr_sha256": "3abd740a0597c712fbf67f0265737afecd31acc645be834bb329cf8d271491c7",
+    "stage0_review_path": "orchestration/reviews/AEON_EXTERNAL_STAGE0_DESIGN_REVIEW_20260928.json",
+    "stage0_review_sha256": "b9c1ebf40c5a924e6fb2efcb869dca29b42e0c7baf7d2b7a788c70a10dad259d",
+    "amendment_review_path": "orchestration/reviews/AEON_EXTERNAL_STAGE0_WORDING_AMENDMENT_REVIEW_20260928.json",
+    "amendment_review_sha256": "001c961f49dc5b4cafb61b66ea0aaf79c54b0e549325e0aa25a7170c62b14d5a",
+    "scanner_path": "src/marine_echo/training/aeon_external_metadata.py",
+    "scanner_sha256": "df0aaa71cb8c1cca62769a86413c0b6fa67f970ee04aebec7476781d07a84978",
+    "runner_path": "src/marine_echo/training/aeon_external_metadata_run.py",
+    "runner_sha256": "1877d697ef72202874ee4d673aa45829ea4405b4840e4d7bbfaa155fae589cf5",
+    "runner_commit": "702786d",
+    "fixed_output_directory": "outputs/aeon_external_transfer_20260928_v1/metadata",
+    "sources": [
+      {
+        "role": "PRIMARY_CROSS_SITE_CONTEMPORANEOUS",
+        "archive_path": "data/prospective/aeon-external-20260928/AEON2_ECS_Apr2024-Apr2025_AZFP_Sv.zip",
+        "archive_bytes": 48732943,
+        "archive_sha256": "d0c57bcf73a09ad3fad1f6be3704d25263ce2a1842080dfe1ba680b57527364b",
+        "inventory_sha256": "4d64d2b9f0042ed0c9a40afce02760a47dc47f0e32297aaed2196cae7d48e7a7",
+        "output_path": "outputs/aeon_external_transfer_20260928_v1/metadata/primary-metadata.json"
+      },
+      {
+        "role": "SECONDARY_PRIOR_YEAR_SAME_SITE",
+        "archive_path": "data/prospective/aeon-external-20260928/AEON3_GEB_Feb2023-Feb2024_AZFP_Sv.zip",
+        "archive_bytes": 34761843,
+        "archive_sha256": "b6d8380ed986c91d565ea7d669761ff8f66da8f2b5cd3e794fbf71c040bf1d37",
+        "inventory_sha256": "5f775eec41dcf1bd704d101467f0c65469ac1fcfac23d2277fdd9a37436a4323",
+        "output_path": "outputs/aeon_external_transfer_20260928_v1/metadata/secondary-metadata.json"
+      }
+    ]
+  },
+  "approved_access_scope": {
+    "permitted_operation": "Run the exact bound Stage 1 runner once over both exact source archives and write the two exact metadata reports.",
+    "permitted_fields": [
+      "Date_M",
+      "Time_M",
+      "Interval",
+      "Layer",
+      "Layer_depth_min",
+      "Layer_depth_max",
+      "Ping_S",
+      "Ping_E"
+    ],
+    "transient_csv_tokenization": "Disallowed cells may be transiently tokenized only for immediate allowlist projection; semantic interpretation, numeric conversion, branching, aggregation, logging, persistence and output are prohibited.",
+    "actual_issued_rows": "MUST_REMAIN_UNKNOWN",
+    "actual_scored_rows": "MUST_REMAIN_UNKNOWN",
+    "prediction_or_metric_execution": "PROHIBITED"
+  },
+  "review_findings": [
+    "The runner verifies the exact contract, amended ADR, original Stage 0 review, wording-amendment review, scanner source, runner source and both archive identities before opening any CSV data row.",
+    "Both archive SHA-256 values, byte counts and central-directory inventory digests are preflighted before either source is scanned.",
+    "Both final output files must be absent and the fixed output directory must be absent or a real directory; existing files, a nondirectory or a symlink fail before row access.",
+    "The scanner rejects any header other than the exact 24-column sequence, retains only the eight approved metadata fields, and never returns disallowed cell values.",
+    "Candidate identity requires 24 consecutive complete 38 kHz metadata predecessors and cutoff plus six within the archive interval-ID range; a missing future row does not exclude a candidate.",
+    "The scanner reports metadata-only candidates and exclusion reasons. Numeric Sv validity, actual issuance, scored rows, eligibility, predictions and metrics remain unknown.",
+    "Both reports are fully computed before either is persisted. Each final report is created exclusively by an atomic same-volume hard link and never replaces an existing path.",
+    "Per-member, total expanded-size, member-count, compression-ratio, row-count and interval-span limits bound local resource use below repository memory limits for these exact archives."
+  ],
+  "independent_execution": [
+    {
+      "command": ".venv/Scripts/python.exe -m pytest -q tests/unit/test_aeon_external_metadata.py tests/unit/test_aeon_external_metadata_run.py",
+      "result": "PASS",
+      "evidence": "25 passed; the single warning is the intentional duplicate-ZIP-name adversarial fixture."
+    },
+    {
+      "command": ".venv/Scripts/python.exe -m ruff check src/marine_echo/training/aeon_external_metadata.py src/marine_echo/training/aeon_external_metadata_run.py tests/unit/test_aeon_external_metadata.py tests/unit/test_aeon_external_metadata_run.py",
+      "result": "PASS",
+      "evidence": "All checks passed."
+    },
+    {
+      "command": ".venv/Scripts/python.exe -m mypy src/marine_echo/training/aeon_external_metadata.py src/marine_echo/training/aeon_external_metadata_run.py",
+      "result": "PASS",
+      "evidence": "Success with no issues in two source files."
+    },
+    {
+      "command": "Independent source/hash/diff inspection",
+      "result": "PASS",
+      "evidence": "Reviewed scanner SHA df0aaa71..., runner SHA 1877d697..., exact source/config/review bindings, no-future-row candidate test, redaction test, and every fail-before-row gate test."
+    }
+  ],
+  "not_run": [
+    "The reviewer did not open any real external CSV data row before issuing this approval.",
+    "No real Stage 1 report exists at review time.",
+    "No external Sv value was semantically inspected or numerically converted.",
+    "No Stage 2 numeric reader, forecast, metric, bootstrap or outcome was executed or approved."
+  ],
+  "required_after_scan": "A distinct Stage 1 metadata outcome review must independently reproduce both exact reports, verify redaction and candidate lineage, and bind their hashes before any separate Stage 2 pre-numeric review can authorize acoustic-value access.",
+  "unresolved_uncertainty": [
+    "The Stage 1 scan can establish metadata support only; it cannot establish numeric Sv validity or the 90-date scored eligibility gate.",
+    "Raw-to-product calibration, exact deployment-instrument binding, publisher manual-exclusion effects and source-clock timezone remain unresolved."
+  ],
+  "cost_usd": 0
+}
