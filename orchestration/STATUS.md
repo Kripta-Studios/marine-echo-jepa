@@ -5,7 +5,8 @@
 The owner authorized more local training and use of `E:`. A separate post-hoc
 30,000-update TRAIN/validation direct-versus-EMA study has a distinct exact-byte
 prefit approval; Stage 1 is now running as one local training process, direct
-seed 7 followed by EMA-JEPA seed 7. Output and console log are under
+seed 7 followed by EMA-JEPA seed 7. Direct has completed; EMA-JEPA is running.
+Output and console log are under
 `E:\marine-echo-jepa-scale`; the machine ledger records the launch PIDs and
 resume state. The original
 3,000-update campaign, historical v1/v2 findings and retrospective evaluation
@@ -19,6 +20,17 @@ counts are in `orchestration/reports/AEON_SCALE_DATA_FEASIBILITY_20260928.md`;
 machine state is `orchestration/aeon_scale_run_ledger.json`. A 5× unchanged-target
 data claim is ineligible. A separate target/representation review is required
 for multi-site training.
+
+A separately reviewed expanded-TRAIN development study now reclassifies the
+already downloaded prior-year AEON3 Georges Basin cohort as TRAIN. Its numeric
+cohort phase exited zero after distinct preaccess approval, with no model fit:
+8,507 prior-year and 4,965 original TRAIN windows, 13,472 jointly (2.71×
+original TRAIN), while the original 1,219-window validation set remains fixed.
+The exact report is `E:\marine-echo-jepa-scale\aeon_expanded_3k\cohort.json`
+(SHA-256 `90b834c89600e2e61301d781403d2fa69f5ac672405580918344a19b861981bc`).
+A second, cohort-bound independent review is pending before any expanded fit.
+The historical prior-year external-transfer finding is preserved, but it cannot
+serve as an external test of a model trained on that source.
 
 ## AEON external conditioned-product transfer - active 28 September 2026
 

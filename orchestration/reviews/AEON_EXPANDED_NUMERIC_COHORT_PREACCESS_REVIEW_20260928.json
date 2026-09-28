@@ -1,0 +1,28 @@
+{
+  "status": "APPROVED_AEON_EXPANDED_NUMERIC_COHORT_ONLY",
+  "reviewer_session": "/root/scale_reviewer",
+  "reviewer_role": "distinct_read_only_scientific_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "runtime_model_binding_verification": "NOT_EXPOSED_TO_REVIEWER_SESSION",
+  "study_id": "aeon3_geb_expanded_train_3k_development_v1",
+  "config_sha256": "50b8e017502dd312028eaa759db6508409f345c71f6b93cf6c99d1ce0c318abd",
+  "protocol_sha256": "9ab1f0df35e102385f2ea7d5fbf3dae23d3dd02edf428e11ce637e502c0ce2fa",
+  "code_sha256": "34cbfafdaae0bf13f873a9d6f9d91ccf5698dfbdb4f15db92288985a335576f2",
+  "prior_archive_sha256": "b6d8380ed986c91d565ea7d669761ff8f66da8f2b5cd3e794fbf71c040bf1d37",
+  "current_archive_sha256": "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde",
+  "metadata_report_sha256": "38dd82cdda273c451f894571ba18b75ff3d6ede9b9919f4ee32ce77d8bf46177",
+  "metadata_outcome_review_sha256": "b53dbb9db28a818f6d3bdbb5d8d5d7ea3a532f0b6ae1730a4a179747b9148aa5",
+  "split_review_sha256": "b8031e2e113e39630c066cee65b4371f69b229ee905a72d832e53e6f505f297b",
+  "calibration_access": "PROHIBITED",
+  "test_access": "PROHIBITED",
+  "scope": "Numeric cohort reconstruction and QC only; no scaler fit, optimizer update, GPU work, validation selection, calibration, or test access.",
+  "reviewed_commit": "194a4e93f4d2cca91bb3610731b323960d331f55",
+  "checks": {
+    "focused_tests": "5 passed in 28.39s with cache disabled",
+    "ruff": "PASS",
+    "code_digest_recomputed": "MATCH",
+    "diff_check": "CLEAN"
+  },
+  "limitation": "The prior-year AEON3 source is reclassified as TRAIN for this prospective development study; its historical external-transfer result remains unchanged but is not an external result for this new model. No independent calibration or sealed holdout is claimed."
+}
