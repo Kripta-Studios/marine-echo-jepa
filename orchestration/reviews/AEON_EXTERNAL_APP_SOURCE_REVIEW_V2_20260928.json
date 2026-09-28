@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.0",
+  "review_id": "AEON_EXTERNAL_APP_SOURCE_REVIEW_V2_20260928",
+  "reviewed_at": "2026-09-28",
+  "task_id": "aeon_external_app_source_review_v2",
+  "parent_dependencies": [
+    "AEON_EXTERNAL_APP_SOURCE_REVIEW_V1_20260928",
+    "AEON_EXTERNAL_STAGE2_OUTCOME_REVIEW_20260928"
+  ],
+  "study_id": "aeon_external_transfer_20260928_v1",
+  "status": "APPROVED_AEON_EXTERNAL_APP_SOURCE",
+  "verdict": "APPROVE",
+  "severity": "NONE",
+  "reviewer_session": "/root/external_reviewer",
+  "reviewer_role": "distinct_read_only_scientific_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "runtime_model_binding_verification": "NOT_EXPOSED_TO_REVIEWER_SESSION",
+  "integrated_commit": "e921511d4c2c63af844194a459e65e58b4c93b54",
+  "builder_commit": "929d2646af66f13a15ce1bdf10452e9ce8a31657",
+  "prior_source_review_path": "orchestration/reviews/AEON_EXTERNAL_APP_SOURCE_REVIEW_V1_20260928.json",
+  "prior_source_review_sha256": "ca3fe87d0442a971d041d2ed1919402705145d2611cd5df59bb5af76585467be",
+  "outcome_review_path": "orchestration/reviews/AEON_EXTERNAL_STAGE2_OUTCOME_REVIEW_20260928.json",
+  "outcome_review_sha256": "ec1ad3ecc437d28f47c53063d6abc6c8f9efe08c36a0f39dec4bda8ef9ad255d",
+  "reviewed_source": {
+    "src/marine_echo/serving/aeon_external_study.py": "2fa663ccea4339a0544710932bd01af0dfacd4608e6cdabb146df2fcc88b06d2",
+    "src/marine_echo/serving/aeon_study.py": "02dd5525dd3a4834eb18fc9efb1b984b4cbf66299e71df7d6689a4f8b59721e9"
+  },
+  "resolved_findings": [
+    {
+      "id": "APP-SRC-001",
+      "disposition": "RESOLVED",
+      "evidence": "The reviewed loader returns an eight-file provenance digest map derived from the pinned outcome review and manifest. Packaging requires exact inventory equality, verifies every source against the pinned digest before copy, and verifies every destination against the same digest after copy. A regression mutates evidence between reviewed loading and copy and requires failure without a final package."
+    },
+    {
+      "id": "APP-SRC-002",
+      "disposition": "RESOLVED",
+      "evidence": "The evidence boundary now rejects st_nlink values other than one, and the supported-platform hardlink regression passes."
+    },
+    {
+      "id": "APP-SRC-003",
+      "disposition": "RESOLVED",
+      "evidence": "Non-object JSON raises TypeError, imports are ordered, and Ruff passes all reviewed serving and regression files."
+    }
+  ],
+  "scientific_state_verified": {
+    "primary_status": "METADATA_INELIGIBLE_NO_CANDIDATES",
+    "primary_candidate_count": 0,
+    "primary_numeric_sv_access": "NOT_RUN_METADATA_INELIGIBLE",
+    "secondary_status": "COMPLETED_ZERO_SHOT_EXTERNAL_TRANSFER",
+    "secondary_issued_rows": 8507,
+    "secondary_eligible_dates_per_horizon": [353, 353, 353],
+    "direct_daily_pinball_db": 0.6701783099148351,
+    "ema_daily_pinball_db": 0.6789216779097978,
+    "ema_relative_loss_reduction": -0.013046330902702402,
+    "claim_scope": "DESCRIPTIVE_SAME_SITE_PRIOR_YEAR_NEGATIVE_JEPA_COMPARISON_ONLY"
+  },
+  "independent_execution": [
+    {
+      "command": ".venv/Scripts/python.exe -m pytest -q tests/unit/test_aeon_external_study.py tests/unit/test_aeon_study_release.py tests/unit/test_aeon_portable.py",
+      "result": "PASS",
+      "evidence": "18 passed with one unrelated Starlette deprecation warning."
+    },
+    {
+      "command": ".venv/Scripts/python.exe -m ruff check src/marine_echo/serving/aeon_external_study.py src/marine_echo/serving/aeon_study.py src/marine_echo/serving/aeon_portable.py tests/unit/test_aeon_external_study.py",
+      "result": "PASS",
+      "evidence": "All checks passed."
+    },
+    {
+      "command": ".venv/Scripts/python.exe -m mypy src/marine_echo/serving/aeon_external_study.py src/marine_echo/serving/aeon_study.py",
+      "result": "PASS",
+      "evidence": "Success with no issues in two source files."
+    },
+    {
+      "command": "Real load_reviewed_external_study against committed outcome artifacts, followed by independent SHA-256 comparison of all reviewed_external_files entries to the returned provenance map",
+      "result": "PASS",
+      "evidence": "All eight pinned provenance digests matched. The primary ineligible state and exact reviewed secondary support and metrics matched the independent outcome review."
+    }
+  ],
+  "reviewer_execution_note": "An initial ad hoc real-loader assertion used a nonexistent field name and failed in the review harness; the corrected assertion used the loader's documented eligible_dates_per_horizon field and passed without any source change.",
+  "release_disposition": "SOURCE_APPROVED_FOR_NEW_R2_CANDIDATE_BUILD_ONLY",
+  "release_constraints": [
+    "The existing r1 candidate remains unapproved and must not be promoted.",
+    "This source approval does not approve an archive that has not yet been built and independently inspected.",
+    "A new r2 candidate must preserve the exact pinned evidence bytes, primary NOT_EVALUATED state, secondary negative result, and claim limits."
+  ],
+  "unresolved_uncertainty": [
+    "Archive assembly, relocation, offline API/browser behavior and final packaged byte inventory remain pending a separate exact r2 package review."
+  ],
+  "time_cost": "LOCAL_REVIEW_ONLY",
+  "cost_usd": 0,
+  "next_action": "Commit this reviewer-authored verdict, build a new r2 candidate from the approved integrated source, and submit its exact archive and sidecar for independent package review."
+}
