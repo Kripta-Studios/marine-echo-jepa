@@ -167,3 +167,23 @@ def test_bad_gate_fails_before_any_csv_row(
     monkeypatch.setattr(scanner, "_scan_member", lambda *_a, **_k: pytest.fail("CSV row opened"))
     with pytest.raises((FileNotFoundError, ValueError, FileExistsError)):
         _invoke(paths, output_dir)
+
+
+@pytest.mark.parametrize("kind", ["file", "symlink"])
+def test_output_directory_must_be_real_directory_before_rows(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, kind: str,
+) -> None:
+    paths = _fixture(tmp_path)
+    output_dir = tmp_path / "out"
+    if kind == "file":
+        output_dir.write_text("user data", encoding="utf-8")
+    else:
+        target = tmp_path / "redirected"
+        target.mkdir()
+        try:
+            output_dir.symlink_to(target, target_is_directory=True)
+        except OSError:
+            pytest.skip("Directory symlinks are unavailable on this host.")
+    monkeypatch.setattr(scanner, "_scan_member", lambda *_a, **_k: pytest.fail("CSV row opened"))
+    with pytest.raises(ValueError, match="file or symlink"):
+        _invoke(paths, output_dir)

@@ -70,6 +70,8 @@ def _preflight(
         raise ValueError("Real Stage 1 paths differ from fixed reviewed paths.")
     if not fixture_only and output_dir.resolve() != DEFAULT_OUTPUT_DIR.resolve():
         raise ValueError("Real Stage 1 output directory differs from fixed path.")
+    if output_dir.is_symlink() or (output_dir.exists() and not output_dir.is_dir()):
+        raise ValueError("Stage 1 output directory is a file or symlink.")
     paths = (contract_path, adr_path, stage0_path, amendment_path, review_path)
     if any(not path.is_file() for path in paths):
         raise FileNotFoundError("Stage 1 contract, ADR or review is absent.")
