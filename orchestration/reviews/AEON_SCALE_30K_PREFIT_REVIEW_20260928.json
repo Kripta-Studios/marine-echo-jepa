@@ -1,0 +1,40 @@
+{
+  "record_type": "COORDINATOR_TRANSCRIPTION_OF_DISTINCT_REVIEWER_VERDICT",
+  "reviewer_session": "/root/scale_reviewer",
+  "reviewer_configured_model": "gpt-5.6-sol",
+  "reviewer_configured_effort": "high",
+  "runtime_model_binding_exposed": false,
+  "status": "APPROVED_AEON_SCALE_TRAIN_VALIDATION_ONLY",
+  "severity": "NONE",
+  "reviewed_implementation_commit": "d32f9d3e424999b4b71bbd3af4e0b7fc1d63d33e",
+  "integrated_equivalent_commit": "9d76544",
+  "protocol_sha256": "f86f9f4b27eb13d2221a225cb9647a0d99f9bc43d45693db4130828f61e5096b",
+  "config_sha256": "81baa528607570ef3d0b251fdfb2d8d591c8ae7580ba9b727f1debebfcaa837e",
+  "code_sha256": "116371f6c14d00ef62c1273c2357bc1ac84e342ccc4a570cfaefa868792b5464",
+  "source_sha256": "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde",
+  "split_review_sha256": "b8031e2e113e39630c066cee65b4371f69b229ee905a72d832e53e6f505f297b",
+  "cohort_sha256": "5e475f6af798025f187c70ae638710d2b4362f688db2ad43d60ec436dda3e25d",
+  "baseline_manifest_sha256": "67ae5224657524cceb5c26f17c3a1ee399a1e886577552211d42ef2fe35a32ac",
+  "baseline_rescore_sha256": "32cea9f8141fbad220a3e47d9e840039ad23b4f8e893efbcfb90f52944214c46",
+  "baseline_rescore_outcome_review_sha256": "16bb9ef931f5e2d8f8a3322fa609c5cb1c769f99f5e4a89a5ef519a0fb52f44f",
+  "baseline_corrected_seed7_pinball_db": {
+    "direct": 0.6511541518561285,
+    "ema_jepa": 0.6488046342025475
+  },
+  "train_windows_reconstructed": 4965,
+  "validation_windows_reconstructed": 1219,
+  "test_access": "PROHIBITED",
+  "calibration_access": "PROHIBITED",
+  "approved_scope": "STAGE_1_DIRECT_SEED7_30000_SUPERVISED_AND_EMA_SEED7_15000_TRAIN_ONLY_PRETRAIN_PLUS_15000_SUPERVISED;_FIXED_FINAL_ENDPOINT_CORRECTED_18_ANCHOR_DAILY_PINBALL;CONDITIONAL_STAGE_2_AS_REVIEWED",
+  "not_approved_by_this_review": ["50000_UPDATE_EXTENSION", "CAL_OR_TEST_ACCESS", "EXPANDED_DATA_TRAINING"],
+  "independent_checks": [
+    "Exact frozen implementation/config/ADR/composite-code digests matched",
+    "4965 TRAIN and 1219 validation windows and cohort/split hashes reconstructed",
+    "Corrected baseline rescore binding exercised",
+    "Five focused tests passed",
+    "Fourteen campaign/evaluator regressions passed",
+    "Ruff default and import checks passed",
+    "Diff check clean"
+  ],
+  "interpretive_limits": "Post-hoc repeatedly inspected validation; single deployment and source-conditioned Sv; no independent TEST claim; Stage 2 screen is not a significance test"
+}

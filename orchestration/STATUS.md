@@ -3,8 +3,8 @@
 ## AEON scaling development - active 28 September 2026
 
 The owner authorized more local training and use of `E:`. A separate post-hoc
-30,000-update TRAIN/validation direct-versus-EMA study is under implementation
-and distinct prefit review; no long-schedule GPU run has started. The original
+30,000-update TRAIN/validation direct-versus-EMA study has a distinct exact-byte
+prefit approval; its long-schedule GPU run has not yet started. The original
 3,000-update campaign, historical v1/v2 findings and retrospective evaluation
 remain unchanged. The four remaining Figshare version-2 AEON AZFP archives were
 downloaded to `E:\marine-echo-jepa-scale\data` (81,879,095 bytes in total),
