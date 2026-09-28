@@ -20,7 +20,9 @@ a fractional suffix. The Stage 2 evaluator converted the same instant to a
 fixed microsecond-resolution string, which includes `.000000`. There are 81
 such candidate timestamps in the secondary inventory; this is a code-level
 serialization mismatch, not an acoustic observation or eligibility finding.
-The first whole-second candidate timestamp is `2023-02-16T04:51:57`.
+The first failing candidate has cutoff interval ID `465701`, row ID
+`10b0d82a7807b404733b0f6a87d504fe4b64a7c0c69b4000cbd102a3a227aa77`,
+and source timestamp `2023-02-16T04:51:57`.
 
 The primary AEON2 numeric reader was never called; its 0–230 m layer remains
 metadata-ineligible for the frozen 0–200 m target. The secondary CSV rows were
