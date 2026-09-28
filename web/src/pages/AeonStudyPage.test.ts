@@ -74,4 +74,57 @@ describe("AEON study page", () => {
     expect(html).toContain("retrospective TEST remains unopened");
     expect(html).not.toContain("CAL and retrospective TEST outcomes are not opened");
   });
+
+  it("labels external primary ineligibility and secondary descriptive negative result", () => {
+    const transferred: AeonStudyEvidence = {
+      ...study,
+      external_transfer: {
+        study_id: "aeon_external_transfer_20260928_v1",
+        status: "INDEPENDENTLY_REVIEWED_EXTERNAL_TRANSFER",
+        classification: "POST_HOC_INITIATED_EXTERNAL_TRANSFER_NOT_SEALED",
+        source: {
+          publisher_article: "https://figshare.com/articles/dataset/AZFP/29247113",
+          publisher_article_version: 2, file_ids: [61937269, 61937275],
+          license: "CC BY 4.0", original_archives_bundled: false,
+          acoustic_quantity: "source-reported conditioned Sv_mean",
+        },
+        primary: {
+          status: "METADATA_INELIGIBLE_NO_CANDIDATES",
+          site: "AEON2 Eastern Coastal Shelf",
+          candidate_count: 0,
+          fixed_target_layer_geometry_m: "0:200",
+          observed_layer_geometry_m: "0:230",
+          observed_38khz_rows: 8682,
+          numeric_sv_access: "NOT_RUN_METADATA_INELIGIBLE",
+          jepa_value_gate: "NOT_EVALUATED_METADATA_INELIGIBLE",
+        },
+        secondary: {
+          status: "COMPLETED_ZERO_SHOT_EXTERNAL_TRANSFER",
+          site: "AEON3 Georges Basin",
+          deployment: "Feb2023-Feb2024",
+          candidate_count: 8507,
+          issued_rows: 8507,
+          eligible_dates_per_horizon: [353, 353, 353],
+          direct_daily_pinball_db: 0.670178309914835,
+          ema_daily_pinball_db: 0.678921677909798,
+          ema_relative_loss_reduction: -0.0130463309027024,
+          paired_95pct_ema_minus_direct_db: [0.00225278251735256, 0.0155161330474045],
+          jepa_value_gate: "DESCRIPTIVE_ONLY_NOT_PRIMARY_GATE",
+        },
+        outcome_review_sha256: "d".repeat(64),
+        manifest_sha256: "e".repeat(64),
+      },
+    };
+    const html = renderToStaticMarkup(createElement(AeonStudyPage, { study: transferred, state: "success" }));
+    expect(html).toContain("POST-HOC EXTERNAL TRANSFER");
+    expect(html).toContain("0–230 m");
+    expect(html).toContain("8,682");
+    expect(html).toContain("0.6702");
+    expect(html).toContain("0.6789");
+    expect(html).toContain("-1.30%");
+    expect(html).toContain("prior-year same-site");
+    expect(html).toContain("No cross-site model result");
+    expect(html).toContain("61937269");
+    expect(html).toContain("CC BY 4.0");
+  });
 });

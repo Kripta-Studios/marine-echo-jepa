@@ -11,6 +11,10 @@ from pathlib import Path
 from typing import Any
 
 from marine_echo.serving.aeon_final import load_reviewed_test
+from marine_echo.serving.aeon_external_study import (
+    load_reviewed_external_study,
+    reviewed_external_files,
+)
 from marine_echo.serving.release import build_v2_research
 
 _REVIEW_FILES = {
@@ -334,6 +338,7 @@ def build_aeon_research(
     web_dist: Path | None = None,
     test_score: Path | None = None, test_candidate: Path | None = None,
     test_review: Path | None = None, test_forecasts: Path | None = None,
+    external_transfer: bool = False,
 ) -> dict[str, Any]:
     """Build a new offline package; retain v1/v2 artifacts and attach AEON evidence."""
     if output.exists() or output.is_symlink():
@@ -348,6 +353,8 @@ def build_aeon_research(
         or calibration_artifact is None or web_dist is None
     ):
         raise ValueError("AEON TEST package requires all reviewed evidence, CAL and built web assets.")
+    if external_transfer and not all(value is not None for value in final_inputs):
+        raise ValueError("AEON external package requires the reviewed retrospective study.")
     study = build_aeon_development_report(root)
     if calibration_artifact is not None:
         study["calibration"] = build_aeon_calibration_report(root, calibration_artifact)
@@ -377,6 +384,12 @@ def build_aeon_research(
             "Retrospective TEST is not a sealed or external replication.",
             "Saved source-clock predictions are historical replay, not live forecasts or UTC-time service.",
             "The frozen within-study retrospective EMA-JEPA forecast-family gate passed. Attribution to learned JEPA representations, state of the art, external generalization and business validation remain unestablished.",
+        ])
+    if external_transfer:
+        study["external_transfer"] = load_reviewed_external_study(root)
+        study["limitations"].extend([
+            "The primary cross-site external target is metadata-ineligible; no primary acoustic model result exists.",
+            "The negative JEPA comparison is descriptive same-site prior-year transfer, not sealed confirmation or cross-site replication.",
         ])
     output.parent.mkdir(parents=True, exist_ok=True)
     stage = Path(tempfile.mkdtemp(prefix=".aeon-release-stage-", dir=output.parent))
@@ -411,7 +424,16 @@ def build_aeon_research(
                 "path": replay_path.name, "sha256": _sha256(replay_path),
                 "kind": "aeon-test-replay",
             }
+        if external_transfer:
+            for name, source in reviewed_external_files(root).items():
+                destination = base / "provenance/external_transfer" / name
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(source, destination)
+                if _sha256(destination) != _sha256(source):
+                    raise ValueError("AEON external packaged provenance differs from reviewed source.")
         catalog["studies"] = ["mosaic_v1_v2_historical", study["study_id"]]
+        if external_transfer:
+            catalog["studies"].append(study["external_transfer"]["study_id"])
         catalog["release_class"] = (
             "OFFLINE_RESEARCH_MIXED_STUDIES_TEST_REVIEWED_RELEASE_REVIEW_PENDING"
             if replay is not None else "OFFLINE_RESEARCH_MIXED_STUDIES_DEVELOPMENT_ONLY"

@@ -189,6 +189,25 @@ export function AeonStudyPage({
         </section>
         <AeonReplay />
       </>}
+      {study.external_transfer && (
+        <section className="panel" aria-labelledby="aeon-external-title">
+          <SectionHeading id="aeon-external-title" eyebrow="POST-HOC EXTERNAL TRANSFER"
+            title="Frozen families on separate publisher archives"
+            description="The frozen primary cross-site comparison was metadata-ineligible. The prior-year same-site result is descriptive only; these archives were identified after the within-study result and are not a sealed holdout." />
+          <p><strong>Primary · {study.external_transfer.primary.site}:</strong> the frozen 0–200 m target did not match the published 38-kHz {study.external_transfer.primary.observed_layer_geometry_m.replace(":", "–")} m layer in {study.external_transfer.primary.observed_38khz_rows.toLocaleString("en-US")} rows. It yielded {study.external_transfer.primary.candidate_count} candidates; acoustic values were not opened and no model was evaluated. No cross-site model result exists.</p>
+          <p><strong>Secondary · {study.external_transfer.secondary.site}, {study.external_transfer.secondary.deployment}:</strong> prior-year same-site descriptive evaluation of {study.external_transfer.secondary.issued_rows.toLocaleString("en-US")} issued cutoffs, with {study.external_transfer.secondary.eligible_dates_per_horizon.join(" / ")} eligible source dates at +1 / +3 / +6 intervals.</p>
+          <div className="table-scroll"><table>
+            <thead><tr><th scope="col">Frozen family</th><th scope="col">Daily mean pinball loss (dB)</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Direct neural · equal three-seed ensemble</th><td>{study.external_transfer.secondary.direct_daily_pinball_db.toFixed(4)}</td></tr>
+              <tr><th scope="row">EMA-JEPA · equal three-seed ensemble</th><td>{study.external_transfer.secondary.ema_daily_pinball_db.toFixed(4)}</td></tr>
+            </tbody>
+          </table></div>
+          <p>EMA relative loss reduction versus direct: {(study.external_transfer.secondary.ema_relative_loss_reduction * 100).toFixed(2)}%. Paired 95% interval for EMA minus direct: {study.external_transfer.secondary.paired_95pct_ema_minus_direct_db.map((value) => value.toFixed(4)).join(" to ")} dB. Lower loss is better; this comparison favors direct on the secondary archive and cannot replace the ineligible primary gate.</p>
+          <p>Source-conditioned hourly Sv is not independently field verified. This result does not establish cross-site transfer, JEPA representation value, state of the art, or biological and operational outcomes. Manifest SHA-256: <code>{study.external_transfer.manifest_sha256}</code>. Independent outcome review SHA-256: <code>{study.external_transfer.outcome_review_sha256}</code>.</p>
+          <p>Source: Figshare AZFP article version {study.external_transfer.source.publisher_article_version}, files {study.external_transfer.source.file_ids.join(" and ")} ({study.external_transfer.source.license}). The original archives are not bundled; the target is {study.external_transfer.source.acoustic_quantity}.</p>
+        </section>
+      )}
       <section className="panel" aria-label="Study limitations">
         <h2>Limits</h2>
         <ul>{study.limitations.map((limit) => <li key={limit}>{limit}</li>)}</ul>

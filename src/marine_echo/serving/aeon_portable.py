@@ -163,6 +163,7 @@ def build_aeon_portable(
     web_dist: Path | None = None,
     test_score: Path | None = None, test_candidate: Path | None = None,
     test_review: Path | None = None, test_forecasts: Path | None = None,
+    external_transfer: bool = False,
 ) -> dict[str, Any]:
     """Build portable wrapper from reviewed study payload and verified local wheels."""
     archive = output.with_suffix(".zip")
@@ -170,8 +171,10 @@ def build_aeon_portable(
     if any(path.exists() or path.is_symlink() for path in (output, archive, sidecar)):
         raise FileExistsError("Portable release output already exists")
     test_inputs = (test_score, test_candidate, test_review, test_forecasts)
-    if payload is not None and (calibration_artifact is not None or any(test_inputs)):
+    if payload is not None and (calibration_artifact is not None or any(test_inputs) or external_transfer):
         raise ValueError("An external study payload cannot be combined with CAL or TEST input")
+    if external_transfer and not all(value is not None for value in test_inputs):
+        raise ValueError("External transfer packaging requires the reviewed retrospective study.")
     wheels = _upstream_wheels(wheelhouse, upstream_sums)
     source_root = Path(__file__).resolve().parents[3]
     template_root = source_root / "release/aeon_portable"
@@ -185,6 +188,7 @@ def build_aeon_portable(
                 web_dist=web_dist,
                 test_score=test_score, test_candidate=test_candidate,
                 test_review=test_review, test_forecasts=test_forecasts,
+                external_transfer=external_transfer,
             )
             payload_source = stage / "study"
         else:
@@ -307,6 +311,18 @@ def build_aeon_portable(
             "retrospective_test_score_sha256": study.get("retrospective_test", {}).get("test_score_sha256"),
             "retrospective_test_outcome_review_sha256": study.get("retrospective_test", {}).get("test_outcome_review_sha256"),
             "retrospective_test_non_sealed": bool(study.get("retrospective_test")),
+            "external_transfer_outcome_review_sha256": study.get("external_transfer", {}).get(
+                "outcome_review_sha256"
+            ),
+            "external_transfer_manifest_sha256": study.get("external_transfer", {}).get(
+                "manifest_sha256"
+            ),
+            "external_primary_jepa_gate": study.get("external_transfer", {}).get(
+                "primary", {}
+            ).get("jepa_value_gate"),
+            "external_secondary_jepa_gate": study.get("external_transfer", {}).get(
+                "secondary", {}
+            ).get("jepa_value_gate"),
             "cached_aeon_forecasts": study.get("cached_forecasts", 0),
             "independent_final_release_review": False,
         }
@@ -332,13 +348,25 @@ def build_aeon_portable(
             if all(value is not None for value in test_inputs)
             else "Retrospective TEST is not evaluated here. No AEON forecast is cached or served. "
         )
+        external_notice = (
+            "The post-hoc external transfer includes a metadata-ineligible primary AEON2 "
+            "Eastern Coastal Shelf target (no primary acoustic values opened or model scored) "
+            "and a negative descriptive prior-year same-site AEON3 comparison: direct "
+            "outperformed EMA-JEPA on daily mean pinball loss. This is not cross-site "
+            "replication or a sealed holdout. Exact reviewed forecasts, issued-row support, "
+            "scores, source contract, manifest and independent outcome review are bundled "
+            "under `provenance/external_transfer/`; the original archives are excluded. "
+            "Sources are Figshare AZFP article version 2, files 61937269 and 61937275, "
+            "CC BY 4.0; the target is source-reported conditioned Sv_mean. "
+            if external_transfer else ""
+        )
         (stage / "README_AEON_RESEARCH.md").write_text(
             "# AEON offline research release\n\n"
             + ("This package awaits independent final release review. " if all(value is not None for value in test_inputs)
                else "This is a development-only research artifact. ")
             + "The AEON hourly 38-kHz Sv study "
             "presents independently reviewed TRAIN/validation results. "
-            + calibration_notice + test_notice
+            + calibration_notice + test_notice + external_notice
             +
             "Historical MOSAiC v1/v2 eligibility failures and blocked registry remain intact.\n\n"
             "On Windows, install Python 3.12 and uv locally, then run "
@@ -358,6 +386,13 @@ def build_aeon_portable(
             "AEON AZFP hourly processed Sv: Hakai/AEON publisher source, "
             "`AEON3_GEB_Mar2024-Mar2025_AZFP_Sv.zip`; original data are not bundled. "
             "See the study artifact for exact archive hash, acquisition and QC limits.\n\n"
+            + (
+                "External transfer uses Figshare AZFP article version 2, files 61937269 "
+                "and 61937275, CC BY 4.0. Original external archives are excluded. "
+                "The quantity is source-reported conditioned Sv_mean.\n\n"
+                if external_transfer else ""
+            )
+            +
             "Historical MOSAiC raw-response replay derives from De La Torre et al. 2022, "
             "PANGAEA 949811, DOI 10.1594/PANGAEA.949811, CC BY 4.0. "
             "Environmental research references Schulz, Koenig and Muilwijk 2023, "
@@ -397,10 +432,12 @@ if __name__ == "__main__":
     parser.add_argument("--test-candidate", type=Path)
     parser.add_argument("--test-review", type=Path)
     parser.add_argument("--test-forecasts", type=Path)
+    parser.add_argument("--external-transfer", action="store_true")
     arguments = parser.parse_args()
     print(json.dumps(build_aeon_portable(
         arguments.root, arguments.output, arguments.wheelhouse, arguments.upstream_sums,
         calibration_artifact=arguments.calibration_artifact, web_dist=arguments.web_dist,
         test_score=arguments.test_score, test_candidate=arguments.test_candidate,
         test_review=arguments.test_review, test_forecasts=arguments.test_forecasts,
+        external_transfer=arguments.external_transfer,
     ), indent=2))

@@ -142,6 +142,44 @@ export interface AeonStudyEvidence {
       passes_full_unnarrowed_promotion_rule: boolean;
     }>;
   };
+  external_transfer?: {
+    study_id: "aeon_external_transfer_20260928_v1";
+    status: "INDEPENDENTLY_REVIEWED_EXTERNAL_TRANSFER";
+    classification: "POST_HOC_INITIATED_EXTERNAL_TRANSFER_NOT_SEALED";
+    source: {
+      publisher_article: string;
+      publisher_article_version: 2;
+      file_ids: number[];
+      license: "CC BY 4.0";
+      original_archives_bundled: false;
+      acoustic_quantity: "source-reported conditioned Sv_mean";
+    };
+    primary: {
+      status: "METADATA_INELIGIBLE_NO_CANDIDATES";
+      site: string;
+      candidate_count: 0;
+      fixed_target_layer_geometry_m: "0:200";
+      observed_layer_geometry_m: string;
+      observed_38khz_rows: number;
+      numeric_sv_access: "NOT_RUN_METADATA_INELIGIBLE";
+      jepa_value_gate: "NOT_EVALUATED_METADATA_INELIGIBLE";
+    };
+    secondary: {
+      status: "COMPLETED_ZERO_SHOT_EXTERNAL_TRANSFER";
+      site: string;
+      deployment: string;
+      candidate_count: number;
+      issued_rows: number;
+      eligible_dates_per_horizon: number[];
+      direct_daily_pinball_db: number;
+      ema_daily_pinball_db: number;
+      ema_relative_loss_reduction: number;
+      paired_95pct_ema_minus_direct_db: number[];
+      jepa_value_gate: "DESCRIPTIVE_ONLY_NOT_PRIMARY_GATE";
+    };
+    outcome_review_sha256: string;
+    manifest_sha256: string;
+  };
   calibration?: {
     status: "INDEPENDENTLY_REVIEWED_CALIBRATION_ONLY";
     classification: "CALIBRATION_ONLY_NOT_MODEL_SELECTION_OR_FINAL_EVALUATION";
