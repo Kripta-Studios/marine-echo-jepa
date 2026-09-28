@@ -28,7 +28,10 @@ cohort phase exited zero after distinct preaccess approval, with no model fit:
 original TRAIN), while the original 1,219-window validation set remains fixed.
 The exact report is `E:\marine-echo-jepa-scale\aeon_expanded_3k\cohort.json`
 (SHA-256 `90b834c89600e2e61301d781403d2fa69f5ac672405580918344a19b861981bc`).
-A second, cohort-bound independent review is pending before any expanded fit.
+A second, cohort-bound independent review reconstructed the counts, digest,
+validation lineage, zero raw interval overlap and original corrected baselines,
+and approved exactly two frozen equal-compute seed-7 development fits. Training
+waits for the active 30k GPU process to finish.
 The historical prior-year external-transfer finding is preserved, but it cannot
 serve as an external test of a model trained on that source.
 
