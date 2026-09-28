@@ -58,13 +58,23 @@ def _finite(value: object) -> float:
 
 
 def reviewed_scale_provenance(root: Path, output: Path) -> dict[str, Path]:
-    """Return compact reviewed records; checkpoints and arrays stay outside the app."""
+    """Return reviewed records and final binaries; never include interim checkpoints."""
     return {
         "outcome-review.json": _bounded(root, f"orchestration/reviews/{_REVIEW_NAME}", 128_000),
         "config.json": _bounded(root, _CONFIG, 128_000),
         "protocol.md": _bounded(root, _PROTOCOL, 128_000),
         "manifest.json": _bounded(output, "manifest.json", 128_000),
         **{f"{slot}/slot.json": _bounded(output, f"{slot}/slot.json", 256_000) for slot in _SLOTS},
+        **{
+            f"{slot}/validation-predictions.npz": _bounded(
+                output, f"{slot}/validation-predictions.npz", 8_000_000
+            ) for slot in _SLOTS
+        },
+        **{
+            f"{slot}/checkpoint-supervised-{step}.pt": _bounded(
+                output, f"{slot}/checkpoint-supervised-{step}.pt", 8_000_000
+            ) for slot, step in (("direct_seed7", 30000), ("ema_jepa_seed7", 15000))
+        },
     }
 
 
@@ -196,7 +206,7 @@ def load_reviewed_scale(root: Path, output: Path) -> dict[str, Any]:
 
 
 def reviewed_expanded_provenance(root: Path, output: Path) -> dict[str, Path]:
-    """Return compact records for the separately reviewed pooled-TRAIN study."""
+    """Return reviewed pooled-TRAIN records and final binaries only."""
     return {
         "outcome-review.json": _bounded(root, f"orchestration/reviews/{_EXPANDED_REVIEW_NAME}", 128_000),
         "config.json": _bounded(root, _EXPANDED_CONFIG, 128_000),
@@ -204,6 +214,16 @@ def reviewed_expanded_provenance(root: Path, output: Path) -> dict[str, Path]:
         "cohort.json": _bounded(output, "cohort.json", 128_000),
         "manifest.json": _bounded(output, "manifest.json", 128_000),
         **{f"{slot}/slot.json": _bounded(output, f"{slot}/slot.json", 256_000) for slot in _SLOTS},
+        **{
+            f"{slot}/validation-predictions.npz": _bounded(
+                output, f"{slot}/validation-predictions.npz", 8_000_000
+            ) for slot in _SLOTS
+        },
+        **{
+            f"{slot}/checkpoint-supervised-{step}.pt": _bounded(
+                output, f"{slot}/checkpoint-supervised-{step}.pt", 8_000_000
+            ) for slot, step in (("direct_seed7", 3000), ("ema_jepa_seed7", 1500))
+        },
     }
 
 

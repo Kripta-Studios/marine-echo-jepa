@@ -381,7 +381,9 @@ def build_aeon_portable(
             "The separate post-hoc same-cohort 30k seed-7 development endpoints worsened "
             "corrected validation loss versus original 3k endpoints in both direct and "
             "EMA-JEPA families. The prespecified gate did not authorize stage-2 seeds or "
-            "a 50k extension. Reviewed records are under `provenance/scaling_development/`. "
+            "a 50k extension. Final reviewed validation prediction arrays and endpoint "
+            "checkpoints are bundled under `provenance/scaling_development/`; intermediate "
+            "checkpoints and raw acoustic archives are excluded. "
             if scale_output is not None else ""
         )
         expanded_notice = (
@@ -389,7 +391,9 @@ def build_aeon_portable(
             "same-site TRAIN deployments. Direct improved modestly on the unchanged original "
             "validation partition; EMA-JEPA worsened. This does not isolate data-volume "
             "effects or provide external or sealed evaluation for the derived models. "
-            "Reviewed records are under `provenance/expanded_train_development/`. "
+            "Final reviewed validation prediction arrays and endpoint checkpoints are bundled "
+            "under `provenance/expanded_train_development/`; intermediate checkpoints and "
+            "raw acoustic archives are excluded. "
             if expanded_output is not None else ""
         )
         (stage / "README_AEON_RESEARCH.md").write_text(

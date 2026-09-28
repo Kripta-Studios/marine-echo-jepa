@@ -10,6 +10,7 @@ from pathlib import Path
 import pytest
 from fastapi.testclient import TestClient
 
+from marine_echo.serving.aeon_portable import verify_package
 from marine_echo.serving.aeon_study import (
     build_aeon_calibration_report,
     build_aeon_development_report,
@@ -192,5 +193,31 @@ def test_release_attaches_reviewed_development_without_changing_historical_regis
     assert study["expanded_train_development"]["slots"]["direct_seed7"]["final_pinball_db"] == pytest.approx(0.640614632904252)
     assert (destination / "provenance/scaling_development/outcome-review.json").is_file()
     assert (destination / "provenance/expanded_train_development/cohort.json").is_file()
-    assert not (destination / "provenance/scaling_development/direct_seed7/checkpoint-supervised-30000.pt").exists()
+    expected_binary_names = {
+        "scaling_development": {
+            "direct_seed7/validation-predictions.npz",
+            "direct_seed7/checkpoint-supervised-30000.pt",
+            "ema_jepa_seed7/validation-predictions.npz",
+            "ema_jepa_seed7/checkpoint-supervised-15000.pt",
+        },
+        "expanded_train_development": {
+            "direct_seed7/validation-predictions.npz",
+            "direct_seed7/checkpoint-supervised-3000.pt",
+            "ema_jepa_seed7/validation-predictions.npz",
+            "ema_jepa_seed7/checkpoint-supervised-1500.pt",
+        },
+    }
+    for study_key, names in expected_binary_names.items():
+        provenance = study[study_key]["provenance_sha256"]
+        assert names.issubset(provenance)
+        for name in names:
+            packaged = destination / "provenance" / study_key / name
+            assert packaged.is_file()
+            assert hashlib.sha256(packaged.read_bytes()).hexdigest() == provenance[name]
+    assert verify_package(destination) > 8
+    assert not (destination / "provenance/scaling_development/direct_seed7/checkpoint-supervised-2500.pt").exists()
     assert TestClient(create_app(destination / "artifacts")).get("/api/v1/studies/aeon").json()["scaling_development"] == study["scaling_development"]
+    with (destination / "provenance/scaling_development/direct_seed7/validation-predictions.npz").open("ab") as stream:
+        stream.write(b"tamper")
+    with pytest.raises(ValueError, match="digest"):
+        verify_package(destination)
