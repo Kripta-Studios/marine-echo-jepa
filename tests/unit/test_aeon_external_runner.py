@@ -21,7 +21,7 @@ def _write(path: Path, value: dict[str, object]) -> str:
 
 
 def _fixture(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, *,
-             primary_candidates: bool = True) -> dict[str, object]:
+             primary_candidates: bool = False) -> dict[str, object]:
     monkeypatch.setattr(aeon_forecast_adapters, "adapter_composite_sha256", lambda: "c" * 64)
     contract_path = tmp_path / "contract.json"
     selection_path = tmp_path / "selection.json"
@@ -156,6 +156,9 @@ def _fixture(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, *,
     review_sha = _write(review_path, {
         "status": "APPROVED_AEON_EXTERNAL_STAGE2_SYNTHETIC_FIXTURE",
         "reviewer_session": "/root/external_reviewer",
+        "primary_numeric_access": "PRIMARY_NUMERIC_ACCESS_PROHIBITED_METADATA_INELIGIBLE",
+        "primary_candidate_count": 0,
+        "secondary_role": "SECONDARY_DESCRIPTIVE_NO_FALLBACK",
         "contract_sha256": contract_sha,
         "stage_1_outcome_review_sha256": stage_1_outcome_review_sha,
         "selection_sha256": selection_sha,
@@ -252,10 +255,13 @@ def test_fixture_run_persists_both_cohorts_and_external_identity(
     for role in runner.SOURCE_ROLES:
         cohort = kwargs["output_directory"] / role.lower()
         assert (cohort / "score.json").exists()
-        assert (cohort / "issued-rows.npz").exists()
-        assert json.loads((cohort / "score.json").read_text())["score"]["study_partition"] == (
-            "external_transfer"
-        )
+        if role == runner.SOURCE_ROLES[1]:
+            assert (cohort / "issued-rows.npz").exists()
+            assert json.loads((cohort / "score.json").read_text())["score"]["study_partition"] == (
+                "external_transfer"
+            )
+        else:
+            assert not (cohort / "issued-rows.npz").exists()
         assert result["cohorts"][role]["source_archive_sha256"] == sources[role][
             "archive_sha256"
         ]
@@ -292,11 +298,24 @@ def test_zero_primary_candidates_never_open_primary_numeric_rows(
     assert opened == ["Synthetic site 1"]
     assert result["cohorts"][primary]["status"] == "METADATA_INELIGIBLE_NO_CANDIDATES"
     assert result["cohorts"][primary]["actual_issued_rows"] == 0
+    assert result["cohorts"][primary]["jepa_value_gate"] == (
+        "NOT_EVALUATED_METADATA_INELIGIBLE"
+    )
     assert result["cohorts"][primary]["stage_1_38khz_geometry_histogram"] == {"0:230": 100}
     assert result["cohorts"][secondary]["score"]["jepa_value_gate"] == (
         "DESCRIPTIVE_ONLY_NOT_PRIMARY_GATE"
     )
     assert list((kwargs["output_directory"] / primary.lower()).glob("*.npz")) == []
+
+
+def test_reviewed_primary_zero_rule_rejects_candidate_report_with_primary_rows(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    kwargs = _fixture(tmp_path, monkeypatch, primary_candidates=True)
+    monkeypatch.setattr(runner, "_read_numeric_slots", lambda *_args:
+                        pytest.fail("numeric row opened"))
+    with pytest.raises(ValueError, match="primary has candidates"):
+        runner.run_external_transfer(**kwargs)
 
 
 def test_synthetic_numeric_reader_reconstructs_stage1_metadata_inventory(tmp_path: Path) -> None:

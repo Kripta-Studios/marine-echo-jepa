@@ -97,6 +97,10 @@ def preflight_external_access(
     if (
         review.get("status") != (_FIXTURE_STATUS if fixture_only else _REVIEW_STATUS)
         or review.get("reviewer_session") != "/root/external_reviewer"
+        or review.get("primary_numeric_access")
+        != "PRIMARY_NUMERIC_ACCESS_PROHIBITED_METADATA_INELIGIBLE"
+        or review.get("primary_candidate_count") != 0
+        or review.get("secondary_role") != "SECONDARY_DESCRIPTIVE_NO_FALLBACK"
         or review.get("contract_sha256") != _sha256(contract_path)
         or review.get("stage_1_outcome_review_sha256") != stage_1_review_sha256
         or review.get("selection_sha256") != _sha256(selection_path)
@@ -231,6 +235,8 @@ def preflight_external_access(
         ):
             raise ValueError("AEON external Stage-1 outcome review/report lineage differs.")
         reports[role] = report
+    if reports[SOURCE_ROLES[0]]["candidate_count"] != 0:
+        raise ValueError("AEON external primary has candidates despite reviewed metadata ineligibility.")
     selected = selection.get("models")
     if not isinstance(selected, list):
         raise TypeError("AEON external selected models are malformed.")
@@ -439,7 +445,7 @@ def run_external_transfer(
                 "stage_1_38khz_geometry_histogram": dict(sorted(geometry_38.items())),
                 "actual_issued_rows": 0,
                 "candidate_not_issued_reasons": {},
-                "jepa_value_gate": "INELIGIBLE_NOT_A_NEGATIVE_TRANSFER_RESULT",
+                "jepa_value_gate": "NOT_EVALUATED_METADATA_INELIGIBLE",
             }
             predictions[role] = {}
             issued_windows[role] = []
