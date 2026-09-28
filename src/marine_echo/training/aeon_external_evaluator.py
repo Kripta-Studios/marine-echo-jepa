@@ -21,8 +21,18 @@ from marine_echo.training.aeon_corpus import AeonHourlySlot
 from marine_echo.training.aeon_windows import AeonHourlyWindow
 
 
-def _source_time(value: np.datetime64) -> str:
-    return str(value.astype("datetime64[us]"))
+def _candidate_source_time(value: object) -> np.datetime64:
+    if not isinstance(value, str):
+        raise ValueError("AEON external Stage 1 candidate cutoff/source time differs.")
+    try:
+        instant = np.datetime64(value, "us")
+    except ValueError as exc:
+        raise ValueError("AEON external Stage 1 candidate cutoff/source time differs.") from exc
+    if np.isnat(instant) or value not in (
+        str(instant), str(instant.astype("datetime64[s]")),
+    ):
+        raise ValueError("AEON external Stage 1 candidate cutoff/source time differs.")
+    return instant
 
 
 def _candidate_identity(candidate: Mapping[str, Any], archive_sha256: str) -> int:
@@ -62,7 +72,8 @@ def materialize_candidates(
         previous_cutoff = cutoff_id
         cutoff = by_id.get(cutoff_id)
         if cutoff is None or (
-            candidate.get("cutoff_source_timestamp") != _source_time(cutoff.source_timestamp)
+            _candidate_source_time(candidate.get("cutoff_source_timestamp"))
+            != cutoff.source_timestamp
             or candidate.get("cutoff_source_date") != str(
                 cutoff.source_timestamp.astype("datetime64[D]")
             )

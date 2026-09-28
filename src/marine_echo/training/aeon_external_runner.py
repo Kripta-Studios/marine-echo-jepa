@@ -1,4 +1,4 @@
-"""Review-gated one-pass zero-shot evaluation of both external AEON archives.
+"""Review-gated zero-shot evaluation of both external AEON archives.
 
 No real archive rows may be opened before a distinct Stage-2 review binds every
 source, Stage-1 inventory, frozen model, and executable code byte hash.
@@ -42,15 +42,29 @@ MODEL_FAMILIES = {
     "core_ema_equal_three_seed_ensemble": "ema_jepa",
 }
 SOURCE_ROLES = ("PRIMARY_CROSS_SITE_CONTEMPORANEOUS", "SECONDARY_PRIOR_YEAR_SAME_SITE")
-_REVIEW_STATUS = "APPROVED_AEON_EXTERNAL_STAGE2_NUMERIC_ACCESS"
+_REVIEW_STATUS = "APPROVED_AEON_EXTERNAL_STAGE2_RETRY_NUMERIC_ACCESS"
 _FIXTURE_STATUS = "APPROVED_AEON_EXTERNAL_STAGE2_SYNTHETIC_FIXTURE"
 _ADR_SHA256 = "3abd740a0597c712fbf67f0265737afecd31acc645be834bb329cf8d271491c7"
 _STAGE0_DESIGN_SHA256 = "b9c1ebf40c5a924e6fb2efcb869dca29b42e0c7baf7d2b7a788c70a10dad259d"
 _STAGE0_WORDING_SHA256 = "001c961f49dc5b4cafb61b66ea0aaf79c54b0e549325e0aa25a7170c62b14d5a"
 _REAL_OUTPUT_RELATIVE = "outputs/aeon_external_transfer_20260928_v1/zero_shot_secondary"
 _REAL_REVIEW_RELATIVE = (
-    "orchestration/reviews/AEON_EXTERNAL_STAGE2_PRENUMERIC_REVIEW_20260928.json"
+    "orchestration/reviews/AEON_EXTERNAL_STAGE2_RETRY_REVIEW_20260928.json"
 )
+_RETRY_EVIDENCE = {
+    "prior_stage_2_review_sha256": (
+        "orchestration/reviews/AEON_EXTERNAL_STAGE2_PRENUMERIC_REVIEW_20260928.json",
+        "7c2e80201bc48edc825b2899eee17210d8252b0296987ccf65272570266f164e",
+    ),
+    "failed_attempt_report_sha256": (
+        "orchestration/reports/AEON_EXTERNAL_FIRST_NUMERIC_ATTEMPT_FAILURE_20260928.md",
+        "a2d933644120107a63f95eeebbc1e3f1c8db91643bb5096f58b87799e0d2b12a",
+    ),
+    "failed_attempt_ledger_sha256": (
+        "orchestration/aeon_external_run_ledger.json",
+        "3648eca78e20676414f20bdc09d6ed9300fe42cf350605cc4bd5e1658d2a5430",
+    ),
+}
 
 
 def _sha256(path: Path) -> str:
@@ -63,6 +77,16 @@ def _json(path: Path) -> dict[str, Any]:
     if not isinstance(value, dict):
         raise TypeError("AEON external JSON review/contract is not an object.")
     return value
+
+
+def _retry_evidence_binding(
+    review: Mapping[str, Any], review_path: Path, *, fixture_only: bool,
+) -> None:
+    repository = review_path.parent if fixture_only else Path(__file__).resolve().parents[3]
+    for field, (relative, frozen_sha256) in _RETRY_EVIDENCE.items():
+        actual = _sha256(repository / relative)
+        if review.get(field) != actual or (not fixture_only and actual != frozen_sha256):
+            raise ValueError("AEON external retry evidence bytes differ from distinct review.")
 
 
 def _expected_members(source: Mapping[str, Any]) -> tuple[str, ...]:
@@ -129,6 +153,7 @@ def preflight_external_access(
         output_directory, review_path, review.get("output_directory"),
         fixture_only=fixture_only,
     )
+    _retry_evidence_binding(review, review_path, fixture_only=fixture_only)
     stage_1_review_sha256 = _sha256(stage_1_outcome_review_path)
     stage_1_review = _json(stage_1_outcome_review_path)
     contract = _json(contract_path)

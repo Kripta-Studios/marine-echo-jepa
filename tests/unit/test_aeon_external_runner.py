@@ -27,6 +27,16 @@ def _fixture(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, *,
     selection_path = tmp_path / "selection.json"
     review_path = tmp_path / "review.json"
     stage_1_outcome_review_path = tmp_path / "stage1-outcome-review.json"
+    retry_files = {
+        "prior_stage_2_review_sha256": tmp_path
+        / "orchestration/reviews/AEON_EXTERNAL_STAGE2_PRENUMERIC_REVIEW_20260928.json",
+        "failed_attempt_report_sha256": tmp_path
+        / "orchestration/reports/AEON_EXTERNAL_FIRST_NUMERIC_ATTEMPT_FAILURE_20260928.md",
+        "failed_attempt_ledger_sha256": tmp_path / "orchestration/aeon_external_run_ledger.json",
+    }
+    for path in retry_files.values():
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(f"synthetic retry evidence: {path.name}\n", encoding="utf-8")
     archives = {}
     reports = {}
     sources = []
@@ -169,6 +179,7 @@ def _fixture(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, *,
         "corpus_code_sha256": runner._sha256(Path(runner.aeon_corpus.__file__)),
         "adapter_composite_sha256": "c" * 64,
         "output_directory": (tmp_path / "output").resolve().as_posix(),
+        **{field: runner._sha256(path) for field, path in retry_files.items()},
         "checkpoint_sha256": components,
         "sources": review_sources,
     })
@@ -242,6 +253,51 @@ def test_scientific_dependency_hash_mismatch_fails_before_numeric_reader(
     monkeypatch.setattr(runner, "_read_numeric_slots", lambda *_args:
                         pytest.fail("numeric row opened"))
     with pytest.raises(ValueError, match="code/contract review"):
+        runner.run_external_transfer(**kwargs)
+
+
+def test_real_retry_review_path_and_status_are_distinct() -> None:
+    assert runner._REAL_REVIEW_RELATIVE == (
+        "orchestration/reviews/AEON_EXTERNAL_STAGE2_RETRY_REVIEW_20260928.json"
+    )
+    assert runner._REVIEW_STATUS == "APPROVED_AEON_EXTERNAL_STAGE2_RETRY_NUMERIC_ACCESS"
+
+
+@pytest.mark.parametrize("field,relative", [
+    ("prior_stage_2_review_sha256",
+     "orchestration/reviews/AEON_EXTERNAL_STAGE2_PRENUMERIC_REVIEW_20260928.json"),
+    ("failed_attempt_report_sha256",
+     "orchestration/reports/AEON_EXTERNAL_FIRST_NUMERIC_ATTEMPT_FAILURE_20260928.md"),
+    ("failed_attempt_ledger_sha256", "orchestration/aeon_external_run_ledger.json"),
+])
+def test_retry_evidence_change_fails_before_numeric_reader(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, field: str, relative: str,
+) -> None:
+    kwargs = _fixture(tmp_path, monkeypatch)
+    evidence = tmp_path / relative
+    evidence.write_text(evidence.read_text(encoding="utf-8") + "changed\n", encoding="utf-8")
+    monkeypatch.setattr(runner, "_read_numeric_slots", lambda *_args:
+                        pytest.fail("numeric row opened"))
+    with pytest.raises(ValueError, match="retry evidence"):
+        runner.run_external_transfer(**kwargs)
+
+
+@pytest.mark.parametrize("field", [
+    "prior_stage_2_review_sha256", "failed_attempt_report_sha256",
+    "failed_attempt_ledger_sha256",
+])
+def test_retry_review_missing_hash_fails_before_numeric_reader(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, field: str,
+) -> None:
+    kwargs = _fixture(tmp_path, monkeypatch)
+    review_path = kwargs["review_path"]
+    assert isinstance(review_path, Path)
+    review = json.loads(review_path.read_text(encoding="utf-8"))
+    del review[field]
+    kwargs["review_sha256"] = _write(review_path, review)
+    monkeypatch.setattr(runner, "_read_numeric_slots", lambda *_args:
+                        pytest.fail("numeric row opened"))
+    with pytest.raises(ValueError, match="retry evidence"):
         runner.run_external_transfer(**kwargs)
 
 

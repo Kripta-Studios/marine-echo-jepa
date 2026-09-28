@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+from dataclasses import replace
 
 import numpy as np
 import pytest
@@ -74,6 +75,31 @@ def test_candidate_identity_tamper_fails_closed() -> None:
     candidate = _candidate(24)
     candidate["target_interval_ids"] = [25, 27, 31]
     with pytest.raises(ValueError, match="candidate identity"):
+        materialize_candidates(slots, [candidate], "a" * 64)
+
+
+@pytest.mark.parametrize("fractional_us", [0, 123456])
+def test_candidate_cutoff_compares_instant_across_iso_precision(fractional_us: int) -> None:
+    slots = [_slot(interval) for interval in range(1, 31)]
+    cutoff_stamp = slots[23].source_timestamp + np.timedelta64(fractional_us, "us")
+    slots[23] = replace(slots[23], source_timestamp=cutoff_stamp)
+    candidate = _candidate(24)
+    candidate["cutoff_source_timestamp"] = (
+        str(cutoff_stamp.astype("datetime64[s]")) if fractional_us == 0
+        else str(cutoff_stamp)
+    )
+    windows, not_issued = materialize_candidates(slots, [candidate], "a" * 64)
+    assert len(windows) == 1
+    assert windows[0].cutoff_source_timestamp == cutoff_stamp
+    assert not_issued == {}
+
+
+@pytest.mark.parametrize("timestamp", ["not-a-timestamp", "NaT", "2022-01-01T23:00:00.000001"])
+def test_malformed_or_different_candidate_cutoff_timestamp_fails_closed(timestamp: str) -> None:
+    slots = [_slot(interval) for interval in range(1, 31)]
+    candidate = _candidate(24)
+    candidate["cutoff_source_timestamp"] = timestamp
+    with pytest.raises(ValueError, match="candidate cutoff/source time differs"):
         materialize_candidates(slots, [candidate], "a" * 64)
 
 
