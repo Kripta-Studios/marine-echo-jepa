@@ -34,7 +34,8 @@ def _sha256(path: Path) -> str:
 def _bounded(root: Path, relative: str, max_bytes: int) -> Path:
     path = root / relative
     if (
-        path.is_symlink() or not path.is_file() or path.stat().st_size > max_bytes
+        path.is_symlink() or not path.is_file() or path.stat().st_nlink != 1
+        or path.stat().st_size > max_bytes
         or not path.resolve().is_relative_to(root.resolve())
     ):
         raise ValueError(f"AEON external evidence path is unsafe: {relative}")
@@ -46,7 +47,7 @@ def _json(path: Path) -> dict[str, Any]:
         ValueError("AEON external evidence contains a nonfinite JSON constant.")
     ))
     if not isinstance(value, dict):
-        raise ValueError("AEON external evidence is not a JSON object.")
+        raise TypeError("AEON external evidence is not a JSON object.")
     return value
 
 
@@ -245,4 +246,10 @@ def load_reviewed_external_study(root: Path) -> dict[str, Any]:
         },
         "outcome_review_sha256": _REVIEW_SHA256,
         "manifest_sha256": artifacts["manifest_sha256"],
+        "provenance_sha256": {
+            "outcome-review.json": _REVIEW_SHA256,
+            "source-contract.json": review["contract_sha256"],
+            "manifest.json": artifacts["manifest_sha256"],
+            **{name: artifacts[field] for name, field in _ARTIFACT_FIELDS.items()},
+        },
     }

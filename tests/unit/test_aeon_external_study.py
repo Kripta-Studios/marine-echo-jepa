@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 from pathlib import Path
 
 import pytest
@@ -178,6 +179,15 @@ def test_forecast_bytes_must_match_review_and_manifest(
         external.load_reviewed_external_study(tmp_path)
 
 
+def test_hardlinked_external_evidence_is_rejected(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    _fixture(tmp_path, monkeypatch)
+    os.link(tmp_path / external._OUTPUT_RELATIVE / external._EMA, tmp_path / "same-forecast.npz")
+    with pytest.raises(ValueError, match="unsafe"):
+        external.load_reviewed_external_study(tmp_path)
+
+
 def test_primary_ineligible_state_cannot_be_promoted_even_if_resigned(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -190,8 +200,9 @@ def test_primary_ineligible_state_cannot_be_promoted_even_if_resigned(
         external.load_reviewed_external_study(tmp_path)
 
 
+@pytest.mark.parametrize("mutate_at_copy", [False, True])
 def test_research_package_copies_exact_reviewed_external_evidence(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, mutate_at_copy: bool,
 ) -> None:
     root = tmp_path / "repository"
     root.mkdir()
@@ -218,15 +229,30 @@ def test_research_package_copies_exact_reviewed_external_evidence(
         _write(base / "catalog.json", catalog)
 
     monkeypatch.setattr(aeon_study, "build_v2_research", base_package)
+    if mutate_at_copy:
+        def mutated_files(source_root: Path) -> dict[str, Path]:
+            files = external.reviewed_external_files(source_root)
+            files[external._EMA].write_bytes(b"changed after reviewed load")
+            return files
+
+        monkeypatch.setattr(aeon_study, "reviewed_external_files", mutated_files)
     web = tmp_path / "web"
     web.mkdir()
     (web / "index.html").write_text("synthetic web", encoding="utf-8")
-    result = aeon_study.build_aeon_research(
-        root, tmp_path / "release", calibration_artifact=tmp_path / "calibration.json",
-        web_dist=web, test_score=tmp_path / "score.json",
-        test_candidate=tmp_path / "candidate.json", test_review=tmp_path / "review.json",
-        test_forecasts=tmp_path / "forecasts", external_transfer=True,
-    )
+    def package() -> dict[str, object]:
+        return aeon_study.build_aeon_research(
+            root, tmp_path / "release", calibration_artifact=tmp_path / "calibration.json",
+            web_dist=web, test_score=tmp_path / "score.json",
+            test_candidate=tmp_path / "candidate.json", test_review=tmp_path / "review.json",
+            test_forecasts=tmp_path / "forecasts", external_transfer=True,
+        )
+
+    if mutate_at_copy:
+        with pytest.raises(ValueError, match="packaged provenance"):
+            package()
+        assert not (tmp_path / "release").exists()
+        return
+    result = package()
     assert result["status"] == "OFFLINE_RESEARCH_MIXED_STUDIES_TEST_REVIEWED_RELEASE_REVIEW_PENDING"
     package = tmp_path / "release"
     study = external._json(package / "artifacts/aeon-study.json")

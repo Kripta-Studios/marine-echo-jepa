@@ -10,11 +10,11 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
-from marine_echo.serving.aeon_final import load_reviewed_test
 from marine_echo.serving.aeon_external_study import (
     load_reviewed_external_study,
     reviewed_external_files,
 )
+from marine_echo.serving.aeon_final import load_reviewed_test
 from marine_echo.serving.release import build_v2_research
 
 _REVIEW_FILES = {
@@ -425,11 +425,17 @@ def build_aeon_research(
                 "kind": "aeon-test-replay",
             }
         if external_transfer:
-            for name, source in reviewed_external_files(root).items():
+            source_files = reviewed_external_files(root)
+            pinned = study["external_transfer"]["provenance_sha256"]
+            if set(source_files) != set(pinned):
+                raise ValueError("AEON external packaged provenance inventory differs from review.")
+            for name, source in source_files.items():
+                if _sha256(source) != pinned[name]:
+                    raise ValueError("AEON external packaged provenance differs from reviewed source.")
                 destination = base / "provenance/external_transfer" / name
                 destination.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(source, destination)
-                if _sha256(destination) != _sha256(source):
+                if _sha256(destination) != pinned[name]:
                     raise ValueError("AEON external packaged provenance differs from reviewed source.")
         catalog["studies"] = ["mosaic_v1_v2_historical", study["study_id"]]
         if external_transfer:
