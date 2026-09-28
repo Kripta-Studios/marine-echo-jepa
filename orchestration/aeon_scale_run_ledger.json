@@ -2,12 +2,16 @@
   "schema_version": "1.0",
   "study_id": "aeon3_geb_2024_hourly_sv_scale_30k_development_v1",
   "classification": "POST_HOC_TRAIN_VALIDATION_DEVELOPMENT_NOT_FINAL_EVALUATION",
-  "status": "STAGE_1_30K_PREFIT_APPROVED_READY_TO_RUN",
+  "status": "STAGE_1_30K_RUNNING",
   "original_3k_campaign": "PRESERVED_UNCHANGED",
   "historical_v1_v2": "PRESERVED_UNCHANGED",
   "calibration_access": "PROHIBITED",
   "retrospective_test_access": "PROHIBITED",
-  "stage_1_30k": "NOT_RUN",
+  "stage_1_30k": "RUNNING_DIRECT_SEED7_THEN_EMA_SEED7",
+  "stage_1_output": "E:\\marine-echo-jepa-scale\\aeon30k_stage1",
+  "stage_1_console_log": "E:\\marine-echo-jepa-scale\\aeon30k_stage1_console.log",
+  "stage_1_launcher_pid_at_checkpoint": 34804,
+  "stage_1_python_pid_at_checkpoint": 47488,
   "stage_1_prefit_review": "orchestration/reviews/AEON_SCALE_30K_PREFIT_REVIEW_20260928.json",
   "stage_1_prefit_disposition": "APPROVED_AEON_SCALE_TRAIN_VALIDATION_ONLY",
   "stage_2_30k": "NOT_RUN_PENDING_FIXED_STAGE_1_GATE",
@@ -22,5 +26,5 @@
   "metadata_report": "evidence/aeon_scale/metadata_scout_20260928.json",
   "metadata_report_sha256": "b6fd10e84019accc61db261675e6823ecb811e398ab34ac30674acce5a486195",
   "metadata_review_scope": "DISTINCT_REVIEWER_VERIFIED_ARCHIVE_DIGESTS_AND_ONE_MEMBER_PER_ARCHIVE_METADATA_SPOT_CHECK",
-  "gpu_owner": "NONE"
+  "gpu_owner": "AEON_SCALE_30K_STAGE_1"
 }

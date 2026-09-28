@@ -4,7 +4,10 @@
 
 The owner authorized more local training and use of `E:`. A separate post-hoc
 30,000-update TRAIN/validation direct-versus-EMA study has a distinct exact-byte
-prefit approval; its long-schedule GPU run has not yet started. The original
+prefit approval; Stage 1 is now running as one local training process, direct
+seed 7 followed by EMA-JEPA seed 7. Output and console log are under
+`E:\marine-echo-jepa-scale`; the machine ledger records the launch PIDs and
+resume state. The original
 3,000-update campaign, historical v1/v2 findings and retrospective evaluation
 remain unchanged. The four remaining Figshare version-2 AEON AZFP archives were
 downloaded to `E:\marine-echo-jepa-scale\data` (81,879,095 bytes in total),
