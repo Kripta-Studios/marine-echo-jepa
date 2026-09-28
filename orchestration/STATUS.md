@@ -51,8 +51,9 @@ The first separate app/release integration candidate passed focused Python and
 React tests, typecheck, build and lint. Distinct source review requested one
 release-completeness change before package build: bundle the eight SHA-bound
 final validation prediction arrays and endpoint checkpoints, totaling about
-4.34 MB, alongside the compact JSON provenance. The isolated builder is
-implementing that fix; no new offline package has been built yet.
+4.34 MB, alongside the compact JSON provenance. The builder fixed this and the
+distinct reviewer approved the final integrated source, including two
+fail-closed/style lint corrections. No new offline package has been built yet.
 The historical prior-year external-transfer finding is preserved, but it cannot
 serve as an external test of a model trained on that source.
 

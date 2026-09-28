@@ -47,7 +47,7 @@ def _json(path: Path) -> dict[str, Any]:
         ValueError("AEON scale evidence contains nonfinite JSON.")
     ))
     if not isinstance(value, dict):
-        raise ValueError("AEON scale evidence must be a JSON object.")
+        raise TypeError("AEON scale evidence must be a JSON object.")
     return value
 
 

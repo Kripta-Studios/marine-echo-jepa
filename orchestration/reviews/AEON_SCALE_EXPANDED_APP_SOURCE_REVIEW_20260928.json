@@ -1,0 +1,32 @@
+{
+  "status": "APPROVED_AEON_SCALE_EXPANDED_APP_SOURCE_FOR_OFFLINE_CANDIDATE_BUILD",
+  "reviewer_session": "/root/scale_reviewer",
+  "reviewer_role": "distinct_read_only_scientific_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "runtime_model_binding_verification": "NOT_EXPOSED_TO_REVIEWER_SESSION",
+  "reviewed_builder_commits": [
+    "747020f4eae6065be62c425c0dba649ee4ca8058",
+    "cdb5c3eba4f7ed2b22c17c961c3dcefe7967ae6f"
+  ],
+  "integrated_equivalent_commits": ["0898af6", "20da23e"],
+  "initial_verdict": "REQUEST_CHANGES_FINAL_PREDICTION_AND_CHECKPOINT_BINARIES_MISSING_FROM_PORTABLE_INVENTORY",
+  "remediation": "Eight exact reviewed final validation prediction arrays and endpoint checkpoints are now bounded, SHA-pinned, copied, and included in SHA256SUMS. Raw acoustic archives and intermediate checkpoints remain excluded.",
+  "supplement_file_sha256_after_final_lint_fix": "3a6ef8c822907dbc4b904f7522d998b8e4d98add88c258fb76a5726c7f0ae304",
+  "portable_file_sha256": "ae9c78d22731fe63c8d1199b0ad79278bce9e428d187e88869191e3ee4fd1142",
+  "supplement_test_file_sha256_after_final_lint_fix": "9cbfe69e2d6fd237b449ddb8a6995ed746599768008336fc1c371b91509504d8",
+  "binary_count": 8,
+  "binary_total_bytes": 4340623,
+  "independent_checks": [
+    "All eight final binary hashes match independently reviewed outcome pins",
+    "No raw archive or intermediate checkpoint is in the new provenance inventories",
+    "Source and destination hashes and package SHA256SUMS bind copied evidence",
+    "Regular-file, path-containment, symlink, hardlink and size checks remain active",
+    "Serving code copies and hashes but does not deserialize model or prediction binaries",
+    "Historical registry, CAL/TEST, app claim boundaries and optional API fields remain unchanged",
+    "Twenty-five focused Python tests and four React tests passed",
+    "TypeScript typecheck, Ruff, ESLint and diff check passed",
+    "Final non-object JSON TypeError remains fail-closed; test import move has no behavior effect"
+  ],
+  "scope": "Source approval for a new offline candidate build only; exact built artifact and relocated offline operation require separate independent review."
+}
