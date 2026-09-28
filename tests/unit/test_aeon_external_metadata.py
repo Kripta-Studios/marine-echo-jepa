@@ -217,7 +217,17 @@ def _transfer_contract(archive: Path) -> dict[str, object]:
         "exact_csv_header": list(aeon_external_metadata.EXACT_CSV_HEADER),
         "discard_without_use": list(aeon_external_metadata.DISCARDED_FIELDS),
         "stage_1_output_classification": "METADATA_ONLY_CANDIDATES_NOT_ISSUED_OR_SCORED",
-        "candidate_rule": dict(aeon_external_metadata._CANDIDATE_RULE),
+        "candidate_rule": {
+            "required_previous_38khz_metadata_complete_intervals": 24,
+            "all_previous_interval_ids_consecutive": True,
+            "maximum_horizon_interval_id_within_archive_range": True,
+            "require_future_horizon_rows_present_for_candidate": False,
+            "maximum_cross_channel_source_time_difference_minutes": 5,
+            "minimum_consecutive_source_time_difference_minutes": 55,
+            "maximum_consecutive_source_time_difference_minutes": 65,
+            "future_metadata_or_acoustic_filter": "NONE",
+            "candidate_scope": "ALL_SOURCE_DATES_IN_EACH_ARCHIVE",
+        },
         "publisher_article": "https://figshare.com/articles/dataset/AZFP/29247113",
         "study_id": "synthetic_external_transfer",
         "target": {
@@ -260,4 +270,16 @@ def test_transfer_contract_binds_inventory_before_metadata_rows(tmp_path: Path,
     monkeypatch.setattr(aeon_external_metadata, "_scan_member", lambda *_args, **_kwargs:
                         pytest.fail("metadata row opened"))
     with pytest.raises(ValueError, match="inventory digest"):
+        scan_transfer_source_metadata(archive, contract, "PRIMARY_CROSS_SITE_CONTEMPORANEOUS")
+
+
+def test_transfer_contract_rejects_superseded_candidate_rule_key(tmp_path: Path) -> None:
+    archive = tmp_path / "source.zip"
+    _archive(archive)
+    contract = _transfer_contract(archive)
+    rule = contract["candidate_rule"]
+    assert isinstance(rule, dict)
+    rule.pop("maximum_horizon_interval_id_within_archive_range")
+    rule["all_horizon_interval_ids_within_same_archive"] = True
+    with pytest.raises(ValueError, match="metadata contract"):
         scan_transfer_source_metadata(archive, contract, "PRIMARY_CROSS_SITE_CONTEMPORANEOUS")
