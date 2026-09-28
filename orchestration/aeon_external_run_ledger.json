@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "study_id": "aeon_external_transfer_20260928_v1",
   "classification": "POST_HOC_INITIATED_EXTERNAL_TRANSFER_NOT_SEALED",
-  "stage": "STAGE_1_METADATA_OUTCOME_REVIEWED_STAGE_2_PRENUMERIC_REVIEW_PENDING",
+  "stage": "FIRST_APPROVED_SECONDARY_NUMERIC_ATTEMPT_FAILED_BEFORE_PREDICTIONS_REMEDIAL_REVIEW_REQUIRED",
   "publisher_article": "https://figshare.com/articles/dataset/AZFP/29247113",
   "publisher_article_version": 2,
   "sources": [
@@ -21,7 +21,7 @@
       "metadata_finding": "ALL_38KHZ_ROWS_SOURCE_LAYER_0_TO_230_M_DIFFER_FROM_FROZEN_0_TO_200_M",
       "cohort_eligibility": "METADATA_INELIGIBLE_PRIMARY_NOT_EVALUATED",
       "numeric_access_disposition": "PROHIBITED_NO_PRIMARY_NUMERIC_READ",
-      "numeric_external_sv_status": "NOT_RUN",
+      "numeric_external_sv_status": "PROHIBITED_AND_NOT_OPENED_METADATA_INELIGIBLE",
       "prediction_status": "NOT_RUN",
       "score_status": "NOT_RUN"
     },
@@ -38,8 +38,8 @@
       "metadata_candidate_count": 8507,
       "metadata_candidate_source_date_count": 357,
       "cohort_eligibility": "METADATA_SUPPORT_PRESENT_NUMERIC_ELIGIBILITY_UNKNOWN",
-      "numeric_access_disposition": "PENDING_DISTINCT_STAGE_2_PRENUMERIC_REVIEW_DESCRIPTIVE_ONLY",
-      "numeric_external_sv_status": "NOT_RUN",
+      "numeric_access_disposition": "FIRST_APPROVAL_CONSUMED_RETRY_REQUIRES_DISTINCT_REMEDIAL_REVIEW",
+      "numeric_external_sv_status": "OPENED_ONCE_UNDER_REVIEWED_ATTEMPT_NO_PREDICTIONS",
       "prediction_status": "NOT_RUN",
       "score_status": "NOT_RUN"
     }
@@ -54,7 +54,16 @@
   "stage_1_metadata_access_review_sha256": "b156f00e7cbc1f1460a3fd9ba4b0b6578e7bd684af5ce8c83a6aa0c16a91f3af",
   "stage_1_metadata_outcome_review": "orchestration/reviews/AEON_EXTERNAL_STAGE1_METADATA_OUTCOME_REVIEW_20260928.json",
   "stage_1_metadata_outcome_review_sha256": "b53dbb9db28a818f6d3bdbb5d8d5d7ea3a532f0b6ae1730a4a179747b9148aa5",
-  "stage_2_numeric_access_review": "PENDING",
+  "stage_2_numeric_access_review": "orchestration/reviews/AEON_EXTERNAL_STAGE2_PRENUMERIC_REVIEW_20260928.json",
+  "stage_2_numeric_access_review_sha256": "7c2e80201bc48edc825b2899eee17210d8252b0296987ccf65272570266f164e",
+  "first_numeric_attempt": {
+    "status": "FAILED_BEFORE_PREDICTIONS_OR_METRICS",
+    "exit_code": 1,
+    "failure": "Stage1 whole-second timestamp text differs from NumPy microsecond string for the same instant",
+    "failure_report": "orchestration/reports/AEON_EXTERNAL_FIRST_NUMERIC_ATTEMPT_FAILURE_20260928.md",
+    "output_directory_created": false,
+    "remedial_review": "REQUIRED_BEFORE_RETRY"
+  },
   "distinct_outcome_review": "NOT_RUN",
   "app_integration": "NOT_RUN",
   "release": "NOT_RUN",

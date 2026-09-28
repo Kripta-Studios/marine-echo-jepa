@@ -22,9 +22,14 @@ actual issuance, numerical support and scores remain unknown. The distinct
 reviewer independently reconstructed both complete metadata reports and
 approved this outcome. The AEON2 primary is metadata-ineligible, its JEPA
 gate is NOT_EVALUATED, and its acoustic values must stay closed. The secondary
-may only run as a descriptive same-site/prior-year transfer after a separate
-Stage 2 pre-numeric approval. No external acoustic values, predictions or
-scores have been opened or produced. Machine state:
+may only run as a descriptive same-site/prior-year transfer. The distinct
+Stage 2 review approved one secondary-only numeric attempt. It passed source,
+report and checkpoint preflight but exited 1 during candidate materialization:
+whole-second source timestamps differed as text from the evaluator's fixed
+microsecond rendering of the same instant. The secondary CSV rows were opened,
+but no prediction, metric or output directory was produced. AEON2 acoustic
+rows were not opened. The one-pass approval is consumed; a narrow code fix and
+separate remedial review are required before retry. Machine state:
 `orchestration/aeon_external_run_ledger.json`.
 
 ## Prospective v2 continuation - active 27 September 2026
