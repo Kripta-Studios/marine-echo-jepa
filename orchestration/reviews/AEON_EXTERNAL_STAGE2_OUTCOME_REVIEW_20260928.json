@@ -1,0 +1,120 @@
+{
+  "schema_version": "1.0",
+  "review_id": "AEON_EXTERNAL_STAGE2_OUTCOME_REVIEW_20260928",
+  "reviewed_at": "2026-09-28",
+  "task_id": "aeon_external_transfer_stage2_outcome_review",
+  "study_id": "aeon_external_transfer_20260928_v1",
+  "status": "APPROVED_AEON_EXTERNAL_STAGE2_OUTCOME",
+  "verdict": "APPROVE_DESCRIPTIVE_SECONDARY_NEGATIVE_COMPARISON_ONLY",
+  "severity": "NONE",
+  "reviewer_session": "/root/external_reviewer",
+  "reviewer_role": "distinct_read_only_scientific_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "runtime_model_binding_verification": "NOT_EXPOSED_TO_REVIEWER_SESSION",
+  "implementer_separation": "The reviewer did not author or execute the approved production retry, outcome files, runner, checkpoints, contract or outcome report.",
+  "classification": "POST_HOC_INITIATED_EXTERNAL_TRANSFER_NOT_SEALED",
+  "retry_review_path": "orchestration/reviews/AEON_EXTERNAL_STAGE2_RETRY_REVIEW_20260928.json",
+  "retry_review_sha256": "c42904fd03ade88130ddce78372a01282ed9ead71d430e4929da8de931c92094",
+  "stage_1_outcome_review_sha256": "b53dbb9db28a818f6d3bdbb5d8d5d7ea3a532f0b6ae1730a4a179747b9148aa5",
+  "contract_sha256": "eae5c0e40b16d416ae7ab5fc01b9a58444734ab5ba1e405b4f2244b4843dfe02",
+  "selection_sha256": "b3940ab8e159ac8808843b15b455ffb3c42f2d3db322190af15b80e543edff58",
+  "runner_code_sha256": "2979a0ff6b641cb6175b8701eb45baaff9b6730c56184aa4f58389a8880c96e0",
+  "evaluator_code_sha256": "d8daf4ec0af110b718bd1a3e5026ccc208e1fe1418183fde13ab77c58d33600d",
+  "evaluation_code_sha256": "5dff72c1baf2f5528f13f369936d2ca5710eeb8b8a6e6cae12a0ef95366225ff",
+  "corpus_code_sha256": "398e021a5807ab8068ceef03dd692f3b688c744751cd4e65d3efbee94d9a3efd",
+  "adapter_composite_sha256": "c8ccc0c54b720676b9f6d19cdd5ed7ffd1a5daf58ed22c469479a9272d1b77f9",
+  "artifacts": {
+    "output_directory": "outputs/aeon_external_transfer_20260928_v1/zero_shot_secondary",
+    "manifest_path": "outputs/aeon_external_transfer_20260928_v1/zero_shot_secondary/manifest.json",
+    "manifest_sha256": "f33307febf0848f8287529706ce3303213e5a1d6278d44f744c2d0367f1f8a33",
+    "primary_score_sha256": "9f20db62e3060b6f1b01a6bebbbd39931a26ca4febb42c169b0a7e19e103223d",
+    "secondary_score_sha256": "da0309e50f6d7dd3e391a5bc16087f8977d44581f3419a8172e376097a8b5d04",
+    "issued_rows_sha256": "071acdbb3bac028f1e4fff4ee93be419569dcca507317a16b4aa06617a9b512a",
+    "direct_forecast_sha256": "8337fde57943d2246323f5c808dc2745e4d57e2937418874c187f3e421b5b740",
+    "ema_forecast_sha256": "0f930a3dbfc4779d2ea621b5f2a39980a8760b20649e80d435224171e66e043d"
+  },
+  "primary_outcome": {
+    "role": "PRIMARY_CROSS_SITE_CONTEMPORANEOUS",
+    "candidate_count": 0,
+    "actual_issued_rows": 0,
+    "numeric_sv_access": "NOT_RUN_METADATA_INELIGIBLE",
+    "observed_38khz_geometry_histogram": {
+      "0:230": 8682
+    },
+    "frozen_target_geometry": "0:200",
+    "jepa_value_gate": "NOT_EVALUATED_METADATA_INELIGIBLE",
+    "model_result_classification": "NOT_A_NEGATIVE_MODEL_RESULT",
+    "cross_site_replication_result": "ABSENT"
+  },
+  "secondary_outcome": {
+    "role": "SECONDARY_PRIOR_YEAR_SAME_SITE_DESCRIPTIVE",
+    "metadata_candidates": 8507,
+    "actual_issued_rows": 8507,
+    "candidate_not_issued_count": 0,
+    "source_slots_reconstructed": 8846,
+    "scored_rows_per_horizon": [8494, 8494, 8493],
+    "eligible_scored_rows_per_horizon": [8460, 8434, 8395],
+    "eligible_source_dates_per_horizon": [353, 353, 353],
+    "eligible_date_range": ["2023-02-16", "2024-02-17"],
+    "target_qc_counts": {
+      "OBSERVED_SOURCE_PRODUCT": 25481,
+      "PARTIAL_SOURCE_INTERVAL": 34,
+      "MISSING_INTERVAL": 6
+    },
+    "direct_daily_mean_pinball_db": 0.6701783099148351,
+    "ema_jepa_daily_mean_pinball_db": 0.6789216779097978,
+    "relative_loss_reduction": -0.013046330902702402,
+    "paired_95pct_ema_minus_direct_interval_db": [0.0022527825173525597, 0.015516133047404537],
+    "direct_pinball_db_per_horizon": [0.6202022524477664, 0.6881931285863713, 0.7021395487103674],
+    "ema_jepa_pinball_db_per_horizon": [0.6249309734719334, 0.6924856888357886, 0.7193483714216711],
+    "ema_relative_loss_difference_per_horizon": [0.007624482183842516, 0.006237435497554, 0.024509120363482444],
+    "paired_bootstrap_status": "COMPLETED_2000_DRAWS_SEED_20260928",
+    "jepa_value_gate": "DESCRIPTIVE_ONLY_NOT_PRIMARY_GATE",
+    "scientific_result": "EXECUTED_ELIGIBLE_DESCRIPTIVE_NEGATIVE_JEPA_COMPARISON"
+  },
+  "independent_reconstruction": {
+    "manifest_and_file_hashes": "PASS_ALL_FIVE_MANIFEST_FILES",
+    "row_schema_and_candidate_identity": "PASS_EXACT_8507_ROW_IDS_IN_STAGE1_ORDER",
+    "numeric_issuance": "PASS_EXACT_8846_SOURCE_SLOTS_TO_8507_ISSUED_WINDOWS_ZERO_NONISSUED",
+    "persisted_truth_masks_times_and_qc": "PASS_EXACT_WITH_NAT_COMPARED_BY_MASK",
+    "direct_checkpoint_prediction_replay": "PASS_BIT_EXACT_8507_BY_3_BY_5_MAX_ABS_DIFF_0",
+    "ema_checkpoint_prediction_replay": "PASS_BIT_EXACT_8507_BY_3_BY_5_MAX_ABS_DIFF_0",
+    "metric_and_bootstrap_recomputation": "PASS_COMPLETE_SCORE_DICTIONARY_EXACT_EQUALITY",
+    "common_support": "PASS_IDENTICAL_ROW_TARGET_MASK_AND_SOURCE_DATE_SUPPORT_FOR_BOTH_MODELS",
+    "primary_skip": "PASS_BOUND_ZERO_CANDIDATE_CONTROL_PATH_AND_NO_PRIMARY_NPZ_ARTIFACTS"
+  },
+  "independent_execution": [
+    {
+      "operation": "Load manifest, score and all three secondary NPZ payloads; validate schemas, digests, row identity, finite monotone quantiles and recompute score_external_predictions with primary_gate false.",
+      "result": "PASS",
+      "evidence": "All five manifest file hashes matched. The recomputed score dictionary, including 2,000 bootstrap draws, was exactly equal to the persisted score."
+    },
+    {
+      "operation": "Reopen only the approved secondary archive with the exact numeric reader, reconstruct Stage 1 inventory, materialize all candidates and compare issued rows to persistence.",
+      "result": "PASS",
+      "evidence": "8,846 source slots reconstructed; 8,507 issued; zero nonissued. Row IDs, cutoff IDs, truth, masks, non-NaT target times, NaT masks, target QC and archive identity matched exactly."
+    },
+    {
+      "operation": "Reload all six frozen checkpoints with weights_only, rebuild the exact secondary issued contexts and replay both equal-three-seed ensembles on CPU.",
+      "result": "PASS",
+      "evidence": "Direct and EMA-JEPA replay arrays each matched their saved 8,507 x 3 x 5 prediction array bit-for-bit; maximum absolute difference was 0.0 for both."
+    }
+  ],
+  "review_findings": [
+    "The secondary cohort exceeds the frozen 90-date support floor at every horizon and is an executed eligible comparison.",
+    "EMA-JEPA has 1.3046% higher daily mean pinball loss than direct overall. Its loss is higher at all three horizons, and the paired interval is wholly above zero for EMA-minus-direct loss.",
+    "This is a negative result for the frozen JEPA forecast family on the descriptive secondary same-site prior-year transfer. It does not establish a JEPA mechanism claim or a cross-site result.",
+    "The primary AEON2 target remains metadata-ineligible and unexecuted. The secondary cannot rescue or substitute for that primary gate.",
+    "No external fitting, calibration, normalization, offset, checkpoint selection or threshold change occurred in the reviewed execution."
+  ],
+  "claim_limits": [
+    "No cross-site replication result exists in this study.",
+    "The result is post-hoc initiated, retrospective, same-site, prior-year and not sealed or preregistered confirmation.",
+    "The outcome applies to publisher-conditioned source-reported Sv_mean under unresolved clock, calibration and processing lineage.",
+    "No SOTA, species, biomass, catch, fuel, production or causal biological claim is supported."
+  ],
+  "primary_numeric_access_audit_limit": "The reviewer verified the bound control path, zero candidate count, spy tests, primary outcome schema and absence of primary numeric artifacts. No independent operating-system read trace was recorded for the production process.",
+  "promotion_authorization": "The exact reviewed descriptive outcome may be integrated into the research app and offline release only with the primary NOT_EVALUATED state, secondary negative result and claim limits preserved.",
+  "cost_usd": 0
+}
