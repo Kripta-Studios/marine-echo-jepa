@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "study_id": "aeon3_geb_2024_hourly_sv_scale_30k_development_v1",
+  "parent_study_id": "aeon3_geb_2024_hourly_sv_v1",
+  "classification": "POST_HOC_TRAIN_VALIDATION_DEVELOPMENT_NOT_FINAL_EVALUATION",
+  "protocol_path": "docs/adr/0013-aeon-scaling-development.md",
+  "protocol_sha256": "f86f9f4b27eb13d2221a225cb9647a0d99f9bc43d45693db4130828f61e5096b",
+  "source_sha256": "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde",
+  "fit_partition": "train",
+  "assessment_partition": "validation",
+  "calibration_access": "PROHIBITED",
+  "test_access": "PROHIBITED",
+  "families": ["direct", "ema_jepa"],
+  "seeds_stage_1": [7],
+  "seeds_stage_2": [13, 23],
+  "horizon_interval_steps": [1, 3, 6],
+  "quantiles": [0.05, 0.25, 0.5, 0.75, 0.95],
+  "primary_metric": "daily_mean_pinball_db_equal_quantiles_horizons_source_dates",
+  "neural": {
+    "encoder_width": 128,
+    "encoder_layers": 3,
+    "batch_size": 64,
+    "total_optimizer_updates_per_run": 30000,
+    "direct_supervised_updates": 30000,
+    "ssl_pretrain_updates": 15000,
+    "ssl_supervised_updates": 15000,
+    "checkpoint_every_updates": 2500,
+    "checkpoint_selection": "final_endpoint_only_intermediate_checks_diagnostic",
+    "learning_rate": 0.0003,
+    "weight_decay": 0.0001,
+    "gradient_clip_norm": 1.0,
+    "ema_teacher_momentum": 0.996,
+    "ema_sigreg_weight": 0.03,
+    "pretrain_view": "first_18_vs_last_6_of_24_past_source_products",
+    "normalizer": "train_only_observed_values_and_targets"
+  },
+  "stage_2_rule": {
+    "minimum_relative_improvement_vs_same_family_original_3k_seed7": 0.01,
+    "if_either_family_qualifies_run_both_families_remaining_seeds": true
+  },
+  "conventional": {"max_threads": 4},
+  "device_policy": {
+    "preferred": "cuda",
+    "minimum_free_gpu_bytes": 2147483648,
+    "fallback": "cpu",
+    "peak_process_rss_limit_bytes": 23622320128,
+    "peak_gpu_reserved_limit_bytes": 10737418240,
+    "one_training_process": true
+  },
+  "fifty_thousand_update_extension": "NOT_AUTHORIZED_BY_THIS_CONFIG"
+}
