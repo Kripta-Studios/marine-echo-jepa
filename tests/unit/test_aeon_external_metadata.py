@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import zipfile
+from datetime import datetime, timedelta
 from pathlib import Path
 
 import pytest
@@ -14,12 +15,26 @@ from marine_echo.training.aeon_external_metadata import (
     scan_transfer_source_metadata,
 )
 
-HEADER = "Interval,Date_M,Time_M,Layer,Layer_depth_min,Layer_depth_max,Ping_S,Ping_E,Sv_mean\n"
+HEADER = ",".join(aeon_external_metadata.EXACT_CSV_HEADER) + "\n"
+
+
+def _row(interval: int, time: str, start_ping: int, end_ping: int) -> str:
+    metadata = {
+        "Interval": str(interval), "Date_M": "20220101", "Time_M": time,
+        "Layer": "1", "Layer_depth_min": "0", "Layer_depth_max": "200",
+        "Ping_S": str(start_ping), "Ping_E": str(end_ping),
+    }
+    return ",".join(
+        metadata.get(field, "SECRET_ACOUSTIC_VALUE")
+        for field in aeon_external_metadata.EXACT_CSV_HEADER
+    ) + "\n"
+
+
 MEMBERS = {
     f"AEON4_12345_{frequency}_2022_01_60minFullDepth.csv":
     HEADER
-    + "1,20220101,00:00:00.000,1,0,200,1,150,SECRET_ACOUSTIC_VALUE\n"
-    + "2,20220101,01:00:00.000,1,0,200,151,300,SECRET_ACOUSTIC_VALUE\n"
+    + _row(1, "00:00:00.000", 1, 150)
+    + _row(2, "01:00:00.000", 151, 300)
     for frequency in ("038", "125", "200", "455")
 }
 
@@ -45,7 +60,7 @@ def test_scans_only_metadata_and_reports_acquisition_summary(tmp_path: Path) -> 
     archive = tmp_path / "source.zip"
     manifest = _archive(archive)
     report = scan_external_metadata(archive, manifest)
-    assert report["classification"] == "METADATA_ONLY_NO_ACOUSTIC_VALUES"
+    assert report["classification"] == "METADATA_ONLY_CANDIDATES_NOT_ISSUED_OR_SCORED"
     assert report["source"]["archive_sha256"] == manifest["archive_sha256"]
     assert len(report["streams"]) == 4
     for stream in report["streams"]:
@@ -112,6 +127,21 @@ def test_rejects_missing_metadata_header(tmp_path: Path) -> None:
         scan_external_metadata(archive, manifest)
 
 
+def test_rejects_reordered_exact_header_before_any_rows(tmp_path: Path,
+                                                        monkeypatch: pytest.MonkeyPatch) -> None:
+    archive = tmp_path / "source.zip"
+    members = dict(MEMBERS)
+    key = next(iter(members))
+    swapped = list(aeon_external_metadata.EXACT_CSV_HEADER)
+    swapped[0], swapped[1] = swapped[1], swapped[0]
+    members[key] = ",".join(swapped) + "\n" + members[key].split("\n", 1)[1]
+    manifest = _archive(archive, members)
+    monkeypatch.setattr(aeon_external_metadata, "_integer", lambda *_args:
+                        pytest.fail("metadata row parsed"))
+    with pytest.raises(ValueError, match="header"):
+        scan_external_metadata(archive, manifest)
+
+
 def test_safe_explicit_directory_entry_is_allowed(tmp_path: Path) -> None:
     archive = tmp_path / "source.zip"
     with zipfile.ZipFile(archive, "w", compression=zipfile.ZIP_DEFLATED) as stream:
@@ -121,6 +151,51 @@ def test_safe_explicit_directory_entry_is_allowed(tmp_path: Path) -> None:
     manifest = _archive(tmp_path / "normal.zip")
     manifest["archive_sha256"] = hashlib.sha256(archive.read_bytes()).hexdigest()
     assert len(scan_external_metadata(archive, manifest)["streams"]) == 4
+
+
+def _campaign_members(*, missing_38: set[int] | None = None,
+                      partial_38: set[int] | None = None,
+                      missing_all: set[int] | None = None) -> dict[str, str]:
+    result = {}
+    for frequency in ("038", "125", "200", "455"):
+        lines = [HEADER]
+        for interval in range(1, 35):
+            if interval in (missing_all or set()):
+                continue
+            if frequency == "038" and interval in (missing_38 or set()):
+                continue
+            # Source-reported time has no known timezone in the real product.
+            timestamp = datetime(2022, 1, 31) + timedelta(hours=interval - 1)  # noqa: DTZ001
+            ping_end = 149 if frequency == "038" and interval in (partial_38 or set()) else 150
+            lines.append(_row(interval, timestamp.strftime("%H:%M:%S.000"), 1, ping_end)
+                         .replace("20220101", timestamp.strftime("%Y%m%d"), 1))
+        result[f"AEON4_12345_{frequency}_2022_01_60minFullDepth.csv"] = "".join(lines)
+    return result
+
+
+def test_metadata_candidates_cross_source_date_boundary_and_ignore_future_missingness(
+    tmp_path: Path,
+) -> None:
+    archive = tmp_path / "source.zip"
+    manifest = _archive(archive, _campaign_members(missing_38={30}))
+    report = scan_external_metadata(archive, manifest)
+    assert 24 in report["candidate_cutoff_interval_ids"]
+    assert report["candidate_rows"][0]["cutoff_source_date"] == "2022-01-31"
+    assert report["candidate_rows"][0]["target_interval_ids"] == [25, 27, 30]
+    assert report["candidate_rows"][0]["actual_issued_status"] == "UNKNOWN"
+    assert report["source_date_interval_counts"]["2022-02-01"] > 0
+    assert len(report["candidate_inventory_sha256"]) == 64
+
+
+def test_metadata_candidates_reject_missing_predecessor_and_partial_38(tmp_path: Path) -> None:
+    archive = tmp_path / "source.zip"
+    manifest = _archive(archive, _campaign_members(missing_all={5}, partial_38={7}))
+    report = scan_external_metadata(archive, manifest)
+    assert "MISSING_PREDECESSOR_INTERVAL" in report["metadata_exclusion_reasons_by_cutoff"]["24"]
+    assert "PREDECESSOR_38_PARTIAL_PING_INTERVAL" in report[
+        "metadata_exclusion_reasons_by_cutoff"
+    ]["24"]
+    assert report["actual_issued_rows"] == "UNKNOWN_NUMERIC_QC_NOT_OPENED"
 
 
 def _transfer_contract(archive: Path) -> dict[str, object]:
@@ -139,7 +214,10 @@ def _transfer_contract(archive: Path) -> dict[str, object]:
             "Date_M", "Time_M", "Interval", "Layer", "Layer_depth_min",
             "Layer_depth_max", "Ping_S", "Ping_E",
         ],
+        "exact_csv_header": list(aeon_external_metadata.EXACT_CSV_HEADER),
         "discard_without_use": list(aeon_external_metadata.DISCARDED_FIELDS),
+        "stage_1_output_classification": "METADATA_ONLY_CANDIDATES_NOT_ISSUED_OR_SCORED",
+        "candidate_rule": dict(aeon_external_metadata._CANDIDATE_RULE),
         "publisher_article": "https://figshare.com/articles/dataset/AZFP/29247113",
         "study_id": "synthetic_external_transfer",
         "target": {

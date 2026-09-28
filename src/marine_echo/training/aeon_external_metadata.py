@@ -9,12 +9,14 @@ from __future__ import annotations
 import csv
 import hashlib
 import io
+import json
 import re
 import zipfile
 from collections import Counter
 from collections.abc import Mapping
 from datetime import datetime
 from decimal import Decimal, InvalidOperation
+from itertools import pairwise
 from pathlib import Path
 from typing import Any
 
@@ -23,12 +25,31 @@ METADATA_FIELDS = (
     "Date_M", "Time_M", "Interval", "Layer", "Layer_depth_min", "Layer_depth_max",
     "Ping_S", "Ping_E",
 )
+EXACT_CSV_HEADER = (
+    "Process_ID", "Interval", "Layer", "Sv_mean", "NASC", "Height_mean",
+    "Depth_mean", "Layer_depth_min", "Layer_depth_max", "Ping_S", "Ping_E",
+    "Dist_M", "Date_M", "Time_M", "Lat_M", "Lon_M", "Noise_Sv_1m",
+    "Minimum_Sv_threshold_applied", "Maximum_Sv_threshold_applied",
+    "Standard_deviation", "Thickness_mean", "Range_mean",
+    "Exclude_below_line_range_mean", "Exclude_above_line_range_mean",
+)
 DISCARDED_FIELDS = (
-    "Sv_mean", "NASC", "Height_mean", "Depth_mean", "Dist_M", "Lat_M", "Lon_M",
+    "Process_ID", "Sv_mean", "NASC", "Height_mean", "Depth_mean", "Dist_M",
+    "Lat_M", "Lon_M",
     "Noise_Sv_1m", "Minimum_Sv_threshold_applied",
     "Maximum_Sv_threshold_applied", "Standard_deviation", "Thickness_mean",
     "Range_mean", "Exclude_below_line_range_mean", "Exclude_above_line_range_mean",
 )
+_CANDIDATE_RULE = {
+    "required_previous_38khz_metadata_complete_intervals": 24,
+    "all_previous_interval_ids_consecutive": True,
+    "all_horizon_interval_ids_within_same_archive": True,
+    "maximum_cross_channel_source_time_difference_minutes": 5,
+    "minimum_consecutive_source_time_difference_minutes": 55,
+    "maximum_consecutive_source_time_difference_minutes": 65,
+    "future_metadata_or_acoustic_filter": "NONE",
+    "candidate_scope": "ALL_SOURCE_DATES_IN_EACH_ARCHIVE",
+}
 _MEMBER = re.compile(
     r"(?:[^/]+/)?(AEON\d+_\d+)_(038|125|200|455)_(\d{4})_(\d{2})_60minFullDepth\.csv"
 )
@@ -166,7 +187,9 @@ def _geometry(value: str) -> str:
     return format(number.normalize(), "f")
 
 
-def _scan_member(zf: zipfile.ZipFile, name: str, *, max_rows: int) -> dict[str, Any]:
+def _scan_member(
+    zf: zipfile.ZipFile, name: str, *, max_rows: int,
+) -> tuple[dict[str, Any], list[dict[str, str]]]:
     row_count = 0
     ping_counts: Counter[int] = Counter()
     geometry: Counter[str] = Counter()
@@ -179,14 +202,12 @@ def _scan_member(zf: zipfile.ZipFile, name: str, *, max_rows: int) -> dict[str, 
     previous: datetime | None = None
     first: datetime | None = None
     last: datetime | None = None
+    retained_metadata: list[dict[str, str]] = []
     csv.field_size_limit(65536)
     with io.TextIOWrapper(zf.open(name), encoding="utf-8-sig", newline="") as stream:
         reader = csv.reader(stream, strict=True)
         header = next(reader, None)
-        if (
-            header is None or len(header) != len(set(header))
-            or not set(METADATA_FIELDS).issubset(header) or "Sv_mean" not in header
-        ):
+        if header != list(EXACT_CSV_HEADER):
             raise ValueError("External AEON FullDepth metadata header differs.")
         indices = {field: header.index(field) for field in METADATA_FIELDS}
         for raw in reader:
@@ -195,6 +216,7 @@ def _scan_member(zf: zipfile.ZipFile, name: str, *, max_rows: int) -> dict[str, 
             # Project the allowlist immediately; acoustic cells are never interpreted or retained.
             metadata = {field: raw[index] for field, index in indices.items()}
             del raw
+            retained_metadata.append(metadata)
             row_count += 1
             if row_count > max_rows:
                 raise ValueError("External AEON FullDepth row count exceeds limit.")
@@ -240,7 +262,111 @@ def _scan_member(zf: zipfile.ZipFile, name: str, *, max_rows: int) -> dict[str, 
         "ping_count_mode_ties": modes if len(modes) > 1 else [],
         "geometry_histogram": dict(sorted(geometry.items())),
         "layer_id_histogram": {str(k): v for k, v in sorted(layers.items())},
+    }, retained_metadata
+
+
+def _candidate_universe(
+    records: dict[int, dict[str, list[dict[str, str]]]], archive_sha256: str,
+) -> dict[str, Any]:
+    """Build an outcome-free archive-wide universe; future rows never gate it."""
+    if not records:
+        raise ValueError("External AEON archive has no hourly metadata rows.")
+    first_id, last_id = min(records), max(records)
+    if last_id - first_id > 100_000:
+        raise ValueError("External AEON interval ID span exceeds bounded scan limit.")
+    intervals: dict[int, dict[str, Any]] = {}
+    source_dates: Counter[str] = Counter()
+    for interval_id, channels in records.items():
+        rows_38 = channels.get("038", [])
+        all_rows = [row for channel_rows in channels.values() for row in channel_rows]
+        representative = rows_38[0] if rows_38 else all_rows[0]
+        timestamp = _timestamp(representative["Date_M"], representative["Time_M"])
+        source_date = timestamp.date().isoformat()
+        source_dates[source_date] += 1
+        if not rows_38:
+            status = "MISSING_ROW"
+        elif len(rows_38) != 1:
+            status = "DUPLICATE_ROW"
+        elif _integer(rows_38[0]["Layer"]) != 1:
+            status = "INVALID_LAYER"
+        elif _geometry(rows_38[0]["Layer_depth_min"]) != "0" or _geometry(
+            rows_38[0]["Layer_depth_max"]
+        ) != "200":
+            status = "INVALID_GEOMETRY"
+        elif _integer(rows_38[0]["Ping_E"]) - _integer(rows_38[0]["Ping_S"]) + 1 != 150:
+            status = "PARTIAL_PING_INTERVAL"
+        else:
+            status = "METADATA_COMPLETE_NUMERIC_SV_UNKNOWN"
+        intervals[interval_id] = {
+            "source_timestamp": timestamp,
+            "source_date": source_date,
+            "channel_38_metadata_status": status,
+        }
+    candidate_rows: list[dict[str, Any]] = []
+    failures: dict[str, list[str]] = {}
+    for cutoff_id in range(first_id, last_id + 1):
+        reasons: set[str] = set()
+        if cutoff_id not in intervals:
+            reasons.add("MISSING_CUTOFF_INTERVAL")
+        if cutoff_id - 23 < first_id:
+            reasons.add("CONTEXT_CROSSES_ARCHIVE_START")
+        if cutoff_id + 6 > last_id:
+            reasons.add("PLUS6_BEYOND_ARCHIVE_LAST_INTERVAL")
+        predecessors = [intervals.get(value) for value in range(cutoff_id - 23, cutoff_id + 1)]
+        if any(item is None for item in predecessors):
+            reasons.add("MISSING_PREDECESSOR_INTERVAL")
+        present = [item for item in predecessors if item is not None]
+        for item in present:
+            status = item["channel_38_metadata_status"]
+            if status != "METADATA_COMPLETE_NUMERIC_SV_UNKNOWN":
+                reasons.add("PREDECESSOR_38_" + status)
+        if len(present) == 24:
+            for left, right in pairwise(present):
+                seconds = int((right["source_timestamp"] - left["source_timestamp"]).total_seconds())
+                if seconds < 55 * 60 or seconds > 65 * 60:
+                    reasons.add("PREDECESSOR_SOURCE_TIME_DISCONTINUITY")
+        if reasons:
+            failures[str(cutoff_id)] = sorted(reasons)
+            continue
+        cutoff = intervals[cutoff_id]
+        row_id = hashlib.sha256(
+            f"aeon-external-full-depth:{archive_sha256}:{cutoff_id}:24:1,3,6".encode("ascii")
+        ).hexdigest()
+        candidate_rows.append({
+            "cutoff_interval_id": cutoff_id,
+            "cutoff_source_timestamp": cutoff["source_timestamp"].isoformat(),
+            "cutoff_source_date": cutoff["source_date"],
+            "row_id": row_id,
+            "target_interval_ids": [cutoff_id + step for step in (1, 3, 6)],
+            "actual_issued_status": "UNKNOWN",
+            "target_scoring_status": "UNKNOWN",
+        })
+    digest = hashlib.sha256(b"aeon-external-metadata-candidates-v1\n")
+    for row in candidate_rows:
+        targets = ",".join(str(value) for value in row["target_interval_ids"])
+        digest.update(f"{row['cutoff_interval_id']}|{row['row_id']}|{targets}\n".encode("ascii"))
+    candidate_dates = sorted({row["cutoff_source_date"] for row in candidate_rows})
+    inventory = {
+        "source_interval_id_min": first_id,
+        "source_interval_id_max": last_id,
+        "source_interval_count": len(intervals),
+        "source_date_interval_counts": dict(sorted(source_dates.items())),
+        "all_source_dates": sorted(source_dates),
+        "candidate_cutoff_interval_ids": [row["cutoff_interval_id"] for row in candidate_rows],
+        "candidate_rows": candidate_rows,
+        "candidate_count": len(candidate_rows),
+        "candidate_sha256": digest.hexdigest(),
+        "candidate_source_dates": candidate_dates,
+        "metadata_exclusion_reasons_by_cutoff": failures,
+        "actual_issued_rows": "UNKNOWN_NUMERIC_QC_NOT_OPENED",
+        "actual_scored_rows": "UNKNOWN_NUMERIC_QC_NOT_OPENED",
     }
+    inventory["candidate_inventory_sha256"] = hashlib.sha256(
+        json.dumps(inventory, sort_keys=True, separators=(",", ":"), allow_nan=False).encode(
+            "utf-8"
+        )
+    ).hexdigest()
+    return inventory
 
 
 def scan_external_metadata(
@@ -249,7 +375,7 @@ def scan_external_metadata(
     *,
     max_member_bytes: int = 512 * 1024 * 1024,
     max_total_bytes: int = 8 * 1024 * 1024 * 1024,
-    max_rows_per_member: int = 1_000_000,
+    max_rows_per_member: int = 10_000,
     expected_inventory_sha256: str | None = None,
     expected_archive_bytes: int | None = None,
 ) -> dict[str, Any]:
@@ -273,11 +399,16 @@ def scan_external_metadata(
             expected_inventory_sha256=expected_inventory_sha256,
         )
         streams = []
+        records: dict[int, dict[str, list[dict[str, str]]]] = {}
         for name in expected:
             match = _MEMBER.fullmatch(name)
             assert match is not None
             _, frequency, year, month = match.groups()
-            stream = _scan_member(zf, name, max_rows=max_rows_per_member)
+            stream, metadata_rows = _scan_member(zf, name, max_rows=max_rows_per_member)
+            for row in metadata_rows:
+                records.setdefault(_integer(row["Interval"]), {}).setdefault(
+                    frequency, []
+                ).append(row)
             info = infos[name]
             stream.update({
                 "frequency_khz": int(frequency),
@@ -287,8 +418,9 @@ def scan_external_metadata(
                 "crc32": f"{info.CRC:08x}",
             })
             streams.append(stream)
+    candidates = _candidate_universe(records, archive_sha256)
     return {
-        "classification": "METADATA_ONLY_NO_ACOUSTIC_VALUES",
+        "classification": "METADATA_ONLY_CANDIDATES_NOT_ISSUED_OR_SCORED",
         "source_time_basis": "SOURCE_REPORTED_UNSPECIFIED_NOT_UTC",
         "numeric_sv_access": "PROHIBITED",
         "source": {
@@ -299,7 +431,9 @@ def scan_external_metadata(
         "hourly_full_depth_central_inventory_sha256": inventory_sha256,
         "streams": streams,
         "numeric_eligibility": "UNKNOWN_NOT_EVALUATED",
-    }
+        "candidate_universe_status": "METADATA_ONLY_GENERATED_NUMERIC_QC_UNKNOWN",
+        "scanner_code_sha256": _sha256(Path(__file__)),
+    } | candidates
 
 
 def _month_range(first: str, last: str) -> list[str]:
@@ -335,7 +469,11 @@ def scan_transfer_source_metadata(
         or contract.get("hourly_full_depth_central_inventory_serialization")
         != "UTF8_SORTED_FILENAME_TAB_UNCOMPRESSED_DECIMAL_BYTES_TAB_CRC32_8_LOWER_HEX_LF_EACH_MEMBER"
         or contract.get("metadata_fields") != list(METADATA_FIELDS)
+        or contract.get("exact_csv_header") != list(EXACT_CSV_HEADER)
         or contract.get("discard_without_use") != list(DISCARDED_FIELDS)
+        or contract.get("stage_1_output_classification")
+        != "METADATA_ONLY_CANDIDATES_NOT_ISSUED_OR_SCORED"
+        or contract.get("candidate_rule") != _CANDIDATE_RULE
         or not isinstance(contract.get("sources"), list)
     ):
         raise ValueError("External AEON transfer metadata contract differs.")
