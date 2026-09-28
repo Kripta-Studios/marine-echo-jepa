@@ -7,6 +7,7 @@ import hashlib
 import numpy as np
 import pytest
 
+from marine_echo.training import aeon_external_evaluator
 from marine_echo.training.aeon_corpus import AeonHourlySlot
 from marine_echo.training.aeon_external_evaluator import (
     adapter_compatible_rows,
@@ -123,3 +124,28 @@ def test_eligible_executed_transfer_uses_new_seed_paired_two_date_gate() -> None
     assert result["paired_bootstrap_status"] == "COMPLETED_2000_DRAWS_SEED_20260928"
     assert result["jepa_value_gate"] == "PASSED_RETROSPECTIVE_EXTERNAL_TRANSFER"
     assert result["paired_95pct_difference_interval_db"][1] < 0
+
+
+def test_uneligible_leading_day_does_not_shift_paired_two_date_blocks() -> None:
+    count = 18 * 90
+    truth = np.zeros((count, 3), dtype=np.float64)
+    observed = np.ones((count, 3), dtype=bool)
+    times = np.empty((count, 3), dtype="datetime64[us]")
+    ema = np.empty((count, 3, 5), dtype=np.float64)
+    for index in range(count):
+        day = index // 18
+        times[index] = np.datetime64("2022-01-01", "us") + np.timedelta64(day, "D")
+        ema[index] = 0.7 if day % 3 else 0.9
+    direct = np.ones((count, 3, 5), dtype=np.float64)
+    reference = aeon_external_evaluator._paired_two_date_bootstrap(
+        truth, observed, times, direct, ema
+    )
+    leading = np.datetime64("2021-12-31", "us")
+    with_uneligible_day = aeon_external_evaluator._paired_two_date_bootstrap(
+        np.concatenate([np.zeros((1, 3)), truth]),
+        np.concatenate([np.ones((1, 3), dtype=bool), observed]),
+        np.concatenate([np.full((1, 3), leading, dtype="datetime64[us]"), times]),
+        np.concatenate([np.ones((1, 3, 5)), direct]),
+        np.concatenate([np.full((1, 3, 5), 0.5), ema]),
+    )
+    assert np.array_equal(with_uneligible_day, reference)

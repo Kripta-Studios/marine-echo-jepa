@@ -162,15 +162,21 @@ def _paired_two_date_bootstrap(
     loss_ema = np.maximum(QUANTILES * residual_ema, (QUANTILES - 1) * residual_ema).mean(
         axis=-1
     )
-    first = min(dates[observed[:, horizon], horizon].min() for horizon in range(3))
-    last = max(dates[observed[:, horizon], horizon].max() for horizon in range(3))
+    eligible_by_horizon = []
+    for horizon in range(3):
+        valid_dates, counts = np.unique(dates[observed[:, horizon], horizon], return_counts=True)
+        eligible = valid_dates[counts >= 18]
+        if not len(eligible):
+            raise ValueError("AEON external paired bootstrap lacks an eligible source date.")
+        eligible_by_horizon.append(eligible)
+    first = min(days[0] for days in eligible_by_horizon)
+    last = max(days[-1] for days in eligible_by_horizon)
     all_dates = np.arange(first, last + np.timedelta64(1, "D"))
     differences = np.full((len(all_dates), 3), np.nan)
     for horizon in range(3):
-        valid_dates, counts = np.unique(dates[observed[:, horizon], horizon], return_counts=True)
-        eligible = set(valid_dates[counts >= 18])
+        eligible_set = set(eligible_by_horizon[horizon])
         for index, day in enumerate(all_dates):
-            if day not in eligible:
+            if day not in eligible_set:
                 continue
             mask = observed[:, horizon] & (dates[:, horizon] == day)
             differences[index, horizon] = float(
