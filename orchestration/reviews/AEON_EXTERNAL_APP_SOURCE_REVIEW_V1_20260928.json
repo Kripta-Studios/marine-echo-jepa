@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0",
+  "review_id": "AEON_EXTERNAL_APP_SOURCE_REVIEW_V1_20260928",
+  "reviewed_at": "2026-09-28",
+  "task_id": "aeon_external_app_source_review_v1",
+  "study_id": "aeon_external_transfer_20260928_v1",
+  "status": "REQUEST_CHANGES_AEON_EXTERNAL_APP_SOURCE",
+  "verdict": "REQUEST_CHANGES",
+  "severity": "MEDIUM",
+  "reviewer_session": "/root/external_reviewer",
+  "reviewer_role": "distinct_read_only_scientific_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "runtime_model_binding_verification": "NOT_EXPOSED_TO_REVIEWER_SESSION",
+  "reviewed_commit": "d0301fa",
+  "builder_commit": "dc52f09ddb04de54c3c669e8d35c0872be690e06",
+  "loader_path": "src/marine_echo/serving/aeon_external_study.py",
+  "loader_sha256": "1377f86afe644054238c74b1e68b4373c83a3a13f11ee1a7b3b275ee2caa08f1",
+  "outcome_review_path": "orchestration/reviews/AEON_EXTERNAL_STAGE2_OUTCOME_REVIEW_20260928.json",
+  "outcome_review_sha256": "ec1ad3ecc437d28f47c53063d6abc6c8f9efe08c36a0f39dec4bda8ef9ad255d",
+  "approved_scientific_content": [
+    "The real loader resolves the exact independently reviewed outcome and returns the correct primary metadata-ineligible state and secondary descriptive negative comparison.",
+    "The UI uses POST-HOC EXTERNAL TRANSFER, the official AEON2 Eastern Coastal Shelf name, a frozen primary comparison, explicit no-cross-site-result wording, lower-is-better context and the reviewed direct/EMA values.",
+    "Source attribution identifies Figshare AZFP article version 2, file IDs 61937269 and 61937275, CC BY 4.0, source-reported conditioned Sv_mean and exclusion of original archives.",
+    "The package contract includes the exact review, contract, manifest, primary/secondary scores, issued rows and both forecast archives."
+  ],
+  "blocking_findings": [
+    {
+      "id": "APP-SRC-001",
+      "severity": "MEDIUM",
+      "location": "src/marine_echo/serving/aeon_study.py external evidence copy loop",
+      "finding": "The loader verifies reviewed source bytes, but the later copy loop only compares each destination hash to the source hash at copy time. A source mutation between verification and copy can enter the package while destination-versus-current-source equality still passes.",
+      "required_fix": "Carry the exact reviewed hash map from the verified load and require every copied destination to match those pinned hashes. Add a regression that mutates a source after reviewed loading and before copy."
+    },
+    {
+      "id": "APP-SRC-002",
+      "severity": "LOW",
+      "location": "src/marine_echo/serving/aeon_external_study.py:_bounded",
+      "finding": "The new evidence boundary rejects symlinks but accepts hardlinked evidence, unlike the existing reviewed-evidence boundary.",
+      "required_fix": "Reject st_nlink values other than one and add a supported-platform hardlink regression."
+    },
+    {
+      "id": "APP-SRC-003",
+      "severity": "LOW",
+      "location": "src/marine_echo/serving/aeon_external_study.py:49 and src/marine_echo/serving/aeon_study.py imports",
+      "finding": "Repository Ruff fails TRY004 for a non-object JSON ValueError and I001 for import ordering.",
+      "required_fix": "Use TypeError for the invalid JSON-object type and organize imports; run full-file Ruff on every changed Python file."
+    }
+  ],
+  "independent_execution": [
+    {
+      "command": ".venv/Scripts/python.exe -m pytest -q tests/unit/test_aeon_external_study.py tests/unit/test_aeon_study_release.py tests/unit/test_aeon_portable.py",
+      "result": "PASS",
+      "evidence": "16 passed with one unrelated Starlette deprecation warning."
+    },
+    {
+      "command": ".venv/Scripts/python.exe -m ruff check src/marine_echo/serving/aeon_external_study.py src/marine_echo/serving/aeon_study.py src/marine_echo/serving/aeon_portable.py tests/unit/test_aeon_external_study.py",
+      "result": "FAIL",
+      "evidence": "TRY004 at aeon_external_study.py:49 and I001 for aeon_study.py import order."
+    },
+    {
+      "command": ".venv/Scripts/python.exe -m mypy src/marine_echo/serving/aeon_external_study.py",
+      "result": "PASS",
+      "evidence": "Success with no issues in one source file."
+    },
+    {
+      "command": "npm --prefix web run test:run -- src/pages/AeonStudyPage.test.ts",
+      "result": "PASS",
+      "evidence": "One file and three tests passed."
+    },
+    {
+      "command": "npm --prefix web run typecheck and npm --prefix web run lint",
+      "result": "PASS",
+      "evidence": "TypeScript and ESLint exited zero."
+    },
+    {
+      "command": "Real load_reviewed_external_study against committed outcome artifacts",
+      "result": "PASS",
+      "evidence": "Returned study aeon_external_transfer_20260928_v1 with primary zero candidates/NOT_EVALUATED and secondary 8,507 issued, 353 eligible dates per horizon, direct 0.6701783099148351 and EMA 0.6789216779097978."
+    }
+  ],
+  "release_disposition": "SOURCE_NOT_APPROVED; any package built from this source state is an unapproved candidate and must not be promoted.",
+  "required_next_review": "After a different implementer resolves all three findings on integrated main, run a separate exact source review before building a new candidate release.",
+  "cost_usd": 0
+}
