@@ -23,7 +23,7 @@ from marine_echo.training.aeon_windows import AeonHourlyWindow
 
 def _candidate_source_time(value: object) -> np.datetime64:
     if not isinstance(value, str):
-        raise ValueError("AEON external Stage 1 candidate cutoff/source time differs.")
+        raise TypeError("AEON external Stage 1 candidate cutoff/source time differs.")
     try:
         instant = np.datetime64(value, "us")
     except ValueError as exc:
