@@ -1,0 +1,28 @@
+{
+  "status": "REQUEST_CHANGES",
+  "reviewer_session": "/root/scale_reviewer",
+  "reviewer_role": "distinct_read_only_scientific_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "candidate": "aeon-offline-scale-expanded-20260928-r1",
+  "archive_sha256": "b8c7874e438522e6a923f3d602b93dc3e1f5a0e60e68ef573a069e920a4f9d54",
+  "sha256sums_sha256": "a9f0fc51dfb5691087cb9f9ce483e9a1dfacd11452f72e2bf84da36de2a19ba0",
+  "study_artifact_sha256": "9af10bcf239be7beb0141ca2f6cf103a92f8fe9f791ae12550f5f859149c5665",
+  "source_revision_sha256": "0c3a32d0bebed7df9f241b176e1153c4ee6ea9c7b5b6116a91e17bc0cd13b058",
+  "readme_sha256": "65ff7a67b3b3e1dd969889a37db8aa8a463af41994f2de611c76e44d062f09b6",
+  "hashed_asset_count": 107,
+  "zip_file_entries": 108,
+  "blocking_finding": "SHA-bound README falsely locates the two newly reviewed development outcome records in provenance/reviews/; they are in provenance/scaling_development/outcome-review.json and provenance/expanded_train_development/outcome-review.json. Preserve r1 and rebuild corrected r2.",
+  "independent_passes": [
+    "ZIP, sidecar and complete SHA256SUMS inventory exact",
+    "Original and relocated directories each verify 107 hashed assets",
+    "All eight reviewed development endpoint binaries have exact outcome-review hashes",
+    "Historical blocked registry and empty forecast registry preserved",
+    "Relocated offline Python 3.12 environment and 13 bundled distributions observed",
+    "Local health, study, root and 1216-row historical replay endpoints returned 200",
+    "Browser smoke showed both sections and limitations with no page errors or external requests"
+  ],
+  "browser_smoke_sha256": "9b3bc6a46bc0e1a3e03abff768bd3112b32ec918a7c2b92518b6e3c4893eb9b8",
+  "browser_screenshot_sha256": "218c5e1f84b580cb4f959b69578592387ee13a34861bce6f3b9768f385f7a295",
+  "approval": false
+}

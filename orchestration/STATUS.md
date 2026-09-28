@@ -56,8 +56,12 @@ distinct reviewer approved the final integrated source, including two
 fail-closed/style lint corrections. The new r1 offline candidate built with
 107 hash-verified files, including all eight final development prediction and
 checkpoint binaries. Its separate ZIP and relocated extraction passed complete
-inventory checks; offline API/browser smoke and exact-output package review
-remain pending. The detailed investigation is
+inventory checks and offline API/browser smoke. Exact-output independent review
+requested one correction: the SHA-bound README pointed the two new outcome
+reviews at the historical reviews folder instead of their study-specific
+provenance folders. The r1 candidate is preserved unapproved; the corrected
+source passed a red-to-green regression and awaits narrow re-review before r2.
+The detailed investigation is
 `orchestration/reports/AEON_SCALING_AND_EXPANDED_TRAIN_INVESTIGATION_20260928.md`.
 The historical prior-year external-transfer finding is preserved, but it cannot
 serve as an external test of a model trained on that source.
