@@ -150,7 +150,7 @@ def _fixture(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> dict[str, objec
     })
     review_sha = _write(review_path, {
         "status": "APPROVED_AEON_EXTERNAL_STAGE2_SYNTHETIC_FIXTURE",
-        "reviewer_session": "/root/aeon_reviewer",
+        "reviewer_session": "/root/external_reviewer",
         "contract_sha256": contract_sha,
         "stage_1_outcome_review_sha256": stage_1_outcome_review_sha,
         "selection_sha256": selection_sha,
@@ -197,6 +197,21 @@ def test_stage1_outcome_review_change_blocks_all_numeric_access(
     assert isinstance(stage_1_review, Path)
     stage_1_review.write_text(stage_1_review.read_text(encoding="utf-8") + " ",
                               encoding="utf-8")
+    monkeypatch.setattr(runner, "_read_numeric_slots", lambda *_args:
+                        pytest.fail("numeric row opened"))
+    with pytest.raises(ValueError, match="code/contract review"):
+        runner.run_external_transfer(**kwargs)
+
+
+def test_wrong_stage2_reviewer_identity_blocks_numeric_access(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    kwargs = _fixture(tmp_path, monkeypatch)
+    review_path = kwargs["review_path"]
+    assert isinstance(review_path, Path)
+    review = json.loads(review_path.read_text(encoding="utf-8"))
+    review["reviewer_session"] = "/root/aeon_reviewer"
+    kwargs["review_sha256"] = _write(review_path, review)
     monkeypatch.setattr(runner, "_read_numeric_slots", lambda *_args:
                         pytest.fail("numeric row opened"))
     with pytest.raises(ValueError, match="code/contract review"):

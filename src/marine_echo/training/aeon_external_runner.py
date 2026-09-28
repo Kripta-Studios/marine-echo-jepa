@@ -96,7 +96,7 @@ def preflight_external_access(
     selection = _json(selection_path)
     if (
         review.get("status") != (_FIXTURE_STATUS if fixture_only else _REVIEW_STATUS)
-        or review.get("reviewer_session") != "/root/aeon_reviewer"
+        or review.get("reviewer_session") != "/root/external_reviewer"
         or review.get("contract_sha256") != _sha256(contract_path)
         or review.get("stage_1_outcome_review_sha256") != stage_1_review_sha256
         or review.get("selection_sha256") != _sha256(selection_path)
