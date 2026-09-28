@@ -1,5 +1,22 @@
 # Execution status
 
+## AEON scaling development - active 28 September 2026
+
+The owner authorized more local training and use of `E:`. A separate post-hoc
+30,000-update TRAIN/validation direct-versus-EMA study is under implementation
+and distinct prefit review; no long-schedule GPU run has started. The original
+3,000-update campaign, historical v1/v2 findings and retrospective evaluation
+remain unchanged. The four remaining Figshare version-2 AEON AZFP archives were
+downloaded to `E:\marine-echo-jepa-scale\data` (81,879,095 bytes in total),
+verified against publisher size/MD5 and scanned only for permitted metadata.
+All 25,409 newly inventoried 38 kHz FullDepth rows have geometry other than
+0–200 m; they add zero unchanged-target candidates. A distinct reviewer verified
+archive digests and spot-checked one member per archive. The full scope and
+counts are in `orchestration/reports/AEON_SCALE_DATA_FEASIBILITY_20260928.md`;
+machine state is `orchestration/aeon_scale_run_ledger.json`. A 5× unchanged-target
+data claim is ineligible. A separate target/representation review is required
+for multi-site training.
+
 ## AEON external conditioned-product transfer - active 28 September 2026
 
 The reviewed AEON3 2024–25 retrospective result and r4 offline release remain
