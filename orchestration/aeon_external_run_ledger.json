@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "study_id": "aeon_external_transfer_20260928_v1",
   "classification": "POST_HOC_INITIATED_EXTERNAL_TRANSFER_NOT_SEALED",
-  "stage": "SECONDARY_NUMERIC_RETRY_COMPLETED_PENDING_DISTINCT_OUTCOME_REVIEW",
+  "stage": "SECONDARY_NUMERIC_RETRY_COMPLETED_INDEPENDENTLY_REVIEWED",
   "publisher_article": "https://figshare.com/articles/dataset/AZFP/29247113",
   "publisher_article_version": 2,
   "sources": [
@@ -37,11 +37,11 @@
       "source_interval_count": 8846,
       "metadata_candidate_count": 8507,
       "metadata_candidate_source_date_count": 357,
-      "cohort_eligibility": "NUMERIC_REPORTS_353_ELIGIBLE_DATES_PER_HORIZON_PENDING_REVIEW",
+      "cohort_eligibility": "353_ELIGIBLE_DATES_PER_HORIZON_INDEPENDENTLY_REVIEWED",
       "numeric_access_disposition": "ONE_REMEDIALLY_REVIEWED_RETRY_COMPLETED",
       "numeric_external_sv_status": "OPENED_IN_FAILED_ATTEMPT_AND_APPROVED_RETRY",
-      "prediction_status": "COMPLETED_8507_ISSUED_ROWS_PENDING_REVIEW",
-      "score_status": "DIRECT_0_6701783099148351_EMA_0_6789216779097978_PENDING_REVIEW"
+      "prediction_status": "COMPLETED_8507_ISSUED_ROWS_INDEPENDENTLY_REPLAYED_BIT_EXACT",
+      "score_status": "DIRECT_0_6701783099148351_EMA_0_6789216779097978_INDEPENDENTLY_REVIEWED_NEGATIVE_DESCRIPTIVE"
     }
   ],
   "proposal_config": "configs/aeon_external_transfer.json",
@@ -67,7 +67,7 @@
   "remedial_numeric_access_review": "orchestration/reviews/AEON_EXTERNAL_STAGE2_RETRY_REVIEW_20260928.json",
   "remedial_numeric_access_review_sha256": "c42904fd03ade88130ddce78372a01282ed9ead71d430e4929da8de931c92094",
   "secondary_numeric_retry": {
-    "status": "COMPLETED_EXIT_ZERO_PENDING_DISTINCT_OUTCOME_REVIEW",
+    "status": "COMPLETED_EXIT_ZERO_INDEPENDENTLY_REVIEWED",
     "output_directory": "outputs/aeon_external_transfer_20260928_v1/zero_shot_secondary",
     "manifest_sha256": "f33307febf0848f8287529706ce3303213e5a1d6278d44f744c2d0367f1f8a33",
     "primary_metadata_ineligible_score_sha256": "9f20db62e3060b6f1b01a6bebbbd39931a26ca4febb42c169b0a7e19e103223d",
@@ -83,9 +83,10 @@
     },
     "reported_relative_loss_reduction": -0.013046330902702402,
     "reported_paired_95pct_ema_minus_direct_interval_db": [0.0022527825173525597, 0.015516133047404537],
-    "interpretation": "SECONDARY_SAME_SITE_PRIOR_YEAR_DESCRIPTIVE_NEGATIVE_JEPA_COMPARISON_PENDING_REVIEW_NO_PRIMARY_TRANSFER_CLAIM"
+    "interpretation": "SECONDARY_SAME_SITE_PRIOR_YEAR_DESCRIPTIVE_NEGATIVE_JEPA_COMPARISON_REVIEWED_NO_PRIMARY_TRANSFER_CLAIM"
   },
-  "distinct_outcome_review": "PENDING",
+  "distinct_outcome_review": "orchestration/reviews/AEON_EXTERNAL_STAGE2_OUTCOME_REVIEW_20260928.json",
+  "distinct_outcome_review_sha256": "ec1ad3ecc437d28f47c53063d6abc6c8f9efe08c36a0f39dec4bda8ef9ad255d",
   "app_integration": "NOT_RUN",
   "release": "NOT_RUN",
   "original_aeon_test_and_historical_v1_v2_status": "PRESERVED_UNCHANGED"

@@ -35,7 +35,15 @@ same-site prior-year cohort, the reported comparison is negative for JEPA.
 It is descriptive and cannot rescue or establish the unexecuted primary
 cross-site comparison.
 
-These numbers are the runner's output, **pending independent reconstruction**.
+The distinct reviewer independently reconstructed all 8,846 source slots,
+issuance, QC, targets, every metric and bootstrap draw, and replayed both
+8,507 by 3 by 5 forecast arrays bit-exact from the six frozen checkpoints.
+The outcome review is
+`orchestration/reviews/AEON_EXTERNAL_STAGE2_OUTCOME_REVIEW_20260928.json`
+(SHA-256 `ec1ad3ecc437d28f47c53063d6abc6c8f9efe08c36a0f39dec4bda8ef9ad255d`).
+Its approval covers only this negative descriptive secondary comparison; the
+cross-site primary remains NOT_EVALUATED.
+
 No external archive was used for training, calibration, model selection or
 site correction. The measured field is source-conditioned `Sv_mean`, with
 unresolved clock zone and processing provenance; no species, biomass, catch,

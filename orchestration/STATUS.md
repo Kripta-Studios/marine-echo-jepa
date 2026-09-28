@@ -14,8 +14,8 @@ conditioning limit physical comparability. ADR 0012 and
 `configs/aeon_external_transfer.json` freeze the proposed zero-shot source,
 target, model, support and analysis rules. A distinct reviewer approved the
 Stage 0 design and source/header identities, then approved the exact Stage 1
-metadata runner. Its one real two-source scan exited zero. The unreviewed
-metadata output has zero AEON2 candidates because all 8,682 38 kHz hourly
+metadata runner. Its one real two-source scan exited zero. The independently
+reviewed metadata output has zero AEON2 candidates because all 8,682 38 kHz hourly
 rows use source-defined 0–230 m geometry, while the frozen target is 0–200 m.
 AEON3 prior-year has 8,507 metadata-only candidates on 357 source dates;
 actual issuance, numerical support and scores remain unknown. The distinct
@@ -35,9 +35,12 @@ two equal-three-seed model forecast files and metrics. Its report counts 353
 eligible source dates at each horizon. Reported raw daily mean pinball is
 0.670178 dB for direct and 0.678922 dB for EMA-JEPA, a -1.3046% relative
 loss reduction; its paired 95% EMA-minus-direct interval is
-[0.002253, 0.015516] dB. These numerical outcomes await independent
-reconstruction, so the external release is not yet approved. This is a
-descriptive negative prior-year same-site comparison and cannot substitute
+[0.002253, 0.015516] dB. The distinct reviewer reconstructed all 8,846
+source slots, issuance, QC, targets, metrics and bootstrap, and replayed both
+8,507 by 3 by 5 forecast arrays bit-exact from all six frozen checkpoints.
+The outcome review SHA-256 is
+`ec1ad3ecc437d28f47c53063d6abc6c8f9efe08c36a0f39dec4bda8ef9ad255d`.
+This is a reviewed descriptive negative prior-year same-site comparison and cannot substitute
 for the metadata-ineligible AEON2 primary. Machine state:
 `orchestration/aeon_external_run_ledger.json`.
 
