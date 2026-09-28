@@ -61,7 +61,12 @@ requested one correction: the SHA-bound README pointed the two new outcome
 reviews at the historical reviews folder instead of their study-specific
 provenance folders. The r1 candidate is preserved unapproved; the corrected
 source passed a red-to-green regression and distinct narrow re-review. A new
-r2 candidate will be built without changing the preserved r1 bytes.
+r2 candidate was built without changing the preserved r1 bytes. Its corrected
+README, 107-file inventory, relocated offline install and API checks passed,
+but a new 390-pixel mobile browser smoke found 489 pixels of document width
+from unbroken evidence hashes. R2 remains unapproved. A three-line CSS wrap
+rule made the production build fit 390 pixels in the same browser check; this
+narrow source change awaits distinct review before an r3 package build.
 The detailed investigation is
 `orchestration/reports/AEON_SCALING_AND_EXPANDED_TRAIN_INVESTIGATION_20260928.md`.
 The historical prior-year external-transfer finding is preserved, but it cannot
