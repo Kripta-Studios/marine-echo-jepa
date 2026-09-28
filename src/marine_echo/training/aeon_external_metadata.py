@@ -43,7 +43,8 @@ DISCARDED_FIELDS = (
 _CANDIDATE_RULE = {
     "required_previous_38khz_metadata_complete_intervals": 24,
     "all_previous_interval_ids_consecutive": True,
-    "all_horizon_interval_ids_within_same_archive": True,
+    "maximum_horizon_interval_id_within_archive_range": True,
+    "require_future_horizon_rows_present_for_candidate": False,
     "maximum_cross_channel_source_time_difference_minutes": 5,
     "minimum_consecutive_source_time_difference_minutes": 55,
     "maximum_consecutive_source_time_difference_minutes": 65,
