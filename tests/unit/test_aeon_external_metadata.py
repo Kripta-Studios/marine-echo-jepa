@@ -112,6 +112,17 @@ def test_rejects_missing_metadata_header(tmp_path: Path) -> None:
         scan_external_metadata(archive, manifest)
 
 
+def test_safe_explicit_directory_entry_is_allowed(tmp_path: Path) -> None:
+    archive = tmp_path / "source.zip"
+    with zipfile.ZipFile(archive, "w", compression=zipfile.ZIP_DEFLATED) as stream:
+        stream.writestr("publisher_folder/", "")
+        for name, data in MEMBERS.items():
+            stream.writestr(name, data)
+    manifest = _archive(tmp_path / "normal.zip")
+    manifest["archive_sha256"] = hashlib.sha256(archive.read_bytes()).hexdigest()
+    assert len(scan_external_metadata(archive, manifest)["streams"]) == 4
+
+
 def _transfer_contract(archive: Path) -> dict[str, object]:
     with zipfile.ZipFile(archive) as stream:
         inventory = "".join(

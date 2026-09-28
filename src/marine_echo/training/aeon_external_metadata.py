@@ -97,10 +97,12 @@ def _validate_zip(
     indexed: dict[str, zipfile.ZipInfo] = {}
     for info in infos:
         name = info.filename
+        name_components = name[:-1].split("/") if info.is_dir() else name.split("/")
         if (
             not name or "\\" in name or ":" in name or "\x00" in name
             or name.startswith("/") or "//" in name
-            or any(part in ("", ".", "..") for part in name.split("/"))
+            or any(part in ("", ".", "..") for part in name_components)
+            or (info.is_dir() and info.file_size != 0)
         ):
             raise ValueError("External AEON unsafe ZIP member path.")
         if name in names:
