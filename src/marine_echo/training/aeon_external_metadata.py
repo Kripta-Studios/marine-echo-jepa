@@ -1,6 +1,8 @@
 """Bounded, metadata-only inspection of a manifest-bound AEON FullDepth ZIP.
 
-This module never converts, retains, returns, or logs an acoustic value. Its
+The CSV tokenizer transiently materializes row strings before allowlist
+projection; this module never semantically interprets, numerically converts,
+branches on, aggregates, persists, returns, or logs an acoustic value. Its
 summary is acquisition evidence, not a numeric-QC, eligibility, or score report.
 """
 
@@ -214,7 +216,7 @@ def _scan_member(
         for raw in reader:
             if len(raw) != len(header):
                 raise ValueError("External AEON metadata row width differs.")
-            # Project the allowlist immediately; acoustic cells are never interpreted or retained.
+            # Project the allowlist immediately; discard the transient full row.
             metadata = {field: raw[index] for field, index in indices.items()}
             del raw
             retained_metadata.append(metadata)

@@ -109,8 +109,11 @@ rows. A distinct reviewer must approve Stage 1 code and exact allowed
 metadata columns before a row-level metadata scan. A CSV parser necessarily
 streams past the bytes of every field. Stage 1 may retain only `Date_M`,
 `Time_M`, `Interval`, `Layer`, `Layer_depth_min`, `Layer_depth_max`, `Ping_S`
-and `Ping_E`. It must not parse, convert, branch on, aggregate, log, persist or
-expose `Sv_mean` or any other disallowed field value, including `Process_ID`.
+and `Ping_E`. The CSV tokenizer may transiently materialize disallowed cell
+strings to project the eight allowed fields; the raw row is discarded
+immediately. Stage 1 must never semantically interpret, numerically convert,
+branch on, aggregate, log, persist or expose `Sv_mean` or any other
+disallowed field value, including `Process_ID`.
 It must reject any header other than the exact frozen 24-column sequence.
 The metadata-only candidate inventory must be hash-bound, show all dates and
 failure reasons, and be independently reviewed. The full reader, frozen
