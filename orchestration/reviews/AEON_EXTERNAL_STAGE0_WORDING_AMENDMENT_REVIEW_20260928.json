@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "review_id": "AEON_EXTERNAL_STAGE0_WORDING_AMENDMENT_REVIEW_20260928",
+  "reviewed_at": "2026-09-28",
+  "task_id": "aeon_external_transfer_stage0_wording_amendment_review",
+  "study_id": "aeon_external_transfer_20260928_v1",
+  "reviewer_task": "/root/external_reviewer",
+  "reviewer_role": "distinct_read_only_scientific_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "runtime_model_binding_verification": "NOT_EXPOSED_TO_REVIEWER_SESSION",
+  "verdict": "APPROVE_STAGE0_WORDING_AMENDMENT_ONLY",
+  "severity": "NONE",
+  "prior_stage0_review_path": "orchestration/reviews/AEON_EXTERNAL_STAGE0_DESIGN_REVIEW_20260928.json",
+  "prior_stage0_review_sha256": "b9c1ebf40c5a924e6fb2efcb869dca29b42e0c7baf7d2b7a788c70a10dad259d",
+  "amended_adr_path": "docs/adr/0012-aeon-external-conditioned-product-transfer.md",
+  "amended_adr_sha256": "3abd740a0597c712fbf67f0265737afecd31acc645be834bb329cf8d271491c7",
+  "unchanged_config_path": "configs/aeon_external_transfer.json",
+  "unchanged_config_sha256": "eae5c0e40b16d416ae7ab5fc01b9a58444734ab5ba1e405b4f2244b4843dfe02",
+  "scanner_source_path": "src/marine_echo/training/aeon_external_metadata.py",
+  "scanner_source_sha256_after_wording_change": "df0aaa71cb8c1cca62769a86413c0b6fa67f970ee04aebec7476781d07a84978",
+  "finding": "The amendment accurately states that standards-compliant CSV tokenization transiently materializes all row cells before immediate allowlist projection. It prohibits semantic interpretation, numeric conversion, branching, aggregation, logging, persistence, return or exposure of every disallowed field value. This wording matches the inspected implementation and does not change the eight permitted metadata fields, candidate rule, target, models, metric, gate or staged access boundary.",
+  "scope_preserved": {
+    "permitted_metadata_fields": [
+      "Date_M",
+      "Time_M",
+      "Interval",
+      "Layer",
+      "Layer_depth_min",
+      "Layer_depth_max",
+      "Ping_S",
+      "Ping_E"
+    ],
+    "disallowed_acoustic_semantic_or_numeric_use": true,
+    "metadata_row_access": "PENDING_SEPARATE_STAGE1_RUNNER_REVIEW",
+    "numeric_external_sv_access": "PROHIBITED"
+  },
+  "own_execution": [
+    "Inspected the exact ADR and scanner source diff.",
+    "Recomputed the amended ADR, unchanged config, amended scanner source and prior Stage 0 review SHA-256 digests.",
+    "Confirmed the amendment changes explanatory wording and one source comment/docstring only."
+  ],
+  "not_approved_by_this_artifact": [
+    "No Stage 1 real metadata-row scan is authorized.",
+    "No Stage 1 runner or output-writing path is approved.",
+    "No external acoustic value, prediction, metric or outcome may be opened.",
+    "The scanner implementation still requires a separate fail-closed Stage 1 runner review."
+  ],
+  "required_next_action": "Bind this amendment review and the original Stage 0 review in the fail-closed Stage 1 runner, then obtain a separate exact source-and-test approval before opening any real CSV data row.",
+  "cost_usd": 0
+}

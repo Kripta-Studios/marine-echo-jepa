@@ -33,6 +33,8 @@
   "proposal_adr": "docs/adr/0012-aeon-external-conditioned-product-transfer.md",
   "stage_0_design_review": "orchestration/reviews/AEON_EXTERNAL_STAGE0_DESIGN_REVIEW_20260928.json",
   "stage_0_design_review_sha256": "b9c1ebf40c5a924e6fb2efcb869dca29b42e0c7baf7d2b7a788c70a10dad259d",
+  "stage_0_wording_amendment_review": "orchestration/reviews/AEON_EXTERNAL_STAGE0_WORDING_AMENDMENT_REVIEW_20260928.json",
+  "stage_0_wording_amendment_review_sha256": "001c961f49dc5b4cafb61b66ea0aaf79c54b0e549325e0aa25a7170c62b14d5a",
   "stage_1_metadata_access_review": "PENDING",
   "stage_2_numeric_access_review": "PENDING",
   "distinct_outcome_review": "NOT_RUN",
