@@ -205,6 +205,7 @@ def preflight_external_access(
                 Path(aeon_external_metadata.__file__)
             )
             or not isinstance(report.get("candidate_rows"), list)
+            or report.get("candidate_count") != len(report["candidate_rows"])
             or not isinstance(report.get("candidate_inventory_sha256"), str)
         ):
             raise ValueError("AEON external Stage-1 candidate report differs.")
@@ -417,6 +418,32 @@ def run_external_transfer(
     issued_windows: dict[str, list[Any]] = {}
     for role in SOURCE_ROLES:
         source = sources[role]
+        if reports[role]["candidate_count"] == 0:
+            geometry_38: dict[str, int] = {}
+            for stream in reports[role].get("streams", []):
+                if stream.get("frequency_khz") == 38:
+                    for geometry, count in stream.get("geometry_histogram", {}).items():
+                        geometry_38[geometry] = geometry_38.get(geometry, 0) + int(count)
+            results[role] = {
+                "status": "METADATA_INELIGIBLE_NO_CANDIDATES",
+                "comparison_role": "PRIMARY_FIXED_TARGET" if role == SOURCE_ROLES[0]
+                else "SECONDARY_DESCRIPTIVE_NO_FALLBACK",
+                "numeric_sv_access": "NOT_RUN_METADATA_INELIGIBLE",
+                "source_archive_sha256": source["archive_sha256"],
+                "candidate_report_sha256": _sha256(candidate_reports[role]),
+                "stage_1_candidate_inventory_sha256": reports[role][
+                    "candidate_inventory_sha256"
+                ],
+                "candidate_count": 0,
+                "fixed_target_layer_geometry_m": "0:200",
+                "stage_1_38khz_geometry_histogram": dict(sorted(geometry_38.items())),
+                "actual_issued_rows": 0,
+                "candidate_not_issued_reasons": {},
+                "jepa_value_gate": "INELIGIBLE_NOT_A_NEGATIVE_TRANSFER_RESULT",
+            }
+            predictions[role] = {}
+            issued_windows[role] = []
+            continue
         slots = _read_numeric_slots(source_archives[role], source, reports[role])
         windows, not_issued = materialize_candidates(
             slots, reports[role]["candidate_rows"], source["archive_sha256"]
@@ -457,10 +484,13 @@ def run_external_transfer(
             truth, observed, times,
             model_predictions["core_direct_equal_three_seed_ensemble"],
             model_predictions["core_ema_equal_three_seed_ensemble"],
+            primary_gate=role == SOURCE_ROLES[0],
         )
         results[role] = {
             "status": "COMPLETED_ZERO_SHOT_EXTERNAL_TRANSFER"
             if score["cohort_eligible"] else "EXECUTED_COHORT_INELIGIBLE",
+            "comparison_role": "PRIMARY_FIXED_TARGET" if role == SOURCE_ROLES[0]
+            else "SECONDARY_DESCRIPTIVE_NO_FALLBACK",
             "source_archive_sha256": source["archive_sha256"],
             "candidate_report_sha256": _sha256(candidate_reports[role]),
             "stage_1_candidate_inventory_sha256": reports[role]["candidate_inventory_sha256"],

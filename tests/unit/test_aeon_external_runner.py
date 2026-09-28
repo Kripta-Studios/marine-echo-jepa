@@ -20,7 +20,8 @@ def _write(path: Path, value: dict[str, object]) -> str:
     return runner._sha256(path)
 
 
-def _fixture(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> dict[str, object]:
+def _fixture(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, *,
+             primary_candidates: bool = True) -> dict[str, object]:
     monkeypatch.setattr(aeon_forecast_adapters, "adapter_composite_sha256", lambda: "c" * 64)
     contract_path = tmp_path / "contract.json"
     selection_path = tmp_path / "selection.json"
@@ -38,6 +39,8 @@ def _fixture(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> dict[str, objec
         archives[role] = archive
         candidates = []
         for cutoff in (24, 25):
+            if index == 0 and not primary_candidates:
+                continue
             stamp = np.datetime64("2022-01-01", "us") + np.timedelta64(cutoff - 1, "h")
             candidates.append({
                 "cutoff_interval_id": cutoff,
@@ -61,7 +64,7 @@ def _fixture(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> dict[str, objec
             ),
             "candidate_inventory_sha256": "e" * 64,
             "candidate_sha256": "f" * 64,
-            "candidate_count": 2,
+            "candidate_count": len(candidates),
             "source_interval_id_min": 1,
             "source_interval_id_max": 32,
             "source_interval_count": 32,
@@ -70,6 +73,8 @@ def _fixture(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> dict[str, objec
             "actual_issued_rows": "UNKNOWN_NUMERIC_QC_NOT_OPENED",
             "actual_scored_rows": "UNKNOWN_NUMERIC_QC_NOT_OPENED",
             "candidate_rows": candidates,
+            "streams": [{"frequency_khz": 38, "geometry_histogram": {"0:230": 100}}]
+            if index == 0 and not primary_candidates else [],
         }
         report_sha = _write(report_path, report_value)
         reports[role] = report_path
@@ -81,7 +86,7 @@ def _fixture(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> dict[str, objec
             "candidate_report_sha256": report_sha,
             "candidate_inventory_sha256": "e" * 64,
             "candidate_sha256": "f" * 64,
-            "candidate_count": 2,
+            "candidate_count": len(candidates),
             "source_interval_id_min": 1,
             "source_interval_id_max": 32,
             "source_interval_count": 32,
@@ -254,6 +259,44 @@ def test_fixture_run_persists_both_cohorts_and_external_identity(
         assert result["cohorts"][role]["source_archive_sha256"] == sources[role][
             "archive_sha256"
         ]
+
+
+def test_zero_primary_candidates_never_open_primary_numeric_rows(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    kwargs = _fixture(tmp_path, monkeypatch, primary_candidates=False)
+    opened: list[str] = []
+
+    def secondary_only(_archive: Path, source: dict[str, object],
+                       _report: dict[str, object]) -> list[AeonHourlySlot]:
+        opened.append(str(source["site"]))
+        if source["site"] != "Synthetic site 1":
+            pytest.fail("primary acoustic row opened")
+        return [AeonHourlySlot(
+            interval_id=interval,
+            source_timestamp=np.datetime64("2022-01-01", "us")
+            + np.timedelta64(interval - 1, "h"),
+            sv_db=np.full(4, -70.0), observed_mask=np.ones(4, dtype=bool),
+            qc_status=("OBSERVED_SOURCE_PRODUCT",) * 4,
+            member_names=("synthetic.csv",),
+            archive_sha256=str(source["archive_sha256"]),
+        ) for interval in range(1, 33)]
+
+    monkeypatch.setattr(runner, "_read_numeric_slots", secondary_only)
+    kwargs["fixture_forecaster"] = lambda rows: {
+        model: np.stack([np.full((3, 5), -70.0) for _ in rows])
+        for model in runner.MODEL_FAMILIES
+    }
+    result = runner.run_external_transfer(**kwargs)
+    primary, secondary = runner.SOURCE_ROLES
+    assert opened == ["Synthetic site 1"]
+    assert result["cohorts"][primary]["status"] == "METADATA_INELIGIBLE_NO_CANDIDATES"
+    assert result["cohorts"][primary]["actual_issued_rows"] == 0
+    assert result["cohorts"][primary]["stage_1_38khz_geometry_histogram"] == {"0:230": 100}
+    assert result["cohorts"][secondary]["score"]["jepa_value_gate"] == (
+        "DESCRIPTIVE_ONLY_NOT_PRIMARY_GATE"
+    )
+    assert list((kwargs["output_directory"] / primary.lower()).glob("*.npz")) == []
 
 
 def test_synthetic_numeric_reader_reconstructs_stage1_metadata_inventory(tmp_path: Path) -> None:

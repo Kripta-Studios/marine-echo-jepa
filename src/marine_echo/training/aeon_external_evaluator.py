@@ -204,6 +204,7 @@ def score_external_predictions(
     truth: NDArray[np.float64], observed: NDArray[np.bool_],
     target_times: NDArray[np.datetime64], direct: NDArray[np.float64],
     ema: NDArray[np.float64],
+    *, primary_gate: bool = True,
 ) -> dict[str, Any]:
     """Compare both frozen models on the same daily source-date support."""
     if not len(truth):
@@ -232,7 +233,8 @@ def score_external_predictions(
             "ema_raw_metrics": "NOT_COMPUTABLE_NO_ELIGIBLE_DATE_IN_EVERY_HORIZON",
             "relative_loss_reduction": None,
             "paired_bootstrap_status": "NOT_RUN_COHORT_INELIGIBLE",
-            "jepa_value_gate": "INELIGIBLE_NOT_A_NEGATIVE_TRANSFER_RESULT",
+            "jepa_value_gate": "INELIGIBLE_NOT_A_NEGATIVE_TRANSFER_RESULT" if primary_gate
+            else "DESCRIPTIVE_ONLY_NOT_PRIMARY_GATE",
         }
     direct_metrics = daily_pinball(truth, direct, observed, target_times)
     ema_metrics = daily_pinball(truth, ema, observed, target_times)
@@ -255,7 +257,10 @@ def score_external_predictions(
     }
     if not eligible:
         report["paired_bootstrap_status"] = "NOT_RUN_COHORT_INELIGIBLE"
-        report["jepa_value_gate"] = "INELIGIBLE_NOT_A_NEGATIVE_TRANSFER_RESULT"
+        report["jepa_value_gate"] = (
+            "INELIGIBLE_NOT_A_NEGATIVE_TRANSFER_RESULT" if primary_gate
+            else "DESCRIPTIVE_ONLY_NOT_PRIMARY_GATE"
+        )
         return report
     draws = _paired_two_date_bootstrap(truth, observed, target_times, direct, ema)
     interval = np.quantile(draws, [0.025, 0.975]).astype(float).tolist()
@@ -273,7 +278,9 @@ def score_external_predictions(
         "paired_bootstrap_status": "COMPLETED_2000_DRAWS_SEED_20260928",
         "paired_95pct_difference_interval_db": interval,
         "per_horizon_relative_loss_difference": horizon_relative,
-        "jepa_value_gate": "PASSED_RETROSPECTIVE_EXTERNAL_TRANSFER" if passed
-        else "FAILED_ELIGIBLE_EXECUTED_TRANSFER",
+        "jepa_value_gate": (
+            "PASSED_RETROSPECTIVE_EXTERNAL_TRANSFER" if passed
+            else "FAILED_ELIGIBLE_EXECUTED_TRANSFER"
+        ) if primary_gate else "DESCRIPTIVE_ONLY_NOT_PRIMARY_GATE",
     })
     return report
