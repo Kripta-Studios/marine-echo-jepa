@@ -1,0 +1,153 @@
+{
+  "schema_version": "1.0",
+  "review_id": "AEON_EXTERNAL_STAGE0_DESIGN_REVIEW_20260928",
+  "reviewed_at": "2026-09-28",
+  "task_id": "aeon_external_transfer_stage0_design_review",
+  "parent_study_id": "aeon3_geb_2024_hourly_sv_v1",
+  "study_id": "aeon_external_transfer_20260928_v1",
+  "reviewer_task": "/root/external_reviewer",
+  "reviewer_role": "distinct_read_only_scientific_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "runtime_model_binding_verification": "NOT_EXPOSED_TO_REVIEWER_SESSION",
+  "implementer_separation": "Reviewer did not author the ADR, contract, scanner, reader, predictor, evaluator or release integration.",
+  "verdict": "APPROVE_STAGE0_DESIGN_ONLY",
+  "severity": "NONE_FOR_STAGE0_DESIGN",
+  "metadata_row_access": "PENDING_SEPARATE_STAGE1_SOURCE_AND_TEST_REVIEW",
+  "numeric_external_sv_access": "PROHIBITED",
+  "reviewed_contracts": {
+    "adr_path": "docs/adr/0012-aeon-external-conditioned-product-transfer.md",
+    "adr_sha256": "afa7b1d4ecc9c01a1802c6418687bd06a37a21d00fade385eeed321e92fdad71",
+    "config_path": "configs/aeon_external_transfer.json",
+    "config_sha256": "eae5c0e40b16d416ae7ab5fc01b9a58444734ab5ba1e405b4f2244b4843dfe02",
+    "selection_freeze_path": "configs/aeon_final_selection.json",
+    "selection_freeze_sha256": "b3940ab8e159ac8808843b15b455ffb3c42f2d3db322190af15b80e543edff58",
+    "source_processing_readme_path": "data/prospective/aeon-azfp-20260927/AZFP_AEON_Integrated_Product_Readme_2025.docx",
+    "source_processing_readme_sha256": "f72f04f52c246815bedb510c74b45c39ade419c5795d24250fa844fa7fd020a7"
+  },
+  "source_checks": [
+    {
+      "role": "PRIMARY_CROSS_SITE_CONTEMPORANEOUS",
+      "archive_path": "data/prospective/aeon-external-20260928/AEON2_ECS_Apr2024-Apr2025_AZFP_Sv.zip",
+      "figshare_file_id": 61937269,
+      "archive_bytes": 48732943,
+      "publisher_md5": "45036551bfc8093cc6cb4f802e797963",
+      "local_sha256": "d0c57bcf73a09ad3fad1f6be3704d25263ce2a1842080dfe1ba680b57527364b",
+      "hourly_full_depth_member_count": 52,
+      "central_inventory_sha256": "4d64d2b9f0042ed0c9a40afce02760a47dc47f0e32297aaed2196cae7d48e7a7",
+      "months": "2024-04_through_2025-04",
+      "frequencies_khz": [38, 125, 200, 455]
+    },
+    {
+      "role": "SECONDARY_PRIOR_YEAR_SAME_SITE",
+      "archive_path": "data/prospective/aeon-external-20260928/AEON3_GEB_Feb2023-Feb2024_AZFP_Sv.zip",
+      "figshare_file_id": 61937275,
+      "archive_bytes": 34761843,
+      "publisher_md5": "b3c8c752b582216d7f43c7f41088b5a8",
+      "local_sha256": "b6d8380ed986c91d565ea7d669761ff8f66da8f2b5cd3e794fbf71c040bf1d37",
+      "hourly_full_depth_member_count": 52,
+      "central_inventory_sha256": "5f775eec41dcf1bd704d101467f0c65469ac1fcfac23d2277fdd9a37436a4323",
+      "months": "2023-02_through_2024-02",
+      "frequencies_khz": [38, 125, 200, 455]
+    }
+  ],
+  "official_source_evidence": {
+    "figshare_article": "https://figshare.com/articles/dataset/AZFP/29247113",
+    "figshare_version": 2,
+    "license": "CC BY 4.0",
+    "unh_data_portal": "https://eos.unh.edu/aeon/data/aeon-data-portal",
+    "unh_primary_raw_coverage": "AEON2 AZFP raw 12-Apr-2024 through 10-Apr-2025",
+    "unh_secondary_raw_coverage": "AEON3 AZFP raw 15-Feb-2023 through 29-Feb-2024",
+    "source_reported_filename_serial": "55146 for both external archives; original AEON3 2024-25 archive uses 55144"
+  },
+  "header_only_check": {
+    "method": "Opened only the first header line of each of the 104 60minFullDepth CSV members; no data row was opened.",
+    "members_checked": 104,
+    "unique_headers_per_archive": 1,
+    "exact_header": [
+      "Process_ID",
+      "Interval",
+      "Layer",
+      "Sv_mean",
+      "NASC",
+      "Height_mean",
+      "Depth_mean",
+      "Layer_depth_min",
+      "Layer_depth_max",
+      "Ping_S",
+      "Ping_E",
+      "Dist_M",
+      "Date_M",
+      "Time_M",
+      "Lat_M",
+      "Lon_M",
+      "Noise_Sv_1m",
+      "Minimum_Sv_threshold_applied",
+      "Maximum_Sv_threshold_applied",
+      "Standard_deviation",
+      "Thickness_mean",
+      "Range_mean",
+      "Exclude_below_line_range_mean",
+      "Exclude_above_line_range_mean"
+    ],
+    "permitted_stage1_metadata_fields": [
+      "Date_M",
+      "Time_M",
+      "Interval",
+      "Layer",
+      "Layer_depth_min",
+      "Layer_depth_max",
+      "Ping_S",
+      "Ping_E"
+    ],
+    "process_id_and_acoustic_fields": "DISALLOWED_FROM_PARSE_CONVERSION_BRANCH_AGGREGATION_LOG_PERSISTENCE_OR_OUTPUT"
+  },
+  "scientific_design_findings": [
+    "The primary cohort is correctly classified as a post-hoc-initiated, contemporaneous cross-site transfer with extensive calendar overlap and possible shared regional or seasonal forcing; it is not a sealed or independent temporal confirmation.",
+    "The secondary cohort is correctly descriptive: it is a prior-year same-site deployment evaluated backward using models trained on later observations, not a prospective temporal holdout or fallback for the primary cohort.",
+    "The nominal 0-200 m source-defined layer is physically non-equivalent between the approximately 231 m AEON2 and approximately 189 m AEON3 sites. The contract preserves this as domain shift and prohibits a post-outcome depth repair.",
+    "Both external archives carry source-reported serial 55146 and share the publisher conditioning chain; they are not two instrument-independent replications.",
+    "The target remains source-reported conditioned Sv. Exact raw, firmware configuration, ECS, calibration-certificate and timezone lineage remain unresolved, so absolute-backscatter and biological claims remain prohibited.",
+    "The original direct and EMA three-seed ensembles, checkpoint-embedded AEON3 TRAIN scalers, equal averaging and quantile rearrangement are frozen. External fitting, site offsets, normalization, recalibration, model selection and checkpoint substitution are prohibited.",
+    "Stage 1 metadata candidates are distinct from Stage 2 numeric-QC issuance. A candidate requires its 24 predecessor IDs and keeps cutoff plus six within the archive interval range, but a missing future horizon row cannot exclude it. Stage 2 may issue only candidates with 24 valid past 38 kHz values, masks invalid other past channels, never filters issuance on future values or availability, and preserves every non-issuance reason.",
+    "The 18-anchor daily floor, 90-date per-horizon per-archive gate, common model support, raw five-quantile daily pinball metric, two-source-date paired bootstrap, 2,000 draws, new seed 20260928 and 5-percent/paired-interval/per-horizon gates are fixed before row-level access."
+  ],
+  "resolved_review_findings": [
+    "The official site name is Eastern Coastal Shelf.",
+    "The exact 24-column header is frozen and Process_ID is explicitly disallowed.",
+    "The contract states that a parser streams past complete CSV row bytes but cannot parse, use or expose disallowed values.",
+    "Metadata candidates are not called issued or scored rows, missing future rows cannot exclude them, and the later past-only numeric-QC materialization is explicit.",
+    "The new bootstrap seed is not silently passed to the old evaluator that hard-codes seed 20260926."
+  ],
+  "execution_evidence": [
+    {
+      "command_class": "Get-FileHash SHA256 and MD5",
+      "result": "PASS",
+      "evidence": "Both local archive MD5 values match Figshare; archive SHA-256, readme SHA-256 and selection-freeze SHA-256 match the contract."
+    },
+    {
+      "command_class": "System.IO.Compression central-directory enumeration and deterministic SHA-256 recomputation",
+      "result": "PASS",
+      "evidence": "Each archive has 52 expected hourly FullDepth members across 13 months and four frequencies; both serialized inventory digests match the contract."
+    },
+    {
+      "command_class": "System.IO.Compression header-line-only inspection",
+      "result": "PASS",
+      "evidence": "All 104 member headers match the exact frozen sequence; no CSV data row was opened."
+    },
+    {
+      "command_class": "Official Figshare and UNH metadata inspection",
+      "result": "PASS_WITH_LIMITATIONS",
+      "evidence": "File identity, license, collection/site/deployment coverage and cruise depths are supported; raw-to-product calibration, timezone and exact deployment-instrument binding remain unresolved."
+    }
+  ],
+  "not_run": [
+    "No external CSV data row was opened by this review.",
+    "No Stage 1 metadata scanner source or tests are approved by this verdict.",
+    "No real Stage 1 metadata scan was run.",
+    "No external Sv value, prediction, metric or model outcome was inspected.",
+    "No Stage 2 reader, predictor, evaluator or bootstrap implementation was approved or executed."
+  ],
+  "required_next_action": "A distinct review of the exact committed Stage 1 scanner source and synthetic tests must approve metadata-row access. Numeric external Sv access remains prohibited until a later independently reviewed Stage 2 freeze.",
+  "cost_usd": 0
+}

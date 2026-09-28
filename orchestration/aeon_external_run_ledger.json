@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "study_id": "aeon_external_transfer_20260928_v1",
+  "classification": "POST_HOC_INITIATED_EXTERNAL_TRANSFER_NOT_SEALED",
+  "stage": "STAGE_0_DESIGN_APPROVED_STAGE_1_SCANNER_REVIEW_PENDING",
+  "publisher_article": "https://figshare.com/articles/dataset/AZFP/29247113",
+  "publisher_article_version": 2,
+  "sources": [
+    {
+      "role": "PRIMARY_CROSS_SITE_CONTEMPORANEOUS",
+      "site": "AEON2_ECS",
+      "file_id": 61937269,
+      "archive_sha256": "d0c57bcf73a09ad3fad1f6be3704d25263ce2a1842080dfe1ba680b57527364b",
+      "download_status": "DOWNLOADED_PUBLISHER_MD5_AND_SHA256_VERIFIED",
+      "metadata_scan_status": "NOT_RUN",
+      "numeric_external_sv_status": "NOT_RUN",
+      "prediction_status": "NOT_RUN",
+      "score_status": "NOT_RUN"
+    },
+    {
+      "role": "SECONDARY_PRIOR_YEAR_SAME_SITE_DESCRIPTIVE",
+      "site": "AEON3_GEB",
+      "file_id": 61937275,
+      "archive_sha256": "b6d8380ed986c91d565ea7d669761ff8f66da8f2b5cd3e794fbf71c040bf1d37",
+      "download_status": "DOWNLOADED_PUBLISHER_MD5_AND_SHA256_VERIFIED",
+      "metadata_scan_status": "NOT_RUN",
+      "numeric_external_sv_status": "NOT_RUN",
+      "prediction_status": "NOT_RUN",
+      "score_status": "NOT_RUN"
+    }
+  ],
+  "proposal_config": "configs/aeon_external_transfer.json",
+  "proposal_adr": "docs/adr/0012-aeon-external-conditioned-product-transfer.md",
+  "stage_0_design_review": "orchestration/reviews/AEON_EXTERNAL_STAGE0_DESIGN_REVIEW_20260928.json",
+  "stage_0_design_review_sha256": "b9c1ebf40c5a924e6fb2efcb869dca29b42e0c7baf7d2b7a788c70a10dad259d",
+  "stage_1_metadata_access_review": "PENDING",
+  "stage_2_numeric_access_review": "PENDING",
+  "distinct_outcome_review": "NOT_RUN",
+  "app_integration": "NOT_RUN",
+  "release": "NOT_RUN",
+  "original_aeon_test_and_historical_v1_v2_status": "PRESERVED_UNCHANGED"
+}

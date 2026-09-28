@@ -1,5 +1,23 @@
 # Execution status
 
+## AEON external conditioned-product transfer - proposed 28 September 2026
+
+The reviewed AEON3 2024–25 retrospective result and r4 offline release remain
+unchanged. A separate post-hoc-initiated transfer study has downloaded and
+publisher-MD5/local-SHA-256-verified two public Figshare version-2 AZFP
+archives: primary AEON2 East Coast Shelf April 2024–April 2025 and secondary
+AEON3 Georges Basin February 2023–February 2024. The external candidate
+archives have the same source-reported 38 kHz `60minFullDepth` field and four
+channels. Both candidate filenames report serial 55146, so they are not two
+proven instrument-independent replications. Site depth and source-product
+conditioning limit physical comparability. ADR 0012 and
+`configs/aeon_external_transfer.json` freeze the proposed zero-shot source,
+target, model, support and analysis rules. A distinct reviewer approved the
+Stage 0 design and source/header identities; Stage 1 scanner code review is
+pending. No external CSV data rows, numerical acoustic values, predictions or
+scores have been read or produced. The builder's scanner is synthetic-only
+until that review. Machine state: `orchestration/aeon_external_run_ledger.json`.
+
 ## Prospective v2 continuation - active 27 September 2026
 
 Owner authorization for the documented v2 amendment is recorded in the continuation
