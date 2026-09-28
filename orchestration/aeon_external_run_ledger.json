@@ -109,5 +109,13 @@
     "independent_package_review_sha256": "8a3a57b34bbb58127cd59642d6c09dad0c20a52a22ebc953058003f0cf5358e8"
   },
   "release": "APPROVED_EXACT_R2_OFFLINE_RESEARCH_ARCHIVE_NEGATIVE_SECONDARY_NO_PRIMARY_RESULT",
+  "github_prerelease": {
+    "status": "PUBLISHED_EXACT_REVIEWED_R2_ASSET_DIGEST_VERIFIED",
+    "url": "https://github.com/Kripta-Studios/marine-echo-jepa/releases/tag/aeon-external-transfer-2026-09-28-r2",
+    "source_commit": "a5c41857e58374bd9638ea28f058440441632845",
+    "zip_asset_sha256": "f0a529ef7c3353ef880af04af3ea2106baa68cdfbfd9173d86e20c7e44b3a40d",
+    "checksum_asset_sha256": "5ebb4de7bf73d6e619bfe848ef6f5d27c64730fb5838fd94a378f7d769369515",
+    "raw_acoustic_archives_uploaded": false
+  },
   "original_aeon_test_and_historical_v1_v2_status": "PRESERVED_UNCHANGED"
 }

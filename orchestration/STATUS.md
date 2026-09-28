@@ -72,6 +72,13 @@ review is the approval. R1 remains unapproved. This release is retrospective,
 non-sealed research with a negative descriptive secondary transfer and no
 primary cross-site result, not production or business validation.
 
+The independently approved exact r2 ZIP and its checksum are published as the
+[AEON external transfer r2 GitHub prerelease](https://github.com/Kripta-Studios/marine-echo-jepa/releases/tag/aeon-external-transfer-2026-09-28-r2),
+targeting source commit `a5c41857e58374bd9638ea28f058440441632845`.
+GitHub's ZIP asset SHA-256 matches the approved archive:
+`f0a529ef7c3353ef880af04af3ea2106baa68cdfbfd9173d86e20c7e44b3a40d`.
+Raw acoustic archives were not uploaded.
+
 ## Prospective v2 continuation - active 27 September 2026
 
 Owner authorization for the documented v2 amendment is recorded in the continuation
