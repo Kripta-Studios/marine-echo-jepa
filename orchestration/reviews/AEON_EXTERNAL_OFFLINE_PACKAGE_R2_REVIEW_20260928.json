@@ -1,0 +1,119 @@
+{
+  "schema_version": "1.0",
+  "review_id": "AEON_EXTERNAL_OFFLINE_PACKAGE_R2_REVIEW_20260928",
+  "reviewed_at": "2026-09-28",
+  "task_id": "aeon_external_offline_package_r2_review",
+  "parent_dependencies": [
+    "AEON_EXTERNAL_APP_SOURCE_REVIEW_V2_20260928",
+    "AEON_EXTERNAL_STAGE2_OUTCOME_REVIEW_20260928"
+  ],
+  "study_id": "aeon_external_transfer_20260928_v1",
+  "status": "APPROVED_AEON_EXTERNAL_OFFLINE_PACKAGE_R2",
+  "verdict": "APPROVE",
+  "severity": "NONE",
+  "reviewer_session": "/root/external_reviewer",
+  "reviewer_role": "distinct_read_only_scientific_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "runtime_model_binding_verification": "NOT_EXPOSED_TO_REVIEWER_SESSION",
+  "integrated_source_approval_commit": "72eff92ae96a8578911cbc41ce2bf8c1286a343c",
+  "candidate_validation_commit": "e9c35ea139d08a7a34a6a3e17eacf3c4c960cf50",
+  "source_review_path": "orchestration/reviews/AEON_EXTERNAL_APP_SOURCE_REVIEW_V2_20260928.json",
+  "source_review_sha256": "6056ee55ffa2769aa7dae5d80a78c96fd740d8f584e751ef64616217c9fef0f1",
+  "outcome_review_path": "orchestration/reviews/AEON_EXTERNAL_STAGE2_OUTCOME_REVIEW_20260928.json",
+  "outcome_review_sha256": "ec1ad3ecc437d28f47c53063d6abc6c8f9efe08c36a0f39dec4bda8ef9ad255d",
+  "candidate": {
+    "archive_path": "release/aeon-offline-external-transfer-20260928-r2.zip",
+    "archive_sha256": "f0a529ef7c3353ef880af04af3ea2106baa68cdfbfd9173d86e20c7e44b3a40d",
+    "archive_bytes": 22496334,
+    "sidecar_path": "release/aeon-offline-external-transfer-20260928-r2.zip.sha256",
+    "sidecar_sha256": "5ebb4de7bf73d6e619bfe848ef6f5d27c64730fb5838fd94a378f7d769369515",
+    "archive_root": "aeon-offline-external-transfer-20260928-r2",
+    "archive_file_entries": 87,
+    "sha256sums_covered_files": 86,
+    "uncompressed_bytes": 30657704
+  },
+  "archive_security_review": {
+    "single_root": true,
+    "duplicate_names": 0,
+    "casefold_name_collisions": 0,
+    "absolute_paths": 0,
+    "parent_traversal_paths": 0,
+    "backslash_paths": 0,
+    "symlink_entries": 0,
+    "maximum_compression_ratio": 11.927181418706843,
+    "all_sha256sums_entries_match": true,
+    "missing_manifest_entries": 0,
+    "extra_manifest_entries": 0
+  },
+  "external_evidence_review": {
+    "packaged_provenance_files": 8,
+    "all_packaged_provenance_byte_exact_to_reviewed_sources": true,
+    "original_acoustic_archives_bundled": false,
+    "primary_status": "METADATA_INELIGIBLE_NO_CANDIDATES",
+    "primary_candidate_count": 0,
+    "primary_numeric_sv_access": "NOT_RUN_METADATA_INELIGIBLE",
+    "primary_jepa_value_gate": "NOT_EVALUATED_METADATA_INELIGIBLE",
+    "secondary_issued_rows": 8507,
+    "secondary_eligible_dates_per_horizon": [353, 353, 353],
+    "direct_daily_pinball_db": 0.6701783099148351,
+    "ema_daily_pinball_db": 0.6789216779097978,
+    "ema_relative_loss_reduction": -0.013046330902702402,
+    "paired_95pct_ema_minus_direct_db": [
+      0.0022527825173525597,
+      0.015516133047404537
+    ],
+    "scientific_disposition": "NEGATIVE_DESCRIPTIVE_SAME_SITE_PRIOR_YEAR_JEPA_COMPARISON; NO_CROSS_SITE_MODEL_RESULT"
+  },
+  "independent_execution": [
+    {
+      "command": "Independent Python ZIP and sidecar inspection before extraction",
+      "result": "PASS",
+      "evidence": "The adjacent sidecar matched the 22,496,334-byte archive. The archive had one safe root, 87 unique regular-file entries, no path escape or linked entry, and a bounded maximum compression ratio of 11.9272."
+    },
+    {
+      "command": "Independent SHA256SUMS and reviewed provenance reconstruction from ZIP bytes",
+      "result": "PASS",
+      "evidence": "SHA256SUMS covered every other packaged file exactly: 86 of 86 digests matched. All eight external-transfer evidence files were byte-for-byte identical to the pinned reviewed repository sources. The study and catalog preserved the reviewed states, metrics, source IDs, license and archive-exclusion flag."
+    },
+    {
+      "command": "Fresh extraction to outputs/aeon-r2-independent-review and Run-AEON-Research.ps1 -Port 8771",
+      "result": "PASS_THEN_STOPPED_BY_REVIEWER",
+      "evidence": "The package verifier reported 86 packaged files. uv created CPython 3.12.13, resolved and installed 13 bundled wheels with --offline --no-index, and served only 127.0.0.1. The reviewer stopped the server with Ctrl-C after the checks completed."
+    },
+    {
+      "command": "Loopback health, AEON study and retrospective replay API checks",
+      "result": "PASS",
+      "evidence": "Health was ready with the expected review-pending release class. The external payload returned the exact primary ineligible state and negative 8,507-row secondary result. The EMA retrospective replay returned 12 truth-free rows at offset 12 with three horizons and five quantiles."
+    },
+    {
+      "command": "Headless Chromium against relocated http://127.0.0.1:8771/#aeon-study",
+      "result": "PASS",
+      "evidence": "Fifteen external-section checks passed: official primary site, 8,682 rows, zero candidates, no primary acoustic/model result, 8,507 secondary cutoffs, exact displayed direct and EMA losses, -1.30 percent, direct-favored interpretation, no cross-site/SOTA/biological claim, source file IDs/license and archive exclusion. No page or console errors occurred."
+    }
+  ],
+  "review_artifacts": {
+    "independent_browser_screenshot": "outputs/aeon-r2-independent-review/browser-aeon-external.png",
+    "independent_browser_screenshot_sha256": "19a09e00f71d050788ff7ebf4ceb47564620715172044c4de0f91b9fb56f38f1",
+    "leader_validation_report": "orchestration/reports/AEON_EXTERNAL_OFFLINE_R2_VALIDATION_20260928.md",
+    "leader_validation_report_sha256": "f373ac13932146f01162e532b8d7b766ace6b69a8cfa3d97fcadb70c75c6cbd0"
+  },
+  "claim_limits": [
+    "The contemporaneous primary cross-site cohort is metadata-ineligible; no primary numeric or model result exists.",
+    "The secondary result is a negative descriptive same-site prior-year comparison and is not sealed confirmation or cross-site replication.",
+    "The result does not establish JEPA representation value, state of the art, species, biomass, catch, operational savings, production readiness or business validation.",
+    "The source quantity is source-reported conditioned Sv_mean and is not independently field calibrated by this study."
+  ],
+  "release_disposition": "APPROVED_FOR_OFFLINE_RESEARCH_RELEASE_PROMOTION",
+  "rejected_predecessor": {
+    "candidate": "aeon-offline-external-transfer-20260928-r1",
+    "status": "REMAINS_UNAPPROVED_AND_MUST_NOT_BE_PROMOTED"
+  },
+  "unresolved_uncertainty": [
+    "The source clock timezone, operational product latency, publisher conditioning details and cross-site geometry comparability remain unresolved as already stated in the study.",
+    "The package release class remains REVIEW_PENDING inside immutable candidate bytes; this external exact-archive review supplies the promotion decision without rewriting the archive."
+  ],
+  "time_cost": "LOCAL_REVIEW_ONLY",
+  "cost_usd": 0,
+  "next_action": "Commit this reviewer-authored exact-archive verdict, record the promoted r2 digest in the release ledger and status, keep r1 unapproved, and push the reviewed source and release metadata without uploading excluded raw archives."
+}
