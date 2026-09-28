@@ -1,0 +1,142 @@
+{
+  "schema_version": "1.0",
+  "review_id": "AEON_EXTERNAL_STAGE2_RETRY_REVIEW_20260928",
+  "reviewed_at": "2026-09-28",
+  "task_id": "aeon_external_transfer_stage2_retry_prenumeric_review",
+  "study_id": "aeon_external_transfer_20260928_v1",
+  "status": "APPROVED_AEON_EXTERNAL_STAGE2_RETRY_NUMERIC_ACCESS",
+  "verdict": "APPROVE_ONE_SECONDARY_RETRY_AFTER_TIMESTAMP_REPRESENTATION_FIX",
+  "severity": "NONE",
+  "reviewer_session": "/root/external_reviewer",
+  "reviewer_role": "distinct_read_only_scientific_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "runtime_model_binding_verification": "NOT_EXPOSED_TO_REVIEWER_SESSION",
+  "implementer_separation": "The reviewer did not author the retry fix, evaluator, runner, tests, failure evidence, checkpoints, source archives, contract or model-selection freeze.",
+  "classification": "POST_HOC_INITIATED_EXTERNAL_TRANSFER_NOT_SEALED",
+  "primary_numeric_access": "PRIMARY_NUMERIC_ACCESS_PROHIBITED_METADATA_INELIGIBLE",
+  "primary_candidate_count": 0,
+  "secondary_role": "SECONDARY_DESCRIPTIVE_NO_FALLBACK",
+  "numeric_access_authorization": "EXACTLY_ONE_SECONDARY_ARCHIVE_RETRY_AFTER_COMPLETE_PREFLIGHT",
+  "output_directory": "outputs/aeon_external_transfer_20260928_v1/zero_shot_secondary",
+  "contract_path": "configs/aeon_external_transfer.json",
+  "contract_sha256": "eae5c0e40b16d416ae7ab5fc01b9a58444734ab5ba1e405b4f2244b4843dfe02",
+  "adr_path": "docs/adr/0012-aeon-external-conditioned-product-transfer.md",
+  "adr_sha256": "3abd740a0597c712fbf67f0265737afecd31acc645be834bb329cf8d271491c7",
+  "stage_1_outcome_review_path": "orchestration/reviews/AEON_EXTERNAL_STAGE1_METADATA_OUTCOME_REVIEW_20260928.json",
+  "stage_1_outcome_review_sha256": "b53dbb9db28a818f6d3bdbb5d8d5d7ea3a532f0b6ae1730a4a179747b9148aa5",
+  "selection_path": "configs/aeon_final_selection.json",
+  "selection_sha256": "b3940ab8e159ac8808843b15b455ffb3c42f2d3db322190af15b80e543edff58",
+  "prior_stage_2_review_path": "orchestration/reviews/AEON_EXTERNAL_STAGE2_PRENUMERIC_REVIEW_20260928.json",
+  "prior_stage_2_review_sha256": "7c2e80201bc48edc825b2899eee17210d8252b0296987ccf65272570266f164e",
+  "failed_attempt_report_path": "orchestration/reports/AEON_EXTERNAL_FIRST_NUMERIC_ATTEMPT_FAILURE_20260928.md",
+  "failed_attempt_report_sha256": "a2d933644120107a63f95eeebbc1e3f1c8db91643bb5096f58b87799e0d2b12a",
+  "failed_attempt_ledger_path": "orchestration/aeon_external_run_ledger.json",
+  "failed_attempt_ledger_sha256": "3648eca78e20676414f20bdc09d6ed9300fe42cf350605cc4bd5e1658d2a5430",
+  "runner_path": "src/marine_echo/training/aeon_external_runner.py",
+  "runner_code_sha256": "2979a0ff6b641cb6175b8701eb45baaff9b6730c56184aa4f58389a8880c96e0",
+  "runner_commit": "e316061",
+  "evaluator_path": "src/marine_echo/training/aeon_external_evaluator.py",
+  "evaluator_code_sha256": "d8daf4ec0af110b718bd1a3e5026ccc208e1fe1418183fde13ab77c58d33600d",
+  "evaluator_final_commit": "35b348f",
+  "metadata_scanner_path": "src/marine_echo/training/aeon_external_metadata.py",
+  "metadata_scanner_code_sha256": "df0aaa71cb8c1cca62769a86413c0b6fa67f970ee04aebec7476781d07a84978",
+  "evaluation_path": "src/marine_echo/evaluation/aeon.py",
+  "evaluation_code_sha256": "5dff72c1baf2f5528f13f369936d2ca5710eeb8b8a6e6cae12a0ef95366225ff",
+  "corpus_path": "src/marine_echo/training/aeon_corpus.py",
+  "corpus_code_sha256": "398e021a5807ab8068ceef03dd692f3b688c744751cd4e65d3efbee94d9a3efd",
+  "adapter_composite_sha256": "c8ccc0c54b720676b9f6d19cdd5ed7ffd1a5daf58ed22c469479a9272d1b77f9",
+  "checkpoint_sha256": {
+    "direct_seed7": "a616f9160f359e54a6da5d87dc3b7a46edfee46e449e2944af7a69be8ae25c95",
+    "direct_seed13": "eb6ca62f4c68024b43ea8b2102a0754d646623fd91cbf1ad31fb72218faf48dc",
+    "direct_seed23": "ee3ae09ebf05bc41ec762e946a1d0046be33fff4ea47472a992893a294054761",
+    "ema_jepa_seed7": "f1fc41860e21cb2c47868488b051c68cd951487d717fc0fe033e63b8dfcc664c",
+    "ema_jepa_seed13": "59cb3d1e6d79ca2d9807f24c5e816d0e5c89fad0e274e703d6e9da5b44024633",
+    "ema_jepa_seed23": "4a7c63931a31a48f60323b944110df9292856f39cb822ce0b891371a10a16a15"
+  },
+  "checkpoint_paths": {
+    "direct_seed7": "outputs/aeon3_geb_2024_hourly_sv_v1/core_campaign/direct_seed7/checkpoint-supervised-3000.pt",
+    "direct_seed13": "outputs/aeon3_geb_2024_hourly_sv_v1/core_campaign/direct_seed13/checkpoint-supervised-3000.pt",
+    "direct_seed23": "outputs/aeon3_geb_2024_hourly_sv_v1/core_campaign/direct_seed23/checkpoint-supervised-3000.pt",
+    "ema_jepa_seed7": "outputs/aeon3_geb_2024_hourly_sv_v1/core_campaign/ema_jepa_seed7/checkpoint-supervised-1500.pt",
+    "ema_jepa_seed13": "outputs/aeon3_geb_2024_hourly_sv_v1/core_campaign/ema_jepa_seed13/checkpoint-supervised-1500.pt",
+    "ema_jepa_seed23": "outputs/aeon3_geb_2024_hourly_sv_v1/core_campaign/ema_jepa_seed23/checkpoint-supervised-1500.pt"
+  },
+  "sources": {
+    "PRIMARY_CROSS_SITE_CONTEMPORANEOUS": {
+      "archive_path": "data/prospective/aeon-external-20260928/AEON2_ECS_Apr2024-Apr2025_AZFP_Sv.zip",
+      "archive_sha256": "d0c57bcf73a09ad3fad1f6be3704d25263ce2a1842080dfe1ba680b57527364b",
+      "candidate_report_path": "outputs/aeon_external_transfer_20260928_v1/metadata/primary-metadata.json",
+      "candidate_report_sha256": "3c21912b87bcd063188b3a22c7efdfaf00d9682346f458f8e890b27fb65bc3bf",
+      "candidate_count": 0,
+      "numeric_row_access": "PROHIBITED"
+    },
+    "SECONDARY_PRIOR_YEAR_SAME_SITE": {
+      "archive_path": "data/prospective/aeon-external-20260928/AEON3_GEB_Feb2023-Feb2024_AZFP_Sv.zip",
+      "archive_sha256": "b6d8380ed986c91d565ea7d669761ff8f66da8f2b5cd3e794fbf71c040bf1d37",
+      "candidate_report_path": "outputs/aeon_external_transfer_20260928_v1/metadata/secondary-metadata.json",
+      "candidate_report_sha256": "38dd82cdda273c451f894571ba18b75ff3d6ede9b9919f4ee32ce77d8bf46177",
+      "candidate_count": 8507,
+      "numeric_row_access": "APPROVED_ONCE_FOR_RETRY_AFTER_EXACT_PREFLIGHT"
+    }
+  },
+  "remedial_change": {
+    "scope": "CUTOFF_TIMESTAMP_REPRESENTATION_ONLY",
+    "failure": "Stage 1 serializes 81 exact whole-second instants without a fractional suffix, while the original Stage 2 equality check emitted microsecond-resolution text with .000000.",
+    "fix": "Parse the already-bound candidate timestamp at microsecond resolution, require one of the two exact canonical ISO representations, reject NaT or malformed text, and compare the resulting instant to the source slot instant.",
+    "unchanged": "Source archives, metadata reports, candidate identities/counts, target, QC, issuance, checkpoints, scalers, forecasts, scoring, threshold and bootstrap rules are unchanged."
+  },
+  "review_findings": [
+    "The first approved numeric attempt is immutably recorded as exit 1 after secondary row read and before any forecast, score, bootstrap or output creation; the original approval is consumed.",
+    "All 8,507 bound secondary candidate timestamps, including the 81 whole-second strings, parse under the corrected canonical representation rule.",
+    "Focused tests accept equal instants at whole-second and nonzero-microsecond precision and reject malformed text, NaT and a genuinely different instant during candidate materialization.",
+    "The retry gate binds the original review, exact failed-attempt report and exact machine ledger before numeric access, in addition to every original contract, source, report, checkpoint and code dependency.",
+    "The reviewed primary candidate report still has zero candidates; the runner emits the metadata-ineligible disposition and never calls the primary numeric reader.",
+    "The secondary run remains a descriptive prior-year same-site transfer and cannot replace, rescue or become the primary cross-site result.",
+    "No threshold, target, support rule, normalization, checkpoint, model, score or bootstrap definition changed after the failed access."
+  ],
+  "independent_execution": [
+    {
+      "command": ".venv/Scripts/python.exe -m pytest -q tests/unit/test_aeon_external_evaluator.py",
+      "result": "PASS",
+      "evidence": "12 passed in 4.29 seconds on final evaluator commit 35b348f; exit code 0."
+    },
+    {
+      "command": ".venv/Scripts/python.exe -m pytest -q tests/unit/test_aeon_external_runner.py -k \"retry or scientific_dependency or reviewed_output or existing_output or zero_primary\"",
+      "result": "PASS",
+      "evidence": "12 passed and 6 deselected in 36.75 seconds; exit code 0."
+    },
+    {
+      "command": "Parse every cutoff_source_timestamp in the exact bound secondary metadata report using the corrected canonical parser",
+      "result": "PASS",
+      "evidence": "8,507 of 8,507 parsed; exactly 81 used the accepted whole-second representation. No acoustic value was opened."
+    },
+    {
+      "command": ".venv/Scripts/mypy.exe src/marine_echo/training/aeon_external_evaluator.py src/marine_echo/training/aeon_external_runner.py",
+      "result": "PASS_INSPECTED_LEADER_EXECUTION",
+      "evidence": "Leader reported exit 0 with no issues after integrated commit e316061."
+    }
+  ],
+  "approved_access_scope": {
+    "primary_archive": "Hash and already-approved metadata/report lineage checks only; no primary CSV data row may be opened in the retry.",
+    "secondary_archive": "One retry of the exact bound runner may read the fixed secondary CSV members, convert Sv_mean, issue unchanged frozen candidates, run both frozen ensembles and persist predictions and metrics.",
+    "fit_calibration_selection": "PROHIBITED",
+    "external_normalization_or_offset": "PROHIBITED",
+    "future_truth_for_issuance": "PROHIBITED",
+    "further_retry_or_tuning": "PROHIBITED_WITHOUT_NEW_DISTINCT_REVIEW",
+    "claim_before_outcome_review": "PROHIBITED"
+  },
+  "not_run_at_review_time": [
+    "No retry was executed and no new external acoustic value was opened after the failed attempt.",
+    "No Stage 2 prediction, score, bootstrap interval or result manifest exists.",
+    "No primary cross-site numeric comparison is authorized.",
+    "No cloud resource, paid credential or external service is authorized."
+  ],
+  "required_after_run": "A distinct outcome review must verify the manifest and source lineage, independently reconstruct issuance and scores, confirm identical model support, classify the secondary result as descriptive, and preserve the primary cross-site gate as NOT_EVALUATED before app or release integration.",
+  "unresolved_uncertainty": [
+    "Raw-to-product calibration, exact deployment-instrument binding, publisher manual-exclusion effects and source-clock timezone remain unresolved.",
+    "The secondary archive shares the site and publisher processing family with the training study and is evaluated backward in time, so it is not an independent cross-site or prospective confirmation.",
+    "The primary AEON2 FullDepth product cannot implement the frozen 0-200 m target; there will be no cross-site transfer estimate in this study."
+  ],
+  "cost_usd": 0
+}
