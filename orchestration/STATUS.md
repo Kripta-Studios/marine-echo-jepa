@@ -46,6 +46,13 @@ EMA-JEPA loss is 0.93% higher than its original-only comparator. This is a
 reviewed development observation, not a causal data-volume effect or an
 external/final evaluation. The complete limitations are in
 `orchestration/reports/AEON_EXPANDED_3K_OUTCOME_20260928.md`.
+
+The first separate app/release integration candidate passed focused Python and
+React tests, typecheck, build and lint. Distinct source review requested one
+release-completeness change before package build: bundle the eight SHA-bound
+final validation prediction arrays and endpoint checkpoints, totaling about
+4.34 MB, alongside the compact JSON provenance. The isolated builder is
+implementing that fix; no new offline package has been built yet.
 The historical prior-year external-transfer finding is preserved, but it cannot
 serve as an external test of a model trained on that source.
 
