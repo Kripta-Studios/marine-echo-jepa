@@ -87,7 +87,7 @@
   },
   "distinct_outcome_review": "orchestration/reviews/AEON_EXTERNAL_STAGE2_OUTCOME_REVIEW_20260928.json",
   "distinct_outcome_review_sha256": "ec1ad3ecc437d28f47c53063d6abc6c8f9efe08c36a0f39dec4bda8ef9ad255d",
-  "app_integration": "REMEDIATED_SOURCE_APPROVED_INDEPENDENTLY",
+  "app_integration": "REMEDIATED_SOURCE_AND_EXACT_R2_PACKAGE_APPROVED_INDEPENDENTLY",
   "app_source_review_v1_sha256": "ca3fe87d0442a971d041d2ed1919402705145d2611cd5df59bb5af76585467be",
   "app_source_review_v2_sha256": "6056ee55ffa2769aa7dae5d80a78c96fd740d8f584e751ef64616217c9fef0f1",
   "release_candidate_r1": {
@@ -98,14 +98,16 @@
     "disposition": "PRESERVED_LOCALLY_NOT_PROMOTED_OR_PUBLISHED"
   },
   "release_candidate_r2": {
-    "status": "BUILT_AND_RELOCATED_TESTED_PENDING_DISTINCT_EXACT_ARCHIVE_REVIEW",
+    "status": "APPROVED_EXACT_ARCHIVE_OFFLINE_RESEARCH_RELEASE",
     "archive": "release/aeon-offline-external-transfer-20260928-r2.zip",
     "archive_sha256": "f0a529ef7c3353ef880af04af3ea2106baa68cdfbfd9173d86e20c7e44b3a40d",
     "packaged_file_count": 86,
     "offline_installed_package_count": 13,
     "browser_screenshot_sha256": "b7a32d670fe5484fe14057718d31cae9cf272c631552b9e4fe977725320ac4e7",
-    "validation_report": "orchestration/reports/AEON_EXTERNAL_OFFLINE_R2_VALIDATION_20260928.md"
+    "validation_report": "orchestration/reports/AEON_EXTERNAL_OFFLINE_R2_VALIDATION_20260928.md",
+    "independent_package_review": "orchestration/reviews/AEON_EXTERNAL_OFFLINE_PACKAGE_R2_REVIEW_20260928.json",
+    "independent_package_review_sha256": "8a3a57b34bbb58127cd59642d6c09dad0c20a52a22ebc953058003f0cf5358e8"
   },
-  "release": "R2_CANDIDATE_PENDING_DISTINCT_EXACT_ARCHIVE_REVIEW",
+  "release": "APPROVED_EXACT_R2_OFFLINE_RESEARCH_ARCHIVE_NEGATIVE_SECONDARY_NO_PRIMARY_RESULT",
   "original_aeon_test_and_historical_v1_v2_status": "PRESERVED_UNCHANGED"
 }

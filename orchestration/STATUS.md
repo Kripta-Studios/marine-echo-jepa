@@ -60,8 +60,17 @@ The new r2 candidate ZIP SHA-256 is
 It passed an 86-file checksum verification, relocated Python 3.12 offline
 installation of 13 bundled wheels, loopback API and Chromium section/replay
 smokes with no page errors. `orchestration/reports/AEON_EXTERNAL_OFFLINE_R2_VALIDATION_20260928.md`
-records exact local evidence. Distinct exact-archive review remains pending;
-the package is not yet release-approved.
+records exact local evidence. At build time, exact-archive review was pending.
+The subsequent distinct exact-archive
+review approved the unchanged r2 ZIP for an offline research release (review
+SHA-256 `8a3a57b34bbb58127cd59642d6c09dad0c20a52a22ebc953058003f0cf5358e8`).
+It independently verified the 86-file manifest, all eight external provenance
+files, absence of raw archives, fresh offline Python 3.12 installation,
+loopback API/replay and 15 Chromium claim checks. The package's immutable
+internal build-time class still says review pending; the external exact-byte
+review is the approval. R1 remains unapproved. This release is retrospective,
+non-sealed research with a negative descriptive secondary transfer and no
+primary cross-site result, not production or business validation.
 
 ## Prospective v2 continuation - active 27 September 2026
 
