@@ -22,7 +22,9 @@ from typing import Any
 import numpy as np
 from numpy.typing import NDArray
 
+from marine_echo.evaluation import aeon as aeon_evaluation
 from marine_echo.training import (
+    aeon_corpus,
     aeon_external_evaluator,
     aeon_external_metadata,
     aeon_forecast_adapters,
@@ -45,6 +47,10 @@ _FIXTURE_STATUS = "APPROVED_AEON_EXTERNAL_STAGE2_SYNTHETIC_FIXTURE"
 _ADR_SHA256 = "3abd740a0597c712fbf67f0265737afecd31acc645be834bb329cf8d271491c7"
 _STAGE0_DESIGN_SHA256 = "b9c1ebf40c5a924e6fb2efcb869dca29b42e0c7baf7d2b7a788c70a10dad259d"
 _STAGE0_WORDING_SHA256 = "001c961f49dc5b4cafb61b66ea0aaf79c54b0e549325e0aa25a7170c62b14d5a"
+_REAL_OUTPUT_RELATIVE = "outputs/aeon_external_transfer_20260928_v1/zero_shot_secondary"
+_REAL_REVIEW_RELATIVE = (
+    "orchestration/reviews/AEON_EXTERNAL_STAGE2_PRENUMERIC_REVIEW_20260928.json"
+)
 
 
 def _sha256(path: Path) -> str:
@@ -69,6 +75,35 @@ def _expected_members(source: Mapping[str, Any]) -> tuple[str, ...]:
     ))
 
 
+def _output_binding(
+    output_directory: Path, review_path: Path, reviewed_output: object, *, fixture_only: bool,
+) -> str:
+    """Reject colliding, relocated or redirected final destinations before numeric access."""
+    if output_directory.exists() or output_directory.is_symlink():
+        raise FileExistsError("AEON external output already exists.")
+    parent = output_directory.parent
+    if parent.exists() and not parent.is_dir():
+        raise ValueError("AEON external output parent is not a directory.")
+    if fixture_only:
+        expected = output_directory.resolve().as_posix()
+    else:
+        repository = Path(__file__).resolve().parents[3]
+        expected_path = repository / _REAL_OUTPUT_RELATIVE
+        if (
+            review_path.resolve(strict=True) != (repository / _REAL_REVIEW_RELATIVE).resolve(
+                strict=True
+            )
+            or output_directory.absolute() != expected_path
+            or output_directory.resolve() != expected_path
+            or not output_directory.resolve().is_relative_to(repository)
+        ):
+            raise ValueError("AEON external reviewed output/review path differs from freeze.")
+        expected = _REAL_OUTPUT_RELATIVE
+    if reviewed_output != expected:
+        raise ValueError("AEON external reviewed output path differs.")
+    return expected
+
+
 def preflight_external_access(
     *,
     contract_path: Path,
@@ -83,13 +118,17 @@ def preflight_external_access(
     fixture_only: bool = False,
 ) -> tuple[dict[str, Any], dict[str, Any], dict[str, dict[str, Any]], dict[str, list[FrozenArtifact]]]:
     """Validate both sources and all six checkpoint bytes before any CSV row read."""
-    if output_directory.exists():
+    if output_directory.exists() or output_directory.is_symlink():
         raise FileExistsError("AEON external output already exists.")
     if set(source_archives) != set(SOURCE_ROLES) or set(candidate_reports) != set(SOURCE_ROLES):
         raise ValueError("AEON external transfer requires both independent archive roles.")
     if _sha256(review_path) != review_sha256:
         raise ValueError("AEON external Stage-2 review digest differs.")
     review = _json(review_path)
+    _output_binding(
+        output_directory, review_path, review.get("output_directory"),
+        fixture_only=fixture_only,
+    )
     stage_1_review_sha256 = _sha256(stage_1_outcome_review_path)
     stage_1_review = _json(stage_1_outcome_review_path)
     contract = _json(contract_path)
@@ -111,6 +150,8 @@ def preflight_external_access(
         or review.get("metadata_scanner_code_sha256") != _sha256(
             Path(aeon_external_metadata.__file__)
         )
+        or review.get("evaluation_code_sha256") != _sha256(Path(aeon_evaluation.__file__))
+        or review.get("corpus_code_sha256") != _sha256(Path(aeon_corpus.__file__))
         or review.get("adapter_composite_sha256")
         != aeon_forecast_adapters.adapter_composite_sha256()
     ):
@@ -553,7 +594,11 @@ def run_external_transfer(
             "runner_code_sha256": _sha256(Path(__file__)),
             "evaluator_code_sha256": _sha256(Path(aeon_external_evaluator.__file__)),
             "metadata_scanner_code_sha256": _sha256(Path(aeon_external_metadata.__file__)),
+            "evaluation_code_sha256": _sha256(Path(aeon_evaluation.__file__)),
+            "corpus_code_sha256": _sha256(Path(aeon_corpus.__file__)),
             "adapter_composite_sha256": aeon_forecast_adapters.adapter_composite_sha256(),
+            "output_directory": output_directory.as_posix() if fixture_only
+            else _REAL_OUTPUT_RELATIVE,
             "checkpoint_sha256": {
                 artifact_id: _sha256(path) for artifact_id, path in checkpoint_paths.items()
             },

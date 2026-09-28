@@ -165,7 +165,10 @@ def _fixture(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, *,
         "runner_code_sha256": runner._sha256(Path(runner.__file__)),
         "evaluator_code_sha256": runner._sha256(Path(runner.aeon_external_evaluator.__file__)),
         "metadata_scanner_code_sha256": runner._sha256(Path(runner.aeon_external_metadata.__file__)),
+        "evaluation_code_sha256": runner._sha256(Path(runner.aeon_evaluation.__file__)),
+        "corpus_code_sha256": runner._sha256(Path(runner.aeon_corpus.__file__)),
         "adapter_composite_sha256": "c" * 64,
+        "output_directory": (tmp_path / "output").resolve().as_posix(),
         "checkpoint_sha256": components,
         "sources": review_sources,
     })
@@ -223,6 +226,50 @@ def test_wrong_stage2_reviewer_identity_blocks_numeric_access(
     monkeypatch.setattr(runner, "_read_numeric_slots", lambda *_args:
                         pytest.fail("numeric row opened"))
     with pytest.raises(ValueError, match="code/contract review"):
+        runner.run_external_transfer(**kwargs)
+
+
+@pytest.mark.parametrize("field", ["evaluation_code_sha256", "corpus_code_sha256"])
+def test_scientific_dependency_hash_mismatch_fails_before_numeric_reader(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, field: str,
+) -> None:
+    kwargs = _fixture(tmp_path, monkeypatch)
+    review_path = kwargs["review_path"]
+    assert isinstance(review_path, Path)
+    review = json.loads(review_path.read_text(encoding="utf-8"))
+    review[field] = "0" * 64
+    kwargs["review_sha256"] = _write(review_path, review)
+    monkeypatch.setattr(runner, "_read_numeric_slots", lambda *_args:
+                        pytest.fail("numeric row opened"))
+    with pytest.raises(ValueError, match="code/contract review"):
+        runner.run_external_transfer(**kwargs)
+
+
+def test_reviewed_output_path_mismatch_fails_before_numeric_reader(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    kwargs = _fixture(tmp_path, monkeypatch)
+    review_path = kwargs["review_path"]
+    assert isinstance(review_path, Path)
+    review = json.loads(review_path.read_text(encoding="utf-8"))
+    review["output_directory"] = (tmp_path / "different-output").resolve().as_posix()
+    kwargs["review_sha256"] = _write(review_path, review)
+    monkeypatch.setattr(runner, "_read_numeric_slots", lambda *_args:
+                        pytest.fail("numeric row opened"))
+    with pytest.raises(ValueError, match="reviewed output path"):
+        runner.run_external_transfer(**kwargs)
+
+
+def test_existing_output_path_fails_before_numeric_reader(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    kwargs = _fixture(tmp_path, monkeypatch)
+    output = kwargs["output_directory"]
+    assert isinstance(output, Path)
+    output.mkdir()
+    monkeypatch.setattr(runner, "_read_numeric_slots", lambda *_args:
+                        pytest.fail("numeric row opened"))
+    with pytest.raises(FileExistsError, match="output already exists"):
         runner.run_external_transfer(**kwargs)
 
 
