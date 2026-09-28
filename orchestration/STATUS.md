@@ -4,9 +4,14 @@
 
 The owner authorized more local training and use of `E:`. A separate post-hoc
 30,000-update TRAIN/validation direct-versus-EMA study has a distinct exact-byte
-prefit approval; Stage 1 is now running as one local training process, direct
-seed 7 followed by EMA-JEPA seed 7. Direct has completed; EMA-JEPA is running.
-Output and console log are under
+prefit approval; Stage 1 has completed both seed-7 slots and saved real
+checkpoints and validation predictions. Preliminary corrected final-endpoint
+daily pinball is 1.178379 dB for direct and 0.913424 dB for EMA-JEPA, both
+worse than their respective corrected original 3k scores (0.651154 and
+0.648805 dB). The executable fixed 1% Stage-2 gate exited zero and recorded
+`STAGE_2_NOT_AUTHORIZED_BY_PREDECLARED_RULE`; the four additional seeds were
+not run. A distinct reviewer replayed all scheduled predictions, checked all
+checkpoint hashes and approved the negative same-data scaling outcome. Output is under
 `E:\marine-echo-jepa-scale`; the machine ledger records the launch PIDs and
 resume state. The original
 3,000-update campaign, historical v1/v2 findings and retrospective evaluation
@@ -30,8 +35,8 @@ The exact report is `E:\marine-echo-jepa-scale\aeon_expanded_3k\cohort.json`
 (SHA-256 `90b834c89600e2e61301d781403d2fa69f5ac672405580918344a19b861981bc`).
 A second, cohort-bound independent review reconstructed the counts, digest,
 validation lineage, zero raw interval overlap and original corrected baselines,
-and approved exactly two frozen equal-compute seed-7 development fits. Training
-waits for the active 30k GPU process to finish.
+and approved exactly two frozen equal-compute seed-7 development fits. Those
+two fits are now running in one GPU process after the 30k Stage-2 gate exited.
 The historical prior-year external-transfer finding is preserved, but it cannot
 serve as an external test of a model trained on that source.
 

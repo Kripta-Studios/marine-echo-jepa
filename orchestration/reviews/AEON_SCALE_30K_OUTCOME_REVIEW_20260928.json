@@ -1,0 +1,68 @@
+{
+  "status": "APPROVED_AEON_SCALE_30K_STAGE1_OUTCOME_STAGE2_NOT_AUTHORIZED",
+  "reviewer_session": "/root/scale_reviewer",
+  "reviewer_role": "distinct_read_only_scientific_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "runtime_model_binding_verification": "NOT_EXPOSED_TO_REVIEWER_SESSION",
+  "study_id": "aeon3_geb_2024_hourly_sv_scale_30k_development_v1",
+  "classification": "POST_HOC_TRAIN_VALIDATION_DEVELOPMENT_NOT_FINAL_EVALUATION",
+  "manifest_sha256": "8d6e5549a0dd6b2edbc8afa86c468307f81e38f33d9fe9ef87b64d403546b599",
+  "manifest_status": "STAGE_2_NOT_AUTHORIZED_BY_PREDECLARED_RULE",
+  "prefit_review_sha256": "1e2abcb21ce80fef6c0877ae4606ab7a4dcdc5b44db953fb25af6d40dcb55c7a",
+  "config_sha256": "81baa528607570ef3d0b251fdfb2d8d591c8ae7580ba9b727f1debebfcaa837e",
+  "code_sha256": "116371f6c14d00ef62c1273c2357bc1ac84e342ccc4a570cfaefa868792b5464",
+  "cohort_sha256": "5e475f6af798025f187c70ae638710d2b4362f688db2ad43d60ec436dda3e25d",
+  "validation_rows": 1219,
+  "eligible_validation_rows_by_horizon": [1194, 1192, 1189],
+  "eligible_validation_dates_by_horizon": [50, 50, 50],
+  "eligible_date_sha256_by_horizon": [
+    "5d26e8b41caa05ad7189fc1a402b977ff368a7c13b9ab4fecb1694f2f6c10ae1",
+    "5d26e8b41caa05ad7189fc1a402b977ff368a7c13b9ab4fecb1694f2f6c10ae1",
+    "5d26e8b41caa05ad7189fc1a402b977ff368a7c13b9ab4fecb1694f2f6c10ae1"
+  ],
+  "slots": {
+    "direct_seed7": {
+      "slot_sha256": "5cf8d0c3fc9cf06d28f09411d983602008c479d671aa018fc2a7849be9c01577",
+      "prediction_sha256": "686d59f8d659c987da9eb3aa399abe70c5fdeaf843d915cdc47dcaf95fe3de1a",
+      "endpoint_model_sha256": "50990c12c5aea5d1a3f5d256301f4dc56bc243532f3831d09b3e8cec8a2821cf",
+      "corrected_final_daily_mean_pinball_db": 1.178379078764592,
+      "original_3k_corrected_daily_mean_pinball_db": 0.6511541518561285,
+      "relative_loss_reduction": -0.8096775938625254,
+      "supervised_updates": 30000,
+      "peak_process_rss_bytes": 1887002624,
+      "gpu_peak_reserved_bytes": 25165824
+    },
+    "ema_jepa_seed7": {
+      "slot_sha256": "c6665fc52245770bf74041156ed853e6d10c469a2b3a4c2e7fa61a8fba3a980c",
+      "prediction_sha256": "77f28f0310399030e672336642e96af2e64063b54ff13f4219ccf7c0ebc06fdb",
+      "endpoint_model_sha256": "61c897aae7f5655343ce02a3e7b5fb97c2a2c72aa5f19ffd2e9037b987cd838c",
+      "corrected_final_daily_mean_pinball_db": 0.9134244980181899,
+      "original_3k_corrected_daily_mean_pinball_db": 0.6488046342025475,
+      "relative_loss_reduction": -0.4078575427268478,
+      "ssl_pretrain_updates": 15000,
+      "supervised_updates": 15000,
+      "peak_process_rss_bytes": 2030170112,
+      "gpu_peak_reserved_bytes": 27262976,
+      "final_pretrain_target_effective_rank_fraction": 0.02867,
+      "final_pretrain_predictor_target_rms_ratio": 16.27,
+      "final_pretrain_variance_ratio": 2982.48
+    }
+  },
+  "independent_checks": [
+    "Original 4965 TRAIN and 1219 VAL cohort and split hashes reconstructed",
+    "All 18 scheduled validation prediction artifacts independently rescored with exact support",
+    "All 24 checkpoint and both final model and prediction hashes matched",
+    "Saved endpoint predictions match scheduled final validation artifacts",
+    "Predictions finite, monotone and nonconstant",
+    "Checkpoint headers bind family, seed, step, source and protocol",
+    "No seed-13 or seed-23 output directories",
+    "Fixed 1% Stage-2 authorization returns false",
+    "Five focused scale tests passed"
+  ],
+  "stage_2": "NOT_RUN_BY_PREDECLARED_ONE_PERCENT_GATE",
+  "fifty_thousand_updates": "NOT_AUTHORIZED_BY_THIS_REVIEW",
+  "calibration_access": "PROHIBITED",
+  "test_access": "PROHIBITED",
+  "interpretation": "Real negative same-data scaling development result. Later checkpoints progressively worsen corrected validation loss. Intermediate checks are diagnostic only; no post-hoc earlier-checkpoint selection, independent generalization or SOTA claim."
+}
