@@ -53,7 +53,12 @@ release-completeness change before package build: bundle the eight SHA-bound
 final validation prediction arrays and endpoint checkpoints, totaling about
 4.34 MB, alongside the compact JSON provenance. The builder fixed this and the
 distinct reviewer approved the final integrated source, including two
-fail-closed/style lint corrections. No new offline package has been built yet.
+fail-closed/style lint corrections. The new r1 offline candidate built with
+107 hash-verified files, including all eight final development prediction and
+checkpoint binaries. Its separate ZIP and relocated extraction passed complete
+inventory checks; offline API/browser smoke and exact-output package review
+remain pending. The detailed investigation is
+`orchestration/reports/AEON_SCALING_AND_EXPANDED_TRAIN_INVESTIGATION_20260928.md`.
 The historical prior-year external-transfer finding is preserved, but it cannot
 serve as an external test of a model trained on that source.
 
