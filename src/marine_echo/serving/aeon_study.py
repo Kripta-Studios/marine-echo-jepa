@@ -10,6 +10,12 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
+from marine_echo.serving.aeon_development_supplements import (
+    load_reviewed_expanded,
+    load_reviewed_scale,
+    reviewed_expanded_provenance,
+    reviewed_scale_provenance,
+)
 from marine_echo.serving.aeon_external_study import (
     load_reviewed_external_study,
     reviewed_external_files,
@@ -339,6 +345,7 @@ def build_aeon_research(
     test_score: Path | None = None, test_candidate: Path | None = None,
     test_review: Path | None = None, test_forecasts: Path | None = None,
     external_transfer: bool = False,
+    scale_output: Path | None = None, expanded_output: Path | None = None,
 ) -> dict[str, Any]:
     """Build a new offline package; retain v1/v2 artifacts and attach AEON evidence."""
     if output.exists() or output.is_symlink():
@@ -391,6 +398,19 @@ def build_aeon_research(
             "The primary cross-site external target is metadata-ineligible; no primary acoustic model result exists.",
             "The negative JEPA comparison is descriptive same-site prior-year transfer, not sealed confirmation or cross-site replication.",
         ])
+    if scale_output is not None:
+        study["scaling_development"] = load_reviewed_scale(root, scale_output)
+        study["limitations"].append(
+            "The post-hoc same-cohort 30k seed-7 endpoints worsened validation loss; "
+            "the stage-2 seeds and 50k extension were not run or authorized."
+        )
+    if expanded_output is not None:
+        study["expanded_train_development"] = load_reviewed_expanded(root, expanded_output)
+        study["limitations"].append(
+            "The post-hoc expanded-TRAIN seed-7 comparison reuses the previously inspected "
+            "prior-year deployment as TRAIN. Its validation result is not external or sealed, "
+            "and added deployment effects cannot be attributed to data volume alone."
+        )
     output.parent.mkdir(parents=True, exist_ok=True)
     stage = Path(tempfile.mkdtemp(prefix=".aeon-release-stage-", dir=output.parent))
     base = stage / "package"
@@ -437,9 +457,30 @@ def build_aeon_research(
                 shutil.copy2(source, destination)
                 if _sha256(destination) != pinned[name]:
                     raise ValueError("AEON external packaged provenance differs from reviewed source.")
+        for key, directory, inventory in (
+            ("scaling_development", scale_output, reviewed_scale_provenance),
+            ("expanded_train_development", expanded_output, reviewed_expanded_provenance),
+        ):
+            if directory is None:
+                continue
+            sources = inventory(root, directory)
+            pinned = study[key]["provenance_sha256"]
+            if set(sources) != set(pinned):
+                raise ValueError(f"AEON {key} provenance inventory differs from review.")
+            for name, source in sources.items():
+                if _sha256(source) != pinned[name]:
+                    raise ValueError(f"AEON {key} provenance digest differs from review: {name}")
+                destination = base / "provenance" / key / name
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(source, destination)
+                if _sha256(destination) != pinned[name]:
+                    raise ValueError(f"AEON {key} packaged provenance differs: {name}")
         catalog["studies"] = ["mosaic_v1_v2_historical", study["study_id"]]
         if external_transfer:
             catalog["studies"].append(study["external_transfer"]["study_id"])
+        for key in ("scaling_development", "expanded_train_development"):
+            if key in study:
+                catalog["studies"].append(study[key]["study_id"])
         catalog["release_class"] = (
             "OFFLINE_RESEARCH_MIXED_STUDIES_TEST_REVIEWED_RELEASE_REVIEW_PENDING"
             if replay is not None else "OFFLINE_RESEARCH_MIXED_STUDIES_DEVELOPMENT_ONLY"

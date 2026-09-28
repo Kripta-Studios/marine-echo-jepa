@@ -208,6 +208,55 @@ export function AeonStudyPage({
           <p>Source: Figshare AZFP article version {study.external_transfer.source.publisher_article_version}, files {study.external_transfer.source.file_ids.join(" and ")} ({study.external_transfer.source.license}). The original archives are not bundled; the target is {study.external_transfer.source.acoustic_quantity}.</p>
         </section>
       )}
+      {study.scaling_development && (
+        <section className="panel" aria-labelledby="aeon-scaling-title">
+          <SectionHeading
+            id="aeon-scaling-title" eyebrow="POST-HOC TRAIN/VALIDATION DEVELOPMENT"
+            title="Same-cohort 30k scaling development"
+            description={`${study.scaling_development.validation_rows.toLocaleString("en-US")} unchanged 2024 validation rows; ${study.scaling_development.eligible_dates_per_horizon.join(" / ")} eligible source dates at +1 / +3 / +6 intervals. Corrected daily mean pinball requires at least 18 observed target anchors per source date. Lower is better.`}
+          />
+          <div className="table-scroll"><table>
+            <thead><tr><th scope="col">Seed-7 family</th><th scope="col">Original 3k final endpoint (dB)</th><th scope="col">30k final endpoint (dB)</th><th scope="col">Loss change</th></tr></thead>
+            <tbody>{([
+              ["Direct neural", "direct_seed7"],
+              ["EMA-JEPA", "ema_jepa_seed7"],
+            ] as const).map(([label, id]) => {
+              const slot = study.scaling_development!.slots[id];
+              return <tr key={id}><th scope="row">{label}</th>
+                <td>{slot.original_3k_pinball_db.toFixed(4)}</td>
+                <td>{slot.final_pinball_db.toFixed(4)}</td>
+                <td>{(slot.relative_loss_change * 100).toFixed(2)}% worse</td></tr>;
+            })}</tbody>
+          </table></div>
+          <p>Direct used 30,000 supervised updates; EMA-JEPA used 15,000 TRAIN-only pretraining and 15,000 supervised updates. Only the fixed final endpoints count. Earlier validation checks are diagnostics, not alternate selected checkpoints. The 1% improvement gate failed: seeds 13 and 23 were not run, and 50k updates were not authorized.</p>
+          <p>This negative same-cohort result is repeatedly inspected post-hoc validation development, not final evaluation, external replication or a state-of-the-art result. Outcome review SHA-256: <code>{study.scaling_development.outcome_review_sha256}</code>. Manifest SHA-256: <code>{study.scaling_development.manifest_sha256}</code>.</p>
+        </section>
+      )}
+      {study.expanded_train_development && (
+        <section className="panel" aria-labelledby="aeon-expanded-title">
+          <SectionHeading
+            id="aeon-expanded-title" eyebrow="POST-HOC TRAIN/VALIDATION DEVELOPMENT"
+            title="Expanded TRAIN 3k development"
+            description={`${study.expanded_train_development.joint_train_windows.toLocaleString("en-US")} joint TRAIN windows: ${study.expanded_train_development.prior_train_windows.toLocaleString("en-US")} prior-year and ${study.expanded_train_development.current_train_windows.toLocaleString("en-US")} current-deployment windows. Assessment stayed on the original ${study.expanded_train_development.validation_rows.toLocaleString("en-US")}-row 2024 validation cohort.`}
+          />
+          <div className="table-scroll"><table>
+            <thead><tr><th scope="col">Seed-7 family</th><th scope="col">Original-only 3k final endpoint (dB)</th><th scope="col">Expanded TRAIN 3k final endpoint (dB)</th><th scope="col">Loss change</th></tr></thead>
+            <tbody>{([
+              ["Direct neural", "direct_seed7"],
+              ["EMA-JEPA", "ema_jepa_seed7"],
+            ] as const).map(([label, id]) => {
+              const slot = study.expanded_train_development!.slots[id];
+              const change = slot.relative_loss_reduction * 100;
+              return <tr key={id}><th scope="row">{label}</th>
+                <td>{slot.original_only_3k_pinball_db.toFixed(4)}</td>
+                <td>{slot.final_pinball_db.toFixed(4)}</td>
+                <td>{Math.abs(change).toFixed(2)}% {change >= 0 ? "better" : "worse"}</td></tr>;
+            })}</tbody>
+          </table></div>
+          <p>The previously inspected prior-year deployment became TRAIN for these new models. The historical external-transfer result above applies only to the earlier frozen models; it cannot evaluate these derived models. Natural pooled sampling, instrument serial, calendar and processing can all affect the comparison, so the direct gain cannot be attributed to data volume alone.</p>
+          <p>These are corrected final-endpoint scores on repeatedly inspected validation, not a sealed holdout, external evaluation or final model selection. Outcome review SHA-256: <code>{study.expanded_train_development.outcome_review_sha256}</code>. Cohort SHA-256: <code>{study.expanded_train_development.cohort_sha256}</code>.</p>
+        </section>
+      )}
       <section className="panel" aria-label="Study limitations">
         <h2>Limits</h2>
         <ul>{study.limitations.map((limit) => <li key={limit}>{limit}</li>)}</ul>

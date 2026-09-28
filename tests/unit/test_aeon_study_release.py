@@ -153,3 +153,44 @@ def test_release_adds_aeon_route_without_changing_v1_registry(
     assert response.status_code == 200
     assert response.json()["final_evaluation"] is False
     assert client.post("/api/v1/forecast", json={"dataset_id": "mosaic", "model_id": "direct", "cutoff": "2020-02-17T12:00:00Z"}).status_code == 503
+
+
+@pytest.mark.skipif(
+    not Path("E:/marine-echo-jepa-scale/aeon30k_stage1").is_dir()
+    or not Path("E:/marine-echo-jepa-scale/aeon_expanded_3k").is_dir(),
+    reason="Local reviewed development artifacts are unavailable",
+)
+def test_release_attaches_reviewed_development_without_changing_historical_registry(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    def base_release(_: Path, destination: Path) -> dict[str, str]:
+        artifacts = destination / "artifacts"
+        artifacts.mkdir(parents=True)
+        (destination / "web").mkdir()
+        catalog = {
+            "release_class": "OFFLINE_RESEARCH_ENGINEERING_ONLY",
+            "experiments": [{"run_id": "v1", "status": "BLOCKED"}],
+            "artifacts": {}, "forecasts": {},
+        }
+        (artifacts / "catalog.json").write_text(json.dumps(catalog), encoding="utf-8")
+        (destination / "catalog.json").write_text(json.dumps(catalog), encoding="utf-8")
+        return {"status": catalog["release_class"]}
+
+    monkeypatch.setattr("marine_echo.serving.aeon_study.build_v2_research", base_release)
+    destination = tmp_path / "release"
+    build_aeon_research(
+        ROOT, destination,
+        scale_output=Path("E:/marine-echo-jepa-scale/aeon30k_stage1"),
+        expanded_output=Path("E:/marine-echo-jepa-scale/aeon_expanded_3k"),
+    )
+    catalog = json.loads((destination / "catalog.json").read_text(encoding="utf-8"))
+    study = json.loads((destination / "artifacts/aeon-study.json").read_text(encoding="utf-8"))
+    assert catalog["experiments"] == [{"run_id": "v1", "status": "BLOCKED"}]
+    assert catalog["forecasts"] == {}
+    assert study["final_evaluation"] is False
+    assert study["scaling_development"]["slots"]["direct_seed7"]["final_pinball_db"] == pytest.approx(1.178379078764592)
+    assert study["expanded_train_development"]["slots"]["direct_seed7"]["final_pinball_db"] == pytest.approx(0.640614632904252)
+    assert (destination / "provenance/scaling_development/outcome-review.json").is_file()
+    assert (destination / "provenance/expanded_train_development/cohort.json").is_file()
+    assert not (destination / "provenance/scaling_development/direct_seed7/checkpoint-supervised-30000.pt").exists()
+    assert TestClient(create_app(destination / "artifacts")).get("/api/v1/studies/aeon").json()["scaling_development"] == study["scaling_development"]

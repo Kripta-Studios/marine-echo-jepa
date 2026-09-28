@@ -127,4 +127,63 @@ describe("AEON study page", () => {
     expect(html).toContain("61937269");
     expect(html).toContain("CC BY 4.0");
   });
+
+  it("separates reviewed scaling and expanded TRAIN development from historical evaluation", () => {
+    const supplemental: AeonStudyEvidence = {
+      ...study,
+      scaling_development: {
+        study_id: "aeon3_geb_2024_hourly_sv_scale_30k_development_v1",
+        status: "INDEPENDENTLY_REVIEWED_30K_STAGE1_NEGATIVE",
+        classification: "POST_HOC_TRAIN_VALIDATION_DEVELOPMENT_NOT_FINAL_EVALUATION",
+        assessment_partition: "validation", final_evaluation: false,
+        source_time_basis: "SOURCE_REPORTED_UNSPECIFIED_NOT_UTC",
+        validation_rows: 1219, eligible_rows_per_horizon: [1194, 1192, 1189],
+        eligible_dates_per_horizon: [50, 50, 50],
+        eligible_date_sha256_by_horizon: ["a".repeat(64), "a".repeat(64), "a".repeat(64)],
+        slots: {
+          direct_seed7: { family: "direct", seed: 7, final_pinball_db: 1.178379078764592, original_3k_pinball_db: 0.6511541518561285, relative_loss_change: 0.8096775938625254, supervised_updates: 30000, ssl_pretrain_updates: 0, slot_sha256: "a".repeat(64), prediction_sha256: "b".repeat(64), endpoint_model_sha256: "c".repeat(64) },
+          ema_jepa_seed7: { family: "ema_jepa", seed: 7, final_pinball_db: 0.9134244980181899, original_3k_pinball_db: 0.6488046342025475, relative_loss_change: 0.4078575427268478, supervised_updates: 15000, ssl_pretrain_updates: 15000, slot_sha256: "d".repeat(64), prediction_sha256: "e".repeat(64), endpoint_model_sha256: "f".repeat(64) },
+        },
+        stage_2: "NOT_RUN_BY_PREDECLARED_ONE_PERCENT_GATE",
+        fifty_thousand_updates: "NOT_AUTHORIZED_BY_THIS_REVIEW",
+        selection: "FIXED_FINAL_ENDPOINT_ONLY",
+        outcome_review_sha256: "1".repeat(64), manifest_sha256: "2".repeat(64),
+        config_sha256: "3".repeat(64), protocol_sha256: "4".repeat(64), cohort_sha256: "5".repeat(64),
+        provenance_sha256: {},
+      },
+      expanded_train_development: {
+        study_id: "aeon3_geb_expanded_train_3k_development_v1",
+        status: "INDEPENDENTLY_REVIEWED_EXPANDED_TRAIN_3K_DEVELOPMENT",
+        classification: "POST_HOC_TRAIN_VALIDATION_DEVELOPMENT_NOT_EXTERNAL_EVALUATION",
+        assessment_partition: "original_validation", final_evaluation: false,
+        source_time_basis: "SOURCE_REPORTED_UNSPECIFIED_NOT_UTC",
+        joint_train_windows: 13472, prior_train_windows: 8507, current_train_windows: 4965,
+        validation_rows: 1219, eligible_rows_per_horizon: [1194, 1192, 1189],
+        eligible_dates_per_horizon: [50, 50, 50],
+        eligible_date_sha256_by_horizon: ["a".repeat(64), "a".repeat(64), "a".repeat(64)],
+        sampling: "NATURAL_POOLED_SOURCE_PROPORTIONS",
+        slots: {
+          direct_seed7: { family: "direct", seed: 7, final_pinball_db: 0.640614632904252, original_only_3k_pinball_db: 0.6511541518561285, relative_loss_reduction: 0.016185904553988203, supervised_updates: 3000, ssl_pretrain_updates: 0, sampled_supervised_rows_by_source: { prior: 121177, current: 70823 }, slot_sha256: "a".repeat(64), prediction_sha256: "b".repeat(64), endpoint_model_sha256: "c".repeat(64) },
+          ema_jepa_seed7: { family: "ema_jepa", seed: 7, final_pinball_db: 0.6548551285493684, original_only_3k_pinball_db: 0.6488046342025475, relative_loss_reduction: -0.009325602851554302, supervised_updates: 1500, ssl_pretrain_updates: 1500, sampled_supervised_rows_by_source: { prior: 60799, current: 35201 }, slot_sha256: "d".repeat(64), prediction_sha256: "e".repeat(64), endpoint_model_sha256: "f".repeat(64) },
+        },
+        outcome_review_sha256: "6".repeat(64), manifest_sha256: "7".repeat(64),
+        cohort_report_sha256: "8".repeat(64), cohort_sha256: "9".repeat(64),
+        config_sha256: "0".repeat(64), protocol_sha256: "f".repeat(64),
+        source_archive_sha256: { prior: "a".repeat(64), current: "b".repeat(64) },
+        provenance_sha256: {},
+      },
+    };
+    const html = renderToStaticMarkup(createElement(AeonStudyPage, { study: supplemental, state: "success" }));
+    expect(html).toContain("Same-cohort 30k scaling development");
+    expect(html).toContain("Expanded TRAIN 3k development");
+    expect(html).toContain("1.1784");
+    expect(html).toContain("0.9134");
+    expect(html).toContain("0.6406");
+    expect(html).toContain("0.6549");
+    expect(html).toContain("seeds 13 and 23 were not run");
+    expect(html).toContain("previously inspected prior-year deployment");
+    expect(html).not.toContain("Forecast here");
+    const historical = renderToStaticMarkup(createElement(AeonStudyPage, { study, state: "success" }));
+    expect(historical).not.toContain("Same-cohort 30k scaling development");
+  });
 });

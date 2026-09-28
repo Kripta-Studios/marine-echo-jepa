@@ -164,6 +164,7 @@ def build_aeon_portable(
     test_score: Path | None = None, test_candidate: Path | None = None,
     test_review: Path | None = None, test_forecasts: Path | None = None,
     external_transfer: bool = False,
+    scale_output: Path | None = None, expanded_output: Path | None = None,
 ) -> dict[str, Any]:
     """Build portable wrapper from reviewed study payload and verified local wheels."""
     archive = output.with_suffix(".zip")
@@ -171,8 +172,11 @@ def build_aeon_portable(
     if any(path.exists() or path.is_symlink() for path in (output, archive, sidecar)):
         raise FileExistsError("Portable release output already exists")
     test_inputs = (test_score, test_candidate, test_review, test_forecasts)
-    if payload is not None and (calibration_artifact is not None or any(test_inputs) or external_transfer):
-        raise ValueError("An external study payload cannot be combined with CAL or TEST input")
+    if payload is not None and (
+        calibration_artifact is not None or any(test_inputs) or external_transfer
+        or scale_output is not None or expanded_output is not None
+    ):
+        raise ValueError("An external study payload cannot be combined with reviewed study inputs")
     if external_transfer and not all(value is not None for value in test_inputs):
         raise ValueError("External transfer packaging requires the reviewed retrospective study.")
     wheels = _upstream_wheels(wheelhouse, upstream_sums)
@@ -189,6 +193,7 @@ def build_aeon_portable(
                 test_score=test_score, test_candidate=test_candidate,
                 test_review=test_review, test_forecasts=test_forecasts,
                 external_transfer=external_transfer,
+                scale_output=scale_output, expanded_output=expanded_output,
             )
             payload_source = stage / "study"
         else:
@@ -323,6 +328,18 @@ def build_aeon_portable(
             "external_secondary_jepa_gate": study.get("external_transfer", {}).get(
                 "secondary", {}
             ).get("jepa_value_gate"),
+            "scaling_development_outcome_review_sha256": study.get("scaling_development", {}).get(
+                "outcome_review_sha256"
+            ),
+            "scaling_development_manifest_sha256": study.get("scaling_development", {}).get(
+                "manifest_sha256"
+            ),
+            "expanded_train_development_outcome_review_sha256": study.get(
+                "expanded_train_development", {}
+            ).get("outcome_review_sha256"),
+            "expanded_train_development_manifest_sha256": study.get(
+                "expanded_train_development", {}
+            ).get("manifest_sha256"),
             "cached_aeon_forecasts": study.get("cached_forecasts", 0),
             "independent_final_release_review": False,
         }
@@ -360,13 +377,28 @@ def build_aeon_portable(
             "CC BY 4.0; the target is source-reported conditioned Sv_mean. "
             if external_transfer else ""
         )
+        scaling_notice = (
+            "The separate post-hoc same-cohort 30k seed-7 development endpoints worsened "
+            "corrected validation loss versus original 3k endpoints in both direct and "
+            "EMA-JEPA families. The prespecified gate did not authorize stage-2 seeds or "
+            "a 50k extension. Reviewed records are under `provenance/scaling_development/`. "
+            if scale_output is not None else ""
+        )
+        expanded_notice = (
+            "The separate post-hoc expanded-TRAIN 3k study pooled prior-year and current "
+            "same-site TRAIN deployments. Direct improved modestly on the unchanged original "
+            "validation partition; EMA-JEPA worsened. This does not isolate data-volume "
+            "effects or provide external or sealed evaluation for the derived models. "
+            "Reviewed records are under `provenance/expanded_train_development/`. "
+            if expanded_output is not None else ""
+        )
         (stage / "README_AEON_RESEARCH.md").write_text(
             "# AEON offline research release\n\n"
             + ("This package awaits independent final release review. " if all(value is not None for value in test_inputs)
                else "This is a development-only research artifact. ")
             + "The AEON hourly 38-kHz Sv study "
             "presents independently reviewed TRAIN/validation results. "
-            + calibration_notice + test_notice + external_notice
+            + calibration_notice + test_notice + external_notice + scaling_notice + expanded_notice
             +
             "Historical MOSAiC v1/v2 eligibility failures and blocked registry remain intact.\n\n"
             "On Windows, install Python 3.12 and uv locally, then run "
@@ -433,6 +465,8 @@ if __name__ == "__main__":
     parser.add_argument("--test-review", type=Path)
     parser.add_argument("--test-forecasts", type=Path)
     parser.add_argument("--external-transfer", action="store_true")
+    parser.add_argument("--scale-output", type=Path)
+    parser.add_argument("--expanded-output", type=Path)
     arguments = parser.parse_args()
     print(json.dumps(build_aeon_portable(
         arguments.root, arguments.output, arguments.wheelhouse, arguments.upstream_sums,
@@ -440,4 +474,6 @@ if __name__ == "__main__":
         test_score=arguments.test_score, test_candidate=arguments.test_candidate,
         test_review=arguments.test_review, test_forecasts=arguments.test_forecasts,
         external_transfer=arguments.external_transfer,
+        scale_output=arguments.scale_output,
+        expanded_output=arguments.expanded_output,
     ), indent=2))
