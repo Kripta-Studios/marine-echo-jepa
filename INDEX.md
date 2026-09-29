@@ -18,7 +18,7 @@
 - [Completed checkpoint/objective diagnostic](orchestration/reports/AEON_CHECKPOINT_OBJECTIVE_DIAGNOSTIC_20260929.md), [technical report](orchestration/reports/AEON_CHECKPOINT_DIAGNOSTIC_TECHNICAL_20260929.md) and [distinct diagnostic review](orchestration/reviews/AEON_CHECKPOINT_OBJECTIVE_DIAGNOSTIC_REVIEW_20260929.json)
 - [Historical positive retrospective](orchestration/reports/AEON_RETROSPECTIVE_OUTCOME_20260927.md) and [negative secondary transfer](orchestration/reports/AEON_EXTERNAL_SECONDARY_NUMERIC_OUTCOME_20260928.md)
 
-Approved r3 plus the completed diagnostic are the meeting's evidence base. Diagnostic numbers remain outside r3. Scopes, accurate prediction-mean ensemble scores, source-interval timing, prior-year TRAIN lineage and the unvalidated Marine value boundary are explicit in README and the brief. Fresh meeting review is pending; coordinator MCP Playwright smoke passed, while the in-app browser attempt and spoken rehearsal remain NOT_RUN. No research is queued.
+Approved r3 plus the completed diagnostic are the meeting's evidence base. Diagnostic numbers remain outside r3. Scopes, accurate prediction-mean ensemble scores, source-interval timing, prior-year TRAIN lineage and the unvalidated Marine value boundary are explicit in README and the brief. The checklist and current separate review record give this handoff's review disposition; coordinator MCP Playwright smoke passed, while the in-app browser attempt and spoken rehearsal remain NOT_RUN. No research is queued.
 
 ## Labelled historical specifications and handoff
 

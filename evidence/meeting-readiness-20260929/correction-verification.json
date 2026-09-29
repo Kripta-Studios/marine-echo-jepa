@@ -1,0 +1,33 @@
+{
+  "status": "PASSED",
+  "base_commit": "71cab57d4118a59d1b9acbebb31078e6c032bd97",
+  "changed_documents": [
+    "README.md",
+    "INDEX.md",
+    "START_HERE.md",
+    "CODEX_MEETING_READY_AFTER_DIAGNOSTIC.md",
+    "meeting/20260929/MEETING_BRIEF.md",
+    "meeting/20260929/DEMO_RUNBOOK.md"
+  ],
+  "relative_links_checked": 120,
+  "brief_word_count": 474,
+  "all_numeric_tokens_unchanged": true,
+  "authored_documents_lf": true,
+  "live_aeon_vs_cached_raw_chronology_explicit": true,
+  "primary_script_only_browser_tested_direct_ema": true,
+  "lightgbm_api_static_scope_explicit": true,
+  "full_spoken_rehearsal": "NOT_RUN",
+  "network_permission_limits_preserved": true,
+  "review_disposition": "Referenced through checklist/current separate review record; no approval claimed",
+  "original_evidence_logs_scripts_and_all_other_tracked_files_unchanged": true,
+  "protected_source_reads": false,
+  "research_launch_browser_reruns": false,
+  "document_sha256": {
+    "README.md": "6cc0d472f6df85d3c970c7a2c1ae734a9c7c8bcff3141fec28ecbce1f153098d",
+    "INDEX.md": "2316282a92e8f701d3dc18c9bff1e1edb772f0289ccfc51fe90aa41bb57189c3",
+    "START_HERE.md": "8c0235180ed391620fb236d67a614de3db2bbf5748d3ff32fcd50000f04c36dc",
+    "CODEX_MEETING_READY_AFTER_DIAGNOSTIC.md": "a1020c94959b2ea50e8267c71e3b13f92dd08664a3a4087d1bc707bccce10e25",
+    "meeting/20260929/MEETING_BRIEF.md": "859b525c381917625134ab11f0b9463278bf1aac2e0e54158665c954433ce1f0",
+    "meeting/20260929/DEMO_RUNBOOK.md": "7206ae85199ca84b8e9d0075c93bd9675f2d627e7e493a6e908f90b2c0533509"
+  }
+}
