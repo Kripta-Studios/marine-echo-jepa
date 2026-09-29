@@ -1,0 +1,10 @@
+{
+  "thread_id": "01a0eef0-9d89-7fb3-b15c-223ad96b7e34",
+  "role": "fresh_explicit_cli_independent_reviewer",
+  "model": "gpt-6.1-sol",
+  "effort": "high",
+  "sandbox_policy": {
+    "type": "read-only"
+  },
+  "permission_profile_type": "managed"
+}

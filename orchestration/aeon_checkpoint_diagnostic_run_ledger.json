@@ -2,8 +2,8 @@
   "schema_version": "1.0",
   "study_id": "aeon_checkpoint_objective_diagnostic_991368d",
   "base_commit": "991368d6a64c7189d803828a15a39828a00e8ea0",
-  "status": "EXECUTED_PENDING_DISTINCT_REVIEW",
-  "updated_at": "2026-09-29T20:48:45.223291+00:00",
+  "status": "COMPLETED_INDEPENDENTLY_REVIEWED",
+  "updated_at": "2026-09-29T21:08:05.441050+00:00",
   "owner_instruction": "Bounded checkpoint-and-objective diagnostic; supersedes automatic nine-trajectory attribution campaign",
   "requested_model": "gpt-6.1-sol",
   "requested_reasoning_effort": "high",
@@ -11,7 +11,7 @@
   "implementation_agent": "explicit_cli_session:01a0eec5-2d89-70f0-b571-25c6594f0722",
   "implementation_worktree": "../marine-echo-checkpoint-diagnostic",
   "implementation_branch": "diag/checkpoint-objective-991368d",
-  "independent_review": "PENDING_DISTINCT_SESSION",
+  "independent_review": "APPROVED_DISTINCT_GPT_6_1_SOL_SESSION",
   "gpu_owner": "NONE",
   "fresh_training_updates": 0,
   "nine_trajectory_attribution_campaign": "NOT_RUN_OWNER_PROHIBITED_AUTOMATIC_EXECUTION",
@@ -49,7 +49,7 @@
     "train_only_saved_state_objective_diagnostic": "COMPLETED",
     "sampling_normalization_and_exposure": "COMPLETED",
     "lineage_and_decision_report": "COMPLETED",
-    "distinct_review": "PENDING"
+    "distinct_review": "COMPLETED_APPROVED_DIAGNOSTIC_ONLY"
   },
   "paid_infrastructure_cost_usd": 0,
   "active_training_processes": [],
@@ -162,5 +162,40 @@
   "report": "orchestration/reports/AEON_CHECKPOINT_OBJECTIVE_DIAGNOSTIC_20260929.md",
   "recommended_next_action": "NO_FURTHER_FITTING_BEFORE_MEETING",
   "conditional_followup": "PROPOSAL_ONLY_UNAPPROVED_NOT_QUEUED",
-  "safe_next_action": "Distinct read-only review of report and executed evidence; no training command is authorized"
+  "safe_next_action": "Use the reviewed diagnostic for the meeting; no further fitting before the meeting and no training command is queued",
+  "reviewed_head": "be457ebf17f5b2445055741f32b0f3cecfd2632e",
+  "independent_review_path": "orchestration/reviews/AEON_CHECKPOINT_OBJECTIVE_DIAGNOSTIC_REVIEW_20260929.json",
+  "independent_review_sha256": "6d639a2a124293b52921a0a6709330ca8019d7627c78e0ba845045cd3129c33b",
+  "reviewer_runtime_model": "gpt-6.1-sol",
+  "reviewer_runtime_reasoning_effort": "high",
+  "reviewer_session": "01a0eef0-9d89-7fb3-b15c-223ad96b7e34",
+  "reviewer_routing_evidence": "evidence/aeon-checkpoint-diagnostic-20260929/verified-review-routing.json",
+  "reviewer_process_exit_code": 0,
+  "reviewer_focused_tests": {
+    "passed": 23,
+    "deselected_temporary_file_tests": 4,
+    "integration_tests_not_run_temporary_file_sandbox": 4,
+    "exit_code": 0
+  },
+  "post_review_verification": {
+    "verified_at": "2026-09-29T21:08:05.441050+00:00",
+    "reviewed_head": "be457ebf17f5b2445055741f32b0f3cecfd2632e",
+    "committed_review_inputs_checked": 111,
+    "input_mismatches": [],
+    "consumed_historical_inputs_checked": 133,
+    "consumed_input_mismatches": [],
+    "report_sha256": "85079651f18aa5b24d8dfa1f54b0e1eecd1c4ff149d3953011f0f35e6c962a29",
+    "technical_report_sha256": "ef56c22aeed80dd9652df8bcc4fed1c7bb377cf13b28c5541ed89bdb0d1be576",
+    "historical_files_checked": 383,
+    "historical_changes": 0,
+    "review_process_exit_code": 0,
+    "scope": "Coordinator post-review hash verification before approval bookkeeping; substantive reviewed files remain byte-identical"
+  },
+  "review_residual_risks": [
+    "Historical preservation verification was partial: 152 of 383 files matched, including the r3 ZIP; 231 campaign/E-drive files were access-denied. Of 133 consumed-input hashes, 39 matched and 94 were inaccessible. Full preservation claims therefore also rely on inspected parent evidence.",
+    "Temporary writes were blocked. Four diagnostic tests and four integration tests requiring temporary files were NOT_RUN independently; the recorded builder 31-test result was inspected.",
+    "Saved-state backward probes, historical forecast fidelity, raw cohort reconstruction, and TRAIN endpoint inference were inspected rather than rerun because their historical inputs were inaccessible.",
+    "Missing optimization curves and historical sample logs, two fixed representation batches, sparse TRAIN errors, dependent windows, and repeatedly inspected VAL limit attribution and generalization. Single-seed conditional thresholds are exploratory continuation screens.",
+    "The requested model and effort are recorded below, not independently proven by this review. Parent runtime verification remains separate. Any substantive change requires a fresh review."
+  ]
 }

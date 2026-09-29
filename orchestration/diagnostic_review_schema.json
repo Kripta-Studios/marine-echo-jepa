@@ -1,0 +1,18 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "verdict": {"type": "string", "enum": ["ship", "fix-first", "rethink"]},
+    "reason": {"type": "string"},
+    "findings": {"type": "array", "items": {"type": "object", "additionalProperties": false, "properties": {"severity": {"type": "string"}, "file": {"type": "string"}, "line": {"type": ["integer", "null"]}, "required_fix": {"type": "string"}}, "required": ["severity", "file", "line", "required_fix"]}},
+    "residual_risks": {"type": "array", "items": {"type": "string"}},
+    "executed_checks": {"type": "array", "items": {"type": "object", "additionalProperties": false, "properties": {"command": {"type": "string"}, "exit_code": {"type": ["integer", "null"]}, "result": {"type": "string"}}, "required": ["command", "exit_code", "result"]}},
+    "inspected_evidence": {"type": "array", "items": {"type": "string"}},
+    "report_sha256": {"type": "string"},
+    "technical_report_sha256": {"type": "string"},
+    "reviewed_head": {"type": "string"},
+    "requested_model": {"type": "string"},
+    "requested_reasoning_effort": {"type": "string"}
+  },
+  "required": ["verdict", "reason", "findings", "residual_risks", "executed_checks", "inspected_evidence", "report_sha256", "technical_report_sha256", "reviewed_head", "requested_model", "requested_reasoning_effort"]
+}

@@ -1,0 +1,133 @@
+{
+  "schema_version": "1.0",
+  "status": "APPROVED_DIAGNOSTIC_REPORT_ONLY",
+  "recorded_at": "2026-09-29T21:08:05.441050+00:00",
+  "reviewed_head": "be457ebf17f5b2445055741f32b0f3cecfd2632e",
+  "review": {
+    "verdict": "ship",
+    "reason": "The report adequately answers the seven diagnostic issues and concluding questions within its exposed TRAIN/VAL scope. Independent checks confirm endpoint scores, prediction ensembles, initialized gradient mechanisms, source identities, sampling counts, and report integrity. Causal attribution remains explicitly unresolved; historical conclusions and lineage are preserved, and the conditional follow-up is bounded and unapproved. This verdict approves the diagnostic report only.",
+    "findings": [],
+    "residual_risks": [
+      "Historical preservation verification was partial: 152 of 383 files matched, including the r3 ZIP; 231 campaign/E-drive files were access-denied. Of 133 consumed-input hashes, 39 matched and 94 were inaccessible. Full preservation claims therefore also rely on inspected parent evidence.",
+      "Temporary writes were blocked. Four diagnostic tests and four integration tests requiring temporary files were NOT_RUN independently; the recorded builder 31-test result was inspected.",
+      "Saved-state backward probes, historical forecast fidelity, raw cohort reconstruction, and TRAIN endpoint inference were inspected rather than rerun because their historical inputs were inaccessible.",
+      "Missing optimization curves and historical sample logs, two fixed representation batches, sparse TRAIN errors, dependent windows, and repeatedly inspected VAL limit attribution and generalization. Single-seed conditional thresholds are exploratory continuation screens.",
+      "The requested model and effort are recorded below, not independently proven by this review. Parent runtime verification remains separate. Any substantive change requires a fresh review."
+    ],
+    "executed_checks": [
+      {
+        "command": "git rev-parse HEAD; git diff --name-status/--stat 991368d6a64c7189d803828a15a39828a00e8ea0 HEAD; git diff --check",
+        "exit_code": 0,
+        "result": "Confirmed reviewed HEAD and accumulated scope. Historical tracked changes are confined to the STATUS prepend; whitespace check passed."
+      },
+      {
+        "command": "Default PowerShell exec launcher",
+        "exit_code": null,
+        "result": "Launcher failed before execution. Continued successfully through cmd.exe."
+      },
+      {
+        "command": ".venv\\Scripts\\python.exe -B -c print(__import__('tempfile').mkdtemp(prefix='aeon-independent-review-'))",
+        "exit_code": 1,
+        "result": "Temporary directory creation blocked; Node temporary-directory creation also returned EPERM."
+      },
+      {
+        "command": ".venv\\Scripts\\python.exe -B -c exec(bytes.fromhex(...)) \u2014 initial focused pytest invocation",
+        "exit_code": 1,
+        "result": "Pytest failed before collection because default output capture required an unavailable temporary file."
+      },
+      {
+        "command": ".venv\\Scripts\\python.exe -B -u -c exec(bytes.fromhex(...)) \u2014 pytest.main(['-q','-s','-p','no:cacheprovider', diagnostic, SSL, evaluator tests, '-k','not fixed_endpoint and not historical_input_hash_guard and not source_bound_shuffled'])",
+        "exit_code": 0,
+        "result": "23 passed, 4 deselected in 54.69 seconds. PYTHONDONTWRITEBYTECODE=1 and torch threads=1. No optimizer tests ran. Runtime confirmed Python 3.12.13 and torch 2.11.0+cu128."
+      },
+      {
+        "command": ".venv\\Scripts\\python.exe -B -c exec(bytes.fromhex(...)) \u2014 independent NumPy endpoint audit",
+        "exit_code": 0,
+        "result": "Loaded all 12 replay NPZ files with allow_pickle=False. Independently recomputed daily pinball to 1e-12 agreement, verified 50 dates and 1194/1192/1189 eligible rows, and exactly verified three prediction-mean ensembles. All reported seed/ensemble comparisons hold."
+      },
+      {
+        "command": ".venv\\Scripts\\python.exe -B -u -c exec(bytes.fromhex(...)) \u2014 initialized CPU backward audit",
+        "exit_code": 0,
+        "result": "Nine width-128 probes across seeds 7/13/23 independently reproduced EMA zero suffix gradients in 6144 weights, teacher/head absence, and shared/direct suffix support. Diagnostic gradients agreed with direct backward. Original models remained unchanged; zero optimizer steps."
+      },
+      {
+        "command": "Node REPL \u2014 SHA256 verification using fs.readFile and crypto.createHash",
+        "exit_code": null,
+        "result": "All 111 pre-review hashes matched at initial and final checks; all 36 run-02 outputs and 95 integrated evidence/tool/test/report hashes matched. All 28 reused files matched both phases; five supplied checksums passed."
+      },
+      {
+        "command": "Node REPL \u2014 historical snapshot and consumed-input SHA256 verification",
+        "exit_code": null,
+        "result": "152 historical files and 39 consumed inputs matched, with no accessible-file mismatch; 231 historical files and 94 consumed inputs were blocked. Independently verified r3 ZIP SHA256 5e265e08bf1041bbe0fb4dd2a5f3503bae98f996096577f976beaf9384d6bb57."
+      },
+      {
+        "command": ".venv\\Scripts\\python.exe -B -c exec(bytes.fromhex(...)) \u2014 AST, STATUS, and historical-source audit",
+        "exit_code": 0,
+        "result": "Runtime and committed diagnostic sources differ only by CRLF/LF and have identical ASTs. Historical STATUS content is intact under a 39-line prepend. Five training files exactly match revision 3755cd4 and digest 8054f0c95962bee496bda75559583bb0dd189324d1636a9e7667833ee51a4e83. Canonical model blobs match; builder and integration implementation files have no diff."
+      },
+      {
+        "command": ".venv\\Scripts\\python.exe -B -c exec(bytes.fromhex(...)) \u2014 expanded sampling and strict statistical cross-check",
+        "exit_code": 1,
+        "result": "Expanded SSL/supervised counts and sequence hashes reproduced successfully. Subsequent gradient-ratio assertion used an overly strict 2e-6 tolerance for different float32 norm reductions and failed."
+      },
+      {
+        "command": ".venv\\Scripts\\python.exe -B -c exec(bytes.fromhex(...)) \u2014 statistical reduction follow-up",
+        "exit_code": 0,
+        "result": "Verified 96 representation-statistic identities, loss decomposition, rank bounds, and EMA gradient absence. Maximum gradient-ratio reduction difference was 7.96e-6 relative, consistent with float32 reduction order and immaterial to reported precision."
+      },
+      {
+        "command": "Node REPL \u2014 independent aggregation of retained trajectory daily losses",
+        "exit_code": null,
+        "result": "All 54 saved trajectory primary-score aggregations agreed within 1e-12. This checked retained loss arithmetic, not inaccessible historical prediction files."
+      },
+      {
+        "command": ".venv\\Scripts\\python.exe -B tools\\verify_handoff.py",
+        "exit_code": 1,
+        "result": "Current root handoff check failed on .gitattributes. That root file is unchanged in the reviewed diff; the inspected builder log separately records its .editorconfig mismatch."
+      },
+      {
+        "command": ".venv\\Scripts\\python.exe -B -m ruff check --no-cache tools\\aeon_checkpoint_diagnostic.py tests\\unit\\test_aeon_checkpoint_diagnostic.py",
+        "exit_code": 0,
+        "result": "All checks passed."
+      },
+      {
+        "command": ".venv\\Scripts\\python.exe -B -m ruff format --check --no-cache tools\\aeon_checkpoint_diagnostic.py tests\\unit\\test_aeon_checkpoint_diagnostic.py",
+        "exit_code": 0,
+        "result": "Both files already formatted."
+      }
+    ],
+    "inspected_evidence": [
+      "Actual diagnostic source, focused tests, current SSL/regularizer/evaluator source, historical sampling source, and supplied audit script.",
+      "Both diagnostic reports, implementation/review contracts, output schema, separate diagnostic ledger, STATUS, start/task/source-access documents, and relevant protocols/ADRs.",
+      "Run-01 failure/log/recovered source and run-02 completion/log/source normalization, recorded CPU/resource/zero-optimizer evidence.",
+      "Endpoint lineage/fidelity records, 18 initialized TRAIN and 12 saved-state probes, fixed TRAIN memberships, 20 TRAIN errors, 54 VAL checks, initialization equality, sampling audit, expanded exposure, and descendant lineage.",
+      "Builder/parent test and lint logs, preservation assertions, artifact verification records, and conditional proposal: matched seed-7 pair, 6000 updates, 20-minute/resource caps, exploratory exposure labels, fixed thresholds, and separate authorization requirement."
+    ],
+    "report_sha256": "85079651f18aa5b24d8dfa1f54b0e1eecd1c4ff149d3953011f0f35e6c962a29",
+    "technical_report_sha256": "ef56c22aeed80dd9652df8bcc4fed1c7bb377cf13b28c5541ed89bdb0d1be576",
+    "reviewed_head": "be457ebf17f5b2445055741f32b0f3cecfd2632e",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "high"
+  },
+  "actual_reviewer_runtime": {
+    "thread_id": "01a0eef0-9d89-7fb3-b15c-223ad96b7e34",
+    "role": "fresh_explicit_cli_independent_reviewer",
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "sandbox_policy": {
+      "type": "read-only"
+    },
+    "permission_profile_type": "managed"
+  },
+  "actual_implementation_session": "01a0eec5-2d89-70f0-b571-25c6594f0722",
+  "distinct_sessions_verified": true,
+  "raw_review": "evidence/aeon-checkpoint-diagnostic-20260929/review-final.json",
+  "raw_review_sha256": "97c71a3254193a946e4eae20b3fbc1215181682643f3e9a90bfaef53dc9e2f57",
+  "runtime_routing_evidence": "evidence/aeon-checkpoint-diagnostic-20260929/verified-review-routing.json",
+  "post_review_verification": "evidence/aeon-checkpoint-diagnostic-20260929/post-review-verification.json",
+  "post_review_verification_sha256": "fdedd375fdaa4962444cbfecc7be56356c4b26d68f65d93f5a055abc8f6320d4",
+  "coordinator_full_preservation_recheck": "evidence/aeon-checkpoint-diagnostic-20260929/preservation-final.json",
+  "coordinator_preservation_sha256": "3a9dc23b32a7be39b11a7e393e5e953e9f4076f047112d9c98181cb5e4b77c35",
+  "approval_scope": "Executed bounded scientific diagnostic and exact report bytes; no fitting, release, external test, new research protocol or business-value approval",
+  "review_sandbox_limits": "Partial independent historical access and blocked temporary-file checks are retained verbatim in review.residual_risks. Coordinator subsequently verified all 383 historical files and all 133 consumed-input hashes."
+}

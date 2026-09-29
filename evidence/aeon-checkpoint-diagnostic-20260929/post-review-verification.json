@@ -1,0 +1,14 @@
+{
+  "verified_at": "2026-09-29T21:08:05.441050+00:00",
+  "reviewed_head": "be457ebf17f5b2445055741f32b0f3cecfd2632e",
+  "committed_review_inputs_checked": 111,
+  "input_mismatches": [],
+  "consumed_historical_inputs_checked": 133,
+  "consumed_input_mismatches": [],
+  "report_sha256": "85079651f18aa5b24d8dfa1f54b0e1eecd1c4ff149d3953011f0f35e6c962a29",
+  "technical_report_sha256": "ef56c22aeed80dd9652df8bcc4fed1c7bb377cf13b28c5541ed89bdb0d1be576",
+  "historical_files_checked": 383,
+  "historical_changes": 0,
+  "review_process_exit_code": 0,
+  "scope": "Coordinator post-review hash verification before approval bookkeeping; substantive reviewed files remain byte-identical"
+}
