@@ -1,0 +1,78 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Meeting static fallback</title>
+<style>body{font:16px system-ui;max-width:1100px;margin:32px auto;padding:16px}table{border-collapse:collapse;width:100%}td,th{border:1px solid #999;padding:6px}pre{white-space:pre-wrap}a{overflow-wrap:anywhere}</style>
+<h1>Meeting static fallback: reviewed r3 saved forecasts</h1>
+<p>Publisher-conditioned Sv_mean in dB re 1 m^-1; +1/+3/+6 source intervals. Source timezone and availability unresolved. No live inference, later-truth reveal or new evaluation.</p>
+<h2>Chronological index 0: 2025-01-06T23:51:58.910000</h2><p>Interval 482280; row 17aac6154bad3677f7a927233cf7e8b847e24245a2fc6c60a9c1b482fb8f3973</p>
+<table><tr><th>Model</th><th>Source horizon</th><th>q05</th><th>q25</th><th>q50</th><th>q75</th><th>q95</th></tr>
+<tr><td>core_direct_equal_three_seed_ensemble</td><td>1</td><td>-92.022537</td><td>-91.857160</td><td>-91.437767</td><td>-90.328400</td><td>-87.851578</td></tr>
+<tr><td>core_direct_equal_three_seed_ensemble</td><td>3</td><td>-91.843898</td><td>-91.585243</td><td>-91.270587</td><td>-89.978963</td><td>-87.210759</td></tr>
+<tr><td>core_direct_equal_three_seed_ensemble</td><td>6</td><td>-91.922440</td><td>-91.500748</td><td>-90.995120</td><td>-89.601201</td><td>-86.949529</td></tr>
+<tr><td>core_ema_equal_three_seed_ensemble</td><td>1</td><td>-92.084984</td><td>-91.860446</td><td>-91.509204</td><td>-90.458028</td><td>-87.532918</td></tr>
+<tr><td>core_ema_equal_three_seed_ensemble</td><td>3</td><td>-92.004997</td><td>-91.910563</td><td>-91.177701</td><td>-90.006882</td><td>-87.208290</td></tr>
+<tr><td>core_ema_equal_three_seed_ensemble</td><td>6</td><td>-91.997035</td><td>-91.871017</td><td>-91.096898</td><td>-89.534004</td><td>-86.973211</td></tr>
+<tr><td>post_hoc_lightgbm</td><td>1</td><td>-91.967968</td><td>-91.803535</td><td>-91.742660</td><td>-91.291016</td><td>-87.817496</td></tr>
+<tr><td>post_hoc_lightgbm</td><td>3</td><td>-92.013297</td><td>-91.586100</td><td>-91.163156</td><td>-90.007930</td><td>-86.845561</td></tr>
+<tr><td>post_hoc_lightgbm</td><td>6</td><td>-92.002341</td><td>-91.779070</td><td>-91.293936</td><td>-90.467012</td><td>-87.492779</td></tr>
+</table>
+<h2>Chronological index 100: 2025-01-11T03:51:58.030000</h2><p>Interval 482380; row c5acdb396a776dafd707f99b2138eb02acbd75dc52ac42a640374697179da464</p>
+<table><tr><th>Model</th><th>Source horizon</th><th>q05</th><th>q25</th><th>q50</th><th>q75</th><th>q95</th></tr>
+<tr><td>core_direct_equal_three_seed_ensemble</td><td>1</td><td>-91.635071</td><td>-90.727921</td><td>-89.712753</td><td>-88.087812</td><td>-85.177361</td></tr>
+<tr><td>core_direct_equal_three_seed_ensemble</td><td>3</td><td>-91.603793</td><td>-90.496333</td><td>-89.396713</td><td>-87.612600</td><td>-84.484965</td></tr>
+<tr><td>core_direct_equal_three_seed_ensemble</td><td>6</td><td>-91.679919</td><td>-90.708733</td><td>-89.426519</td><td>-87.633486</td><td>-84.688929</td></tr>
+<tr><td>core_ema_equal_three_seed_ensemble</td><td>1</td><td>-91.754974</td><td>-90.884875</td><td>-89.749863</td><td>-88.237630</td><td>-85.750254</td></tr>
+<tr><td>core_ema_equal_three_seed_ensemble</td><td>3</td><td>-91.735573</td><td>-90.750336</td><td>-89.526103</td><td>-87.867833</td><td>-84.693263</td></tr>
+<tr><td>core_ema_equal_three_seed_ensemble</td><td>6</td><td>-91.639748</td><td>-90.806732</td><td>-89.412773</td><td>-87.887507</td><td>-84.675827</td></tr>
+<tr><td>post_hoc_lightgbm</td><td>1</td><td>-91.413158</td><td>-90.420422</td><td>-89.670449</td><td>-88.094733</td><td>-85.732404</td></tr>
+<tr><td>post_hoc_lightgbm</td><td>3</td><td>-91.475863</td><td>-90.777703</td><td>-88.890044</td><td>-87.139904</td><td>-84.553137</td></tr>
+<tr><td>post_hoc_lightgbm</td><td>6</td><td>-91.632229</td><td>-90.358646</td><td>-88.951856</td><td>-87.098058</td><td>-84.106177</td></tr>
+</table>
+<h2>Later observations</h2><p>AEON replay and packaged retrospective forecast NPZs contain no later observations for these cutoffs. Static fallback presents already released aggregate outcome evidence, not per-row truth.</p>
+<h2>Already released retrospective evidence</h2><pre># AEON retrospective acoustic forecast outcome — 27 September 2026
+
+This is a new, separately reviewed public-data study on the AEON3 Georges Basin conditioned hourly AZFP product. The historical MOSAiC v1 90-day eligibility failure, 25 blocked slots and v2 raw-code engineering release remain unchanged. The AEON result is retrospective and one-deployment only; no sealed holdout or independent calibration of absolute backscatter has been established.
+
+## Measurement and comparison
+
+The target is source-reported 38 kHz FullDepth hourly `Sv_mean` at 1, 3 and 6 nominal source-interval horizons. Each forecast uses 24 earlier four-frequency source intervals and observed masks. The source clock timezone, product availability latency, publisher conditioning and instrument calibration chain are not fully resolved. Missing target intervals are excluded according to recorded QC, never filled with future truth. The minimum eligible source date has 18 observed anchors; TEST requires 20 eligible dates per horizon.
+
+The frozen core conventional reference is an equal-weight three-seed direct neural ensemble. The frozen core SSL comparator is an equal-weight three-seed EMA-JEPA ensemble with TRAIN-only representation pretraining. Both use the same 128-width encoder class and 1/3/6-horizon five-quantile heads. A fixed-lag LightGBM quantile model is a separately labelled post-hoc development challenger. The full TRAIN/validation campaign, random/learned hybrid controls, forward-EMA ablation, 120M-parameter frozen Chronos-2 comparator and a bounded PatchTST-style challenger are detailed in [the SOTA architecture review](SOTA_ARCHITECTURE_REVIEW_20260927.md). Their development outcomes were frozen before CAL/TEST access.
+
+CAL used 810 issued rows and 34 eligible source dates per horizon solely to fit nonnegative widening of the fixed 90% intervals. The one-time retrospective TEST issued all 1,216 metadata candidates and produced 49/50/51 eligible source dates, with 1,175/1,189/1,204 eligible scored rows at horizons 1/3/6. The primary raw five-quantile daily mean pinball loss on common support is:
+
+| Frozen model | TEST daily pinball, dB | Relative to direct | Frozen full promotion rule |
+|---|---:|---:|---|
+| Direct neural, three seeds | 0.563387 | reference | reference |
+| EMA-JEPA, three seeds | 0.533954 | 5.2243% lower loss | PASS within-study retrospective comparison |
+| LightGBM, post-hoc | 0.542202 | 3.7602% lower loss | FAIL 5% point requirement |
+
+The EMA-JEPA-minus-direct paired 48-hour-block, 2,000-draw bootstrap 95% interval is [-0.045456, -0.014497] dB. Its loss is lower at all three horizons, and the frozen 5% point, strictly favorable paired interval and per-horizon regression rules all pass. LightGBM&#x27;s paired interval [-0.041936, -0.003336] dB excludes zero but does not satisfy the frozen 5% point/full rule. CAL-widened retrospective 90% interval coverage exceeded 90% at every horizon for all three models; widening did not select the model or replace the raw primary score.
+
+The [distinct TEST outcome review](../reviews/AEON_RETROSPECTIVE_TEST_OUTCOME_REVIEW_20260927.json), SHA-256 `75a241f00d34f8d373ccbd4c5b2e2c35397e2c0ff0a20a6e112ce4953f13489a`, independently reconstructed every issued candidate and QC decision, regenerated all three TEST forecast tensors bit exactly from the six neural checkpoints and LightGBM model/recipe, and reproduced all metrics, widening and bootstrap draws. The reviewed score JSON is `outputs/aeon3_geb_2024_hourly_sv_v1/retrospective_test/test-score.json`, SHA-256 `23f9d350528e9f99b35949c6281c39d209dff7f7db44a992d241d64ccde8bd89`. The [machine run ledger](../aeon_run_ledger.json) binds the pretest freeze, CAL artifact, source and approvals.
+
+## Interpretation and gates
+
+The selected EMA-JEPA forecast family passes the fixed **within-study retrospective** performance gate against the selected direct ensemble. This is positive evidence for that comparison, but not proof that learned JEPA representations caused the gain: the corrected core validation score slightly favored direct (0.639062 versus EMA 0.642170 dB), the family choice was made after development outcomes, effective rank was low, and a frozen-random hybrid beat learned hybrids on development. The stronger forward-latent/variance adaptation and the 120M Chronos-2 zero-shot model were both worse than direct on development; the single PatchTST-style seed was markedly worse and failed its predefined continuation gate. The study therefore does not establish AEON or marine-acoustic SOTA, external generalization, or universal SSL superiority.
+
+The software and experiment gates have real executed evidence; the narrow JEPA-value comparison passes retrospectively with the above attribution limits. Biological, operational and business-validation gates remain unproven. This product is not a species, biomass, catch, causal intervention or fuel-savings predictor. Release packaging and its independent offline review are tracked separately in `orchestration/STATUS.md`.
+</pre>
+<h2>Package limits</h2><pre># Research limitations
+
+This retrospective TEST is one deployment and not sealed or externally replicated. The source clock is not verified UTC and operational availability is unknown. Processed Sv is not species, biomass, catch, fuel savings or causal device impact. Publisher conditioning cannot be independently reconstructed from these products. No state-of-the-art, production or business-validation claim follows. The historical MOSAiC v1/v2 eligibility failures remain unchanged.
+</pre>
+<h2>Fallback navigation</h2>
+<p><a href="../../outputs/meeting-readiness-20260929-r3/aeon-offline-scale-expanded-20260928-r3/REPORT.md">REPORT.md</a></p>
+<p><a href="../../outputs/meeting-readiness-20260929-r3/aeon-offline-scale-expanded-20260928-r3/LIMITATIONS.md">LIMITATIONS.md</a></p>
+<p><a href="../../outputs/meeting-readiness-20260929-r3/aeon-offline-scale-expanded-20260928-r3/MODEL_CARD.md">MODEL_CARD.md</a></p>
+<p><a href="../../outputs/meeting-readiness-20260929-r3/aeon-offline-scale-expanded-20260928-r3/MARINE_DATA_REQUEST.md">MARINE_DATA_REQUEST.md</a></p>
+<p><a href="../../outputs/meeting-readiness-20260929-r3/aeon-offline-scale-expanded-20260928-r3/provenance/retrospective_test/AEON_RETROSPECTIVE_OUTCOME_20260927.md">provenance/retrospective_test/AEON_RETROSPECTIVE_OUTCOME_20260927.md</a></p>
+<h2>Separate engineering later-observation example</h2>
+<p>FIRST chronological packaged MOSAiC TRAIN-development row, fixed by coordinator before inspecting values. UNCALIBRATED RESPONSE CODE, NOT Sv_mean, NOT AN AEON OR JEPA RESULT. No final evaluation. This observation table is separate from truth-free AEON replay.</p>
+<p>Cutoff 2020-04-02T00:00:00Z</p>
+<table><tr><th>Horizon hours</th><th>Target start UTC</th><th>Eligibility</th><th>Later observation code</th><th>Ridge q05/q25/q50/q75/q95 codes</th><th>Direct q05/q25/q50/q75/q95 codes</th></tr>
+<tr><td>1</td><td>2020-04-02T00:00:00Z</td><td>False</td><td>MISSING / NOT SCORED</td><td>11134.788968 / 11208.701358 / 11241.035778 / 11273.860533 / 11352.665353</td><td>10957.428573 / 11125.380427 / 11208.552288 / 11285.215947 / 11483.046016</td></tr>
+<tr><td>3</td><td>2020-04-02T02:00:00Z</td><td>True</td><td>11218.386223</td><td>11048.579749 / 11181.384635 / 11234.852653 / 11286.095411 / 11404.098405</td><td>10956.282520 / 11121.941899 / 11205.895246 / 11283.270591 / 11480.240385</td></tr>
+<tr><td>6</td><td>2020-04-02T05:00:00Z</td><td>True</td><td>11229.620260</td><td>10989.283148 / 11160.615745 / 11235.111785 / 11295.574374 / 11472.269603</td><td>10960.707645 / 11128.679835 / 11212.108753 / 11289.492317 / 11485.808621</td></tr>
+</table>
+<p>Packaged raw-development.json SHA256 ad3b69a29395fb83528cd2e015c86e6255a2e3be42b6b7a450ca0f37db310de1</p>
+<p>Source result SHA256 4237f375ba129fce95be952325e56cf5bc9615a5d89b2ed9ba91dfc8771cb49d; review SHA256 18d8c890dfef8aacc274308d94251b91059c76fc743071d1cc1bcd61cc584b15</p>
+</html>

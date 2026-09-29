@@ -1,0 +1,74 @@
+﻿{
+    "status":  "PASSED",
+    "command":  "powershell.exe -NoProfile -ExecutionPolicy Bypass -File evidence/meeting-readiness-20260929/stop_scratch.ps1",
+    "owned_before":  [
+                         {
+                             "ProcessId":  59556,
+                             "ParentProcessId":  41352,
+                             "CreationDate":  "\/Date(1790717650356)\/",
+                             "ExecutablePath":  "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+                             "CommandLine":  "\"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\meeting-readiness-20260929-r3\\aeon-offline-scale-expanded-20260928-r3\\Run-AEON-Research.ps1\" -Port 8784 "
+                         },
+                         {
+                             "ProcessId":  32096,
+                             "ParentProcessId":  59556,
+                             "CreationDate":  "\/Date(1790717650437)\/",
+                             "ExecutablePath":  "C:\\Windows\\system32\\conhost.exe",
+                             "CommandLine":  "\\??\\C:\\Windows\\system32\\conhost.exe 0x4"
+                         },
+                         {
+                             "ProcessId":  28976,
+                             "ParentProcessId":  59556,
+                             "CreationDate":  "\/Date(1790717658385)\/",
+                             "ExecutablePath":  "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\meeting-readiness-20260929-r3\\aeon-offline-scale-expanded-20260928-r3\\.venv\\Scripts\\python.exe",
+                             "CommandLine":  "\"C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\meeting-readiness-20260929-r3\\aeon-offline-scale-expanded-20260928-r3\\.venv\\Scripts\\python.exe\" \"C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\meeting-readiness-20260929-r3\\aeon-offline-scale-expanded-20260928-r3\\Serve-AEON-Research.py\" --port 8784"
+                         },
+                         {
+                             "ProcessId":  32600,
+                             "ParentProcessId":  28976,
+                             "CreationDate":  "\/Date(1790717658484)\/",
+                             "ExecutablePath":  "C:\\Users\\Álvaro Schwiedop\\AppData\\Roaming\\uv\\python\\cpython-3.12-windows-x86_64-none\\python.exe",
+                             "CommandLine":  "\"C:\\Users\\Álvaro Schwiedop\\AppData\\Roaming\\uv\\python\\cpython-3.12-windows-x86_64-none\\python.exe\"  \"C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\meeting-readiness-20260929-r3\\aeon-offline-scale-expanded-20260928-r3\\Serve-AEON-Research.py\" --port 8784"
+                         }
+                     ],
+    "explicitly_stopped":  [
+                               32600
+                           ],
+    "owned_port_closed":  true,
+    "protected_processes_after":  [
+                                      {
+                                          "Id":  5620,
+                                          "ProcessName":  "python",
+                                          "StartTime":  "\/Date(1790709643583)\/"
+                                      },
+                                      {
+                                          "Id":  11048,
+                                          "ProcessName":  "python",
+                                          "StartTime":  "\/Date(1790709643675)\/"
+                                      },
+                                      {
+                                          "Id":  46932,
+                                          "ProcessName":  "python",
+                                          "StartTime":  "\/Date(1790709537710)\/"
+                                      },
+                                      {
+                                          "Id":  55668,
+                                          "ProcessName":  "python",
+                                          "StartTime":  "\/Date(1790709537591)\/"
+                                      }
+                                  ],
+    "protected_listeners_after":  [
+                                      {
+                                          "LocalAddress":  "127.0.0.1",
+                                          "LocalPort":  8783,
+                                          "OwningProcess":  11048
+                                      },
+                                      {
+                                          "LocalAddress":  "127.0.0.1",
+                                          "LocalPort":  8782,
+                                          "OwningProcess":  46932
+                                      }
+                                  ],
+    "server_exit":  "Deliberately terminated owned process tree; no natural server exit code claimed",
+    "recorded_at":  "2026-09-29T23:41:30.9257446+02:00"
+}

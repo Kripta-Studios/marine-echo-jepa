@@ -1,3 +1,18 @@
+## Meeting readiness implementation — 29 September 2026 (fresh review pending)
+
+Five meeting deliverables are in `meeting/20260929/`; current entrypoints now
+lead to approved immutable AEON r3 plus the completed diagnostic. New scratch
+verified 107 assets, installed bundled wheels offline, served loopback 8784,
+passed exact-byte/API/ordered-quantile checks for fixed indices 0 and 100, and
+was shut down preserving existing 8782/8783 processes. API/static traversal
+took 1.973620 seconds; no spoken eight-minute rehearsal is claimed. Fresh coordinator MCP Playwright smoke/screenshots passed; in-app browser
+attempt was NOT_RUN. Packaged uncalibrated MOSAiC later observations supplement
+truth-free AEON replay; denied main artifact writes remain explicitly recorded. No fitting or new
+scientific outcome occurred. NO_FURTHER_FITTING_BEFORE_MEETING; any conditional
+intervention remains DRAFT / NOT_AUTHORIZED / NOT_QUEUED. Fresh distinct review
+is pending. Actual evidence/checks: `evidence/meeting-readiness-20260929/` and
+`meeting/20260929/READINESS_CHECKLIST.json`. All prior STATUS content follows intact.
+
 # Execution status
 
 ## Checkpoint and objective diagnostic - completed and independently reviewed 29 September 2026

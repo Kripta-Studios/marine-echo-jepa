@@ -1,0 +1,8 @@
+{
+  "recorded_at": "2026-09-29T21:32:56.831434+00:00",
+  "indices": [
+    0,
+    100
+  ],
+  "rule": "Zero-based chronological cutoff indices fixed before opening replay forecasts or later observations; all three packaged model families, no superiority search."
+}

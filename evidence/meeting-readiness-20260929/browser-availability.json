@@ -1,0 +1,15 @@
+{
+  "status": "NOT_RUN",
+  "setup_tool": "mcp__node_repl__js",
+  "setup": "setupBrowserRuntime; agent.browsers.getForUrl('http://127.0.0.1:8784'); browser.documentation()",
+  "setup_result": "No browser is available",
+  "setup_is_error": true,
+  "troubleshooting": "Read bootstrap-troubleshooting; inspect agent.browsers.list() once",
+  "discovery_result": [],
+  "fresh_navigation": "NOT_RUN",
+  "fresh_screenshots": "NOT_RUN",
+  "browser_dependency_installation": "NOT_RUN",
+  "alternate_browser_channel": "NOT_RUN",
+  "access_denied": false,
+  "disposition": "Continue authorized offline launcher/API/static checks; historical r3 browser evidence remains labelled historical."
+}

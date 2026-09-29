@@ -1,0 +1,9 @@
+{
+  "status": "FAILED",
+  "exit_code": 1,
+  "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File evidence/meeting-readiness-20260929/stop_scratch.ps1",
+  "reason": "Empty child enumeration contributed a null frontier entry, producing an invalid CIM filter. Failure occurred during read-only tree capture before process mutation.",
+  "correction": "Append only actual enumerated child process IDs to the frontier.",
+  "access_denied": false,
+  "processes_stopped": []
+}

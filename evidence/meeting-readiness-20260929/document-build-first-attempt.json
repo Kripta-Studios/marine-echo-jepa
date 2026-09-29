@@ -1,0 +1,12 @@
+{
+  "status": "FAILED",
+  "commands": [
+    ".venv/Scripts/python.exe -B evidence/meeting-readiness-20260929/build_checklist.py",
+    ".venv/Scripts/python.exe -B evidence/meeting-readiness-20260929/verify_documents.py"
+  ],
+  "exit_codes": [1, 1],
+  "reason": "Checklist creation was invoked before the yielded final-runtime command had finished writing final-runtime-verification.json. The following link check then correctly found the absent checklist.",
+  "correction": "Wait for the prerequisite command to finish with exit 0, then create the checklist and run validation sequentially.",
+  "access_denied": false,
+  "scientific_execution": false
+}

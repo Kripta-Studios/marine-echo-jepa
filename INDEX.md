@@ -1,12 +1,30 @@
 # Package index
 
-Start with [START_HERE.md](START_HERE.md) and [CODEX_START_PROMPT.md](CODEX_START_PROMPT.md).
+## Current meeting handoff
 
-## English specification and execution documents
+- [Current start](START_HERE.md) and [project status/results](README.md)
+- [Owner meeting task; no scientific execution permission](CODEX_MEETING_READY_AFTER_DIAGNOSTIC.md)
+- [Meeting brief](meeting/20260929/MEETING_BRIEF.md)
+- [Tested demo runbook and explicit browser/rehearsal gaps](meeting/20260929/DEMO_RUNBOOK.md)
+- [Proposed pilot data request](meeting/20260929/PILOT_DATA_REQUEST.md)
+- [No further fitting; conditional draft decision](meeting/20260929/NEXT_RESEARCH_DECISION.md)
+- [Machine-readable actual readiness](meeting/20260929/READINESS_CHECKLIST.json)
+- [Static fallback: fixed served examples and packaged evidence](evidence/meeting-readiness-20260929/static-fallback.html)
+
+## Approved research evidence
+
+- [Immutable approved r3 ZIP](release/aeon-offline-scale-expanded-20260928-r3.zip)
+- [R3 exact-byte approval](orchestration/reviews/AEON_SCALE_EXPANDED_OFFLINE_R3_REVIEW_20260929.json) and [validation report](orchestration/reports/AEON_SCALE_EXPANDED_OFFLINE_R3_VALIDATION_20260929.md)
+- [Completed checkpoint/objective diagnostic](orchestration/reports/AEON_CHECKPOINT_OBJECTIVE_DIAGNOSTIC_20260929.md), [technical report](orchestration/reports/AEON_CHECKPOINT_DIAGNOSTIC_TECHNICAL_20260929.md) and [distinct diagnostic review](orchestration/reviews/AEON_CHECKPOINT_OBJECTIVE_DIAGNOSTIC_REVIEW_20260929.json)
+- [Historical positive retrospective](orchestration/reports/AEON_RETROSPECTIVE_OUTCOME_20260927.md) and [negative secondary transfer](orchestration/reports/AEON_EXTERNAL_SECONDARY_NUMERIC_OUTCOME_20260928.md)
+
+Approved r3 plus the completed diagnostic are the meeting's evidence base. Diagnostic numbers remain outside r3. Scopes, accurate prediction-mean ensemble scores, source-interval timing, prior-year TRAIN lineage and the unvalidated Marine value boundary are explicit in README and the brief. Fresh meeting review is pending; coordinator MCP Playwright smoke passed, while the in-app browser attempt and spoken rehearsal remain NOT_RUN. No research is queued.
+
+## Labelled historical specifications and handoff
+
+These retained documents describe earlier contracts, studies and roles. They are reference/history, not permission to reopen tasks or use superseded role pins. The original [start prompt](CODEX_START_PROMPT.md) and [resume prompt](CODEX_RESUME_PROMPT.md) remain historical. Original INDEX.md bytes remain in Git at `2455fd39d54017bfad0208884b830ad51de4fa20`.
 
 - [Repository instructions](AGENTS.md)
-- [Resume `marine-echo-jepa` as GPT-6 Astra high. Read AGENTS.md, CODEX_START_PROMPT.md,](CODEX_RESUME_PROMPT.md)
-- [You are the end-to-end leader for `marine-echo-jepa`, running GPT-6 Astra with high reasoning](CODEX_START_PROMPT.md)
 - [Marine Echo JEPA](README.md)
 - [Start here](START_HERE.md)
 - [Independent review task](agent_prompts/INDEPENDENT_REVIEWER.md)
@@ -40,14 +58,5 @@ Start with [START_HERE.md](START_HERE.md) and [CODEX_START_PROMPT.md](CODEX_STAR
 - [Execution status](orchestration/STATUS.md)
 - [Source ledger](references/SOURCES.md)
 
-## Machine-readable and executable assets
 
-`configs/`: dataset links/access limits, model/compute defaults, finite experiment budget and agent bindings.
-`schemas/`: forecast interchange schema; semantic oracles are separate.
-`.codex/`: project leader settings and three standalone native subagent configurations.
-`orchestration/tasks.json`:22 dependency-linked tasks, all initially TODO.
-`tools/`: access/runtime probes, original-handoff verification, numerical/forecast oracles and ZIP metadata guard.
-`scripts/`: PowerShell launch/verification wrappers, not yet Windows-executed.
-`tests_handoff/`:51 helper tests and a strictly synthetic contract fixture.
-`evidence/`: preparation logs and limitations; not trained-model or application evidence.
-`HANDOFF_SHA256SUMS`:original-distribution integrity manifest.
+Historical machine assets include `configs/`, `schemas/`, `.codex/`, `orchestration/tasks.json`, `tools/`, `scripts/`, `tests_handoff/` and `HANDOFF_SHA256SUMS`. Their original distribution state is not the current AEON release state. Use the current checklist and reviewed reports for executed results; preserve the historical task graph and scientific ledgers.

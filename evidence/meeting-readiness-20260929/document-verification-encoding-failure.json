@@ -1,0 +1,9 @@
+{
+  "status": "FAILED",
+  "exit_code": 1,
+  "command": ".venv/Scripts/python.exe -B evidence/meeting-readiness-20260929/verify_documents.py",
+  "reason": "One document read used the Windows default cp1252 encoding and failed on UTF-8 text in the runbook. Earlier link, source hash, preservation, numeric and diff checks completed before that failure.",
+  "correction": "Specify UTF-8 for every authored-document read in the verifier.",
+  "access_denied": false,
+  "scientific_execution": false
+}

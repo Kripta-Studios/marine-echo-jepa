@@ -1,0 +1,35 @@
+Verified 107 packaged files.
+AEON offline research: http://127.0.0.1:8784
+INFO:     127.0.0.1:59973 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51670 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58789 - "GET /assets/index-4wqFJhvG.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51670 - "GET /assets/index-DJlTwxbi.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51670 - "GET /api/v1/datasets HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58789 - "GET /api/v1/models HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61929 - "GET /api/v1/evidence/research HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64297 - "GET /api/v1/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63288 - "GET /api/v1/evidence/raw-development HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62408 - "GET /api/v1/studies/aeon HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62408 - "GET /api/v1/datasets/mosaic_azfp_down_2020/observations?start=2020-02-17T00%3A00%3A00Z&end=2020-02-18T00%3A15%3A00Z&cutoff=2020-02-17T12%3A00%3A00.000Z HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62408 - "GET /api/v1/studies/aeon/replay?model_id=core_direct_equal_three_seed_ensemble&offset=0&limit=12 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62408 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64173 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64174 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64175 - "GET /assets/index-DJlTwxbi.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64176 - "GET /assets/index-4wqFJhvG.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64178 - "GET /api/v1/studies/aeon HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64179 - "GET /api/v1/studies/aeon/replay?model_id=core_direct_equal_three_seed_ensemble&offset=0&limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64180 - "GET /api/v1/studies/aeon/replay?model_id=core_ema_equal_three_seed_ensemble&offset=0&limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64181 - "GET /api/v1/studies/aeon/replay?model_id=post_hoc_lightgbm&offset=0&limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64182 - "GET /api/v1/studies/aeon/replay?model_id=core_direct_equal_three_seed_ensemble&offset=100&limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64183 - "GET /api/v1/studies/aeon/replay?model_id=core_ema_equal_three_seed_ensemble&offset=100&limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64185 - "GET /api/v1/studies/aeon/replay?model_id=post_hoc_lightgbm&offset=100&limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65520 - "GET /api/v1/studies/aeon/replay?model_id=core_ema_equal_three_seed_ensemble&offset=0&limit=12 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51092 - "GET /api/v1/studies/aeon/replay?model_id=core_ema_equal_three_seed_ensemble&offset=12&limit=12 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51092 - "GET /api/v1/studies/aeon/replay?model_id=core_ema_equal_three_seed_ensemble&offset=24&limit=12 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51092 - "GET /api/v1/studies/aeon/replay?model_id=core_ema_equal_three_seed_ensemble&offset=36&limit=12 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51092 - "GET /api/v1/studies/aeon/replay?model_id=core_ema_equal_three_seed_ensemble&offset=48&limit=12 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51092 - "GET /api/v1/studies/aeon/replay?model_id=core_ema_equal_three_seed_ensemble&offset=60&limit=12 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51092 - "GET /api/v1/studies/aeon/replay?model_id=core_ema_equal_three_seed_ensemble&offset=72&limit=12 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51092 - "GET /api/v1/studies/aeon/replay?model_id=core_ema_equal_three_seed_ensemble&offset=84&limit=12 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51092 - "GET /api/v1/studies/aeon/replay?model_id=core_ema_equal_three_seed_ensemble&offset=96&limit=12 HTTP/1.1" 200 OK

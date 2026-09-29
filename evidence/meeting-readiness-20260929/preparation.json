@@ -1,0 +1,20 @@
+{
+  "recorded_at": "2026-09-29T21:32:56.839559+00:00",
+  "archive": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\release\\aeon-offline-scale-expanded-20260928-r3.zip",
+  "archive_sha256_before": "5e265e08bf1041bbe0fb4dd2a5f3503bae98f996096577f976beaf9384d6bb57",
+  "scratch": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\meeting-readiness-20260929-r3",
+  "package": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\meeting-readiness-20260929-r3\\aeon-offline-scale-expanded-20260928-r3",
+  "assets_verified": 107,
+  "manifest_sha256": "225f607f89dfd2634d9e5c87c8632ce5b8179d126a2d16a47423a330ab596def",
+  "source_revision_sha256": "0d08e3198b401a3944c5695ed8ba3faaae66ad6aca9df51732797d1a48408c18",
+  "sources": {
+    "orchestration/reports/AEON_CHECKPOINT_OBJECTIVE_DIAGNOSTIC_20260929.md": "85079651f18aa5b24d8dfa1f54b0e1eecd1c4ff149d3953011f0f35e6c962a29",
+    "orchestration/reports/AEON_CHECKPOINT_DIAGNOSTIC_TECHNICAL_20260929.md": "ef56c22aeed80dd9652df8bcc4fed1c7bb377cf13b28c5541ed89bdb0d1be576",
+    "orchestration/reviews/AEON_CHECKPOINT_OBJECTIVE_DIAGNOSTIC_REVIEW_20260929.json": "6d639a2a124293b52921a0a6709330ca8019d7627c78e0ba845045cd3129c33b",
+    "orchestration/reviews/AEON_SCALE_EXPANDED_OFFLINE_R3_REVIEW_20260929.json": "42cb8a077edf4c7ffe9a972ab525adbb8c69ac2ebaaba68f957036c620b5ec0b",
+    "orchestration/reports/AEON_SCALE_EXPANDED_OFFLINE_R3_VALIDATION_20260929.md": "60cd4fa5eebe9d672cd9c2be7e5b2c0952610cecf3c4549671b543c193d4d24e",
+    "orchestration/reports/AEON_RETROSPECTIVE_OUTCOME_20260927.md": "368081c55409237fa5b78cc13727dca41fbd527e262276631325c853355c874f",
+    "orchestration/reports/AEON_EXTERNAL_SECONDARY_NUMERIC_OUTCOME_20260928.md": "c0b3665d9e6a80afeaf7b3bb6f3d8bcf85a75f1fe32e68d3d13d935116d4b8ba"
+  },
+  "head_before": "2455fd39d54017bfad0208884b830ad51de4fa20"
+}

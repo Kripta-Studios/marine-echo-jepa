@@ -1,0 +1,53 @@
+﻿{
+    "launcher_pid":  59556,
+    "launcher_start_time":  "\/Date(1790717650356)\/",
+    "port":  8784,
+    "address":  "http://127.0.0.1:8784",
+    "launcher":  "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\meeting-readiness-20260929-r3\\aeon-offline-scale-expanded-20260928-r3\\Run-AEON-Research.ps1",
+    "arguments":  [
+                      "-NoProfile",
+                      "-ExecutionPolicy",
+                      "Bypass",
+                      "-File",
+                      "\"C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\meeting-readiness-20260929-r3\\aeon-offline-scale-expanded-20260928-r3\\Run-AEON-Research.ps1\"",
+                      "-Port",
+                      "8784"
+                  ],
+    "package":  "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\meeting-readiness-20260929-r3\\aeon-offline-scale-expanded-20260928-r3",
+    "existing":  [
+                     {
+                         "Id":  5620,
+                         "ProcessName":  "python",
+                         "StartTime":  "\/Date(1790709643583)\/"
+                     },
+                     {
+                         "Id":  11048,
+                         "ProcessName":  "python",
+                         "StartTime":  "\/Date(1790709643675)\/"
+                     },
+                     {
+                         "Id":  46932,
+                         "ProcessName":  "python",
+                         "StartTime":  "\/Date(1790709537710)\/"
+                     },
+                     {
+                         "Id":  55668,
+                         "ProcessName":  "python",
+                         "StartTime":  "\/Date(1790709537591)\/"
+                     }
+                 ],
+    "launch_time":  "\/Date(1790717650285)\/",
+    "uv":  "C:\\Users\\Álvaro Schwiedop\\.local\\bin\\uv.exe",
+    "status":  "READY",
+    "health":  {
+                   "ready":  true,
+                   "version":  "0.1.0",
+                   "release_class":  "OFFLINE_RESEARCH_MIXED_STUDIES_TEST_REVIEWED_RELEASE_REVIEW_PENDING"
+               },
+    "listeners":  {
+                      "LocalAddress":  "127.0.0.1",
+                      "LocalPort":  8784,
+                      "OwningProcess":  32600
+                  },
+    "ready_seconds":  22.227760099999998
+}

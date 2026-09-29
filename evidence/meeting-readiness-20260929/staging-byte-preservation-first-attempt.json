@@ -1,0 +1,10 @@
+{
+  "status": "FAILED",
+  "command": ".venv/Scripts/python.exe -B evidence/meeting-readiness-20260929/stage_owned_files.py",
+  "exit_code": 1,
+  "nested_git_diff_check_exit": 2,
+  "reason": "Disabling evidence newline conversion preserves captured CRLF bytes, but Git's default whitespace checker then treats those carriage returns as trailing whitespace.",
+  "correction": "Use scoped cr-at-eol recognition while retaining blank-at-eol, blank-at-eof and space-before-tab checks. Evidence bytes remain unchanged.",
+  "access_denied": false,
+  "scientific_execution": false
+}

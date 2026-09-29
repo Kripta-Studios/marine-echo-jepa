@@ -1,0 +1,823 @@
+{
+  "schema_version": "1.0",
+  "meeting_date": "2026-09-29",
+  "implementation_status": "partial",
+  "objective": "meeting-ready handoff around approved r3",
+  "assignment_head": "2455fd39d54017bfad0208884b830ad51de4fa20",
+  "owner_requested_writer": {
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "sole_writer": true,
+    "recursive_agents": false,
+    "runtime_binding": "Verified by root from exact session runtime turn_context; root-owned verified-implementation-routing.json; not self-review."
+  },
+  "self_approval": false,
+  "fresh_review": {
+    "status": "NOT_RUN",
+    "disposition": "PENDING_FRESH_DISTINCT_SESSION",
+    "owner": "root",
+    "scope": "This meeting documentation/evidence increment; existing r3 and diagnostic approvals remain valid in their scopes."
+  },
+  "deliverables": [
+    "meeting/20260929/MEETING_BRIEF.md",
+    "meeting/20260929/DEMO_RUNBOOK.md",
+    "meeting/20260929/PILOT_DATA_REQUEST.md",
+    "meeting/20260929/NEXT_RESEARCH_DECISION.md",
+    "meeting/20260929/READINESS_CHECKLIST.json"
+  ],
+  "entrypoints": [
+    "README.md",
+    "INDEX.md",
+    "START_HERE.md",
+    "CODEX_MEETING_READY_AFTER_DIAGNOSTIC.md",
+    "orchestration/STATUS.md"
+  ],
+  "package": {
+    "archive": "release/aeon-offline-scale-expanded-20260928-r3.zip",
+    "archive_sha256_before": "5e265e08bf1041bbe0fb4dd2a5f3503bae98f996096577f976beaf9384d6bb57",
+    "archive_sha256_after": "5e265e08bf1041bbe0fb4dd2a5f3503bae98f996096577f976beaf9384d6bb57",
+    "source_commit": "f975d2b0a425a9cbdadbacf9f50d0cad216d93c1",
+    "scratch_absolute": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\meeting-readiness-20260929-r3\\aeon-offline-scale-expanded-20260928-r3",
+    "scratch_relative": "outputs/meeting-readiness-20260929-r3/aeon-offline-scale-expanded-20260928-r3",
+    "sha256sums_sha256": "225f607f89dfd2634d9e5c87c8632ce5b8179d126a2d16a47423a330ab596def",
+    "source_revision_sha256": "0d08e3198b401a3944c5695ed8ba3faaae66ad6aca9df51732797d1a48408c18",
+    "hashed_assets": 107,
+    "internal_review_pending": "Immutable build-time state; external exact-byte approval governs unchanged r3.",
+    "external_review": "orchestration/reviews/AEON_SCALE_EXPANDED_OFFLINE_R3_REVIEW_20260929.json"
+  },
+  "diagnostic": {
+    "source_commit": "991368d6a64c7189d803828a15a39828a00e8ea0",
+    "implementation_commit_prefix": "239a8b4",
+    "integration_commit_prefix": "70834f8",
+    "scope": "Completed approved exposed TRAIN/VAL diagnostic; later than r3; no new scientific execution authorized."
+  },
+  "source_pins": [
+    {
+      "path": "orchestration/reports/AEON_CHECKPOINT_OBJECTIVE_DIAGNOSTIC_20260929.md",
+      "sha256": "85079651f18aa5b24d8dfa1f54b0e1eecd1c4ff149d3953011f0f35e6c962a29"
+    },
+    {
+      "path": "orchestration/reports/AEON_CHECKPOINT_DIAGNOSTIC_TECHNICAL_20260929.md",
+      "sha256": "ef56c22aeed80dd9652df8bcc4fed1c7bb377cf13b28c5541ed89bdb0d1be576"
+    },
+    {
+      "path": "orchestration/reviews/AEON_CHECKPOINT_OBJECTIVE_DIAGNOSTIC_REVIEW_20260929.json",
+      "sha256": "6d639a2a124293b52921a0a6709330ca8019d7627c78e0ba845045cd3129c33b"
+    },
+    {
+      "path": "orchestration/reviews/AEON_SCALE_EXPANDED_OFFLINE_R3_REVIEW_20260929.json",
+      "sha256": "42cb8a077edf4c7ffe9a972ab525adbb8c69ac2ebaaba68f957036c620b5ec0b"
+    },
+    {
+      "path": "orchestration/reports/AEON_SCALE_EXPANDED_OFFLINE_R3_VALIDATION_20260929.md",
+      "sha256": "60cd4fa5eebe9d672cd9c2be7e5b2c0952610cecf3c4549671b543c193d4d24e"
+    },
+    {
+      "path": "orchestration/reports/AEON_RETROSPECTIVE_OUTCOME_20260927.md",
+      "sha256": "368081c55409237fa5b78cc13727dca41fbd527e262276631325c853355c874f"
+    },
+    {
+      "path": "orchestration/reports/AEON_EXTERNAL_SECONDARY_NUMERIC_OUTCOME_20260928.md",
+      "sha256": "c0b3665d9e6a80afeaf7b3bb6f3d8bcf85a75f1fe32e68d3d13d935116d4b8ba"
+    },
+    {
+      "path": "evidence/meeting-readiness-20260929/coordinator-browser.json",
+      "sha256": "f1549516dae3ebca548490d04140c35d0935d18aa5e578db9fa5b9ea95f1f4ca",
+      "owner": "root"
+    },
+    {
+      "path": "evidence/meeting-readiness-20260929/coordinator-browser-verification.json",
+      "sha256": "548471cc8457ef7bb6036cb867dc9905f286a2413214deeaacda311ed26396c1",
+      "owner": "root"
+    },
+    {
+      "path": "evidence/meeting-readiness-20260929/coordinator-raw-example-selection.json",
+      "sha256": "0769c85c8c937ef1587632987d6386cc19536047116adf346353d09702465d2a",
+      "owner": "root"
+    },
+    {
+      "path": "evidence/meeting-readiness-20260929/coordinator-raw-example.json",
+      "sha256": "6f9f4d5ca7709dd778a2f0db6b496a812aa209b81ec4471eec467094b6a41fef",
+      "owner": "root"
+    },
+    {
+      "path": "evidence/meeting-readiness-20260929/verified-implementation-routing.json",
+      "sha256": "0ca04fd2423be29d4bd8aca1bf6e28b610a2c31fa661b4cc49f0871f48e67950",
+      "owner": "root"
+    }
+  ],
+  "prerequisites": {
+    "shell": "Windows PowerShell",
+    "uv": "C:\\Users\\\u00c1lvaro Schwiedop\\.local\\bin\\uv.exe",
+    "python": "Already cached offline CPython 3.12; actual 3.12.13",
+    "node": "NOT_REQUIRED",
+    "browser": "In-app connection unavailable; coordinator available MCP Playwright supplied fresh visual smoke without dependency installation."
+  },
+  "launch": {
+    "launcher_pid": 59556,
+    "launcher_start_time": "/Date(1790717650356)/",
+    "port": 8784,
+    "address": "http://127.0.0.1:8784",
+    "launcher": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\meeting-readiness-20260929-r3\\aeon-offline-scale-expanded-20260928-r3\\Run-AEON-Research.ps1",
+    "arguments": [
+      "-NoProfile",
+      "-ExecutionPolicy",
+      "Bypass",
+      "-File",
+      "\"C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\meeting-readiness-20260929-r3\\aeon-offline-scale-expanded-20260928-r3\\Run-AEON-Research.ps1\"",
+      "-Port",
+      "8784"
+    ],
+    "package": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\meeting-readiness-20260929-r3\\aeon-offline-scale-expanded-20260928-r3",
+    "existing": [
+      {
+        "Id": 5620,
+        "ProcessName": "python",
+        "StartTime": "/Date(1790709643583)/"
+      },
+      {
+        "Id": 11048,
+        "ProcessName": "python",
+        "StartTime": "/Date(1790709643675)/"
+      },
+      {
+        "Id": 46932,
+        "ProcessName": "python",
+        "StartTime": "/Date(1790709537710)/"
+      },
+      {
+        "Id": 55668,
+        "ProcessName": "python",
+        "StartTime": "/Date(1790709537591)/"
+      }
+    ],
+    "launch_time": "/Date(1790717650285)/",
+    "uv": "C:\\Users\\\u00c1lvaro Schwiedop\\.local\\bin\\uv.exe",
+    "status": "READY",
+    "health": {
+      "ready": true,
+      "version": "0.1.0",
+      "release_class": "OFFLINE_RESEARCH_MIXED_STUDIES_TEST_REVIEWED_RELEASE_REVIEW_PENDING"
+    },
+    "listeners": {
+      "LocalAddress": "127.0.0.1",
+      "LocalPort": 8784,
+      "OwningProcess": 32600
+    },
+    "ready_seconds": 22.227760099999998
+  },
+  "shutdown": {
+    "status": "PASSED",
+    "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File evidence/meeting-readiness-20260929/stop_scratch.ps1",
+    "owned_before": [
+      {
+        "ProcessId": 59556,
+        "ParentProcessId": 41352,
+        "CreationDate": "/Date(1790717650356)/",
+        "ExecutablePath": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "CommandLine": "\"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\meeting-readiness-20260929-r3\\aeon-offline-scale-expanded-20260928-r3\\Run-AEON-Research.ps1\" -Port 8784 "
+      },
+      {
+        "ProcessId": 32096,
+        "ParentProcessId": 59556,
+        "CreationDate": "/Date(1790717650437)/",
+        "ExecutablePath": "C:\\Windows\\system32\\conhost.exe",
+        "CommandLine": "\\??\\C:\\Windows\\system32\\conhost.exe 0x4"
+      },
+      {
+        "ProcessId": 28976,
+        "ParentProcessId": 59556,
+        "CreationDate": "/Date(1790717658385)/",
+        "ExecutablePath": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\meeting-readiness-20260929-r3\\aeon-offline-scale-expanded-20260928-r3\\.venv\\Scripts\\python.exe",
+        "CommandLine": "\"C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\meeting-readiness-20260929-r3\\aeon-offline-scale-expanded-20260928-r3\\.venv\\Scripts\\python.exe\" \"C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\meeting-readiness-20260929-r3\\aeon-offline-scale-expanded-20260928-r3\\Serve-AEON-Research.py\" --port 8784"
+      },
+      {
+        "ProcessId": 32600,
+        "ParentProcessId": 28976,
+        "CreationDate": "/Date(1790717658484)/",
+        "ExecutablePath": "C:\\Users\\\u00c1lvaro Schwiedop\\AppData\\Roaming\\uv\\python\\cpython-3.12-windows-x86_64-none\\python.exe",
+        "CommandLine": "\"C:\\Users\\\u00c1lvaro Schwiedop\\AppData\\Roaming\\uv\\python\\cpython-3.12-windows-x86_64-none\\python.exe\"  \"C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\meeting-readiness-20260929-r3\\aeon-offline-scale-expanded-20260928-r3\\Serve-AEON-Research.py\" --port 8784"
+      }
+    ],
+    "explicitly_stopped": [
+      32600
+    ],
+    "owned_port_closed": true,
+    "protected_processes_after": [
+      {
+        "Id": 5620,
+        "ProcessName": "python",
+        "StartTime": "/Date(1790709643583)/"
+      },
+      {
+        "Id": 11048,
+        "ProcessName": "python",
+        "StartTime": "/Date(1790709643675)/"
+      },
+      {
+        "Id": 46932,
+        "ProcessName": "python",
+        "StartTime": "/Date(1790709537710)/"
+      },
+      {
+        "Id": 55668,
+        "ProcessName": "python",
+        "StartTime": "/Date(1790709537591)/"
+      }
+    ],
+    "protected_listeners_after": [
+      {
+        "LocalAddress": "127.0.0.1",
+        "LocalPort": 8783,
+        "OwningProcess": 11048
+      },
+      {
+        "LocalAddress": "127.0.0.1",
+        "LocalPort": 8782,
+        "OwningProcess": 46932
+      }
+    ],
+    "server_exit": "Deliberately terminated owned process tree; no natural server exit code claimed",
+    "recorded_at": "2026-09-29T23:41:30.9257446+02:00"
+  },
+  "rehearsal": {
+    "kind": "Timed automated API/static traversal; not a spoken eight-minute rehearsal",
+    "actual_seconds": 1.973619600001257,
+    "planned_speaking_minutes": 8,
+    "selected_indices": [
+      0,
+      100
+    ],
+    "examples": [
+      {
+        "index": 0,
+        "interval": 482280,
+        "source_timestamp": "2025-01-06T23:51:58.910000",
+        "row_id": "17aac6154bad3677f7a927233cf7e8b847e24245a2fc6c60a9c1b482fb8f3973"
+      },
+      {
+        "index": 100,
+        "interval": 482380,
+        "source_timestamp": "2025-01-11T03:51:58.030000",
+        "row_id": "c5acdb396a776dafd707f99b2138eb02acbd75dc52ac42a640374697179da464"
+      }
+    ],
+    "full_quantiles_and_provenance": "evidence/meeting-readiness-20260929/rehearsal.json",
+    "later_truth": "Absent for chosen AEON cutoffs; static released aggregate report is the fallback."
+  },
+  "checks": [
+    {
+      "id": "safe_extraction_and_107_asset_hashes",
+      "status": "PASSED",
+      "command": ".venv/Scripts/python.exe -B evidence/meeting-readiness-20260929/prepare_scratch.py",
+      "exit_code": 0,
+      "result": "Archive hash matched before extraction; safe new scratch; 107 exact manifest assets; no package changes.",
+      "evidence": [
+        "evidence/meeting-readiness-20260929/preparation.json",
+        "evidence/meeting-readiness-20260929/prepare_scratch.py"
+      ]
+    },
+    {
+      "id": "offline_launch",
+      "status": "PASSED",
+      "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File evidence/meeting-readiness-20260929/start_scratch.ps1",
+      "exit_code": 0,
+      "result": "Free 8784; offline Python 3.12.13 venv; 13 bundled app distributions; ready true; loopback only; no Node runtime.",
+      "evidence": [
+        "evidence/meeting-readiness-20260929/launch.json",
+        "evidence/meeting-readiness-20260929/launcher.stdout.log",
+        "evidence/meeting-readiness-20260929/launcher.stderr.log"
+      ]
+    },
+    {
+      "id": "api_static_quantiles_byte_binding",
+      "status": "PASSED",
+      "command": ".venv/Scripts/python.exe -B evidence/meeting-readiness-20260929/rehearse_static.py",
+      "exit_code": 0,
+      "result": "HTTP 200; served HTML/JS/CSS exact package bytes; study matches pinned artifact; two fixed indices, all three families, all five ordered quantiles at three horizons; truth-free.",
+      "evidence": [
+        "evidence/meeting-readiness-20260929/example-selection.json",
+        "evidence/meeting-readiness-20260929/rehearsal.json",
+        "evidence/meeting-readiness-20260929/static-fallback.html",
+        "evidence/meeting-readiness-20260929/served-study.json",
+        "evidence/meeting-readiness-20260929/health.json"
+      ]
+    },
+    {
+      "id": "in_app_browser_connection",
+      "status": "NOT_RUN",
+      "command": "MCP browser setup; getForUrl(http://127.0.0.1:8784); discovery agent.browsers.list()",
+      "exit_code": null,
+      "result": "No in-app browser is available; discovery []; coordinator used independently available MCP Playwright, not a denied-action workaround.",
+      "evidence": [
+        "evidence/meeting-readiness-20260929/browser-availability.json"
+      ]
+    },
+    {
+      "id": "fresh_browser_navigation_rendering_and_fallback",
+      "status": "PASSED",
+      "command": "Coordinator MCP Playwright against scratch http://127.0.0.1:8784",
+      "exit_code": null,
+      "result": "Coordinator executed real direct/EMA quantiles, index100 pagination, comparisons/limits, packaged raw engineering fallback navigation and desktop/mobile fit. Supplied evidence inspected by implementation writer; no second smoke.",
+      "evidence": [
+        "evidence/meeting-readiness-20260929/coordinator-browser.json",
+        "evidence/meeting-readiness-20260929/coordinator-browser-verification.json"
+      ]
+    },
+    {
+      "id": "fresh_screenshots",
+      "status": "PASSED",
+      "command": "Coordinator MCP Playwright screenshot",
+      "exit_code": null,
+      "result": "Fresh desktop/mobile/raw-observation screenshots retained only in explicitly permitted core/.playwright-mcp; absolute paths and supplied hashes in coordinator evidence. No copies into denied main destination.",
+      "evidence": [
+        "evidence/meeting-readiness-20260929/coordinator-browser.json",
+        "evidence/meeting-readiness-20260929/coordinator-browser-verification.json"
+      ]
+    },
+    {
+      "id": "main_checkout_browser_artifact_writes",
+      "status": "FAILED",
+      "command": "Coordinator MCP Playwright save snapshot and console log to main evidence path",
+      "exit_code": null,
+      "result": "Tool denied those writes; retained at explicitly allowed core paths. No denied write retried through another channel; no screenshots copied into main.",
+      "evidence": [
+        "evidence/meeting-readiness-20260929/coordinator-browser.json"
+      ]
+    },
+    {
+      "id": "complete_persisted_browser_network_census",
+      "status": "NOT_RUN",
+      "command": null,
+      "exit_code": null,
+      "result": "Initial coordinator inspection observed 20 loopback requests, but final saved network buffer was empty after navigation. Do not claim final log proves complete census.",
+      "evidence": [
+        "evidence/meeting-readiness-20260929/coordinator-browser-verification.json"
+      ]
+    },
+    {
+      "id": "full_eight_minute_spoken_rehearsal",
+      "status": "NOT_RUN",
+      "command": null,
+      "exit_code": null,
+      "result": "Planned eight-minute runbook exists; timed automated API/static traversal was 1.973620 seconds, not speaking rehearsal.",
+      "evidence": [
+        "evidence/meeting-readiness-20260929/rehearsal.json"
+      ]
+    },
+    {
+      "id": "row_level_later_truth_reveal",
+      "status": "NOT_APPLICABLE",
+      "command": null,
+      "exit_code": null,
+      "result": "Truth-free replay and retrospective forecast NPZs lack later observations for selected cutoffs; separate static packaged aggregate evidence displayed as such. No new outcomes accessed.",
+      "evidence": [
+        "evidence/meeting-readiness-20260929/rehearsal.json",
+        "evidence/meeting-readiness-20260929/static-fallback.html"
+      ]
+    },
+    {
+      "id": "separate_packaged_engineering_later_observation",
+      "status": "PASSED",
+      "command": ".venv/Scripts/python.exe -B evidence/meeting-readiness-20260929/incorporate_coordinator_evidence.py",
+      "exit_code": 0,
+      "result": "Coordinator predetermined first chronological raw row before values; package byte hash and exact row verified. +1 missing/ineligible retained; +3/+6 observed. Uncalibrated response code, not Sv_mean, AEON or JEPA. Browser rendered by coordinator; separate static table generated.",
+      "evidence": [
+        "evidence/meeting-readiness-20260929/coordinator-raw-example-selection.json",
+        "evidence/meeting-readiness-20260929/coordinator-raw-example.json",
+        "evidence/meeting-readiness-20260929/supplement-verification.json",
+        "evidence/meeting-readiness-20260929/static-fallback.html"
+      ]
+    },
+    {
+      "id": "shutdown_first_attempt",
+      "status": "FAILED",
+      "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File evidence/meeting-readiness-20260929/stop_scratch.ps1",
+      "exit_code": 1,
+      "result": "Decoded DateTime was incorrectly regex-parsed; ownership guard refused before mutation; corrected.",
+      "evidence": [
+        "evidence/meeting-readiness-20260929/shutdown-first-attempt.json"
+      ]
+    },
+    {
+      "id": "shutdown_second_attempt",
+      "status": "FAILED",
+      "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File evidence/meeting-readiness-20260929/stop_scratch.ps1",
+      "exit_code": 1,
+      "result": "Null child frontier produced invalid CIM filter before mutation; corrected.",
+      "evidence": [
+        "evidence/meeting-readiness-20260929/shutdown-second-attempt.json"
+      ]
+    },
+    {
+      "id": "owned_shutdown_and_existing_servers",
+      "status": "PASSED",
+      "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File evidence/meeting-readiness-20260929/stop_scratch.ps1",
+      "exit_code": 0,
+      "result": "Validated PID/time/parentage/command/listener; stopped owned serving PID 32600; own chain gone and 8784 closed; protected existing servers unchanged.",
+      "evidence": [
+        "evidence/meeting-readiness-20260929/shutdown.json",
+        "evidence/meeting-readiness-20260929/final-runtime-verification.json"
+      ]
+    },
+    {
+      "id": "package_and_archive_after",
+      "status": "PASSED",
+      "command": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\meeting-readiness-20260929-r3\\aeon-offline-scale-expanded-20260928-r3\\.venv\\Scripts\\python.exe -B C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\meeting-readiness-20260929-r3\\aeon-offline-scale-expanded-20260928-r3\\Verify-Release.py",
+      "exit_code": 0,
+      "result": "Packaged verifier passed 107 assets after serving; archive SHA256 before/after unchanged.",
+      "evidence": [
+        "evidence/meeting-readiness-20260929/package-verification.log",
+        "evidence/meeting-readiness-20260929/final-runtime-verification.json"
+      ]
+    },
+    {
+      "id": "document_build_first_attempt",
+      "status": "FAILED",
+      "command": "build_checklist.py followed by verify_documents.py before yielded prerequisite completed",
+      "exit_code": 1,
+      "result": "Prerequisite final-runtime JSON not yet present; subsequent missing-checklist link failure. Waited for prerequisite exit 0, then proceeded sequentially.",
+      "evidence": [
+        "evidence/meeting-readiness-20260929/document-build-first-attempt.json"
+      ]
+    },
+    {
+      "id": "document_verification_encoding_attempt",
+      "status": "FAILED",
+      "command": ".venv/Scripts/python.exe -B evidence/meeting-readiness-20260929/verify_documents.py",
+      "exit_code": 1,
+      "result": "Default cp1252 document read failed; corrected verifier reads UTF-8 explicitly.",
+      "evidence": [
+        "evidence/meeting-readiness-20260929/document-verification-encoding-failure.json"
+      ]
+    },
+    {
+      "id": "staging_byte_preservation_first_attempt",
+      "status": "FAILED",
+      "command": ".venv/Scripts/python.exe -B evidence/meeting-readiness-20260929/stage_owned_files.py",
+      "exit_code": 1,
+      "result": "Captured CRLF preservation initially triggered Git trailing-CR reports; scoped cr-at-eol recognition added while retaining substantive whitespace checks.",
+      "evidence": [
+        "evidence/meeting-readiness-20260929/staging-byte-preservation-first-attempt.json"
+      ]
+    },
+    {
+      "id": "staging_byte_binding_first_attempt",
+      "status": "FAILED",
+      "command": ".venv/Scripts/python.exe -B evidence/meeting-readiness-20260929/stage_owned_files.py",
+      "exit_code": 1,
+      "result": "Ordinary git add retained a previously normalized index entry; staged-byte assertion caught it. Corrected by explicit-path git add --renormalize before byte comparison.",
+      "evidence": [
+        "evidence/meeting-readiness-20260929/staging-byte-binding-first-attempt.json"
+      ]
+    },
+    {
+      "id": "documents_links_numbers_preservation_scope",
+      "status": "PASSED",
+      "command": ".venv/Scripts/python.exe -B evidence/meeting-readiness-20260929/verify_documents.py",
+      "exit_code": 0,
+      "result": "Focused document/link/number/baseline/diff-scope validation; see actual result record.",
+      "evidence": [
+        "evidence/meeting-readiness-20260929/document-verification.json",
+        "evidence/meeting-readiness-20260929/verify_documents.py"
+      ]
+    },
+    {
+      "id": "whitespace",
+      "status": "PASSED",
+      "command": "git diff --check",
+      "exit_code": 0,
+      "result": "No whitespace errors.",
+      "evidence": [
+        "evidence/meeting-readiness-20260929/document-verification.json"
+      ]
+    },
+    {
+      "id": "production_tdd",
+      "status": "NOT_APPLICABLE",
+      "command": null,
+      "exit_code": null,
+      "result": "No production behavior changed.",
+      "evidence": []
+    },
+    {
+      "id": "model_fitting",
+      "status": "NOT_APPLICABLE",
+      "command": null,
+      "exit_code": null,
+      "result": "Outside scope; no scientific execution permission.",
+      "evidence": []
+    },
+    {
+      "id": "scientific_suite_repeat",
+      "status": "NOT_APPLICABLE",
+      "command": null,
+      "exit_code": null,
+      "result": "Prohibited by owner task.",
+      "evidence": []
+    },
+    {
+      "id": "new_biological_or_commercial_validation",
+      "status": "NOT_APPLICABLE",
+      "command": null,
+      "exit_code": null,
+      "result": "Outside this public-data handoff.",
+      "evidence": []
+    },
+    {
+      "id": "package_patch_rebuild_new_release",
+      "status": "NOT_APPLICABLE",
+      "command": null,
+      "exit_code": null,
+      "result": "Prohibited; immutable r3 retained.",
+      "evidence": []
+    }
+  ],
+  "historical_browser_evidence": [
+    {
+      "path": "evidence/browser/aeon-scale-expanded-r3-desktop.png",
+      "sha256": "356cfd82d3e1d8aea00c572f48773cf3c0bef3ca6ce8d9d3127d8767ec7301a5",
+      "scope": "Historical approved r3 validation; not new meeting scratch browser evidence."
+    },
+    {
+      "path": "evidence/browser/aeon-scale-expanded-r3-mobile.png",
+      "sha256": "a952bf4ce39db4248d670cd12c211361fb70b67b1258e5c223d5c9598e5d3907",
+      "scope": "Historical approved r3 validation; not new meeting scratch browser evidence."
+    },
+    {
+      "path": "evidence/browser/aeon-scale-expanded-r3-browser-smoke.json",
+      "sha256": "fb5001270344c2aeb5259905b22a482645af2b99aca78aba564c0c48e7aec363",
+      "scope": "Historical approved r3 validation; not new meeting scratch browser evidence."
+    }
+  ],
+  "fresh_coordinator_browser_evidence": {
+    "executor": "coordinator",
+    "browser": {
+      "status": "PASSED",
+      "executor": "coordinator",
+      "browser_connector": "MCP Playwright",
+      "base_url": "http://127.0.0.1:8784",
+      "source": "Fresh scratch extraction of approved immutable r3, launched by separate GPT-6.1 Sol/high implementation session",
+      "initial_direct": {
+        "selected_model": "core_direct_equal_three_seed_ensemble",
+        "section_heading": "Saved TEST predictions",
+        "row_count": 12,
+        "first_replay_row": "2025-01-06T23:51:58.910000\t482280\t-92.02 / -91.86 / -91.44 / -90.33 / -87.85\t-91.84 / -91.59 / -91.27 / -89.98 / -87.21\t-91.92 / -91.50 / -91.00 / -89.60 / -86.95",
+        "headers": [
+          "Source cutoff",
+          "Interval ID",
+          "+1 source interval \u00b7 q05 / q25 / q50 / q75 / q95 (dB)",
+          "+3",
+          "+6"
+        ],
+        "replay_notice": "HISTORICAL REPLAY"
+      },
+      "initial_ema": {
+        "selected_model": "core_ema_equal_three_seed_ensemble",
+        "first_replay_row": "2025-01-06T23:51:58.910000\t482280\t-92.08 / -91.86 / -91.51 / -90.46 / -87.53\t-92.00 / -91.91 / -91.18 / -90.01 / -87.21\t-92.00 / -91.87 / -91.10 / -89.53 / -86.97",
+        "notice": [
+          "HISTORICAL REPLAY",
+          "",
+          "Saved TEST predictions",
+          "",
+          "Every issued cutoff is available in chronological source order. These are saved, truth-free predictions from the reviewed retrospective run, not live forecasts. The source clock is unspecified, not UTC.",
+          "",
+          "Frozen family "
+        ]
+      },
+      "fixed_index_100": {
+        "selected_model": "core_ema_equal_three_seed_ensemble",
+        "page_range": "Rows 97\u2013108 of 1216.",
+        "fixed_index_100_row": "2025-01-11T03:51:58.030000\t482380\t-91.75 / -90.88 / -89.75 / -88.24 / -85.75\t-91.74 / -90.75 / -89.53 / -87.87 / -84.69\t-91.64 / -90.81 / -89.41 / -87.89 / -84.68"
+      },
+      "legacy_engineering_example": {
+        "url": "http://127.0.0.1:8784/#experiment-lab",
+        "heading": "Raw response-code TRAIN development",
+        "notice": "REAL TRAIN DEVELOPMENT \u00b7 ENGINEERING ONLY\n\nRaw response-code TRAIN development\n\nA complete-positive transformed AZFP backscatter_r code mean study. These development metrics use raw response codes, not calibrated Sv. This is not a JEPA result, and no final evaluation was run.\n\nPARTIAL DATA\n\nTRAIN-development artifact \u00b7 engineering only\n\nREAL_TRAIN_DEVELOPMENT_ONLY \u00b7 raw_response_development_v1 \u00b7 raw_response_development_deterministic_20260927. The reported comparison is Ridge outperformed the direct neural model on this fixed TRAIN-development assessment at all three horizons..\n\nQUANTITY\ncomplete_positive_azfp_backscatter_r_code_mean\nUNIT\ntransformed AZFP response code (not calibrated Sv)\nCALIBRATION\nUncalibrated \u00b7 not Sv\nFINAL EVALUATION\nNot performed\nDIRECT CHECKPOINT SHA-256\n713e4dba5bf94f8f29abd2df60c674b68a9b6b89dbaa3f7ce64fc386c1848e49\n\nDirect neural is worse than ridge on both reported metrics at all three horizons.\n\nRecorded TRAIN-development metrics by forecast horizon\nHorizon",
+        "displayed_rows": 636,
+        "first_cutoff_rows": [
+          "2020-04-02T00:00:00Z\t1 h\t2020-04-02T00:00:00Z\tIneligible\tNot scored\t11134.788967646688, 11208.701358031994, 11241.035778050084, 11273.86053306829, 11352.665353207038\t10957.428573280198, 11125.380426557638, 11208.552288207857, 11285.215947188211, 11483.046016234983",
+          "2020-04-02T00:00:00Z\t3 h\t2020-04-02T02:00:00Z\tEligible\t11218.38622325756\t11048.579749333181, 11181.384634786285, 11234.852652726486, 11286.095411145128, 11404.09840486931\t10956.282520029417, 11121.941899056212, 11205.895245901069, 11283.27059129959, 11480.240384910103",
+          "2020-04-02T00:00:00Z\t6 h\t2020-04-02T05:00:00Z\tEligible\t11229.620259602865\t10989.28314777152, 11160.61574514039, 11235.111784852923, 11295.574373665744, 11472.269603189296\t10960.707644778051, 11128.679834579933, 11212.108752841077, 11289.492317431665, 11485.80862091683"
+        ],
+        "headers": [
+          "Cutoff (UTC)",
+          "Horizon",
+          "Target start (UTC)",
+          "Eligible",
+          "Truth code",
+          "Ridge codes (5%, 25%, 50%, 75%, 95%)",
+          "Direct neural codes (5%, 25%, 50%, 75%, 95%)"
+        ]
+      },
+      "geometry": [
+        {
+          "url": "http://127.0.0.1:8784/#aeon-study",
+          "viewport": 1440,
+          "document_width": 1425,
+          "body_width": 1425
+        },
+        {
+          "url": "http://127.0.0.1:8784/#aeon-study",
+          "viewport": 390,
+          "document_width": 375,
+          "body_width": 375
+        }
+      ],
+      "observed_console_errors": [
+        "HTTP 404 for /favicon.ico; no observed JavaScript console error"
+      ],
+      "nonblocking_issues": [
+        "Missing favicon",
+        "In-app Browser unavailable; its smoke remains NOT_RUN",
+        "MCP Playwright refused main-checkout artifact writes; actual browser logs/screenshots retained only inside its allowed core/.playwright-mcp directory"
+      ],
+      "permissions": {
+        "denied_actions": [
+          "Save browser snapshot to main-checkout evidence path",
+          "Save browser console log to main-checkout evidence path"
+        ],
+        "response": "Kept browser artifacts in explicitly allowed core scratch root; no denied write retried through another channel, no copied screenshots into the denied destination, no permission/config changes"
+      },
+      "evidence_directory": "C:/Users/\u00c1lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa-core/.playwright-mcp",
+      "evidence_files": [
+        "meeting-ready-20260929-initial.yml",
+        "meeting-ready-20260929-console.log",
+        "meeting-ready-20260929-network.log",
+        "meeting-ready-20260929-1440.png",
+        "meeting-ready-20260929-390.png",
+        "meeting-ready-20260929-raw-comparison.yml",
+        "meeting-ready-20260929-raw-example.yml",
+        "meeting-ready-20260929-raw-observation.png"
+      ],
+      "scope_limits": [
+        "AEON saved TEST replay is truth-free and is not live checkpoint inference",
+        "No later AEON observations were reconstructed or read from raw/protected source archives",
+        "Later observation displayed only for first chronological already bundled MOSAiC response-code engineering row; different target and scope",
+        "No new forecasts or metrics evaluated; no training, calibration, raw data materialization or external web navigation",
+        "No full spoken eight-minute rehearsal claim; this evidence records actual browser navigation and visual checks"
+      ]
+    },
+    "verification": {
+      "verified_at": "2026-09-29T21:50:33.952337+00:00",
+      "executor": "coordinator",
+      "browser_network_requests_in_final_saved_buffer": 0,
+      "initial_network_inspection": {
+        "requests_observed": 20,
+        "non_loopback_requests_observed": 0,
+        "source": "Coordinator first read of tool-captured network log, recorded in task tool output before later fragment navigation/reset"
+      },
+      "complete_persisted_network_census": "NOT_RUN_FINAL_BUFFER_EMPTY_AFTER_NAVIGATION",
+      "viewport_fit": "PASSED",
+      "browser_artifacts_hashed_in_allowed_core_root": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\.playwright-mcp\\meeting-ready-20260929-initial.yml": "89d6e6c319768fef99acdf89b9d5fa5ece5bd8b8689ac83cf3de285de6712773",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\.playwright-mcp\\meeting-ready-20260929-console.log": "7a1d18a468f4256d0885269e1a2713c010d70f84c9ae36c9a5429d97837a31ad",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\.playwright-mcp\\meeting-ready-20260929-network.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\.playwright-mcp\\meeting-ready-20260929-1440.png": "301f229e94502116163625520c4ee07e5be4eb25cf60a1ca7bb33e8bcfa464fd",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\.playwright-mcp\\meeting-ready-20260929-390.png": "f4e12ffa494fca59fcf5f3b04e8815f1ce6f2f67cf9fe8880b6218f1d0e6ed84",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\.playwright-mcp\\meeting-ready-20260929-raw-comparison.yml": "2966a07dabeeea69403b88ef108c5290c07006d788c9a3e7673a626f3e8bfbb1",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\.playwright-mcp\\meeting-ready-20260929-raw-example.yml": "be09cd9c20b96680e46a55f2d9af980c9dbd846ed0f31273203a9f31dbc21af8",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\.playwright-mcp\\meeting-ready-20260929-raw-observation.png": "604cdb4cfcad5337085afbde8480cd15efc814fed322d9bc64e33913b66f1e30"
+      },
+      "no_copy_to_denied_main_destination": true,
+      "scope": "Actual browser traversal and bundled engineering observation; no full spoken rehearsal or scientific recomputation",
+      "coordinator_helper_attempts": [
+        {
+          "action": "Prepare predetermined raw example",
+          "initial_exit": 1,
+          "cause": "IndentationError before execution",
+          "corrected_exit": 0
+        },
+        {
+          "action": "Verify browser evidence hashes",
+          "initial_exit": 1,
+          "cause": "Default cp1252 read rejected UTF-8 evidence",
+          "correction": "Explicit UTF-8 decoding"
+        },
+        {
+          "action": "Require nonempty final network buffer",
+          "exit": 1,
+          "cause": "Browser network buffer reset on navigation; final saved log has no requests",
+          "resolution": "Record missing complete persisted census explicitly; retain initial coordinator observation without claiming final log proves it"
+        },
+        {
+          "action": "Verify browser artifact hashes and viewport fit with explicit limitations",
+          "exit": 0
+        }
+      ]
+    },
+    "independent_final_review": false
+  },
+  "separate_raw_engineering_example": {
+    "selection": {
+      "selected_at": "2026-09-29T21:43:21.726221+00:00",
+      "artifact": "immutable r3 artifacts/raw-development.json",
+      "selection": "earliest chronological cutoff, no outcome or eligibility filtering",
+      "fixed_sorted_row_index": 0,
+      "purpose": "Show one already released engineering forecast with its actually bundled later observation; distinct uncalibrated response-code scope, not AEON Sv_mean"
+    },
+    "packaged_artifact_sha256": "ad3b69a29395fb83528cd2e015c86e6255a2e3be42b6b7a450ca0f37db310de1",
+    "source_result_sha256": "4237f375ba129fce95be952325e56cf5bc9615a5d89b2ed9ba91dfc8771cb49d",
+    "review_record_sha256": "18d8c890dfef8aacc274308d94251b91059c76fc743071d1cc1bcd61cc584b15",
+    "quantity": "complete_positive_azfp_backscatter_r_code_mean",
+    "unit": "transformed AZFP response code (not calibrated Sv)",
+    "calibrated": false,
+    "comparison_label": "Ridge outperformed the direct neural model on this fixed TRAIN-development assessment at all three horizons.",
+    "row": {
+      "cutoff_utc": "2020-04-02T00:00:00Z",
+      "horizons": [
+        {
+          "horizon_hours": 1,
+          "target_start_utc": "2020-04-02T00:00:00Z",
+          "eligible": false,
+          "truth_code": null,
+          "ridge_quantiles_code": [
+            11134.788967646688,
+            11208.701358031994,
+            11241.035778050084,
+            11273.86053306829,
+            11352.665353207038
+          ],
+          "direct_quantiles_code": [
+            10957.428573280198,
+            11125.380426557638,
+            11208.552288207857,
+            11285.215947188211,
+            11483.046016234983
+          ]
+        },
+        {
+          "horizon_hours": 3,
+          "target_start_utc": "2020-04-02T02:00:00Z",
+          "eligible": true,
+          "truth_code": 11218.38622325756,
+          "ridge_quantiles_code": [
+            11048.579749333181,
+            11181.384634786285,
+            11234.852652726486,
+            11286.095411145128,
+            11404.09840486931
+          ],
+          "direct_quantiles_code": [
+            10956.282520029417,
+            11121.941899056212,
+            11205.895245901069,
+            11283.27059129959,
+            11480.240384910103
+          ]
+        },
+        {
+          "horizon_hours": 6,
+          "target_start_utc": "2020-04-02T05:00:00Z",
+          "eligible": true,
+          "truth_code": 11229.620259602865,
+          "ridge_quantiles_code": [
+            10989.28314777152,
+            11160.61574514039,
+            11235.111784852923,
+            11295.574373665744,
+            11472.269603189296
+          ],
+          "direct_quantiles_code": [
+            10960.707644778051,
+            11128.679834579933,
+            11212.108752841077,
+            11289.492317431665,
+            11485.80862091683
+          ]
+        }
+      ]
+    }
+  },
+  "gates": {
+    "software": "Existing exact r3 offline research approval; fresh API/static checks and coordinator MCP Playwright visual checks passed; in-app Browser attempt NOT_RUN.",
+    "experiment": "Preserved completed bounded studies with original mixed outcomes and limitations; no new experiment.",
+    "jepa_value": "Positive original within-study retrospective rule only; negative original secondary transfer, mixed development and unresolved mechanism attribution.",
+    "biology": "NOT_EVALUATED",
+    "marine_operational_commercial": "NOT_EVALUATED"
+  },
+  "scope_limits": [
+    "No fitting, checkpoint inference, evaluation, diagnostic rerun, new data or outcomes.",
+    "Saved truth-free AEON replay; no AEON row-level later observation reveal. Separate already released MOSAiC response-code engineering observations are explicitly labelled.",
+    "Publisher-conditioned Sv_mean; source intervals; source timezone/availability unresolved.",
+    "Prior-year data is TRAIN for expanded models and affected descendants.",
+    "No generalization, SOTA, species, biomass, catch, fuel saving, causal device effect, production integration or business-value claim.",
+    "Original archives/extractions and scientific ledgers/reports/models/predictions unchanged."
+  ],
+  "blockers": [
+    "Spoken approximately eight-minute rehearsal NOT_RUN; timed automated steps and coordinator actual browser navigation recorded without fabricated speaking time.",
+    "Fresh distinct meeting review pending."
+  ],
+  "remaining_not_run": [
+    "Unavailable in-app Browser attempt",
+    "Complete persisted network census after buffer reset",
+    "Spoken full eight-minute rehearsal",
+    "Browser clicks on separately generated static HTML; its data and links were locally verified."
+  ],
+  "decision": "NO_FURTHER_FITTING_BEFORE_MEETING",
+  "conditional_intervention": "DRAFT / NOT_AUTHORIZED / NOT_QUEUED; unchanged diagnostic thresholds; not automatic authorization.",
+  "taskfile_judgment": "Missing taskfile consolidated from full owner message; no historical scientific execution permission inferred.",
+  "local_commit": "Containing local implementation commit, reported by git rev-parse HEAD after commit; root owns final approval bookkeeping.",
+  "cost_usd": 0,
+  "publishing_contact_or_push": false
+}

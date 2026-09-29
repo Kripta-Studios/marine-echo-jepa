@@ -1,0 +1,89 @@
+{
+  "status": "PASSED",
+  "executor": "implementation writer inspecting coordinator evidence and released package only",
+  "coordinator_browser": {
+    "path": "evidence/meeting-readiness-20260929/coordinator-browser.json",
+    "sha256": "f1549516dae3ebca548490d04140c35d0935d18aa5e578db9fa5b9ea95f1f4ca"
+  },
+  "coordinator_verification": {
+    "path": "evidence/meeting-readiness-20260929/coordinator-browser-verification.json",
+    "sha256": "548471cc8457ef7bb6036cb867dc9905f286a2413214deeaacda311ed26396c1"
+  },
+  "raw_selection": {
+    "selected_at": "2026-09-29T21:43:21.726221+00:00",
+    "artifact": "immutable r3 artifacts/raw-development.json",
+    "selection": "earliest chronological cutoff, no outcome or eligibility filtering",
+    "fixed_sorted_row_index": 0,
+    "purpose": "Show one already released engineering forecast with its actually bundled later observation; distinct uncalibrated response-code scope, not AEON Sv_mean"
+  },
+  "packaged_artifact_sha256": "ad3b69a29395fb83528cd2e015c86e6255a2e3be42b6b7a450ca0f37db310de1",
+  "raw_first_row": {
+    "cutoff_utc": "2020-04-02T00:00:00Z",
+    "horizons": [
+      {
+        "horizon_hours": 1,
+        "target_start_utc": "2020-04-02T00:00:00Z",
+        "eligible": false,
+        "truth_code": null,
+        "ridge_quantiles_code": [
+          11134.788967646688,
+          11208.701358031994,
+          11241.035778050084,
+          11273.86053306829,
+          11352.665353207038
+        ],
+        "direct_quantiles_code": [
+          10957.428573280198,
+          11125.380426557638,
+          11208.552288207857,
+          11285.215947188211,
+          11483.046016234983
+        ]
+      },
+      {
+        "horizon_hours": 3,
+        "target_start_utc": "2020-04-02T02:00:00Z",
+        "eligible": true,
+        "truth_code": 11218.38622325756,
+        "ridge_quantiles_code": [
+          11048.579749333181,
+          11181.384634786285,
+          11234.852652726486,
+          11286.095411145128,
+          11404.09840486931
+        ],
+        "direct_quantiles_code": [
+          10956.282520029417,
+          11121.941899056212,
+          11205.895245901069,
+          11283.27059129959,
+          11480.240384910103
+        ]
+      },
+      {
+        "horizon_hours": 6,
+        "target_start_utc": "2020-04-02T05:00:00Z",
+        "eligible": true,
+        "truth_code": 11229.620259602865,
+        "ridge_quantiles_code": [
+          10989.28314777152,
+          11160.61574514039,
+          11235.111784852923,
+          11295.574373665744,
+          11472.269603189296
+        ],
+        "direct_quantiles_code": [
+          10960.707644778051,
+          11128.679834579933,
+          11212.108752841077,
+          11289.492317431665,
+          11485.80862091683
+        ]
+      }
+    ]
+  },
+  "scope": "Already released uncalibrated MOSAiC TRAIN development; no new outcomes, inference or evaluation; AEON remains truth-free.",
+  "permissions": "No browser artifacts copied into denied main destination. External core paths and supplied hashes referenced only.",
+  "complete_persisted_network_census": "NOT_RUN_FINAL_BUFFER_EMPTY_AFTER_NAVIGATION",
+  "runtime_routing_evidence": "evidence/meeting-readiness-20260929/verified-implementation-routing.json"
+}

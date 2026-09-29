@@ -1,0 +1,9 @@
+{
+  "status": "FAILED",
+  "exit_code": 1,
+  "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File evidence/meeting-readiness-20260929/stop_scratch.ps1",
+  "reason": "Timestamp guard incorrectly applied a numeric regular expression to a DateTime already decoded by PowerShell ConvertFrom-Json. It refused shutdown before any process mutation.",
+  "correction": "Use the decoded DateTime and convert to local time before comparing with CIM process creation time. PID and command-line ownership checks remain required.",
+  "access_denied": false,
+  "processes_stopped": []
+}

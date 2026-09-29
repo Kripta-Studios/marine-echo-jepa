@@ -1,0 +1,278 @@
+{
+  "started_at": "2026-09-29T21:36:25.496115+00:00",
+  "elapsed_seconds": 1.973619600001257,
+  "rehearsal_kind": "Timed automated API/static traversal; not a spoken eight-minute rehearsal",
+  "steps": [
+    {
+      "step": "Readiness and exact served HTML/JS/CSS byte binding",
+      "elapsed_seconds": 0.42414930000086315
+    },
+    {
+      "step": "Complete packaged study comparison and limitations",
+      "elapsed_seconds": 0.029016000000410713
+    },
+    {
+      "step": "Two predetermined chronological examples, all model quantiles, truth-free schema",
+      "elapsed_seconds": 1.4998753000036231
+    },
+    {
+      "step": "Read packaged outcome/limits and generate separate static evidence navigation",
+      "elapsed_seconds": 0.02040349999879254
+    }
+  ],
+  "responses": [
+    {
+      "path": "/health",
+      "status": 200,
+      "seconds": 0.2650532000043313,
+      "evidence": "health.json",
+      "sha256": "e9bba660eec741c216e8d68bfd68a653b1637eb9c1d8dd93430b1b5861bf5839"
+    },
+    {
+      "path": "/",
+      "status": 200,
+      "seconds": 0.044475800001237076,
+      "evidence": "served-index.html",
+      "sha256": "9aacf6aa04eca4eb48482370d0eaada54bed2274219832331d1d85787bc815d8"
+    },
+    {
+      "path": "/assets/index-DJlTwxbi.js",
+      "status": 200,
+      "seconds": 0.06114149999484653,
+      "evidence": "served-index-DJlTwxbi.js",
+      "sha256": "27ccfad2c72f8c8dae2918d64b4d8f45d45c572b03523ddcf97ccec2539d1c56"
+    },
+    {
+      "path": "/assets/index-4wqFJhvG.css",
+      "status": 200,
+      "seconds": 0.045206599999801256,
+      "evidence": "served-index-4wqFJhvG.css",
+      "sha256": "0efd33dd8c04cc32beff05779a0d916e9c9168e7057e5ca9dcc5a3b85c991516"
+    },
+    {
+      "path": "/api/v1/studies/aeon",
+      "status": 200,
+      "seconds": 0.02393129999836674,
+      "evidence": "served-study.json",
+      "sha256": "fc7cbdba1bf0e2364a6f3cbd74acbd762681a496aca18595f9e00770f12c916b"
+    },
+    {
+      "path": "/api/v1/studies/aeon/replay?model_id=core_direct_equal_three_seed_ensemble&offset=0&limit=1",
+      "status": 200,
+      "seconds": 0.20582999999896856,
+      "evidence": "replay-0-core_direct_equal_three_seed_ensemble.json",
+      "sha256": "b377ebc56d002a8799394cc1eae95cb9746d1dc514392abb1410dc670f3f1f5a"
+    },
+    {
+      "path": "/api/v1/studies/aeon/replay?model_id=core_ema_equal_three_seed_ensemble&offset=0&limit=1",
+      "status": 200,
+      "seconds": 0.3107917000015732,
+      "evidence": "replay-0-core_ema_equal_three_seed_ensemble.json",
+      "sha256": "b493c875ed9e352d5fb14513635e3d99b96de42a2256629ff6cec336a1acea7f"
+    },
+    {
+      "path": "/api/v1/studies/aeon/replay?model_id=post_hoc_lightgbm&offset=0&limit=1",
+      "status": 200,
+      "seconds": 0.1982170999981463,
+      "evidence": "replay-0-post_hoc_lightgbm.json",
+      "sha256": "941e97b3ad85ae14153caf19bc0f93fc5a76dcac2a62a5391d063350f14a42bd"
+    },
+    {
+      "path": "/api/v1/studies/aeon/replay?model_id=core_direct_equal_three_seed_ensemble&offset=100&limit=1",
+      "status": 200,
+      "seconds": 0.22015220000321278,
+      "evidence": "replay-100-core_direct_equal_three_seed_ensemble.json",
+      "sha256": "2a0b96480982563692d5ecbfe8711afbcb69caeb88ddee11464b94e4afd67e50"
+    },
+    {
+      "path": "/api/v1/studies/aeon/replay?model_id=core_ema_equal_three_seed_ensemble&offset=100&limit=1",
+      "status": 200,
+      "seconds": 0.20582570000260603,
+      "evidence": "replay-100-core_ema_equal_three_seed_ensemble.json",
+      "sha256": "7ea3480956608eca184852afd10b7b8f4324d943d81a84163a5b69eab1c1323c"
+    },
+    {
+      "path": "/api/v1/studies/aeon/replay?model_id=post_hoc_lightgbm&offset=100&limit=1",
+      "status": 200,
+      "seconds": 0.19537290000153007,
+      "evidence": "replay-100-post_hoc_lightgbm.json",
+      "sha256": "ceaff6be17fcd105ca11213ad7e8d689f0f7806c966065795dae7b0cf5e4a9f8"
+    }
+  ],
+  "examples": [
+    {
+      "row_id": "17aac6154bad3677f7a927233cf7e8b847e24245a2fc6c60a9c1b482fb8f3973",
+      "cutoff_interval_id": 482280,
+      "cutoff_source_timestamp": "2025-01-06T23:51:58.910000",
+      "chronological_index": 0,
+      "models": {
+        "core_direct_equal_three_seed_ensemble": [
+          [
+            -92.02253723144531,
+            -91.85715993245442,
+            -91.4377670288086,
+            -90.32839965820312,
+            -87.85157775878906
+          ],
+          [
+            -91.84389750162761,
+            -91.58524322509766,
+            -91.27058664957683,
+            -89.97896321614583,
+            -87.21075948079427
+          ],
+          [
+            -91.92243957519531,
+            -91.50074768066406,
+            -90.99511973063152,
+            -89.60120137532552,
+            -86.94952901204427
+          ]
+        ],
+        "core_ema_equal_three_seed_ensemble": [
+          [
+            -92.0849838256836,
+            -91.86044565836589,
+            -91.5092035929362,
+            -90.45802815755208,
+            -87.53291829427083
+          ],
+          [
+            -92.00499725341797,
+            -91.91056315104167,
+            -91.17770131429036,
+            -90.00688171386719,
+            -87.20829010009766
+          ],
+          [
+            -91.99703470865886,
+            -91.87101745605469,
+            -91.09689839680989,
+            -89.53400421142578,
+            -86.97321065266927
+          ]
+        ],
+        "post_hoc_lightgbm": [
+          [
+            -91.9679676575043,
+            -91.80353483146598,
+            -91.74266011658922,
+            -91.29101622170069,
+            -87.81749567119172
+          ],
+          [
+            -92.01329747131524,
+            -91.58609989423343,
+            -91.1631557115545,
+            -90.00792975048658,
+            -86.8455612132166
+          ],
+          [
+            -92.00234088362386,
+            -91.77906996414794,
+            -91.29393611266961,
+            -90.46701158269502,
+            -87.492779325801
+          ]
+        ]
+      }
+    },
+    {
+      "row_id": "c5acdb396a776dafd707f99b2138eb02acbd75dc52ac42a640374697179da464",
+      "cutoff_interval_id": 482380,
+      "cutoff_source_timestamp": "2025-01-11T03:51:58.030000",
+      "chronological_index": 100,
+      "models": {
+        "core_direct_equal_three_seed_ensemble": [
+          [
+            -91.63507080078125,
+            -90.72792053222656,
+            -89.71275329589844,
+            -88.08781178792317,
+            -85.17736053466797
+          ],
+          [
+            -91.60379282633464,
+            -90.49633280436198,
+            -89.39671325683594,
+            -87.6125996907552,
+            -84.48496500651042
+          ],
+          [
+            -91.67991892496745,
+            -90.70873260498047,
+            -89.42651875813802,
+            -87.63348642985027,
+            -84.68892923990886
+          ]
+        ],
+        "core_ema_equal_three_seed_ensemble": [
+          [
+            -91.75497436523438,
+            -90.88487497965495,
+            -89.74986267089844,
+            -88.23763020833333,
+            -85.75025431315105
+          ],
+          [
+            -91.7355728149414,
+            -90.75033569335938,
+            -89.52610270182292,
+            -87.86783345540364,
+            -84.69326273600261
+          ],
+          [
+            -91.6397476196289,
+            -90.80673217773438,
+            -89.41277313232422,
+            -87.88750712076823,
+            -84.67582702636719
+          ]
+        ],
+        "post_hoc_lightgbm": [
+          [
+            -91.41315812972405,
+            -90.42042173800715,
+            -89.67044929832328,
+            -88.09473298339836,
+            -85.7324042907584
+          ],
+          [
+            -91.47586318216575,
+            -90.77770324535035,
+            -88.89004435016727,
+            -87.13990405716758,
+            -84.55313689760746
+          ],
+          [
+            -91.6322288200451,
+            -90.35864641076861,
+            -88.95185590157831,
+            -87.09805778251427,
+            -84.10617717844369
+          ]
+        ]
+      }
+    }
+  ],
+  "later_observation_display": {
+    "status": "NOT_APPLICABLE",
+    "reason": "AEON replay and packaged retrospective forecast NPZs contain no later observations for these cutoffs. Static fallback presents already released aggregate outcome evidence, not per-row truth.",
+    "inspected_npz_keys": [
+      "row_ids",
+      "quantiles_db"
+    ],
+    "source": "outputs/meeting-readiness-20260929-r3/aeon-offline-scale-expanded-20260928-r3/provenance/retrospective_test/AEON_RETROSPECTIVE_OUTCOME_20260927.md",
+    "source_sha256": "368081c55409237fa5b78cc13727dca41fbd527e262276631325c853355c874f"
+  },
+  "browser": {
+    "status": "NOT_RUN",
+    "reason": "MCP browser connection returned No browser is available; discovery returned []; no dependencies installed or alternate browser channel used.",
+    "fresh_screenshots": "NOT_RUN",
+    "historical_screenshots": [
+      "evidence/browser/aeon-scale-expanded-r3-desktop.png",
+      "evidence/browser/aeon-scale-expanded-r3-mobile.png"
+    ]
+  },
+  "static_fallback": "evidence/meeting-readiness-20260929/static-fallback.html"
+}

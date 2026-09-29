@@ -1,0 +1,9 @@
+{
+  "status": "FAILED",
+  "command": ".venv/Scripts/python.exe -B evidence/meeting-readiness-20260929/stage_owned_files.py",
+  "exit_code": 1,
+  "reason": "After the scoped attributes changed, ordinary git add reused a previously normalized preparation.json index entry. The explicit staged-byte comparison caught the mismatch after whitespace checks passed.",
+  "correction": "Use git add --renormalize with the same explicit owned-file list, then verify staged bytes match every evidence file. No unrelated paths are restaged.",
+  "access_denied": false,
+  "scientific_execution": false
+}

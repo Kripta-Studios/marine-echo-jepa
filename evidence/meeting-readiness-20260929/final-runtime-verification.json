@@ -1,0 +1,36 @@
+{
+  "status": "PASSED",
+  "own_processes_absent": [
+    59556,
+    32096,
+    28976,
+    32600
+  ],
+  "own_port_closed": 8784,
+  "protected": [
+    {
+      "Id": 5620,
+      "ProcessName": "python",
+      "StartTime": "2026-09-29T21:20:43.5831948+02:00"
+    },
+    {
+      "Id": 11048,
+      "ProcessName": "python",
+      "StartTime": "2026-09-29T21:20:43.6753922+02:00"
+    },
+    {
+      "Id": 46932,
+      "ProcessName": "python",
+      "StartTime": "2026-09-29T21:18:57.7102114+02:00"
+    },
+    {
+      "Id": 55668,
+      "ProcessName": "python",
+      "StartTime": "2026-09-29T21:18:57.5912003+02:00"
+    }
+  ],
+  "package_verifier_exit": 0,
+  "package_verifier_command": "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\meeting-readiness-20260929-r3\\aeon-offline-scale-expanded-20260928-r3\\.venv\\Scripts\\python.exe -B C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\meeting-readiness-20260929-r3\\aeon-offline-scale-expanded-20260928-r3\\Verify-Release.py",
+  "archive_sha256_after": "5e265e08bf1041bbe0fb4dd2a5f3503bae98f996096577f976beaf9384d6bb57",
+  "recorded_at": "2026-09-29T23:50:14.5693516+02:00"
+}
