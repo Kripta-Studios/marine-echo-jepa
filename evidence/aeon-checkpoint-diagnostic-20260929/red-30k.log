@@ -1,0 +1,26 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+____ test_30k_trajectory_reads_protocol_checks_without_endpoint_selection _____
+
+    def test_30k_trajectory_reads_protocol_checks_without_endpoint_selection():
+        from tools.aeon_checkpoint_diagnostic import validation_checks
+    
+        checks = [{"step": 2500}, {"step": 30000}]
+>       assert validation_checks({"protocol_validation_checks": checks}) == checks
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\unit\test_aeon_checkpoint_diagnostic.py:187: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+slot = {'protocol_validation_checks': [{'step': 2500}, {'step': 30000}]}
+
+    def validation_checks(slot: dict) -> list[dict]:
+        """Read historical scheduled checks without choosing a checkpoint."""
+>       return slot["validation_checks"]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'validation_checks'
+
+tools\aeon_checkpoint_diagnostic.py:238: KeyError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_aeon_checkpoint_diagnostic.py::test_30k_trajectory_reads_protocol_checks_without_endpoint_selection
+1 failed, 13 deselected in 30.89s

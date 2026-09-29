@@ -1,0 +1,4 @@
+# Preserve exact diagnostic bytes and their recorded SHA-256 identities.
+* -text whitespace=cr-at-eol
+# Keep captured command output, including pytest's original spaces, intact.
+*.log -whitespace

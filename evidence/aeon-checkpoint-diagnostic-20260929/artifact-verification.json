@@ -1,0 +1,13 @@
+{
+  "status": "PASSED",
+  "run02_output_hashes_verified": 36,
+  "consumed_input_hashes_verified": 133,
+  "replay_components": 9,
+  "ensembles": 3,
+  "real_train_initialized_probes": 18,
+  "saved_state_probes": 12,
+  "saved_val_checks": 54,
+  "fixed_train_endpoints": 20,
+  "missing_requested_checkpoints": 0,
+  "tool_execution_hash_verified": true
+}

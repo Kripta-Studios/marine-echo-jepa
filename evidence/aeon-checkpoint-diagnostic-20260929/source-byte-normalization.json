@@ -1,0 +1,7 @@
+{
+  "runtime_source_sha256": "e9a2c5749ddc59d23dcbd3644d5968c535029d72df3711bcd1cfe1bfa4182a07",
+  "committed_lf_source_sha256": "0bca4f4c1558a167209cce17db16df4cd820062ebdac938340b9811bacc3c251",
+  "exact_runtime_source_copy": "run-02-tool-source.py",
+  "change": "CRLF to LF only to match existing repository attributes",
+  "parsed_python_AST_identical": true
+}

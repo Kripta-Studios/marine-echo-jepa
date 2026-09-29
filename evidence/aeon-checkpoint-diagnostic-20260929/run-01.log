@@ -1,0 +1,28 @@
+Verified supplied ZIP and exact source audit: completed
+Reconstructed TRAIN=4965, joint TRAIN=13472, VAL=1219
+Replay direct_supervised1500 seed7: 0.645004383
+Replay direct_supervised1500 seed13: 0.640577332
+Replay direct_supervised1500 seed23: 0.643001680
+Replay direct_supervised3000 seed7: 0.651154148
+Replay direct_supervised3000 seed13: 0.647964425
+Replay direct_supervised3000 seed23: 0.644896702
+Replay ema_jepa_supervised1500 seed7: 0.648804633
+Replay ema_jepa_supervised1500 seed13: 0.647988986
+Replay ema_jepa_supervised1500 seed23: 0.647977879
+Objective gradients original ema_jepa_seed7 SSL500: two CPU batches
+Objective gradients original ema_jepa_seed7 SSL1500: two CPU batches
+Objective gradients original shared_sigreg_seed7 SSL500: two CPU batches
+Objective gradients original shared_sigreg_seed7 SSL1500: two CPU batches
+Objective gradients 30k ema_jepa_seed7 SSL15000: two CPU batches
+Objective gradients expanded ema_jepa_seed7 SSL1500: two CPU batches
+Traceback (most recent call last):
+  File "C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-checkpoint-diagnostic\tools\aeon_checkpoint_diagnostic.py", line 926, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-checkpoint-diagnostic\tools\aeon_checkpoint_diagnostic.py", line 922, in main
+    return run(args)
+           ^^^^^^^^^
+  File "C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-checkpoint-diagnostic\tools\aeon_checkpoint_diagnostic.py", line 748, in run
+    for check in slot["validation_checks"]:
+                 ~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'validation_checks'

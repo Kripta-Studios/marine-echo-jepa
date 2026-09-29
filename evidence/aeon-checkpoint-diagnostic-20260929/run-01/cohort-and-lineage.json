@@ -1,0 +1,57 @@
+{
+  "original_cohort_sha256": "5e475f6af798025f187c70ae638710d2b4362f688db2ad43d60ec436dda3e25d",
+  "expanded_cohort_sha256": "276a507d9b382c89b556d06c5311bc9a954d45d47d5d8a2919cd70dd76b7dac4",
+  "counts": {
+    "prior_train_windows": 8507,
+    "current_train_windows": 4965,
+    "validation_windows": 1219,
+    "prior_source_intervals": 8846,
+    "prior_metadata_candidates": 8507,
+    "prior_numeric_qc_not_issued": 0,
+    "current_train_rejected_candidate_count": "NOT_AVAILABLE_FROM_ORIGINAL_READER_NO_COMPARABLE_CANDIDATE_UNIVERSE",
+    "validation_rejected_candidate_count": "NOT_AVAILABLE_FROM_ORIGINAL_READER_NO_COMPARABLE_CANDIDATE_UNIVERSE",
+    "prior_issued_with_any_observed_target": 8507,
+    "current_train_with_any_observed_target": 4965,
+    "joint_train_windows": 13472,
+    "prior_train_observed_targets_by_horizon": [
+      8494,
+      8494,
+      8493
+    ],
+    "prior_train_source_dates_with_18_scored_anchors_by_horizon": [
+      353,
+      353,
+      353
+    ],
+    "current_train_observed_targets_by_horizon": [
+      4958,
+      4958,
+      4958
+    ],
+    "current_train_source_dates_with_18_scored_anchors_by_horizon": [
+      207,
+      207,
+      207
+    ],
+    "validation_observed_targets_by_horizon": [
+      1217,
+      1217,
+      1217
+    ],
+    "validation_source_dates_with_18_scored_anchors_by_horizon": [
+      50,
+      50,
+      50
+    ]
+  },
+  "original_2024_train_validation_cohort_sha256": "5e475f6af798025f187c70ae638710d2b4362f688db2ad43d60ec436dda3e25d",
+  "prior_not_issued_reasons": {},
+  "prior_train_row_ids_sha256": "c9ebe181dc84268e0da4fa628c73f7455c7212472786c2250102885bbdf3d91e",
+  "current_train_row_ids_sha256": "1ad8b3f9f108bc2ebf11a35172c4df5f1f3757fef3bbf2d40b4de4f0506e926f",
+  "validation_original_row_ids_sha256": "51bf5a7c75f174ca64bd81d33d8ca46f73c6a5a4545d3cb4d3ff03729fb8df04",
+  "validation_raw_interval_support_sha256": "82023f63c747c603eca47676eaa38de927c49d262e19ce8bd065a615c580ea85",
+  "prior_year_role_expanded_and_descendants": "TRAIN",
+  "original_frozen_transfer_scope": "HISTORICAL_DESCRIPTIVE_TRANSFER_ONLY",
+  "calibration_numeric_access": "NOT_RUN_PROHIBITED",
+  "test_numeric_access": "NOT_RUN_PROHIBITED"
+}

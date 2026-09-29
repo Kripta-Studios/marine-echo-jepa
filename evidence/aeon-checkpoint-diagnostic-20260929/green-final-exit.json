@@ -1,0 +1,4 @@
+{
+  "exit_code": 0,
+  "command": "python -m pytest tests/unit/test_aeon_checkpoint_diagnostic.py tests/unit/test_aeon_ssl.py tests/unit/test_aeon_evaluation.py tests/integration/test_aeon_rescore.py -q -p no:cacheprovider"
+}

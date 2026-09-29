@@ -1,0 +1,358 @@
+{
+  "status": "ALL_SYNTHETIC_ASSERTIONS_PASSED",
+  "scope": "SOURCE_GRADIENT_AND_INITIALIZATION_AUDIT_NOT_AN_AEON_BENCHMARK",
+  "commit": "991368d",
+  "source_identity": {
+    "aeon_ssl.py": {
+      "git_blob_sha1": "7bd8a94cde303d968df1e541af47b50ce969d342",
+      "sha256": "490a0807a24433465c59d004d8e7fbe36cd6442ace71db40fe82cacab2fa229c"
+    },
+    "sigreg.py": {
+      "git_blob_sha1": "ef6f77225d03c32daa8d6509401e998658f2b198",
+      "sha256": "2cf5dc8e6fc610fbe167339a8750f5e2d9ddf9a48f416717b8310500536469a3"
+    }
+  },
+  "environment": {
+    "python": "3.13.5",
+    "torch": "2.10.0+cpu",
+    "device": "cpu"
+  },
+  "gradient_probes": [
+    {
+      "seed": 7,
+      "mask_pattern": "all_observed",
+      "mode": "ema",
+      "objective": "pretrain_loss",
+      "first_linear_weight_shape": [
+        128,
+        192
+      ],
+      "prefix_columns": 144,
+      "suffix_columns": 48,
+      "suffix_parameter_count": 6144,
+      "suffix_nonzero_gradients": 0,
+      "prefix_gradient_l2": 0.0021040739957243204,
+      "suffix_gradient_l2": 0.0,
+      "teacher_has_parameter_gradients": false
+    },
+    {
+      "seed": 7,
+      "mask_pattern": "all_observed",
+      "mode": "shared_sigreg",
+      "objective": "pretrain_loss",
+      "first_linear_weight_shape": [
+        128,
+        192
+      ],
+      "prefix_columns": 144,
+      "suffix_columns": 48,
+      "suffix_parameter_count": 6144,
+      "suffix_nonzero_gradients": 6144,
+      "prefix_gradient_l2": 0.00041854477603919804,
+      "suffix_gradient_l2": 0.004704523365944624,
+      "teacher_has_parameter_gradients": null
+    },
+    {
+      "seed": 7,
+      "mask_pattern": "all_observed",
+      "mode": "direct",
+      "objective": "supervised_pinball",
+      "first_linear_weight_shape": [
+        128,
+        192
+      ],
+      "prefix_columns": 144,
+      "suffix_columns": 48,
+      "suffix_parameter_count": 6144,
+      "suffix_nonzero_gradients": 6144,
+      "prefix_gradient_l2": 0.018734002485871315,
+      "suffix_gradient_l2": 0.010945874266326427,
+      "teacher_has_parameter_gradients": null
+    },
+    {
+      "seed": 7,
+      "mask_pattern": "ten_percent_missing",
+      "mode": "ema",
+      "objective": "pretrain_loss",
+      "first_linear_weight_shape": [
+        128,
+        192
+      ],
+      "prefix_columns": 144,
+      "suffix_columns": 48,
+      "suffix_parameter_count": 6144,
+      "suffix_nonzero_gradients": 0,
+      "prefix_gradient_l2": 0.0018422933062538505,
+      "suffix_gradient_l2": 0.0,
+      "teacher_has_parameter_gradients": false
+    },
+    {
+      "seed": 7,
+      "mask_pattern": "ten_percent_missing",
+      "mode": "shared_sigreg",
+      "objective": "pretrain_loss",
+      "first_linear_weight_shape": [
+        128,
+        192
+      ],
+      "prefix_columns": 144,
+      "suffix_columns": 48,
+      "suffix_parameter_count": 6144,
+      "suffix_nonzero_gradients": 6144,
+      "prefix_gradient_l2": 0.0003666141419671476,
+      "suffix_gradient_l2": 0.004250748548656702,
+      "teacher_has_parameter_gradients": null
+    },
+    {
+      "seed": 7,
+      "mask_pattern": "ten_percent_missing",
+      "mode": "direct",
+      "objective": "supervised_pinball",
+      "first_linear_weight_shape": [
+        128,
+        192
+      ],
+      "prefix_columns": 144,
+      "suffix_columns": 48,
+      "suffix_parameter_count": 6144,
+      "suffix_nonzero_gradients": 6144,
+      "prefix_gradient_l2": 0.016206488013267517,
+      "suffix_gradient_l2": 0.00965052004903555,
+      "teacher_has_parameter_gradients": null
+    },
+    {
+      "seed": 13,
+      "mask_pattern": "all_observed",
+      "mode": "ema",
+      "objective": "pretrain_loss",
+      "first_linear_weight_shape": [
+        128,
+        192
+      ],
+      "prefix_columns": 144,
+      "suffix_columns": 48,
+      "suffix_parameter_count": 6144,
+      "suffix_nonzero_gradients": 0,
+      "prefix_gradient_l2": 0.0018688997952267528,
+      "suffix_gradient_l2": 0.0,
+      "teacher_has_parameter_gradients": false
+    },
+    {
+      "seed": 13,
+      "mask_pattern": "all_observed",
+      "mode": "shared_sigreg",
+      "objective": "pretrain_loss",
+      "first_linear_weight_shape": [
+        128,
+        192
+      ],
+      "prefix_columns": 144,
+      "suffix_columns": 48,
+      "suffix_parameter_count": 6144,
+      "suffix_nonzero_gradients": 6144,
+      "prefix_gradient_l2": 0.00035337210283614695,
+      "suffix_gradient_l2": 0.00478325504809618,
+      "teacher_has_parameter_gradients": null
+    },
+    {
+      "seed": 13,
+      "mask_pattern": "all_observed",
+      "mode": "direct",
+      "objective": "supervised_pinball",
+      "first_linear_weight_shape": [
+        128,
+        192
+      ],
+      "prefix_columns": 144,
+      "suffix_columns": 48,
+      "suffix_parameter_count": 6144,
+      "suffix_nonzero_gradients": 6144,
+      "prefix_gradient_l2": 0.017085883766412735,
+      "suffix_gradient_l2": 0.009926294907927513,
+      "teacher_has_parameter_gradients": null
+    },
+    {
+      "seed": 13,
+      "mask_pattern": "ten_percent_missing",
+      "mode": "ema",
+      "objective": "pretrain_loss",
+      "first_linear_weight_shape": [
+        128,
+        192
+      ],
+      "prefix_columns": 144,
+      "suffix_columns": 48,
+      "suffix_parameter_count": 6144,
+      "suffix_nonzero_gradients": 0,
+      "prefix_gradient_l2": 0.0016511959256604314,
+      "suffix_gradient_l2": 0.0,
+      "teacher_has_parameter_gradients": false
+    },
+    {
+      "seed": 13,
+      "mask_pattern": "ten_percent_missing",
+      "mode": "shared_sigreg",
+      "objective": "pretrain_loss",
+      "first_linear_weight_shape": [
+        128,
+        192
+      ],
+      "prefix_columns": 144,
+      "suffix_columns": 48,
+      "suffix_parameter_count": 6144,
+      "suffix_nonzero_gradients": 6144,
+      "prefix_gradient_l2": 0.0003157635510433465,
+      "suffix_gradient_l2": 0.004125248175114393,
+      "teacher_has_parameter_gradients": null
+    },
+    {
+      "seed": 13,
+      "mask_pattern": "ten_percent_missing",
+      "mode": "direct",
+      "objective": "supervised_pinball",
+      "first_linear_weight_shape": [
+        128,
+        192
+      ],
+      "prefix_columns": 144,
+      "suffix_columns": 48,
+      "suffix_parameter_count": 6144,
+      "suffix_nonzero_gradients": 6144,
+      "prefix_gradient_l2": 0.015049176290631294,
+      "suffix_gradient_l2": 0.008692372590303421,
+      "teacher_has_parameter_gradients": null
+    },
+    {
+      "seed": 23,
+      "mask_pattern": "all_observed",
+      "mode": "ema",
+      "objective": "pretrain_loss",
+      "first_linear_weight_shape": [
+        128,
+        192
+      ],
+      "prefix_columns": 144,
+      "suffix_columns": 48,
+      "suffix_parameter_count": 6144,
+      "suffix_nonzero_gradients": 0,
+      "prefix_gradient_l2": 0.002274979604408145,
+      "suffix_gradient_l2": 0.0,
+      "teacher_has_parameter_gradients": false
+    },
+    {
+      "seed": 23,
+      "mask_pattern": "all_observed",
+      "mode": "shared_sigreg",
+      "objective": "pretrain_loss",
+      "first_linear_weight_shape": [
+        128,
+        192
+      ],
+      "prefix_columns": 144,
+      "suffix_columns": 48,
+      "suffix_parameter_count": 6144,
+      "suffix_nonzero_gradients": 6144,
+      "prefix_gradient_l2": 0.00038461675285361707,
+      "suffix_gradient_l2": 0.004589528776705265,
+      "teacher_has_parameter_gradients": null
+    },
+    {
+      "seed": 23,
+      "mask_pattern": "all_observed",
+      "mode": "direct",
+      "objective": "supervised_pinball",
+      "first_linear_weight_shape": [
+        128,
+        192
+      ],
+      "prefix_columns": 144,
+      "suffix_columns": 48,
+      "suffix_parameter_count": 6144,
+      "suffix_nonzero_gradients": 6144,
+      "prefix_gradient_l2": 0.027889955788850784,
+      "suffix_gradient_l2": 0.015998877584934235,
+      "teacher_has_parameter_gradients": null
+    },
+    {
+      "seed": 23,
+      "mask_pattern": "ten_percent_missing",
+      "mode": "ema",
+      "objective": "pretrain_loss",
+      "first_linear_weight_shape": [
+        128,
+        192
+      ],
+      "prefix_columns": 144,
+      "suffix_columns": 48,
+      "suffix_parameter_count": 6144,
+      "suffix_nonzero_gradients": 0,
+      "prefix_gradient_l2": 0.001987482886761427,
+      "suffix_gradient_l2": 0.0,
+      "teacher_has_parameter_gradients": false
+    },
+    {
+      "seed": 23,
+      "mask_pattern": "ten_percent_missing",
+      "mode": "shared_sigreg",
+      "objective": "pretrain_loss",
+      "first_linear_weight_shape": [
+        128,
+        192
+      ],
+      "prefix_columns": 144,
+      "suffix_columns": 48,
+      "suffix_parameter_count": 6144,
+      "suffix_nonzero_gradients": 6144,
+      "prefix_gradient_l2": 0.0003350758634041995,
+      "suffix_gradient_l2": 0.00389212928712368,
+      "teacher_has_parameter_gradients": null
+    },
+    {
+      "seed": 23,
+      "mask_pattern": "ten_percent_missing",
+      "mode": "direct",
+      "objective": "supervised_pinball",
+      "first_linear_weight_shape": [
+        128,
+        192
+      ],
+      "prefix_columns": 144,
+      "suffix_columns": 48,
+      "suffix_parameter_count": 6144,
+      "suffix_nonzero_gradients": 6144,
+      "prefix_gradient_l2": 0.024135591462254524,
+      "suffix_gradient_l2": 0.013733182102441788,
+      "teacher_has_parameter_gradients": null
+    }
+  ],
+  "initialization_probes": [
+    {
+      "seed": 7,
+      "encoder_initialization_equal": true,
+      "forecast_head_initialization_equal": false
+    },
+    {
+      "seed": 13,
+      "encoder_initialization_equal": true,
+      "forecast_head_initialization_equal": false
+    },
+    {
+      "seed": 23,
+      "encoder_initialization_equal": true,
+      "forecast_head_initialization_equal": false
+    }
+  ],
+  "approximate_nominal_window_exposure": {
+    "original_direct": 38.670694864048336,
+    "expanded_direct": 14.251781472684085,
+    "original_ema_supervised": 19.335347432024168,
+    "expanded_ema_supervised": 7.1258907363420425
+  },
+  "limitations": [
+    "Synthetic random inputs and initialized weights only; no trained AEON checkpoint was inspected.",
+    "Zero suffix data-gradient follows from fixed-position masking and detached EMA targets.",
+    "AdamW may still decay those columns; later layers change and supervised fine-tuning can learn them.",
+    "These findings do not establish the cause of the reported rank/scale or generalization failures.",
+    "Averages of sample presentations are not independent epochs or effective sample sizes."
+  ]
+}

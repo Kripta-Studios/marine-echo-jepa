@@ -1,0 +1,11 @@
+{
+  "command": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-checkpoint-diagnostic\\evidence\\aeon-checkpoint-diagnostic-20260929\\run-01\\supplied-audit\\aeon_pretraining_audit_991368d\\audit_gradient_paths.py",
+    "--source-root",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-checkpoint-diagnostic\\evidence\\aeon-checkpoint-diagnostic-20260929\\run-01\\canonical-source",
+    "--output",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-checkpoint-diagnostic\\evidence\\aeon-checkpoint-diagnostic-20260929\\run-01\\supplied-audit-local.json"
+  ],
+  "exit_code": 0
+}

@@ -1,0 +1,1 @@
+The portable script was executed on the verified source copies. Its full JSON output exactly matched audit_results_executed.json.

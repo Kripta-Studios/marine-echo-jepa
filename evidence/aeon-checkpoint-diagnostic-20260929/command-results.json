@@ -1,0 +1,93 @@
+{
+  "interpreter": "../marine-echo-jepa/.venv/Scripts/python.exe",
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONUTF8": "1",
+    "PYTHONIOENCODING": "utf-8",
+    "OMP_NUM_THREADS": "4",
+    "MKL_NUM_THREADS": "4",
+    "PYTHONPATH": "assigned worktree/src"
+  },
+  "results": [
+    {
+      "command": "python tools/verify_handoff.py",
+      "exit_code": 1,
+      "log": "handoff.log",
+      "classification": "KNOWN_ORIGINAL_HANDOFF_MISMATCH"
+    },
+    {
+      "command": "python tools/runtime_preflight.py --output evidence/aeon-checkpoint-diagnostic-20260929/preflight.json",
+      "exit_code": 0,
+      "log": "preflight.log",
+      "optimizer_smoke": "NOT_RUN_PROHIBITED"
+    },
+    {
+      "command": "python -m pytest tests/unit/test_aeon_checkpoint_diagnostic.py -q -p no:cacheprovider",
+      "exit_code": 2,
+      "log": "red.log",
+      "classification": "EXPECTED_RED"
+    },
+    {
+      "command": "python -m pytest tests/unit/test_aeon_checkpoint_diagnostic.py tests/unit/test_aeon_ssl.py tests/unit/test_aeon_evaluation.py tests/integration/test_aeon_rescore.py -q -p no:cacheprovider",
+      "exit_code": 0,
+      "log": "green-initial.log",
+      "tests_passed": 27
+    },
+    {
+      "command": "python tools/aeon_checkpoint_diagnostic.py --output evidence/aeon-checkpoint-diagnostic-20260929/run-01",
+      "exit_code": 1,
+      "log": "run-01.log",
+      "classification": "PRESERVED_TRAJECTORY_READER_FAILURE_AFTER_COMPLETED_PROBES"
+    },
+    {
+      "command": "python -m pytest tests/unit/test_aeon_checkpoint_diagnostic.py -k 30k -q -p no:cacheprovider",
+      "exit_code": 1,
+      "log": "red-30k.log",
+      "classification": "EXPECTED_BEHAVIOR_RED"
+    },
+    {
+      "command": "python -m pytest tests/unit/test_aeon_checkpoint_diagnostic.py tests/unit/test_aeon_ssl.py tests/unit/test_aeon_evaluation.py tests/integration/test_aeon_rescore.py -q -p no:cacheprovider",
+      "exit_code": 0,
+      "log": "green-final.log",
+      "tests_passed": 31
+    },
+    {
+      "command": "python tools/aeon_checkpoint_diagnostic.py --output evidence/aeon-checkpoint-diagnostic-20260929/run-02 --reuse-saved-diagnostics evidence/aeon-checkpoint-diagnostic-20260929/run-01",
+      "exit_code": 0,
+      "log": "run-02.log",
+      "completed_probe_reexecution": false
+    },
+    {
+      "command": "python -m pytest tests/unit/test_aeon_checkpoint_diagnostic.py tests/unit/test_aeon_ssl.py tests/unit/test_aeon_evaluation.py tests/integration/test_aeon_rescore.py -q -p no:cacheprovider",
+      "exit_code": 0,
+      "log": "green-validated.log",
+      "tests_passed": 31,
+      "elapsed_seconds": 58.02
+    },
+    {
+      "command": "python -m ruff format --check tools/aeon_checkpoint_diagnostic.py tests/unit/test_aeon_checkpoint_diagnostic.py",
+      "exit_code": 0,
+      "log": "format.log"
+    },
+    {
+      "command": "python -m ruff check tools/aeon_checkpoint_diagnostic.py tests/unit/test_aeon_checkpoint_diagnostic.py",
+      "exit_code": 0,
+      "log": "lint-final.log"
+    },
+    {
+      "command": "Independent standard-library verification of all run-02 output hashes, consumed inputs, tool source and expected artifact counts",
+      "exit_code": 0,
+      "artifact": "artifact-verification.json"
+    }
+  ],
+  "not_run": [
+    "scientific fitting",
+    "optimizer steps",
+    "training CLI",
+    "CAL/TEST numeric access",
+    "nine-trajectory campaign",
+    "route extension",
+    "release build",
+    "network/install/cloud/paid work"
+  ]
+}

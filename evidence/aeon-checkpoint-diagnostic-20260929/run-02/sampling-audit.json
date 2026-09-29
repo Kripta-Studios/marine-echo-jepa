@@ -1,0 +1,34 @@
+{
+  "scope": "Reconstructed indices, 1500 SSL and 1500 supervised batches; no model execution",
+  "current_source_sha256": "91e62c1ba674a71e1d5d96af9bd5c20cd6cd8c492c94740c16b1d92eb4462b8c",
+  "current_composite_campaign_code_sha256": "8054f0c95962bee496bda75559583bb0dd189324d1636a9e7667833ee51a4e83",
+  "historical_manifest_composite_code_sha256": "8054f0c95962bee496bda75559583bb0dd189324d1636a9e7667833ee51a4e83",
+  "current_code_matches_manifest": true,
+  "modes": {
+    "aligned": {
+      "pretrain_context_sequence_sha256": "985de26a1a78fc9878721bc5ee1c38797cc2cb754c92478886abf275634db60b",
+      "target_sequence_sha256": null,
+      "min_batch_unique": 64,
+      "max_batch_unique": 64,
+      "duplicate_draws": 0,
+      "minimum_pair_separation_intervals": null,
+      "supervised_sequence_sha256_after_actual_reset": "7f6d023e5d53552a1bf9a9fa761bdcba532c165f4f3da92062253c8c7d79230f",
+      "hypothetical_continuing_rng_first_batch_sha256": "7b289de629ad909838f0a43f8ec28f697fd0e7175f5b61fc3564f8e48d6236ed",
+      "unique_contexts_across_all_batches": 4965
+    },
+    "shuffled": {
+      "pretrain_context_sequence_sha256": "1241315e712b33ac56731f65df53033b7228df369e4d2e34a6db59f24e4fbab7",
+      "target_sequence_sha256": "8c5d0002a300dda402ddfb5cea4dc2c3b3c29c7bde15c1543df892eaa76bcfb5",
+      "min_batch_unique": 64,
+      "max_batch_unique": 64,
+      "duplicate_draws": 0,
+      "minimum_pair_separation_intervals": 24,
+      "supervised_sequence_sha256_after_actual_reset": "7f6d023e5d53552a1bf9a9fa761bdcba532c165f4f3da92062253c8c7d79230f",
+      "hypothetical_continuing_rng_first_batch_sha256": "611c435459fc0049426f38131245a47dcad1dbf44835bae3857f04549ebf49c6",
+      "unique_contexts_across_all_batches": 4965
+    }
+  },
+  "rng_reset_in_current_source": "SeedSequence([seed,2]) before supervised",
+  "rejection_duplicate_algorithm": "NOT_PRESENT_IN_CURRENT_SOURCE; historical source binding must be checked before attribution",
+  "pairing_only_intervention": false
+}

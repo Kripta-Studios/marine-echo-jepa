@@ -1,0 +1,4 @@
+evidence/aeon-checkpoint-diagnostic-20260929/red-30k.log:7: trailing whitespace.
++    
+evidence/aeon-checkpoint-diagnostic-20260929/red-30k.log:12: trailing whitespace.
++tests\unit\test_aeon_checkpoint_diagnostic.py:187: 

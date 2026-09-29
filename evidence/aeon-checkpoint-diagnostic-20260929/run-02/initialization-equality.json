@@ -1,0 +1,122 @@
+[
+  {
+    "seed": 7,
+    "mode": "ema",
+    "encoder_tensors_equal": {
+      "network.0.weight": true,
+      "network.0.bias": true,
+      "network.2.weight": true,
+      "network.2.bias": true,
+      "network.4.weight": true,
+      "network.4.bias": true
+    },
+    "head_tensors_equal": {
+      "weight": false,
+      "bias": false
+    },
+    "direct_encoder_sha256": "9d066713bb40246c24ab25182ebd587810234641c3bf1682ea2ceff37aa38a21",
+    "ssl_encoder_sha256": "9d066713bb40246c24ab25182ebd587810234641c3bf1682ea2ceff37aa38a21",
+    "direct_head_sha256": "f144ea5f0aca479af8897b7dc02fc9be4614b5d53cda87d19daae66004f3f474",
+    "ssl_head_sha256": "26ba76ea7622fee560bff52286d1d3cafd9c3cd36a82ef0d8f9eb4be5b34bf00"
+  },
+  {
+    "seed": 7,
+    "mode": "shared_sigreg",
+    "encoder_tensors_equal": {
+      "network.0.weight": true,
+      "network.0.bias": true,
+      "network.2.weight": true,
+      "network.2.bias": true,
+      "network.4.weight": true,
+      "network.4.bias": true
+    },
+    "head_tensors_equal": {
+      "weight": false,
+      "bias": false
+    },
+    "direct_encoder_sha256": "9d066713bb40246c24ab25182ebd587810234641c3bf1682ea2ceff37aa38a21",
+    "ssl_encoder_sha256": "9d066713bb40246c24ab25182ebd587810234641c3bf1682ea2ceff37aa38a21",
+    "direct_head_sha256": "f144ea5f0aca479af8897b7dc02fc9be4614b5d53cda87d19daae66004f3f474",
+    "ssl_head_sha256": "26ba76ea7622fee560bff52286d1d3cafd9c3cd36a82ef0d8f9eb4be5b34bf00"
+  },
+  {
+    "seed": 13,
+    "mode": "ema",
+    "encoder_tensors_equal": {
+      "network.0.weight": true,
+      "network.0.bias": true,
+      "network.2.weight": true,
+      "network.2.bias": true,
+      "network.4.weight": true,
+      "network.4.bias": true
+    },
+    "head_tensors_equal": {
+      "weight": false,
+      "bias": false
+    },
+    "direct_encoder_sha256": "add7899cd01c3978472ed2021e9a44999152dcfd3d45a253f05999b997df9d86",
+    "ssl_encoder_sha256": "add7899cd01c3978472ed2021e9a44999152dcfd3d45a253f05999b997df9d86",
+    "direct_head_sha256": "35146bfd64b311691942a26a10ecf47e5b49a43c1bfb4f58352398557e5275d5",
+    "ssl_head_sha256": "fda732d2711c42bdd92c05471ece628e22cb5935bb26ef9b233d8a2dc542bada"
+  },
+  {
+    "seed": 13,
+    "mode": "shared_sigreg",
+    "encoder_tensors_equal": {
+      "network.0.weight": true,
+      "network.0.bias": true,
+      "network.2.weight": true,
+      "network.2.bias": true,
+      "network.4.weight": true,
+      "network.4.bias": true
+    },
+    "head_tensors_equal": {
+      "weight": false,
+      "bias": false
+    },
+    "direct_encoder_sha256": "add7899cd01c3978472ed2021e9a44999152dcfd3d45a253f05999b997df9d86",
+    "ssl_encoder_sha256": "add7899cd01c3978472ed2021e9a44999152dcfd3d45a253f05999b997df9d86",
+    "direct_head_sha256": "35146bfd64b311691942a26a10ecf47e5b49a43c1bfb4f58352398557e5275d5",
+    "ssl_head_sha256": "fda732d2711c42bdd92c05471ece628e22cb5935bb26ef9b233d8a2dc542bada"
+  },
+  {
+    "seed": 23,
+    "mode": "ema",
+    "encoder_tensors_equal": {
+      "network.0.weight": true,
+      "network.0.bias": true,
+      "network.2.weight": true,
+      "network.2.bias": true,
+      "network.4.weight": true,
+      "network.4.bias": true
+    },
+    "head_tensors_equal": {
+      "weight": false,
+      "bias": false
+    },
+    "direct_encoder_sha256": "70323485b7dc5dc39232c8cfe868e9cf7ae8f9a7ce7eaf90b3127c68c3847e29",
+    "ssl_encoder_sha256": "70323485b7dc5dc39232c8cfe868e9cf7ae8f9a7ce7eaf90b3127c68c3847e29",
+    "direct_head_sha256": "d3731ed988cafdfa6456773b671450e121dfacc7d79cb82e5faa1ce18ba07934",
+    "ssl_head_sha256": "45b12ca2855b315c37f11d34e2317a0a6282eb607983be0ed0ca2e25144edd45"
+  },
+  {
+    "seed": 23,
+    "mode": "shared_sigreg",
+    "encoder_tensors_equal": {
+      "network.0.weight": true,
+      "network.0.bias": true,
+      "network.2.weight": true,
+      "network.2.bias": true,
+      "network.4.weight": true,
+      "network.4.bias": true
+    },
+    "head_tensors_equal": {
+      "weight": false,
+      "bias": false
+    },
+    "direct_encoder_sha256": "70323485b7dc5dc39232c8cfe868e9cf7ae8f9a7ce7eaf90b3127c68c3847e29",
+    "ssl_encoder_sha256": "70323485b7dc5dc39232c8cfe868e9cf7ae8f9a7ce7eaf90b3127c68c3847e29",
+    "direct_head_sha256": "d3731ed988cafdfa6456773b671450e121dfacc7d79cb82e5faa1ce18ba07934",
+    "ssl_head_sha256": "45b12ca2855b315c37f11d34e2317a0a6282eb607983be0ed0ca2e25144edd45"
+  }
+]

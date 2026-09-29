@@ -1,0 +1,78 @@
+{
+  "recorded_counts_and_scalers": {
+    "direct_seed7": {
+      "sampled_pretrain_rows_by_source": {
+        "prior": 0,
+        "current": 0
+      },
+      "sampled_supervised_rows_by_source": {
+        "prior": 121177,
+        "current": 70823
+      },
+      "scaler_joint_train_only": [
+        -83.08754509074996,
+        5.835415829543929,
+        -87.90528513958617,
+        4.191040255400339
+      ]
+    },
+    "ema_jepa_seed7": {
+      "sampled_pretrain_rows_by_source": {
+        "prior": 61952,
+        "current": 34048
+      },
+      "sampled_supervised_rows_by_source": {
+        "prior": 60799,
+        "current": 35201
+      },
+      "scaler_joint_train_only": [
+        -83.08754509074996,
+        5.835415829543929,
+        -87.90528513958617,
+        4.191040255400339
+      ]
+    }
+  },
+  "independently_reconstructed_sampler_counts": {
+    "direct_seed7": {
+      "pretrain_rows": {
+        "prior": 0,
+        "current": 0
+      },
+      "supervised_rows": {
+        "prior": 121177,
+        "current": 70823
+      },
+      "matches_recorded_counts": true,
+      "ssl_sequence_sha256": null,
+      "supervised_sequence_sha256": "c05467ef1bea94e466b0c3dae55f807f641b12022e78b498c7b6f22012c8d689",
+      "supervised_presentations_per_prior_window": 14.244386975431997,
+      "supervised_presentations_per_current_window": 14.264451158106747
+    },
+    "ema_jepa_seed7": {
+      "pretrain_rows": {
+        "prior": 61952,
+        "current": 34048
+      },
+      "supervised_rows": {
+        "prior": 60799,
+        "current": 35201
+      },
+      "matches_recorded_counts": true,
+      "ssl_sequence_sha256": "982b3920305bbd2f4dcba2bbef3fba3dfba8c60b65d0acfbbdbd09ef97de4a76",
+      "supervised_sequence_sha256": "332a0a72d62dba4425d2526774421cbcf564a240ebdd409bdc3f79a5fd7fae20",
+      "supervised_presentations_per_prior_window": 7.146937815916305,
+      "supervised_presentations_per_current_window": 7.089828801611279
+    }
+  },
+  "original_direct_nominal_presentations_per_window": 38.670694864048336,
+  "expanded_direct_nominal_presentations_per_window": 14.251781472684085,
+  "original_ema_each_phase_nominal_presentations_per_window": 19.335347432024168,
+  "expanded_ema_each_phase_nominal_presentations_per_window": 7.1258907363420425,
+  "ssl_batching": {
+    "source_policy": "natural_pooled_window_proportions",
+    "ssl_batch_source_policy": "one_source_per_batch_proportional_to_train_window_count",
+    "supervised_batch_source_policy": "pooled_labelled_train_rows"
+  },
+  "interpretation": "Joint scaler, archive/year/site composition, source-homogeneous SSL, pooled supervision and exposure change together; not volume-only attribution"
+}

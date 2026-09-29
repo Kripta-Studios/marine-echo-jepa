@@ -1,0 +1,4 @@
+{
+  "command": "python tools/aeon_checkpoint_diagnostic.py --output evidence/aeon-checkpoint-diagnostic-20260929/run-02 --reuse-saved-diagnostics evidence/aeon-checkpoint-diagnostic-20260929/run-01",
+  "exit_code": 0
+}

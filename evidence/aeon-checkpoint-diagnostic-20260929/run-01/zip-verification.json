@@ -1,0 +1,40 @@
+{
+  "archive_sha256": "a99965290e05c98481efaa38a3ff885da55f0663245d297a88c9874eb9b38143",
+  "verified_members": [
+    {
+      "member": "README.md",
+      "sha256": "e1ea77686e19d06a77eb85b35fac56f16ab982d57103bc1bc287faaa80ad1b9b"
+    },
+    {
+      "member": "RECHECK.txt",
+      "sha256": "3bb067cf49c6d6f5c92aec1bc1a9c9e7df1bbf5ecc0777fa801cb809d6ea7171"
+    },
+    {
+      "member": "audit_gradient_paths.py",
+      "sha256": "844c65b9dbd95170663672b9b70b13d7981790ad36371e1cce1a2c1fff974952"
+    },
+    {
+      "member": "audit_results_executed.json",
+      "sha256": "2b4170d8a4d86c219ddb2ac53c97bdff67b5e42a6d53177dd3b7756e052f0fb8"
+    },
+    {
+      "member": "audit_results_portable_recheck.json",
+      "sha256": "2b4170d8a4d86c219ddb2ac53c97bdff67b5e42a6d53177dd3b7756e052f0fb8"
+    }
+  ],
+  "source_identity": {
+    "aeon_ssl.py": {
+      "git_blob": "7bd8a94cde303d968df1e541af47b50ce969d342",
+      "canonical_sha256": "490a0807a24433465c59d004d8e7fbe36cd6442ace71db40fe82cacab2fa229c",
+      "checkout_sha256": "490a0807a24433465c59d004d8e7fbe36cd6442ace71db40fe82cacab2fa229c",
+      "newline_normalization_only": true
+    },
+    "sigreg.py": {
+      "git_blob": "ef6f77225d03c32daa8d6509401e998658f2b198",
+      "canonical_sha256": "2cf5dc8e6fc610fbe167339a8750f5e2d9ddf9a48f416717b8310500536469a3",
+      "checkout_sha256": "2cf5dc8e6fc610fbe167339a8750f5e2d9ddf9a48f416717b8310500536469a3",
+      "newline_normalization_only": true
+    }
+  },
+  "script_inspection": "Reviewed all 7626 script bytes before execution; synthetic CPU backward only; no optimizer or network calls"
+}

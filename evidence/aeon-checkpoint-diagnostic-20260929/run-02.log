@@ -1,0 +1,24 @@
+Verified supplied ZIP and exact source audit: completed
+Reconstructed TRAIN=4965, joint TRAIN=13472, VAL=1219
+{
+  "status": "COMPLETED_BOUNDED_POST_HOC_DIAGNOSTIC",
+  "base_commit": "991368d",
+  "diagnostic_tool_sha256": "e9a2c5749ddc59d23dcbd3644d5968c535029d72df3711bcd1cfe1bfa4182a07",
+  "reused_forward_backward_evidence": true,
+  "elapsed_seconds": 126.41362479999952,
+  "python": "3.12.13 (main, Mar 10 2026, 18:15:39) [MSC v.1944 64 bit (AMD64)]",
+  "torch": "2.11.0+cu128",
+  "cuda_build": "12.8",
+  "cuda_available": true,
+  "diagnostic_device": "cpu",
+  "process_peak_rss_bytes": 852996096,
+  "gpu_allocated_bytes": 0,
+  "optimizer_steps": 0,
+  "forecast_endpoint_individual_runs": 9,
+  "saved_state_ssl_batches": 12,
+  "initialized_real_train_gradient_batches": 18,
+  "fresh_cal_test_numeric_access": false,
+  "historical_inputs_unchanged": true,
+  "release_sha256_unchanged": "5e265e08bf1041bbe0fb4dd2a5f3503bae98f996096577f976beaf9384d6bb57",
+  "platform": "Windows-11-10.0.26200-SP0"
+}

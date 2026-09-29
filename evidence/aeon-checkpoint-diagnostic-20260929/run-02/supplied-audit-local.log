@@ -1,0 +1,7 @@
+ALL_SYNTHETIC_ASSERTIONS_PASSED
+gradient probes: 18 ; initialization probes: 3
+ema suffix_nonzero_gradient_counts [0] prefix_gradient_range 0.001651196158491075 0.0022749805357307196
+shared_sigreg suffix_nonzero_gradient_counts [6144] prefix_gradient_range 0.0003157635510433465 0.00041854477603919804
+direct suffix_nonzero_gradient_counts [6144] prefix_gradient_range 0.015049176290631294 0.027889952063560486
+initialization: [{'seed': 7, 'encoder_initialization_equal': True, 'forecast_head_initialization_equal': False}, {'seed': 13, 'encoder_initialization_equal': True, 'forecast_head_initialization_equal': False}, {'seed': 23, 'encoder_initialization_equal': True, 'forecast_head_initialization_equal': False}]
+nominal average presentations: {'original_direct': 38.670694864048336, 'expanded_direct': 14.251781472684085, 'original_ema_supervised': 19.335347432024168, 'expanded_ema_supervised': 7.1258907363420425}
