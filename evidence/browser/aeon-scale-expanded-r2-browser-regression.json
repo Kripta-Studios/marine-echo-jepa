@@ -1,0 +1,28 @@
+{
+  "base_url": "http://127.0.0.1:8783",
+  "status": "FAIL",
+  "checks": {
+    "/health": "PASS",
+    "/api/v1/studies/aeon": "PASS",
+    "exact_reviewed_development_values": {
+      "scale_direct": 1.178379078764592,
+      "scale_ema": 0.9134244980181899,
+      "expanded_direct": 0.640614632904252,
+      "expanded_ema": 0.6548551285493684
+    },
+    "historical_replay_total": 1216
+  },
+  "viewports": [
+    {
+      "viewport": 1440,
+      "document_scroll_width": 1440
+    },
+    {
+      "viewport": 390,
+      "document_scroll_width": 531
+    }
+  ],
+  "page_errors": [],
+  "external_requests": [],
+  "failure": "AssertionError [ERR_ASSERTION]: {\"viewport\":390,\"document_scroll_width\":531}"
+}

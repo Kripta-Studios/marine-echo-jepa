@@ -147,9 +147,24 @@ The new, separate release candidate
 hash-verified files (SHA-256
 `b8c7874e438522e6a923f3d602b93dc3e1f5a0e60e68ef573a069e920a4f9d54`).
 Its sidecar, complete directory inventory and separately extracted copy
-passed checksum verification; relocated API/browser and exact-output release
-review remain pending at the time of this report. Earlier r2/r4 releases and
-historical experiment evidence have not been overwritten.
+passed checksum verification. Subsequent exact-output review requested a
+README provenance-path correction; r1 remains unapproved. A corrected r2
+passed offline install and API checks but failed mobile fit and also remains
+unapproved. The independently reviewed CSS repair was committed as `f975d2b`.
+The new r3 archive SHA-256 is
+`5e265e08bf1041bbe0fb4dd2a5f3503bae98f996096577f976beaf9384d6bb57`.
+It contains 107 verified assets and passed fresh relocated offline install,
+API, exact displayed metric and historical replay checks, and desktop/mobile
+Chromium tests with no page errors or external browser requests. The same
+regression fails the preserved r2 mobile fit. The distinct exact-byte reviewer
+subsequently approved this unchanged r3 archive for an offline research release
+(severity NONE), verifying provenance and offline/API behavior and inspecting
+the coordinator browser evidence. The external approval is
+`orchestration/reviews/AEON_SCALE_EXPANDED_OFFLINE_R3_REVIEW_20260929.json`;
+the immutable archive retains its honest review-pending build-time metadata.
+Detailed evidence is in
+`orchestration/reports/AEON_SCALE_EXPANDED_OFFLINE_R3_VALIDATION_20260929.md`.
+Earlier r2/r4 releases and historical experiment evidence have not been overwritten.
 
 The results establish a **negative same-data 30k scaling outcome** and a
 **small direct-only expanded-TRAIN development observation**. They do not

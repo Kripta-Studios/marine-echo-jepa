@@ -1,0 +1,193 @@
+{
+  "schema_version": "1.0",
+  "review_id": "AEON_SCALE_EXPANDED_OFFLINE_R3_REVIEW_20260929",
+  "reviewed_at": "2026-09-29",
+  "task_id": "aeon_scale_expanded_offline_r3_exact_output_review",
+  "parent_dependencies": [
+    "AEON_SCALE_EXPANDED_APP_SOURCE_REVIEW_20260928",
+    "AEON_SCALE_EXPANDED_OFFLINE_R1_REVIEW_20260928",
+    "AEON_SCALE_EXPANDED_OFFLINE_R2_SOURCE_REVIEW_20260928",
+    "AEON_SCALE_EXPANDED_OFFLINE_R3_SOURCE_REVIEW_20260929"
+  ],
+  "status": "APPROVED_AEON_SCALE_EXPANDED_OFFLINE_R3",
+  "verdict": "APPROVE",
+  "severity": "NONE",
+  "reviewer_session": "/root/release_reviewer",
+  "reviewer_role": "distinct_read_only_scientific_release_reviewer",
+  "configured_model": "gpt-5.6-sol",
+  "configured_reasoning_effort": "high",
+  "runtime_model_binding_verification": "NOT_EXPOSED_TO_REVIEWER_SESSION",
+  "branch": "main",
+  "source_commit": "f975d2b0a425a9cbdadbacf9f50d0cad216d93c1",
+  "owned_paths": [],
+  "review_mode": "READ_ONLY_NO_FILES_AUTHORED",
+  "candidate": {
+    "archive_path": "release/aeon-offline-scale-expanded-20260928-r3.zip",
+    "archive_sha256": "5e265e08bf1041bbe0fb4dd2a5f3503bae98f996096577f976beaf9384d6bb57",
+    "archive_bytes": 26226838,
+    "sidecar_path": "release/aeon-offline-scale-expanded-20260928-r3.zip.sha256",
+    "sidecar_sha256": "452f21aab3a85f26b3a58a03b1a3e81fbdae3417cbbaeabdeba56dd0e97c2e99",
+    "sidecar_matches_archive": true,
+    "archive_root": "aeon-offline-scale-expanded-20260928-r3",
+    "archive_file_entries": 108,
+    "sha256sums_covered_files": 107,
+    "uncompressed_bytes": 35390214
+  },
+  "archive_security_review": {
+    "single_root": true,
+    "duplicate_names": 0,
+    "casefold_name_collisions": 0,
+    "windows_reserved_components": 0,
+    "absolute_paths": 0,
+    "parent_traversal_paths": 0,
+    "backslash_paths": 0,
+    "symlink_entries": 0,
+    "maximum_compression_ratio": 11.788402220851326,
+    "all_sha256sums_entries_match": true,
+    "missing_manifest_entries": 0,
+    "extra_manifest_entries": 0,
+    "digest_mismatches": 0
+  },
+  "provenance_review": {
+    "source_revision_commit_matches": true,
+    "source_revision_evidence_pins_checked": 11,
+    "source_revision_evidence_pins_matching": 11,
+    "packaged_slot_prediction_endpoint_pins_checked": 12,
+    "packaged_slot_prediction_endpoint_pins_matching": 12,
+    "raw_acoustic_archives_bundled": false,
+    "intermediate_checkpoints_bundled": false,
+    "approved_final_endpoint_checkpoints_bundled": 4,
+    "prior_r1_archive_sha256_preserved": "b8c7874e438522e6a923f3d602b93dc3e1f5a0e60e68ef573a069e920a4f9d54",
+    "prior_r2_archive_sha256_preserved": "d25dc905afd440325bd8a0624172f2ca487ef2db21dd4a2bb53887e1d4952325"
+  },
+  "r2_to_r3_delta": {
+    "bounded": true,
+    "changed_content": ["web CSS asset", "web/index.html", "SOURCE_REVISION.json", "SHA256SUMS"],
+    "renamed_assets": [
+      "web/assets/index-B5_hwPCV.css -> web/assets/index-4wqFJhvG.css",
+      "web/assets/index-CzzXWflD.js -> web/assets/index-DJlTwxbi.js"
+    ],
+    "javascript_bytes_identical": true,
+    "javascript_sha256": "27ccfad2c72f8c8dae2918d64b4d8f45d45c572b03523ddcf97ccec2539d1c56",
+    "r2_css_sha256": "9237ae31cbb15029122b1e836b90235512e0e2ad4c4e469590659e0b7924aafa",
+    "r3_css_sha256": "0efd33dd8c04cc32beff05779a0d916e9c9168e7057e5ca9dcc5a3b85c991516",
+    "r3_css_contains_reviewed_panel_wrap": true
+  },
+  "independent_execution": [
+    {
+      "command": "Independent archive and sidecar SHA-256 computation",
+      "result": "PASS",
+      "evidence": "The 26,226,838-byte archive independently hashed to 5e265e08bf1041bbe0fb4dd2a5f3503bae98f996096577f976beaf9384d6bb57 and matched its adjacent sidecar."
+    },
+    {
+      "command": "Independent ZIP structure, path-safety and compression inspection",
+      "result": "PASS",
+      "evidence": "One root and 108 unique entries; no duplicate or case-fold-colliding names, Windows reserved components, absolute paths, parent traversal, backslashes or symlinks. Maximum compression ratio 11.7884."
+    },
+    {
+      "command": "Independent SHA256SUMS reconstruction directly from ZIP bytes",
+      "result": "PASS",
+      "evidence": "SHA256SUMS covers exactly all 107 other packaged files. Every digest matched, with no missing or extra entries."
+    },
+    {
+      "command": "Packaged-directory and relocated-directory Verify-Release.py",
+      "result": "PASS",
+      "evidence": "Both independently reported Verified 107 packaged files."
+    },
+    {
+      "command": "Independent SOURCE_REVISION and binary-provenance reconstruction",
+      "result": "PASS",
+      "evidence": "All 11 declared evidence hashes and all 12 slot, prediction and final endpoint checkpoint hashes matched packaged bytes."
+    },
+    {
+      "command": "Independent r2-to-r3 normalized archive comparison",
+      "result": "PASS",
+      "evidence": "Delta limited to reviewed CSS build output, asset references, source revision and checksum manifest. JavaScript bytes unchanged."
+    },
+    {
+      "command": "Independent relocated environment inspection",
+      "result": "PASS",
+      "evidence": "Python 3.12.13 and exactly 13 required installed distributions."
+    },
+    {
+      "command": "Independent loopback API and listener checks against port 8782",
+      "result": "PASS",
+      "evidence": "Process listens only on 127.0.0.1; health ready. API returned four pinned development values, 13,472 joint TRAIN windows and 1,216-row historical replay with 12 returned truth-free rows and SOURCE_REPORTED_UNSPECIFIED_NOT_UTC time basis."
+    },
+    {
+      "command": "Independent served-byte binding to immutable ZIP",
+      "result": "PASS",
+      "evidence": "Served index HTML, CSS and JavaScript exactly match ZIP bytes; served study object equals packaged study artifact; served CSS contains reviewed panel wrap rule."
+    },
+    {
+      "command": "Independent visual inspection of coordinator-produced 1440px and 390px screenshots",
+      "result": "PASS",
+      "evidence": "Reviewed metrics and limitations displayed; 390px view shows wrapped evidence hashes without page-level clipping."
+    }
+  ],
+  "inspected_execution": [
+    {
+      "command": "Production web build",
+      "executor": "coordinator",
+      "result": "PASS_EXIT_0",
+      "reviewer_disposition": "INSPECTED_REPORT_AND_BOUND_OUTPUT_BYTES"
+    },
+    {
+      "command": "Fresh relocated Run-AEON-Research.ps1 launch",
+      "executor": "coordinator",
+      "result": "PASS",
+      "evidence": "Created Python 3.12.13, installed 13 bundled dependencies with --offline --no-index, verified 107 files and served 127.0.0.1:8782. Reviewer independently inspected environment, verifier and listener."
+    },
+    {
+      "command": "Finalized Playwright regression against preserved relocated r2",
+      "executor": "coordinator",
+      "result": "EXPECTED_FAIL",
+      "evidence_path": "outputs/aeon-scale-expanded-r2-browser-regression.json",
+      "evidence_sha256": "feef8d66578c96b92b8839fae49de8d39b9d297b67a9ba5a20924446b580ef62",
+      "evidence": "Desktop 1440/1440. Mobile failed with document width 531 for 390px viewport. New reproducible observation retained alongside earlier ad-hoc 489px measurement; r2 remains rejected."
+    },
+    {
+      "command": "Finalized Playwright smoke against relocated r3",
+      "executor": "coordinator",
+      "result": "PASS",
+      "evidence_path": "outputs/aeon-scale-expanded-r3-browser-smoke.json",
+      "evidence_sha256": "fb5001270344c2aeb5259905b22a482645af2b99aca78aba564c0c48e7aec363",
+      "runner_path": "web/tests/aeon-release-smoke.mjs",
+      "runner_sha256": "8a818389d9a3fe97df2feeebfdef6cd4b2a63583193f877078f86e6a7a19a2d6",
+      "evidence": "Desktop passed 1440/1440; mobile passed 390/390. Exact values, 13,472 TRAIN windows and truth-free replay checked; no page errors or external browser requests."
+    }
+  ],
+  "browser_artifacts": {
+    "desktop_screenshot": "outputs/aeon-scale-expanded-r3-browser-smoke-1440.png",
+    "desktop_screenshot_sha256": "356cfd82d3e1d8aea00c572f48773cf3c0bef3ca6ce8d9d3127d8767ec7301a5",
+    "mobile_screenshot": "outputs/aeon-scale-expanded-r3-browser-smoke-390.png",
+    "mobile_screenshot_sha256": "a952bf4ce39db4248d670cd12c211361fb70b67b1258e5c223d5c9598e5d3907"
+  },
+  "findings": [],
+  "claim_limits": [
+    "Exact r3 offline research archive only; no new numeric-data, training, scientific-outcome or full-corpus approval.",
+    "Scaling and expanded-TRAIN remain post-hoc TRAIN/validation development evidence.",
+    "Retrospective TEST remains non-sealed and is not external replication.",
+    "Primary external transfer remains metadata-ineligible; secondary remains negative descriptive same-site prior-year comparison.",
+    "No JEPA mechanism value, SOTA, species, biomass, catch, operational savings, production readiness or business validation established.",
+    "Source clock timezone, publication latency, field calibration and publisher conditioning remain unresolved as declared."
+  ],
+  "build_time_review_pending_marker": {
+    "value": "OFFLINE_RESEARCH_MIXED_STUDIES_TEST_REVIEWED_RELEASE_REVIEW_PENDING",
+    "disposition": "HONEST_IMMUTABLE_BUILD_TIME_STATE",
+    "promotion_rule": "External exact-byte review governs promotion without rebuilding or rewriting archive."
+  },
+  "release_disposition": "APPROVED_FOR_OFFLINE_RESEARCH_RELEASE_PROMOTION",
+  "rejected_predecessors": [
+    {"candidate": "aeon-offline-scale-expanded-20260928-r1", "status": "REMAINS_UNAPPROVED_README_PROVENANCE_PATH_DEFECT"},
+    {"candidate": "aeon-offline-scale-expanded-20260928-r2", "status": "REMAINS_UNAPPROVED_MOBILE_HORIZONTAL_OVERFLOW"}
+  ],
+  "unresolved_uncertainty": [
+    "Runtime model binding not exposed; configured reviewer gpt-5.6-sol high.",
+    "Browser run by coordinator; reviewer inspected runner, JSON and screenshots but did not execute Playwright.",
+    "Scientific and operational limitations in immutable package remain in force."
+  ],
+  "time_cost": "LOCAL_READ_ONLY_REVIEW",
+  "cost_usd": 0,
+  "next_action": "Record verdict and promote only immutable r3; preserve unapproved r1/r2."
+}

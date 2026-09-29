@@ -1,6 +1,6 @@
 # Execution status
 
-## AEON scaling development - active 28 September 2026
+## AEON scaling development - bounded studies and release complete 29 September 2026
 
 The owner authorized more local training and use of `E:`. A separate post-hoc
 30,000-update TRAIN/validation direct-versus-EMA study has a distinct exact-byte
@@ -66,7 +66,20 @@ README, 107-file inventory, relocated offline install and API checks passed,
 but a new 390-pixel mobile browser smoke found 489 pixels of document width
 from unbroken evidence hashes. R2 remains unapproved. A three-line CSS wrap
 rule made the production build fit 390 pixels in the same browser check; this
-narrow source change awaits distinct review before an r3 package build.
+narrow source change passed distinct review and was committed as `f975d2b`.
+The new r3 archive built with 107 verified assets (SHA-256
+`5e265e08bf1041bbe0fb4dd2a5f3503bae98f996096577f976beaf9384d6bb57`).
+Fresh relocated offline Python 3.12 installation, API and Chromium checks
+passed; document width fits both 1440-pixel desktop and 390-pixel mobile
+viewports. A permanent browser regression reproduces r2's mobile failure
+and passes r3. The distinct exact-byte review approved the unchanged r3 archive
+for an offline research release, with severity NONE. The external review is
+`orchestration/reviews/AEON_SCALE_EXPANDED_OFFLINE_R3_REVIEW_20260929.json`;
+its approval governs the immutable bytes whose internal build-time metadata
+still honestly says release review pending. This is an offline research
+approval, not a new scientific, production or business-validation gate.
+Full evidence is in
+`orchestration/reports/AEON_SCALE_EXPANDED_OFFLINE_R3_VALIDATION_20260929.md`.
 The detailed investigation is
 `orchestration/reports/AEON_SCALING_AND_EXPANDED_TRAIN_INVESTIGATION_20260928.md`.
 The historical prior-year external-transfer finding is preserved, but it cannot
