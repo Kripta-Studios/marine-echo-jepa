@@ -505,6 +505,9 @@ a {
   background: var(--surface);
   box-shadow: var(--shadow);
 }
+.panel code {
+  overflow-wrap: anywhere;
+}
 .panel--subtle {
   background: rgba(251, 252, 250, 0.62);
   box-shadow: none;
