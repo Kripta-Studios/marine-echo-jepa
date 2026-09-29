@@ -1,0 +1,9 @@
+{
+  "status": "FAILED_BEFORE_REVIEW",
+  "exit_code": 1,
+  "thread_id": "01a0ef46-4161-7e43-b02a-287ab03e9215",
+  "cause": "Output JSON schema rejected: dynamic additionalProperties object incompatible with strict schema. No reviewer work executed.",
+  "correction": "Explicit required properties for ten reviewed document SHA-256 values; no substantive material or execution evidence changed. New fresh review uses separate output paths.",
+  "error_events": "evidence/meeting-readiness-20260929/review-events.jsonl",
+  "credentials": "Unrelated exa revoked OAuth warning also observed; no credential change or retry."
+}
