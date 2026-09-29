@@ -1,0 +1,46 @@
+usage: native_ssl.py [-h] --train TRAIN --dev DEV --output OUTPUT --review
+                     REVIEW [--split SPLIT] [--protocol PROTOCOL]
+                     [--config CONFIG]
+                     [--method {shared_ssl,masked_ssl,direct,random_frozen,permuted_ssl,cf_jepa}]
+                     [--seed SEED] [--history HISTORY]
+                     [--pretrain-updates PRETRAIN_UPDATES]
+                     [--readout-updates READOUT_UPDATES]
+                     [--batch-size BATCH_SIZE] [--latent LATENT]
+                     [--pretrain-cadence PRETRAIN_CADENCE]
+                     [--readout-cadence READOUT_CADENCE] [--device DEVICE]
+                     [--resume RESUME] [--prepare-config-only]
+
+Hash-gated, resumable native acoustic SSL and matched frozen-readout runner.
+Real fitting is owner-executed after distinct APPROVED_PREFIT review. The
+explicit correctness-smoke path admits only visibly synthetic rows on CPU,
+with synthetic approval fixtures; it is never scientific evidence. Final test
+is never loaded.
+
+options:
+  -h, --help            show this help message and exit
+  --train TRAIN
+  --dev DEV
+  --output OUTPUT
+  --review REVIEW
+  --split SPLIT
+  --protocol PROTOCOL
+  --config CONFIG
+  --method {shared_ssl,masked_ssl,direct,random_frozen,permuted_ssl,cf_jepa}
+  --seed SEED           Default without a config: 7
+  --history HISTORY     Default without a config: 96
+  --pretrain-updates PRETRAIN_UPDATES
+                        Default without a config: 6000
+  --readout-updates READOUT_UPDATES
+                        Default without a config: 2000
+  --batch-size BATCH_SIZE
+                        Default without a config: 64
+  --latent LATENT       Default without a config: 64
+  --pretrain-cadence PRETRAIN_CADENCE
+                        Default without a config: 750
+  --readout-cadence READOUT_CADENCE
+                        Default without a config: 250
+  --device DEVICE
+  --resume RESUME
+  --prepare-config-only
+                        Write configuration for review without loading a
+                        corpus or fitting.

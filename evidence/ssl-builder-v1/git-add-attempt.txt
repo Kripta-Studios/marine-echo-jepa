@@ -1,0 +1,1 @@
+fatal: Unable to create 'C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/.git/worktrees/marine-jepa-vnext-builder/index.lock': Permission denied

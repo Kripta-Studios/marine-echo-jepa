@@ -1,0 +1,40 @@
+..FF                                                                     [100%]
+================================== FAILURES ===================================
+_ test_invalid_forecast_or_observed_target_must_not_change_assessment_support[forecast] _
+
+invalid = 'forecast'
+
+    @pytest.mark.parametrize("invalid", ["forecast", "observed_target"])
+    def test_invalid_forecast_or_observed_target_must_not_change_assessment_support(invalid):
+        target = np.full((20, 3), -70.0)
+        prediction = np.repeat(target[..., None], 5, axis=-1)
+        if invalid == "forecast":
+            prediction[0, 0, 0] = np.nan
+        else:
+            target[0, 0] = np.nan
+>       with pytest.raises(ValueError, match="finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\unit\test_native_product.py:51: Failed
+_ test_invalid_forecast_or_observed_target_must_not_change_assessment_support[observed_target] _
+
+invalid = 'observed_target'
+
+    @pytest.mark.parametrize("invalid", ["forecast", "observed_target"])
+    def test_invalid_forecast_or_observed_target_must_not_change_assessment_support(invalid):
+        target = np.full((20, 3), -70.0)
+        prediction = np.repeat(target[..., None], 5, axis=-1)
+        if invalid == "forecast":
+            prediction[0, 0, 0] = np.nan
+        else:
+            target[0, 0] = np.nan
+>       with pytest.raises(ValueError, match="finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\unit\test_native_product.py:51: Failed
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_product.py::test_invalid_forecast_or_observed_target_must_not_change_assessment_support[forecast]
+FAILED tests/unit/test_native_product.py::test_invalid_forecast_or_observed_target_must_not_change_assessment_support[observed_target]
+2 failed, 2 passed in 0.20s

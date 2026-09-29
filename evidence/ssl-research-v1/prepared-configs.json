@@ -1,0 +1,44 @@
+[
+  {
+    "method": "shared_ssl",
+    "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_ssl_shared_ssl_seed7_h96_v1.json",
+    "pretrain_updates": 6000,
+    "readout_updates_per_probe": 500,
+    "checkpoint_cadence": 1500
+  },
+  {
+    "method": "masked_ssl",
+    "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_ssl_masked_ssl_seed7_h96_v1.json",
+    "pretrain_updates": 6000,
+    "readout_updates_per_probe": 500,
+    "checkpoint_cadence": 1500
+  },
+  {
+    "method": "direct",
+    "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_ssl_direct_seed7_h96_v1.json",
+    "pretrain_updates": 3000,
+    "readout_updates_per_probe": 500,
+    "checkpoint_cadence": 750
+  },
+  {
+    "method": "random_frozen",
+    "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_ssl_random_frozen_seed7_h96_v1.json",
+    "pretrain_updates": 0,
+    "readout_updates_per_probe": 500,
+    "checkpoint_cadence": 1500
+  },
+  {
+    "method": "permuted_ssl",
+    "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_ssl_permuted_ssl_seed7_h96_v1.json",
+    "pretrain_updates": 6000,
+    "readout_updates_per_probe": 500,
+    "checkpoint_cadence": 1500
+  },
+  {
+    "method": "cf_jepa",
+    "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_ssl_cf_jepa_seed7_h96_v1.json",
+    "pretrain_updates": 6000,
+    "readout_updates_per_probe": 500,
+    "checkpoint_cadence": 1500
+  }
+]

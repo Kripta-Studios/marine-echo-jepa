@@ -1,0 +1,79 @@
+{
+  "schema_version": "native_ssl_builder_v1",
+  "date": "2026-09-30",
+  "status": "IMPLEMENTED_SYNTHETIC_CPU_VERIFIED_ROOT_INTEGRATION_PENDING",
+  "branch": "research/marine-jepa-vnext-builder",
+  "implementer_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "owner_verified_route": "gpt-6.1-sol/high",
+  "agents_spawned": 0,
+  "parameters": {
+    "shared_encoder": 2424448,
+    "shared_complete_model": 2457621,
+    "configuration": "width192/latent64/blocks4/heads4/patch4"
+  },
+  "runtime": {
+    "python": "3.12.13",
+    "torch": "2.11.0+cu128",
+    "environment": "../marine-echo-jepa/.venv/Scripts/python.exe",
+    "shell": "cmd.exe",
+    "device_used_for_correctness": "cpu",
+    "correctness_initialized_cuda": false
+  },
+  "screen_defaults": {
+    "ssl_updates": 6000,
+    "ssl_candidate_cadence": 1500,
+    "direct_updates": 3000,
+    "direct_candidate_cadence": 750,
+    "encoder_candidates": 4,
+    "readout_updates_per_probe": 500,
+    "readout_checkpoint_cadence": 250,
+    "planned_ssl_supervised_updates": 2000,
+    "planned_direct_supervised_updates": 5000,
+    "protocol": "main docs/adr/0016-native-ssl-selection-and-source-baseline.md"
+  },
+  "executed_checks": [
+    {"command": "cd", "shell": "cmd.exe", "exit_code": 0},
+    {"command": "../marine-echo-jepa/.venv/Scripts/python.exe -B --version", "exit_code": 0},
+    {"command": "python.exe -B -m pytest -q -s -p no:cacheprovider tests/unit/test_native_temporal.py tests/integration/test_native_ssl.py", "phase": "initial_red", "exit_code": 2, "log": "red-tests.txt"},
+    {"command": "python.exe -B -m pytest -q -s -p no:cacheprovider tests/unit/test_native_temporal.py tests/integration/test_native_ssl.py", "phase": "durable_artifact_attempt", "exit_code": 1, "passed": 10, "blocked": 2, "log": "green-attempt-01.txt"},
+    {"command": "python.exe -B -m pytest -q -s -p no:cacheprovider tests/integration/test_native_ssl.py -k shared_ssl", "phase": "inputs_only_inference_red", "exit_code": 1, "log": "red-inputs-only-inference.txt"},
+    {"command": "set PYTHONPATH=src& ../marine-echo-jepa/.venv/Scripts/python.exe -B -m pytest -q -s -p no:cacheprovider tests/unit/test_native_temporal.py tests/integration/test_native_ssl.py", "phase": "final_green", "exit_code": 0, "passed": 34, "seconds": 12.94, "artifact_transport": "in_memory_real_torch_numpy_codecs", "log": "final-tests-v3.txt"},
+    {"command": "python.exe -B -m ruff check --no-cache src/marine_echo/models/native_temporal.py src/marine_echo/training/native_ssl.py tests/unit/test_native_temporal.py tests/integration/test_native_ssl.py", "exit_code": 0, "log": "final-ruff-v3.txt"},
+    {"command": "python.exe -B -m ruff format --check --no-cache src/marine_echo/models/native_temporal.py src/marine_echo/training/native_ssl.py tests/unit/test_native_temporal.py tests/integration/test_native_ssl.py", "exit_code": 0, "log": "final-format-check-v3.txt"},
+    {"command": "python.exe -B -m marine_echo.training.native_ssl --help", "exit_code": 0, "log": "final-cli-help.txt"},
+    {"command": "python.exe -B tools/verify_handoff.py", "exit_code": 1, "reason": "Pre-existing .editorconfig original handoff hash mismatch; file unchanged", "log": "handoff-check.txt"},
+    {"command": "git diff --check", "exit_code": 0}
+  ],
+  "source_sha256": {
+    "src/marine_echo/models/native_temporal.py": "85c4af6c67acb661359cde8bcf22de479e4da6a499cc7843bce0fee6c155e422",
+    "src/marine_echo/training/native_ssl.py": "c2ac62961a47c51a126540adaad186af3a186b3caae53335ac26c36cb561519d",
+    "tests/unit/test_native_temporal.py": "f8015277837ad141817f7b77f8c52f5d5d4bc4fffe6c6ab94c82933cd7328529",
+    "tests/integration/test_native_ssl.py": "4b68d49b20f713cff6025f41b659305747fc2f967b4ca12e5812af2cdedf48c3"
+  },
+  "cf_source_revision": "5d3d2fd1273c283fbfa03249c078619245e84033",
+  "gates": {
+    "software_focused_correctness": "PASS",
+    "durable_fixture_checkpoint_relocation": "BLOCKED_PERMISSION_ERROR_NOT_RETRIED",
+    "independent_prefit_review": "NOT_RUN_ROOT_OWNED",
+    "real_experiment": "NOT_RUN_ROOT_OWNED",
+    "cuda_resource_enforcement": "NOT_RUN_ROOT_OWNED",
+    "jepa_value": "NOT_ESTABLISHED",
+    "business_validation": "NOT_EVALUATED",
+    "final_test": "NOT_RUN"
+  },
+  "paid_spend_usd": 0,
+  "historical_tracked_files_modified": [],
+  "commit_status": "BLOCKED_GIT_INDEX_LOCK_PERMISSION_DENIED",
+  "commit": null,
+  "git_add_exit_code": 128,
+  "git_add_log": "git-add-attempt.txt",
+  "git_add_failure": "Unable to create main .git/worktrees/marine-jepa-vnext-builder/index.lock: Permission denied",
+  "integration_paths": [
+    "src/marine_echo/models/native_temporal.py",
+    "src/marine_echo/training/native_ssl.py",
+    "tests/unit/test_native_temporal.py",
+    "tests/integration/test_native_ssl.py",
+    "evidence/ssl-builder-v1/",
+    "orchestration/reports/NATIVE_SSL_IMPLEMENTATION_V1.md"
+  ]
+}

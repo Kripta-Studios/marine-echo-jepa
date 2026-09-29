@@ -1,0 +1,198 @@
+FF
+================================== FAILURES ===================================
+_____________ test_full_resume_and_inference_replay[1-shared_ssl] _____________
+
+artifact_dir = WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/evidence/ssl-builder-v1/synthetic-tests/memory-29b9c72f-d7ff-4259-a0a5-45179e656949')
+method = 'shared_ssl', interrupt_step = 1
+
+    @pytest.mark.parametrize(
+        "method", ["shared_ssl", "masked_ssl", "direct", "random_frozen", "permuted_ssl", "cf_jepa"]
+    )
+    @pytest.mark.parametrize("interrupt_step", [1, 2])
+    def test_full_resume_and_inference_replay(artifact_dir, method, interrupt_step):
+        torch.set_num_threads(1)
+        config = Config(
+            method=method,
+            pretrain_updates=2,
+            readout_updates=2,
+            batch_size=4,
+            width=24,
+            latent=8,
+            blocks=1,
+            heads=4,
+            pretrain_cadence=1,
+            readout_cadence=1,
+            cf_width=24,
+            cf_latent=8,
+            cf_blocks=1,
+        )
+        paths = approved_fixture(artifact_dir, config)
+        output = artifact_dir / "run"
+        run(
+            *paths,
+            output=output,
+            config=config,
+            device="cpu",
+            correctness_smoke=True,
+            stop_after=interrupt_step,
+        )
+        checkpoint = output / "latest.pt"
+        resumed = artifact_dir / "resumed"
+        run(
+            *paths,
+            output=resumed,
+            config=config,
+            device="cpu",
+            correctness_smoke=True,
+            resume=checkpoint,
+        )
+        continuous = artifact_dir / "continuous"
+        run(*paths, output=continuous, config=config, device="cpu", correctness_smoke=True)
+        first = torch.load(resumed / "inference.pt", weights_only=True)
+        second = torch.load(continuous / "inference.pt", weights_only=True)
+        for key, value in first["model"].items():
+            assert torch.equal(value, second["model"][key]), key
+        from marine_echo.training.native_ssl import predict_from_checkpoint
+    
+        data = corpus(role="development")
+        replay = predict_from_checkpoint(resumed / "inference.pt", data)
+        # A reusable issuance endpoint must not even require assessment arrays.
+        inputs_only = {key: data[key] for key in ("x", "observed", "metadata", "query")}
+>       np.testing.assert_array_equal(predict_from_checkpoint(resumed / "inference.pt", inputs_only), replay)
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\integration\test_native_ssl.py:471: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\marine_echo\training\native_ssl.py:549: in predict_from_checkpoint
+    return predict(model, data, Scalers.from_dict(artifact["scalers"]), config, device)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\marine-echo-jepa\.venv\Lib\site-packages\torch\utils\_contextlib.py:124: in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_ssl.py:526: in predict
+    batch = tensor_batch(data, ids, scalers, config.history, device)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+data = {'x': array([[[-79.631874, -77.82654 , -83.93637 , -81.52566 ],
+        [-78.202545, -80.64679 , -80.91285 , -80.72464... 0.  , 0.  , 0.  , 3.  ],
+        [0.  , 0.  , 0.  , 0.  , 0.92, 0.  , 0.  , 0.  , 0.  , 6.  ]]],
+      dtype=float32)}
+indices = array([0, 1, 2, 3])
+scalers = Scalers(channel_mean=array([-79.97252 , -79.9782  , -79.921715, -79.980415], dtype=float32), channel_std=array([2.9755...79.10358 , -80.8093  , -80.117165], dtype=float32), target_std=array([2.6218393, 2.6092145, 2.2811508], dtype=float32))
+history = 96, device = 'cpu', future = False
+
+    def tensor_batch(data, indices, scalers, history, device, *, future=False):
+        x, mask = data["x"][indices, -history:], data["observed"][indices, -history:]
+        arrays = {
+            "x": scalers.channels(x, mask),
+            "observed": mask,
+            "metadata": data["metadata"][indices],
+            "query": data["query"][indices],
+>           "y": scalers.targets(data["y"][indices], data["y_observed"][indices]),
+                                 ^^^^^^^^^
+            "y_observed": data["y_observed"][indices],
+        }
+E       KeyError: 'y'
+
+src\marine_echo\training\native_ssl.py:509: KeyError
+_____________ test_full_resume_and_inference_replay[2-shared_ssl] _____________
+
+artifact_dir = WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/evidence/ssl-builder-v1/synthetic-tests/memory-f1189771-b2b5-444c-a864-0aa26c0dad22')
+method = 'shared_ssl', interrupt_step = 2
+
+    @pytest.mark.parametrize(
+        "method", ["shared_ssl", "masked_ssl", "direct", "random_frozen", "permuted_ssl", "cf_jepa"]
+    )
+    @pytest.mark.parametrize("interrupt_step", [1, 2])
+    def test_full_resume_and_inference_replay(artifact_dir, method, interrupt_step):
+        torch.set_num_threads(1)
+        config = Config(
+            method=method,
+            pretrain_updates=2,
+            readout_updates=2,
+            batch_size=4,
+            width=24,
+            latent=8,
+            blocks=1,
+            heads=4,
+            pretrain_cadence=1,
+            readout_cadence=1,
+            cf_width=24,
+            cf_latent=8,
+            cf_blocks=1,
+        )
+        paths = approved_fixture(artifact_dir, config)
+        output = artifact_dir / "run"
+        run(
+            *paths,
+            output=output,
+            config=config,
+            device="cpu",
+            correctness_smoke=True,
+            stop_after=interrupt_step,
+        )
+        checkpoint = output / "latest.pt"
+        resumed = artifact_dir / "resumed"
+        run(
+            *paths,
+            output=resumed,
+            config=config,
+            device="cpu",
+            correctness_smoke=True,
+            resume=checkpoint,
+        )
+        continuous = artifact_dir / "continuous"
+        run(*paths, output=continuous, config=config, device="cpu", correctness_smoke=True)
+        first = torch.load(resumed / "inference.pt", weights_only=True)
+        second = torch.load(continuous / "inference.pt", weights_only=True)
+        for key, value in first["model"].items():
+            assert torch.equal(value, second["model"][key]), key
+        from marine_echo.training.native_ssl import predict_from_checkpoint
+    
+        data = corpus(role="development")
+        replay = predict_from_checkpoint(resumed / "inference.pt", data)
+        # A reusable issuance endpoint must not even require assessment arrays.
+        inputs_only = {key: data[key] for key in ("x", "observed", "metadata", "query")}
+>       np.testing.assert_array_equal(predict_from_checkpoint(resumed / "inference.pt", inputs_only), replay)
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\integration\test_native_ssl.py:471: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\marine_echo\training\native_ssl.py:549: in predict_from_checkpoint
+    return predict(model, data, Scalers.from_dict(artifact["scalers"]), config, device)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\marine-echo-jepa\.venv\Lib\site-packages\torch\utils\_contextlib.py:124: in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_ssl.py:526: in predict
+    batch = tensor_batch(data, ids, scalers, config.history, device)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+data = {'x': array([[[-79.631874, -77.82654 , -83.93637 , -81.52566 ],
+        [-78.202545, -80.64679 , -80.91285 , -80.72464... 0.  , 0.  , 0.  , 3.  ],
+        [0.  , 0.  , 0.  , 0.  , 0.92, 0.  , 0.  , 0.  , 0.  , 6.  ]]],
+      dtype=float32)}
+indices = array([0, 1, 2, 3])
+scalers = Scalers(channel_mean=array([-79.97252 , -79.9782  , -79.921715, -79.980415], dtype=float32), channel_std=array([2.9755...79.10358 , -80.8093  , -80.117165], dtype=float32), target_std=array([2.6218393, 2.6092145, 2.2811508], dtype=float32))
+history = 96, device = 'cpu', future = False
+
+    def tensor_batch(data, indices, scalers, history, device, *, future=False):
+        x, mask = data["x"][indices, -history:], data["observed"][indices, -history:]
+        arrays = {
+            "x": scalers.channels(x, mask),
+            "observed": mask,
+            "metadata": data["metadata"][indices],
+            "query": data["query"][indices],
+>           "y": scalers.targets(data["y"][indices], data["y_observed"][indices]),
+                                 ^^^^^^^^^
+            "y_observed": data["y_observed"][indices],
+        }
+E       KeyError: 'y'
+
+src\marine_echo\training\native_ssl.py:509: KeyError
+=========================== short test summary info ===========================
+FAILED tests/integration/test_native_ssl.py::test_full_resume_and_inference_replay[1-shared_ssl]
+FAILED tests/integration/test_native_ssl.py::test_full_resume_and_inference_replay[2-shared_ssl]
+2 failed, 20 deselected in 4.29s

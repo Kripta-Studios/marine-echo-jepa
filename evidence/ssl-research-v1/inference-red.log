@@ -1,0 +1,15 @@
+F..                                                                      [100%]
+================================== FAILURES ===================================
+______ test_missing_primary_prefix_is_outside_declared_issuance_contract ______
+
+    def test_missing_primary_prefix_is_outside_declared_issuance_contract():
+        data = context()
+        data["observed"][0, 0, 0] = False
+>       with pytest.raises(ValueError, match="primary"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\unit\test_native_inference.py:41: Failed
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_inference.py::test_missing_primary_prefix_is_outside_declared_issuance_contract
+1 failed, 2 passed in 2.13s

@@ -1,0 +1,140 @@
+{
+  "status": "EXACT_SCOPED_BUILDER_BYTES_INTEGRATED_PARENT_VERIFICATION_PENDING",
+  "builder_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "builder_git_index_denial": "PRESERVED_NOT_RETRIED",
+  "builder_durable_scratch_denials": "PRESERVED_NOT_RETRIED",
+  "files": [
+    {
+      "path": "src/marine_echo/models/native_temporal.py",
+      "sha256": "85c4af6c67acb661359cde8bcf22de479e4da6a499cc7843bce0fee6c155e422"
+    },
+    {
+      "path": "src/marine_echo/training/native_ssl.py",
+      "sha256": "c2ac62961a47c51a126540adaad186af3a186b3caae53335ac26c36cb561519d"
+    },
+    {
+      "path": "tests/unit/test_native_temporal.py",
+      "sha256": "f8015277837ad141817f7b77f8c52f5d5d4bc4fffe6c6ab94c82933cd7328529"
+    },
+    {
+      "path": "tests/integration/test_native_ssl.py",
+      "sha256": "4b68d49b20f713cff6025f41b659305747fc2f967b4ca12e5812af2cdedf48c3"
+    },
+    {
+      "path": "orchestration/reports/NATIVE_SSL_IMPLEMENTATION_V1.md",
+      "sha256": "0d4a944a5aaca141fef0c6ef2dcd61f57d8770ff2e587663ff3377cbf24da003"
+    },
+    {
+      "path": "evidence/ssl-builder-v1/amended-tests-01.txt",
+      "sha256": "b3b738e871e6089e22cac24fcea838756970b3fd4d91462eba621993d9dd0583"
+    },
+    {
+      "path": "evidence/ssl-builder-v1/cli-help.txt",
+      "sha256": "a357b5bf69711260f27247f147f967e166b6d80ad2f84a07924e86db739c435b"
+    },
+    {
+      "path": "evidence/ssl-builder-v1/final-cli-help.txt",
+      "sha256": "5fe37d0fe318325868b9aa625da7ab75891f318fbeabca3418005d5c5d14bbea"
+    },
+    {
+      "path": "evidence/ssl-builder-v1/final-format-apply-v2.txt",
+      "sha256": "1dc6a19feae160e87088a6a505f8844ac8bfdaf9001c9c3cc558beceb0f6c9d9"
+    },
+    {
+      "path": "evidence/ssl-builder-v1/final-format-apply-v3.txt",
+      "sha256": "ecadcab6ba8db65f26e491b8a5abf181e94e6e96cf96718dc2e4c83e7c8ab2c5"
+    },
+    {
+      "path": "evidence/ssl-builder-v1/final-format-apply.txt",
+      "sha256": "1dc6a19feae160e87088a6a505f8844ac8bfdaf9001c9c3cc558beceb0f6c9d9"
+    },
+    {
+      "path": "evidence/ssl-builder-v1/final-format-check-v2.txt",
+      "sha256": "177f260a5645724013185e4b140c7045cc39e56c0c97b120f5cb23599f85f0de"
+    },
+    {
+      "path": "evidence/ssl-builder-v1/final-format-check-v3.txt",
+      "sha256": "177f260a5645724013185e4b140c7045cc39e56c0c97b120f5cb23599f85f0de"
+    },
+    {
+      "path": "evidence/ssl-builder-v1/final-format-check.txt",
+      "sha256": "177f260a5645724013185e4b140c7045cc39e56c0c97b120f5cb23599f85f0de"
+    },
+    {
+      "path": "evidence/ssl-builder-v1/final-ruff-v2.txt",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "evidence/ssl-builder-v1/final-ruff-v3.txt",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "evidence/ssl-builder-v1/final-ruff.txt",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "evidence/ssl-builder-v1/final-tests-v2.txt",
+      "sha256": "0fa8214ab953ae3d908ca53d39f65cee3c021199f2e41a10b9b862935a99eca9"
+    },
+    {
+      "path": "evidence/ssl-builder-v1/final-tests-v3.txt",
+      "sha256": "cacdf90249c502e51d75e7b199bf9cee6981ba78dfcd02e37b2748cc8497c0fa"
+    },
+    {
+      "path": "evidence/ssl-builder-v1/final-tests.txt",
+      "sha256": "bcc3689f267d25b8d1dcaa1a1255f76e5c896798e8b643e88fac091964092d7f"
+    },
+    {
+      "path": "evidence/ssl-builder-v1/git-add-attempt.txt",
+      "sha256": "9455edbd0350be26281ea40db31b6257dc0c1c0bc6c1304f979594f43536c345"
+    },
+    {
+      "path": "evidence/ssl-builder-v1/green-attempt-01.txt",
+      "sha256": "52f869e9187ec0a88bbf100f551fa868728a25c5e367783a81547ffa16d8ac24"
+    },
+    {
+      "path": "evidence/ssl-builder-v1/green-attempt-02.txt",
+      "sha256": "131d238f56e964e5a84ab7e9e967442d8094503483898d6578968524aff5b6f0"
+    },
+    {
+      "path": "evidence/ssl-builder-v1/green-attempt-03.txt",
+      "sha256": "8c92a4e81b4fd5b2d8035ed75c651a62b64f47ec8b68904f7493a15dff911699"
+    },
+    {
+      "path": "evidence/ssl-builder-v1/green-attempt-04.txt",
+      "sha256": "3ac63580740ba93070caba4d774b1da756667a1363c983da1c4a8436c51b8020"
+    },
+    {
+      "path": "evidence/ssl-builder-v1/handoff-check.txt",
+      "sha256": "3cef84b3e23935a6ecd2a67cca85bf04c94264dbcce141d51775165980afde92"
+    },
+    {
+      "path": "evidence/ssl-builder-v1/implementation_ledger.json",
+      "sha256": "39fa53298bee7f728d6ed6b1966d987de2636920087ad373297ce67cf278daf4"
+    },
+    {
+      "path": "evidence/ssl-builder-v1/ledger-validation.txt",
+      "sha256": "d2cb17c5581bd1cf29b51b5612f1b721f547f30b257884a72342eeda1b83afce"
+    },
+    {
+      "path": "evidence/ssl-builder-v1/red-inputs-only-inference.txt",
+      "sha256": "1087d68fd94f37925fa380da5d637e2cfb45597832f0a19ba4bb6ff610e2ef0d"
+    },
+    {
+      "path": "evidence/ssl-builder-v1/red-tests.txt",
+      "sha256": "c97989588133b1e6d26a75193c1758818c6b17263db60f9e0387d97ce4bd7108"
+    },
+    {
+      "path": "evidence/ssl-builder-v1/ruff-attempt-01.txt",
+      "sha256": "f5d5dd2fc8245144b7e8810522c1b41bc4bd69209bbe2b5a4ab7b0ccf25365eb"
+    },
+    {
+      "path": "evidence/ssl-builder-v1/ruff-fix.txt",
+      "sha256": "ba2c763752132a3c06896cd52838f1555d4ef0f62b2896ca439c5bdb028351e4"
+    },
+    {
+      "path": "evidence/ssl-builder-v1/ruff-format.txt",
+      "sha256": "779cd08be038ac289c50927416d74769a286b3d89191260af669534feb28cf68"
+    }
+  ]
+}

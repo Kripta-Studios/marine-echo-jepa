@@ -1,0 +1,162 @@
+[
+  {
+    "session_id": "01a0ef1a-b166-7f83-91b7-2a2aff7c1b10",
+    "events": "primary_root",
+    "observed_contexts": [
+      {
+        "model": "gpt-6.1-sol",
+        "effort": "high",
+        "sandbox_policy": {
+          "type": "danger-full-access"
+        },
+        "approval_policy": "never"
+      }
+    ]
+  },
+  {
+    "session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+    "events": "builder-events-02.jsonl",
+    "observed_contexts": [
+      {
+        "model": "gpt-6.1-sol",
+        "effort": "high",
+        "sandbox_policy": {
+          "type": "workspace-write",
+          "network_access": false,
+          "exclude_tmpdir_env_var": false,
+          "exclude_slash_tmp": false
+        },
+        "approval_policy": "never"
+      },
+      {
+        "model": "gpt-6.1-sol",
+        "effort": "high",
+        "sandbox_policy": {
+          "type": "workspace-write",
+          "network_access": false,
+          "exclude_tmpdir_env_var": false,
+          "exclude_slash_tmp": false
+        },
+        "approval_policy": "never"
+      }
+    ]
+  },
+  {
+    "session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+    "events": "builder-events.jsonl",
+    "observed_contexts": [
+      {
+        "model": "gpt-6.1-sol",
+        "effort": "high",
+        "sandbox_policy": {
+          "type": "workspace-write",
+          "network_access": false,
+          "exclude_tmpdir_env_var": false,
+          "exclude_slash_tmp": false
+        },
+        "approval_policy": "never"
+      },
+      {
+        "model": "gpt-6.1-sol",
+        "effort": "high",
+        "sandbox_policy": {
+          "type": "workspace-write",
+          "network_access": false,
+          "exclude_tmpdir_env_var": false,
+          "exclude_slash_tmp": false
+        },
+        "approval_policy": "never"
+      }
+    ]
+  },
+  {
+    "session_id": "01a0ef27-876b-7692-917e-3975afc6893d",
+    "events": "numeric-review-events-02.jsonl",
+    "observed_contexts": [
+      {
+        "model": "gpt-6.1-sol",
+        "effort": "high",
+        "sandbox_policy": {
+          "type": "read-only"
+        },
+        "approval_policy": "never"
+      },
+      {
+        "model": "gpt-6.1-sol",
+        "effort": "high",
+        "sandbox_policy": {
+          "type": "read-only"
+        },
+        "approval_policy": "never"
+      },
+      {
+        "model": "gpt-6.1-sol",
+        "effort": "high",
+        "sandbox_policy": {
+          "type": "read-only"
+        },
+        "approval_policy": "never"
+      }
+    ]
+  },
+  {
+    "session_id": "01a0ef27-876b-7692-917e-3975afc6893d",
+    "events": "numeric-review-events-03.jsonl",
+    "observed_contexts": [
+      {
+        "model": "gpt-6.1-sol",
+        "effort": "high",
+        "sandbox_policy": {
+          "type": "read-only"
+        },
+        "approval_policy": "never"
+      },
+      {
+        "model": "gpt-6.1-sol",
+        "effort": "high",
+        "sandbox_policy": {
+          "type": "read-only"
+        },
+        "approval_policy": "never"
+      },
+      {
+        "model": "gpt-6.1-sol",
+        "effort": "high",
+        "sandbox_policy": {
+          "type": "read-only"
+        },
+        "approval_policy": "never"
+      }
+    ]
+  },
+  {
+    "session_id": "01a0ef27-876b-7692-917e-3975afc6893d",
+    "events": "numeric-review-events.jsonl",
+    "observed_contexts": [
+      {
+        "model": "gpt-6.1-sol",
+        "effort": "high",
+        "sandbox_policy": {
+          "type": "read-only"
+        },
+        "approval_policy": "never"
+      },
+      {
+        "model": "gpt-6.1-sol",
+        "effort": "high",
+        "sandbox_policy": {
+          "type": "read-only"
+        },
+        "approval_policy": "never"
+      },
+      {
+        "model": "gpt-6.1-sol",
+        "effort": "high",
+        "sandbox_policy": {
+          "type": "read-only"
+        },
+        "approval_policy": "never"
+      }
+    ]
+  }
+]

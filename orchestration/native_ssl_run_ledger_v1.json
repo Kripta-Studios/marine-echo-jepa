@@ -1,0 +1,96 @@
+{
+  "schema_version": "native_acoustic_ssl_v1",
+  "status": "REAL_CORPORA_AND_MODEL_IMPLEMENTED_PREFIT_REVIEW_RUNNING",
+  "branch": "research/marine-jepa-vnext",
+  "base_commit": "2455fd3",
+  "owner_authorization": "2026-09-29 activated model-first native acoustic SSL mission",
+  "historical_protocols_modified": false,
+  "app_release_work": "FROZEN",
+  "approved_r3_sha256": "5e265e08bf1041bbe0fb4dd2a5f3503bae98f996096577f976beaf9384d6bb57",
+  "approved_r3_verified_unchanged": true,
+  "split": "configs/native_ssl_split_v1.json",
+  "protocol": "docs/adr/0015-native-acoustic-ssl-research.md",
+  "routing": "evidence/ssl-research-v1/routing.json",
+  "gpu_owner": "root",
+  "gpu_limit_hours": 96,
+  "gpu_hours_completed_scientific_training": 0,
+  "scientific_fits_completed": 0,
+  "cloud": "DISABLED",
+  "paid_spend_usd": 0,
+  "runs": [
+    {
+      "id": "runtime_preflight",
+      "status": "PASSED",
+      "artifact": "evidence/ssl-research-v1/preflight.json",
+      "purpose": "CUDA correctness smoke, not scientific training"
+    },
+    {
+      "id": "historical_handoff",
+      "status": "FAILED",
+      "reason": "Original manifest .gitattributes mismatch; historical failure preserved"
+    },
+    {
+      "id": "split_reservation",
+      "status": "COMPLETED_METADATA_ONLY",
+      "sources": 7,
+      "acoustic_values_opened": false
+    },
+    {
+      "id": "builder_attempt_1",
+      "status": "BLOCKED_LAUNCHER",
+      "session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+      "reason": "Default PowerShell process creation failed before command execution; same-permission cmd launcher retry pending"
+    },
+    {
+      "id": "numeric_preaccess_review",
+      "status": "APPROVED_AFTER_TWO_REPAIRS",
+      "events": "evidence/ssl-research-v1/numeric-review-events.jsonl",
+      "review": "evidence/ssl-research-v1/numeric-review-final-03.json"
+    },
+    {
+      "id": "shared_ssl_seed7_history96",
+      "status": "NOT_RUN_PENDING_PREFIT",
+      "pretrain_updates_ceiling_initial": 6000,
+      "readout_updates_ceiling_initial": 2000
+    },
+    {
+      "id": "native_train_materialization",
+      "status": "COMPLETED_REAL",
+      "issued": 18593,
+      "ssl_eligible": 18312,
+      "npz_sha256": "c2a529b6180b427ee7259a77ea0926919350cc42eb03f2067d0956138aa6461a"
+    },
+    {
+      "id": "native_development_materialization",
+      "status": "COMPLETED_REAL",
+      "issued": 7593,
+      "ssl_eligible": 7484,
+      "npz_sha256": "4ca59c6b3539e6e214ac949a3294408f59a28386b9731461f2f03881198f2023"
+    },
+    {
+      "id": "parent_durable_model_tests",
+      "status": "PASSED",
+      "tests": 34,
+      "log": "evidence/ssl-research-v1/parent-durable-tests.log"
+    },
+    {
+      "id": "parent_data_reference_tests",
+      "status": "PASSED",
+      "tests": 22,
+      "log": "evidence/ssl-research-v1/root-tests-green-v4.log"
+    },
+    {
+      "id": "model_prefit_review",
+      "status": "RUNNING",
+      "events": "evidence/ssl-research-v1/prefit-review-events.jsonl"
+    }
+  ],
+  "screen_policy": {
+    "ssl_updates": 6000,
+    "direct_supervised_updates": 3000,
+    "encoder_selection_opportunities": 4,
+    "probe_updates_each": 500,
+    "SSL_total_probe_updates": 2000,
+    "direct_total_supervised_updates": 5000
+  }
+}
