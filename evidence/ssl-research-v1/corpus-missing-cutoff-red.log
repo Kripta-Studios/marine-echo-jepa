@@ -1,0 +1,18 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_____ test_secondary_processing_change_after_missing_cutoff_is_a_boundary _____
+
+    def test_secondary_processing_change_after_missing_cutoff_is_a_boundary():
+        source = slots()
+        source[95].observed[1] = False
+        source[95] = replace(source[95], qc=("OBSERVED_CENSORING_UNKNOWN", "MISSING_CHANNEL", "OBSERVED_CENSORING_UNKNOWN", "OBSERVED_CENSORING_UNKNOWN"))
+        for index in range(96, 120):
+            source[index] = replace(source[index], processing=("p", "new-processing", "p", "p"), ping_counts=(150, 180, 150, 150))
+        result = issue_windows(source)
+>       assert not result["ssl_eligible"][0]
+E       assert not np.True_
+
+tests\unit\test_native_corpus_boundaries.py:40: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_corpus_boundaries.py::test_secondary_processing_change_after_missing_cutoff_is_a_boundary
+1 failed in 0.37s

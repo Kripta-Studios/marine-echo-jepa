@@ -1,0 +1,175 @@
+{
+  "status": "COMPLETED_REAL_TRAIN_DEVELOPMENT_MATERIALIZATION",
+  "elapsed_seconds": 233.77029619999666,
+  "peak_rss_gib": 4.039432525634766,
+  "roles": [
+    {
+      "status": "MATERIALIZED_REAL_NATIVE_PRODUCTS",
+      "role": "train",
+      "issued": 18593,
+      "ssl_eligible": 18312,
+      "source_reports": [
+        {
+          "deployment": "AEON4_JOB:61937263",
+          "slots": 3781,
+          "issued": 3197,
+          "native_bounds": [
+            [
+              0.0,
+              220.0
+            ]
+          ],
+          "qc": {
+            "PARTIAL_SOURCE_INTERVAL": 5,
+            "MISSING_CHANNEL": 3781,
+            "OBSERVED_CENSORING_UNKNOWN": 3776,
+            "INVALID_OR_SENTINEL": 1
+          }
+        },
+        {
+          "deployment": "AEON4_JOB:61937272",
+          "slots": 4253,
+          "issued": 3574,
+          "native_bounds": [
+            [
+              0.0,
+              220.0
+            ]
+          ],
+          "qc": {
+            "PARTIAL_SOURCE_INTERVAL": 5,
+            "OBSERVED_CENSORING_UNKNOWN": 4248
+          }
+        },
+        {
+          "deployment": "AEON3_GEB:61937275",
+          "slots": 8846,
+          "issued": 7436,
+          "native_bounds": [
+            [
+              0.0,
+              200.0
+            ]
+          ],
+          "qc": {
+            "PARTIAL_SOURCE_INTERVAL": 12,
+            "OBSERVED_CENSORING_UNKNOWN": 8834
+          }
+        },
+        {
+          "deployment": "AEON3_GEB:61937281",
+          "slots": 5165,
+          "issued": 4386,
+          "native_bounds": [
+            [
+              0.0,
+              200.0
+            ]
+          ],
+          "qc": {
+            "PARTIAL_SOURCE_INTERVAL": 7,
+            "OBSERVED_CENSORING_UNKNOWN": 5158
+          }
+        }
+      ],
+      "npz_sha256": "c2a529b6180b427ee7259a77ea0926919350cc42eb03f2067d0956138aa6461a",
+      "split_sha256": "3b4728e16da3c09c58d9316560283e19ecf79885bbf38a7c7025ce4b83e8993b",
+      "numeric_review_sha256": "241e079660d88731bce28dbc9b8380d3bba6933a60cc7a5ab600f5a92a618a9a",
+      "reader_sha256": "ebda9d460fa14df749b8f774bcb02a6622f0d69402443098a6100670a4c8f7ba",
+      "contract_fields": [
+        "value",
+        "observed_mask",
+        "censoring_or_qc",
+        "frequency_hz",
+        "interval_start",
+        "interval_end",
+        "clock_status",
+        "geometry_kind",
+        "upper_bound",
+        "lower_bound",
+        "orientation",
+        "processing_id_or_unknown",
+        "instrument_mode_or_unknown",
+        "deployment_id_for_grouping"
+      ],
+      "interval_convention": "Source Date_M/Time_M center proxy +/-30min; exact publisher interval edges unknown",
+      "censoring": "Unknown absolute censoring; sentinel/missing/partial QC explicit",
+      "metadata_fields": [
+        "frequency_hz",
+        "interval_seconds",
+        "geometry_kind",
+        "upper_m",
+        "lower_m",
+        "orientation_code_zero_unknown",
+        "processing_known",
+        "instrument_known",
+        "clock_known",
+        "relative_offset_intervals"
+      ],
+      "metadata_encoding": "frequency/455000Hz; interval/3600s; geometry1=integrated; bounds/250m; orientation0=UNKNOWN; processing/instrument/clock known flags; relative offset in source intervals",
+      "broadcast_metadata_invariant": "All observed context/future channels have matching encoded metadata; actual per-observation metadata and processing provenance retained separately"
+    },
+    {
+      "status": "MATERIALIZED_REAL_NATIVE_PRODUCTS",
+      "role": "development",
+      "issued": 7593,
+      "ssl_eligible": 7484,
+      "source_reports": [
+        {
+          "deployment": "AEON4_JOB:61937266",
+          "slots": 8849,
+          "issued": 7593,
+          "native_bounds": [
+            [
+              0.0,
+              225.0
+            ]
+          ],
+          "qc": {
+            "PARTIAL_SOURCE_INTERVAL": 13,
+            "MISSING_CHANNEL": 8849,
+            "OBSERVED_CENSORING_UNKNOWN": 8836
+          }
+        }
+      ],
+      "npz_sha256": "4ca59c6b3539e6e214ac949a3294408f59a28386b9731461f2f03881198f2023",
+      "split_sha256": "3b4728e16da3c09c58d9316560283e19ecf79885bbf38a7c7025ce4b83e8993b",
+      "numeric_review_sha256": "241e079660d88731bce28dbc9b8380d3bba6933a60cc7a5ab600f5a92a618a9a",
+      "reader_sha256": "ebda9d460fa14df749b8f774bcb02a6622f0d69402443098a6100670a4c8f7ba",
+      "contract_fields": [
+        "value",
+        "observed_mask",
+        "censoring_or_qc",
+        "frequency_hz",
+        "interval_start",
+        "interval_end",
+        "clock_status",
+        "geometry_kind",
+        "upper_bound",
+        "lower_bound",
+        "orientation",
+        "processing_id_or_unknown",
+        "instrument_mode_or_unknown",
+        "deployment_id_for_grouping"
+      ],
+      "interval_convention": "Source Date_M/Time_M center proxy +/-30min; exact publisher interval edges unknown",
+      "censoring": "Unknown absolute censoring; sentinel/missing/partial QC explicit",
+      "metadata_fields": [
+        "frequency_hz",
+        "interval_seconds",
+        "geometry_kind",
+        "upper_m",
+        "lower_m",
+        "orientation_code_zero_unknown",
+        "processing_known",
+        "instrument_known",
+        "clock_known",
+        "relative_offset_intervals"
+      ],
+      "metadata_encoding": "frequency/455000Hz; interval/3600s; geometry1=integrated; bounds/250m; orientation0=UNKNOWN; processing/instrument/clock known flags; relative offset in source intervals",
+      "broadcast_metadata_invariant": "All observed context/future channels have matching encoded metadata; actual per-observation metadata and processing provenance retained separately"
+    }
+  ],
+  "final_test_numeric_access": "NOT_RUN_PROHIBITED",
+  "review_sha256": "241e079660d88731bce28dbc9b8380d3bba6933a60cc7a5ab600f5a92a618a9a"
+}

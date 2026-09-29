@@ -1,0 +1,61 @@
+{
+  "status": "APPROVED_NATIVE_NUMERIC_ACCESS",
+  "reviewer_session_id": "01a0ef27-876b-7692-917e-3975afc6893d",
+  "implementer_session_id": "01a0ef1a-b166-7f83-91b7-2a2aff7c1b10",
+  "allowed_roles": ["train", "development"],
+  "bindings": {
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\AGENTS.md": "0646ce8483a027f694842e25c2e0f6de3af83526028a518807357672a374ed57",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\CODEX_SSL_RESEARCH_MISSION.md": "5bf3fbca35ebe2f803f6c61aff965ae3059e3f3142a85809ecde9bead1c130bd",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0015-native-acoustic-ssl-research.md": "82deb36e88df2a6660a2389a653d077a186e5072fbb4ede11d9fbc06c9816148",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_ssl_split_v1.json": "3b4728e16da3c09c58d9316560283e19ecf79885bbf38a7c7025ce4b83e8993b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\reserve_native_ssl.py": "8fcc311188a41d7add3300e403d4d9f7a71e92238bd33d7cd413ad59131fe599",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\native_ssl_corpus.py": "ebda9d460fa14df749b8f774bcb02a6622f0d69402443098a6100670a4c8f7ba",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\aeon_corpus.py": "398e021a5807ab8068ceef03dd692f3b688c744751cd4e65d3efbee94d9a3efd",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_native_corpus.py": "36ca8dafd76b46fc7083cb1a92b21218f828357e4c2379a08e133f2ee28ec6e4",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_native_corpus_boundaries.py": "1a35a46427c4ec164f0554ed31624dfd4b9446d4cfc94f75413bbb6edf201997"
+  },
+  "findings": [],
+  "executed_checks": [
+    {
+      "command": "set PYTHONDONTWRITEBYTECODE=1&& .venv\\Scripts\\python.exe -B -m pytest -s -p no:cacheprovider tests\\unit\\test_native_corpus.py::test_native_bounds_and_nonoverlapping_future tests\\unit\\test_native_corpus.py::test_assessment_future_never_changes_inputs_or_issuance tests\\unit\\test_native_corpus.py::test_gap_and_geometry_configuration_are_not_bridged tests\\unit\\test_native_corpus.py::test_unknown_orientation_and_processing_provenance tests\\unit\\test_native_corpus_boundaries.py",
+      "shell": "C:\\Windows\\System32\\cmd.exe",
+      "exitcode": 0,
+      "result": "14 passed independently, including combined processing/ping changes and processing-only or ping-only changes across missing, partial and duplicate cutoff states."
+    },
+    {
+      "command": null,
+      "exitcode": null,
+      "result": "NOT_RUN independently: test_train_statistics_ignore_masked_and_do_not_accept_dev requires tmp_path writes. That fixture failed under this same read-only session during the preceding review and was deliberately excluded here. Its code and supplied passing record were inspected; no filesystem workaround was attempted."
+    },
+    {
+      "command": "mcp__node_repl__js",
+      "exitcode": null,
+      "result": "Fresh SHA-256 checks covered all bound files. Closing hashes remained unchanged. Split protocol and scout digests matched."
+    },
+    {
+      "command": "mcp__node_repl__js",
+      "exitcode": null,
+      "result": "Fresh streaming SHA-256 checks matched all seven source archive pins. No source acoustic values were numerically parsed."
+    }
+  ],
+  "inspected_evidence": {
+    "independence": "Runtime metadata confirms this same distinct thread, GPT-6.1 Sol/high, read-only. Its identity differs from the implementer and previously verified builder sessions. No agents were spawned or implementation files changed.",
+    "R2_resolution": "The reader retains each channel's last observed context configuration. Future-path validation compares actual processing IDs, ping counts and geometry against that reference despite a missing, partial or duplicate cutoff observation. The previously reproduced loophole is closed; independent regression execution passed.",
+    "other_repairs": "Adjacent structural and clock checks remain enforced. Per-observation context/future metadata and processing/ping provenance remain retained. Orientation code 0 explicitly means UNKNOWN. Scaler provenance guards require TRAIN corpus role, matching split SHA and per-row TRAIN deployment/archive membership.",
+    "reservation": "Whole AEON2 site remains final_test. Latest AEON4 remains development. Earlier AEON4, prior-year AEON3 and original AEON3 TRAIN-only dates remain training resources. Exposed original validation is excluded. Historical fitted weights/scalers are not imported.",
+    "native_semantics": "Native geometry remains unchanged and distinct across products. Context and future source interval IDs are disjoint; declared overlaps among future horizons are permitted. Forecast issuance remains context-based.",
+    "access_gate": "The gate binds split, ADR, reader and imported aeon_corpus.py constants. This approval permits only the exact bound train/development numerical materialization contract.",
+    "supplied_execution_records": "Inspected corpus-missing-cutoff-red.log records the failing pre-repair combined-change regression. Inspected corpus-green-v3.log records 15 passes. Those records are distinct from the 14 tests independently executed here.",
+    "profile_scope": "Profile inventory remains metadata-only. Daily integrated exports are not higher-cadence products; layer extension is separate from initial integrated training.",
+    "scope_exclusions": "This approval excludes final_test numerical access and all scientific fitting. A subsequent independent model-prefit review must bind the exact corpus, model, configuration and selection policy.",
+    "review_activity": "No public acoustic Sv values were interpreted, no numerical source corpus was materialized, no scientific fitting occurred, and no held-out outcomes were inspected."
+  },
+  "residual_risks": [
+    "Exact interval edges remain center-based proxies. Timezone and operational availability latency are unknown; source-interval disjointness does not prove exact physical-time nonoverlap.",
+    "Absolute censoring, calibration and processing comparability remain unresolved. Threshold settings are provenance, not established censoring indicators.",
+    "Limited deployments and disclosed historical exposure restrict transfer claims. This approval establishes neither universally sealed evaluation nor biological, instrument-independent or field-wide SOTA claims.",
+    "The scaler regression was independently NOT_RUN because temporary writes were restricted. Train-only fitting behavior and actual corpus provenance remain subjects of the separate model-prefit review.",
+    "The 24-interval comparison must use the suffix of identical 96-interval support. Model-prefit review must verify temporal metadata use, masks, shared support and fitting exclusions.",
+    "AEON2 count 165 remains excluded pending complete-mode provenance. No final-test numerical access is authorized."
+  ]
+}

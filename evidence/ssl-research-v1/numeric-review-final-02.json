@@ -1,0 +1,83 @@
+{
+  "status": "REQUEST_CHANGES",
+  "reviewer_session_id": "01a0ef27-876b-7692-917e-3975afc6893d",
+  "implementer_session_id": "01a0ef1a-b166-7f83-91b7-2a2aff7c1b10",
+  "allowed_roles": [],
+  "bindings": {
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\CODEX_SSL_RESEARCH_MISSION.md": "5bf3fbca35ebe2f803f6c61aff965ae3059e3f3142a85809ecde9bead1c130bd",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0015-native-acoustic-ssl-research.md": "82deb36e88df2a6660a2389a653d077a186e5072fbb4ede11d9fbc06c9816148",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_ssl_split_v1.json": "3b4728e16da3c09c58d9316560283e19ecf79885bbf38a7c7025ce4b83e8993b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\reserve_native_ssl.py": "8fcc311188a41d7add3300e403d4d9f7a71e92238bd33d7cd413ad59131fe599",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\native_ssl_corpus.py": "db8d60f5e9aee3ad2c04ce99e87e8a2a9d8975e06911de9a375d65aa174018b5",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\aeon_corpus.py": "398e021a5807ab8068ceef03dd692f3b688c744751cd4e65d3efbee94d9a3efd",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_native_corpus.py": "36ca8dafd76b46fc7083cb1a92b21218f828357e4c2379a08e133f2ee28ec6e4",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_native_corpus_boundaries.py": "7b0ca24e8096a6f113ed9d2f0dccef308f71c878b2d7eb82cd82276cf4e42dce"
+  },
+  "findings": [
+    {
+      "id": "R2",
+      "severity": "HIGH",
+      "resolution": "PARTIALLY_REPAIRED_STILL_BLOCKING",
+      "location": "src/marine_echo/data/native_ssl_corpus.py:189-200,248-258,274-287",
+      "finding": "A secondary-channel processing or ping configuration change can still cross from context into future when that channel is missing at the cutoff. Configuration comparisons skip the missing channel, and the future comparison against context uses encoded metadata that omits actual processing IDs and ping counts.",
+      "independently_executed_reproduction": "Use the existing synthetic slots fixture. At interval 95, mark secondary channel 1 missing with processing UNKNOWN and ping count 0. Context observations retain processing p and 150 pings. From interval 96 onward, change only that secondary processing ID to q, retaining geometry and 150 pings. issue_windows returns ssl_eligible[0]=True and future processing q.",
+      "additional_executed_evidence": "A separate synthetic case changed the returning channel's processing ID and ping count to changed-process/180. Its future observation remained observed, SSL eligibility remained true, and the six-step target remained scoreable.",
+      "required_change": "Carry the last established context configuration for each channel into future-path validation, including actual processing ID, geometry and complete ping configuration. Missing, partial or duplicate observations must not erase that reference. Preserve context-based issuance while preventing crops and assessment targets from crossing a detected boundary. Add processing-only and ping-only regression cases across missing/partial cutoff observations.",
+      "evidence_basis": "Independent execution against the exact hash-bound repaired reader; synthetic fixtures only."
+    }
+  ],
+  "executed_checks": [
+    {
+      "command": "set PYTHONDONTWRITEBYTECODE=1&& .venv\\Scripts\\python.exe -B -m pytest -s -p no:cacheprovider tests\\unit\\test_native_corpus.py tests\\unit\\test_native_corpus_boundaries.py",
+      "shell": "C:\\Windows\\System32\\cmd.exe",
+      "exitcode": 1,
+      "result": "7 passed, 1 setup error. test_train_statistics_ignore_masked_and_do_not_accept_dev was NOT_RUN because tmp_path could not obtain a writable temporary directory. No permission or sandbox change was attempted."
+    },
+    {
+      "command": "set PYTHONDONTWRITEBYTECODE=1&& .venv\\Scripts\\python.exe -B -m pytest -s -p no:cacheprovider tests\\unit\\test_native_corpus.py::test_native_bounds_and_nonoverlapping_future tests\\unit\\test_native_corpus.py::test_assessment_future_never_changes_inputs_or_issuance tests\\unit\\test_native_corpus.py::test_gap_and_geometry_configuration_are_not_bridged tests\\unit\\test_native_corpus.py::test_unknown_orientation_and_processing_provenance tests\\unit\\test_native_corpus_boundaries.py",
+      "shell": "C:\\Windows\\System32\\cmd.exe",
+      "exitcode": 0,
+      "result": "7 passed independently."
+    },
+    {
+      "command": "set PYTHONDONTWRITEBYTECODE=1&& .venv\\Scripts\\python.exe -B -c exec(bytes.fromhex('66726f6d2064617461636c617373657320696d706f7274207265706c6163650a66726f6d2074657374732e756e69742e746573745f6e61746976655f636f7270757320696d706f727420736c6f74730a66726f6d206d6172696e655f6563686f2e646174612e6e61746976655f73736c5f636f7270757320696d706f72742069737375655f77696e646f77730a733d736c6f747328290a735b39355d2e6f627365727665645b315d3d46616c73650a735b39355d3d7265706c61636528735b39355d2c70726f63657373696e673d282770272c27554e4b4e4f574e272c2770272c277027292c70696e675f636f756e74733d283135302c302c3135302c313530292c71633d28274f425345525645445f43454e534f52494e475f554e4b4e4f574e272c274d495353494e475f4348414e4e454c272c274f425345525645445f43454e534f52494e475f554e4b4e4f574e272c274f425345525645445f43454e534f52494e475f554e4b4e4f574e2729290a735b39363a5d3d5b7265706c61636528762c70726f63657373696e673d282770272c2771272c2770272c277027292920666f72207620696e20735b39363a5d5d0a633d69737375655f77696e646f77732873290a7072696e74282753594e5448455449435f50524f434553535f4f4e4c59272c635b2773736c5f656c696769626c65275d5b305d2c635b276675747572655f70726f63657373696e675f69645f6f725f756e6b6e6f776e275d5b302c302c302c315d290a617373657274206e6f7420635b2773736c5f656c696769626c65275d5b305d2c202750726f63657373696e6720626f756e64617279206163726f7373206d697373696e67206375746f66662072656d61696e732053534c20656c696769626c65270a').decode())",
+      "shell": "C:\\Windows\\System32\\cmd.exe",
+      "exitcode": 1,
+      "result": "Independent synthetic counterexample failed its safety assertion. Output: SYNTHETIC_PROCESS_ONLY True q. AssertionError: Processing boundary across missing cutoff remains SSL eligible."
+    },
+    {
+      "command": "mcp__node_repl__js",
+      "exitcode": null,
+      "result": "Read and freshly hashed requested files, including the secondary regression test and imported aeon_corpus.py dependency. Closing hashes were unchanged; protocol and scout bindings matched."
+    },
+    {
+      "command": "mcp__node_repl__js",
+      "exitcode": null,
+      "result": "Fresh streaming SHA-256 checks matched all seven source archive pins. No acoustic values were parsed."
+    }
+  ],
+  "inspected_evidence": {
+    "independence": "Runtime metadata confirms the same distinct reviewer thread, GPT-6.1 Sol/high, read-only. No agents were spawned or fixes implemented.",
+    "preserved_review": "evidence/ssl-research-v1/numeric-review-final.json retains the original REQUEST_CHANGES record and reviewer identity.",
+    "repair_assessment": {
+      "R1": "Repaired: future paths now check adjacent interval, clock and configuration continuity; supplied boundary regressions passed independently.",
+      "R2": "Per-observation metadata and processing/ping provenance are retained, and context invariants improved. The independently reproduced missing-cutoff processing boundary remains unresolved.",
+      "R3": "Repaired: orientation_code_zero_unknown and orientation UNKNOWN are explicit; normalized metadata encoding and provenance fields are documented.",
+      "R4": "Source inspection confirms scalar corpus-role checking, split SHA binding and per-row TRAIN deployment/archive membership. The strengthened masked-outlier/provenance test was inspected but independently NOT_RUN because its temporary fixture was blocked.",
+      "dependency_binding": "The numerical gate now checks the imported historical aeon_corpus.py hash."
+    },
+    "reservation": "Whole AEON2 site remains final_test; latest AEON4 remains development; earlier AEON4 and allowed AEON3 sources remain TRAIN. Original AEON3 TRAIN ends 2024-10-07. Historical exposure accounting and exclusion of exposed original validation remain intact.",
+    "ping_policy": "The AEON2 2023–2024 source now admits only 150/180 counts; 165 is excluded. The later AEON2 source remains restricted to 150.",
+    "native_geometry": "Native product bounds remain distinct; no 0–230 m to 0–200 m relabeling or Sv rescaling was found.",
+    "supplied_logs": "corpus-boundaries-red.log records three failures; corpus-green-v2.log records eight passes. These were inspected records, not independent execution claims.",
+    "profile_inventory": "Inspected metadata-only layer inventory. Daily integrated exports are not treated as higher-cadence observations, and layer extension does not gate the initial integrated campaign.",
+    "access_limits": "No public acoustic Sv numerical parsing, numerical corpus materialization, model training or final-test outcome access occurred."
+  },
+  "residual_risks": [
+    "Exact interval edges remain center-based proxies; timezone and operational availability latency are unknown. Disjoint source interval IDs do not prove exact physical-time nonoverlap.",
+    "Absolute censoring, processing comparability and calibration remain unresolved. Threshold settings cannot establish observation censoring.",
+    "Few deployments and disclosed historical exposure limit transfer claims; whole-site reservation does not establish universally sealed evaluation or independent instrument replication.",
+    "The later model-prefit review must enforce matched 24/96 history support, train-only fitting and complete model/trainer/cohort/hash contracts.",
+    "This REQUEST_CHANGES grants no numerical access or fitting authorization. Final_test numerical access remains excluded."
+  ]
+}

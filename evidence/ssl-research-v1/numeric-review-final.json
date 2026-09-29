@@ -1,0 +1,135 @@
+{
+  "status": "REQUEST_CHANGES",
+  "reviewer_session_id": "01a0ef27-876b-7692-917e-3975afc6893d",
+  "implementer_session_id": "01a0ef1a-b166-7f83-91b7-2a2aff7c1b10",
+  "allowed_roles": [],
+  "bindings": {
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\CODEX_SSL_RESEARCH_MISSION.md": "5bf3fbca35ebe2f803f6c61aff965ae3059e3f3142a85809ecde9bead1c130bd",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0015-native-acoustic-ssl-research.md": "82deb36e88df2a6660a2389a653d077a186e5072fbb4ede11d9fbc06c9816148",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_ssl_split_v1.json": "15d1a6b38ee2dc99ba90048125bdc371d6621837d25c761d2bb8242ef41fb38b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\reserve_native_ssl.py": "0454a35d3cff28b313b3f781b8fb675bc162b4d19f3add456e061a516734c627",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\native_ssl_corpus.py": "9de36fd8b24bde6ccdcedde3ac9b7d7377069ceab4f3907b25816786836c6e10",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_native_corpus.py": "4d6bf34391c9b1018b71bdc574002a43e0e3637d81c477ab59bd5274726834bf",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\aeon_corpus.py": "398e021a5807ab8068ceef03dd692f3b688c744751cd4e65d3efbee94d9a3efd"
+  },
+  "findings": [
+    {
+      "id": "R1",
+      "severity": "HIGH",
+      "location": "src/marine_echo/data/native_ssl_corpus.py:239-255",
+      "finding": "Future eligibility checks each endpoint against the cutoff, rather than checking every intervening interval. Scored targets can bridge a configuration change followed by recovery, and SSL blocks can bridge clock discontinuities.",
+      "static_counterexamples": [
+        "With cutoff configuration A, configuration B at cutoff+4, and A again at cutoff+6, y_observed for horizon 6 remains true despite crossing the configuration boundary.",
+        "Future timestamps at +60, +130 and +180 minutes all pass the cumulative tolerance checks, although adjacent gaps of 70 and 50 minutes violate _consecutive. With otherwise valid slots, ssl_eligible can remain true."
+      ],
+      "required_change": "Determine contiguous metadata segments using adjacent interval, clock and configuration checks. Preserve context-based forecast issuance, but mask assessment targets beyond a segment boundary and prevent SSL crops from crossing it. Add regression tests for both counterexamples.",
+      "evidence_basis": "Exact source inspection; counterexamples were not executed against Python."
+    },
+    {
+      "id": "R2",
+      "severity": "HIGH",
+      "location": "src/marine_echo/data/native_ssl_corpus.py:183-209,257-267",
+      "finding": "Configuration comparison covers only the primary channel. Window metadata comes solely from the cutoff, and future observations have no corresponding metadata. Changes to an observed secondary channel's geometry or processing can therefore be bridged and described using another interval's metadata.",
+      "static_counterexample": "Keep primary metadata constant, change an observed secondary channel's bounds midway through context, and retain complete observations. Context remains eligible, while metadata contains only the secondary bounds at the cutoff.",
+      "required_change": "Align metadata with each context and future observation, or enforce and prove the constant metadata needed for broadcasting. Track genuine secondary-channel configuration changes while distinguishing temporary missing/partial observations. Preserve processing and ping-configuration provenance in materialized artifacts.",
+      "evidence_basis": "Exact source inspection. Inspected source metadata had matching channel geometries and timestamps; this finding identifies an unenforced contract invariant."
+    },
+    {
+      "id": "R3",
+      "severity": "HIGH",
+      "location": "src/marine_echo/data/native_ssl_corpus.py:28-39,202-209",
+      "finding": "The field named orientation_unknown is initialized to zero and never set, even though orientation is unresolved. This represents unknown orientation as false. Materialization also declares processing_id_or_unknown among its contract fields but discards the actual processing IDs retained by NativeSlot.",
+      "required_change": "Encode unknown orientation explicitly and consistently. Preserve the declared provenance fields or revise the artifact schema to accurately identify their representation. Document normalized metadata units and field mappings, and test them.",
+      "evidence_basis": "Exact source inspection."
+    },
+    {
+      "id": "R4",
+      "severity": "HIGH",
+      "location": "src/marine_echo/data/native_ssl_corpus.py:290-299; tests/unit/test_native_corpus.py",
+      "finding": "train_statistics trusts the caller's role string and ignores corpus_role, split identity and deployment membership. A materialized development corpus passed with role='train' is accepted. The current test checks only rejection of the literal development argument.",
+      "required_change": "Validate corpus provenance against the TRAIN partition before fitting statistics. Reject a development corpus even when the caller supplies role='train', and reject mixed or unverified provenance. Add a genuine masked-outlier test; the existing test does not alter any mask.",
+      "evidence_basis": "Exact source inspection; no statistics were fitted."
+    }
+  ],
+  "executed_checks": [
+    {
+      "command": "Get-Location; Get-Content -LiteralPath AGENTS.md; Get-Content -LiteralPath CODEX_SSL_RESEARCH_MISSION.md; Get-Content -LiteralPath docs/adr/0015-native-acoustic-ssl-research.md; Get-Content -LiteralPath configs/native_ssl_split_v1.json",
+      "exitcode": null,
+      "result": "NOT_RUN: shell process creation failed with CreateProcessAsUserW error -1073283067."
+    },
+    {
+      "command": "mcp__node_repl__js",
+      "exitcode": null,
+      "result": "COMPLETED through the read-only tool: read and SHA-256 hashed the requested contract, split, reservation tool, reader and tests. All six requested-file hashes remained unchanged at the closing check. The split's protocol and scout hashes matched."
+    },
+    {
+      "command": "mcp__node_repl__js",
+      "exitcode": null,
+      "result": "COMPLETED through the read-only tool: streamed SHA-256 over all seven source archives and independently reconstructed ZIP central-directory inventory digests. Every archive hash, inventory digest and member count matched the split."
+    },
+    {
+      "command": "mcp__node_repl__js",
+      "exitcode": null,
+      "result": "COMPLETED through the read-only tool: inspected CSV headers and projected only Process_ID, Interval, Layer, Layer_depth_min, Layer_depth_max, Ping_S, Ping_E, Date_M and Time_M. No Sv_mean or other acoustic measurement was numerically interpreted, reported or retained as review data."
+    },
+    {
+      "command": "$env:PYTHONDONTWRITEBYTECODE='1'; & '.venv/Scripts/python.exe' -B -m pytest -s -p no:cacheprovider tests/unit/test_native_corpus.py",
+      "exitcode": null,
+      "result": "NOT_RUN: shell process creation failed with CreateProcessAsUserW error -1073283067. No Python test result is claimed; no alternative process-launch mechanism was used."
+    }
+  ],
+  "inspected_evidence": {
+    "independence": {
+      "runtime_model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "sandbox": "read-only",
+      "builder_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+      "result": "Runtime request metadata establishes the actual reviewer thread. It differs from both the supplied implementer ID and the builder ID recorded in evidence/ssl-research-v1/routing.json. Repository role templates still name older models; actual runtime matches the owner's requested override."
+    },
+    "documents": [
+      "AGENTS.md",
+      "agent_prompts/INDEPENDENT_REVIEWER.md",
+      "CODEX_SSL_RESEARCH_MISSION.md",
+      "docs/adr/0015-native-acoustic-ssl-research.md",
+      "configs/native_ssl_split_v1.json",
+      "tools/reserve_native_ssl.py",
+      "src/marine_echo/data/native_ssl_corpus.py",
+      "tests/unit/test_native_corpus.py",
+      "src/marine_echo/training/aeon_corpus.py",
+      "evidence/aeon_scale/metadata_scout_20260928.json",
+      "docs/adr/0012-aeon-external-conditioned-product-transfer.md",
+      "docs/adr/0014-aeon-expanded-data-development.md",
+      "orchestration/ssl_vnext_numeric_review_contract.txt",
+      "evidence/ssl-research-v1/routing.json"
+    ],
+    "reservation": "The separately versioned study correctly reserves both listed AEON2 deployments for final_test, the latest AEON4 deployment for development, and the earlier AEON4 deployments plus prior-year AEON3 and original AEON3 TRAIN dates for training. Original AEON3 access ends on 2024-10-07, matching the historical TRAIN boundary. Exposed original validation is excluded.",
+    "source_verification": [
+      {"file_id": 61937263, "role": "train", "members": 60, "hashes_match": true, "native_geometry_m": [0, 220]},
+      {"file_id": 61937266, "role": "development", "members": 78, "hashes_match": true, "native_geometry_m": [0, 225]},
+      {"file_id": 61937272, "role": "train", "members": 98, "hashes_match": true, "native_geometry_m": [0, 220]},
+      {"file_id": 61937278, "role": "final_test", "members": 182, "hashes_match": true, "native_geometry_m": [0, 230]},
+      {"file_id": 61937275, "role": "train", "members": 182, "hashes_match": true, "native_geometry_m": [0, 200]},
+      {"file_id": 61937281, "role": "train", "members": 229, "hashes_match": true, "native_geometry_m": [0, 200]},
+      {"file_id": 61937269, "role": "final_test", "members": 248, "hashes_match": true, "native_geometry_m": [0, 230]}
+    ],
+    "accepted_properties": [
+      "Owner activation authorizes this new native-product study; historical meeting-only priorities are not grounds for rejection.",
+      "Reservation code hashes archives and inventories ZIP members without interpreting acoustic values.",
+      "The reader retains native bounds and does not transform 0–230 m Sv into a purported 0–200 m value.",
+      "Declared future source interval IDs are disjoint from context; overlaps between future horizons are explicitly permitted.",
+      "For an unchanged slot inventory, future numerical values do not enter context inputs or decide issuance. Future masks determine scoring and SSL eligibility separately.",
+      "The inspected reader does not load historical fitted weights or scalers.",
+      "Historical exposure is disclosed, including prior-year AEON3 fitting exposure and the AEON2 compatibility investigation."
+    ],
+    "review_limits": "No files were written, agents spawned, fixes implemented, acoustic values numerically parsed, models trained, or held-out outcomes inspected. Existing tests were inspected but could not be executed."
+  },
+  "residual_risks": [
+    "Date_M/Time_M plus or minus 30 minutes supplies proxy interval edges. Exact publisher edges, timezone and operational product latency remain unknown. Disjoint source interval IDs do not establish exact physical-time nonoverlap.",
+    "Absolute censoring and calibration remain unresolved. Valid weak values must remain observed; threshold settings are processing provenance and cannot establish a censoring indicator.",
+    "AEON2 ping-count modes 150/165/180 are supported by metadata histograms, which alone do not independently establish instrument configuration or complete-interval semantics.",
+    "Whole-site reservation covers few deployments and disclosed historical exposure. It supports limited conditioned-product transfer claims, not universally sealed evaluation, independent instrument replication, biological causality or field-wide SOTA.",
+    "The 24-interval comparison must use the suffix of the same 96-interval support. Calling issue_windows independently with history=24 produces a different cohort; the later trainer/cohort review must enforce matching.",
+    "The numerical access gate checks split, ADR and reader hashes, but does not enforce the imported aeon_corpus.py dependency binding included here. Changes to imported frequency or sentinel constants require renewed review.",
+    "REQUEST_CHANGES grants no numerical access. Final_test numerical access and all fitting remain outside this review; a later independent prefit review must inspect the completed model, trainer, cohort and hash contract."
+  ]
+}

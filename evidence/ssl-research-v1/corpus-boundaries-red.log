@@ -1,0 +1,37 @@
+FFF                                                                      [100%]
+================================== FAILURES ===================================
+______ test_intervening_future_configuration_invalidates_longer_targets _______
+
+    def test_intervening_future_configuration_invalidates_longer_targets():
+        source = slots()
+        source[97].bounds[:] = [0, 220]
+        result = issue_windows(source)
+        assert result["x"].shape[0] > 0
+>       assert not result["y_observed"][0, 2]
+E       assert not np.True_
+
+tests\unit\test_native_corpus_boundaries.py:15: AssertionError
+__________ test_secondary_geometry_is_not_hidden_by_cutoff_metadata ___________
+
+    def test_secondary_geometry_is_not_hidden_by_cutoff_metadata():
+        source = slots()
+        source[50].bounds[1] = [0, 220]
+>       assert issue_windows(source)["x"].shape[0] == 0
+E       assert 16 == 0
+
+tests\unit\test_native_corpus_boundaries.py:22: AssertionError
+_________ test_intervening_clock_jump_is_not_erased_by_endpoint_check _________
+
+    def test_intervening_clock_jump_is_not_erased_by_endpoint_check():
+        source = slots()
+        source[97] = replace(source[97], timestamp=source[97].timestamp + np.timedelta64(10, "h"))
+        result = issue_windows(source)
+>       assert not result["y_observed"][0, 2]
+E       assert not np.True_
+
+tests\unit\test_native_corpus_boundaries.py:29: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_corpus_boundaries.py::test_intervening_future_configuration_invalidates_longer_targets
+FAILED tests/unit/test_native_corpus_boundaries.py::test_secondary_geometry_is_not_hidden_by_cutoff_metadata
+FAILED tests/unit/test_native_corpus_boundaries.py::test_intervening_clock_jump_is_not_erased_by_endpoint_check
+3 failed in 1.67s
