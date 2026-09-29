@@ -1,0 +1,106 @@
+{
+  "status": "PASSED",
+  "executor": "coordinator",
+  "browser_connector": "MCP Playwright",
+  "base_url": "http://127.0.0.1:8784",
+  "source": "Fresh scratch extraction of approved immutable r3, launched by separate GPT-6.1 Sol/high implementation session",
+  "initial_direct": {
+    "selected_model": "core_direct_equal_three_seed_ensemble",
+    "section_heading": "Saved TEST predictions",
+    "row_count": 12,
+    "first_replay_row": "2025-01-06T23:51:58.910000\t482280\t-92.02 / -91.86 / -91.44 / -90.33 / -87.85\t-91.84 / -91.59 / -91.27 / -89.98 / -87.21\t-91.92 / -91.50 / -91.00 / -89.60 / -86.95",
+    "headers": [
+      "Source cutoff",
+      "Interval ID",
+      "+1 source interval · q05 / q25 / q50 / q75 / q95 (dB)",
+      "+3",
+      "+6"
+    ],
+    "replay_notice": "HISTORICAL REPLAY"
+  },
+  "initial_ema": {
+    "selected_model": "core_ema_equal_three_seed_ensemble",
+    "first_replay_row": "2025-01-06T23:51:58.910000\t482280\t-92.08 / -91.86 / -91.51 / -90.46 / -87.53\t-92.00 / -91.91 / -91.18 / -90.01 / -87.21\t-92.00 / -91.87 / -91.10 / -89.53 / -86.97",
+    "notice": [
+      "HISTORICAL REPLAY",
+      "",
+      "Saved TEST predictions",
+      "",
+      "Every issued cutoff is available in chronological source order. These are saved, truth-free predictions from the reviewed retrospective run, not live forecasts. The source clock is unspecified, not UTC.",
+      "",
+      "Frozen family "
+    ]
+  },
+  "fixed_index_100": {
+    "selected_model": "core_ema_equal_three_seed_ensemble",
+    "page_range": "Rows 97–108 of 1216.",
+    "fixed_index_100_row": "2025-01-11T03:51:58.030000\t482380\t-91.75 / -90.88 / -89.75 / -88.24 / -85.75\t-91.74 / -90.75 / -89.53 / -87.87 / -84.69\t-91.64 / -90.81 / -89.41 / -87.89 / -84.68"
+  },
+  "legacy_engineering_example": {
+    "url": "http://127.0.0.1:8784/#experiment-lab",
+    "heading": "Raw response-code TRAIN development",
+    "notice": "REAL TRAIN DEVELOPMENT · ENGINEERING ONLY\n\nRaw response-code TRAIN development\n\nA complete-positive transformed AZFP backscatter_r code mean study. These development metrics use raw response codes, not calibrated Sv. This is not a JEPA result, and no final evaluation was run.\n\nPARTIAL DATA\n\nTRAIN-development artifact · engineering only\n\nREAL_TRAIN_DEVELOPMENT_ONLY · raw_response_development_v1 · raw_response_development_deterministic_20260927. The reported comparison is Ridge outperformed the direct neural model on this fixed TRAIN-development assessment at all three horizons..\n\nQUANTITY\ncomplete_positive_azfp_backscatter_r_code_mean\nUNIT\ntransformed AZFP response code (not calibrated Sv)\nCALIBRATION\nUncalibrated · not Sv\nFINAL EVALUATION\nNot performed\nDIRECT CHECKPOINT SHA-256\n713e4dba5bf94f8f29abd2df60c674b68a9b6b89dbaa3f7ce64fc386c1848e49\n\nDirect neural is worse than ridge on both reported metrics at all three horizons.\n\nRecorded TRAIN-development metrics by forecast horizon\nHorizon",
+    "displayed_rows": 636,
+    "first_cutoff_rows": [
+      "2020-04-02T00:00:00Z\t1 h\t2020-04-02T00:00:00Z\tIneligible\tNot scored\t11134.788967646688, 11208.701358031994, 11241.035778050084, 11273.86053306829, 11352.665353207038\t10957.428573280198, 11125.380426557638, 11208.552288207857, 11285.215947188211, 11483.046016234983",
+      "2020-04-02T00:00:00Z\t3 h\t2020-04-02T02:00:00Z\tEligible\t11218.38622325756\t11048.579749333181, 11181.384634786285, 11234.852652726486, 11286.095411145128, 11404.09840486931\t10956.282520029417, 11121.941899056212, 11205.895245901069, 11283.27059129959, 11480.240384910103",
+      "2020-04-02T00:00:00Z\t6 h\t2020-04-02T05:00:00Z\tEligible\t11229.620259602865\t10989.28314777152, 11160.61574514039, 11235.111784852923, 11295.574373665744, 11472.269603189296\t10960.707644778051, 11128.679834579933, 11212.108752841077, 11289.492317431665, 11485.80862091683"
+    ],
+    "headers": [
+      "Cutoff (UTC)",
+      "Horizon",
+      "Target start (UTC)",
+      "Eligible",
+      "Truth code",
+      "Ridge codes (5%, 25%, 50%, 75%, 95%)",
+      "Direct neural codes (5%, 25%, 50%, 75%, 95%)"
+    ]
+  },
+  "geometry": [
+    {
+      "url": "http://127.0.0.1:8784/#aeon-study",
+      "viewport": 1440,
+      "document_width": 1425,
+      "body_width": 1425
+    },
+    {
+      "url": "http://127.0.0.1:8784/#aeon-study",
+      "viewport": 390,
+      "document_width": 375,
+      "body_width": 375
+    }
+  ],
+  "observed_console_errors": [
+    "HTTP 404 for /favicon.ico; no observed JavaScript console error"
+  ],
+  "nonblocking_issues": [
+    "Missing favicon",
+    "In-app Browser unavailable; its smoke remains NOT_RUN",
+    "MCP Playwright refused main-checkout artifact writes; actual browser logs/screenshots retained only inside its allowed core/.playwright-mcp directory"
+  ],
+  "permissions": {
+    "denied_actions": [
+      "Save browser snapshot to main-checkout evidence path",
+      "Save browser console log to main-checkout evidence path"
+    ],
+    "response": "Kept browser artifacts in explicitly allowed core scratch root; no denied write retried through another channel, no copied screenshots into the denied destination, no permission/config changes"
+  },
+  "evidence_directory": "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa-core/.playwright-mcp",
+  "evidence_files": [
+    "meeting-ready-20260929-initial.yml",
+    "meeting-ready-20260929-console.log",
+    "meeting-ready-20260929-network.log",
+    "meeting-ready-20260929-1440.png",
+    "meeting-ready-20260929-390.png",
+    "meeting-ready-20260929-raw-comparison.yml",
+    "meeting-ready-20260929-raw-example.yml",
+    "meeting-ready-20260929-raw-observation.png"
+  ],
+  "scope_limits": [
+    "AEON saved TEST replay is truth-free and is not live checkpoint inference",
+    "No later AEON observations were reconstructed or read from raw/protected source archives",
+    "Later observation displayed only for first chronological already bundled MOSAiC response-code engineering row; different target and scope",
+    "No new forecasts or metrics evaluated; no training, calibration, raw data materialization or external web navigation",
+    "No full spoken eight-minute rehearsal claim; this evidence records actual browser navigation and visual checks"
+  ]
+}

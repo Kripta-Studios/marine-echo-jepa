@@ -1,0 +1,48 @@
+{
+  "verified_at": "2026-09-29T21:50:33.952337+00:00",
+  "executor": "coordinator",
+  "browser_network_requests_in_final_saved_buffer": 0,
+  "initial_network_inspection": {
+    "requests_observed": 20,
+    "non_loopback_requests_observed": 0,
+    "source": "Coordinator first read of tool-captured network log, recorded in task tool output before later fragment navigation/reset"
+  },
+  "complete_persisted_network_census": "NOT_RUN_FINAL_BUFFER_EMPTY_AFTER_NAVIGATION",
+  "viewport_fit": "PASSED",
+  "browser_artifacts_hashed_in_allowed_core_root": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\.playwright-mcp\\meeting-ready-20260929-initial.yml": "89d6e6c319768fef99acdf89b9d5fa5ece5bd8b8689ac83cf3de285de6712773",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\.playwright-mcp\\meeting-ready-20260929-console.log": "7a1d18a468f4256d0885269e1a2713c010d70f84c9ae36c9a5429d97837a31ad",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\.playwright-mcp\\meeting-ready-20260929-network.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\.playwright-mcp\\meeting-ready-20260929-1440.png": "301f229e94502116163625520c4ee07e5be4eb25cf60a1ca7bb33e8bcfa464fd",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\.playwright-mcp\\meeting-ready-20260929-390.png": "f4e12ffa494fca59fcf5f3b04e8815f1ce6f2f67cf9fe8880b6218f1d0e6ed84",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\.playwright-mcp\\meeting-ready-20260929-raw-comparison.yml": "2966a07dabeeea69403b88ef108c5290c07006d788c9a3e7673a626f3e8bfbb1",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\.playwright-mcp\\meeting-ready-20260929-raw-example.yml": "be09cd9c20b96680e46a55f2d9af980c9dbd846ed0f31273203a9f31dbc21af8",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\.playwright-mcp\\meeting-ready-20260929-raw-observation.png": "604cdb4cfcad5337085afbde8480cd15efc814fed322d9bc64e33913b66f1e30"
+  },
+  "no_copy_to_denied_main_destination": true,
+  "scope": "Actual browser traversal and bundled engineering observation; no full spoken rehearsal or scientific recomputation",
+  "coordinator_helper_attempts": [
+    {
+      "action": "Prepare predetermined raw example",
+      "initial_exit": 1,
+      "cause": "IndentationError before execution",
+      "corrected_exit": 0
+    },
+    {
+      "action": "Verify browser evidence hashes",
+      "initial_exit": 1,
+      "cause": "Default cp1252 read rejected UTF-8 evidence",
+      "correction": "Explicit UTF-8 decoding"
+    },
+    {
+      "action": "Require nonempty final network buffer",
+      "exit": 1,
+      "cause": "Browser network buffer reset on navigation; final saved log has no requests",
+      "resolution": "Record missing complete persisted census explicitly; retain initial coordinator observation without claiming final log proves it"
+    },
+    {
+      "action": "Verify browser artifact hashes and viewport fit with explicit limitations",
+      "exit": 0
+    }
+  ]
+}

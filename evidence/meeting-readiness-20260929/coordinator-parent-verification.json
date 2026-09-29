@@ -1,0 +1,33 @@
+{
+  "checked_at": "2026-09-29T22:24:29.414327+00:00",
+  "status": "PASSED",
+  "head": "8dea4dd0915d0a7d90197172cba2dd2d8e621f4c",
+  "historical_tracked_files_checked": 262,
+  "historical_scope": "262 tracked protected source/configuration/report/review/ledger files; not 383 historical diagnostic artifacts",
+  "archive_sha256": "5e265e08bf1041bbe0fb4dd2a5f3503bae98f996096577f976beaf9384d6bb57",
+  "meeting_document_hashes": {
+    "README.md": "6cc0d472f6df85d3c970c7a2c1ae734a9c7c8bcff3141fec28ecbce1f153098d",
+    "INDEX.md": "2316282a92e8f701d3dc18c9bff1e1edb772f0289ccfc51fe90aa41bb57189c3",
+    "START_HERE.md": "8c0235180ed391620fb236d67a614de3db2bbf5748d3ff32fcd50000f04c36dc",
+    "CODEX_MEETING_READY_AFTER_DIAGNOSTIC.md": "a1020c94959b2ea50e8267c71e3b13f92dd08664a3a4087d1bc707bccce10e25",
+    "meeting/20260929/MEETING_BRIEF.md": "859b525c381917625134ab11f0b9463278bf1aac2e0e54158665c954433ce1f0",
+    "meeting/20260929/DEMO_RUNBOOK.md": "7206ae85199ca84b8e9d0075c93bd9675f2d627e7e493a6e908f90b2c0533509",
+    "meeting/20260929/PILOT_DATA_REQUEST.md": "3fa02162d5b134af92e12b3cf7c11110b07ab29857ce20421793c575760e0d6d",
+    "meeting/20260929/NEXT_RESEARCH_DECISION.md": "bf2c3a51e48f39280a51da93af2850a5fd1eb71665835d2088bf02d94869f674",
+    "meeting/20260929/READINESS_CHECKLIST.json": "f4c0899c13a8c56fb84cb8aeed624008d069dc653463c8af27ccd69ab2bab749"
+  },
+  "local_markdown_links_checked": 123,
+  "brief_words": 474,
+  "working_files_match_committed_bytes": true,
+  "checklist_lf_normalization": {
+    "semantic_change": false,
+    "old_working_sha256": "a461193e47e7e38de3a063b093f8aaaf1a00adb9ab750ad2d236722f81fbfcf3",
+    "new_sha256": "f4c0899c13a8c56fb84cb8aeed624008d069dc653463c8af27ccd69ab2bab749",
+    "reason": "Working CRLF matched committed LF exactly after normalization; restored only this task-owned file to committed bytes"
+  },
+  "committed_status_preserves_historical_bytes": true,
+  "concurrent_status": "Preserve external working prefix and CRLF differences; exclude from own staged changes; review committed HEAD STATUS",
+  "no_scientific_execution": true,
+  "diff_check_exit": 0,
+  "tracked_changes": " M meeting/20260929/READINESS_CHECKLIST.json\n M orchestration/STATUS.md\n"
+}

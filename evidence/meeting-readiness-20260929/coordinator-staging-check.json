@@ -1,0 +1,5 @@
+{
+  "initial_whitespace_check": "FAILED",
+  "cause": "Raw implementation CLI final text contains Markdown hard-break spaces. Left raw output unchanged and untracked; excluded it from authored evidence commit. No protected or concurrent files modified.",
+  "final_whitespace_check": "PASSED"
+}

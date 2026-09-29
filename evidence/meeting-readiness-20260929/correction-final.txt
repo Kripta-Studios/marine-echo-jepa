@@ -1,0 +1,11 @@
+Committed correction **`8dea4dd0915d0a7d90197172cba2dd2d8e621f4c`**, directly after preserved `71cab57`.
+
+- Review prose now refers to the checklist/current separate review record.
+- Runbook distinguishes live AEON navigation from later cached SPA rendering after shutdown.
+- Primary script uses direct/EMA only; LightGBM remains labelled API/static-tested.
+
+Focused verification ran once, exit **0**: **120 links**, unchanged numeric tokens, LF documents, preserved limitations. `git diff --check HEAD` exited **0**.
+
+[Updated verification](</C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/evidence/meeting-readiness-20260929/correction-verification.json>)
+
+No research, launch or browser rerun. Original logs/scripts and root-owned files were excluded. Full spoken rehearsal remains **NOT_RUN**.

@@ -1,0 +1,18 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["verdict", "reason", "findings", "residual_risks", "independent_checks", "inspected_coordinator_checks", "reviewed_head", "reviewed_files_sha256", "requested_model", "requested_reasoning_effort", "scope"],
+  "properties": {
+    "verdict": {"type": "string", "enum": ["ship", "fix-first", "rethink"]},
+    "reason": {"type": "string"},
+    "findings": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["severity", "file", "line", "required_fix"], "properties": {"severity": {"type": "string"}, "file": {"type": "string"}, "line": {"type": ["integer", "null"]}, "required_fix": {"type": "string"}}}},
+    "residual_risks": {"type": "array", "items": {"type": "string"}},
+    "independent_checks": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["action", "status", "result"], "properties": {"action": {"type": "string"}, "status": {"type": "string", "enum": ["PASSED", "FAILED", "NOT_RUN", "NOT_APPLICABLE"]}, "result": {"type": "string"}}}},
+    "inspected_coordinator_checks": {"type": "array", "items": {"type": "string"}},
+    "reviewed_head": {"type": "string"},
+    "reviewed_files_sha256": {"type": "object", "additionalProperties": {"type": "string"}},
+    "requested_model": {"type": "string"},
+    "requested_reasoning_effort": {"type": "string"},
+    "scope": {"type": "string"}
+  }
+}
