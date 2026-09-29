@@ -1,0 +1,141 @@
+[
+  {
+    "thread_id": "01a0eec2-916d-7982-9d1f-8cb074409ca9",
+    "agent_path": "/root/diagnostic_sol61",
+    "agent_role": null,
+    "turn_contexts": [
+      {
+        "model": "gpt-6-astra",
+        "effort": "high",
+        "sandbox_policy": {
+          "type": "danger-full-access"
+        },
+        "permission_profile": {
+          "type": "disabled"
+        }
+      },
+      {
+        "model": "gpt-6.1-sol",
+        "effort": "high",
+        "sandbox_policy": {
+          "type": "workspace-write",
+          "network_access": false,
+          "exclude_tmpdir_env_var": false,
+          "exclude_slash_tmp": false
+        },
+        "permission_profile": {
+          "type": "managed",
+          "file_system": {
+            "type": "restricted",
+            "entries": [
+              {
+                "path": {
+                  "type": "special",
+                  "value": {
+                    "kind": "root"
+                  }
+                },
+                "access": "read"
+              },
+              {
+                "path": {
+                  "type": "path",
+                  "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core"
+                },
+                "access": "write"
+              },
+              {
+                "path": {
+                  "type": "special",
+                  "value": {
+                    "kind": "slash_tmp"
+                  }
+                },
+                "access": "write"
+              },
+              {
+                "path": {
+                  "type": "special",
+                  "value": {
+                    "kind": "tmpdir"
+                  }
+                },
+                "access": "write"
+              },
+              {
+                "path": {
+                  "type": "path",
+                  "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\.git"
+                },
+                "access": "read",
+                "missing_path_behavior": "skip"
+              },
+              {
+                "path": {
+                  "type": "path",
+                  "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\.agents"
+                },
+                "access": "read",
+                "missing_path_behavior": "skip"
+              },
+              {
+                "path": {
+                  "type": "path",
+                  "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\.codex"
+                },
+                "access": "read",
+                "missing_path_behavior": "skip"
+              },
+              {
+                "path": {
+                  "type": "path",
+                  "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa-core\\.aws"
+                },
+                "access": "read",
+                "missing_path_behavior": "skip"
+              }
+            ]
+          },
+          "network": "restricted"
+        }
+      },
+      {
+        "model": "gpt-6.1-sol",
+        "effort": "high",
+        "sandbox_policy": {
+          "type": "danger-full-access"
+        },
+        "permission_profile": {
+          "type": "disabled"
+        }
+      },
+      {
+        "model": "gpt-6-sol",
+        "effort": "high",
+        "sandbox_policy": {
+          "type": "danger-full-access"
+        },
+        "permission_profile": {
+          "type": "disabled"
+        }
+      }
+    ]
+  },
+  {
+    "thread_id": "01a0eebf-2e7f-75f2-aa23-d269a523f5bd",
+    "agent_path": "/root/diagnostic_builder",
+    "agent_role": "default",
+    "turn_contexts": [
+      {
+        "model": "gpt-5.6-sol",
+        "effort": "medium",
+        "sandbox_policy": {
+          "type": "danger-full-access"
+        },
+        "permission_profile": {
+          "type": "disabled"
+        }
+      }
+    ]
+  }
+]

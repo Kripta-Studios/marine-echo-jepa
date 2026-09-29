@@ -1,5 +1,44 @@
 # Execution status
 
+## Checkpoint and objective diagnostic - executed, review pending 29 September 2026
+
+The owner replaced automatic nine-trajectory attribution with the bounded
+checkpoint/objective diagnostic at `991368d`. All nine original direct 1500/3000
+and EMA 1500 SSL + 1500 supervised components were recovered and verified;
+three-seed ensembles remain separate. Direct 1500 beats EMA per seed and as an
+ensemble on exposed VAL (ensemble pinball 0.639577 vs 0.642170 dB). Individual
+direct 3000 scores worsen while its ensemble improves slightly to 0.639062.
+No historical minimum was selected and no CAL/TEST numeric access occurred.
+
+The source and saved-state audits reproduce zero data-gradients in all 6144
+EMA suffix first-layer weights, with teacher targets detached. Separated
+teacher/context/full-context/predictor statistics show low rank and centered
+scale mismatch. Shared-SIGReg has suffix support but remains low rank. Long-run
+fixed TRAIN error decreases while VAL deteriorates, consistent with overfitting;
+unique causal attribution remains unresolved. Expanded joint normalization,
+source-homogeneous SSL, pooled supervision and changed exposure are recorded.
+Prior-year data is TRAIN for expanded models and affected descendants; original
+frozen-model transfer remains historical in its own scope.
+
+Attempt 1's 30k trajectory schema failure is preserved. Attempt 2 exited zero
+without rerunning completed backward probes or fitting: CPU, 0.794 GiB peak RSS,
+zero GPU allocation and zero optimizer steps. Builder checks passed 31 tests,
+lint/format and artifact verification; parent passed 27 focused tests, lint,
+36 output hashes and preservation of 383 historical files. Reviewed r3 retains
+its approved SHA-256. Original models/predictions/protocols/reviews/ledgers remain
+unchanged. No 30k/50k extension, completed-fit rerun or release build occurred.
+
+Implementation commit `239a8b4` is integrated as `70834f8`. Explicit CLI sessions
+are used because native role pins ignored the owner's model constraint. The
+implementation runtime is verified GPT-6.1 Sol / high; a fresh distinct session
+will review the report. Full evidence and run ledger:
+`evidence/aeon-checkpoint-diagnostic-20260929/` and
+`orchestration/aeon_checkpoint_diagnostic_run_ledger.json`.
+Report: `orchestration/reports/AEON_CHECKPOINT_OBJECTIVE_DIAGNOSTIC_20260929.md`.
+Recommendation: no further fitting before the meeting. One bounded matched
+objective intervention is described only as an unapproved conditional proposal.
+Next: distinct read-only scientific review; no training command is authorized.
+
 ## AEON scaling development - bounded studies and release complete 29 September 2026
 
 The owner authorized more local training and use of `E:`. A separate post-hoc

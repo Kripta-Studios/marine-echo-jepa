@@ -1,0 +1,166 @@
+{
+  "schema_version": "1.0",
+  "study_id": "aeon_checkpoint_objective_diagnostic_991368d",
+  "base_commit": "991368d6a64c7189d803828a15a39828a00e8ea0",
+  "status": "EXECUTED_PENDING_DISTINCT_REVIEW",
+  "updated_at": "2026-09-29T20:48:45.223291+00:00",
+  "owner_instruction": "Bounded checkpoint-and-objective diagnostic; supersedes automatic nine-trajectory attribution campaign",
+  "requested_model": "gpt-6.1-sol",
+  "requested_reasoning_effort": "high",
+  "model_override": "Owner explicitly requires only GPT-6.1 Sol; earlier role/model pins are superseded for this task",
+  "implementation_agent": "explicit_cli_session:01a0eec5-2d89-70f0-b571-25c6594f0722",
+  "implementation_worktree": "../marine-echo-checkpoint-diagnostic",
+  "implementation_branch": "diag/checkpoint-objective-991368d",
+  "independent_review": "PENDING_DISTINCT_SESSION",
+  "gpu_owner": "NONE",
+  "fresh_training_updates": 0,
+  "nine_trajectory_attribution_campaign": "NOT_RUN_OWNER_PROHIBITED_AUTOMATIC_EXECUTION",
+  "unchanged_30k_50k_extension": "NOT_RUN_OWNER_PROHIBITED",
+  "completed_fit_reruns": "NOT_RUN_OWNER_PROHIBITED",
+  "new_release_build": "NOT_RUN_OWNER_PROHIBITED",
+  "calibration_and_test_numeric_access": "NOT_RUN_OUTSIDE_DIAGNOSTIC_SCOPE",
+  "diagnostic_partitions": [
+    "original_train",
+    "original_validation",
+    "prior_year_train_for_expanded_lineage"
+  ],
+  "endpoint_policy": {
+    "direct_supervised_steps": [
+      1500,
+      3000
+    ],
+    "ema_pretrain_steps": 1500,
+    "ema_supervised_steps": 1500,
+    "seeds": [
+      7,
+      13,
+      23
+    ],
+    "retrospective_best_checkpoint_selection": "PROHIBITED",
+    "single_seed_and_ensemble": "SEPARATE"
+  },
+  "preservation_snapshot": "evidence/aeon-checkpoint-diagnostic-20260929/preservation-before.json",
+  "historical_release": "release/aeon-offline-scale-expanded-20260928-r3.zip",
+  "historical_release_sha256": "5e265e08bf1041bbe0fb4dd2a5f3503bae98f996096577f976beaf9384d6bb57",
+  "stages": {
+    "identity_and_endpoints": "COMPLETED",
+    "saved_trajectories_and_errors": "COMPLETED",
+    "source_gradient_and_initialization": "COMPLETED",
+    "train_only_saved_state_objective_diagnostic": "COMPLETED",
+    "sampling_normalization_and_exposure": "COMPLETED",
+    "lineage_and_decision_report": "COMPLETED",
+    "distinct_review": "PENDING"
+  },
+  "paid_infrastructure_cost_usd": 0,
+  "active_training_processes": [],
+  "implementation_runtime_model": "gpt-6.1-sol",
+  "implementation_runtime_reasoning_effort": "high",
+  "implementation_routing_evidence": "evidence/aeon-checkpoint-diagnostic-20260929/verified-implementation-routing.json",
+  "native_routing_failures": [
+    {
+      "agent": "/root/diagnostic_builder",
+      "actual_model": "gpt-5.6-sol",
+      "actual_effort": "medium",
+      "disposition": "INTERRUPTED_BEFORE_IMPLEMENTATION_MODEL_CONSTRAINT"
+    },
+    {
+      "agent": "/root/diagnostic_sol61",
+      "actual_model": "gpt-6-sol",
+      "actual_effort": "high",
+      "disposition": "INTERRUPTED_BEFORE_TASK_WORK_MODEL_CONSTRAINT"
+    },
+    {
+      "agent": "/root/sol61_implementation",
+      "actual_model": "gpt-5.6-sol",
+      "actual_effort": "medium",
+      "disposition": "INTERRUPTED_BEFORE_TASK_WORK_MODEL_CONSTRAINT"
+    }
+  ],
+  "diagnostic_session_id": null,
+  "evaluation_lineage": {
+    "original_frozen_direct_and_ema": {
+      "train_source": "AEON3 2024-25 original TRAIN",
+      "validation": "2024-25 repeatedly inspected development VAL",
+      "prior_year": "Historical descriptive frozen-model transfer scope preserved; no new transfer evaluation in this diagnostic"
+    },
+    "expanded_direct_and_ema": {
+      "train_sources": [
+        "AEON3 2023-24 prior-year archive",
+        "AEON3 2024-25 original TRAIN"
+      ],
+      "validation": "Original 2024-25 repeatedly inspected development VAL",
+      "prior_year_external_test": "PROHIBITED_TRAIN_EXPOSURE"
+    },
+    "affected_descendants": {
+      "inherit_train_exposure": "Weights, preprocessing statistics or other fitted components derived from expanded study retain prior-year TRAIN lineage",
+      "prior_year_external_test": "PROHIBITED_TRAIN_EXPOSURE"
+    }
+  },
+  "nominal_presentations_per_window": {
+    "interpretation": "Sample presentations divided by window count; serially dependent overlapping windows, not independent epochs",
+    "original_direct": 38.670694864048336,
+    "expanded_direct": 14.251781472684085,
+    "original_ema_each_phase": 19.335347432024168,
+    "expanded_ema_each_phase": 7.1258907363420425
+  },
+  "expanded_confounders": [
+    "Joint TRAIN normalization",
+    "Prior-year deployment, serial and calendar composition",
+    "Source-homogeneous SSL batches",
+    "Pooled supervised sampling",
+    "Changed per-window presentations at fixed compute"
+  ],
+  "diagnostic_attempts": [
+    {
+      "attempt": "run-01",
+      "exit_code": 1,
+      "reason": "KeyError validation_checks; 30k records protocol_validation_checks",
+      "completed_prefix": "endpoint replays, initialization, objective gradients, cohort and sampling",
+      "fresh_training_updates": 0,
+      "evidence": "../marine-echo-checkpoint-diagnostic/evidence/aeon-checkpoint-diagnostic-20260929/run-01"
+    },
+    {
+      "attempt": "run-02",
+      "exit_code": 0,
+      "reused_completed_forward_backward_evidence": true,
+      "evidence": "evidence/aeon-checkpoint-diagnostic-20260929/run-02",
+      "elapsed_seconds": 126.41362479999952,
+      "peak_process_rss_bytes": 852996096,
+      "gpu_allocated_bytes": 0,
+      "optimizer_steps": 0
+    }
+  ],
+  "historical_training_code_revision": "3755cd4c35eb1050f9ef9096ce9d8ae6545a88c8",
+  "historical_training_code_digest": "8054f0c95962bee496bda75559583bb0dd189324d1636a9e7667833ee51a4e83",
+  "implementation_commit": "239a8b4eea86fc5d43fc7bab299f7cfc58932b07",
+  "integration_commit": "70834f8",
+  "missing_requested_checkpoints": 0,
+  "missing_evidence": [
+    "Per-update TRAIN/SSL optimization loss curves",
+    "Historical per-batch sampling logs; reconstructed schedule is available",
+    "Run-01 peak memory (summary was not reached)"
+  ],
+  "builder_focused_tests": {
+    "passed": 31,
+    "exit_code": 0
+  },
+  "parent_focused_tests": {
+    "passed": 27,
+    "exit_code": 0,
+    "log": "evidence/aeon-checkpoint-diagnostic-20260929/parent-tests.log"
+  },
+  "parent_lint": "PASS",
+  "parent_output_hashes": {
+    "files": 36,
+    "mismatches": 0
+  },
+  "historical_preservation": {
+    "files": 383,
+    "changes": 0,
+    "evidence": "evidence/aeon-checkpoint-diagnostic-20260929/preservation-after.json"
+  },
+  "report": "orchestration/reports/AEON_CHECKPOINT_OBJECTIVE_DIAGNOSTIC_20260929.md",
+  "recommended_next_action": "NO_FURTHER_FITTING_BEFORE_MEETING",
+  "conditional_followup": "PROPOSAL_ONLY_UNAPPROVED_NOT_QUEUED",
+  "safe_next_action": "Distinct read-only review of report and executed evidence; no training command is authorized"
+}

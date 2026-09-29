@@ -1,0 +1,13 @@
+[
+  {
+    "thread_id": "01a0eec3-3521-7442-b88a-9905b8b60d18",
+    "agent_path": "/root/sol61_implementation",
+    "agent_role": "default",
+    "model": "gpt-5.6-sol",
+    "effort": "medium",
+    "sandbox_policy": {
+      "type": "danger-full-access"
+    },
+    "permission_profile_type": "disabled"
+  }
+]

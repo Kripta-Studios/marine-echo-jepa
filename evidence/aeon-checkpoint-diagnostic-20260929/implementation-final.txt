@@ -1,0 +1,26 @@
+Committed **`239a8b4eea86fc5d43fc7bab299f7cfc58932b07`** on the assigned branch. Worktree is clean.
+
+Only allowed paths changed:
+
+- `tools/aeon_checkpoint_diagnostic.py`
+- `tests/unit/test_aeon_checkpoint_diagnostic.py`
+- `evidence/aeon-checkpoint-diagnostic-20260929/`
+- `orchestration/reports/AEON_CHECKPOINT_DIAGNOSTIC_TECHNICAL_20260929.md`
+
+The diagnostic completed **exit 0** after repairing a trajectory-reader failure and reusing completed probes. Final verification: **31 tests passed**, Ruff lint/format passed, and artifact hashes verified. Preflight passed; handoff retained the known `.editorconfig` mismatch.
+
+Equal-three-seed VAL prediction ensembles:
+
+| Endpoint | Corrected pinball, dB |
+|---|---:|
+| Direct supervised-1500 | 0.639577 |
+| Direct supervised-3000 | 0.639062 |
+| EMA SSL1500 + supervised-1500 | 0.642170 |
+
+Saved EMA probes had zero suffix first-layer data gradients and absent teacher gradients. Original EMA SSL1500 teacher RMS was **0.041–0.047**, versus predictor RMS **1.02–1.18**. The 30k TRAIN/VAL divergence is overfitting-consistent, without establishing its cause.
+
+All requested checkpoints were recovered. Limitations include missing training-loss curves and small CPU/CUDA prediction differences. The hash-bound sampler showed zero within-batch duplicates and a supervised RNG reset, contradicting the rejection/RNG-spill assumption.
+
+**No fitting, optimizer steps, subagents, fresh CAL/TEST numeric access or release build occurred. Historical inputs and reviewed r3 bytes were preserved.**
+
+[Technical report](<C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-checkpoint-diagnostic/orchestration/reports/AEON_CHECKPOINT_DIAGNOSTIC_TECHNICAL_20260929.md>) · [Commands/results](<C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-checkpoint-diagnostic/evidence/aeon-checkpoint-diagnostic-20260929/command-results.json>) · [Evidence hashes](<C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-checkpoint-diagnostic/evidence/aeon-checkpoint-diagnostic-20260929/EVIDENCE_SHA256.json>)

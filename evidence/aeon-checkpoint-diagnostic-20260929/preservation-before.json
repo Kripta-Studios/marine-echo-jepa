@@ -1,0 +1,1922 @@
+{
+  "captured_at": "2026-09-29T20:00:02.621095+00:00",
+  "base_commit": "991368d6a64c7189d803828a15a39828a00e8ea0",
+  "scope": "Historical campaign, scaling, expanded TRAIN, protocols, reviews, configs, original ledgers and reviewed r3 ZIP",
+  "files": [
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\aeon_campaign.json",
+      "size": 3169,
+      "sha256": "d7440553e209eb03431bb9e7ecfd7f64f6d76ed98c9bb245aa9547429a1f6f68"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\aeon_chronos.json",
+      "size": 2835,
+      "sha256": "c0d8962fecdddef9ab4a771640a6ac07342805b50809b008a3ec490585d2104a"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\aeon_development.json",
+      "size": 1726,
+      "sha256": "8dbd58cc3641862b5a206e2b75b12ea5bbcf1b3949bee699abcf321e2282439e"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\aeon_expanded_3k.json",
+      "size": 2901,
+      "sha256": "50b8e017502dd312028eaa759db6508409f345c71f6b93cf6c99d1ce0c318abd"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\aeon_external_transfer.json",
+      "size": 6143,
+      "sha256": "eae5c0e40b16d416ae7ab5fc01b9a58444734ab5ba1e405b4f2244b4843dfe02"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\aeon_final_evaluation.json",
+      "size": 417,
+      "sha256": "9003865b288a3c5afdf4b7cdba3f401c346f6067a53a255b833dde8e3a668c4c"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\aeon_final_selection.json",
+      "size": 3122,
+      "sha256": "b3940ab8e159ac8808843b15b455ffb3c42f2d3db322190af15b80e543edff58"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\aeon_forward.json",
+      "size": 4817,
+      "sha256": "2b115b5712e0f039a5178143c051c6c540f3bd676f7340b09e3f4e28af3bd8c3"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\aeon_hybrid.json",
+      "size": 2655,
+      "sha256": "f933bd2ce4b61b4cde3368e34258ade3c27052cf806db5dff9348874f5b587af"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\aeon_patchtst_exploratory.json",
+      "size": 1603,
+      "sha256": "995de7560ffd30fed24aad9654d77fea123797f9f3431153b1454d028225842f"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\aeon_scale_30k.json",
+      "size": 2049,
+      "sha256": "81baa528607570ef3d0b251fdfb2d8d591c8ae7580ba9b727f1debebfcaa837e"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\aeon_sota_supervised.json",
+      "size": 2155,
+      "sha256": "3feee4089ce790c66adb189ff82ad4e006c350822a23aaa494e86afaef884eea"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\aeon_test_metadata.json",
+      "size": 1843,
+      "sha256": "fc0ebc65bb57f092b7333cc8cceaef553695765cb72d1226a9ec2f57d634c1d5"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\aeon_validation_comparison_input.json",
+      "size": 13622,
+      "sha256": "616d583ad25f11eb32c5ee5e5b50c34614c6bdb45776a26c2cfb35cd6a713911"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0003-environmental-research.md",
+      "size": 3540,
+      "sha256": "a9c8948589473b8ee9fb7cfb0a2d8faed22f409700eb32eb9d2e7bee8887006e"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0004-continuation-calibration-and-exposure.md",
+      "size": 13590,
+      "sha256": "82925f19117e1ae046173aa6f2a0e92be8037157423af81dfe87590dc5d4f0d1"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0005-prospective-observation-aligned-v2.md",
+      "size": 7713,
+      "sha256": "48ca1923776578459eb2ad71194fe08cf1156af02e792f10b3d88a089df34276"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0006-native-observation-population-v2.md",
+      "size": 4092,
+      "sha256": "058dcb8ca603fa96cfe12a7f9968594807253bcbcd1cc5ae6fe04446cad19327"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0007-raw-instrument-response-development.md",
+      "size": 8215,
+      "sha256": "467fa249405f4d0983b9c6f88155a4cfd8c458aecff746f465a1b01c2ccc4c69"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0008-aeon-hourly-sv-study.md",
+      "size": 9110,
+      "sha256": "d83392832a1bde3ae3e096de0a664ca9cfc27762a18bb10fb5ace3a97e787435"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0009-aeon-eligible-date-and-evaluation-freeze.md",
+      "size": 4201,
+      "sha256": "0c503c17cf3c5f4ca9d521c17c77974382fdb100879c08633a615a988642b2a9"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0010-aeon-development-selection.md",
+      "size": 4347,
+      "sha256": "93a0e89f96dd04aa42d55e6f974a047b30270896d6046287585612f0a1829872"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0011-aeon-reviewed-development-selection.md",
+      "size": 4495,
+      "sha256": "cd9ea9c7180b5e60d5271feb86436a634b6b8b971048715fa491bf639401ae73"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0012-aeon-external-conditioned-product-transfer.md",
+      "size": 8486,
+      "sha256": "3abd740a0597c712fbf67f0265737afecd31acc645be834bb329cf8d271491c7"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0013-aeon-scaling-development.md",
+      "size": 5693,
+      "sha256": "f86f9f4b27eb13d2221a225cb9647a0d99f9bc43d45693db4130828f61e5096b"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0014-aeon-expanded-data-development.md",
+      "size": 5332,
+      "sha256": "9ab1f0df35e102385f2ea7d5fbf3dae23d3dd02edf428e11ce637e502c0ce2fa"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\aeon_run_ledger.json",
+      "size": 12575,
+      "sha256": "d8a194cc6a125f410327e1a38fbd54f1dc70a7a770ca707cf258bdf977391635"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\aeon_scale_run_ledger.json",
+      "size": 6353,
+      "sha256": "82ae79bfc70c18bba340f4cd1f18ccd00282b6c521dd7469e841afe353d230e4"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_ADR_0009_PREFIT_REVIEW_20260927.json",
+      "size": 2050,
+      "sha256": "2ff9683c3b5932dc5ee2f55c71ba337bb3886691f67a28e6ce4bea6451f2c516"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_CALIBRATION_APP_INTEGRATION_REVIEW_20260927.json",
+      "size": 4042,
+      "sha256": "e7ed7a8be0b0d48086dabf229faf3ca1e6f4609cf8c97fa5ba2e0d504e2f9cd8"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_CALIBRATION_OUTCOME_REVIEW_20260927.json",
+      "size": 7386,
+      "sha256": "7b61385b29836be53d0e2c5a0b5e3f5db7e2dcb8983e534d17711ed0b44c1428"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_CALIBRATION_READER_ACCESS_REVIEW_20260927.json",
+      "size": 2730,
+      "sha256": "c2f46a94466be6b5aa23dbe6f7438176970d5bd2df46fc147b2d6bea949b9e48"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_CALIBRATION_READER_ACCESS_REVIEW_V2_20260927.json",
+      "size": 3024,
+      "sha256": "006d931b99dda41886bc54cdcf39c2a5a1f13114463469a5f2f22024c4e447d5"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_CALIBRATION_RUNNER_ACCESS_REVIEW_20260927.json",
+      "size": 2779,
+      "sha256": "702cc65d86effdf2e35ae654c54e583f9f7e217f7c16fa8eba4b435ec1cb890b"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_CALIBRATION_RUNNER_ACCESS_REVIEW_V2_20260927.json",
+      "size": 3067,
+      "sha256": "1c15ea81a8f2f32ab4bfc4dbebdeff2f308a744e967b42b7388102786d3f7e7a"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_CALIBRATION_SELECTION_PLAN_REVIEW_20260927.json",
+      "size": 5452,
+      "sha256": "aa423f5928bbadac87909f718c28fe33da27ae7df995f50da167567cc7e809e5"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_CALIBRATION_SELECTION_PLAN_REVIEW_V2_20260927.json",
+      "size": 5875,
+      "sha256": "a3135b776aee08b81643fb7ff8ceb10d486e109bce14b9d2ac84a0d6d356feb6"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_CAMPAIGN_PREFIT_20260927.json",
+      "size": 5128,
+      "sha256": "682ee6c2a13a34165a4b5d5457e503f254007486bc664dbe73438c6512a8cbc2"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_CAMPAIGN_PREFIT_METRIC_CORRECTION_20260927.json",
+      "size": 2641,
+      "sha256": "b6750436026f0e8ad575a67a11d4238b2a8bcbc2753ec56d8f4eadcb6ff54fc1"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_CHRONOS2_OUTCOME_REVIEW_20260927.json",
+      "size": 6077,
+      "sha256": "11f1c8dd25cd485d296e9502a94c8247cf57f442f4cbb4d00538ce172c6bb541"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_CHRONOS2_PREFIT_20260927.json",
+      "size": 5432,
+      "sha256": "0d20c3e3fbe3b965928d068c9a5b66f83d1e618bd7893add32f932808a64d17d"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_DEVELOPMENT_APP_REVIEW_20260927.json",
+      "size": 3272,
+      "sha256": "a600dcb6bcc19ab8da09feeeab00096470f0cf64de10501a553b798656f93300"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_DEVELOPMENT_SELECTION_RECORD_REVIEW_20260927.json",
+      "size": 4443,
+      "sha256": "527bf68313cac2354ced78d8cf2673153a92e2f2d08845451ee9afaccfab47c8"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_DEVELOPMENT_SELECTION_RULE_REVIEW_20260927.json",
+      "size": 2675,
+      "sha256": "dd3dcbdf5e93d42e021abbaf4bf310bec0b40ea52d53411802e00770840127b2"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_DEVELOPMENT_SSL_REVIEW_20260927.json",
+      "size": 4270,
+      "sha256": "1f037917378d8e06f05637028704030535e617783163bc32c1049f4db4d477a5"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_EVALUATION_CODE_REVIEW_20260927.json",
+      "size": 2887,
+      "sha256": "2016f14e78e7a65b1add606026edc93d1e38f67e6917cbca4660767cce190651"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_EVALUATION_CODE_REVIEW_ADDENDUM_20260927.json",
+      "size": 1255,
+      "sha256": "4fad8d3076705895dd2e2063c106dabb3b01121bec936f07aa641e360c2c2545"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_EXPANDED_3K_OUTCOME_REVIEW_20260928.json",
+      "size": 5469,
+      "sha256": "3ba0452b63496c448ab51799a76d296d4b363abd4771953a1a776d925799e9f0"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_EXPANDED_3K_PREFIT_REVIEW_20260928.json",
+      "size": 2609,
+      "sha256": "585b9073f972ae6899656452a8eb75bf7de73900ffa9e2fef0699446981a4cac"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_EXPANDED_NUMERIC_COHORT_PREACCESS_REVIEW_20260928.json",
+      "size": 1854,
+      "sha256": "1bfa7880319623eb1fd4bbe0e2ecd7b907a29a384a7dc55cf770bfda35237e9c"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_EXTERNAL_APP_SOURCE_REVIEW_V1_20260928.json",
+      "size": 5270,
+      "sha256": "ca3fe87d0442a971d041d2ed1919402705145d2611cd5df59bb5af76585467be"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_EXTERNAL_APP_SOURCE_REVIEW_V2_20260928.json",
+      "size": 5468,
+      "sha256": "6056ee55ffa2769aa7dae5d80a78c96fd740d8f584e751ef64616217c9fef0f1"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_EXTERNAL_OFFLINE_PACKAGE_R2_REVIEW_20260928.json",
+      "size": 7310,
+      "sha256": "8a3a57b34bbb58127cd59642d6c09dad0c20a52a22ebc953058003f0cf5358e8"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_EXTERNAL_STAGE0_DESIGN_REVIEW_20260928.json",
+      "size": 9014,
+      "sha256": "b9c1ebf40c5a924e6fb2efcb869dca29b42e0c7baf7d2b7a788c70a10dad259d"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_EXTERNAL_STAGE0_WORDING_AMENDMENT_REVIEW_20260928.json",
+      "size": 3085,
+      "sha256": "001c961f49dc5b4cafb61b66ea0aaf79c54b0e549325e0aa25a7170c62b14d5a"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_EXTERNAL_STAGE1_METADATA_OUTCOME_REVIEW_20260928.json",
+      "size": 10945,
+      "sha256": "b53dbb9db28a818f6d3bdbb5d8d5d7ea3a532f0b6ae1730a4a179747b9148aa5"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_EXTERNAL_STAGE1_RUNNER_REVIEW_20260928.json",
+      "size": 7448,
+      "sha256": "b156f00e7cbc1f1460a3fd9ba4b0b6578e7bd684af5ce8c83a6aa0c16a91f3af"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_EXTERNAL_STAGE2_OUTCOME_REVIEW_20260928.json",
+      "size": 8327,
+      "sha256": "ec1ad3ecc437d28f47c53063d6abc6c8f9efe08c36a0f39dec4bda8ef9ad255d"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_EXTERNAL_STAGE2_PRENUMERIC_REVIEW_20260928.json",
+      "size": 10784,
+      "sha256": "7c2e80201bc48edc825b2899eee17210d8252b0296987ccf65272570266f164e"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_EXTERNAL_STAGE2_RETRY_REVIEW_20260928.json",
+      "size": 10974,
+      "sha256": "c42904fd03ade88130ddce78372a01282ed9ead71d430e4929da8de931c92094"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_FINAL_SOURCE_APPROVAL_20260927.json",
+      "size": 5870,
+      "sha256": "455eb471a7a9dbe2246c1018d6dd53fa480fddbbf0bf88c19313ba9b5bbb4e93"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_FINAL_SOURCE_REVIEW_EB3DB3F_20260927.json",
+      "size": 4402,
+      "sha256": "bb2b18a0e301170b1182a08273017c819340b30e7497263b5fe8156b63b06abb"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_FORWARD_OUTCOME_REVIEW_20260927.json",
+      "size": 7688,
+      "sha256": "d3f142e1f01bb84b22155faa9f1cedb40d499b5aa784865cc9191416c6cfbed6"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_FORWARD_PREFIT_20260927.json",
+      "size": 5030,
+      "sha256": "7275f5c0e9c70daccbc60fb26a952ea8514746a93ee2dbb1c73b2468efe35ffa"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_HYBRID_OUTCOME_REVIEW_20260927.json",
+      "size": 4329,
+      "sha256": "5244af6f1c9ba0308f1acaf44b1d5b197fb568dc02b9bd00c41ac57823bf9021"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_HYBRID_PREFIT_20260927.json",
+      "size": 4520,
+      "sha256": "5f82f36fa7cd22ac865f567af98a094ad32cc6273582d73223cb2f3e8db14cf0"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_OFFLINE_PACKAGE_R3_REVIEW_20260927.json",
+      "size": 3056,
+      "sha256": "9ac527b0540c48f2392680c3673da58dc9b9398da31345b39953235f6692bd3b"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_OFFLINE_PACKAGE_R4_REVIEW_20260927.json",
+      "size": 6135,
+      "sha256": "fb0c2cd75e6823eed2226bb614b391597293b1e083aa165110d1fb995196787d"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_PATCHTST_EXPLORATORY_OUTCOME_REVIEW_20260927.json",
+      "size": 6805,
+      "sha256": "232f453e1584472e1dcc1ea1d8812c76104a40d4cd9645f19720b25e0423adec"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_PORTABLE_DEVELOPMENT_RELEASE_REVIEW_20260927.json",
+      "size": 4312,
+      "sha256": "a7e99f8337195aa676073820a3234a0aaa3de8d76cce8af1b828b234f26c9001"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_PRECAL_SOURCE_APPROVAL_20260927.json",
+      "size": 6587,
+      "sha256": "8dc1de78aa952f72eab85897d107d85f17c410f67c4cb0c1da0be945eaecd03b"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_PRECAL_SOURCE_APPROVAL_V2_20260927.json",
+      "size": 7060,
+      "sha256": "e03c94e78956bb00c307c3310b0efd6b8b1cb84424b2db83c829c4de80a5168a"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_PRECAL_SOURCE_REVIEW_34963B9_20260927.json",
+      "size": 3435,
+      "sha256": "725e16d06bad8ab584abd9797cf3a3a868db13cd88e2f187869183c6e02fe553"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_PRECAL_SOURCE_REVIEW_3E80072_20260927.json",
+      "size": 3420,
+      "sha256": "aab963f9ade9b86a19d669ebce47645c4825fb10563469241b7c66d69c319747"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_PRECAL_SOURCE_REVIEW_7ED4003_20260927.json",
+      "size": 3972,
+      "sha256": "42306ef9434206c99aae8546e34bcc86ac97f8e4e66e9a11e98190844875a136"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_PREFIT_20260927.json",
+      "size": 2054,
+      "sha256": "e7de63094784996e764da5561193215c0f3aa17092d96f7676c4162998bef521"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_PRETEST_FREEZE_REVIEW_20260927.json",
+      "size": 6725,
+      "sha256": "4fca86c94049d6dafce6fa4fa6bdad182649e331d3f2fb10a1cea1b18483e9e5"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_PRETEST_SOURCE_APPROVAL_20260927.json",
+      "size": 6998,
+      "sha256": "22389e7af10dd89f108efd5e271b723fbe3e4335722828fbab319ed6a98ebf24"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_RANDOM_DIAGNOSTIC_CODE_REVIEW_20260927.json",
+      "size": 1999,
+      "sha256": "6c1ab6a37eb221c687a27f41e961f4898f09be3c3a90c2d16369950d89e74a86"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_RANDOM_DIAGNOSTIC_OUTCOME_REVIEW_20260927.json",
+      "size": 4004,
+      "sha256": "e686a6fcec35c284f47f91519e7e19e88faa84288d084ef642ec172a08974f15"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_RETROSPECTIVE_TEST_OUTCOME_REVIEW_20260927.json",
+      "size": 11277,
+      "sha256": "75a241f00d34f8d373ccbd4c5b2e2c35397e2c0ff0a20a6e112ce4953f13489a"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_SCALE_30K_OUTCOME_REVIEW_20260928.json",
+      "size": 3952,
+      "sha256": "6d55cdff9801619f3be1acc8fb18380bf4946f966163f4a7b4b2a269ad11252a"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_SCALE_30K_PREFIT_REVIEW_20260928.json",
+      "size": 2463,
+      "sha256": "1e2abcb21ce80fef6c0877ae4606ab7a4dcdc5b44db953fb25af6d40dcb55c7a"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_SCALE_EXPANDED_APP_SOURCE_REVIEW_20260928.json",
+      "size": 2218,
+      "sha256": "6b3c8d0a81ef6a1f1323db6dd42e000bbddb3754c4551ee9b97c33df501fcb42"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_SCALE_EXPANDED_OFFLINE_R1_REVIEW_20260928.json",
+      "size": 1898,
+      "sha256": "a4b74eb5c1584e872532a5a9bcce35cb9861702a470a1d48f1acca7cadf19fcc"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_SCALE_EXPANDED_OFFLINE_R2_SOURCE_REVIEW_20260928.json",
+      "size": 1252,
+      "sha256": "c73d60abb210642ce9eb806ca99fa2f9008f940175c72ee5442f7a1b46ada485"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_SCALE_EXPANDED_OFFLINE_R3_REVIEW_20260929.json",
+      "size": 10094,
+      "sha256": "42cb8a077edf4c7ffe9a972ab525adbb8c69ac2ebaaba68f957036c620b5ec0b"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_SCALE_EXPANDED_OFFLINE_R3_SOURCE_REVIEW_20260929.json",
+      "size": 1529,
+      "sha256": "d3797cb116e0c833f71298aef31a9aecf3eb3f03ec516d452c14405f17536624"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_SOTA_SUPERVISED_OUTCOME_REVIEW_20260927.json",
+      "size": 4322,
+      "sha256": "d08932b0c88f322ceb573ef2ee30198aed0ceb3c5611b6e865e0e562f640138d"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_SOTA_SUPERVISED_PREFIT_20260927.json",
+      "size": 4183,
+      "sha256": "ebcd704f7757faad68103b3b5b24e16946c1f9c6af5cd022c27742bfdd1c9822"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_SPLIT_AMENDMENT_20260927.json",
+      "size": 1596,
+      "sha256": "b8031e2e113e39630c066cee65b4371f69b229ee905a72d832e53e6f505f297b"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_TEST_METADATA_OUTCOME_REVIEW_20260927.json",
+      "size": 4574,
+      "sha256": "9d9c6ca4580d6a4ead4117a00a1a872710bf6e323eb17d491837e24c1011bebe"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_TEST_METADATA_SCAN_PREFIT_20260927.json",
+      "size": 3447,
+      "sha256": "cd9a9d813c56ad911768413e18b9a834f7ef3a2f333a7a7fd15f76de3d786f76"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_TEST_READER_ACCESS_REVIEW_20260927.json",
+      "size": 4807,
+      "sha256": "42496508acd454d6680ae9d3e0a35c8e51eb8aa20dae3f59b4777e0a60d6c741"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_TEST_RUNNER_ACCESS_REVIEW_20260927.json",
+      "size": 5985,
+      "sha256": "9de79a0bfe7b8774261a4f84dac6630877d38d27eaf3a3fef9f3ad217144efaf"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_VALIDATION_COMPARISON_OUTCOME_REVIEW_20260927.json",
+      "size": 6562,
+      "sha256": "53a3a164915eea4ab3bc8851c096bbc42821cb05330eb4c2829039df83df3e07"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_VALIDATION_COMPARISON_PREFIT_20260927.json",
+      "size": 4666,
+      "sha256": "64f0ceaea3c3b6c3a542307eef781c7ecf33ce3f0d8c7de3b51f4b5b8a72a08b"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_VALIDATION_RESCORE_CODE_REVIEW_20260927.json",
+      "size": 1947,
+      "sha256": "cfe3a588968bee208e7a542254c38a75fae2c1724dc735e79350adb886a0322e"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AEON_VALIDATION_RESCORE_OUTCOME_REVIEW_20260927.json",
+      "size": 3968,
+      "sha256": "16bb9ef931f5e2d8f8a3322fa609c5cb1c769f99f5e4a89a5ef519a0fb52f44f"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\ANY_BAND_BOUND_METHOD_20260927.json",
+      "size": 1343,
+      "sha256": "a20ca26335f47c6ec14bea2a765b4faa6dbe68ad4362afcf98861c313546e44b"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\ANY_BAND_BOUND_RESULT_20260927.json",
+      "size": 1770,
+      "sha256": "6f5b72e792111381aa49bf74e1a93e33704bffd7af99023f206275765da89814"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\ANY_BAND_BOUND_SCOPE_20260927.json",
+      "size": 1623,
+      "sha256": "5dbb8daeabc01b077d7c2b0a604994a756951b4ad52f22a5ec0a52a1ccd17e04"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\AZFP_SINGLETON_COMPAT_20260927.json",
+      "size": 1311,
+      "sha256": "f114db0f0c287e40c0fb702e04a0b3d85a5c12c09059cc037601691f1e5eccf1"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\CLI_PREFLIGHT_20260927.json",
+      "size": 728,
+      "sha256": "ad36841fbdca1aac51dd65933a0ff7fef5074edf7a64ba8fd843363046274210"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\FINAL_CHECKPOINT_20260927.json",
+      "size": 1465,
+      "sha256": "54323f842882dde51583e100644773f90bcd92f5b3ce0d1a0e30fefc9e8da18a"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\FIXTURE_SCHEDULER_20260927.json",
+      "size": 1009,
+      "sha256": "a4bd1e09895641b0cbe77f96482a1fe7797193b6e7c8e6aa40c960da5c488c35"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\PUBLIC_SUMMARY_FIGURE_20260927.json",
+      "size": 1072,
+      "sha256": "1fcaf2f193c9b1fb61209caedb37f7e8db24e8bc314be211514f64a76590d993"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\R0-R1-continuation-20260926.json",
+      "size": 5771,
+      "sha256": "a0dcc10866f3e5da8cc123b74fb74e6f13ff26897e8134827286167b4581e65d"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\R0-R1-continuation-addendum-20260926.md",
+      "size": 10095,
+      "sha256": "91ab9cc60afbd2aa98f6a734a6f3242ad263c05f7fe3ef3fb42126841621d596"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\R0.json",
+      "size": 1356,
+      "sha256": "fc5b9855393920b79099e69082f4a3421a058dbdd6b3f64fac977cdd38398a81"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\R1.json",
+      "size": 1002,
+      "sha256": "d13ac4b867e90ea6b684de3ad52036aadfd65d6d1f8540fe451dfd2f26a3e55a"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\R3-pending.json",
+      "size": 695,
+      "sha256": "b1c3106afc78d1292b77f0022eae1d633f2de26f37b23c64c455ddcd750e5993"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\REGISTRY_HARDENING_20260927.json",
+      "size": 1734,
+      "sha256": "d1ecda8f9fc3d708d49a93b15310ac71d2b2c563fa08ad027d79782f9cad7020"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\SLANT_TRAIN_PARTIAL_20260926.md",
+      "size": 2948,
+      "sha256": "0c7290f2609382bf43d76d3ca58117916d2c37418d1abc41b5179a5e60213461"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\TARGET_ONLY_BOUND_20260927.json",
+      "size": 918,
+      "sha256": "b2431411563f69b7b34c2ff19a7ef431246c0daab8c88bc5bac7c57c68d6c4d7"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\TARGET_ONLY_BOUND_V2_20260927.json",
+      "size": 1029,
+      "sha256": "2109d0f6dc342b74ba59dd6bf84de2d054ec5e890a1da5be80c0a4ce96f53dec"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\TRAIN_CENSUS_LAUNCH_20260927.json",
+      "size": 911,
+      "sha256": "50256e880ec5a2c0efa760b4d023fbcaaf278b678c6f418cf4e305141e070dc7"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\TRAIN_CENSUS_METHOD_20260927.json",
+      "size": 1383,
+      "sha256": "708e6b04f99e75759b12b3df79738c25eb4201a7850c420afb45fe56b296654e"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\TRAIN_CENSUS_V2_LAUNCH_20260927.json",
+      "size": 1181,
+      "sha256": "e39898fe6d6d04aa87fcfced7357ed400bca085dcc42e96d6b1e7b03820eec70"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\TRAIN_SUPPORT_MAP_20260927.json",
+      "size": 1103,
+      "sha256": "4d375ab9bc18768e7fb467d0834674e59cc156a7d0bb5143cd149fa09276cc07"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\TRAIN_SUPPORT_MAP_RESULT_20260927.json",
+      "size": 1784,
+      "sha256": "1eef7f720e0c6bede64606e7b6a3ca99a267be3c8364be9b95495a5d1e675aeb"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\TRAIN_SUPPORT_MAP_SCOPE_20260927.json",
+      "size": 1469,
+      "sha256": "537ec6c07b8b8e11421c3478a3c32b2d5951c6c36f6c1bb8eda3b11926a1b410"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\TRAIN_SUPPORT_PLOT_METHOD_20260927.json",
+      "size": 1186,
+      "sha256": "ff8bf0009e99fd89e1bd99f41e3b5d8e04d268d1e248d32c6e426a8eb570ae15"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\V2_CALIBRATED_EXECUTOR_CODE_20260927.json",
+      "size": 1574,
+      "sha256": "9fa7596d92571c07d4dc44b42e9b75521e607e8d9a5a80287f8c1d5ae57780b7"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\V2_NATIVE_CONTRACT_20260927.json",
+      "size": 1238,
+      "sha256": "0d6eed562ce9b5ebdc50ca3020f24c148685c456ff7dc2c0d7a621ce1671d5c5"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\V2_NATIVE_FULL_PROCESSING_20260927.json",
+      "size": 1094,
+      "sha256": "a37e5e6284160647f0e2803382fe27c872570f65a9751338f0c5ced30347b162"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\V2_NATIVE_PILOT_20260927.json",
+      "size": 792,
+      "sha256": "84fde901b6db5deda94e9931c6831919d1ffb40f3d1fb792d176599cd39abd27"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\V2_NATIVE_SUPPORT_METHOD_20260927.json",
+      "size": 763,
+      "sha256": "5c56ebfa11d3a6baed740afdb01e7191fa2cddd1e3cf04333b780ae4ecc0350f"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\V2_NATIVE_SUPPORT_RESULT_20260927.json",
+      "size": 1536,
+      "sha256": "0f9042e71c2d00efc0b6372e9655ddf5702decf18b8a8b50d2c0bb82928fde93"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\V2_PROTOCOL_20260927.json",
+      "size": 703,
+      "sha256": "ed373a7bbdf129e1bb398df13c93f2b0f78cd28e1b1a981ce47d9d54b7074853"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\V2_RAW_RESPONSE_DETERMINISTIC_PREFIT_20260927.json",
+      "size": 2513,
+      "sha256": "3e1127e8646be87e3bbd033379c420cb0cae80cdbe5da512515f867fe40d8db4"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\V2_RAW_RESPONSE_DEVELOPMENT_RESULT_20260927.json",
+      "size": 2344,
+      "sha256": "18d8c890dfef8aacc274308d94251b91059c76fc743071d1cc1bcd61cc584b15"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\V2_RAW_RESPONSE_FULL_PROCESSING_20260927.json",
+      "size": 1777,
+      "sha256": "110820f4af64f4fa0cab7450a8bd55458c83d0cf1e8b10ba2c5c47544adf45e1"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\V2_RAW_RESPONSE_FULL_RESULT_20260927.json",
+      "size": 1208,
+      "sha256": "9db69b3408df17ab6c2913d2d23adbe1a2ee10d1b9db5b8a09e294f41c88c382"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\V2_RAW_RESPONSE_PILOT_20260927.json",
+      "size": 1507,
+      "sha256": "d123649b06a9804911ea3970eec7d720b10a559764c716217c75eef9fa1bb929"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\V2_RAW_RESPONSE_PILOT_RESULT_20260927.json",
+      "size": 1584,
+      "sha256": "9fd6868ab114da1900db0cb958f9b042c5d67733052e0d0a69b9553c6c80f8a1"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\V2_RAW_RESPONSE_PREFIT_20260927.json",
+      "size": 2104,
+      "sha256": "e6104bfd228c78aedadef96ab5e6d840b48bf3e20045e82139511ebd0ae56b44"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\V2_RAW_RESPONSE_PREFIT_CORRECTED_20260927.json",
+      "size": 2432,
+      "sha256": "115873cb7aa2af8ff38269a757d0b6bc54310204c9ce5a0245ebc5bb1c945ad5"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\V2_RAW_RESPONSE_PREFIT_REJECTED_20260927.json",
+      "size": 1125,
+      "sha256": "d4e87c53ab1669393b3b4cf28a0929ffd10539510caaa76dcd830b3a040146e2"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\V2_RAW_RESPONSE_REPROCESS_20260927.json",
+      "size": 1603,
+      "sha256": "1d39255b92970ea5fdcc3bc4c4ad5090d8e228f16345b7289690db7c0d047e68"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\V2_RAW_RESPONSE_SUPPORT_METHOD_20260927.json",
+      "size": 1863,
+      "sha256": "296393ecf61d8fe4c92e4e5773c7b36fda41f4c052980c05a849b0c5c2f7c27f"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\V2_RAW_RESPONSE_SUPPORT_RESULT_20260927.json",
+      "size": 1953,
+      "sha256": "346dc6c3a80f9e7cccf2513415b9ed60769c67f3c5a0083deec61425ea278944"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\V2_RAW_RESPONSE_TARGET_20260927.json",
+      "size": 1164,
+      "sha256": "2a748e263ca0ec3a0f06a4d9126a8388c1f0af2a6d8042945d1f6ca6f9cec7f4"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\V2_RESEARCH_RELEASE_FINAL_20260927.json",
+      "size": 2082,
+      "sha256": "f299f308e7d199c048614bf6f3dcceeeca31b924394082a6dccaf5cd1227d8c9"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\V2_RESEARCH_RELEASE_REJECTED_20260927.json",
+      "size": 1342,
+      "sha256": "1d1de0c9e12a5375922238cfbed33cff737b5c208b97e6b348242b9817ee8ec3"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\WORKING_PREVIEW_20260927.json",
+      "size": 1536,
+      "sha256": "d6d7d593accd9596a470925f614386f0cee84848747cb2131b88e427d0455027"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reviews\\WORKING_PREVIEW_DELTA_20260927.json",
+      "size": 1790,
+      "sha256": "af676cf6255adfbc76899a2b6c9d119de935616a1c5b69a2f7f918ec84aedce3"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed13\\checkpoint-supervised-1000.pt",
+      "size": 726083,
+      "sha256": "1fa4d11ca1a83691d0ce19b01a1ad26ab605f2a9389c89c84a419c5047d44a53"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed13\\checkpoint-supervised-1500.pt",
+      "size": 726083,
+      "sha256": "1d119a2516e826b156d2d5a4b103dd255116dbf05fa82adda79eacede895d1e6"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed13\\checkpoint-supervised-2000.pt",
+      "size": 726083,
+      "sha256": "6f0f515eb3b7224680dd623cbdcd558b919cb90252fdb18b3e557efe39e24346"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed13\\checkpoint-supervised-2500.pt",
+      "size": 726083,
+      "sha256": "bde658020273e33677944b0875fb6cfe9c69dfa87e72dfb7bc0c5470b87dc4a0"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed13\\checkpoint-supervised-3000.pt",
+      "size": 726083,
+      "sha256": "eb6ca62f4c68024b43ea8b2102a0754d646623fd91cbf1ad31fb72218faf48dc"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed13\\checkpoint-supervised-500.pt",
+      "size": 726083,
+      "sha256": "f4bf2742355a79508f31dddcc7d326cf7d9b963483fa5aca3a3c49f2d6f4b397"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed13\\slot.json",
+      "size": 4242,
+      "sha256": "e4f9855180968b4fabe5f5c0608d9f5bfcb34931f2bb69a46b0996d326af4dac"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed13\\validation-at-supervised-1000.npz",
+      "size": 172415,
+      "sha256": "389cba13292d2e24eb2026c48dc110a7d7c71ecbe4cdc002e7c07ec79e216221"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed13\\validation-at-supervised-1500.npz",
+      "size": 172524,
+      "sha256": "1c80aa8239c4e167fd74567d03ce02d99bf98a5be01f6fe8b4d52e87e9318180"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed13\\validation-at-supervised-2000.npz",
+      "size": 172538,
+      "sha256": "589edd35c5532bccb1c6809fd24e0d7b259493e985a67bcefe5a9be9db3b8a3c"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed13\\validation-at-supervised-2500.npz",
+      "size": 172510,
+      "sha256": "06cc462ca0ca52ab09cc6482800b79eef9587c6b7f896bacc390da885ac38069"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed13\\validation-at-supervised-3000.npz",
+      "size": 172604,
+      "sha256": "df08532e34d36345b53a461427d6c81335a743c4154a380a1af6f90d0af8c9e5"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed13\\validation-at-supervised-500.npz",
+      "size": 172616,
+      "sha256": "3e738510c0a6fc5b48d8a40bd4a5a3ed125ecf6c8f9998afbccb9d025b226e15"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed13\\validation-predictions.npz",
+      "size": 172604,
+      "sha256": "df08532e34d36345b53a461427d6c81335a743c4154a380a1af6f90d0af8c9e5"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed23\\checkpoint-supervised-1000.pt",
+      "size": 726083,
+      "sha256": "66c1f45ee96307e290fe7b9f6495459b15a31e163014930cd5857231a36421f6"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed23\\checkpoint-supervised-1500.pt",
+      "size": 726083,
+      "sha256": "7f0c830bc5945653f67ab5cc812a851e446717da6506c8612f8bfcf3da75abbf"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed23\\checkpoint-supervised-2000.pt",
+      "size": 726083,
+      "sha256": "6a04c0003be04ea8dccc12e3e672cb91f011b956d43b99d5ad0468e724907970"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed23\\checkpoint-supervised-2500.pt",
+      "size": 726083,
+      "sha256": "e95956b9c8c09f50d95df0345828bb941b714461cc608871fec7605fffbe276a"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed23\\checkpoint-supervised-3000.pt",
+      "size": 726083,
+      "sha256": "ee3ae09ebf05bc41ec762e946a1d0046be33fff4ea47472a992893a294054761"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed23\\checkpoint-supervised-500.pt",
+      "size": 726083,
+      "sha256": "bcd143a6467e7cf63e1edf99725917e8f735317b9f18c57e69a6985ce978e179"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed23\\slot.json",
+      "size": 4246,
+      "sha256": "6011f223e450b2a34ce843d6bfaf7f289b52e5d1a2d09b69f0ae80594a18d052"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed23\\validation-at-supervised-1000.npz",
+      "size": 172452,
+      "sha256": "d09b4d6a6973d32e3ca83c47a0cf8ee78acc1c7d5392b8283f2e067ec69f79ab"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed23\\validation-at-supervised-1500.npz",
+      "size": 172490,
+      "sha256": "b9f3ed97b102fd6877da7a18c886a50d5e7daeda1c29970200727b32780f4222"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed23\\validation-at-supervised-2000.npz",
+      "size": 172453,
+      "sha256": "141d343e914ee3c3d023f9dc08d02c6c0bbc53b51211b4bd67718508c5e6febd"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed23\\validation-at-supervised-2500.npz",
+      "size": 172688,
+      "sha256": "dec17142c216d6955a75811f78a9fd3ed022d667c624e81cbd469af82074c0cf"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed23\\validation-at-supervised-3000.npz",
+      "size": 172428,
+      "sha256": "89fcda77b99268971287576b2c7e421e37d937983bbe54bbf1fde648aa7450b7"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed23\\validation-at-supervised-500.npz",
+      "size": 172411,
+      "sha256": "a23a14908eaf2a8716871a087aa8c0a445bfaec60b1b7e1bd94edd363139592b"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed23\\validation-predictions.npz",
+      "size": 172428,
+      "sha256": "89fcda77b99268971287576b2c7e421e37d937983bbe54bbf1fde648aa7450b7"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed7\\checkpoint-supervised-1000.pt",
+      "size": 726083,
+      "sha256": "ecdef992966b12bc939a927a25c6ada146e98ae9e089ef6e667c4f4b192582cf"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed7\\checkpoint-supervised-1500.pt",
+      "size": 726083,
+      "sha256": "6d6de92554c5a17b3a0c7f81e233d5529d1861c4c9e4f22c8b232398732db067"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed7\\checkpoint-supervised-2000.pt",
+      "size": 726083,
+      "sha256": "654c10c3e6501281876f6f25cbb566712facaac33e00a419b1fe3734f403b3ca"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed7\\checkpoint-supervised-2500.pt",
+      "size": 726083,
+      "sha256": "810c0e1e1ba4e0d41641e6aa896ff8ab677f27b0f190b66454a366a73c950e8b"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed7\\checkpoint-supervised-3000.pt",
+      "size": 726083,
+      "sha256": "a616f9160f359e54a6da5d87dc3b7a46edfee46e449e2944af7a69be8ae25c95"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed7\\checkpoint-supervised-500.pt",
+      "size": 726083,
+      "sha256": "9167011fe22d1c349aec61c0132bf3becd58fae95385c09eff89499b4ef02ecd"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed7\\slot.json",
+      "size": 4245,
+      "sha256": "4f5ff63bfbe2d185c1c4a51b5a6962cd15184f69bb3d056f0b2e9ba8fe364096"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed7\\validation-at-supervised-1000.npz",
+      "size": 172475,
+      "sha256": "9fb76bf7135e3d811db239d61b431782682754fa348d56fe368eb8e13c7b9ee5"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed7\\validation-at-supervised-1500.npz",
+      "size": 172526,
+      "sha256": "33d8b07503d0aca0baaf35e1ca3b49af7761af49e9a593bb91cf533add91d80d"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed7\\validation-at-supervised-2000.npz",
+      "size": 172521,
+      "sha256": "32eb21890848956d546c3d715b70a769c71d82558eb869297602d6cbdfeff0fc"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed7\\validation-at-supervised-2500.npz",
+      "size": 172544,
+      "sha256": "8a11838b295b6d3c49f472286fe8f6bd6488624141055a500cfaea46ca2d7b03"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed7\\validation-at-supervised-3000.npz",
+      "size": 172535,
+      "sha256": "42d1868850d4c8f5192a89cc4d8fc6fc164374e6a816a93c1b2a66a9381a743f"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed7\\validation-at-supervised-500.npz",
+      "size": 172407,
+      "sha256": "91280311fedf98c60fadd065669a97dcb82fbf8c8804960e71d970f81f7594a5"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\direct_seed7\\validation-predictions.npz",
+      "size": 172535,
+      "sha256": "42d1868850d4c8f5192a89cc4d8fc6fc164374e6a816a93c1b2a66a9381a743f"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ema_jepa_seed13\\checkpoint-pretrain-1000.pt",
+      "size": 1344455,
+      "sha256": "4e2752c56541dca5a95dd331f8a13ba063d76eba73f883c69da3879d507d3f34"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ema_jepa_seed13\\checkpoint-pretrain-1500.pt",
+      "size": 1344455,
+      "sha256": "e6acc6626bde02785ecd77935a7f3f28854dfe993e83b7757c61639079ad80f9"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ema_jepa_seed13\\checkpoint-pretrain-500.pt",
+      "size": 1344455,
+      "sha256": "a32706cc281a4c723ace88582aa4b357edbb07519d38e386caecb8d429297b8c"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ema_jepa_seed13\\checkpoint-supervised-1000.pt",
+      "size": 1093977,
+      "sha256": "8e282cbd8e8896c75ea821b32a3750b0280b1209086718012a16db3ccfe947f1"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ema_jepa_seed13\\checkpoint-supervised-1500.pt",
+      "size": 1093977,
+      "sha256": "59cb3d1e6d79ca2d9807f24c5e816d0e5c89fad0e274e703d6e9da5b44024633"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ema_jepa_seed13\\checkpoint-supervised-500.pt",
+      "size": 1093977,
+      "sha256": "ae251ea8923c300f712e1e5492c4bc9b7c577db101665f5e0bc1f88af0999abe"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ema_jepa_seed13\\slot.json",
+      "size": 50589,
+      "sha256": "88faf3abdb6ecc316b72836025cc638428cf7a950295e825395737c542b48112"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ema_jepa_seed13\\validation-at-supervised-1000.npz",
+      "size": 172474,
+      "sha256": "e9a1f73df860438ababbfdb13e0d139e73ec9920f37e6cc094ea1b8be5f252c3"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ema_jepa_seed13\\validation-at-supervised-1500.npz",
+      "size": 172536,
+      "sha256": "3c299b7d6f25968e32dec94db23adb69d651a26ddd87f85a783ec00f8f911536"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ema_jepa_seed13\\validation-at-supervised-500.npz",
+      "size": 172538,
+      "sha256": "47fb5cee51e8a2d4b389d89898f57373eb3259b3af4f3fe881348cfecdea1e69"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ema_jepa_seed13\\validation-predictions.npz",
+      "size": 172536,
+      "sha256": "3c299b7d6f25968e32dec94db23adb69d651a26ddd87f85a783ec00f8f911536"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ema_jepa_seed23\\checkpoint-pretrain-1000.pt",
+      "size": 1344455,
+      "sha256": "4d3b12cbdb7f2b9c041801f60ad688d30a96c0c099b636eed2194791ae046305"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ema_jepa_seed23\\checkpoint-pretrain-1500.pt",
+      "size": 1344455,
+      "sha256": "7332df047339c2861d27e1017448f7d305fdeff8a0b7626605f6fdbd0007ddd2"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ema_jepa_seed23\\checkpoint-pretrain-500.pt",
+      "size": 1344455,
+      "sha256": "bf31dbf3790f0893c0ed21440cc8b03a95b826388c6b55d143e03dd5ba6b7564"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ema_jepa_seed23\\checkpoint-supervised-1000.pt",
+      "size": 1093977,
+      "sha256": "52ad48d1beb9ba84dd29035f843f83eeb73d2e7b2ec23d4c4415cdf9f40d0863"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ema_jepa_seed23\\checkpoint-supervised-1500.pt",
+      "size": 1093977,
+      "sha256": "4a7c63931a31a48f60323b944110df9292856f39cb822ce0b891371a10a16a15"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ema_jepa_seed23\\checkpoint-supervised-500.pt",
+      "size": 1093977,
+      "sha256": "5b5573f3e2d17a338dd808fe433f8a12f808f2da6c799cb777099a9b3b904055"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ema_jepa_seed23\\slot.json",
+      "size": 50587,
+      "sha256": "5a1327abf21df8483c6f82b9fc9fd2b318fd5ab36ee2adb532504030c3ba444e"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ema_jepa_seed23\\validation-at-supervised-1000.npz",
+      "size": 172368,
+      "sha256": "048d862eb8ab0f2d33a4314e9d1a566822651762a2612579fc0a55a457d39973"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ema_jepa_seed23\\validation-at-supervised-1500.npz",
+      "size": 172518,
+      "sha256": "f97b1e0451ff784507c7c0fbbbdb88a80e0c0578262e34931d4dc1d88a6fdd4e"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ema_jepa_seed23\\validation-at-supervised-500.npz",
+      "size": 172516,
+      "sha256": "42f1ed547926af360adc6914c14267ecd3ccd6c6132dcd3cc5e7e575daad50a6"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ema_jepa_seed23\\validation-predictions.npz",
+      "size": 172518,
+      "sha256": "f97b1e0451ff784507c7c0fbbbdb88a80e0c0578262e34931d4dc1d88a6fdd4e"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ema_jepa_seed7\\checkpoint-pretrain-1000.pt",
+      "size": 1344455,
+      "sha256": "b97bcb5ef90d0deadcc0633f147c74fb66cac0d6a404d2d477fc4f79f780ea3a"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ema_jepa_seed7\\checkpoint-pretrain-1500.pt",
+      "size": 1344455,
+      "sha256": "b7d23dee8a80be038ccad776190cf763a63d72fa734fd4378a6e6db737d82be3"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ema_jepa_seed7\\checkpoint-pretrain-500.pt",
+      "size": 1344455,
+      "sha256": "9b5c9b013efd567d1a598806eda7bdc53b2b337b1cc2d94cc4b9b4c112ca47f7"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ema_jepa_seed7\\checkpoint-supervised-1000.pt",
+      "size": 1093977,
+      "sha256": "1323b864966854b3273864a50812ff0f59c3cc22987c54dcd32a4df4556d345d"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ema_jepa_seed7\\checkpoint-supervised-1500.pt",
+      "size": 1093977,
+      "sha256": "f1fc41860e21cb2c47868488b051c68cd951487d717fc0fe033e63b8dfcc664c"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ema_jepa_seed7\\checkpoint-supervised-500.pt",
+      "size": 1093977,
+      "sha256": "b2d880766e1792e159897738f99207539e0dccf23c2581259289e534b241c321"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ema_jepa_seed7\\slot.json",
+      "size": 50590,
+      "sha256": "904e695c6f37ef0987987c68dbdfd9c8828b35970319a1ced07abacc067a9c9b"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ema_jepa_seed7\\validation-at-supervised-1000.npz",
+      "size": 172505,
+      "sha256": "d95725a38df4796406e315b4b81e52da3fd81715a04afc44520cf45182165482"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ema_jepa_seed7\\validation-at-supervised-1500.npz",
+      "size": 172467,
+      "sha256": "261f8b59d03489799cfb5ef015dbefd05b32c6340fce51c87e83b4a808741c01"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ema_jepa_seed7\\validation-at-supervised-500.npz",
+      "size": 172501,
+      "sha256": "9111cca0d5c34e1f2e9cbc8c84e07bc38e2977c50a01eba9d11d08126c9c9c1e"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ema_jepa_seed7\\validation-predictions.npz",
+      "size": 172467,
+      "sha256": "261f8b59d03489799cfb5ef015dbefd05b32c6340fce51c87e83b4a808741c01"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\hist_gradient_boosting\\model.joblib",
+      "size": 3422771,
+      "sha256": "9674baa88bb21595100ac5ceb5c5486ca177e98bd3ef0190ae2beaa4e6b2cfb6"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\hist_gradient_boosting\\slot.json",
+      "size": 1217,
+      "sha256": "606b95aa0ca100ec6f9ba2a6d47acf57709b2f1d8cf97f6d1d77256764174509"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\hist_gradient_boosting\\validation-predictions.npz",
+      "size": 244854,
+      "sha256": "8baa010e87fe932884ffeb64af59c3ea9137b71e7f7b134a9bfef96015376baf"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\manifest.json",
+      "size": 4876,
+      "sha256": "67ae5224657524cceb5c26f17c3a1ee399a1e886577552211d42ef2fe35a32ac"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\persistence\\model.joblib",
+      "size": 263,
+      "sha256": "0a01a97c9c191db3facf15627a67b2e0e388e32081a93f279b7fb6f11ee79c3b"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\persistence\\slot.json",
+      "size": 1200,
+      "sha256": "4020321bc292f44d9c8ca7b6642ed3345dd013114acb37e6bef1fcc134ba73c9"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\persistence\\validation-predictions.npz",
+      "size": 243116,
+      "sha256": "b1dd51116bb71fe9a809a1eab719160cd01674af8f0158e0a332048220f52996"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\random_encoder_ema_seed7\\checkpoint-supervised-1000.pt",
+      "size": 627215,
+      "sha256": "0f3c7b4379336082dc251c338655269b55631476ab9cdbf90830577cc5c51d0e"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\random_encoder_ema_seed7\\checkpoint-supervised-1500.pt",
+      "size": 627215,
+      "sha256": "966e7a089eb49bce0cdacf7fc5664f375445bf50bf7a7be501ec96618c0a0d06"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\random_encoder_ema_seed7\\checkpoint-supervised-500.pt",
+      "size": 627215,
+      "sha256": "c8ff77af112e5a78ac118e648ad6b87192caf8cf5393f8f40107ab6ea41443ae"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\random_encoder_ema_seed7\\slot.json",
+      "size": 2978,
+      "sha256": "b7955a477bfac5ba9fcd07e7823a752d0bdc2bf11aaa67b6bee89ac88764b482"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\random_encoder_ema_seed7\\validation-at-supervised-1000.npz",
+      "size": 169723,
+      "sha256": "1f43fb11d5ca8a8e47e9fac405995d4509a9b68763c4203968d5ee48aab67e8f"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\random_encoder_ema_seed7\\validation-at-supervised-1500.npz",
+      "size": 170204,
+      "sha256": "81595a43307d37c3e19632a425543f33a61d51ea3853673c59137207822edd65"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\random_encoder_ema_seed7\\validation-at-supervised-500.npz",
+      "size": 169044,
+      "sha256": "ec59d5a08e426494f901683c72a7aaa9e928673b481e5ab645ab09e85c606f7e"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\random_encoder_ema_seed7\\validation-predictions.npz",
+      "size": 170204,
+      "sha256": "81595a43307d37c3e19632a425543f33a61d51ea3853673c59137207822edd65"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\random_encoder_shared_sigreg_seed7\\checkpoint-supervised-1000.pt",
+      "size": 394145,
+      "sha256": "1e70dd50ee8c864a54e97ebd5cdc4027464124dc2599233b6f4125a64b27fa15"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\random_encoder_shared_sigreg_seed7\\checkpoint-supervised-1500.pt",
+      "size": 394145,
+      "sha256": "a103c21c616aafd9108cdbf2e6e4fcea70f232a78657b7dc03ea9f30eb3f6733"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\random_encoder_shared_sigreg_seed7\\checkpoint-supervised-500.pt",
+      "size": 394145,
+      "sha256": "5897fd5c078c07321d2cbbe007086f836f5450b6df43fbd3d65c4c2debf7d134"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\random_encoder_shared_sigreg_seed7\\slot.json",
+      "size": 2997,
+      "sha256": "75f6503edef0f6336ee82be8d10ff720da976ddb24cd1ff56ee81630d6293b4b"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\random_encoder_shared_sigreg_seed7\\validation-at-supervised-1000.npz",
+      "size": 169723,
+      "sha256": "1f43fb11d5ca8a8e47e9fac405995d4509a9b68763c4203968d5ee48aab67e8f"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\random_encoder_shared_sigreg_seed7\\validation-at-supervised-1500.npz",
+      "size": 170204,
+      "sha256": "81595a43307d37c3e19632a425543f33a61d51ea3853673c59137207822edd65"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\random_encoder_shared_sigreg_seed7\\validation-at-supervised-500.npz",
+      "size": 169044,
+      "sha256": "ec59d5a08e426494f901683c72a7aaa9e928673b481e5ab645ab09e85c606f7e"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\random_encoder_shared_sigreg_seed7\\validation-predictions.npz",
+      "size": 170204,
+      "sha256": "81595a43307d37c3e19632a425543f33a61d51ea3853673c59137207822edd65"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ridge\\model.joblib",
+      "size": 3746,
+      "sha256": "d17ec7b99fa885af0b549912261ee9d605a669e689bd0af970657f624de6c90d"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ridge\\slot.json",
+      "size": 1184,
+      "sha256": "ddc3a59ad512880c11e60aee385352f6962793ec6292a3abef31ee6fa2c49121"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\ridge\\validation-predictions.npz",
+      "size": 246050,
+      "sha256": "b6fb81bb86093c0904b56ca55b521d581144d0a6f8e287e22ef70c6b917662f5"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\seasonal_24_source_intervals\\model.joblib",
+      "size": 271,
+      "sha256": "221816adff20018e6c9ccb82ac7abc9030dde42f1bd15ee03d40f291e2ceb929"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\seasonal_24_source_intervals\\slot.json",
+      "size": 1233,
+      "sha256": "c199970057bd11dadc5c22eb1b9ab384b3d0641872d2465a39262f528f15dd24"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\seasonal_24_source_intervals\\validation-predictions.npz",
+      "size": 228682,
+      "sha256": "5a5cb7f812e3c580e0c3e470661723da2371907e25d48c3ff72d5ad6433265d9"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\shared_sigreg_seed13\\checkpoint-pretrain-1000.pt",
+      "size": 1111321,
+      "sha256": "26fa93b81201cbde59bac854ef4c933c9b78ffe4bf1bea99aa34c429d2e71fea"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\shared_sigreg_seed13\\checkpoint-pretrain-1500.pt",
+      "size": 1111321,
+      "sha256": "c989ea817a327cce0fd66384ac5ecd98addbf81b5c584842d5a69f00ae382ae8"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\shared_sigreg_seed13\\checkpoint-pretrain-500.pt",
+      "size": 1111321,
+      "sha256": "82710da7144cdc80704bb43e1e7649dbaa1f1ed85b188c07d97f99e2556c5305"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\shared_sigreg_seed13\\checkpoint-supervised-1000.pt",
+      "size": 860843,
+      "sha256": "1f0c2f72a8450adf0fe1963b3275dd109f1475c6086661ac210886a347636b3f"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\shared_sigreg_seed13\\checkpoint-supervised-1500.pt",
+      "size": 860843,
+      "sha256": "195fb92715a3a52aa302e1b8fc3e1078db23731c74cba2090399bac3b90f6032"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\shared_sigreg_seed13\\checkpoint-supervised-500.pt",
+      "size": 860843,
+      "sha256": "e2f6f89a71160ef9f04de3260c1fc839c2f1e35850813a6da96782385f84c484"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\shared_sigreg_seed13\\slot.json",
+      "size": 50591,
+      "sha256": "0347555ff149a1cbdf2152a9c1967520c81a4e73e9d96695b621ff82c9d77e6e"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\shared_sigreg_seed13\\validation-at-supervised-1000.npz",
+      "size": 172659,
+      "sha256": "2bceeb6df7ffeff8a405964511d0e013162a5c6a2ed50a1b94202a110657e614"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\shared_sigreg_seed13\\validation-at-supervised-1500.npz",
+      "size": 172580,
+      "sha256": "c9d401e89d55fdcc3114d3283d71cfc142a5b2072dfd6362ffe0586f8ff94533"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\shared_sigreg_seed13\\validation-at-supervised-500.npz",
+      "size": 172636,
+      "sha256": "adc8b068d529a555eda5555556c9a0361e8beb77ebb2f4e231513ced7cb759ef"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\shared_sigreg_seed13\\validation-predictions.npz",
+      "size": 172580,
+      "sha256": "c9d401e89d55fdcc3114d3283d71cfc142a5b2072dfd6362ffe0586f8ff94533"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\shared_sigreg_seed23\\checkpoint-pretrain-1000.pt",
+      "size": 1111321,
+      "sha256": "e9c7c81da07aa7ea2675faffcf2c8439bd23ac3d2e747a4707fa738138ca2a6a"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\shared_sigreg_seed23\\checkpoint-pretrain-1500.pt",
+      "size": 1111321,
+      "sha256": "764ea7035a6ec4155d0b318ebc0f9097305be6837e47cebb4b26017db0635e77"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\shared_sigreg_seed23\\checkpoint-pretrain-500.pt",
+      "size": 1111321,
+      "sha256": "8fe1de583be3e23b991805d2ac9ee9a36c085d1a10936e2b5c950480f459f645"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\shared_sigreg_seed23\\checkpoint-supervised-1000.pt",
+      "size": 860843,
+      "sha256": "9c9c7b1363a1bb163b205dff456a59adca1c98ba621591a6dc79ccd92a2749f5"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\shared_sigreg_seed23\\checkpoint-supervised-1500.pt",
+      "size": 860843,
+      "sha256": "64f76625bc8787c8d4e9e672980c62035a1667184568b4b28396c2b71a51f3d1"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\shared_sigreg_seed23\\checkpoint-supervised-500.pt",
+      "size": 860843,
+      "sha256": "652d232bf661ee3469d309fdeac030368f6295835730567655a44e1b2fac3546"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\shared_sigreg_seed23\\slot.json",
+      "size": 50587,
+      "sha256": "0419b878bb201afd1cd4862bbb24a90a7417aaee29d988d0c61c54d46465e901"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\shared_sigreg_seed23\\validation-at-supervised-1000.npz",
+      "size": 172586,
+      "sha256": "cd802adccaa7f838395c30e003dfac5dafe98df403dbc65cc6effce0a2fe827b"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\shared_sigreg_seed23\\validation-at-supervised-1500.npz",
+      "size": 172477,
+      "sha256": "3cce5cfd183ffc9f119e7911beeabef18e8311bc0d8d3e76d5f817d781a8f4ab"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\shared_sigreg_seed23\\validation-at-supervised-500.npz",
+      "size": 172520,
+      "sha256": "081d25c6883c56f6e0900ca63439182715465393b4f974ef26a61badc9e412b0"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\shared_sigreg_seed23\\validation-predictions.npz",
+      "size": 172477,
+      "sha256": "3cce5cfd183ffc9f119e7911beeabef18e8311bc0d8d3e76d5f817d781a8f4ab"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\shared_sigreg_seed7\\checkpoint-pretrain-1000.pt",
+      "size": 1111321,
+      "sha256": "4fb1a97bc294f47818a84655fbf76d2a3bb5a5fbcfa07b1d404e65ddb79c7a5e"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\shared_sigreg_seed7\\checkpoint-pretrain-1500.pt",
+      "size": 1111321,
+      "sha256": "dc9991991adb98215c1318e617917c408b2a099314aa257c5d3b8bdf00ebca85"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\shared_sigreg_seed7\\checkpoint-pretrain-500.pt",
+      "size": 1111321,
+      "sha256": "edb117b1648bfee44527ae2f1e42c404cd2fee52ad8e0cd4f4bbd51b77405fa2"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\shared_sigreg_seed7\\checkpoint-supervised-1000.pt",
+      "size": 860843,
+      "sha256": "70d8a30ef06a7c75359606963023945aa81cccdf959e6d30ff36671e999391d6"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\shared_sigreg_seed7\\checkpoint-supervised-1500.pt",
+      "size": 860843,
+      "sha256": "44bcc9fad178a64bdb64f76f02fa1a2eb5caa74b347c0e82a4936a6f4765a98e"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\shared_sigreg_seed7\\checkpoint-supervised-500.pt",
+      "size": 860843,
+      "sha256": "71c2ead99d8dea1d9fa372716a8f1dd6f01e28186ceda3fc890625c3e16d9d44"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\shared_sigreg_seed7\\slot.json",
+      "size": 50593,
+      "sha256": "c315dec68a48144373d151100892e8317e13e52f9f58b5213d5456d530ed3692"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\shared_sigreg_seed7\\validation-at-supervised-1000.npz",
+      "size": 172586,
+      "sha256": "5889edc2e9d5511d804c3962833f2e3487020ef6e2504249e60a33dad85cd695"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\shared_sigreg_seed7\\validation-at-supervised-1500.npz",
+      "size": 172558,
+      "sha256": "36fb5baa19172c8a4df8d998e5761a1d5b4fd8370f86557246c1209f58f6b017"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\shared_sigreg_seed7\\validation-at-supervised-500.npz",
+      "size": 172531,
+      "sha256": "eb2e7a5fba5c09b72d59ea645b303ecfd5fc5f8a831f1764eb7bee729fe3a6ea"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\shared_sigreg_seed7\\validation-predictions.npz",
+      "size": 172558,
+      "sha256": "36fb5baa19172c8a4df8d998e5761a1d5b4fd8370f86557246c1209f58f6b017"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\temporally_shuffled_pretrain_target_ema_seed7\\checkpoint-pretrain-1000.pt",
+      "size": 1344455,
+      "sha256": "1a1341d6322114231ffe80e4a421f61e229f2c2863956bd78a3770d205648734"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\temporally_shuffled_pretrain_target_ema_seed7\\checkpoint-pretrain-1500.pt",
+      "size": 1344455,
+      "sha256": "f168280bd911ad9ccd0a4bc07cfe062e0673082d73806664c3c5f84983810973"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\temporally_shuffled_pretrain_target_ema_seed7\\checkpoint-pretrain-500.pt",
+      "size": 1344455,
+      "sha256": "a3e374228de0fe043931d77456433d7554285cd34b195042c2594ba0991b0042"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\temporally_shuffled_pretrain_target_ema_seed7\\checkpoint-supervised-1000.pt",
+      "size": 1093977,
+      "sha256": "f2cf9bcfe7532bd93b49a27548fb64636ca8b0974f8166dcc443e21bbc84b165"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\temporally_shuffled_pretrain_target_ema_seed7\\checkpoint-supervised-1500.pt",
+      "size": 1093977,
+      "sha256": "e1ec3700ecf858509c492621d24596898ed4a5e2101fd76ed887b67bd3a20d22"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\temporally_shuffled_pretrain_target_ema_seed7\\checkpoint-supervised-500.pt",
+      "size": 1093977,
+      "sha256": "ce3961e4ff675d32564f9a9af526f171673fc6f1d56a24a6a34b4f6d40f41105"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\temporally_shuffled_pretrain_target_ema_seed7\\slot.json",
+      "size": 50652,
+      "sha256": "dd73e09e53449e422ebe5ee0d92497c3b92caa1d451528e0da4ef42443ea8515"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\temporally_shuffled_pretrain_target_ema_seed7\\validation-at-supervised-1000.npz",
+      "size": 172538,
+      "sha256": "8e1aac08ad9d6d8eecf209c4fb80bec93054c297ed2bd4f115a6d625c9a72708"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\temporally_shuffled_pretrain_target_ema_seed7\\validation-at-supervised-1500.npz",
+      "size": 172414,
+      "sha256": "381f1d15b7c5268f60962e074505fd39bb9f38421ed038071c534792b36e5b25"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\temporally_shuffled_pretrain_target_ema_seed7\\validation-at-supervised-500.npz",
+      "size": 172438,
+      "sha256": "117492ae9d9a2ee7aecc75f97fb92e0e8484d01eac35771916e1e202c57530f1"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\temporally_shuffled_pretrain_target_ema_seed7\\validation-predictions.npz",
+      "size": 172414,
+      "sha256": "381f1d15b7c5268f60962e074505fd39bb9f38421ed038071c534792b36e5b25"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\temporally_shuffled_pretrain_target_shared_sigreg_seed7\\checkpoint-pretrain-1000.pt",
+      "size": 1111385,
+      "sha256": "cec7872f53dc09ce7d6584fc7dad655017f7337d8ad6a3ad8c88636d95ffc9c6"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\temporally_shuffled_pretrain_target_shared_sigreg_seed7\\checkpoint-pretrain-1500.pt",
+      "size": 1111385,
+      "sha256": "530b7d6612c0bb08b5dd1417044caf01339816d0e2c83b443cc96fd867d64c7d"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\temporally_shuffled_pretrain_target_shared_sigreg_seed7\\checkpoint-pretrain-500.pt",
+      "size": 1111385,
+      "sha256": "d8bec0fee0ea758c72924c4e0c1f5d63ff146bb3adfc6651728d23b7b14eb8f9"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\temporally_shuffled_pretrain_target_shared_sigreg_seed7\\checkpoint-supervised-1000.pt",
+      "size": 860907,
+      "sha256": "2cf084482d63bc0b18e3127666a271e670902c3d9ae3a67e536b889a50f195a5"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\temporally_shuffled_pretrain_target_shared_sigreg_seed7\\checkpoint-supervised-1500.pt",
+      "size": 860907,
+      "sha256": "02a4865b065f54e33ac95e3d2b216a5aa975aa6d2c1d1f89738a5c27a37233e8"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\temporally_shuffled_pretrain_target_shared_sigreg_seed7\\checkpoint-supervised-500.pt",
+      "size": 860907,
+      "sha256": "fdeebc27a3f5e3f1e3f0e43552b6263b2a315460a44f84b040af99550bd304cf"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\temporally_shuffled_pretrain_target_shared_sigreg_seed7\\slot.json",
+      "size": 50668,
+      "sha256": "20273138f7f10c6a5e64e6e0cf1fe83ef1ef9e984ff8025c2674189bfdcc0e3f"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\temporally_shuffled_pretrain_target_shared_sigreg_seed7\\validation-at-supervised-1000.npz",
+      "size": 172608,
+      "sha256": "b1fc24d011bef2422c18f941a73ca57a2a6f6ecf1c85872b62439967a3febf28"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\temporally_shuffled_pretrain_target_shared_sigreg_seed7\\validation-at-supervised-1500.npz",
+      "size": 172537,
+      "sha256": "9126b15e21789fea47ecbe0c0780e0a1754978b4deb7e77aa94ea0030f02f5e2"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\temporally_shuffled_pretrain_target_shared_sigreg_seed7\\validation-at-supervised-500.npz",
+      "size": 172567,
+      "sha256": "b377250022cad3432fcc28d8d51b873355223204e3b6d29882be66f35650ee7a"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\aeon3_geb_2024_hourly_sv_v1\\core_campaign\\temporally_shuffled_pretrain_target_shared_sigreg_seed7\\validation-predictions.npz",
+      "size": 172537,
+      "sha256": "9126b15e21789fea47ecbe0c0780e0a1754978b4deb7e77aa94ea0030f02f5e2"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\release\\aeon-offline-scale-expanded-20260928-r3.zip",
+      "size": 26226838,
+      "sha256": "5e265e08bf1041bbe0fb4dd2a5f3503bae98f996096577f976beaf9384d6bb57"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\aeon_ssl.py",
+      "size": 6119,
+      "sha256": "490a0807a24433465c59d004d8e7fbe36cd6442ace71db40fe82cacab2fa229c"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\sigreg.py",
+      "size": 2632,
+      "sha256": "2cf5dc8e6fc610fbe167339a8750f5e2d9ddf9a48f416717b8310500536469a3"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\direct_seed7\\checkpoint-supervised-10000.pt",
+      "size": 727611,
+      "sha256": "a589c29d5acebeaa4b20141fa284ff5a97f22b4e488bf25108216d651422b8e2"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\direct_seed7\\checkpoint-supervised-12500.pt",
+      "size": 727611,
+      "sha256": "f9f50435759158ef2c3b3183ea5fd37b5e7889cf014e6cb6cbb07832357dfaa5"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\direct_seed7\\checkpoint-supervised-15000.pt",
+      "size": 727611,
+      "sha256": "93299fccfae4349cc8f3941933e31b4b63f7167be7990e42cff8b87892b4db27"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\direct_seed7\\checkpoint-supervised-17500.pt",
+      "size": 727611,
+      "sha256": "24359cff793e6b46fe8dea77cb912687ce43d35a0431c5a18b41f8e1456113cc"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\direct_seed7\\checkpoint-supervised-20000.pt",
+      "size": 727611,
+      "sha256": "f188e734a2070e829087cf955b0f67df06b216899b75d0f8b8a2ac093becd19d"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\direct_seed7\\checkpoint-supervised-22500.pt",
+      "size": 727611,
+      "sha256": "d2b1d70140b11eebe076860717d9c339edae08927f652795351b83823bb5125e"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\direct_seed7\\checkpoint-supervised-2500.pt",
+      "size": 727573,
+      "sha256": "4e2f1c2ef402ab82995a47dc6b2dda1cccaac31f11dd667fbbd304da5bf36951"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\direct_seed7\\checkpoint-supervised-25000.pt",
+      "size": 727611,
+      "sha256": "0d8901113abd64b4214b437290e6ca3e448942c93c9f8296cfe5341d7ec9c614"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\direct_seed7\\checkpoint-supervised-27500.pt",
+      "size": 727611,
+      "sha256": "e7ae2cab566a09ace9e2a1f1bdf98466b75b143f71c3685a47f9a7166b1c1b19"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\direct_seed7\\checkpoint-supervised-30000.pt",
+      "size": 727611,
+      "sha256": "50990c12c5aea5d1a3f5d256301f4dc56bc243532f3831d09b3e8cec8a2821cf"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\direct_seed7\\checkpoint-supervised-5000.pt",
+      "size": 727573,
+      "sha256": "a3097152f470ba9a26ad59b819a95ff7429fa34410e54ec751a7176a57783a6c"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\direct_seed7\\checkpoint-supervised-7500.pt",
+      "size": 727573,
+      "sha256": "0b8c410df280735c3ab61202b12b9f71567af4f48badd2af6e973fcdd9b659f9"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\direct_seed7\\slot.json",
+      "size": 54128,
+      "sha256": "5cf8d0c3fc9cf06d28f09411d983602008c479d671aa018fc2a7849be9c01577"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\direct_seed7\\validation-at-supervised-10000.npz",
+      "size": 173272,
+      "sha256": "743918e830f994776dd8d0a00744fe4342f9441c65e54d30c0550df18d2afbbe"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\direct_seed7\\validation-at-supervised-12500.npz",
+      "size": 173188,
+      "sha256": "7a99b45daa164e3bbff17584b98538219fa736c8e9f1476db5c4a825c4a375ad"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\direct_seed7\\validation-at-supervised-15000.npz",
+      "size": 173212,
+      "sha256": "c081721a5a13cedd2906ddce2def9c6d5601bcbc64a2f8fe487f29c0a2f390df"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\direct_seed7\\validation-at-supervised-17500.npz",
+      "size": 173177,
+      "sha256": "348ec46b01f93b08eff7053741094f8a701f98e5d8e993aaab62d6e3fec22384"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\direct_seed7\\validation-at-supervised-20000.npz",
+      "size": 173273,
+      "sha256": "342088285cc03b0cf94062a8907d67dc56dcfe7947835b1af843322066b5f1cc"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\direct_seed7\\validation-at-supervised-22500.npz",
+      "size": 173252,
+      "sha256": "1a81c77d69268cbe824c395ace34ca4e385071ce9ffc63a378a7874c9879d951"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\direct_seed7\\validation-at-supervised-2500.npz",
+      "size": 173371,
+      "sha256": "cf8c3db74eb6ca2381d9d5f421a7a64fbd77dc7b33c0a5438ea0485aa9f6ad2d"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\direct_seed7\\validation-at-supervised-25000.npz",
+      "size": 173245,
+      "sha256": "d818c469c43551e4867476abe81ab2c8f4f7194140d2cd323042e7c0d9a1e457"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\direct_seed7\\validation-at-supervised-27500.npz",
+      "size": 173298,
+      "sha256": "e53bbb6ef8f7958254679a5ada41f0c2a6ff294849feb8e53f7d9db3b4ca13ce"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\direct_seed7\\validation-at-supervised-30000.npz",
+      "size": 173378,
+      "sha256": "686d59f8d659c987da9eb3aa399abe70c5fdeaf843d915cdc47dcaf95fe3de1a"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\direct_seed7\\validation-at-supervised-5000.npz",
+      "size": 173400,
+      "sha256": "4e3800f7458c4c6d7124eb37a47b82f88c94aed0dc2b9f5f6871d1a7ff7e617e"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\direct_seed7\\validation-at-supervised-7500.npz",
+      "size": 173337,
+      "sha256": "349bd75886bff91a7a8be0231e32f38949bbde344d2980936f57d467056acab0"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\direct_seed7\\validation-predictions.npz",
+      "size": 173378,
+      "sha256": "686d59f8d659c987da9eb3aa399abe70c5fdeaf843d915cdc47dcaf95fe3de1a"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\ema_jepa_seed7\\checkpoint-pretrain-10000.pt",
+      "size": 1346203,
+      "sha256": "f32ede1520a5afc953adb0e7d5f723146ebca6e8ae749660905fe1663c03cfaa"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\ema_jepa_seed7\\checkpoint-pretrain-12500.pt",
+      "size": 1346203,
+      "sha256": "46eee23f1c5eec55c22ec3911c7181abdef0e49c5a4809aa5beaabc2cf929d98"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\ema_jepa_seed7\\checkpoint-pretrain-15000.pt",
+      "size": 1346203,
+      "sha256": "5b380517b750cbcafd6f3a01af039dcfcaf7d66a45d7221af80547844cd1477a"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\ema_jepa_seed7\\checkpoint-pretrain-2500.pt",
+      "size": 1346145,
+      "sha256": "b7f7479589e51db654ebb2cc617d4b6f3ecb042b5c43ae9d90ad2258c75eb48b"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\ema_jepa_seed7\\checkpoint-pretrain-5000.pt",
+      "size": 1346145,
+      "sha256": "f0cdba4f096586cd9c9e37fa38ddd6a8339cff15b7b2a29b531924bfbf7fbee0"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\ema_jepa_seed7\\checkpoint-pretrain-7500.pt",
+      "size": 1346145,
+      "sha256": "7af9c1a65963d88f7cd11bd72be85e398f5eb3f73a45c7269f998387c9d9a1a0"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\ema_jepa_seed7\\checkpoint-supervised-10000.pt",
+      "size": 1095849,
+      "sha256": "717f9bf276f1858553255bc1f6a4e78a7e88275223ce0caeb3140e5ac669e3de"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\ema_jepa_seed7\\checkpoint-supervised-12500.pt",
+      "size": 1095849,
+      "sha256": "5fecce0caa9b70e839f06d25bee30879830b9458d0cf98522a42467c4d2183bc"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\ema_jepa_seed7\\checkpoint-supervised-15000.pt",
+      "size": 1095849,
+      "sha256": "61c897aae7f5655343ce02a3e7b5fb97c2a2c72aa5f19ffd2e9037b987cd838c"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\ema_jepa_seed7\\checkpoint-supervised-2500.pt",
+      "size": 1095797,
+      "sha256": "12b133b3808a70c2fcd7b8d020cd1e5b212cd4c24ccd5dafc8cb1953d7a0ab93"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\ema_jepa_seed7\\checkpoint-supervised-5000.pt",
+      "size": 1095797,
+      "sha256": "11ec5b5abf4692708bc798895c32a07dd0e9697fe0df583b0f95fc0ef678bf71"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\ema_jepa_seed7\\checkpoint-supervised-7500.pt",
+      "size": 1095797,
+      "sha256": "4485a555d35186f35b6bd2abf4085f6119dfbf31cf5076fa501f90d96016712f"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\ema_jepa_seed7\\slot.json",
+      "size": 99358,
+      "sha256": "c6665fc52245770bf74041156ed853e6d10c469a2b3a4c2e7fa61a8fba3a980c"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\ema_jepa_seed7\\validation-at-supervised-10000.npz",
+      "size": 173180,
+      "sha256": "71b3f81da77a64f50022600f71e0ea7f0e351e5ec51be5c3d7e32a74bdc68456"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\ema_jepa_seed7\\validation-at-supervised-12500.npz",
+      "size": 173237,
+      "sha256": "b95d7919139346e41756add0b5726185df5ba64652d140cb96497093dee52f0f"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\ema_jepa_seed7\\validation-at-supervised-15000.npz",
+      "size": 173080,
+      "sha256": "77f28f0310399030e672336642e96af2e64063b54ff13f4219ccf7c0ebc06fdb"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\ema_jepa_seed7\\validation-at-supervised-2500.npz",
+      "size": 173335,
+      "sha256": "7f554065c924689f5d77b377d27ac9462816fd123fff5820a8e30b9ca3055a38"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\ema_jepa_seed7\\validation-at-supervised-5000.npz",
+      "size": 173260,
+      "sha256": "bb8f190fcd0b763f3b4440c1fa36c82ea16d4a34d0aad9a56788704bf015c5df"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\ema_jepa_seed7\\validation-at-supervised-7500.npz",
+      "size": 173240,
+      "sha256": "705a9046961e156c92ab779153679c4e6cef04cdbb516fa1482d8e4854585a1e"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\ema_jepa_seed7\\validation-predictions.npz",
+      "size": 173080,
+      "sha256": "77f28f0310399030e672336642e96af2e64063b54ff13f4219ccf7c0ebc06fdb"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon30k_stage1\\manifest.json",
+      "size": 1079,
+      "sha256": "8d6e5549a0dd6b2edbc8afa86c468307f81e38f33d9fe9ef87b64d403546b599"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon_expanded_3k\\cohort.json",
+      "size": 2943,
+      "sha256": "90b834c89600e2e61301d781403d2fa69f5ac672405580918344a19b861981bc"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon_expanded_3k\\direct_seed7\\checkpoint-supervised-1000.pt",
+      "size": 727893,
+      "sha256": "6e0fd7baef256792c5b49203ddd079cca76f0668417c6d74c136451c2138f312"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon_expanded_3k\\direct_seed7\\checkpoint-supervised-1500.pt",
+      "size": 727893,
+      "sha256": "6f14f0d6e9e9311b5f172059bb4b4fe75739ec1a8935f6449c8730b7bfe58ac3"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon_expanded_3k\\direct_seed7\\checkpoint-supervised-2000.pt",
+      "size": 727893,
+      "sha256": "5222c59377eec8a426006fc2c0730ec0f6631ff1660d1daf4d2f508b9c77ce2f"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon_expanded_3k\\direct_seed7\\checkpoint-supervised-2500.pt",
+      "size": 727893,
+      "sha256": "c00a8f7b80ea70d828de1fc4f54a05af83963e2e5f952118242fd2b73f19adb4"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon_expanded_3k\\direct_seed7\\checkpoint-supervised-3000.pt",
+      "size": 727893,
+      "sha256": "42f9454e8dd6280a6bf7df17658cc6f141a8b9711fce88ea46a872f574fa3c8e"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon_expanded_3k\\direct_seed7\\checkpoint-supervised-500.pt",
+      "size": 727855,
+      "sha256": "7e7f3682a7bb0ae5c44b81925e59b46d1505d11c1147cb9839ea1ea04ddbaa4d"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon_expanded_3k\\direct_seed7\\slot.json",
+      "size": 52904,
+      "sha256": "87fda1ffe4be6f4be1613f7f81e12f6806b342da173acdb4e9f0cf14b17e5bce"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon_expanded_3k\\direct_seed7\\validation-at-supervised-1000.npz",
+      "size": 173349,
+      "sha256": "f35a21fd7b40565e353ab3cdfb802a15fbeda1d9d5c782953c690f83c19d170f"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon_expanded_3k\\direct_seed7\\validation-at-supervised-1500.npz",
+      "size": 173217,
+      "sha256": "0fab38ab41fa9c9086ed89488988a2f27986b9f46bebf0f8f65542fde5e59122"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon_expanded_3k\\direct_seed7\\validation-at-supervised-2000.npz",
+      "size": 173230,
+      "sha256": "81efda76346d8bd82e91133b7eb3e40cbe3bddc5b9c7710562a092550929ed82"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon_expanded_3k\\direct_seed7\\validation-at-supervised-2500.npz",
+      "size": 173361,
+      "sha256": "adb7d54947968fe896ad1d694cb83b8da650033918ab81bfd92afdc5f46e8800"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon_expanded_3k\\direct_seed7\\validation-at-supervised-3000.npz",
+      "size": 173381,
+      "sha256": "34f61daa55411953c8a1deb03794d1353d25bb5e7114f41230ae7eaa1a9f0a04"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon_expanded_3k\\direct_seed7\\validation-at-supervised-500.npz",
+      "size": 173335,
+      "sha256": "d6457642186b06e702b72d6fb2cbd6a697262614f3bc94c7f29519a8148ec7c5"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon_expanded_3k\\direct_seed7\\validation-predictions.npz",
+      "size": 173381,
+      "sha256": "34f61daa55411953c8a1deb03794d1353d25bb5e7114f41230ae7eaa1a9f0a04"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon_expanded_3k\\ema_jepa_seed7\\checkpoint-pretrain-1000.pt",
+      "size": 1346529,
+      "sha256": "686f81de3b11e99be274f2e5ed36ea9094f3c0d0d608e10bf3ceea404aa00b6c"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon_expanded_3k\\ema_jepa_seed7\\checkpoint-pretrain-1500.pt",
+      "size": 1346529,
+      "sha256": "e4c31a5977abbb1000d80fb4eb073a660c7fe89826da02a2f4e269eb10c95d50"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon_expanded_3k\\ema_jepa_seed7\\checkpoint-pretrain-500.pt",
+      "size": 1346471,
+      "sha256": "560565df70077abc3917ae2ff5e429c8c7013bc47b0fae0cd9933800ddea7d99"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon_expanded_3k\\ema_jepa_seed7\\checkpoint-supervised-1000.pt",
+      "size": 1096181,
+      "sha256": "1f737a4e01c35e55ad225c6984f0a03fdeb55f7879440b20712898805fc94064"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon_expanded_3k\\ema_jepa_seed7\\checkpoint-supervised-1500.pt",
+      "size": 1096181,
+      "sha256": "bf5bfb593b339f4028ad96fd59527d00839d2ea4fcb9fbe3f4ab05e8312c05b6"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon_expanded_3k\\ema_jepa_seed7\\checkpoint-supervised-500.pt",
+      "size": 1096129,
+      "sha256": "9002a28d05f52ea2289df6ee8b4a93d68d8d81f6561ad98a3b0d3876d776ee96"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon_expanded_3k\\ema_jepa_seed7\\slot.json",
+      "size": 136646,
+      "sha256": "3f50a09ccaa04de2a43603fb9d6cb92066f9aa6b99ab5557db46b2cfd9b10e10"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon_expanded_3k\\ema_jepa_seed7\\validation-at-supervised-1000.npz",
+      "size": 173400,
+      "sha256": "2211f6792a7574349ab2b4a04957072672de59257a75acd6f5fa3ae5b64d9c59"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon_expanded_3k\\ema_jepa_seed7\\validation-at-supervised-1500.npz",
+      "size": 173250,
+      "sha256": "08e46187f45dd465451968060d54c848ac2166f5ccf7b73147f3cc3e3ba48af1"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon_expanded_3k\\ema_jepa_seed7\\validation-at-supervised-500.npz",
+      "size": 173308,
+      "sha256": "3fb1640837e84437264b1521c82b849cfbdb1ac25066cfdff496ff1018498bc2"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon_expanded_3k\\ema_jepa_seed7\\validation-predictions.npz",
+      "size": 173250,
+      "sha256": "08e46187f45dd465451968060d54c848ac2166f5ccf7b73147f3cc3e3ba48af1"
+    },
+    {
+      "path": "E:\\marine-echo-jepa-scale\\aeon_expanded_3k\\manifest.json",
+      "size": 1767,
+      "sha256": "6d5c5653553570e8fb43eee0b96f6b5feadaa7cc19aff42d26ffce8859f3db3c"
+    }
+  ]
+}

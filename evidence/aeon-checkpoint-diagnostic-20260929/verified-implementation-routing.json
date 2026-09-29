@@ -1,0 +1,10 @@
+{
+  "thread_id": "01a0eec5-2d89-70f0-b571-25c6594f0722",
+  "role": "explicit_cli_implementation",
+  "model": "gpt-6.1-sol",
+  "effort": "high",
+  "sandbox_policy": {
+    "type": "danger-full-access"
+  },
+  "permission_profile_type": "disabled"
+}

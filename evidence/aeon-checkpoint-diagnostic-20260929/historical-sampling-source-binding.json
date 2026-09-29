@@ -1,0 +1,17 @@
+{
+  "historical_manifest_composite_sha256": "8054f0c95962bee496bda75559583bb0dd189324d1636a9e7667833ee51a4e83",
+  "matching_revisions": [
+    {
+      "commit": "3755cd4c35eb1050f9ef9096ce9d8ae6545a88c8",
+      "composite_code_sha256": "8054f0c95962bee496bda75559583bb0dd189324d1636a9e7667833ee51a4e83",
+      "source_file_sha256": {
+        "src/marine_echo/training/aeon_campaign.py": "91e62c1ba674a71e1d5d96af9bd5c20cd6cd8c492c94740c16b1d92eb4462b8c",
+        "src/marine_echo/training/aeon_corpus.py": "398e021a5807ab8068ceef03dd692f3b688c744751cd4e65d3efbee94d9a3efd",
+        "src/marine_echo/training/aeon_windows.py": "d6a1dc53188da5329daa23fe11e7660e36d1d1666fcafda5dcc5a256bf54023b",
+        "src/marine_echo/training/aeon_development.py": "de46c19516f908ef96f778b746b8847139dc00377c73525cbbeefe3a89d9b3c5",
+        "src/marine_echo/models/aeon_ssl.py": "490a0807a24433465c59d004d8e7fbe36cd6442ace71db40fe82cacab2fa229c"
+      }
+    }
+  ],
+  "candidate_revision_count": 6
+}

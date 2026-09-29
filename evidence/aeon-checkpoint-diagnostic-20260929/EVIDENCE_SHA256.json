@@ -95,6 +95,6 @@
   },
   "authored_tool_sha256": "0bca4f4c1558a167209cce17db16df4cd820062ebdac938340b9811bacc3c251",
   "authored_tests_sha256": "08d7b7f006239511597ca8598002c5e0fefc3ce3e201fbe6da8a277205cddf71",
-  "technical_report_sha256": "cae5031113469e8465ed5457cd92539a77d2b8a00ac74a4a3dd5344b436885d9",
+  "technical_report_sha256": "ef56c22aeed80dd9652df8bcc4fed1c7bb377cf13b28c5541ed89bdb0d1be576",
   "source_snapshot_note": "run-01-tool-source.py recovered by removing sole post-run additive accessor before later repair; not a pre-execution capture"
 }
