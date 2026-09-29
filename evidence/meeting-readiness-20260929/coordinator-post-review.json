@@ -1,0 +1,29 @@
+{
+  "checked_at": "2026-09-29T22:38:11.441255+00:00",
+  "status": "PASSED",
+  "review_cli_exit_code": 0,
+  "reviewed_head": "9a54831f59511e4bf013822670973e78979381d6",
+  "reviewed_manifest_files_unchanged_before_bookkeeping": 70,
+  "distinct_reviewer_runtime_verified": true,
+  "reviewer_model": "gpt-6.1-sol",
+  "reviewer_effort": "high",
+  "all_exposed_reviewer_turn_contexts_checked": 1,
+  "review_was_behaviorally_read_only_not_enforced": true,
+  "protected_tracked_files_unchanged": 262,
+  "archive_sha256": "5e265e08bf1041bbe0fb4dd2a5f3503bae98f996096577f976beaf9384d6bb57",
+  "checklist_changes_only_approved_metadata": true,
+  "reviewed_checklist_sha256": "f4c0899c13a8c56fb84cb8aeed624008d069dc653463c8af27ccd69ab2bab749",
+  "final_checklist_sha256": "02cf3d679a5b1cfb8a5ac2b77eb55451f8ba943b9b2976c8a15fbbdd9eed7514",
+  "review_sidecar_sha256": "6f3262f914e92cf843eccd419361b5b7fb42195c7a75a0dccb615f0828b069b6",
+  "concurrent_status": {
+    "working_before_sha256": "bb3438bb962db67f11f7e8042f1e32606b6decd09aa94b3d21555a433db2321e",
+    "working_after_sha256": "d9e2d263d7a9726146f96a2789633a214dec716e8959e6e3eabb904caaa748ff",
+    "existing_raw_body_preserved_exactly": true,
+    "staged_status_sha256": "83d5f9470d5c7dc65bb6073b089d3bb587376e5a0cce0785820da9e8360ff8d9",
+    "staging_scope": "Only meeting completion block plus previously committed body; external research prefix and its line-ending changes preserved in working tree, unstaged."
+  },
+  "scientific_execution": false,
+  "new_release": false,
+  "publishing_contact_push": false,
+  "substantive_post_review_changes": false
+}
