@@ -1,0 +1,240 @@
+..................................................................FFFF.........
+================================== FAILURES ===================================
+_ test_saved_float32_backbone_independent_of_caller_default_dtype[shared_ssl] _
+
+method = 'shared_ssl'
+
+    @pytest.mark.parametrize("method", ["shared_ssl", "cf_jepa"])
+    def test_saved_float32_backbone_independent_of_caller_default_dtype(method):
+        artifact, _, _, inputs = fixture(method)
+        expected = api.NativeAcousticEncoder(codec(artifact)).encode(*inputs)
+        original_dtype = torch.get_default_dtype()
+        try:
+            torch.set_default_dtype(torch.float64)
+>           instance = api.NativeAcousticEncoder(codec(artifact))
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\unit\test_native_encoder.py:314: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <native_encoder_candidate.NativeAcousticEncoder object at 0x0000020D68450440>
+weights = <_io.BytesIO object at 0x0000020D64668D10>, device = 'cpu'
+
+    def __init__(self, weights, device="cpu"):
+        artifact = torch.load(weights, weights_only=True, map_location="cpu")
+        if not isinstance(artifact, Mapping) or artifact.get("kind") != "native_ssl_selected_encoder_v1":
+            raise ValueError("Expected native_ssl_selected_encoder_v1; other artifacts are unsupported.")
+        self.config = _config(artifact.get("config"))
+        self.scalers = _scalers(artifact.get("scalers"))
+        self._bindings = _bindings(artifact.get("bindings"))
+        self._config_metadata = copy.deepcopy(artifact["config"])
+        self._scaler_metadata = copy.deepcopy(artifact["scalers"])
+        self.method = self.config.method
+        self.training_kind = TRAINING_KINDS[self.method]
+        self.feature_branch = "selected_ema" if self.method == "cf_jepa" else "shared_encoder"
+        self.selected_pretrain_step = artifact.get("selected_pretrain_step")
+        if self.selected_pretrain_step is not None and (
+            type(self.selected_pretrain_step) is not int or self.selected_pretrain_step < 0
+        ):
+            raise ValueError("Optional selected pretrain step must be a nonnegative integer.")
+        self.device = torch.device(device)
+        if self.device.type not in ("cpu", "cuda"):
+            raise ValueError("Only local CPU/CUDA inference devices are supported.")
+        state = artifact.get("encoder")
+        if not isinstance(state, Mapping) or not state:
+            raise ValueError("Selected encoder tensors are missing.")
+        # Meta construction allocates no random weights and consumes no RNG.
+        # Direct backbone constructors create no head, optimizer or fit policy.
+        with torch.device("meta"):
+            if self.method == "cf_jepa":
+                encoder = CFTemporalEncoder(self.config.cf_width, self.config.cf_latent, self.config.cf_blocks)
+            else:
+                encoder = SharedTemporalEncoder(self.config.width, self.config.latent, self.config.blocks, self.config.heads)
+        expected = encoder.state_dict()
+        if set(state) != set(expected):
+            raise ValueError("Selected state must contain exactly the backbone parameters/buffers.")
+        for key, template in expected.items():
+            value = state[key]
+            if not isinstance(value, torch.Tensor) or value.layout != torch.strided or value.device.type != "cpu" or value.shape != template.shape or value.dtype != template.dtype:
+>               raise ValueError(f"Incompatible selected encoder tensor: {key}")
+E               ValueError: Incompatible selected encoder tensor: patch_projection.weight
+
+src\marine_echo\inference\native_encoder.py:154: ValueError
+__ test_saved_float32_backbone_independent_of_caller_default_dtype[cf_jepa] ___
+
+method = 'cf_jepa'
+
+    @pytest.mark.parametrize("method", ["shared_ssl", "cf_jepa"])
+    def test_saved_float32_backbone_independent_of_caller_default_dtype(method):
+        artifact, _, _, inputs = fixture(method)
+        expected = api.NativeAcousticEncoder(codec(artifact)).encode(*inputs)
+        original_dtype = torch.get_default_dtype()
+        try:
+            torch.set_default_dtype(torch.float64)
+>           instance = api.NativeAcousticEncoder(codec(artifact))
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\unit\test_native_encoder.py:314: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <native_encoder_candidate.NativeAcousticEncoder object at 0x0000020D65E3DA30>
+weights = <_io.BytesIO object at 0x0000020D2CAFEA70>, device = 'cpu'
+
+    def __init__(self, weights, device="cpu"):
+        artifact = torch.load(weights, weights_only=True, map_location="cpu")
+        if not isinstance(artifact, Mapping) or artifact.get("kind") != "native_ssl_selected_encoder_v1":
+            raise ValueError("Expected native_ssl_selected_encoder_v1; other artifacts are unsupported.")
+        self.config = _config(artifact.get("config"))
+        self.scalers = _scalers(artifact.get("scalers"))
+        self._bindings = _bindings(artifact.get("bindings"))
+        self._config_metadata = copy.deepcopy(artifact["config"])
+        self._scaler_metadata = copy.deepcopy(artifact["scalers"])
+        self.method = self.config.method
+        self.training_kind = TRAINING_KINDS[self.method]
+        self.feature_branch = "selected_ema" if self.method == "cf_jepa" else "shared_encoder"
+        self.selected_pretrain_step = artifact.get("selected_pretrain_step")
+        if self.selected_pretrain_step is not None and (
+            type(self.selected_pretrain_step) is not int or self.selected_pretrain_step < 0
+        ):
+            raise ValueError("Optional selected pretrain step must be a nonnegative integer.")
+        self.device = torch.device(device)
+        if self.device.type not in ("cpu", "cuda"):
+            raise ValueError("Only local CPU/CUDA inference devices are supported.")
+        state = artifact.get("encoder")
+        if not isinstance(state, Mapping) or not state:
+            raise ValueError("Selected encoder tensors are missing.")
+        # Meta construction allocates no random weights and consumes no RNG.
+        # Direct backbone constructors create no head, optimizer or fit policy.
+        with torch.device("meta"):
+            if self.method == "cf_jepa":
+                encoder = CFTemporalEncoder(self.config.cf_width, self.config.cf_latent, self.config.cf_blocks)
+            else:
+                encoder = SharedTemporalEncoder(self.config.width, self.config.latent, self.config.blocks, self.config.heads)
+        expected = encoder.state_dict()
+        if set(state) != set(expected):
+            raise ValueError("Selected state must contain exactly the backbone parameters/buffers.")
+        for key, template in expected.items():
+            value = state[key]
+            if not isinstance(value, torch.Tensor) or value.layout != torch.strided or value.device.type != "cpu" or value.shape != template.shape or value.dtype != template.dtype:
+>               raise ValueError(f"Incompatible selected encoder tensor: {key}")
+E               ValueError: Incompatible selected encoder tensor: input_fc.weight
+
+src\marine_echo\inference\native_encoder.py:154: ValueError
+___ test_float64_and_reversed_numpy_batches_keep_native_values[shared_ssl] ____
+
+method = 'shared_ssl'
+
+    @pytest.mark.parametrize("method", ["shared_ssl", "cf_jepa"])
+    def test_float64_and_reversed_numpy_batches_keep_native_values(method):
+        artifact, _, _, inputs = fixture(method)
+        instance = api.NativeAcousticEncoder(codec(artifact))
+        reversed_inputs = tuple(v[::-1] for v in inputs)
+        expected = instance.encode(*(v.copy() for v in reversed_inputs))
+>       np.testing.assert_array_equal(instance.encode(*reversed_inputs), expected)
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\unit\test_native_encoder.py:327: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\marine-echo-jepa\.venv\Lib\site-packages\torch\utils\_contextlib.py:124: in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <native_encoder_candidate.NativeAcousticEncoder object at 0x0000020D684F8A70>
+x = array([[[-73.714905, -73.983345, -76.39543 , -78.99799 ],
+        [-77.60647 , -81.26383 , -70.944824, -78.63189 ],
+  ...76211 , -79.79075 , -75.72967 , -85.15562 ],
+        [-77.73333 , -69.30661 , -73.8891  , -81.869354]]], dtype=float32)
+observed = array([[[ True,  True,  True,  True],
+        [ True,  True, False, False],
+        [ True, False, False, False],
+    ...e],
+        [ True, False, False, False],
+        [ True,  True,  True, False],
+        [ True, False,  True, False]]])
+metadata = array([[[0.08351649, 1.        , 1.        , 0.02      , 0.92      ,
+         0.        , 1.        , 0.        , 0.  ... , 0.        , 0.92      ,
+         0.        , 1.        , 0.        , 0.        , 0.        ]]],
+      dtype=float32)
+
+    @torch.inference_mode()
+    def encode(self, x, observed, metadata):
+        """Return float32 embeddings[N,D]; never consume query/target/future data."""
+        x, observed, metadata = _inputs(x, observed, metadata, self.config.history)
+        self.encoder.eval()
+        encoded = []
+        for start in range(0, len(x), self.config.batch_size):
+            end = min(start + self.config.batch_size, len(x))
+            with np.errstate(over="ignore", invalid="ignore"):
+                values = self.scalers.channels(x[start:end], observed[start:end])
+            if not np.isfinite(values).all():
+                raise ValueError("Observed scaled dB must remain finite at model precision.")
+            latent = self.encoder.encode(torch.as_tensor(values, device=self.device),
+>                                        torch.as_tensor(observed[start:end], device=self.device),
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                         torch.as_tensor(metadata[start:end], device=self.device))
+E           ValueError: At least one stride in the given numpy array is negative, and tensors with negative strides are not currently supported. (You can probably work around this by making a copy of your array  with array.copy().)
+
+src\marine_echo\inference\native_encoder.py:189: ValueError
+_____ test_float64_and_reversed_numpy_batches_keep_native_values[cf_jepa] _____
+
+method = 'cf_jepa'
+
+    @pytest.mark.parametrize("method", ["shared_ssl", "cf_jepa"])
+    def test_float64_and_reversed_numpy_batches_keep_native_values(method):
+        artifact, _, _, inputs = fixture(method)
+        instance = api.NativeAcousticEncoder(codec(artifact))
+        reversed_inputs = tuple(v[::-1] for v in inputs)
+        expected = instance.encode(*(v.copy() for v in reversed_inputs))
+>       np.testing.assert_array_equal(instance.encode(*reversed_inputs), expected)
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\unit\test_native_encoder.py:327: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\marine-echo-jepa\.venv\Lib\site-packages\torch\utils\_contextlib.py:124: in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <native_encoder_candidate.NativeAcousticEncoder object at 0x0000020D2A741730>
+x = array([[[-73.714905, -73.983345, -76.39543 , -78.99799 ],
+        [-77.60647 , -81.26383 , -70.944824, -78.63189 ],
+  ...76211 , -79.79075 , -75.72967 , -85.15562 ],
+        [-77.73333 , -69.30661 , -73.8891  , -81.869354]]], dtype=float32)
+observed = array([[[ True,  True,  True,  True],
+        [ True,  True, False, False],
+        [ True, False, False, False],
+    ...e],
+        [ True, False, False, False],
+        [ True,  True,  True, False],
+        [ True, False,  True, False]]])
+metadata = array([[[0.08351649, 1.        , 1.        , 0.02      , 0.92      ,
+         0.        , 1.        , 0.        , 0.  ... , 0.        , 0.92      ,
+         0.        , 1.        , 0.        , 0.        , 0.        ]]],
+      dtype=float32)
+
+    @torch.inference_mode()
+    def encode(self, x, observed, metadata):
+        """Return float32 embeddings[N,D]; never consume query/target/future data."""
+        x, observed, metadata = _inputs(x, observed, metadata, self.config.history)
+        self.encoder.eval()
+        encoded = []
+        for start in range(0, len(x), self.config.batch_size):
+            end = min(start + self.config.batch_size, len(x))
+            with np.errstate(over="ignore", invalid="ignore"):
+                values = self.scalers.channels(x[start:end], observed[start:end])
+            if not np.isfinite(values).all():
+                raise ValueError("Observed scaled dB must remain finite at model precision.")
+            latent = self.encoder.encode(torch.as_tensor(values, device=self.device),
+>                                        torch.as_tensor(observed[start:end], device=self.device),
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                         torch.as_tensor(metadata[start:end], device=self.device))
+E           ValueError: At least one stride in the given numpy array is negative, and tensors with negative strides are not currently supported. (You can probably work around this by making a copy of your array  with array.copy().)
+
+src\marine_echo\inference\native_encoder.py:189: ValueError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_encoder.py::test_saved_float32_backbone_independent_of_caller_default_dtype[shared_ssl]
+FAILED tests/unit/test_native_encoder.py::test_saved_float32_backbone_independent_of_caller_default_dtype[cf_jepa]
+FAILED tests/unit/test_native_encoder.py::test_float64_and_reversed_numpy_batches_keep_native_values[shared_ssl]
+FAILED tests/unit/test_native_encoder.py::test_float64_and_reversed_numpy_batches_keep_native_values[cf_jepa]
+4 failed, 75 passed in 21.94s

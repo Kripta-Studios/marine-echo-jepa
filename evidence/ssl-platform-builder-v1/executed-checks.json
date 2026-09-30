@@ -1,0 +1,105 @@
+{
+  "task": "NATIVE_SSL_PLATFORM_IMPLEMENTATION_V1",
+  "implementer_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "shell": "cmd.exe",
+  "login": false,
+  "sandbox": "workspace-write/never unchanged",
+  "main_source_writes": "NONE",
+  "historical_evidence_writes": "NONE",
+  "real_corpus_access": "NOT_RUN",
+  "gpu_execution": "NOT_RUN_ROOT_OWNED",
+  "git_index_or_commit": "NOT_RUN_PRIOR_DENIAL_NOT_RETRIED",
+  "renewed_independent_review": "NOT_RUN_REQUIRED_BEFORE_FITS",
+  "original_failed_booster_path_retried": false,
+  "author_source_pin_writes": "NONE",
+  "checks": [
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B evidence\\ssl-platform-builder-v1\\inspect_sources.py",
+      "exit_code": 0,
+      "output": "main-before.json",
+      "result": "BUILDER_AND_MAIN_MODEL_BOTH_MATCH_AUTHORIZED_BEFORE_SHA"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q -s -p no:cacheprovider tests\\unit\\test_native_cf_pooling.py",
+      "phase": "RED_UTILITY_MISSING",
+      "exit_code": 1,
+      "failed": 45,
+      "passed": 1,
+      "output": "red-cf-pooling.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q -s -p no:cacheprovider tests\\unit\\test_native_cf_pooling.py -k never_calls",
+      "phase": "RED_ACTUAL_CF_NATIVE_POOLING_CALL",
+      "exit_code": 1,
+      "failed": 1,
+      "output": "red-cf-native-path.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q -s -p no:cacheprovider tests\\unit\\test_native_booster_serialization.py",
+      "phase": "RED_BOOSTER_HELPERS_MISSING",
+      "exit_code": 1,
+      "failed": 17,
+      "output": "red-booster-text.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q -s -p no:cacheprovider tests\\unit\\test_native_cf_pooling.py tests\\unit\\test_native_booster_serialization.py",
+      "phase": "FINAL_STRICT_DETERMINISTIC_CPU_CORRECTNESS",
+      "exit_code": 0,
+      "passed": 65,
+      "elapsed_pytest_seconds": 5.79,
+      "output": "focused-pytest-strict-final.txt",
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B evidence\\ssl-platform-builder-v1\\run_unicode_fixture.py",
+      "exit_code": 0,
+      "output": "unicode-fixture.txt",
+      "result": "NEW_UNICODE_SYNTHETIC_MODEL_TEXT_AND_PREDICTIONS_BIT_IDENTICAL",
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "retry": "DO_NOT_REPEAT_PRESERVED_FIXTURE_PATH"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B evidence\\ssl-platform-builder-v1\\package_patches.py",
+      "exit_code": 0,
+      "output": "package-patches.txt",
+      "result": "HASH_BOUND_UNIFIED_PATCHES_AND_MODEL_AST_PRESERVATION"
+    },
+    {
+      "command": "git -C ..\\marine-echo-jepa apply --check ..\\marine-jepa-vnext-builder\\evidence\\ssl-platform-builder-v1\\native_temporal.patch ..\\marine-jepa-vnext-builder\\evidence\\ssl-platform-builder-v1\\native_references.patch",
+      "exit_code": 0,
+      "output": "patch-apply-check.txt",
+      "result": "READ_ONLY_APPLICABILITY_NO_MAIN_MUTATION"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff check --no-cache --config=lint.isort.known-first-party=['marine_echo'] src\\marine_echo\\models\\native_temporal.py tests\\unit\\test_native_cf_pooling.py tests\\unit\\test_native_booster_serialization.py evidence\\ssl-platform-builder-v1",
+      "exit_code": 0,
+      "output": "ruff-strict-final.txt",
+      "note": "Explicit first-party classification for copied source outside src; no configuration file changed."
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff format --check src\\marine_echo\\models\\native_temporal.py tests\\unit\\test_native_cf_pooling.py tests\\unit\\test_native_booster_serialization.py evidence\\ssl-platform-builder-v1",
+      "exit_code": 0,
+      "output": "format-check-strict-final.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B evidence\\ssl-platform-builder-v1\\root_cuda_correctness.py --help",
+      "exit_code": 0,
+      "output": "root-cuda-cli-help.txt",
+      "result": "HELP_ONLY_NO_GPU_INITIALIZATION_OR_EXECUTION"
+    }
+  ],
+  "source_bindings": "patch-manifest.json and delivery-identities-observed.json",
+  "final_main_observation": "Both main targets now match exact proposed after hashes; read-only external integration observation, not a builder write or an approval claim.",
+  "delivery_verification": {
+    "initial_before_only_check_exit_code": 1,
+    "reason": "Main changed externally from before hashes to exact proposed after hashes during handoff; assertion failed closed.",
+    "final_before_or_exact_after_identity_check_exit_code": 0,
+    "output": "delivery-identities-observed.json"
+  },
+  "limitations": [
+    "Actual deterministic CUDA pooling/CF backward remains root-owned and NOT_RUN here.",
+    "Generic C++ writer failure is not itself an OS PermissionError; Unicode native filename explanation is supported inference, not an original-path ACL/errno diagnosis.",
+    "Changed source hashes require renewed distinct review before scientific fits.",
+    "No real acoustic metrics or scientific claims."
+  ]
+}

@@ -1,0 +1,68 @@
+F401 [*] `marine_echo.models.native_temporal` imported but unused
+  --> evidence\ssl-encoder-api-builder-v1\inspect_sources.py:15:32
+   |
+13 | MAIN = BUILDER.parent / "marine-echo-jepa"
+14 | sys.path.insert(0, str(MAIN / "src"))
+15 | from marine_echo.models import native_temporal, sigreg
+   |                                ^^^^^^^^^^^^^^^
+16 | from marine_echo.training import native_resources, native_ssl
+   |
+help: Remove unused import
+   |
+14 | sys.path.insert(0, str(MAIN / "src"))
+   - from marine_echo.models import native_temporal, sigreg
+15 | from marine_echo.training import native_resources, native_ssl
+   |
+
+F401 [*] `marine_echo.models.sigreg` imported but unused
+  --> evidence\ssl-encoder-api-builder-v1\inspect_sources.py:15:49
+   |
+13 | MAIN = BUILDER.parent / "marine-echo-jepa"
+14 | sys.path.insert(0, str(MAIN / "src"))
+15 | from marine_echo.models import native_temporal, sigreg
+   |                                                 ^^^^^^
+16 | from marine_echo.training import native_resources, native_ssl
+   |
+help: Remove unused import
+   |
+14 | sys.path.insert(0, str(MAIN / "src"))
+   - from marine_echo.models import native_temporal, sigreg
+15 | from marine_echo.training import native_resources, native_ssl
+   |
+
+F401 [*] `marine_echo.training.native_resources` imported but unused
+  --> evidence\ssl-encoder-api-builder-v1\inspect_sources.py:16:34
+   |
+14 | sys.path.insert(0, str(MAIN / "src"))
+15 | from marine_echo.models import native_temporal, sigreg
+16 | from marine_echo.training import native_resources, native_ssl
+   |                                  ^^^^^^^^^^^^^^^^
+17 |
+18 | if __name__ == "__main__":
+   |
+help: Remove unused import
+   |
+15 | from marine_echo.models import native_temporal, sigreg
+   - from marine_echo.training import native_resources, native_ssl
+16 |
+   |
+
+F401 [*] `marine_echo.training.native_ssl` imported but unused
+  --> evidence\ssl-encoder-api-builder-v1\inspect_sources.py:16:52
+   |
+14 | sys.path.insert(0, str(MAIN / "src"))
+15 | from marine_echo.models import native_temporal, sigreg
+16 | from marine_echo.training import native_resources, native_ssl
+   |                                                    ^^^^^^^^^^
+17 |
+18 | if __name__ == "__main__":
+   |
+help: Remove unused import
+   |
+15 | from marine_echo.models import native_temporal, sigreg
+   - from marine_echo.training import native_resources, native_ssl
+16 |
+   |
+
+Found 4 errors.
+[*] 4 fixable with the `--fix` option.

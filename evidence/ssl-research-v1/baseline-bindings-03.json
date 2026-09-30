@@ -1,0 +1,36 @@
+{
+  "status": "PASSED",
+  "review": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\baseline-prefit-review-final-03.json",
+  "bindings_checked": 130,
+  "stale_bindings": [],
+  "noncanonical_keys": [],
+  "reviewed_file_symlinks": [
+    {
+      "review_key": "C:\\Users\\\u00c1lvaro Schwiedop\\.cache\\huggingface\\hub\\models--amazon--chronos-2\\snapshots\\29ec3766d36d6f73f0696f85560a422f50e8498c\\.gitattributes",
+      "canonical_path": "C:\\Users\\\u00c1lvaro Schwiedop\\.cache\\huggingface\\hub\\models--amazon--chronos-2\\blobs\\a6344aac8c09253b3b630fb776ae94478aa0275b"
+    },
+    {
+      "review_key": "C:\\Users\\\u00c1lvaro Schwiedop\\.cache\\huggingface\\hub\\models--amazon--chronos-2\\snapshots\\29ec3766d36d6f73f0696f85560a422f50e8498c\\README.md",
+      "canonical_path": "C:\\Users\\\u00c1lvaro Schwiedop\\.cache\\huggingface\\hub\\models--amazon--chronos-2\\blobs\\f612bbc4b27e0a7bc8fca91d9ddfdc35aaf701bc"
+    },
+    {
+      "review_key": "C:\\Users\\\u00c1lvaro Schwiedop\\.cache\\huggingface\\hub\\models--amazon--chronos-2\\snapshots\\29ec3766d36d6f73f0696f85560a422f50e8498c\\config.json",
+      "canonical_path": "C:\\Users\\\u00c1lvaro Schwiedop\\.cache\\huggingface\\hub\\models--amazon--chronos-2\\blobs\\f3207394965100a2aa18820b87da3d2bbad3b1f0"
+    },
+    {
+      "review_key": "C:\\Users\\\u00c1lvaro Schwiedop\\.cache\\huggingface\\hub\\models--amazon--chronos-2\\snapshots\\29ec3766d36d6f73f0696f85560a422f50e8498c\\model.safetensors",
+      "canonical_path": "C:\\Users\\\u00c1lvaro Schwiedop\\.cache\\huggingface\\hub\\models--amazon--chronos-2\\blobs\\ddcda3c7508bf2528087723e98a20707cc04b7f370ae275a9fd88078ddba4f42"
+    }
+  ],
+  "allowed_methods": [
+    "lightgbm",
+    "chronos2"
+  ],
+  "sessions": {
+    "implementer_session_id": "01a0ef1a-b166-7f83-91b7-2a2aff7c1b10",
+    "builder_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+    "reviewer_session_id": "01a0ef27-876b-7692-917e-3975afc6893d"
+  },
+  "scientific_optimizer_updates": 0,
+  "assessment_scoring": "NOT_RUN"
+}

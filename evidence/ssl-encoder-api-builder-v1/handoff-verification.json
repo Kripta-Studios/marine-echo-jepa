@@ -1,0 +1,32 @@
+{
+  "operation": "HANDOFF_BYTES_VERIFICATION_NOT_INDEPENDENT_REVIEW",
+  "status": "VERIFIED",
+  "files_sha256": {
+    "src\\marine_echo\\inference\\native_encoder.py": "6cc07a15ea93427d6628f1b317945f6e38ff3008894a31cab2173c0b666c0f7f",
+    "tests\\unit\\test_native_encoder.py": "37e241a00c9fa87f0a886326364975783ce39bbdfd37d4158305062c59769ab6",
+    "evidence\\ssl-encoder-api-builder-v1\\executed-checks.json": "909cc0d89e1aaa0e3e6da5580880f3f43eebde1bbd182443f30643cc8aaa03b3",
+    "evidence\\ssl-encoder-api-builder-v1\\final-source-provenance.json": "e1a5203011ff4768271456d1c2f59c964753df617f79666ae0bfdb6eef34debc",
+    "evidence\\ssl-encoder-api-builder-v1\\format-check-complete.txt": "eee76f865de5a9f2456950f710ae5d5f9b5bd0ea02aa54f614c5eed6642a0bfd",
+    "evidence\\ssl-encoder-api-builder-v1\\format-check-final.txt": "eee76f865de5a9f2456950f710ae5d5f9b5bd0ea02aa54f614c5eed6642a0bfd",
+    "evidence\\ssl-encoder-api-builder-v1\\format-check-handoff.txt": "f114d83b30c5c657ee43a847a45bafccaea255d82673feb87c26d252c61e29c1",
+    "evidence\\ssl-encoder-api-builder-v1\\format-final.txt": "44b7183e1f210a4817679f52d6f965f5de6331fb1c9174e863b4b0fc479a3e24",
+    "evidence\\ssl-encoder-api-builder-v1\\format-handoff.txt": "413a709001976657cb743636fd34e48fc41d8d302d665460d3f874b3313da127",
+    "evidence\\ssl-encoder-api-builder-v1\\format-provenance.txt": "413a709001976657cb743636fd34e48fc41d8d302d665460d3f874b3313da127",
+    "evidence\\ssl-encoder-api-builder-v1\\format.txt": "878d50bf4ab752ab41ae942ac518b87e744d994b21bb15dca142ed7a470b3b3a",
+    "evidence\\ssl-encoder-api-builder-v1\\green-attempt-1.txt": "831cf0cd6d6921ead5a25363531d00790029dc9bfa4d88010ddbc5df9915bb8f",
+    "evidence\\ssl-encoder-api-builder-v1\\green-boundaries.txt": "1dc0566c29335ece29212455c91ea6d490f0ae1d4364476a76fded033300c85a",
+    "evidence\\ssl-encoder-api-builder-v1\\green-default-dimensions.txt": "91d2c508a5a312c4f7a1fff959748984cdced61417fbab448dbd89d35b286ace",
+    "evidence\\ssl-encoder-api-builder-v1\\green-final.txt": "0e597e6a0268f633ed7ca2750b5e4d56fcc8b5674b0fe7433ae4458c809b35e5",
+    "evidence\\ssl-encoder-api-builder-v1\\inspect_sources.py": "60774a95c39757005e9bebe2eb5fe898deaeba9bfbe9ba7ea1fa8756a33a088a",
+    "evidence\\ssl-encoder-api-builder-v1\\lint-before.txt": "1c3655a2dd07ddacda63d915e2476d5748a9a4497edf2424e40ac73d502abc3c",
+    "evidence\\ssl-encoder-api-builder-v1\\lint-complete.txt": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "evidence\\ssl-encoder-api-builder-v1\\lint-final.txt": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "evidence\\ssl-encoder-api-builder-v1\\lint-handoff.txt": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "evidence\\ssl-encoder-api-builder-v1\\lint-provenance.txt": "100c906c84e090d2104ca7ead5bf3d742aa2b2bbb7529477f40691e0ca9c7d78",
+    "evidence\\ssl-encoder-api-builder-v1\\main-source-provenance.json": "a4232121f66c4197d21bf7038547c078e86b41490eb00418c4fc416c3e28229e",
+    "evidence\\ssl-encoder-api-builder-v1\\NATIVE_ENCODER_IMPLEMENTATION_V1.md": "4f9438d92ec48c572ac6645bd8856ff3f43ac6c3e5cf150d4e41feecf490529d",
+    "evidence\\ssl-encoder-api-builder-v1\\red-boundaries.txt": "91186c97189c3d2221fb164c25791bd2e93dc34768b38451e7f6b497ed7edfc1",
+    "evidence\\ssl-encoder-api-builder-v1\\red-tests.txt": "b17e1194d70b4d7fe13cc4035eb9ba63baca8ad52fad2861f6ddfd4db861b5cc",
+    "evidence\\ssl-encoder-api-builder-v1\\verify_handoff.py": "7fe91de01177cb81fcb50f14870ab12b0cf3c16679df6eabfd1111b88d385fa0"
+  }
+}

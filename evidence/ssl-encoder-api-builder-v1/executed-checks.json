@@ -1,0 +1,99 @@
+{
+  "label": "SYNTHETIC_CORRECTNESS_ONLY",
+  "shell": "cmd.exe",
+  "device": "cpu",
+  "scientific_fitting": false,
+  "optimizer_steps": 0,
+  "cuda_execution": false,
+  "real_corpus_or_checkpoint_access": false,
+  "self_approval": false,
+  "checks": [
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q -s -p no:cacheprovider tests\\unit\\test_native_encoder.py",
+      "stage": "initial_red_missing_api",
+      "exit_code": 2,
+      "log": "red-tests.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q -s -p no:cacheprovider tests\\unit\\test_native_encoder.py",
+      "stage": "first_green",
+      "exit_code": 0,
+      "passed": 63,
+      "log": "green-attempt-1.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q -s -p no:cacheprovider tests\\unit\\test_native_encoder.py",
+      "stage": "red_dtype_and_negative_stride",
+      "exit_code": 1,
+      "passed": 75,
+      "failed": 4,
+      "log": "red-boundaries.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q -s -p no:cacheprovider tests\\unit\\test_native_encoder.py",
+      "stage": "singleton_stride_failure",
+      "exit_code": 1,
+      "passed": 77,
+      "failed": 2,
+      "log": "green-boundaries.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q -s -p no:cacheprovider tests\\unit\\test_native_encoder.py",
+      "stage": "green_boundaries",
+      "exit_code": 0,
+      "passed": 79,
+      "log": "green-final.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q -s -p no:cacheprovider tests\\unit\\test_native_encoder.py",
+      "stage": "final_green_default_dimensions",
+      "exit_code": 0,
+      "passed": 81,
+      "elapsed_seconds_reported_by_pytest": 22.90,
+      "log": "green-default-dimensions.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff check --no-cache src\\marine_echo\\inference\\native_encoder.py tests\\unit\\test_native_encoder.py evidence\\ssl-encoder-api-builder-v1\\inspect_sources.py",
+      "stage": "final_lint",
+      "exit_code": 0,
+      "log": "lint-complete.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff format --check --no-cache src\\marine_echo\\inference\\native_encoder.py tests\\unit\\test_native_encoder.py evidence\\ssl-encoder-api-builder-v1\\inspect_sources.py",
+      "stage": "final_format_check",
+      "exit_code": 0,
+      "log": "format-check-complete.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B evidence\\ssl-encoder-api-builder-v1\\inspect_sources.py",
+      "stage": "actual_import_and_hash_provenance",
+      "exit_code": 0,
+      "output": "final-source-provenance.json"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff check --no-cache src\\marine_echo\\inference\\native_encoder.py tests\\unit\\test_native_encoder.py evidence\\ssl-encoder-api-builder-v1",
+      "stage": "complete_handoff_lint",
+      "exit_code": 0,
+      "log": "lint-handoff.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff format --check --no-cache src\\marine_echo\\inference\\native_encoder.py tests\\unit\\test_native_encoder.py evidence\\ssl-encoder-api-builder-v1",
+      "stage": "complete_handoff_format",
+      "exit_code": 0,
+      "log": "format-check-handoff.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B evidence\\ssl-encoder-api-builder-v1\\verify_handoff.py",
+      "stage": "handoff_bytes_and_json_verification_not_independent_review",
+      "exit_code": 0,
+      "output": "handoff-verification.json"
+    }
+  ],
+  "remaining": {
+    "actual_pretrained_artifact_replay": "NOT_RUN_ROOT_OWNED",
+    "cuda_inference": "NOT_RUN_ROOT_OWNED",
+    "package_integration": "NOT_RUN_ROOT_OWNED",
+    "distinct_review": "PENDING_ROOT_OWNED",
+    "commit": "NOT_ATTEMPTED_OWNER_PROHIBITS_GIT_INDEX_RETRY"
+  }
+}

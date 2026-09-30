@@ -1,0 +1,7 @@
+Delivered [encoder API](<C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/src/marine_echo/inference/native_encoder.py>) and [tests](<C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/tests/unit/test_native_encoder.py>).
+
+Safe selected-checkpoint loading, frozen shared/CF EMA encoding, native geometry preservation, and accurate training labels are implemented.
+
+**81 synthetic CPU tests passed.** Ruff check and format check exited 0. Red/green logs, commands, source hashes, and limitations are in the [implementation report](<C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/evidence/ssl-encoder-api-builder-v1/NATIVE_ENCODER_IMPLEMENTATION_V1.md>).
+
+No real data, fitting, optimizer, GPU, or Git index operations. Root integration, actual pretrained-weight replay, and distinct review remain pending.

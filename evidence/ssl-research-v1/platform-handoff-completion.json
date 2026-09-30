@@ -1,0 +1,19 @@
+{
+  "new_closed_delivery_files": [
+    "evidence\\ssl-platform-builder-v1\\delivery-format-check-final.txt",
+    "evidence\\ssl-platform-builder-v1\\delivery-format-observed.txt",
+    "evidence\\ssl-platform-builder-v1\\delivery-format.txt",
+    "evidence\\ssl-platform-builder-v1\\delivery-identities-observed.json",
+    "evidence\\ssl-platform-builder-v1\\delivery-identities.json",
+    "evidence\\ssl-platform-builder-v1\\delivery-ruff-final.txt",
+    "evidence\\ssl-platform-builder-v1\\executed-checks.json",
+    "evidence\\ssl-platform-builder-v1\\focused-pytest-strict-final.txt",
+    "evidence\\ssl-platform-builder-v1\\format-check-strict-final.txt",
+    "evidence\\ssl-platform-builder-v1\\main-current-after-drift.json",
+    "evidence\\ssl-platform-builder-v1\\NATIVE_SSL_PLATFORM_IMPLEMENTATION_V1.md",
+    "evidence\\ssl-platform-builder-v1\\ruff-strict-final.txt",
+    "evidence\\ssl-platform-builder-v1\\verify_delivery.py"
+  ],
+  "differing_originals_preserved_without_overwrite": [],
+  "active_fit_source_mutations": 0
+}

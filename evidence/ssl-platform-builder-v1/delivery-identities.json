@@ -1,0 +1,9 @@
+{
+  "status": "FAILED_BEFORE_ONLY_ASSERTION",
+  "exit_code": 1,
+  "reason": "Main changed externally during handoff. The original verifier required before hashes and failed closed. Read-only follow-up found both exact proposed after hashes.",
+  "failure": "AssertionError at assert digest(MAIN / change[target]) == change[main_before_sha256]",
+  "superseding_read_only_observation": "delivery-identities-observed.json",
+  "filesystem_denial": false,
+  "builder_main_source_writes": "NONE"
+}

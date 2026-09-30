@@ -1,0 +1,8 @@
+{
+  "status": "NEW_API_INTEGRATED_NOT_SCIENTIFICALLY_REVIEWED",
+  "paths": [
+    "src/marine_echo/inference/native_encoder.py",
+    "tests/unit/test_native_encoder.py"
+  ],
+  "active_fit_sources_changed": false
+}

@@ -1,0 +1,1 @@
+{"status": "PASSED_ACTUAL_ENCODER_ONLY_CPU_REPLAY", "embedding_shape": [64, 64], "input_keys": ["x", "observed", "metadata"], "query_head_target_future_inputs": [], "maximum_absolute_replay_error": 0.0, "native_bounds_m": [[0.0, 225.0]], "method": "shared_ssl", "training_kind": "ssl_pretrained", "optimizer_updates": 0, "test_access": "NOT_RUN"}

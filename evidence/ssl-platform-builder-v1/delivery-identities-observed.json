@@ -1,0 +1,44 @@
+{
+  "status": "IDENTITIES_VERIFIED_MAIN_READ_ONLY_TO_BUILDER",
+  "main_states": [
+    {
+      "target": "src/marine_echo/models/native_temporal.py",
+      "current_sha256": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32",
+      "state": "EXACT_PROPOSED_AFTER_BYTES_OBSERVED"
+    },
+    {
+      "target": "src/marine_echo/training/native_references.py",
+      "current_sha256": "0d6583644ab1fce8d87a4194048f2176237b47deb57f0fa8494df6aa9012d584",
+      "state": "EXACT_PROPOSED_AFTER_BYTES_OBSERVED"
+    }
+  ],
+  "evidence_kind": "SOURCE_INSPECTION_ONLY",
+  "changes": [
+    {
+      "target": "src/marine_echo/models/native_temporal.py",
+      "main_before_sha256": "85c4af6c67acb661359cde8bcf22de479e4da6a499cc7843bce0fee6c155e422",
+      "after_sha256": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32",
+      "patch": "native_temporal.patch",
+      "patch_sha256": "44addb67f0aa1e13619ea797489ec3a643bde7f5f2dbfa416a034e0f4976fa60"
+    },
+    {
+      "target": "src/marine_echo/training/native_references.py",
+      "main_before_sha256": "b692368053501ca946978a3c583d649356584e91c1e020597397e669d8aa1d7b",
+      "after_sha256": "0d6583644ab1fce8d87a4194048f2176237b47deb57f0fa8494df6aa9012d584",
+      "patch": "native_references.patch",
+      "patch_sha256": "b4d91ab0acdb23b821ad00aaecf1160c2e9fc04a61a878b3f3f254b1b3624dd9"
+    }
+  ],
+  "source_sha256": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\evidence\\ssl-platform-builder-v1\\inspect_sources.py": "4946bab96ca93ec7d51d1bfb368ffc727c6a9e961fd9ff8efcd94c755548a5cf",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\evidence\\ssl-platform-builder-v1\\native_references.after.py": "0d6583644ab1fce8d87a4194048f2176237b47deb57f0fa8494df6aa9012d584",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\evidence\\ssl-platform-builder-v1\\native_temporal.after.py": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\evidence\\ssl-platform-builder-v1\\package_patches.py": "49f4fbea24bcca20601cc5526f987691449906669f8322f62ab0c79d34d176a1",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\evidence\\ssl-platform-builder-v1\\root_cuda_correctness.py": "59662e651be6c460159c64e5bbb66714c0cf699131c1035fc6e35a67dcebfe32",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\evidence\\ssl-platform-builder-v1\\run_unicode_fixture.py": "38da9070f61d7c296a95ca26acc9527fedaab1a8ca8f717a15e0d875a4c62203",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\evidence\\ssl-platform-builder-v1\\verify_delivery.py": "8156a5c60b3bce0645ce10be1db36637eb1a2ae2d21c7d1636d28cca03d24a08",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\models\\native_temporal.py": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\tests\\unit\\test_native_booster_serialization.py": "dde90cf86398e14965c149990124a157e226abbd229f9051df9fd90bd625c2c9",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\tests\\unit\\test_native_cf_pooling.py": "34d0dd2937686409114c322ec42a45e7d250ca56e5478e7bdc155742353c1cdb"
+  }
+}

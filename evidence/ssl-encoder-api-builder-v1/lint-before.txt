@@ -1,0 +1,17 @@
+I001 [*] Import block is un-sorted or un-formatted
+  --> evidence\ssl-encoder-api-builder-v1\inspect_sources.py:11:1
+   |
+ 9 |   MAIN = BUILDER.parent / "marine-echo-jepa"
+10 |   sys.path.insert(0, str(MAIN / "src"))
+11 | / from marine_echo.models import native_temporal, sigreg
+12 | | from marine_echo.training import native_resources, native_ssl
+   | |_____________________________________________________________^
+help: Organize imports
+   |
+13 |
+   -
+14 | if __name__ == "__main__":
+   |
+
+Found 1 error.
+[*] 1 fixable with the `--fix` option.

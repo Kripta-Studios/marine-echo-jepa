@@ -1,0 +1,23 @@
+{
+  "status": "PASSED",
+  "review": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\prefit-review-final-03.json",
+  "bindings_checked": 104,
+  "stale_bindings": [],
+  "noncanonical_keys": [],
+  "reviewed_file_symlinks": [],
+  "allowed_methods": [
+    "shared_ssl",
+    "masked_ssl",
+    "direct",
+    "random_frozen",
+    "permuted_ssl",
+    "cf_jepa"
+  ],
+  "sessions": {
+    "implementer_session_id": "01a0ef1a-b166-7f83-91b7-2a2aff7c1b10",
+    "builder_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+    "reviewer_session_id": "01a0ef27-876b-7692-917e-3975afc6893d"
+  },
+  "scientific_optimizer_updates": 0,
+  "assessment_scoring": "NOT_RUN"
+}
