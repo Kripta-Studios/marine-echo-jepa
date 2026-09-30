@@ -1,0 +1,38 @@
+{
+  "additional_cf_control_status": "PROPOSED_UNFITTED_DEFERRED_NOT_IN_AUTHORIZED_ELEVEN",
+  "aggregate_gpu_hours_limit_full_owned": 96,
+  "app_release_work": "FROZEN",
+  "cloud_or_paid_resource_approval": false,
+  "historical_evidence_rewritten": false,
+  "kind": "native_band_owner_budget_resolution_v1",
+  "local_resource_limits_unchanged": true,
+  "new_architecture_or_lr_search": "NOT_AUTHORIZED",
+  "original_recipes": [
+    "shared_ssl",
+    "cf_jepa",
+    "masked_ssl",
+    "permuted_ssl",
+    "direct",
+    "random_frozen"
+  ],
+  "owner_authorization": {
+    "question_item_id": "[\"request_user_input_async\",\"call_Rv7gJ3z47TmhGL550vOhbcqZ\",0]",
+    "source": "explicit user question reply in this session",
+    "verbatim_answer": "Allow up to 11 recipes, including controls",
+    "verbatim_question": "For the single band-conditioning revision in ADR0020, should the programme allow up to 11 total seed-7 screening recipes, including matched controls, with at most 12 additional GPU-hours inside the existing 96-hour budget?"
+  },
+  "prefit_source_review": "REQUIRED_NOT_GRANTED_BY_OWNER_REPLY",
+  "recorded_utc": "2026-09-30T08:20:45.137619+00:00",
+  "revision_cost_scope": "All band-family scientific GPU operations, including screening, controls, later allowed replication/readouts, inference/assessment, failures and resumes; no free startup/evaluation/save time",
+  "revision_gpu_hours_limit_full_owned": 12,
+  "seed7_recipe_limit_including_controls": 11,
+  "single_revision_recipes": [
+    "band_shared_ssl",
+    "band_masked_ssl",
+    "band_permuted_ssl",
+    "band_random_frozen",
+    "band_direct_end_to_end"
+  ],
+  "status": "ROOT_RESOLVED",
+  "whole_site_final_numeric_access": "NOT_AUTHORIZED_BY_THIS_REPLY"
+}
