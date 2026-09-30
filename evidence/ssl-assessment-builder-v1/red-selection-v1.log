@@ -1,0 +1,23 @@
+SYNTHETIC_CORRECTNESS_ONLY; CPU; no optimizer.
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B -m pytest -q -p no:cacheprovider tests/unit/test_native_assessment.py -k final_based_selection
+Exit code: 1
+F                                                                        [100%]
+================================== FAILURES ===================================
+_____________ test_final_based_selection_is_denied_before_decode ______________
+
+memory_case = <test_native_assessment.Case object at 0x000002533E17DEB0>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002536EAD0410>
+
+    def test_final_based_selection_is_denied_before_decode(memory_case, monkeypatch):
+        case = memory_case
+        case.documents["selection.json"]["selection_role"] = "final_test"
+        case.seal()
+        monkeypatch.setattr(assessment.np, "load", lambda *a, **k: pytest.fail("Numeric decode"))
+>       with pytest.raises(ValueError, match="selection"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\unit\test_native_assessment.py:457: Failed
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_assessment.py::test_final_based_selection_is_denied_before_decode
+1 failed, 54 deselected in 3.63s

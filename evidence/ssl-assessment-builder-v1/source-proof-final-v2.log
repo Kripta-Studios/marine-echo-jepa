@@ -1,0 +1,46 @@
+SYNTHETIC_CORRECTNESS_ONLY; CPU or source-only verification. No scientific fit, optimizer or GPU.
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B evidence/ssl-assessment-builder-v1/verify_delivery.py
+Exit code: 0
+{
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "authored_sha256": {
+    "src/marine_echo/evaluation/native_assessment.py": "ad03ea9e00e4c4a9b1c9d64d7b5c0982b1a5b90e02a3916d3e81f211bf3b9ed4",
+    "tests/unit/test_native_assessment.py": "86dd264c2c07dbe85a876aff4eaa57cceb5a0beced24bb2e9bfd3cdb423f6198",
+    "tests/integration/test_native_assessment.py": "47e23e556b42729cad2e6a3a27a0e776770167a5f4cd8a362802a3bf03811c21"
+  },
+  "protected_main_sha256": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_product.py": "fd1c643fde93494a21d560794f886056e58031f1ef6dd41ebe53662750bab314",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_comparison.py": "51c5374e188bd3c7f2b00d5f1b5887f33b456c291cb0290e8b8e020ff28df020",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_acoustic.py": "ed7f50ebebcb630ce484a6eeeefdc3e51343ba42d0ea79c04fa733cbbc59a213",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_encoder.py": "6cc07a15ea93427d6628f1b317945f6e38ff3008894a31cab2173c0b666c0f7f",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_band_acoustic.py": "6181baf22b75be73767f4b76370c65bfc37fdeb189da3deabcabe8a7c2dcd1bf",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_temporal.py": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_band_temporal.py": "1550bb3f130e3981f57b46031e39d0d42ce7dac4738aea9280362210dfaca96b",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_ssl.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_downstream.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_ssl.py": "ca33bf3141ea17c5adb3d0a4cd2ed0d186be8efb846a5b581003f2088a105e4f",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_downstream.py": "95becf2cd01a7ab07c67a4da8d26c8e8bf58297f56513a439b0ab2b2be776619",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_references.py": "0d6583644ab1fce8d87a4194048f2176237b47deb57f0fa8494df6aa9012d584"
+  },
+  "protected_main_unchanged": true,
+  "closed_band_eight_sources_unchanged": true,
+  "no_fit_optimizer_seed_subprocess_or_provenance_execution_calls": true,
+  "codec_flags": [
+    {
+      "allow_pickle": false
+    },
+    {
+      "weights_only": true,
+      "map_location": "cpu"
+    }
+  ],
+  "write_scope": [
+    "src/marine_echo/evaluation/native_assessment.py",
+    "tests/unit/test_native_assessment.py",
+    "tests/integration/test_native_assessment.py",
+    "evidence/ssl-assessment-builder-v1/**"
+  ],
+  "scientific_execution": "NOT_RUN_NOT_AUTHORIZED",
+  "gpu_execution": "NOT_RUN_NOT_AUTHORIZED",
+  "git_index": "NOT_RUN_NO_RETRY"
+}

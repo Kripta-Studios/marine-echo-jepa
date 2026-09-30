@@ -1,0 +1,1 @@
+Fixed source-calendar point assessment protocol

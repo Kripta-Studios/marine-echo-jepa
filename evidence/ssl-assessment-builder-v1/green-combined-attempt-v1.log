@@ -1,0 +1,4 @@
+SYNTHETIC_CORRECTNESS_ONLY; CPU; no optimizer; explicit virtual transport.
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_assessment.py tests/integration/test_native_assessment.py
+Exit code: 0
+76 passed in 115.04s (0:01:55)

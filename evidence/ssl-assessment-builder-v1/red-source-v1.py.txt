@@ -1,0 +1,1 @@
+SYNTHETIC_CORRECTNESS_ONLY baseline: secondary_dropout returned unchanged context/masks and an all-false drop mask. The first test checks actual removal against an independently seeded Bernoulli mask, primary preservation and paired value/mask removal.

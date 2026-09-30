@@ -1,0 +1,112 @@
+SYNTHETIC_CORRECTNESS_ONLY; CPU; no optimizer.
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/integration/test_native_assessment.py
+Exit code: 1
+...FFF.............                                                     [100%]
+================================== FAILURES ===================================
+_______ test_invalid_forecasts_never_get_completion_receipt[nonfinite] ________
+
+memory_case = <native_assessment_test_support.Case object at 0x0000020FFF128E90>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000020FFF14DEB0>
+bad = 'nonfinite'
+
+    @pytest.mark.parametrize("bad", ["nonfinite", "shape", "unordered"])
+    def test_invalid_forecasts_never_get_completion_receipt(memory_case, monkeypatch, bad):
+        def factory(spec, snapshots, config, statistics, device, base):
+            def forecast(x, observed, metadata, query):
+                p = np.zeros((len(x), 3, 5), dtype=np.float32)
+                if bad == "nonfinite":
+                    p[0, 0, 0] = np.nan
+                elif bad == "shape":
+                    p = p[:, :, :4]
+                else:
+                    p[..., 0] = 1
+                return p
+    
+            return forecast
+    
+        # Callable source file is independently part of the static source closure.
+        case = memory_case
+        case.review["bindings"][str(Path(__file__).resolve())] = assessment.sha(
+            Path(__file__).read_bytes()
+        )
+        case.fs.files[case.review_path] = helpers._encoded(case.review)
+>       with pytest.raises(ValueError, match="forecast"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'forecast'
+E         Actual message: 'Missing immutable binding: C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_comparison.py'
+
+tests\integration\test_native_assessment.py:118: AssertionError
+_________ test_invalid_forecasts_never_get_completion_receipt[shape] __________
+
+memory_case = <native_assessment_test_support.Case object at 0x0000020FFF151070>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000020FFF151490>
+bad = 'shape'
+
+    @pytest.mark.parametrize("bad", ["nonfinite", "shape", "unordered"])
+    def test_invalid_forecasts_never_get_completion_receipt(memory_case, monkeypatch, bad):
+        def factory(spec, snapshots, config, statistics, device, base):
+            def forecast(x, observed, metadata, query):
+                p = np.zeros((len(x), 3, 5), dtype=np.float32)
+                if bad == "nonfinite":
+                    p[0, 0, 0] = np.nan
+                elif bad == "shape":
+                    p = p[:, :, :4]
+                else:
+                    p[..., 0] = 1
+                return p
+    
+            return forecast
+    
+        # Callable source file is independently part of the static source closure.
+        case = memory_case
+        case.review["bindings"][str(Path(__file__).resolve())] = assessment.sha(
+            Path(__file__).read_bytes()
+        )
+        case.fs.files[case.review_path] = helpers._encoded(case.review)
+>       with pytest.raises(ValueError, match="forecast"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'forecast'
+E         Actual message: 'Missing immutable binding: C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_comparison.py'
+
+tests\integration\test_native_assessment.py:118: AssertionError
+_______ test_invalid_forecasts_never_get_completion_receipt[unordered] ________
+
+memory_case = <native_assessment_test_support.Case object at 0x0000020FFF1B5E80>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000020FFF1B6B10>
+bad = 'unordered'
+
+    @pytest.mark.parametrize("bad", ["nonfinite", "shape", "unordered"])
+    def test_invalid_forecasts_never_get_completion_receipt(memory_case, monkeypatch, bad):
+        def factory(spec, snapshots, config, statistics, device, base):
+            def forecast(x, observed, metadata, query):
+                p = np.zeros((len(x), 3, 5), dtype=np.float32)
+                if bad == "nonfinite":
+                    p[0, 0, 0] = np.nan
+                elif bad == "shape":
+                    p = p[:, :, :4]
+                else:
+                    p[..., 0] = 1
+                return p
+    
+            return forecast
+    
+        # Callable source file is independently part of the static source closure.
+        case = memory_case
+        case.review["bindings"][str(Path(__file__).resolve())] = assessment.sha(
+            Path(__file__).read_bytes()
+        )
+        case.fs.files[case.review_path] = helpers._encoded(case.review)
+>       with pytest.raises(ValueError, match="forecast"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'forecast'
+E         Actual message: 'Missing immutable binding: C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_comparison.py'
+
+tests\integration\test_native_assessment.py:118: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/integration/test_native_assessment.py::test_invalid_forecasts_never_get_completion_receipt[nonfinite]
+FAILED tests/integration/test_native_assessment.py::test_invalid_forecasts_never_get_completion_receipt[shape]
+FAILED tests/integration/test_native_assessment.py::test_invalid_forecasts_never_get_completion_receipt[unordered]
+3 failed, 17 passed in 46.94s

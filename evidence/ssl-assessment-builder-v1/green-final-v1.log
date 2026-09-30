@@ -1,0 +1,6 @@
+SYNTHETIC_CORRECTNESS_ONLY; CPU or source-only verification. No scientific fit, optimizer or GPU.
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_assessment.py tests/integration/test_native_assessment.py
+Exit code: 0
+......... [ 83%]
+..............                                                           [100%]
+86 passed in 15.33s

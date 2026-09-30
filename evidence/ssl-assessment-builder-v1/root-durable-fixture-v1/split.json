@@ -1,0 +1,1 @@
+{"reserved_test": [{"archive_id": "test-archive", "deployment_id": "synthetic-test", "site_id": "test-site", "source_ids": ["test-source"]}], "train": [{"archive_id": "train-archive", "deployment_id": "synthetic-train", "site_id": "train-site", "source_ids": ["train-source"]}]}

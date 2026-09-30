@@ -1,0 +1,42 @@
+{
+  "status": "SNAPSHOT_INTEGRATED_PENDING_BUILDER_CLOSEOUT",
+  "authored_sha256": {
+    "src/marine_echo/evaluation/native_assessment.py": "ad03ea9e00e4c4a9b1c9d64d7b5c0982b1a5b90e02a3916d3e81f211bf3b9ed4",
+    "tests/unit/test_native_assessment.py": "86dd264c2c07dbe85a876aff4eaa57cceb5a0beced24bb2e9bfd3cdb423f6198",
+    "tests/integration/test_native_assessment.py": "47e23e556b42729cad2e6a3a27a0e776770167a5f4cd8a362802a3bf03811c21"
+  },
+  "copied_sha256": {
+    "src/marine_echo/evaluation/native_assessment.py": "ad03ea9e00e4c4a9b1c9d64d7b5c0982b1a5b90e02a3916d3e81f211bf3b9ed4",
+    "tests/unit/test_native_assessment.py": "86dd264c2c07dbe85a876aff4eaa57cceb5a0beced24bb2e9bfd3cdb423f6198",
+    "tests/integration/test_native_assessment.py": "47e23e556b42729cad2e6a3a27a0e776770167a5f4cd8a362802a3bf03811c21",
+    "evidence\\ssl-assessment-builder-v1\\collection-attempt-v1.log": "c74ca257eb2538d553019de4b1da7481e8cef45cbfdd7735cfcd4796c8c7609d",
+    "evidence\\ssl-assessment-builder-v1\\durable_fixture_check.py": "95e56ee40a924de95f8b634e9e5e01eff178e74cb33081f3761e76818468aaf2",
+    "evidence\\ssl-assessment-builder-v1\\format-final-v2.log": "7d0adc66b0434d7c90fd46882fb93c005440698b9fc12790692076b2d39c2c4b",
+    "evidence\\ssl-assessment-builder-v1\\green-combined-attempt-v1.log": "3cc3706e8fa045e507c5b773f02a28953abd7b9357a54775453fafb53678d511",
+    "evidence\\ssl-assessment-builder-v1\\green-final-v1.log": "a8b781824ac668f50e35c4a152a432126ab2685f4289a696a394004cad380e17",
+    "evidence\\ssl-assessment-builder-v1\\green-final-v2.log": "63d9131990a934a013d6c3e508751a104381c0a0a716d9d60aa49d29ec9c1834",
+    "evidence\\ssl-assessment-builder-v1\\green-integration-attempt-v1.log": "5a526a53777701ea9942dd42f7bf2ec8381a1c8208ce867feedda495ae2d6b21",
+    "evidence\\ssl-assessment-builder-v1\\green-unit-attempt-v1.log": "f4c2352fc31400d54e8046314de3db0e98b63685f18fe061942e738df2ef7dbb",
+    "evidence\\ssl-assessment-builder-v1\\import-source-bindings-v1.json": "52b5321d6f6c89dcfa87531eb575eb200620a2ce77bdfa13228af6113e3aa9da",
+    "evidence\\ssl-assessment-builder-v1\\integration-attempt-v2.log": "01ed2d819446595ac668bb10290313b211fb60926739c3ec57676afe4e3c187d",
+    "evidence\\ssl-assessment-builder-v1\\lint-attempt-v1.log": "9b20dfd98103ce6d7c9b69620a30e57a9a615c2961e6277a076a482b12c18b82",
+    "evidence\\ssl-assessment-builder-v1\\lint-final-v2.log": "f7e41b5dd4cc98768a4895d3be35308b9965f797eaff2f588382ba3dd7d9a364",
+    "evidence\\ssl-assessment-builder-v1\\protected-sources-before-v1.json": "d854398f5ba969f79517e44dd824bee4bc51dff3b705718f997a59e4faa4d7d1",
+    "evidence\\ssl-assessment-builder-v1\\red-downstream-config-v1.log": "c12415db0f1ea42682a085fdb2e2a340f0ff9f1339f11a2f9ee439f4c0996563",
+    "evidence\\ssl-assessment-builder-v1\\red-selection-v1.log": "ef9307f8b900f220098ee9e42db03d145db15172efff1053e5d7f2db7fa2ed83",
+    "evidence\\ssl-assessment-builder-v1\\red-source-headers-v1.log": "e5f91621fea46ebbeee7c7a25e608c4e77918b665fa5fc6d68eb76bee7c93887",
+    "evidence\\ssl-assessment-builder-v1\\red-source-v1.py.txt": "0b16262efa76f5135c36fa8799896422fdec9e86e2b9f684c08d62eaff9a0e39",
+    "evidence\\ssl-assessment-builder-v1\\red-v1.log": "8d1057cf5ae7bb938535300209eb3a568cbd203ec871d659580ba046c6c34859",
+    "evidence\\ssl-assessment-builder-v1\\source-proof-final-v1.json": "0bfed1b90c94f76ca5143e3ddac1d5c4d687dd02f8e9f49a530cbab0e8d3393a",
+    "evidence\\ssl-assessment-builder-v1\\source-proof-final-v2.json": "4cf602165a3d67da2898d4c4fc4e5b68ce462fd941bbcc560f452d9fd9b5d9b0",
+    "evidence\\ssl-assessment-builder-v1\\source-proof-final-v2.log": "8c2c91036eaaed77c1802aae28c19456776b95d1249e4811ea7a6d43ce320c9e",
+    "evidence\\ssl-assessment-builder-v1\\source_bindings.py": "9d2cf62e0f49cfedf567b187ef684efa7838a32d808888c279c436e2fa626afb",
+    "evidence\\ssl-assessment-builder-v1\\verify_delivery.py": "1080a9a219bc7f4d91aafdda068f8442828d7b6d6e9d2ccd0a4b821c4b183dda"
+  },
+  "builder_checkout_modified": false,
+  "source_bytes_identical": true,
+  "root_durable_checks": "NOT_RUN",
+  "independent_review": "NOT_RUN",
+  "scientific_execution": "NOT_RUN",
+  "final_numeric_access": "NOT_RUN"
+}

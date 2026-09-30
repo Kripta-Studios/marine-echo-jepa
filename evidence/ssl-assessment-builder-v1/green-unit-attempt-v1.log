@@ -1,0 +1,4 @@
+SYNTHETIC_CORRECTNESS_ONLY; CPU; explicit virtual NPZ transport; no optimizer.
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B -m pytest -q -p no:cacheprovider tests/unit/test_native_assessment.py
+Exit code: 0
+54 passed in 175.95s (0:02:55)

@@ -1,0 +1,108 @@
+{
+  "schema": "native_assessment_closeout_v1",
+  "date": "2026-09-30",
+  "status": "CLOSED_IMPLEMENTATION_DELIVERY_NOT_APPROVAL",
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "implementer_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "authored_sha256": {
+    "src/marine_echo/evaluation/native_assessment.py": "ad03ea9e00e4c4a9b1c9d64d7b5c0982b1a5b90e02a3916d3e81f211bf3b9ed4",
+    "tests/unit/test_native_assessment.py": "86dd264c2c07dbe85a876aff4eaa57cceb5a0beced24bb2e9bfd3cdb423f6198",
+    "tests/integration/test_native_assessment.py": "47e23e556b42729cad2e6a3a27a0e776770167a5f4cd8a362802a3bf03811c21"
+  },
+  "final_source_proof": {
+    "path": "evidence/ssl-assessment-builder-v1/source-proof-final-v2.json",
+    "sha256": "4cf602165a3d67da2898d4c4fc4e5b68ce462fd941bbcc560f452d9fd9b5d9b0"
+  },
+  "closeout_verification": {
+    "method": "standard-library SHA256 reads only",
+    "exit_code": 0,
+    "authored_bytes_match": true,
+    "protected_main_sources_unchanged": true,
+    "closed_band_eight_sources_unchanged": true
+  },
+  "builder_checks": [
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_assessment.py tests/integration/test_native_assessment.py",
+      "exit_code": 0,
+      "passed": 92,
+      "elapsed_seconds": 137.74,
+      "log": "evidence/ssl-assessment-builder-v1/green-final-v2.log",
+      "executed_by": "builder",
+      "rerun_during_closeout": false
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff check src/marine_echo/evaluation/native_assessment.py tests/unit/test_native_assessment.py tests/integration/test_native_assessment.py evidence/ssl-assessment-builder-v1/verify_delivery.py",
+      "exit_code": 0,
+      "log": "evidence/ssl-assessment-builder-v1/lint-final-v2.log",
+      "executed_by": "builder",
+      "rerun_during_closeout": false
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff check src/marine_echo/evaluation/native_assessment.py tests/unit/test_native_assessment.py tests/integration/test_native_assessment.py evidence/ssl-assessment-builder-v1/verify_delivery.py evidence/ssl-assessment-builder-v1/durable_fixture_check.py evidence/ssl-assessment-builder-v1/source_bindings.py",
+      "exit_code": 0,
+      "executed_by": "builder",
+      "rerun_during_closeout": false
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff format --check src/marine_echo/evaluation/native_assessment.py tests/unit/test_native_assessment.py tests/integration/test_native_assessment.py evidence/ssl-assessment-builder-v1/verify_delivery.py evidence/ssl-assessment-builder-v1/durable_fixture_check.py evidence/ssl-assessment-builder-v1/source_bindings.py",
+      "exit_code": 0,
+      "already_formatted_files": 6,
+      "executed_by": "builder",
+      "rerun_during_closeout": false
+    }
+  ],
+  "root_checks": {
+    "attribution": "Coordinator-reported ROOT execution; not rerun or independently reviewed by builder",
+    "exact_commands": null,
+    "synthetic_cpu": {
+      "passed": 92,
+      "elapsed_seconds": 140.73,
+      "exit_code": 0
+    },
+    "durable_unicode_native230_forecast_and_collision": {
+      "exit_code": 0,
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY"
+    },
+    "lint": "PASSED"
+  },
+  "inspected": [
+    "Source/interface contracts",
+    "Static import closure",
+    "Preserved synthetic logs",
+    "Frozen source hashes"
+  ],
+  "not_run_in_builder": [
+    "Real acoustic corpus/prediction numerical parsing",
+    "Real pretrained artifact assessment",
+    "Final numerical access",
+    "Scientific fitting",
+    "GPU execution",
+    "Real booster fitting",
+    "Durable output fixture (separately root-executed synthetic)",
+    "Paired scientific comparison",
+    "Inaccessible operations and restricted scratch/cache/Git index retries"
+  ],
+  "interruption": {
+    "evidence": "assessment-builder-owned-interruption-01.json",
+    "owner": "root",
+    "cause": "UNKNOWN",
+    "builder_process_actions": false,
+    "scientific_queue_or_file_changes_reported": false
+  },
+  "approvals": {
+    "scientific": false,
+    "quality": false,
+    "prefit": false,
+    "final_numeric": false,
+    "self_review": false
+  },
+  "old_evidence_preserved": true,
+  "source_test_changes_during_closeout": false,
+  "tests_repeated_during_closeout": false,
+  "next_prefix_transfer_task_started": false,
+  "new_closeout_paths": [
+    "evidence/ssl-assessment-builder-v1/NATIVE_ASSESSMENT_CLOSEOUT_20260930_V1.md",
+    "evidence/ssl-assessment-builder-v1/closeout-handoff-20260930-v1.json"
+  ],
+  "report_path": "evidence/ssl-assessment-builder-v1/NATIVE_ASSESSMENT_CLOSEOUT_20260930_V1.md"
+}

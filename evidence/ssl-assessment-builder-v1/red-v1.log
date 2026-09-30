@@ -1,0 +1,7 @@
+SYNTHETIC_CORRECTNESS_ONLY; CPU; no optimizer.
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B -m pytest -q -p no:cacheprovider tests/unit/test_native_assessment.py
+Exit code: 1
+FAILED tests/unit/test_native_assessment.py::test_secondary_dropout_removes_values_and_masks_together
+AssertionError: The declared robustness case must actually drop observations.
+1 failed in 1.38s
+Baseline returned an all-false drop mask; independently seeded actual secondary drops were required.

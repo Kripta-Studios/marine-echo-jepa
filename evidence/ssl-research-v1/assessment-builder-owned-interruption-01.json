@@ -1,0 +1,117 @@
+{
+  "status": "OWNED_AGENT_TREE_INTERRUPTED",
+  "session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "utc": "2026-09-30T07:06:39.682904+00:00",
+  "reason": "Completed source proof and 92 root checks retained; delivery stream idle over twenty minutes, no final handoff",
+  "cause_of_stall": "UNKNOWN",
+  "owned_process_identities": [
+    [
+      58036,
+      1790744853.153292,
+      "codex.exe"
+    ],
+    [
+      53452,
+      1790744869.8156476,
+      "node_repl.exe"
+    ],
+    [
+      35592,
+      1790744869.85883,
+      "cmd.exe"
+    ],
+    [
+      53308,
+      1790744869.929844,
+      "cmd.exe"
+    ],
+    [
+      53748,
+      1790744870.0615673,
+      "cmd.exe"
+    ],
+    [
+      54692,
+      1790744888.298049,
+      "codex-code-mode-host.exe"
+    ],
+    [
+      45872,
+      1790744888.3613527,
+      "conhost.exe"
+    ],
+    [
+      47304,
+      1790744870.153283,
+      "conhost.exe"
+    ],
+    [
+      53760,
+      1790744871.4610424,
+      "node.exe"
+    ],
+    [
+      60380,
+      1790744883.8480592,
+      "cmd.exe"
+    ],
+    [
+      20292,
+      1790744884.061834,
+      "node.exe"
+    ],
+    [
+      36368,
+      1790744870.0388691,
+      "conhost.exe"
+    ],
+    [
+      56496,
+      1790744871.4467638,
+      "node.exe"
+    ],
+    [
+      62208,
+      1790744883.6472087,
+      "cmd.exe"
+    ],
+    [
+      35804,
+      1790744883.8292265,
+      "node.exe"
+    ],
+    [
+      10904,
+      1790744888.3497975,
+      "node.exe"
+    ],
+    [
+      39848,
+      1790744870.005894,
+      "conhost.exe"
+    ],
+    [
+      4188,
+      1790744871.500739,
+      "node.exe"
+    ],
+    [
+      43648,
+      1790744883.6524353,
+      "cmd.exe"
+    ],
+    [
+      52788,
+      1790744883.8394992,
+      "node.exe"
+    ],
+    [
+      56840,
+      1790744869.8800087,
+      "conhost.exe"
+    ]
+  ],
+  "scientific_queue_modified": false,
+  "files_deleted": false,
+  "remaining_owned_pids": []
+}

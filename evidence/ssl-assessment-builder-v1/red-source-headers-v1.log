@@ -1,0 +1,103 @@
+SYNTHETIC_CORRECTNESS_ONLY; CPU; no optimizer.
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_assessment.py -k source_header
+Exit code: 1
+FF                                                                       [100%]
+================================== FAILURES ===================================
+____ test_source_header_test_role_only_under_exact_final_execution_review _____
+
+memory_case = <tests.unit.test_native_assessment.Case object at 0x000001A8755909B0>
+
+    def test_source_header_test_role_only_under_exact_final_execution_review(memory_case):
+        case = memory_case
+        case.manifest["input_corpus_role"] = "test"
+        case.arrays["corpus_role"] = np.asarray("test")
+        case.seal()
+>       _, trace = assessment.load_input(case.admit())
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\unit\test_native_assessment.py:737: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+admitted = Admission(manifest={'batch_size': 8, 'cohort_path': 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-...a exposure; not a universal sealed holdout.', 'no_universal_sealed_claim': True, 'external_ancestry_guarantee': False})
+
+    def load_input(admitted):
+        m = admitted.manifest
+        core = m["input_schema"] == "native_corpus_v1"
+        ck, tk = ("observed", "y") if core else ("context_observed", "targets")
+        with np.load(
+            io.BytesIO(admitted.snapshots[admitted.paths["input"]]), allow_pickle=False
+        ) as saved:
+            keys = [
+                "x",
+                ck,
+                "metadata",
+                "query",
+                tk,
+                "row_id",
+                "deployment",
+                "target_dates",
+                "corpus_role",
+                "evidence_kind",
+            ]
+            if not set(keys) <= set(saved.files):
+                raise ValueError("Missing required context/support/role provenance fields.")
+            data = {k: saved[k].copy() for k in keys}
+            aliases = [
+                k for k in ("y_observed", "target_observed", "observed") if k in saved.files and k != ck
+            ]
+            masks = {k: saved[k].copy() for k in aliases}
+            optional = {
+                k: saved[k].copy() for k in ("cutoff", "archive_id", "source_id") if k in saved.files
+            }
+            # Future/future_observed and all unlisted arrays are NEVER decoded.
+        for k, expected in (("corpus_role", m["role"]), ("evidence_kind", m["evidence_kind"])):
+            if data[k].shape != () or data[k].item() != expected:
+>               raise ValueError("Numerical corpus role/evidence differs.")
+E               ValueError: Numerical corpus role/evidence differs.
+
+src\marine_echo\evaluation\native_assessment.py:599: ValueError
+_____ test_source_header_absence_is_explicit_and_fixture_stays_synthetic ______
+
+memory_case = <tests.unit.test_native_assessment.Case object at 0x000001A875590740>
+
+    def test_source_header_absence_is_explicit_and_fixture_stays_synthetic(memory_case):
+        case = memory_case
+        case.manifest["input_evidence_kind"] = None
+        del case.arrays["evidence_kind"]
+        case.seal()
+>       _, trace = assessment.load_input(case.admit())
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\unit\test_native_assessment.py:746: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+admitted = Admission(manifest={'batch_size': 8, 'cohort_path': 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-...a exposure; not a universal sealed holdout.', 'no_universal_sealed_claim': True, 'external_ancestry_guarantee': False})
+
+    def load_input(admitted):
+        m = admitted.manifest
+        core = m["input_schema"] == "native_corpus_v1"
+        ck, tk = ("observed", "y") if core else ("context_observed", "targets")
+        with np.load(
+            io.BytesIO(admitted.snapshots[admitted.paths["input"]]), allow_pickle=False
+        ) as saved:
+            keys = [
+                "x",
+                ck,
+                "metadata",
+                "query",
+                tk,
+                "row_id",
+                "deployment",
+                "target_dates",
+                "corpus_role",
+                "evidence_kind",
+            ]
+            if not set(keys) <= set(saved.files):
+>               raise ValueError("Missing required context/support/role provenance fields.")
+E               ValueError: Missing required context/support/role provenance fields.
+
+src\marine_echo\evaluation\native_assessment.py:587: ValueError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_assessment.py::test_source_header_test_role_only_under_exact_final_execution_review
+FAILED tests/unit/test_native_assessment.py::test_source_header_absence_is_explicit_and_fixture_stays_synthetic
+2 failed, 62 deselected in 6.17s

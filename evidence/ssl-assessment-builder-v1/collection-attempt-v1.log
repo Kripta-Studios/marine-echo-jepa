@@ -1,0 +1,4 @@
+SYNTHETIC_CORRECTNESS_ONLY; no test body ran.
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B -m pytest -q -p no:cacheprovider tests/unit/test_native_assessment.py tests/integration/test_native_assessment.py
+Exit code: 2
+Pytest collection import-file mismatch: both prescribed files have basename test_native_assessment.py. Resolved by using --import-mode=importlib; no cache removal/retry or filename changes.

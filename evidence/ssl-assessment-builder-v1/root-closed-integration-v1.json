@@ -1,0 +1,25 @@
+{
+  "status": "CLOSED_ENGINEERING_INTEGRATION",
+  "authored_sha256": {
+    "src/marine_echo/evaluation/native_assessment.py": "ad03ea9e00e4c4a9b1c9d64d7b5c0982b1a5b90e02a3916d3e81f211bf3b9ed4",
+    "tests/unit/test_native_assessment.py": "86dd264c2c07dbe85a876aff4eaa57cceb5a0beced24bb2e9bfd3cdb423f6198",
+    "tests/integration/test_native_assessment.py": "47e23e556b42729cad2e6a3a27a0e776770167a5f4cd8a362802a3bf03811c21"
+  },
+  "root_cpu": {
+    "count": 92,
+    "exit_code": 0,
+    "log_sha256": "d4cfe231fb7cca53648a120f3d5776c500a25daa27146d804e72798fab850359"
+  },
+  "root_durable": {
+    "exit_code": 0,
+    "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+    "log_sha256": "8200a629d3ea797339ffe38aa23253b30b3593255fdb0d067c4a7acc7b1982b6",
+    "native_lower_m": 230,
+    "protected_output_collision": "REJECTED"
+  },
+  "builder_closeout_exit_code": 0,
+  "distinct_review": "NOT_RUN",
+  "real_schema_integration_repair": "PENDING_SEPARATE_RED_GREEN",
+  "scientific_execution": "NOT_RUN",
+  "final_site_numeric_access": "NOT_RUN"
+}

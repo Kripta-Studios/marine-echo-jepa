@@ -1,0 +1,4 @@
+SYNTHETIC_CORRECTNESS_ONLY; CPU or source-only verification. No scientific fit, optimizer or GPU.
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B -m ruff check src/marine_echo/evaluation/native_assessment.py tests/unit/test_native_assessment.py tests/integration/test_native_assessment.py evidence/ssl-assessment-builder-v1/verify_delivery.py
+Exit code: 0
+All checks passed!

@@ -1,0 +1,28 @@
+SYNTHETIC_CORRECTNESS_ONLY; CPU; safe real Torch codec; no optimizer.
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/integration/test_native_assessment.py -k missing_downstream_config
+Exit code: 1
+F                                                                        [100%]
+================================== FAILURES ===================================
+_ test_missing_downstream_config_cannot_be_reinterpreted_as_supported_forecast _
+
+    def test_missing_downstream_config_cannot_be_reinterpreted_as_supported_forecast():
+        import torch
+    
+        from marine_echo.models.native_temporal import NativeTemporalModel
+        from marine_echo.training.native_ssl import Config
+    
+        config = Config(width=8, latent=4, blocks=1, heads=2, batch_size=8).to_dict()
+        scalers = {"channel_mean": [0.0] * 4, "channel_std": [1.0] * 4, "target_mean": [0.0] * 3, "target_std": [1.0] * 3}
+        artifact = {"kind": "native_ssl_weights_only_inference_v1", "config": config, "scalers": scalers, "model": NativeTemporalModel(8, 4, 1, 2).state_dict(), "supervised_ancestry": {"mode": "full_finetune", "ssl_only": False}}
+        stream = io.BytesIO()
+        torch.save(artifact, stream)
+        p = Path("/synthetic-supervised.pt").resolve()
+        spec = {"kind": artifact["kind"], "model_paths": [str(p)], "mode": "full_finetune"}
+>       with pytest.raises(ValueError, match="downstream config"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\integration\test_native_assessment.py:457: Failed
+=========================== short test summary info ===========================
+FAILED tests/integration/test_native_assessment.py::test_missing_downstream_config_cannot_be_reinterpreted_as_supported_forecast
+1 failed, 20 deselected in 23.15s
