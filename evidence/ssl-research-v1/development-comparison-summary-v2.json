@@ -1,0 +1,695 @@
+{
+  "role": "development",
+  "reference": "lightgbm",
+  "native_geometry": {
+    "horizon_intervals": [
+      1,
+      3,
+      6
+    ],
+    "dB_rescaling": false,
+    "unique_products": [
+      {
+        "frequency_hz": 38000.0,
+        "interval_seconds": 3600.0,
+        "geometry_kind": 1.0,
+        "upper_m": 0.0,
+        "lower_m": 225.0,
+        "orientation": 0.0,
+        "processing_known": 1.0,
+        "instrument_known": 0.0,
+        "clock_known": 0.0,
+        "original_encoded_measurement_fields": [
+          0.08351648598909378,
+          1.0,
+          1.0,
+          0.0,
+          0.8999999761581421,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ]
+      }
+    ]
+  },
+  "comparisons": [
+    {
+      "method": "cf_jepa_frozen_readout",
+      "reference": "lightgbm",
+      "direction": "method_minus_reference",
+      "point_difference_db": 0.10914852722756341,
+      "ci95_db": [
+        0.09459767319914705,
+        0.12681620296345855
+      ],
+      "status": "ASSESSABLE",
+      "zero_resampling_variation": false
+    },
+    {
+      "method": "cf_jepa_full_finetune",
+      "reference": "lightgbm",
+      "direction": "method_minus_reference",
+      "point_difference_db": 0.03654019430398692,
+      "ci95_db": [
+        0.02814473051363656,
+        0.044475685817581746
+      ],
+      "status": "ASSESSABLE",
+      "zero_resampling_variation": false
+    },
+    {
+      "method": "cf_short_probe",
+      "reference": "lightgbm",
+      "direction": "method_minus_reference",
+      "point_difference_db": 0.2404530398102659,
+      "ci95_db": [
+        0.2085548482941874,
+        0.2791036293704759
+      ],
+      "status": "ASSESSABLE",
+      "zero_resampling_variation": false
+    },
+    {
+      "method": "chronos2_zero_shot",
+      "reference": "lightgbm",
+      "direction": "method_minus_reference",
+      "point_difference_db": 0.0016419833944515405,
+      "ci95_db": [
+        -0.00896818035607829,
+        0.01113776951775264
+      ],
+      "status": "ASSESSABLE",
+      "zero_resampling_variation": false
+    },
+    {
+      "method": "direct_end_to_end",
+      "reference": "lightgbm",
+      "direction": "method_minus_reference",
+      "point_difference_db": 0.2599116460064118,
+      "ci95_db": [
+        0.23131253858438156,
+        0.2922709959777743
+      ],
+      "status": "ASSESSABLE",
+      "zero_resampling_variation": false
+    },
+    {
+      "method": "direct_frozen_readout",
+      "reference": "lightgbm",
+      "direction": "method_minus_reference",
+      "point_difference_db": 0.2708445216132752,
+      "ci95_db": [
+        0.23860087204192268,
+        0.3079334605974318
+      ],
+      "status": "ASSESSABLE",
+      "zero_resampling_variation": false
+    },
+    {
+      "method": "direct_short_probe",
+      "reference": "lightgbm",
+      "direction": "method_minus_reference",
+      "point_difference_db": 0.28400532122466216,
+      "ci95_db": [
+        0.2505404894356763,
+        0.32294067166152324
+      ],
+      "status": "ASSESSABLE",
+      "zero_resampling_variation": false
+    },
+    {
+      "method": "masked_ssl_frozen_readout",
+      "reference": "lightgbm",
+      "direction": "method_minus_reference",
+      "point_difference_db": 0.28156848730779593,
+      "ci95_db": [
+        0.2610333073988311,
+        0.30269000634832927
+      ],
+      "status": "ASSESSABLE",
+      "zero_resampling_variation": false
+    },
+    {
+      "method": "masked_ssl_full_finetune",
+      "reference": "lightgbm",
+      "direction": "method_minus_reference",
+      "point_difference_db": 0.18653255516416323,
+      "ci95_db": [
+        0.1670358493354262,
+        0.20728391697185736
+      ],
+      "status": "ASSESSABLE",
+      "zero_resampling_variation": false
+    },
+    {
+      "method": "masked_ssl_short_probe",
+      "reference": "lightgbm",
+      "direction": "method_minus_reference",
+      "point_difference_db": 0.30139685575185116,
+      "ci95_db": [
+        0.2710191380368482,
+        0.333079235893619
+      ],
+      "status": "ASSESSABLE",
+      "zero_resampling_variation": false
+    },
+    {
+      "method": "permuted_ssl_frozen_readout",
+      "reference": "lightgbm",
+      "direction": "method_minus_reference",
+      "point_difference_db": 0.34941690496570843,
+      "ci95_db": [
+        0.32578016941433696,
+        0.37379573744992
+      ],
+      "status": "ASSESSABLE",
+      "zero_resampling_variation": false
+    },
+    {
+      "method": "permuted_ssl_short_probe",
+      "reference": "lightgbm",
+      "direction": "method_minus_reference",
+      "point_difference_db": 0.3902006410820462,
+      "ci95_db": [
+        0.3620619998183605,
+        0.4198581440206881
+      ],
+      "status": "ASSESSABLE",
+      "zero_resampling_variation": false
+    },
+    {
+      "method": "persistence",
+      "reference": "lightgbm",
+      "direction": "method_minus_reference",
+      "point_difference_db": 0.48390240606204493,
+      "ci95_db": [
+        0.46248703733068325,
+        0.504157662991101
+      ],
+      "status": "ASSESSABLE",
+      "zero_resampling_variation": false
+    },
+    {
+      "method": "random_frozen_frozen_readout",
+      "reference": "lightgbm",
+      "direction": "method_minus_reference",
+      "point_difference_db": 0.3075944882988684,
+      "ci95_db": [
+        0.28110103541912357,
+        0.338264530022573
+      ],
+      "status": "ASSESSABLE",
+      "zero_resampling_variation": false
+    },
+    {
+      "method": "random_frozen_short_probe",
+      "reference": "lightgbm",
+      "direction": "method_minus_reference",
+      "point_difference_db": 0.37738511005381237,
+      "ci95_db": [
+        0.3450479071984296,
+        0.4147476575215574
+      ],
+      "status": "ASSESSABLE",
+      "zero_resampling_variation": false
+    },
+    {
+      "method": "seasonal24",
+      "reference": "lightgbm",
+      "direction": "method_minus_reference",
+      "point_difference_db": 0.526464916472203,
+      "ci95_db": [
+        0.4996342010762067,
+        0.5543650601625814
+      ],
+      "status": "ASSESSABLE",
+      "zero_resampling_variation": false
+    },
+    {
+      "method": "shared_frozen_readout",
+      "reference": "lightgbm",
+      "direction": "method_minus_reference",
+      "point_difference_db": 0.28044176036182966,
+      "ci95_db": [
+        0.25652631742068627,
+        0.3044787832919072
+      ],
+      "status": "ASSESSABLE",
+      "zero_resampling_variation": false
+    },
+    {
+      "method": "shared_full_finetune",
+      "reference": "lightgbm",
+      "direction": "method_minus_reference",
+      "point_difference_db": 0.26732078671977055,
+      "ci95_db": [
+        0.2387174495695162,
+        0.2992089163113082
+      ],
+      "status": "ASSESSABLE",
+      "zero_resampling_variation": false
+    },
+    {
+      "method": "shared_short_probe",
+      "reference": "lightgbm",
+      "direction": "method_minus_reference",
+      "point_difference_db": 0.319373295376814,
+      "ci95_db": [
+        0.2973928397849839,
+        0.3422314715387635
+      ],
+      "status": "ASSESSABLE",
+      "zero_resampling_variation": false
+    }
+  ],
+  "bootstrap": {
+    "seed": 20260929,
+    "replicates": 2000,
+    "block_hours": 48,
+    "block_days": 2,
+    "deployment_count": 1,
+    "site_count": null,
+    "site_count_reason": "Deployment groups are not proven independent sites.",
+    "valid_replicates": 2000,
+    "generated_replicates": 2000,
+    "not_run_replicates": 0,
+    "unsupported_replicates": 0,
+    "sequence_sha256": "f40aa16237c3842ed32053289479ad4a5101bec33919e639d59b42c649283026",
+    "eligible_day_count_ranges_per_horizon": [
+      [
+        299,
+        328
+      ],
+      [
+        299,
+        328
+      ],
+      [
+        299,
+        328
+      ]
+    ],
+    "algorithm": "resample_deployments_then_observed_nonoverlapping_calendar_blocks_with_replacement",
+    "date_basis": "target_source_calendar_date_proxy_not_claimed_UTC",
+    "block_basis": "two_source_calendar_days_48_nominal_hourly_intervals",
+    "verified_absolute_time": false,
+    "empty_calendar_blocks_not_sampled": true,
+    "source_clock_uncertainty": "Unverified source-clock timing: day-boundary blocks represent 48 nominal hourly source-calendar intervals, not verified absolute-time/UTC durations.",
+    "percentiles": [
+      2.5,
+      97.5
+    ],
+    "percentile_method": "linear",
+    "limitations": [
+      "Few deployment groups limit generalization; deployments may share sites.",
+      "Two-source-calendar-day blocks assume local dependence within nominal 48-hour blocks and weaker dependence across blocks.",
+      "Source-clock uncertainty means day-boundary blocks are not a verified absolute-time/UTC bootstrap.",
+      "Repeated blocks/dates retain multiplicity; eligible day counts can differ by horizon and replicate.",
+      "Intervals are conditional on the reviewed issued rows, floor and calendar proxies."
+    ],
+    "interval_status": "ASSESSABLE"
+  },
+  "methods": {
+    "cf_jepa_frozen_readout": {
+      "primary_pinball_db": 0.6144220773212316,
+      "scored_per_horizon": [
+        7581,
+        7557,
+        7521
+      ],
+      "eligible_source_dates_per_horizon": [
+        316,
+        316,
+        316
+      ],
+      "constant_across_issuance": false,
+      "median_std_db_per_horizon": [
+        1.4551042318344116,
+        1.478230357170105,
+        1.4932361841201782
+      ]
+    },
+    "cf_jepa_full_finetune": {
+      "primary_pinball_db": 0.5418137443976551,
+      "scored_per_horizon": [
+        7581,
+        7557,
+        7521
+      ],
+      "eligible_source_dates_per_horizon": [
+        316,
+        316,
+        316
+      ],
+      "constant_across_issuance": false,
+      "median_std_db_per_horizon": [
+        1.6631183624267578,
+        1.6473984718322754,
+        1.6140961647033691
+      ]
+    },
+    "cf_short_probe": {
+      "primary_pinball_db": 0.745726589903934,
+      "scored_per_horizon": [
+        7581,
+        7557,
+        7521
+      ],
+      "eligible_source_dates_per_horizon": [
+        316,
+        316,
+        316
+      ],
+      "constant_across_issuance": false,
+      "median_std_db_per_horizon": [
+        1.110782265663147,
+        1.131992220878601,
+        1.1467978954315186
+      ]
+    },
+    "chronos2_zero_shot": {
+      "primary_pinball_db": 0.5069155334881197,
+      "scored_per_horizon": [
+        7581,
+        7557,
+        7521
+      ],
+      "eligible_source_dates_per_horizon": [
+        316,
+        316,
+        316
+      ],
+      "constant_across_issuance": false,
+      "median_std_db_per_horizon": [
+        2.329147071728916,
+        2.2669329670152876,
+        2.2404309839681464
+      ]
+    },
+    "direct_end_to_end": {
+      "primary_pinball_db": 0.76518519610008,
+      "scored_per_horizon": [
+        7581,
+        7557,
+        7521
+      ],
+      "eligible_source_dates_per_horizon": [
+        316,
+        316,
+        316
+      ],
+      "constant_across_issuance": false,
+      "median_std_db_per_horizon": [
+        3.1906073093414307,
+        3.076718330383301,
+        2.959345579147339
+      ]
+    },
+    "direct_frozen_readout": {
+      "primary_pinball_db": 0.7761180717069434,
+      "scored_per_horizon": [
+        7581,
+        7557,
+        7521
+      ],
+      "eligible_source_dates_per_horizon": [
+        316,
+        316,
+        316
+      ],
+      "constant_across_issuance": false,
+      "median_std_db_per_horizon": [
+        3.2132363319396973,
+        3.103788137435913,
+        3.0220096111297607
+      ]
+    },
+    "direct_short_probe": {
+      "primary_pinball_db": 0.7892788713183303,
+      "scored_per_horizon": [
+        7581,
+        7557,
+        7521
+      ],
+      "eligible_source_dates_per_horizon": [
+        316,
+        316,
+        316
+      ],
+      "constant_across_issuance": false,
+      "median_std_db_per_horizon": [
+        3.0979061126708984,
+        3.0588104724884033,
+        3.0208888053894043
+      ]
+    },
+    "lightgbm": {
+      "primary_pinball_db": 0.5052735500936681,
+      "scored_per_horizon": [
+        7581,
+        7557,
+        7521
+      ],
+      "eligible_source_dates_per_horizon": [
+        316,
+        316,
+        316
+      ],
+      "constant_across_issuance": false,
+      "median_std_db_per_horizon": [
+        2.251653268293937,
+        2.093488086486255,
+        2.0607518649817274
+      ]
+    },
+    "masked_ssl_frozen_readout": {
+      "primary_pinball_db": 0.7868420374014641,
+      "scored_per_horizon": [
+        7581,
+        7557,
+        7521
+      ],
+      "eligible_source_dates_per_horizon": [
+        316,
+        316,
+        316
+      ],
+      "constant_across_issuance": false,
+      "median_std_db_per_horizon": [
+        2.2369155883789062,
+        2.355079174041748,
+        2.523123264312744
+      ]
+    },
+    "masked_ssl_full_finetune": {
+      "primary_pinball_db": 0.6918061052578314,
+      "scored_per_horizon": [
+        7581,
+        7557,
+        7521
+      ],
+      "eligible_source_dates_per_horizon": [
+        316,
+        316,
+        316
+      ],
+      "constant_across_issuance": false,
+      "median_std_db_per_horizon": [
+        3.38491153717041,
+        3.338635206222534,
+        3.297858715057373
+      ]
+    },
+    "masked_ssl_short_probe": {
+      "primary_pinball_db": 0.8066704058455193,
+      "scored_per_horizon": [
+        7581,
+        7557,
+        7521
+      ],
+      "eligible_source_dates_per_horizon": [
+        316,
+        316,
+        316
+      ],
+      "constant_across_issuance": false,
+      "median_std_db_per_horizon": [
+        3.0972561836242676,
+        3.2419703006744385,
+        3.402048110961914
+      ]
+    },
+    "permuted_ssl_frozen_readout": {
+      "primary_pinball_db": 0.8546904550593766,
+      "scored_per_horizon": [
+        7581,
+        7557,
+        7521
+      ],
+      "eligible_source_dates_per_horizon": [
+        316,
+        316,
+        316
+      ],
+      "constant_across_issuance": false,
+      "median_std_db_per_horizon": [
+        1.676967978477478,
+        1.648854374885559,
+        1.6085504293441772
+      ]
+    },
+    "permuted_ssl_short_probe": {
+      "primary_pinball_db": 0.8954741911757144,
+      "scored_per_horizon": [
+        7581,
+        7557,
+        7521
+      ],
+      "eligible_source_dates_per_horizon": [
+        316,
+        316,
+        316
+      ],
+      "constant_across_issuance": false,
+      "median_std_db_per_horizon": [
+        1.546488881111145,
+        1.5049372911453247,
+        1.459478497505188
+      ]
+    },
+    "persistence": {
+      "primary_pinball_db": 0.9891759561557131,
+      "scored_per_horizon": [
+        7581,
+        7557,
+        7521
+      ],
+      "eligible_source_dates_per_horizon": [
+        316,
+        316,
+        316
+      ],
+      "constant_across_issuance": false,
+      "median_std_db_per_horizon": [
+        2.79315185546875,
+        2.79315185546875,
+        2.79315185546875
+      ]
+    },
+    "random_frozen_frozen_readout": {
+      "primary_pinball_db": 0.8128680383925365,
+      "scored_per_horizon": [
+        7581,
+        7557,
+        7521
+      ],
+      "eligible_source_dates_per_horizon": [
+        316,
+        316,
+        316
+      ],
+      "constant_across_issuance": false,
+      "median_std_db_per_horizon": [
+        1.2025976181030273,
+        1.2485003471374512,
+        1.2909462451934814
+      ]
+    },
+    "random_frozen_short_probe": {
+      "primary_pinball_db": 0.8826586601474805,
+      "scored_per_horizon": [
+        7581,
+        7557,
+        7521
+      ],
+      "eligible_source_dates_per_horizon": [
+        316,
+        316,
+        316
+      ],
+      "constant_across_issuance": false,
+      "median_std_db_per_horizon": [
+        1.2785404920578003,
+        1.3259435892105103,
+        1.368969202041626
+      ]
+    },
+    "seasonal24": {
+      "primary_pinball_db": 1.031738466565871,
+      "scored_per_horizon": [
+        7581,
+        7557,
+        7521
+      ],
+      "eligible_source_dates_per_horizon": [
+        316,
+        316,
+        316
+      ],
+      "constant_across_issuance": false,
+      "median_std_db_per_horizon": [
+        2.751793622970581,
+        2.7562735080718994,
+        2.7675726413726807
+      ]
+    },
+    "shared_frozen_readout": {
+      "primary_pinball_db": 0.7857153104554978,
+      "scored_per_horizon": [
+        7581,
+        7557,
+        7521
+      ],
+      "eligible_source_dates_per_horizon": [
+        316,
+        316,
+        316
+      ],
+      "constant_across_issuance": false,
+      "median_std_db_per_horizon": [
+        2.4209861755371094,
+        2.383415937423706,
+        2.379533529281616
+      ]
+    },
+    "shared_full_finetune": {
+      "primary_pinball_db": 0.7725943368134387,
+      "scored_per_horizon": [
+        7581,
+        7557,
+        7521
+      ],
+      "eligible_source_dates_per_horizon": [
+        316,
+        316,
+        316
+      ],
+      "constant_across_issuance": false,
+      "median_std_db_per_horizon": [
+        3.0732719898223877,
+        3.00404953956604,
+        2.976130962371826
+      ]
+    },
+    "shared_short_probe": {
+      "primary_pinball_db": 0.8246468454704822,
+      "scored_per_horizon": [
+        7581,
+        7557,
+        7521
+      ],
+      "eligible_source_dates_per_horizon": [
+        316,
+        316,
+        316
+      ],
+      "constant_across_issuance": false,
+      "median_std_db_per_horizon": [
+        2.2961843013763428,
+        2.317676305770874,
+        2.3644461631774902
+      ]
+    }
+  }
+}

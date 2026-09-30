@@ -1,6 +1,6 @@
 ## Active model-first research — native acoustic SSL
 
-Updated 2026-09-30T05:11:49.836480+00:00.
+Updated 2026-09-30T06:46:18.529194+00:00.
 
 Branch `research/marine-jepa-vnext`; owner-authorized local model research.
 App/release work is frozen; historical protocols, evidence and approved r3 are preserved.
@@ -16,13 +16,15 @@ LightGBM15 quantile boosters and deterministic persistence/seasonal references c
 Shared/CF encoder CPU replay and LightGBM all15-booster CPU replay passed.
 Independent learning-path audit found no defect within inspected scope.
 
-Active scientific job: cf_jepa_full_finetune_seed7_h96.
+Active scientific job: cf_jepa_seed13_h96_replication.
 Original serial queue: COMPLETED_REVIEWED_SERIAL_QUEUE; 9/9 reports inspected.
-Charged owned GPU-hours at ledger snapshot: 4.914922/96.
+Charged owned GPU-hours at ledger snapshot: 5.727587/96.
 The active wrappers own ledger writes; coordinator does not overwrite live accounting.
-CF strong frozen/full endpoints are executing under separate completed-parent89-binding approval.
-Masked frozen/full and permuted frozen have separate80-binding approval and a frozen next queue.
-Random/direct strong frozen control review is in progress; no fits before its exact approval.
+All20 seed7 endpoints and controls completed; each serial queue exited0 with owned cleanup.
+CF strong frozen/full DEV0.614422/0.541814; masked frozen/full0.786842/0.691806dB.
+Permuted/random/supervised frozen DEV0.854690/0.812868/0.776118dB.
+CF seeds13/23 are approved under67 exact bindings; seed13 is executing, seed23 follows serially.
+Their strong endpoints require separately bound actual completed-parent review.
 Original Chronos zero-shot comparator completed475 shards/7,593 rows at0.506916dB DEV pinball;
 its external pretraining ancestry remains unknown and no clean local-ancestry guarantee follows.
 
@@ -46,7 +48,10 @@ The proposal explicitly lists11 total seed7 recipes versus three A/B configurati
 the reviewer requires owner clarification of the finite-screen interpretation before revised training.
 No history24/latent128/extra architecture or final numerical access is approved.
 
-Next: complete approved strong endpoints/controls, resolve the optional revision gate, then freeze
+The20-method DEV manifest is frozen; distinct source/admission review is in progress.
+Held-out executor builder reports92 synthetic CPU checks; source integration/review pending.
+Finalist and matched-direct seeds13/23 remain required; no extra architecture search is approved.
+Next: complete approved replications, resolve the optional revision gate, then freeze
 bounded finalists and evaluation before held-out AEON2 assessment. The bounded builder is
 implementing a separate held-out executor with strict ancestor and native230m/dropout guards.
 Complete the model-only package, provenance, independent result review and scientific report.

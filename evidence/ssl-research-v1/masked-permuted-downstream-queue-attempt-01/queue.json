@@ -1,0 +1,37 @@
+{
+  "queue_sha256": "f6d7440c899b965d02cbd42c30803f583e905fd6e3c77104dabdb95f9e83a3bc",
+  "status": "COMPLETED_REVIEWED_SERIAL_QUEUE",
+  "jobs": [
+    {
+      "id": "masked_ssl_frozen_readout_seed7_h96",
+      "exit_code": 0,
+      "report": "outputs/native_acoustic_ssl_v1/masked_ssl_frozen_readout_seed7_h96/run.json",
+      "report_sha256": "6949de4a1224b98f53b4ed8a6b9063adcba39d6d4e75577bf355d7d1d9caa466",
+      "report_status": "COMPLETED",
+      "development_pinball_db": 0.7868420374014641,
+      "scientific_claim": "NOT_ESTABLISHED",
+      "status": "VERIFIED_COMPLETED"
+    },
+    {
+      "id": "masked_ssl_full_finetune_seed7_h96",
+      "exit_code": 0,
+      "report": "outputs/native_acoustic_ssl_v1/masked_ssl_full_finetune_seed7_h96/run.json",
+      "report_sha256": "6ee16b9829a73fe79b4c704380675e13c5ba4b7833e122848b3d1bf8b0f70a9c",
+      "report_status": "COMPLETED",
+      "development_pinball_db": 0.6918061052578314,
+      "scientific_claim": "NOT_ESTABLISHED",
+      "status": "VERIFIED_COMPLETED"
+    },
+    {
+      "id": "permuted_ssl_frozen_readout_seed7_h96",
+      "exit_code": 0,
+      "report": "outputs/native_acoustic_ssl_v1/permuted_ssl_frozen_readout_seed7_h96/run.json",
+      "report_sha256": "dbbd48a7f4d95fc240b437cda70d66647e61141ca5dea3a276210d05cf85f717",
+      "report_status": "COMPLETED",
+      "development_pinball_db": 0.8546904550593766,
+      "scientific_claim": "NOT_ESTABLISHED",
+      "status": "VERIFIED_COMPLETED"
+    }
+  ],
+  "app_release_work": "FROZEN"
+}

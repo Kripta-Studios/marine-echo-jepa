@@ -1,0 +1,55 @@
+{
+  "kind": "reviewed_native_serial_queue_v1",
+  "jobs": [
+    {
+      "id": "random_frozen_frozen_readout_seed7_h96",
+      "entrypoint": "tools/execute_native_downstream_job.py",
+      "method": "random_frozen",
+      "mode": "frozen_readout",
+      "report": "outputs/native_acoustic_ssl_v1/random_frozen_frozen_readout_seed7_h96/run.json",
+      "args": [
+        "--config",
+        "configs/native_downstream_random_frozen_frozen_readout_seed7_h96_v1.json",
+        "--review",
+        "evidence/ssl-research-v1/random-direct-downstream-prefit-review-final.json",
+        "--output",
+        "outputs/native_acoustic_ssl_v1/random_frozen_frozen_readout_seed7_h96",
+        "--receipt",
+        "evidence/ssl-research-v1/random_frozen_frozen_readout_seed7_h96-attempt-01",
+        "--encoder",
+        "outputs/native_acoustic_ssl_v1/random_frozen_seed7_h96_reviewed/selected_encoder.pt",
+        "--ancestor-review",
+        "evidence/ssl-research-v1/prefit-review-final-03.json",
+        "--ancestor-config",
+        "configs/native_ssl_random_frozen_seed7_h96_v1.json"
+      ]
+    },
+    {
+      "id": "direct_frozen_readout_seed7_h96",
+      "entrypoint": "tools/execute_native_downstream_job.py",
+      "method": "direct",
+      "mode": "frozen_readout",
+      "report": "outputs/native_acoustic_ssl_v1/direct_frozen_readout_seed7_h96/run.json",
+      "args": [
+        "--config",
+        "configs/native_downstream_direct_frozen_readout_seed7_h96_v1.json",
+        "--review",
+        "evidence/ssl-research-v1/random-direct-downstream-prefit-review-final.json",
+        "--output",
+        "outputs/native_acoustic_ssl_v1/direct_frozen_readout_seed7_h96",
+        "--receipt",
+        "evidence/ssl-research-v1/direct_frozen_readout_seed7_h96-attempt-01",
+        "--encoder",
+        "outputs/native_acoustic_ssl_v1/direct_seed7_h96_reviewed/selected_encoder.pt",
+        "--ancestor-review",
+        "evidence/ssl-research-v1/prefit-review-final-03.json",
+        "--ancestor-config",
+        "configs/native_ssl_direct_seed7_h96_v1.json"
+      ]
+    }
+  ],
+  "authorization": "Distinct83-binding completed-parent frozen control review",
+  "execution": "After masked/permuted queue exits; approved wrappers only",
+  "final_test_access": "NOT_AUTHORIZED",
+  "app_release_work": "FROZEN"
+}

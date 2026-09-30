@@ -1,0 +1,39 @@
+{
+  "kind": "reviewed_native_serial_queue_v1",
+  "jobs": [
+    {
+      "id": "cf_jepa_seed13_h96_replication",
+      "entrypoint": "tools/execute_native_ssl_job.py",
+      "method": "cf_jepa",
+      "mode": null,
+      "report": "outputs/native_acoustic_ssl_v1/cf_jepa_seed13_h96_replication/run.json",
+      "args": [
+        "--config",
+        "configs/native_ssl_cf_jepa_seed13_h96_v1.json",
+        "--review",
+        "evidence/ssl-research-v1/cf-replication-prefit-review-final.json",
+        "--output",
+        "outputs/native_acoustic_ssl_v1/cf_jepa_seed13_h96_replication"
+      ]
+    },
+    {
+      "id": "cf_jepa_seed23_h96_replication",
+      "entrypoint": "tools/execute_native_ssl_job.py",
+      "method": "cf_jepa",
+      "mode": null,
+      "report": "outputs/native_acoustic_ssl_v1/cf_jepa_seed23_h96_replication/run.json",
+      "args": [
+        "--config",
+        "configs/native_ssl_cf_jepa_seed23_h96_v1.json",
+        "--review",
+        "evidence/ssl-research-v1/cf-replication-prefit-review-final.json",
+        "--output",
+        "outputs/native_acoustic_ssl_v1/cf_jepa_seed23_h96_replication"
+      ]
+    }
+  ],
+  "authorization": "Distinct67-binding CF seed13/23 prefit",
+  "execution": "After approved control queue exits; exact required wrappers only",
+  "final_test_access": "NOT_AUTHORIZED",
+  "app_release_work": "FROZEN"
+}
