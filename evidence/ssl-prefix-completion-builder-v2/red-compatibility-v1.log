@@ -1,0 +1,9 @@
+SYNTHETIC_CORRECTNESS_ONLY; private CPU metadata and in-memory fixtures.
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_prefix_transfer.py -k structural_missing
+Exit1: 1 failed,93 deselected in17.81s.
+Failure: structural -1/False future target rejected by mandatory actual target lookup (Future target raw identity/timestamp differs from issued horizon).
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_prefix_transfer.py::test_direct_supervised_kind_frozen_encoder_fresh_head_replay tests/unit/test_native_prefix_transfer.py::test_mixed_or_unknown_split_roles_fail_before_numeric_decode
+Exit1: 2 failed in19.08s.
+Meaningful kind failure: actual native_downstream_supervised_encoder_v1 rejected as expected native_ssl_selected_encoder_v1.
+Second failure was fixture-bound split digest staleness (TRAIN interval receipt) rather than the intended unknown-role guard; corrected separately before final role checks.
+No public checkpoint/corpus decoding, optimizer or GPU work.

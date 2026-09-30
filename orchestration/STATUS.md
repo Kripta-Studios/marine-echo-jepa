@@ -1,6 +1,6 @@
 ## Active model-first research — native acoustic SSL
 
-Updated 2026-09-30T11:44:05.740318+00:00.
+Updated 2026-09-30T12:00:52.582663+00:00.
 
 Branch `research/marine-jepa-vnext`; owner-authorized local model research.
 App/release work is frozen; historical protocols, evidence and approved r3 are preserved.
@@ -61,7 +61,8 @@ Band shared SSL completed6000+2000 real updates, selected4500, DEV0.789188dB.
 Its wrapper exited0 with owned cleanup;1.243043 full-owned GPU-hours charged, real weights preserved.
 Reusable latent inference source approved by distinct reviewer;40 exact bindings verified.
 Root89 synthetic CPU checks and actual Unicode disk replay passed for shared/CF/band.
-Real64-context CPU replay admission is under independent review; no test access.
+Real64-context CPU replay approved after metadata transport recovery;96 bindings verified.
+Actual Shared7/CF7/13/23 encoder and saved latent-head CPU replay passed, CLI exited0.
 No history24/latent128/extra architecture or final numerical access is approved.
 
 The20-method DEV reconstruction completed under150-binding admission; distinct numerical
@@ -73,6 +74,9 @@ Distinct assessment software/16-node ancestry review approved; all244 exact bind
 Prefix delivery integrated; root102 actual CPU checks passed including six optimizer/resume cases.
 Root source-interval repair accepts native55–65minute adjacency and exact ordinal horizon IDs.
 Unicode durable prefix synthetic CPU fit/replay passed after explicit evidence-label repair.
+Prefix v2 typed supervised parents and structural gap guards integrated;171 root CPU checks passed.
+Eight actual optimizer/resume checks and new Unicode saved-artifact CPU fit/replay passed.
+Native150/180 configuration maps and nominal missing-ID compatibility are active builder work.
 Actual assessment resource-worker synthetic CPU smoke exited0 and removed its exclusive lock.
 CF backbone extra controls remain proposed/unfitted and deferred outside authorized11 recipes.
 Finalist and matched-direct seeds13/23 remain required; no extra architecture search is approved.

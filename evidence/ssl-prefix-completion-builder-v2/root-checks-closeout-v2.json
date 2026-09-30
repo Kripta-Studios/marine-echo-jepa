@@ -1,0 +1,39 @@
+{
+  "status": "PREFIX_COMPATIBILITY_ROOT_CHECKS_PASSED_NOT_PREFIT_APPROVAL",
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "checks": {
+    "cpu": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-prefix-completion-builder-v2\\root-cpu-checks-v2.log",
+      "sha256": "4b8f7d1d11ebc01fcad784db541dc397b3fa8cd5135dddad07db0aa35cf79346",
+      "actual_cli_exit_code": 0,
+      "exit_witness": "Root session90915 chunk9ca609 exit0"
+    },
+    "optimizer": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-prefix-completion-builder-v2\\root-optimizer-checks-v2.log",
+      "sha256": "1c5303f5a08b733eefa264c65aa924420f73d5472b34f05a8d1bebb1722ef481",
+      "actual_cli_exit_code": 0,
+      "exit_witness": "Root session61601 chunkc4bc7e exit0"
+    },
+    "durable": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-prefix-completion-builder-v2\\root-durable-fixture-v2.log",
+      "sha256": "6ed053abc182429ad17fa20d17d33a6c1a0fe39dc7e42a32a3bdbc036daddeee",
+      "actual_cli_exit_code": 0,
+      "exit_witness": "Root session24876 chunk4c9dcb exit0"
+    }
+  },
+  "passed_checks_total": 171,
+  "authored_sha256": {
+    "src/marine_echo/training/native_prefix_transfer.py": "7a3fd9ff22909e7b77e1b74758587bd940cca00898894522c3b8eaa1e5b1a8f6",
+    "tests/unit/test_native_prefix_transfer.py": "8b706e5410e6dd6b881ec96971c81edb4e6f2d2cbf7baa516f6e8eb36b48fb26",
+    "tests/integration/test_native_prefix_transfer.py": "5291bbd93103b4ffb2ab36cf0c6c23e4c44f6cf8c10ab4f47351292f031ef945"
+  },
+  "source_proof_sha256": "57d85dba37e08d51eb5517ee39c546e5ac8c04e26daade4229566e892821ad34",
+  "integration_receipt_sha256": "5cb0dbbb2debd196f545fd93140c712e4fa388e37e3062f70adf9979923081d3",
+  "actual_optimizers": "eight explicit root-only CPU checks passed",
+  "durable": "actual synthetic four-update fit, saved safe weights and forecast replay passed",
+  "independent_review": "NOT_RUN",
+  "public_numeric_access": false,
+  "scientific_training": false,
+  "final_numeric_access": false,
+  "remaining_native_compatibility": "single deployment with multiple150/180 configurations and nominal structural-absence IDs under separate v3 engineering task"
+}

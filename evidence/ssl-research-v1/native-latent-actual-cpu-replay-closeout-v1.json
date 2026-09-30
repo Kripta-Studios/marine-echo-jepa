@@ -1,0 +1,14 @@
+{
+  "status": "ACTUAL_LATENT_CPU_REPLAY_CLOSED",
+  "actual_cli_exit_code": 0,
+  "process_exit_witness": "Root session67812 chunkd9f598 exit0",
+  "completion_sha256": "3b33fc52f9000618f859f179af88577d89d2faabd2343662d78946b2e6a09814",
+  "console_sha256": "b641037c4cc6d0928e5a1d03e9a35e492a53775730e1f92fde4db06dfd79b516",
+  "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\Unicode-actual-latent-\u00c1lvaro-cpu-replay-v1\\completion.json",
+  "device": "cpu",
+  "fitting": false,
+  "final_numeric_access": false,
+  "scope": "64 original DEV225 contexts; actual Shared7 and CF7/13/23 selected encoders and saved latent heads",
+  "independent_result_review": "NOT_RUN",
+  "representation_value": "NOT_ESTABLISHED"
+}

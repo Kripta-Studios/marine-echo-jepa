@@ -68,7 +68,8 @@ def trajectory_inputs(mode="scratch_direct", family="core"):
         scratch_config = prefix.PrefixConfig(**{**config.to_dict(), "mode": "scratch_direct"})
         model = prefix.prepare_model(scratch_config, backbone, None, stats)
         selected = {
-            "kind": prefix.KINDS[family],
+            "kind": prefix.selected_kind(config),
+            "supervised_ancestry": support.direct_ancestry(),
             "config": backbone,
             "scalers": stats,
             "encoder": prefix.core.cpu_state(model.encoder),
@@ -257,3 +258,178 @@ def test_protected_virtual_fit_completion_and_actual_safe_readout(memory_case, m
     assert prefix.decode_checkpoint(raw)["kind"] == "native_prefix_transfer_inference_v1"
     with pytest.raises(FileExistsError):
         prefix.fit(case.manifest_path, case.review_path, case.output)
+
+
+@pytest.mark.parametrize(
+    "family,method", [("core", "direct"), ("band", "direct"), ("core", "shared_ssl")]
+)
+def test_actual_typed_parent_validates_encoder_before_prefix_decode(monkeypatch, family, method):
+    c = support.frozen_case(prefix, monkeypatch, BUILDER, family=family, method=method)
+
+    class AcceptedParent(Exception):
+        pass
+
+    def stop_before_arrays(admission, key, role):
+        assert key == "prefix_npz" and role == "prefix"
+        assert admission.identities[str(c.base / "parent-inference.pt")]
+        raise AcceptedParent
+
+    monkeypatch.setattr(prefix, "_decode", stop_before_arrays)
+    monkeypatch.setattr(
+        torch.optim, "AdamW", lambda *a, **k: pytest.fail("Parent check created optimizer")
+    )
+    monkeypatch.setattr(
+        torch, "manual_seed", lambda *a, **k: pytest.fail("Parent check initialized RNG")
+    )
+    with pytest.raises(AcceptedParent):
+        prefix.fit(c.manifest_path, c.review_path, c.output)
+    assert c.output not in c.fs.dirs
+
+
+@pytest.mark.parametrize(
+    "bad",
+    [
+        "encoder_equivalence",
+        "fake_ssl_kind",
+        "full_finetune",
+        "old_head_missing",
+        "wrong_band_kind",
+        "tensor_lineage",
+    ],
+)
+def test_forged_supervised_tensor_parent_never_reaches_arrays_or_optimizer(monkeypatch, bad):
+    family = "band" if bad == "wrong_band_kind" else "core"
+    c = support.frozen_case(prefix, monkeypatch, BUILDER, family=family)
+    if bad == "encoder_equivalence":
+        key = next(k for k, t in c.selected["encoder"].items() if t.is_floating_point())
+        c.selected["encoder"][key] = c.selected["encoder"][key] + 1
+    elif bad == "fake_ssl_kind":
+        c.selected["kind"] = "native_ssl_selected_encoder_v1"
+    elif bad == "full_finetune":
+        c.selected["supervised_ancestry"] = {
+            **c.selected["supervised_ancestry"],
+            "mode": "full_finetune",
+        }
+    elif bad == "old_head_missing":
+        key = next(k for k in c.parent_inference["model"] if k.startswith("readout."))
+        c.parent_inference["model"].pop(key)
+    elif bad == "wrong_band_kind":
+        c.selected["kind"] = "native_downstream_supervised_encoder_v1"
+    else:
+        c.parent_inference["downstream_config"] = {
+            **c.parent_inference["downstream_config"],
+            "seed": 13,
+        }
+    support.refresh_parent_artifacts(c, prefix)
+    monkeypatch.setattr(
+        prefix.np, "load", lambda *a, **k: pytest.fail("Forged tensors reached arrays")
+    )
+    monkeypatch.setattr(
+        torch.optim, "AdamW", lambda *a, **k: pytest.fail("Forged tensors reached optimizer")
+    )
+    with pytest.raises(ValueError):
+        prefix.fit(c.manifest_path, c.review_path, c.output)
+
+
+def test_bound_structural_absence_real_npz_codec_masks_dates_and_gradients(memory_case):
+    c = memory_case
+    row = c.registry["rows"][0]
+    support.absent_target(c.registry, row, 1, "PING_QUARANTINE")
+    support.bound_gaps(c, prefix)
+    c.prefix_arrays["target_observed"][0, 1] = False
+    c.prefix_arrays["target_dates"][0, 1] = ""
+    c.prefix_arrays["targets"][0, 1] = np.nan
+    c.seal()
+    admission = prefix.admit(c.manifest_path, c.review_path, c.output)
+    admission.manifest["_base"] = str(c.base)
+    data = prefix._decode(admission, "prefix_npz", "prefix")
+    assert len(data["x"]) == 18 and not data["target_observed"][0, 1]
+    assert data["target_dates"][0, 1] == ""
+    model = prefix.prepare_model(c.config, c.backbone, None, c.documents["stats.json"])
+    b = prefix._batch(
+        data, np.arange(3), prefix._scalers(c.documents["stats.json"]), "cpu", labels=True
+    )
+    pred = model.forecast(b["x"], b["observed"], b["metadata"], b["query"], frozen=False)
+    pred.retain_grad()
+    prefix.core.pinball(pred, b["y"], b["y_observed"]).backward()
+    assert pred.grad[0, 1].abs().sum() == 0
+    data["targets"][0, 1] = 1e20
+    b2 = prefix._batch(
+        data, np.arange(3), prefix._scalers(c.documents["stats.json"]), "cpu", labels=True
+    )
+    assert torch.equal(b["y"], b2["y"])
+    assert admission.partition["boundaries"][row["deployment"]][2:] == [
+        "2026-01-05T00:00:00",
+        "2026-01-06T00:00:00",
+        "2026-02-11T00:00:00",
+    ]
+
+
+@pytest.mark.parametrize("bad", ["receipt", "gap_hash", "source_hash", "observed"])
+def test_missing_or_stale_independent_source_gap_proof_before_numeric_decode(
+    memory_case, monkeypatch, bad
+):
+    c = memory_case
+    support.absent_target(c.registry, c.registry["rows"][0], 1)
+    support.bound_gaps(c, prefix)
+    if bad == "receipt":
+        c.manifest.pop("source_gaps")
+    elif bad == "gap_hash":
+        c.documents["source-gaps.json"]["gaps"] = {}
+    elif bad == "source_hash":
+        c.documents["gap-source-metadata.json"]["reader_gap_fixture"] = False
+    else:
+        c.registry["rows"][0]["target_observed"][1] = True
+    c.seal()
+    monkeypatch.setattr(
+        prefix.np, "load", lambda *a, **k: pytest.fail("Unbound gap decoded arrays")
+    )
+    monkeypatch.setattr(torch, "load", lambda *a, **k: pytest.fail("Unbound gap decoded tensor"))
+    with pytest.raises((KeyError, ValueError)):
+        prefix.admit(c.manifest_path, c.review_path, c.output)
+
+
+def test_absent_suffix_support_keeps_all_rows_explicitly_not_assessable(memory_case, monkeypatch):
+    c = memory_case
+    for row in c.registry["rows"]:
+        if row["row_id"].endswith(tuple("-" + str(i) for i in range(888, 906))):
+            support.absent_target(c.registry, row, 2, "CONFIGURATION_BOUNDARY")
+    support.bound_gaps(c, prefix)
+    c.seal()
+    monkeypatch.setattr(
+        prefix.np, "load", lambda *a, **k: pytest.fail("Unsupported support decoded arrays")
+    )
+    monkeypatch.setattr(
+        torch.optim, "AdamW", lambda *a, **k: pytest.fail("Unsupported support started optimizer")
+    )
+    receipt = prefix.fit(c.manifest_path, c.review_path, c.output)
+    assert receipt["status"] == "NOT_ASSESSABLE"
+    assert receipt["evidence_kind"] == prefix.EVIDENCE
+    assert len(receipt["partition"]["suffix_rows"]) == 18
+    assert all(
+        r["target_ids"][2] == -1 and r["target_timestamps"][2] is None
+        for r in receipt["partition"]["reserved_suffix_support"]
+    )
+    assert c.output not in c.fs.dirs
+
+
+@root_optimizer
+@pytest.mark.parametrize("family", ["core", "band"])
+def test_root_only_typed_direct_frozen_receipt_and_exact_resume(family):
+    args = trajectory_inputs("frozen_readout", family)
+    full = prefix._Trajectory(*copy.deepcopy(args))
+    full.advance()
+    partial = prefix._Trajectory(*copy.deepcopy(args))
+    partial.advance(2)
+    resumed = prefix._Trajectory(*copy.deepcopy(args))
+    resumed.restore(prefix.decode_checkpoint(prefix.encode_checkpoint(partial.checkpoint())))
+    resumed.advance()
+    assert full.samples == resumed.samples
+    assert full.candidates == resumed.candidates
+    assert all(
+        torch.equal(v, resumed.model.state_dict()[k]) for k, v in full.model.state_dict().items()
+    )
+    artifact = resumed.inference_artifact()
+    assert artifact["feature_ancestor"]["selected_kind"] == prefix.SUPERVISED_KINDS[family]
+    assert artifact["feature_ancestor"]["supervised_ancestry"]["ssl_only"] is False
+    assert artifact["feature_ancestor"]["parent_head_reused"] is False

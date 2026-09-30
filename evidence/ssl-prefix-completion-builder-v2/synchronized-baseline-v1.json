@@ -1,0 +1,11 @@
+{
+  "kind": "native_prefix_synchronized_baseline_v1",
+  "byte_identical_to_root": true,
+  "sha256": {
+    "src/marine_echo/training/native_prefix_transfer.py": "c4741d4d5a52329dacf063355e2754fc35204e054cc1fe79cd9ea9fdc63f5a85",
+    "tests/unit/test_native_prefix_transfer.py": "6bba30acac10c0248960767cd03dd1cbe9e6af8332f2ed963a6b7ac6dfd7101d",
+    "tests/integration/test_native_prefix_transfer.py": "c9306c1a20b452c0cf89af8f08b0807a287abb6c5c8615f3a97bffd77fcfc192"
+  },
+  "original_snapshots": "builder-source-snapshot-v1.json",
+  "root_snapshots": "main-source-snapshot-v1.json"
+}

@@ -1,0 +1,9 @@
+{
+  "status": "ALL_LATENT_REPLAY_BINDINGS_VERIFIED",
+  "bindings": 96,
+  "review_sha256": "8a8082d46c61328f6e47db089a5bec886a3b3c30571c259f7093f7f035cdbd8e",
+  "actual_reviewer_cli_exit_code": 0,
+  "exit_witness": "Root session25798 chunkeea258 exit0",
+  "fitting": false,
+  "final_numeric_access": false
+}

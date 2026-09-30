@@ -1,0 +1,12 @@
+{
+  "kind": "native_prefix_runtime_package_baseline_v1",
+  "inspected_source_only": true,
+  "phase": "closure_completion",
+  "runtime_package_sha256": {
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\__init__.py": "3fcc1878588f5a89775363e099fab7d7323acebccae26d10db4a6da627425b68",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\__init__.py": "c98c60178f566d43dd60641704ccd9c652d406487b4838cbf5a9df49ea5dd735",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\__init__.py": "5bdc97a6119b2dd3d519df36406c8bcb9e801be81c8b6c3f44e4a527db1f87a3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\__init__.py": "dddaccd3cb0c952e88796d75e7a15966cfab87f98c2cfe8452a5fff4c3138c68",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\__init__.py": "011583e04b7f119ffcc2ae18712a4af2e613cff87bcbeb5435fbfb10dcd01508"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "check": {
+    "status": "fulfilled",
+    "value": {
+      "chunk_id": "6b53d1",
+      "wall_time_seconds": 0.8261225,
+      "exit_code": 0,
+      "original_token_count": 5,
+      "output": "All checks passed!\n"
+    }
+  },
+  "format_check": {
+    "status": "fulfilled",
+    "value": {
+      "chunk_id": "631d2c",
+      "wall_time_seconds": 0.790569,
+      "exit_code": 0,
+      "original_token_count": 7,
+      "output": "8 files already formatted\n"
+    }
+  },
+  "format": {
+    "chunk_id": "ee1d24",
+    "wall_time_seconds": 0.8772307,
+    "exit_code": 0,
+    "original_token_count": 11,
+    "output": "2 files reformatted, 2 files left unchanged\n"
+  }
+}

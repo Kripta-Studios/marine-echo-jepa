@@ -1,0 +1,17 @@
+Completed prefix compatibility V2: typed direct-supervised parents, explicit structural target absence, and actual `final_test` split roles. Fixed recipes and protected sources remain unchanged.
+
+**163 synthetic CPU tests passed; eight root-only optimizer tests skipped.** Pytest, Ruff check, and format check exited 0. No public numerical access, scientific fitting, GPU execution, or self-approval occurred.
+
+Delivery: [report](evidence/ssl-prefix-completion-builder-v2/NATIVE_PREFIX_COMPLETION_IMPLEMENTATION_V2.md), [handoff](evidence/ssl-prefix-completion-builder-v2/handoff-v2.json), [bounded patch](evidence/ssl-prefix-completion-builder-v2/bounded-final-v2.patch). Original snapshots and red evidence are preserved.
+
+Exact authored SHA256:
+
+- `native_prefix_transfer.py`: `7a3fd9ff22909e7b77e1b74758587bd940cca00898894522c3b8eaa1e5b1a8f6`
+- Unit tests: `8b706e5410e6dd6b881ec96971c81edb4e6f2d2cbf7baa516f6e8eb36b48fb26`
+- Integration tests: `5291bbd93103b4ffb2ab36cf0c6c23e4c44f6cf8c10ab4f47351292f031ef945`
+
+Report SHA256: `5d39e76b7c076cf97961272dd7066ad601e132146bf0d0283dda8468e3583004`
+
+Handoff SHA256: `4d0c60d3caff233ac43a800d989912c21e83f7a80ee7a4872ce1acb57d0c5a97`
+
+Root integration, durable checks, and distinct review remain outstanding.

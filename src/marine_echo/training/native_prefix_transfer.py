@@ -37,6 +37,10 @@ KINDS = {
     "core": "native_ssl_selected_encoder_v1",
     "band": "native_band_ssl_selected_encoder_v1",
 }
+SUPERVISED_KINDS = {
+    "core": "native_downstream_supervised_encoder_v1",
+    "band": "native_band_downstream_supervised_encoder_v1",
+}
 ARCHITECTURES = {
     "core": "shared_temporal_v1",
     "band": "nonlinear_frequency_conditioned_v1",
@@ -132,6 +136,10 @@ class PrefixConfig:
             raise ValueError("Scratch is a fresh directly supervised shared backbone.")
         if self.seed not in (7, 13, 23) or self.history != 96 or self.prefix_days not in (1, 7, 30):
             raise ValueError("Frozen seed/history/prefix recipe differs.")
+        if self.family == "band" and self.seed != 7:
+            raise ValueError(
+                "Band seed7 gate requires a separately reviewed replication extension."
+            )
         if (self.lr, self.weight_decay, self.clip, self.floor) != (0.0003, 0.0001, 1.0, 18):
             raise ValueError("Frozen optimizer and daily floor differ.")
         if self.device not in ("cpu", "cuda:0"):
@@ -152,8 +160,9 @@ def partitions(metadata, days):
     """Metadata-only reservation, independent of values, target masks and holes.
 
     Registry entries identify actual source intervals, including missing values.
-    Every 96x4 context slot and each forecast target has a stable raw ID. Both IDs
-    and source-centred timestamps are checked, including cross-channel aliasing.
+    Every context slot and available target has a stable actual raw ID. Structural
+    target absence is -1/False with a separately admitted source-gap explanation,
+    not an inferred timestamp. IDs/timestamps are checked across channel aliases.
     """
     if (
         metadata.get("kind") != "native_prefix_raw_intervals_v1"
@@ -215,6 +224,10 @@ def partitions(metadata, days):
             raise ValueError("Different IDs alias the same actual raw interval timestamp.")
         identity_to_stamp[identity], stamp_to_identity[stamp] = stamp, identity
     fit, suffix, seen, all_used = [], [], set(), set()
+    gaps = metadata.get("source_gaps", {})
+    if not isinstance(gaps, dict):
+        raise TypeError("Explicit source-gap mapping required.")
+    gap_refs, uncertain_prefix = set(), []
     for row in rows:
         key = (row["deployment"], row["row_id"])
         if key in seen:
@@ -254,7 +267,55 @@ def partitions(metadata, days):
                     or identity_to_index.get(identity) != cutoff_index + t - 95
                 ):
                     raise ValueError("Context discontinuity, alias or raw-ID overlap.")
-        for h, identity in zip(HORIZONS, targets, strict=True):
+        absence_refs = row.get("target_absence_refs", [None] * 3)
+        if not isinstance(absence_refs, list) or len(absence_refs) != 3:
+            raise ValueError("Exact three-horizon structural absence references required.")
+        for j, (h, identity) in enumerate(zip(HORIZONS, targets, strict=True)):
+            if type(identity) is int and identity == -1:
+                ref = absence_refs[j]
+                gap = gaps.get(ref, {}) if isinstance(ref, str) else {}
+                lo, hi = (
+                    gap.get("first_source_interval_index"),
+                    gap.get("last_source_interval_index"),
+                )
+                if (
+                    row["target_observed"][j]
+                    or gap.get("complete") is not True
+                    or any(
+                        gap.get(k) != row[k]
+                        for k in ("deployment", "site", "archive", "configuration")
+                    )
+                    or gap.get("reason")
+                    not in {
+                        "SOURCE_GAP",
+                        "MISSING_SOURCE_INTERVAL",
+                        "CONFIGURATION_BOUNDARY",
+                        "PING_QUARANTINE",
+                        "PARTIAL_SOURCE_INTERVAL",
+                        "DUPLICATE_ROW",
+                        "MISSING_CHANNEL",
+                    }
+                    or type(lo) is not int
+                    or type(hi) is not int
+                    or not 0 <= lo <= cutoff_index + h <= hi
+                    or not isinstance(gap.get("source_metadata_sha256"), str)
+                    or len(gap["source_metadata_sha256"]) != 64
+                    or any(c not in "0123456789abcdef" for c in gap["source_metadata_sha256"])
+                ):
+                    raise ValueError(
+                        "Missing observed target identity or incomplete source-gap proof."
+                    )
+                if gap["reason"] == "PING_QUARANTINE" and gap.get("quarantined_pings") != [165]:
+                    raise ValueError("Missing ping-boundary quarantine explanation.")
+                if gap["reason"] == "CONFIGURATION_BOUNDARY" and (
+                    not gap.get("next_configuration")
+                    or gap["next_configuration"] == row["configuration"]
+                ):
+                    raise ValueError("Missing actual configuration-boundary explanation.")
+                gap_refs.add(ref)
+                continue
+            if not isinstance(identity, str) or absence_refs[j] is not None:
+                raise ValueError("Actual target identity conflicts with structural absence.")
             target = identity_to_stamp.get(identity)
             if (
                 target is None
@@ -266,16 +327,30 @@ def partitions(metadata, days):
                 raise ValueError(
                     "Future target raw identity/timestamp differs from issued horizon."
                 )
-        used = set(chain.from_iterable(context)) | set(targets)
+        used = set(chain.from_iterable(context)) | {v for v in targets if isinstance(v, str)}
         all_used |= used
         _source_start, source_end, label, end, suffix_start = starts[dep]
-        times = [identity_to_stamp[v][1] for v in targets]
-        if all(label <= t < end for t in times) and cutoff < end:
+        # Bounds for unknown cells are conservative adjacency envelopes, not
+        # fabricated exact-hour raw timestamps. Known targets remain mandatory
+        # even when numerically masked: an out-of-prefix label cannot be hidden.
+        windows = [
+            (identity_to_stamp[v][1], identity_to_stamp[v][1])
+            if isinstance(v, str)
+            else (cutoff + timedelta(minutes=55 * h), cutoff + timedelta(minutes=65 * h))
+            for h, v in zip(HORIZONS, targets, strict=True)
+        ]
+        if all(label <= lo and hi < end for lo, hi in windows) and cutoff < end:
             fit.append(key)
-        if cutoff >= suffix_start and all(t < source_end for t in times):
+        elif any(type(v) is int for v in targets) and cutoff < end:
+            uncertain_prefix.append(key)
+        if cutoff >= suffix_start and all(
+            identity_to_stamp[v][1] < source_end for v in targets if isinstance(v, str)
+        ):
             suffix.append(key)
     if all_used != set(intervals):
         raise ValueError("Registry must exactly identify its declared issuance union.")
+    if gap_refs != set(gaps):
+        raise ValueError("Source-gap registry must exactly explain its declared absences.")
     by_key = {(r["deployment"], r["row_id"]): r for r in rows}
 
     def used_ids(keys):
@@ -285,6 +360,7 @@ def partitions(metadata, days):
             for v in chain(
                 chain.from_iterable(by_key[key]["context_ids"]), by_key[key]["target_ids"]
             )
+            if isinstance(v, str)
         }
 
     fitted, held = used_ids(fit), used_ids(suffix)
@@ -296,7 +372,10 @@ def partitions(metadata, days):
     counts = {}
     for key in sorted(suffix):
         row = by_key[key]
-        stamps = [identity_to_stamp[v][1].isoformat() for v in row["target_ids"]]
+        stamps = [
+            identity_to_stamp[v][1].isoformat() if isinstance(v, str) else None
+            for v in row["target_ids"]
+        ]
         support.append(
             {
                 "deployment": key[0],
@@ -304,6 +383,7 @@ def partitions(metadata, days):
                 "target_ids": row["target_ids"],
                 "target_timestamps": stamps,
                 "observed": row["target_observed"],
+                "target_absence_refs": row.get("target_absence_refs", [None] * 3),
             }
         )
         for h, stamp, observed in zip(HORIZONS, stamps, row["target_observed"], strict=True):
@@ -333,6 +413,9 @@ def partitions(metadata, days):
         if complete_suffix
         else "NOT_ASSESSABLE",
         "source_clock": "nominal_source_calendar_not_verified_UTC",
+        "source_gaps": copy.deepcopy(gaps),
+        "prefix_absence_boundary_unproven_rows": uncertain_prefix,
+        "absence_boundary_policy": "conservative_55_65min_envelope_not_actual_missing_timestamps",
     }
 
 
@@ -340,13 +423,20 @@ def partitions(metadata, days):
 def required_sources():
     """Static local source closure, including lazy factories; no manifest imports."""
     root = Path(core.__file__).resolve().parents[1]
-    pending = [Path(__file__).resolve()]
+    pending = [Path(__file__).resolve(), root / "__init__.py"]
     found = set()
     while pending:
         path = pending.pop()
         if path in found:
             continue
         found.add(path)
+        if path.is_relative_to(root):
+            package = path.parent
+            while package.is_relative_to(root):
+                initializer = package / "__init__.py"
+                if initializer.is_file():
+                    pending.append(initializer)
+                package = package.parent
         for node in ast.walk(ast.parse(path.read_bytes())):
             names = []
             if isinstance(node, ast.Import):
@@ -368,6 +458,8 @@ def _backbone(raw, family):
     if family == "band":
         if fields.pop("architecture", None) != ARCHITECTURES["band"]:
             raise ValueError("Original band config architecture required.")
+        if fields.get("seed") != 7:
+            raise ValueError("Original band seed7 remains frozen.")
     elif "architecture" in fields:
         raise ValueError("Legacy/CF config cannot be reinterpreted as band.")
     return core.Config(**fields)
@@ -390,6 +482,64 @@ def _validate_backbone(config, backbone):
     ):
         raise ValueError("Exact declared backbone dimensions required.")
     return c
+
+
+def selected_kind(config):
+    family = "band" if config.family == "band" else "core"
+    return SUPERVISED_KINDS[family] if config.method == "direct" else KINDS[family]
+
+
+def _supervised_ancestry(value, downstream=None):
+    """Only genuine fresh direct endpoints; adapted/full-finetuned parents closed."""
+    if (
+        not isinstance(value, dict)
+        or value.get("mode") != "direct_end_to_end"
+        or value.get("ssl_only") is not False
+        or any(
+            k not in value or value[k] is not None
+            for k in ("ancestor_encoder_sha256", "ancestor_run_sha256")
+        )
+    ):
+        raise ValueError("Complete fresh direct supervised ancestry required; no adapted parent.")
+    updates, step = value.get("supervised_updates"), value.get("selected_supervised_step")
+    if type(updates) is not int or type(step) is not int or not 1 <= step <= updates <= 3000:
+        raise ValueError("Actual supervised label/selection ancestry required.")
+    if downstream is not None and (updates > downstream["updates"] or step % downstream["cadence"]):
+        raise ValueError("Parent supervised selection/configuration differs.")
+    return copy.deepcopy(value)
+
+
+def _split_members(split, config):
+    """Actual frozen schema; legacy test aliases exist only in private fixtures."""
+    schema = split.get("schema_version")
+    if schema != "native_acoustic_ssl_v1" and not (schema is None and config.correctness_smoke):
+        raise ValueError("Exact native_acoustic_ssl_v1 split schema required.")
+    sources = split.get("sources")
+    if not isinstance(sources, list) or not sources:
+        raise ValueError("Explicit split source reservations required.")
+    allowed = {"train", "development", "final_test"}
+    if schema is None and config.correctness_smoke:
+        allowed.add("test")
+    if any(
+        not isinstance(s, dict)
+        or s.get("role") not in allowed
+        or not s.get("deployment")
+        or not s.get("archive_sha256")
+        for s in sources
+    ):
+        raise ValueError("Unknown/missing split roles or identities.")
+    roles = {s["role"] for s in sources}
+    if "test" in roles and "final_test" in roles:
+        raise ValueError("Mixed split test-role aliases are forbidden.")
+    members = {s["deployment"]: s for s in sources}
+    if len(members) != len(sources):
+        raise ValueError("Duplicate/conflicting split deployment identity.")
+    archives = {}
+    for s in sources:
+        prior = archives.setdefault(s["archive_sha256"], s["role"])
+        if prior != s["role"]:
+            raise ValueError("Split archive fitted/assessment roles overlap.")
+    return members
 
 
 LOADED_SOURCE_HASHES = {str(p): sha(p.read_bytes()) for p in required_sources()}
@@ -536,15 +686,30 @@ def admit(manifest_path, review_path, output_path, *, resume=None):
         raise ValueError("Explicit band architecture required.")
     _, metadata = doc(manifest["raw_intervals"])
     partition = partitions(metadata, config.prefix_days)
+    if metadata.get("source_gaps"):
+        _, gap_receipt = doc(manifest["source_gaps"])
+        if (
+            gap_receipt.get("kind") != "native_prefix_source_gaps_v1"
+            or gap_receipt.get("complete") is not True
+            or gap_receipt.get("gaps") != metadata["source_gaps"]
+        ):
+            raise ValueError("Separately bound reader source-gap explanation differs.")
+        evidence = gap_receipt.get("source_metadata", {})
+        if not isinstance(evidence, dict) or set(evidence) != set(metadata["source_gaps"]):
+            raise ValueError("Every source gap requires bound nonnumerical source evidence.")
+        for ref, path in evidence.items():
+            if (
+                sha(bound(_path(path, base)))
+                != metadata["source_gaps"][ref]["source_metadata_sha256"]
+            ):
+                raise ValueError("Source-gap metadata identity differs.")
     _, source_record = doc(manifest["source_manifest"])
     if source_record.get("sources") != metadata["sources"] or source_record.get(
         "quarantined_pings"
     ) != [165]:
         raise ValueError("Frozen source dates/configuration/165 quarantine differ.")
     split_path, split = doc(manifest["split"])
-    split_members = {r["deployment"]: r for r in split["sources"]}
-    if len(split_members) != len(split["sources"]):
-        raise ValueError("Duplicate split deployment identity.")
+    split_members = _split_members(split, config)
     for dep, source in metadata["sources"].items():
         record = split_members.get(dep, {})
         if (
@@ -588,6 +753,7 @@ def admit(manifest_path, review_path, output_path, *, resume=None):
     reserved = metadata["sources"]
     forbidden = {k: {s[k] for s in reserved.values()} for k in ("site", "deployment", "archive")}
     artifacts, visiting, complete = set(), set(), set()
+    ancestor_inputs, ancestor_members = {}, set()
 
     def ancestry(value, relative=base):
         path, node = doc(value, relative)
@@ -614,6 +780,7 @@ def admit(manifest_path, review_path, output_path, *, resume=None):
             ):
                 raise ValueError("Exact ancestor input/cohort membership required.")
             input_raw = bound(_path(inp["npz"], path.parent))
+            ancestor_inputs[sha(input_raw)] = _path(inp["npz"], path.parent)
             for member in inp["members"]:
                 if any(not member.get(k) or member[k] in forbidden[k] for k in forbidden):
                     raise ValueError("Local ancestor overlaps reserved deployment/site/archive.")
@@ -623,6 +790,7 @@ def admit(manifest_path, review_path, output_path, *, resume=None):
                     or split_member.get("archive_sha256") != member["archive"]
                 ):
                     raise ValueError("Ancestor exact TRAIN split membership differs.")
+                ancestor_members.add((member["deployment"], member["archive"]))
             _, raw_receipt = doc(inp["raw_intervals"], path.parent)
             if (
                 raw_receipt.get("kind") != "native_prefix_train_interval_receipt_v1"
@@ -659,14 +827,175 @@ def admit(manifest_path, review_path, output_path, *, resume=None):
         _, parent_run = doc(manifest["parent_run"])
         parent_inference = bound(_path(manifest["parent_inference"], base))
         parent_membership = bound(_path(manifest["parent_membership"], base))
+        parent_backbone = (
+            parent_run.get("core_config") if config.method == "direct" else parent_run.get("config")
+        )
         if (
-            parent_run.get("config") != architecture
+            parent_backbone != architecture
             or parent_run.get("inference_sha256") != sha(parent_inference)
             or parent_run.get("membership_sha256") != sha(parent_membership)
             or sha(parent_inference) not in artifacts
             or sha(parent_membership) not in artifacts
         ):
             raise ValueError("Selected parent run configuration/scalers differ.")
+        if config.method == "direct":
+            _, original_config = doc(manifest["parent_config"])
+            review_path, original_review = doc(manifest["parent_review"])
+            _, original_input_paths = doc(manifest["parent_inputs"])
+            if config.family == "band":
+                from marine_echo.training import native_band_ssl as original_core
+                from marine_echo.training.native_band_downstream import (
+                    DownstreamConfig,
+                    RunInputs,
+                    required_paths,
+                )
+            else:
+                from marine_echo.training import native_ssl as original_core
+                from marine_echo.training.native_downstream import (
+                    DownstreamConfig,
+                    RunInputs,
+                    required_paths,
+                )
+            original_inputs = RunInputs(
+                **{
+                    k: _path(v, base) if v is not None else None
+                    for k, v in original_input_paths.items()
+                }
+            )
+            if (
+                original_inputs.encoder is not None
+                or original_inputs.ancestor_review is not None
+                or original_inputs.ancestor_config is not None
+                or original_inputs.config != _path(manifest["parent_config"], base)
+                or original_inputs.review != review_path
+                or original_inputs.dev != _path(manifest["dev_npz"], base)
+                or original_inputs.split != split_path
+                or sha(bound(original_inputs.train)) not in ancestor_inputs
+            ):
+                raise ValueError("Original direct runtime input/parent ancestry identity differs.")
+            downstream = DownstreamConfig(**original_config)
+            downstream.validate(correctness_smoke=config.correctness_smoke)
+            original_evidence = (
+                EVIDENCE if config.correctness_smoke else "REAL_TRAIN_DEVELOPMENT_FIT"
+            )
+            reviewer = original_review.get("reviewer_session_id")
+            excluded = {
+                IMPLEMENTER_SESSION_ID,
+                manifest["implementer_session_id"],
+                manifest["coordinator_session_id"],
+                original_review.get("implementer_session_id"),
+            }
+            if (
+                not isinstance(reviewer, str)
+                or not reviewer.strip()
+                or reviewer.casefold() in {v.casefold() for v in excluded if isinstance(v, str)}
+                or not original_review.get("implementer_session_id")
+                or original_review.get("status") != "APPROVED_DOWNSTREAM_PREFIT"
+                or "direct" not in original_review.get("allowed_methods", [])
+                or "direct_end_to_end" not in original_review.get("allowed_modes", [])
+                or parent_run.get("status") != "COMPLETED"
+                or parent_run.get("evidence_kind") != original_evidence
+                or parent_run.get("test_access") != "NOT_RUN"
+                or parent_run.get("mode") != "direct_end_to_end"
+                or original_config != parent_run.get("config")
+                or (downstream.method, downstream.mode, downstream.seed, downstream.history)
+                != ("direct", "direct_end_to_end", method_cfg.seed, 96)
+                or parent_run.get("review_sha256") != sha(snapshots[review_path])
+                or parent_run.get("reviewer_session_id") != reviewer
+                or parent_run.get("selected_encoder_sha256") != sha(raw)
+            ):
+                raise ValueError(
+                    "Exact original direct run/config/review/encoder identity required."
+                )
+            lineage = _supervised_ancestry(parent_run.get("supervised_ancestry"), original_config)
+            if any(
+                parent_run.get(k) != lineage[k]
+                for k in ("supervised_updates", "selected_supervised_step")
+            ):
+                raise ValueError("Original direct supervised label ancestry differs.")
+            original_bindings = parent_run.get("bindings")
+            if not isinstance(original_bindings, dict) or not original_bindings:
+                raise ValueError("Original direct source/data bindings required.")
+            original_sources = manifest.get("parent_source_snapshots", {})
+            original_bound = {}
+            for p, expected_hash in original_bindings.items():
+                if original_review.get("bindings", {}).get(p) != expected_hash:
+                    raise ValueError("Original direct source/config review mismatch.")
+                actual_path = _path(original_sources.get(p, p), base)
+                if sha(bound(actual_path)) != expected_hash:
+                    raise ValueError("Original direct source snapshot/data identity differs.")
+                original_bound[p] = expected_hash
+            required_original = [
+                *ancestor_inputs.values(),
+                _path(manifest["dev_npz"], base),
+                split_path,
+                _path(manifest["parent_config"], base),
+                Path(original_core.__file__).with_name(
+                    "native_band_downstream.py"
+                    if config.family == "band"
+                    else "native_downstream.py"
+                ),
+                *original_core.required_sources(original_core.Config(**architecture)),
+            ]
+            required_original.extend(
+                required_paths(original_inputs, original_core.Config(**architecture))
+            )
+            if any(str(p) not in original_bound for p in required_original):
+                raise ValueError("Original direct review misses runtime/source/TRAIN lineage.")
+            if (
+                original_review.get("train_npz_sha256") not in ancestor_inputs
+                or original_review.get("dev_npz_sha256")
+                != sha(bound(_path(manifest["dev_npz"], base)))
+                or original_review.get("split_sha256") != sha(snapshots[split_path])
+            ):
+                raise ValueError("Original direct TRAIN/development/split ancestry differs.")
+            membership = _json(parent_membership)
+            rows, deployments, archives = (
+                membership.get(k)
+                for k in ("train_row_ids", "train_deployments", "train_archive_sha256")
+            )
+            if (
+                not isinstance(rows, list)
+                or not rows
+                or not isinstance(deployments, list)
+                or not isinstance(archives, list)
+                or len(rows) != len(deployments)
+                or len(rows) != len(archives)
+                or any(not isinstance(r, str) or not r for r in rows)
+                or len(set(zip(deployments, rows, strict=True))) != len(rows)
+                or any(
+                    (d, a) not in ancestor_members
+                    for d, a in zip(deployments, archives, strict=True)
+                )
+            ):
+                raise ValueError("Complete actual direct TRAIN membership required.")
+            pool, sequence = membership.get("supervised_indices"), membership.get("sequence")
+            if (
+                not isinstance(pool, list)
+                or not pool
+                or len(set(pool)) != len(pool)
+                or any(type(i) is not int or not 0 <= i < len(rows) for i in pool)
+                or not isinstance(sequence, list)
+                or len(sequence) != lineage["supervised_updates"]
+                or any(
+                    not e.get("indices")
+                    or any(type(i) is not int or i not in pool for i in e["indices"])
+                    for e in sequence
+                )
+                or membership.get("sequence_sha256")
+                != sha(json.dumps(sequence, sort_keys=True, separators=(",", ":")).encode())
+            ):
+                raise ValueError("Direct observed-label sampling membership is incomplete.")
+            for index, entry in enumerate(sequence):
+                ids = entry["indices"]
+                if (
+                    entry.get("step") != index
+                    or len(ids) != min(downstream.batch_size, len(pool))
+                    or len(set(ids)) != len(ids)
+                    or entry.get("row_ids") != [rows[i] for i in ids]
+                    or entry.get("sha256") != core.sequence_hash(np.asarray(ids, dtype=np.int64))
+                ):
+                    raise ValueError("Actual direct sampling row/index/step/hash receipt differs.")
     elif manifest.get("encoder") is not None:
         raise ValueError("Scratch must have no inherited encoder.")
     for key in ("prefix_npz", "dev_npz"):
@@ -740,7 +1069,7 @@ def prepare_model(config, backbone, selected, scalers, *, parent_bindings=None):
     """Fresh head; only scratch constructs random encoder. No legacy fit initializer."""
     _validate_backbone(config, backbone)
     if config.mode == "frozen_readout":
-        expected_kind = KINDS["band" if config.family == "band" else "core"]
+        expected_kind = selected_kind(config)
         if (
             selected is None
             or selected.get("kind") != expected_kind
@@ -752,6 +1081,10 @@ def prepare_model(config, backbone, selected, scalers, *, parent_bindings=None):
             raise ValueError("Selected original source ancestry differs from parent run.")
         if config.family == "band" and selected.get("architecture") != ARCHITECTURES["band"]:
             raise ValueError("Band selected architecture mismatch.")
+        if config.method == "direct":
+            _supervised_ancestry(selected.get("supervised_ancestry"))
+        elif selected.get("supervised_ancestry") is not None:
+            raise ValueError("SSL/control parent cannot hide supervised feature ancestry.")
         with torch.device("meta"):
             model = PrefixModel(backbone, config.family).float()
         _strict_state(model.encoder, selected.get("encoder"))
@@ -771,6 +1104,21 @@ def prepare_model(config, backbone, selected, scalers, *, parent_bindings=None):
     model.to(config.device)
     model.encoder.requires_grad_(config.mode == "scratch_direct")
     model.encoder.eval()
+    model.feature_ancestor = {
+        "selected_kind": selected["kind"] if selected is not None else None,
+        "training_kind": TRAINING_KINDS[config.method]
+        if selected is not None
+        else "fresh_scratch_supervised_encoder",
+        "supervised_ancestry": copy.deepcopy(selected.get("supervised_ancestry"))
+        if selected is not None
+        else None,
+        "original_parent_bindings": copy.deepcopy(selected.get("bindings"))
+        if selected is not None
+        else None,
+        "original_train_scalers": copy.deepcopy(scalers),
+        "parent_head_reused": False,
+        "fresh_head_seed": config.seed + 100000,
+    }
     return model
 
 
@@ -846,7 +1194,10 @@ def _decode(admission, key, role):
                 raise ValueError(
                     "Numerical native geometry conflicts with raw interval provenance."
                 )
-            dates = [metadata["intervals"][v]["timestamp"][:10] for v in declared["target_ids"]]
+            dates = [
+                metadata["intervals"][v]["timestamp"][:10] if isinstance(v, str) else ""
+                for v in declared["target_ids"]
+            ]
             if data["target_dates"][i].tolist() != dates:
                 raise ValueError("Native date proxies conflict with actual raw timestamps.")
     # Canonical issuance order yields identical sample sequence across archives/methods.
@@ -1019,6 +1370,7 @@ class _Trajectory:
             "architecture": ARCHITECTURES[self.config.family],
             "scalers": self.statistics,
             "identities": self.identities,
+            "feature_ancestor": copy.deepcopy(self.model.feature_ancestor),
             "model": core.cpu_state(self.model),
             "optimizer": self.optimizer.state_dict(),
             "scheduler": self.scheduler.state_dict(),
@@ -1042,6 +1394,7 @@ class _Trajectory:
                 "architecture": ARCHITECTURES[self.config.family],
                 "scalers": self.statistics,
                 "identities": self.identities,
+                "feature_ancestor": self.model.feature_ancestor,
             }.items()
         ):
             raise ValueError("Exact safe resume identities/config/device/scalers required.")
@@ -1086,6 +1439,7 @@ class _Trajectory:
             "model": self.selected_state,
             "selected_step": self.selected_step,
             "identities": self.identities,
+            "feature_ancestor": copy.deepcopy(self.model.feature_ancestor),
             "training_kind": "supervised_prefix_readout_on_" + TRAINING_KINDS[self.config.method]
             if self.config.mode == "frozen_readout"
             else "scratch_supervised_prefix_encoder",
@@ -1153,6 +1507,8 @@ def fit(manifest_path, review_path, output_path, *, resume=None):
         or admission.partition["suffix_support_status"] == "NOT_ASSESSABLE"
     ):
         return {
+            "kind": "native_prefix_transfer_completion_v1",
+            "evidence_kind": admission.manifest["evidence_kind"],
             "status": "NOT_ASSESSABLE",
             "reason": "fixed metadata prefix/suffix support insufficient",
             "partition": admission.partition,
@@ -1167,9 +1523,9 @@ def fit(manifest_path, review_path, output_path, *, resume=None):
     )
     parent = admission.documents[_path(m["parent_run"], base)] if selected is not None else None
     if selected is not None:
-        selected_kind = KINDS["band" if config.family == "band" else "core"]
+        expected_selected_kind = selected_kind(config)
         if (
-            selected.get("kind") != selected_kind
+            selected.get("kind") != expected_selected_kind
             or selected.get("config") != backbone
             or selected.get("scalers") != statistics
             or selected.get("bindings") != parent["bindings"]
@@ -1191,6 +1547,33 @@ def fit(manifest_path, review_path, output_path, *, resume=None):
             or parent_artifact.get("bindings") != parent["bindings"]
         ):
             raise ValueError("Safe selected parent inference lineage mismatch.")
+        if config.method == "direct":
+            lineage = _supervised_ancestry(parent.get("supervised_ancestry"), parent["config"])
+            if (
+                selected.get("supervised_ancestry") != lineage
+                or parent_artifact.get("supervised_ancestry") != lineage
+                or parent_artifact.get("downstream_config") != parent["config"]
+                or parent_artifact.get("review_sha256") != parent["review_sha256"]
+                or selected.get("evidence_kind") != parent["evidence_kind"]
+                or parent_artifact.get("evidence_kind") != parent["evidence_kind"]
+            ):
+                raise ValueError("Safe direct artifact/config/supervised feature lineage differs.")
+            if config.family == "band" and any(
+                a.get("architecture") != ARCHITECTURES["band"] for a in (selected, parent_artifact)
+            ):
+                raise ValueError("Typed supervised band artifact architecture differs.")
+            with torch.device("meta"):
+                if config.family == "band":
+                    from marine_echo.models.native_band_temporal import NativeBandTemporalModel
+
+                    full_template = NativeBandTemporalModel(
+                        **core.model_dimensions(_backbone(backbone, config.family))
+                    ).float()
+                else:
+                    full_template = core.native_temporal.NativeTemporalModel(
+                        **core.model_dimensions(_backbone(backbone, config.family))
+                    ).float()
+            _strict_state(full_template, parent_artifact.get("model"))
         parent_state = {
             k.removeprefix("encoder."): v
             for k, v in parent_artifact["model"].items()
@@ -1249,6 +1632,15 @@ def fit(manifest_path, review_path, output_path, *, resume=None):
             "zero_shot": False,
             "suffix_numerical_access": False,
             "original_train_scalers": statistics,
+            "feature_ancestor": copy.deepcopy(trajectory.model.feature_ancestor),
+            "parent_run_sha256": admission.identities.get(str(_path(m["parent_run"], base)))
+            if parent is not None
+            else None,
+            "parent_inference_sha256": admission.identities.get(
+                str(_path(m["parent_inference"], base))
+            )
+            if parent is not None
+            else None,
             "external_dev_exposure": "original_DEV0–225_selection_only",
             "label_counts": prefix["target_observed"].sum(0).tolist(),
             "unique_prefix_rows": len(prefix["x"]),

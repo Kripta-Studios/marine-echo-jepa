@@ -22,6 +22,84 @@ def test_native_consecutive_source_intervals_accept_clock_jitter():
     assert result["fit_rows"] and result["suffix_rows"]
 
 
+def test_structural_missing_target_preserves_suffix_issuance_without_fake_time():
+    m = support.metadata(cutoffs=(0, 888))
+    row = m["rows"][-1]
+    missing = row["target_ids"][2]
+    record = m["intervals"].pop(missing)
+    row["target_ids"][2] = -1
+    row["target_observed"][2] = False
+    row["target_absence_refs"] = [None, None, "native-gap"]
+    m["source_gaps"] = {
+        "native-gap": {
+            "complete": True,
+            **{k: row[k] for k in ("deployment", "site", "archive", "configuration")},
+            "reason": "SOURCE_GAP",
+            "first_source_interval_index": record["source_interval_index"],
+            "last_source_interval_index": record["source_interval_index"],
+            "source_metadata_sha256": "a" * 64,
+        }
+    }
+    result = prefix.partitions(m, 1)
+    assert result["suffix_rows"] == [(row["deployment"], row["row_id"])]
+    assert result["reserved_suffix_support"][0]["target_timestamps"][2] is None
+    assert result["reserved_suffix_support"][0]["target_ids"][2] == -1
+    assert result["suffix_support_status"] == "NOT_ASSESSABLE"
+
+
+def test_direct_supervised_kind_frozen_encoder_fresh_head_replay():
+    import torch
+
+    c = prefix.PrefixConfig(
+        method="direct", mode="scratch_direct", correctness_smoke=True, updates=4, cadence=1
+    )
+    b = prefix.core.Config(method="direct", width=8, latent=4, blocks=1, heads=2).to_dict()
+    stats = {
+        "channel_mean": [0.0] * 4,
+        "channel_std": [1.0] * 4,
+        "target_mean": [0.0] * 3,
+        "target_std": [1.0] * 3,
+    }
+    scratch = prefix.prepare_model(c, b, None, stats)
+    selected = {
+        "kind": "native_downstream_supervised_encoder_v1",
+        "config": b,
+        "scalers": stats,
+        "encoder": prefix.core.cpu_state(scratch.encoder),
+        "supervised_ancestry": {
+            "mode": "direct_end_to_end",
+            "ssl_only": False,
+            "supervised_updates": 3000,
+            "selected_supervised_step": 750,
+            "ancestor_encoder_sha256": None,
+            "ancestor_run_sha256": None,
+        },
+    }
+    frozen = prefix.prepare_model(
+        prefix.PrefixConfig(**{**c.to_dict(), "mode": "frozen_readout"}), b, selected, stats
+    )
+    assert all(
+        torch.equal(v, frozen.encoder.state_dict()[k]) for k, v in selected["encoder"].items()
+    )
+    assert all(
+        torch.equal(v, frozen.head.state_dict()[k]) for k, v in scratch.head.state_dict().items()
+    )
+
+
+def test_mixed_or_unknown_split_roles_fail_before_numeric_decode(memory_case, monkeypatch):
+    c = memory_case
+    c.documents["split.txt"]["sources"].append(
+        {"deployment": "synthetic-unknown", "archive_sha256": "b" * 64, "role": "unexpected"}
+    )
+    c.documents["train-intervals.json"]["split_sha256"] = prefix.sha(
+        support.encoded(c.documents["split.txt"])
+    )
+    c.seal()
+    monkeypatch.setattr(prefix.np, "load", lambda *a, **k: pytest.fail("Bad split decoded"))
+    with pytest.raises(ValueError, match="split"):
+        prefix.admit(c.manifest_path, c.review_path, c.output)
+
+
 @pytest.mark.parametrize("damage", ["missing_index", "wrong_target_index", "large_gap"])
 def test_native_interval_proof_rejects_missing_wrong_indices_and_gaps(damage):
     from datetime import datetime, timedelta
@@ -68,7 +146,8 @@ import io
 import numpy as np
 
 SUPPORT_SPEC = importlib.util.spec_from_file_location(
-    "native_prefix_test_support", BUILDER / "evidence/ssl-prefix-builder-v1/prefix_test_support.py"
+    "native_prefix_test_support",
+    BUILDER / "evidence/ssl-prefix-completion-builder-v2/prefix_test_support.py",
 )
 support = importlib.util.module_from_spec(SUPPORT_SPEC)
 sys.modules[SUPPORT_SPEC.name] = support
@@ -88,6 +167,19 @@ def test_actual_main_helpers_are_imported_read_only():
         .is_relative_to(MAIN)
     )
     assert Path(prefix.__file__).resolve().is_relative_to(BUILDER)
+
+
+def test_package_initializers_are_bound_before_model_or_numeric_access(memory_case, monkeypatch):
+    package = MAIN / "src/marine_echo/__init__.py"
+    assert package.resolve() in prefix.required_sources()
+    c = memory_case
+    c.review["bindings"].pop(str(package.resolve()))
+    c.fs.files[c.review_path] = support.encoded(c.review)
+    monkeypatch.setattr(
+        prefix.np, "load", lambda *a, **k: pytest.fail("Unbound package decoded arrays")
+    )
+    with pytest.raises(ValueError, match="binding"):
+        prefix.admit(c.manifest_path, c.review_path, c.output)
 
 
 @pytest.mark.parametrize(
@@ -381,7 +473,8 @@ def test_fresh_heads_identical_modes_and_seed_specific_sampler():
     }
     scratch = prefix.prepare_model(config, backbone, None, stats)
     selected = {
-        "kind": "native_ssl_selected_encoder_v1",
+        "kind": "native_downstream_supervised_encoder_v1",
+        "supervised_ancestry": support.direct_ancestry(),
         "config": backbone,
         "scalers": stats,
         "encoder": prefix.core.cpu_state(scratch.encoder),
@@ -429,7 +522,8 @@ def test_gradients_observed_labels_only_frozen_buffers_and_scratch():
     assert p.grad[0, 1].abs().sum() == 0
     assert any(t.grad is not None and t.grad.abs().sum() > 0 for t in scratch.encoder.parameters())
     selected = {
-        "kind": "native_ssl_selected_encoder_v1",
+        "kind": "native_downstream_supervised_encoder_v1",
+        "supervised_ancestry": support.direct_ancestry(),
         "config": backbone,
         "scalers": stats,
         "encoder": prefix.core.cpu_state(scratch.encoder),
@@ -697,3 +791,264 @@ def test_actual_source_centres_need_not_be_clock_hour_boundaries():
     result = prefix.partitions(m, 1)
     assert len(result["fit_rows"]) == 2
     assert result["boundaries"]["synthetic-site"][2] == "2026-01-05T00:00:00"
+
+
+@pytest.mark.parametrize(
+    "family,method",
+    [
+        ("core", "direct"),
+        ("band", "direct"),
+        ("core", "shared_ssl"),
+        ("core", "permuted_ssl"),
+        ("core", "masked_ssl"),
+        ("core", "random_frozen"),
+    ],
+)
+def test_typed_parent_admission_before_tensor_array_or_rng(monkeypatch, family, method):
+    c = support.frozen_case(prefix, monkeypatch, BUILDER, family=family, method=method)
+    monkeypatch.setattr(
+        prefix.np, "load", lambda *a, **k: pytest.fail("Metadata admission decoded numeric data")
+    )
+    monkeypatch.setattr(
+        prefix.torch, "load", lambda *a, **k: pytest.fail("Metadata admission decoded tensors")
+    )
+    monkeypatch.setattr(
+        prefix.torch,
+        "manual_seed",
+        lambda *a, **k: pytest.fail("Metadata admission initialized RNG"),
+    )
+    admission = prefix.admit(c.manifest_path, c.review_path, c.output)
+    assert admission.config.method == method
+    assert admission.identities[str(c.base / "parent-inference.pt")] == prefix.sha(
+        c.fs.files[c.base / "parent-inference.pt"]
+    )
+
+
+@pytest.mark.parametrize(
+    "bad",
+    [
+        "status",
+        "self",
+        "config",
+        "review_hash",
+        "source",
+        "membership",
+        "sampling",
+        "lineage",
+        "parent",
+        "missing_config",
+        "missing_review",
+        "missing_inputs",
+        "original_protocol",
+    ],
+)
+def test_direct_typed_metadata_forgery_denied_before_decode(monkeypatch, bad):
+    c = support.frozen_case(prefix, monkeypatch, BUILDER)
+    review, run = c.documents["parent-review.json"], c.documents["parent-run.json"]
+    if bad == "status":
+        review["status"] = "APPROVED_PREFIT"
+    elif bad == "self":
+        review["reviewer_session_id"] = prefix.IMPLEMENTER_SESSION_ID
+    elif bad == "config":
+        c.documents["parent-config.json"]["method"] = "shared_ssl"
+    elif bad == "review_hash":
+        run["review_sha256"] = "f" * 64
+    elif bad == "source":
+        p = str(Path(prefix.core.__file__).resolve())
+        run["bindings"].pop(p)
+        review["bindings"].pop(p, None)
+    elif bad in ("membership", "sampling"):
+        membership = prefix._json(c.fs.files[c.base / "membership.json"])
+        if bad == "membership":
+            membership["train_deployments"][0] = "synthetic-site"
+        else:
+            membership["sequence"][0]["indices"] = [999]
+            membership["sequence_sha256"] = prefix.sha(
+                prefix.json.dumps(
+                    membership["sequence"], sort_keys=True, separators=(",", ":")
+                ).encode()
+            )
+        raw = support.encoded(membership)
+        c.fs.files[c.base / "membership.json"] = raw
+        run["membership_sha256"] = prefix.sha(raw)
+        for item in c.documents["ancestry.json"]["artifacts"]:
+            if item["path"] == "membership.json":
+                item["sha256"] = prefix.sha(raw)
+    elif bad == "lineage":
+        run["supervised_ancestry"]["ssl_only"] = True
+    elif bad == "parent":
+        run["core_config"] = {**c.backbone, "method": "shared_ssl"}
+    elif bad == "missing_config":
+        c.manifest.pop("parent_config")
+    elif bad == "missing_review":
+        c.manifest.pop("parent_review")
+    elif bad == "missing_inputs":
+        c.manifest.pop("parent_inputs")
+    else:
+        p = str(c.base / "downstream-protocol.txt")
+        run["bindings"].pop(p)
+        review["bindings"].pop(p, None)
+    c.seal()
+    monkeypatch.setattr(
+        prefix.np, "load", lambda *a, **k: pytest.fail("Forged parent decoded arrays")
+    )
+    monkeypatch.setattr(
+        prefix.torch, "load", lambda *a, **k: pytest.fail("Forged parent decoded tensors")
+    )
+    with pytest.raises((ValueError, KeyError)):
+        prefix.admit(c.manifest_path, c.review_path, c.output)
+
+
+@pytest.mark.parametrize(
+    "reason",
+    [
+        "SOURCE_GAP",
+        "MISSING_SOURCE_INTERVAL",
+        "CONFIGURATION_BOUNDARY",
+        "PING_QUARANTINE",
+        "PARTIAL_SOURCE_INTERVAL",
+        "DUPLICATE_ROW",
+        "MISSING_CHANNEL",
+    ],
+)
+def test_native_structural_absence_reasons_no_fabricated_source_stamp(reason):
+    m = support.metadata(cutoffs=(0, 888))
+    support.absent_target(m, m["rows"][0], 2, reason)
+    support.absent_target(m, m["rows"][1], 1, reason)
+    results = [prefix.partitions(m, d) for d in (1, 7, 30)]
+    assert all(len(r["fit_rows"]) == len(r["suffix_rows"]) == 1 for r in results)
+    assert len({r["suffix_support_sha256"] for r in results}) == 1
+    assert results[0]["reserved_suffix_support"][0]["target_timestamps"][1] is None
+    assert -1 not in results[0]["fit_interval_ids"]
+    assert results[0]["suffix_support_status"] == "NOT_ASSESSABLE"
+
+
+@pytest.mark.parametrize(
+    "bad",
+    [
+        "observed",
+        "no_gap",
+        "wrong_index",
+        "unknown_reason",
+        "ping",
+        "config",
+        "hash",
+        "false_sentinel",
+    ],
+)
+def test_missing_identity_cannot_hide_observed_label_or_unexplained_boundary(bad):
+    m = support.metadata(cutoffs=(0, 888))
+    row = m["rows"][0]
+    ref = support.absent_target(m, row, 2)
+    gap = m["source_gaps"][ref]
+    if bad == "observed":
+        row["target_observed"][2] = True
+    elif bad == "no_gap":
+        m["source_gaps"] = {}
+    elif bad == "wrong_index":
+        gap["first_source_interval_index"] += 20
+    elif bad == "unknown_reason":
+        gap["reason"] = "not_a_native_gap"
+    elif bad == "ping":
+        gap["reason"] = "PING_QUARANTINE"
+        gap["quarantined_pings"] = [150]
+    elif bad == "config":
+        gap["reason"] = "CONFIGURATION_BOUNDARY"
+        gap["next_configuration"] = row["configuration"]
+    elif bad == "hash":
+        gap["source_metadata_sha256"] = "unknown"
+    else:
+        row["target_ids"][2] = -2
+    with pytest.raises(ValueError):
+        prefix.partitions(m, 1)
+
+
+def test_masked_known_out_of_prefix_target_never_moves_boundaries():
+    m = support.metadata(cutoffs=(18, 888))
+    m["rows"][0]["target_observed"][2] = False
+    assert prefix.partitions(m, 1)["fit_rows"] == []
+
+
+@pytest.mark.parametrize("seed", [13, 23])
+def test_band_replication_remains_unassigned(seed):
+    with pytest.raises(ValueError, match="Band seed7"):
+        prefix.PrefixConfig(family="band", seed=seed).validate("REVIEWED_PREFIX_TRANSFER")
+    prefix.PrefixConfig(seed=seed).validate("REVIEWED_PREFIX_TRANSFER")
+
+
+@pytest.mark.parametrize("bad", ["batch_rows", "step", "batch_size", "batch_hash"])
+def test_actual_direct_sampler_receipt_identity_is_verified_before_decode(monkeypatch, bad):
+    c = support.frozen_case(prefix, monkeypatch, BUILDER)
+    membership = prefix._json(c.fs.files[c.base / "membership.json"])
+    entry = membership["sequence"][0]
+    if bad == "batch_rows":
+        entry["row_ids"][0] = "unknown-row"
+    elif bad == "step":
+        entry["step"] = 1000
+    elif bad == "batch_size":
+        entry["indices"] = entry["indices"][:1]
+    else:
+        entry["sha256"] = "f" * 64
+    membership["sequence_sha256"] = prefix.sha(
+        prefix.json.dumps(membership["sequence"], sort_keys=True, separators=(",", ":")).encode()
+    )
+    raw = support.encoded(membership)
+    c.fs.files[c.base / "membership.json"] = raw
+    c.documents["parent-run.json"]["membership_sha256"] = prefix.sha(raw)
+    for item in c.documents["ancestry.json"]["artifacts"]:
+        if item["path"] == "membership.json":
+            item["sha256"] = prefix.sha(raw)
+    c.seal()
+    monkeypatch.setattr(
+        prefix.np, "load", lambda *a, **k: pytest.fail("Bad sampling receipt decoded arrays")
+    )
+    with pytest.raises(ValueError, match="sampling"):
+        prefix.admit(c.manifest_path, c.review_path, c.output)
+
+
+def test_actual_split_schema_final_test_metadata_admitted_without_numeric_access(
+    memory_case, monkeypatch
+):
+    c = memory_case
+    split = c.documents["split.txt"]
+    split["schema_version"] = "native_acoustic_ssl_v1"
+    for source in split["sources"]:
+        if source["role"] == "test":
+            source["role"] = "final_test"
+    c.documents["train-intervals.json"]["split_sha256"] = prefix.sha(support.encoded(split))
+    c.seal()
+    monkeypatch.setattr(
+        prefix.np, "load", lambda *a, **k: pytest.fail("Split metadata parsed numeric arrays")
+    )
+    assert prefix.admit(c.manifest_path, c.review_path, c.output).partition["fit_rows"]
+
+
+@pytest.mark.parametrize(
+    "bad", ["schema", "alias", "mixed", "duplicate", "archive_roles", "train_final"]
+)
+def test_actual_split_conflicting_or_fitted_final_roles_denied(memory_case, monkeypatch, bad):
+    c = memory_case
+    s = c.documents["split.txt"]
+    s["schema_version"] = "native_acoustic_ssl_v1"
+    for source in s["sources"]:
+        if source["role"] == "test":
+            source["role"] = "final_test"
+    if bad == "schema":
+        s["schema_version"] = "different_version"
+    elif bad == "alias":
+        s["sources"][0]["role"] = "test"
+    elif bad == "mixed":
+        s["sources"].append({"deployment": "alias", "archive_sha256": "alias", "role": "test"})
+    elif bad == "duplicate":
+        s["sources"].append(copy.deepcopy(s["sources"][0]))
+    elif bad == "archive_roles":
+        s["sources"][-1]["archive_sha256"] = s["sources"][0]["archive_sha256"]
+    else:
+        s["sources"][-1]["role"] = "final_test"
+    c.documents["train-intervals.json"]["split_sha256"] = prefix.sha(support.encoded(s))
+    c.seal()
+    monkeypatch.setattr(
+        prefix.np, "load", lambda *a, **k: pytest.fail("Conflicting split decoded arrays")
+    )
+    with pytest.raises(ValueError):
+        prefix.admit(c.manifest_path, c.review_path, c.output)

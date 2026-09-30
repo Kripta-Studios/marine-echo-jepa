@@ -1,0 +1,105 @@
+{
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "executed": [
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_prefix_transfer.py -k structural_missing",
+      "exit_code": 1,
+      "results": "1 failed, 93 deselected; genuine -1 structural absence rejected by synchronized baseline",
+      "evidence": "red-compatibility-v1.log"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_prefix_transfer.py::test_direct_supervised_kind_frozen_encoder_fresh_head_replay tests/unit/test_native_prefix_transfer.py::test_mixed_or_unknown_split_roles_fail_before_numeric_decode",
+      "exit_code": 1,
+      "results": "2 failed: direct supervised kind denied; split fixture initially failed on stale TRAIN receipt (fixture repaired, not claimed as split-specific red)",
+      "evidence": "red-compatibility-v1.log"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_prefix_transfer.py tests/integration/test_native_prefix_transfer.py",
+      "exit_code": 0,
+      "results": "99 passed, 6 skipped in 88.63s; Windows exception diagnostics emitted, process continued; cause UNKNOWN",
+      "evidence": "green-initial-compatibility-v1.log"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_prefix_transfer.py tests/integration/test_native_prefix_transfer.py",
+      "exit_code": 1,
+      "results": "154 passed, 2 failed, 8 skipped in 142.47s; private band fixture omitted original package-source bindings",
+      "evidence": "red-expanded-parent-binding-v2.log"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_prefix_transfer.py tests/integration/test_native_prefix_transfer.py",
+      "exit_code": 0,
+      "results": "158 passed, 8 skipped in 155.13s",
+      "evidence": "green-expanded-compatibility-v2.log"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_prefix_transfer.py -k package_initializers",
+      "exit_code": 1,
+      "results": "1 failed, 138 deselected in 19.52s; package initializer absent from required source closure",
+      "evidence": "red-package-binding-v3.log"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_prefix_transfer.py tests/integration/test_native_prefix_transfer.py",
+      "exit_code": 0,
+      "results": "159 passed, 8 skipped in 147.37s",
+      "evidence": "green-package-compatibility-v3.log"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_prefix_transfer.py -k actual_direct_sampler_receipt",
+      "exit_code": 1,
+      "results": "4 failed, 139 deselected in 27.71s; corrupted per-step row/step/size/hash receipts admitted",
+      "evidence": "red-actual-sampler-receipt-v4.log"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_prefix_transfer.py tests/integration/test_native_prefix_transfer.py",
+      "session_id": 64147,
+      "exit_code": 0,
+      "output": "163 passed, 8 skipped in 153.89s (0:02:33)",
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "device": "cpu",
+      "optimizer_fixtures": "NOT_RUN_ROOT_ONLY"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff check --no-cache src/marine_echo/training/native_prefix_transfer.py tests/unit/test_native_prefix_transfer.py tests/integration/test_native_prefix_transfer.py evidence/ssl-prefix-completion-builder-v2/prefix_test_support.py evidence/ssl-prefix-completion-builder-v2/read_authored_section.py evidence/ssl-prefix-completion-builder-v2/read_sources.py evidence/ssl-prefix-completion-builder-v2/inspect_contracts.py evidence/ssl-prefix-completion-builder-v2/prove_sources.py",
+      "exit_code": 0,
+      "results": "All checks passed",
+      "evidence": "lint-final-v2.log"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff format --check --no-cache src/marine_echo/training/native_prefix_transfer.py tests/unit/test_native_prefix_transfer.py tests/integration/test_native_prefix_transfer.py evidence/ssl-prefix-completion-builder-v2/prefix_test_support.py evidence/ssl-prefix-completion-builder-v2/read_authored_section.py evidence/ssl-prefix-completion-builder-v2/read_sources.py evidence/ssl-prefix-completion-builder-v2/inspect_contracts.py evidence/ssl-prefix-completion-builder-v2/prove_sources.py",
+      "exit_code": 0,
+      "results": "8 files already formatted",
+      "evidence": "lint-final-v2.log"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B evidence\\ssl-prefix-completion-builder-v2\\prove_sources.py",
+      "exit_code": 0,
+      "results": "21 protected MAIN files plus five package-source hashes; six closed builder files unchanged; snapshots byte-exact; 19 recipe/computation AST nodes and Config defaults unchanged",
+      "evidence": "source-proof-final-v2.json"
+    }
+  ],
+  "not_run": [
+    "Eight optimizer/cache fixtures (six inherited plus two new core/band typed-parent resume checks); root only",
+    "Durable tensor/NPZ/report transport; root only",
+    "Public corpora/tensors, scientific fitting, GPU, suffix numerical access, final assessment",
+    "Git index/commit and previously denied scratch/cache operations"
+  ],
+  "auxiliary_read_failures": [
+    {
+      "exit_code": 1,
+      "operation": "read_sources.py without explicit builder/main selector",
+      "reason": "CLI usage ValueError; no write attempted"
+    },
+    {
+      "exit_code": 1,
+      "operation": "cmd Python -c source slice",
+      "reason": "Launcher quoting SyntaxError; no write attempted"
+    },
+    {
+      "exit_code": 1,
+      "operation": "Quoted rg pattern",
+      "reason": "No matches; unquoted bounded source search succeeded"
+    }
+  ],
+  "filesystem_denial_in_this_task": false,
+  "self_approval": false
+}

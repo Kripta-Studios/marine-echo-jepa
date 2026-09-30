@@ -1,0 +1,7 @@
+SYNTHETIC_CORRECTNESS_ONLY
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_prefix_transfer.py tests/integration/test_native_prefix_transfer.py
+Executed session: 44064
+Exit: 0
+99 passed, 6 skipped in 88.63s.
+The process emitted Windows fatal exception diagnostics 0x8007000e during Torch import/platform._wmi_query and 0xc000070a during the run. It continued to the actual pytest summary and exit0. Cause UNKNOWN. No permission/cache/process changes were performed.
+Six optimizer/cache fixtures remained ROOT-only NOT_RUN.

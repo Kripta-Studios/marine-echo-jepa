@@ -1,0 +1,8 @@
+SYNTHETIC_CORRECTNESS_ONLY
+{
+  "chunk_id": "faa016",
+  "wall_time_seconds": 0.0000126,
+  "exit_code": 0,
+  "original_token_count": 30,
+  "output": "...............ss                                                   [100%]\r\n158 passed, 8 skipped in 155.13s (0:02:35)\r\n"
+}

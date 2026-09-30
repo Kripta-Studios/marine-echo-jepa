@@ -1,0 +1,193 @@
+{
+  "kind": "native_prefix_completion_builder_handoff_v2",
+  "status": "IMPLEMENTED_SYNTHETIC_CHECKED_NOT_APPROVED",
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "implementer_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "integration_owner": "ROOT",
+  "authored_sha256": {
+    "src/marine_echo/training/native_prefix_transfer.py": "7a3fd9ff22909e7b77e1b74758587bd940cca00898894522c3b8eaa1e5b1a8f6",
+    "tests/unit/test_native_prefix_transfer.py": "8b706e5410e6dd6b881ec96971c81edb4e6f2d2cbf7baa516f6e8eb36b48fb26",
+    "tests/integration/test_native_prefix_transfer.py": "5291bbd93103b4ffb2ab36cf0c6c23e4c44f6cf8c10ab4f47351292f031ef945"
+  },
+  "original_builder_sha256": {
+    "src/marine_echo/training/native_prefix_transfer.py": "8d91d34ad1efe9ef9867587cf41eaa6448898ce1edf0b0719242b2a463ef8ddd",
+    "tests/unit/test_native_prefix_transfer.py": "94ef28270fff35ba859770157dfbac49c96280868202abc8ea42013da14fb61c",
+    "tests/integration/test_native_prefix_transfer.py": "f45c34bb5553413191b5894673f40cab416be0f05dac4195d1834c1a3f71ff43"
+  },
+  "synchronized_main_before_sha256": {
+    "src/marine_echo/training/native_prefix_transfer.py": "c4741d4d5a52329dacf063355e2754fc35204e054cc1fe79cd9ea9fdc63f5a85",
+    "tests/unit/test_native_prefix_transfer.py": "6bba30acac10c0248960767cd03dd1cbe9e6af8332f2ed963a6b7ac6dfd7101d",
+    "tests/integration/test_native_prefix_transfer.py": "c9306c1a20b452c0cf89af8f08b0807a287abb6c5c8615f3a97bffd77fcfc192"
+  },
+  "allowed_write_paths": [
+    "src/marine_echo/training/native_prefix_transfer.py",
+    "tests/unit/test_native_prefix_transfer.py",
+    "tests/integration/test_native_prefix_transfer.py"
+  ],
+  "allowed_new_evidence_root": "evidence/ssl-prefix-completion-builder-v2/",
+  "report": {
+    "path": "evidence/ssl-prefix-completion-builder-v2/NATIVE_PREFIX_COMPLETION_IMPLEMENTATION_V2.md",
+    "sha256": "5d39e76b7c076cf97961272dd7066ad601e132146bf0d0283dda8468e3583004"
+  },
+  "source_proof": {
+    "path": "evidence/ssl-prefix-completion-builder-v2/source-proof-final-v2.json",
+    "sha256": "57d85dba37e08d51eb5517ee39c546e5ac8c04e26daade4229566e892821ad34"
+  },
+  "bounded_patch": {
+    "path": "evidence/ssl-prefix-completion-builder-v2/bounded-final-v2.patch",
+    "sha256": "02fed8423a5f60dd36a24253626bad9858443d265468ebc7988d70fcef0b0ec5"
+  },
+  "snapshots_byte_exact": true,
+  "protected_main_unchanged_count": 21,
+  "runtime_package_sources_checked_count": 5,
+  "other_closed_builder_sources_unchanged_count": 6,
+  "unchanged_recipe_ast": [
+    "boundaries",
+    "sha",
+    "_pairs",
+    "_json",
+    "_timestamp",
+    "_path",
+    "_distinct",
+    "_strict_state",
+    "decode_checkpoint",
+    "encode_checkpoint",
+    "_batch",
+    "sample_indices",
+    "predict",
+    "PrefixModel.__init__",
+    "PrefixModel.forecast",
+    "PrefixPredictor.__init__",
+    "PrefixPredictor.forecast",
+    "_Trajectory.__init__",
+    "_Trajectory.advance"
+  ],
+  "config_defaults_unchanged": true,
+  "checks": {
+    "pytest": {
+      "exit_code": 0,
+      "passed": 163,
+      "skipped": 8,
+      "elapsed_seconds": 153.89,
+      "device": "cpu",
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_prefix_transfer.py tests/integration/test_native_prefix_transfer.py"
+    },
+    "ruff_check": {
+      "exit_code": 0
+    },
+    "ruff_format_check": {
+      "exit_code": 0
+    },
+    "stdlib_source_proof": {
+      "exit_code": 0
+    },
+    "root_optimizer_fixtures": {
+      "status": "NOT_RUN_ROOT_ONLY",
+      "inherited": 6,
+      "new_typed_parent_cases": 2
+    }
+  },
+  "compatibility": {
+    "typed_supervised_parents": [
+      "native_downstream_supervised_encoder_v1",
+      "native_band_downstream_supervised_encoder_v1"
+    ],
+    "supported_supervised_mode": "direct_end_to_end",
+    "full_finetuned_supervised_parents": "NOT_SUPPORTED",
+    "original_review_status": "APPROVED_DOWNSTREAM_PREFIT",
+    "required_parent_metadata": [
+      "parent_run",
+      "parent_inference",
+      "parent_membership",
+      "parent_config",
+      "parent_review",
+      "parent_inputs",
+      "encoder_ancestry",
+      "scaler_ancestry"
+    ],
+    "selected_encoder_matches_parent_inference": true,
+    "original_head_hash_ancestry_retained": true,
+    "fresh_head_seed_offset": 100000,
+    "structural_absence": {
+      "identity": -1,
+      "observed": false,
+      "timestamp": null,
+      "proof": "separate bound native_prefix_source_gaps_v1/source_metadata receipt",
+      "prefix_boundary_policy": "conservative 55–65-minute adjacency envelope; unproven rows disclosed"
+    },
+    "fixed_suffix_support": "all metadata-admitted issuance rows/masks retained; unsupported support NOT_ASSESSABLE",
+    "split_schema": "native_acoustic_ssl_v1",
+    "reserved_role": "final_test",
+    "band_seeds": [
+      7
+    ],
+    "geometry_m": [
+      0,
+      230
+    ],
+    "original_development_geometry_m": [
+      0,
+      225
+    ],
+    "prefix_days": [
+      1,
+      7,
+      30
+    ],
+    "source_start_label_days": 4,
+    "source_start_common_suffix_days": 41,
+    "updates": 2000,
+    "cadence": 500,
+    "batch_size": 64,
+    "source_clock": "nominal_source_calendar_not_verified_UTC"
+  },
+  "not_run": [
+    "Public numeric corpus/prediction/tensor access",
+    "Scientific fit/GPU/suffix inference/final assessment",
+    "Root-only optimizer/cache cases and durable codecs",
+    "Git index/commit/permission changes/previously denied operation retries"
+  ],
+  "filesystem_denial_in_this_task": false,
+  "warning": "Initial exit0 pytest run emitted Windows exception diagnostics; cause UNKNOWN, no process/permission/cache action. Preserved in initial green evidence.",
+  "source_prefit_approval": false,
+  "numeric_access_approval": false,
+  "scientific_results": false,
+  "self_review": false,
+  "required_root_next_steps": [
+    "Verify MAIN-before hashes and bounded patch",
+    "Integrate three allowed paths and new fixture evidence only",
+    "Enable NATIVE_PREFIX_ROOT_RUNNER_CHECKS=1 in integrated MAIN for synthetic CPU optimizer checks",
+    "Run NEW root-owned durable Unicode codec/output collision fixtures",
+    "Provide complete original RunInputs/TRAIN/source-gap receipts",
+    "Obtain distinct exact source/protocol/numeric/prefit review before scientific execution"
+  ],
+  "evidence_sha256": {
+    "evidence/ssl-prefix-completion-builder-v2/bounded-final-v2.patch": "02fed8423a5f60dd36a24253626bad9858443d265468ebc7988d70fcef0b0ec5",
+    "evidence/ssl-prefix-completion-builder-v2/builder-source-snapshot-v1.json": "3ae9ed4e1b4dbf02beb4cca3385a1774b25cb1e216564946f424c925c5ca862d",
+    "evidence/ssl-prefix-completion-builder-v2/closeout_hashes.py": "ae321ae09a3112e7d211864cd5acfbfbec507c2648d1bda433c3895b7a7d2b68",
+    "evidence/ssl-prefix-completion-builder-v2/executed-checks-v2.json": "fe3f6d8a6142f27cf798116c300a5f0cc1c4d78009843a137a8d2eae7ea6ef56",
+    "evidence/ssl-prefix-completion-builder-v2/final-source-snapshot-v2.json": "3d55d334c335068c4a13450f7aef71f4faca71ace201c7a20b795a90b1a88065",
+    "evidence/ssl-prefix-completion-builder-v2/green-expanded-compatibility-v2.log": "db89678f0e76822f93ca4d68be6935845d46709722fa81b773ae599535330407",
+    "evidence/ssl-prefix-completion-builder-v2/green-final-compatibility-v4.log": "e4136daaea15dd0dad64693d1efc9ebe095244ac9736332027126685cdd27ad4",
+    "evidence/ssl-prefix-completion-builder-v2/green-initial-compatibility-v1.log": "b88c56aa5cb1bc30e751e702867f565be5f315a512ffd777bd7124ffc6054140",
+    "evidence/ssl-prefix-completion-builder-v2/green-package-compatibility-v3.log": "5f815c5cccdcc74addfda180df2fc676f2eca7cca270211c60223a427cb913d6",
+    "evidence/ssl-prefix-completion-builder-v2/inspect_contracts.py": "d6313577f79d3a51481133b6b35ccf1631d0bcfa0db313ce9b574a20edd741a4",
+    "evidence/ssl-prefix-completion-builder-v2/intermediate-compatibility-v2.log": "e1a09f23187101e36c8636454390a34186ee2f60167a672a0de6beca2ab6f10d",
+    "evidence/ssl-prefix-completion-builder-v2/lint-final-v2.log": "a99560dd4a78f76ab2650bf5710e5c94071c9ddfcbfe3b87e04cadb8e21336fa",
+    "evidence/ssl-prefix-completion-builder-v2/lint-initial-v1.log": "b650537f92582a29d92f4603743a15866417d8311fa6aebd9ee48e0671ffdfe8",
+    "evidence/ssl-prefix-completion-builder-v2/main-source-snapshot-v1.json": "fd9592e9ed6cdf0be90608aea6353cfc89dbae8c14cbafefe4d5db3eb8d83f58",
+    "evidence/ssl-prefix-completion-builder-v2/NATIVE_PREFIX_COMPLETION_IMPLEMENTATION_V2.md": "5d39e76b7c076cf97961272dd7066ad601e132146bf0d0283dda8468e3583004",
+    "evidence/ssl-prefix-completion-builder-v2/prefix_test_support.py": "d9d5305c892579d8e8b2121e45354c130b5595b6ce1b9562f342e3b79535bba7",
+    "evidence/ssl-prefix-completion-builder-v2/protected-baseline-v1.json": "65ef29a1f5072098d28ea7b1b5c97f290854a887b9041fa6110c6a8db6979746",
+    "evidence/ssl-prefix-completion-builder-v2/prove_sources.py": "e9d8d62504a814e8d421d55d977353a4f943db274fdb0829876a39e421e6e3dc",
+    "evidence/ssl-prefix-completion-builder-v2/read_authored_section.py": "554e37520ca1d48f7420d54ff68792b65d8f007154d189e6ade0c39015e02ae4",
+    "evidence/ssl-prefix-completion-builder-v2/read_sources.py": "e1803b20532e2c2febfe92a8b643bff5e94794ae47b3dc2386b3fb9791f36718",
+    "evidence/ssl-prefix-completion-builder-v2/red-actual-sampler-receipt-v4.log": "14ed468f8284682049d7649670a7e1c0ee8e53df6bd8b265727e35022b30a759",
+    "evidence/ssl-prefix-completion-builder-v2/red-compatibility-v1.log": "c2ff4a6d93b93dafdf3901c2a8f680608fe532a38ac5b2d90514e9337e43890b",
+    "evidence/ssl-prefix-completion-builder-v2/red-expanded-parent-binding-v2.log": "9f3256dd50dc9cc20306fadf4016c30c91d1f12854e9a4f6188014a52a83fd20",
+    "evidence/ssl-prefix-completion-builder-v2/red-package-binding-v3.log": "6c83099960d2e837d35533f8bddef7a6c467b210324588133b72a2a63cb97199",
+    "evidence/ssl-prefix-completion-builder-v2/runtime-package-baseline-v1.json": "d2b5aec78003130347a877dc4a2bb92bc44bd13649aa22afdc86625d92abf8db",
+    "evidence/ssl-prefix-completion-builder-v2/source-proof-final-v2.json": "57d85dba37e08d51eb5517ee39c546e5ac8c04e26daade4229566e892821ad34",
+    "evidence/ssl-prefix-completion-builder-v2/synchronized-baseline-v1.json": "c246001022525d3157018ff55b2504c4e6d0f7e96cf8b63c96fd6f8e77a10de4"
+  }
+}

@@ -1,0 +1,1 @@
+{"batch_size": 8, "cadence": 1, "clip": 1.0, "correctness_smoke": true, "device": "cpu", "family": "core", "floor": 18, "history": 96, "lr": 0.0003, "method": "direct", "mode": "scratch_direct", "prefix_days": 1, "seed": 7, "updates": 4, "weight_decay": 0.0001}

@@ -1,0 +1,9 @@
+{
+  "status": "ACTUAL_BUILDER_CLI_CLOSED",
+  "actual_cli_exit_code": 0,
+  "session_id": 19397,
+  "root_tool_chunk": "4e32eb",
+  "builder_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "scope": "PREFIX_COMPATIBILITY_ENGINEERING_ONLY",
+  "source_copy_and_root_checks": "PENDING"
+}

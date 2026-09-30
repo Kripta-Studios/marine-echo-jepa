@@ -1,0 +1,9 @@
+{
+  "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_prefix_transfer.py tests/integration/test_native_prefix_transfer.py",
+  "session_id": 64147,
+  "exit_code": 0,
+  "output": "163 passed, 8 skipped in 153.89s (0:02:33)",
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "device": "cpu",
+  "optimizer_fixtures": "NOT_RUN_ROOT_ONLY"
+}

@@ -1,0 +1,9 @@
+SYNTHETIC_CORRECTNESS_ONLY
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_prefix_transfer.py tests/integration/test_native_prefix_transfer.py
+{
+  "chunk_id": "94ef00",
+  "wall_time_seconds": 10.0027667,
+  "session_id": 75596,
+  "original_token_count": 0,
+  "output": ""
+}
