@@ -1,0 +1,19 @@
+SOURCE CHECK ONLY; existing environment; no installs/cache writes.
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B -m ruff check --no-cache src/marine_echo/inference/native_latent.py tests/unit/test_native_latent.py tests/integration/test_native_latent.py evidence/ssl-latent-builder-v1/test_support.py evidence/ssl-latent-builder-v1/source_probe.py
+Actual exit: 1
+PIE810 Call `endswith` once with a `tuple`
+   --> src\marine_echo\inference\native_latent.py:166:17
+    |
+164 |           _check_state(state, model.state_dict())
+165 |           for key, value in state.items():
+166 |               if (key.endswith("running_var") or key.endswith("num_batches_tracked")
+    |  _________________^
+167 | |                 or key == "regularizer.global_step") and (value < 0).any():
+    | |___________________________________________________^
+168 |                   raise ValueError(f"Invalid nonnegative safe buffer: {key}")
+169 |           model.load_state_dict(state, strict=True, assign=True)
+    |
+help: Merge into a single `endswith` call
+
+Found 1 error.
+No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).

@@ -1,0 +1,11 @@
+{
+  "kind": "native_latent_red_branch_source_v1",
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "source_path": "src/marine_echo/inference/native_latent.py",
+  "sha256_before_cf_branch_correction": "bd5862924d4b503b2dfb9e99c8f9d931c3c39395b56d470e533484810e568863",
+  "red_log": "evidence/ssl-latent-builder-v1/red-cf-branch-v1.log",
+  "wrong_branch": "self._model.encoder.sequence",
+  "correct_branch": "self._model.online.sequence",
+  "actual_pytest_exit": 1,
+  "public_checkpoint_access": "NOT_RUN"
+}

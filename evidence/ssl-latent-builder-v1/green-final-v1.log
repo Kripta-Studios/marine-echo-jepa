@@ -1,0 +1,13 @@
+SYNTHETIC_CORRECTNESS_ONLY; real CPU Torch in-memory codecs and original/band/CF modules.
+Shell: cmd.exe; login=false; existing environment; python -B; no pytest cache.
+Command:
+..\marine-echo-jepa\.venv\Scripts\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_latent.py tests/integration/test_native_latent.py
+Actual exit: 0
+........................................................................ [ 80%]
+.................                                                        [100%]
+89 passed in 41.77s
+
+No public acoustic/prediction/checkpoint tensors or scientific fitting/GPU/optimizer were accessed.
+Tiny fixtures have explicit SYNTHETIC_CORRECTNESS_ONLY identity and real Torch ZIP transport.
+Two production-schema tests allocate only synthetic zero tensors under matching full-size templates; REAL-shaped artifact identity fields are schema fixtures, not scientific evidence or completion reports.
+No durable checkpoint transport was attempted; root owns durable/public replay.

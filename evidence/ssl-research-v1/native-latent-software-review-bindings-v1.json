@@ -1,0 +1,9 @@
+{
+  "status": "ALL_LATENT_SOFTWARE_BINDINGS_VERIFIED",
+  "review_sha256": "e5f55ecabb4b7a23c67d0d8a404959ab23637ed9fd4558013ebf3f59670d0373",
+  "binding_count": 40,
+  "reviewer_actual_cli_exit_code": 0,
+  "reviewer_exit_witness": "Root write_stdin session5723 chunkc765a8 exit0",
+  "scientific_execution_authorized": false,
+  "final_numeric_access_authorized": false
+}

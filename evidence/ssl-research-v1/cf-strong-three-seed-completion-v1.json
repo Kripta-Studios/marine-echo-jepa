@@ -1,0 +1,211 @@
+{
+  "status": "SIX_REAL_CF_STRONG_ENDPOINTS_VERIFIED",
+  "models": [
+    {
+      "id": "cf_jepa_frozen_readout_seed7_h96",
+      "seed": 7,
+      "mode": "frozen_readout",
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_frozen_readout_seed7_h96",
+      "run_sha256": "1401d1fde10bf2fa444eea9d96c7849057508abe60e5a30d8ec69576dd3a17f8",
+      "inference_sha256": "c563659e12d6375bbfd2171e6a38d2d0308f3159f1f93b313c34dd1f62832f83",
+      "selected_encoder_sha256": "2f34c61a4e0d7937a56b97ec1a51ea5f50d45802ec0eff31057fa243e55d386a",
+      "selected_supervised_step": 1000,
+      "development_pinball_db": 0.6144220773212316,
+      "resources_full_attempt": {
+        "exit_code": 0,
+        "stopped_for": null,
+        "peak_process_rss_bytes": 5065818112,
+        "elapsed_full_attempt_seconds": 555.3130000000092,
+        "poll_seconds": 0.1,
+        "rss_limit_bytes": 23622320128,
+        "deadline_seconds": 328461.59508987097,
+        "owned_process_pids": [
+          7032,
+          29080,
+          47568
+        ],
+        "peak_each_process_rss_bytes": {
+          "7032": 5459968,
+          "47568": 5027577856,
+          "29080": 32780288
+        },
+        "peak_definition": "Conservative sum of each owned process OS peak working set; sampled RSS fallback",
+        "owned_tree_cleanup_verified": true
+      },
+      "feature_training": "SSL_PRETRAINED_FROZEN"
+    },
+    {
+      "id": "cf_jepa_full_finetune_seed7_h96",
+      "seed": 7,
+      "mode": "full_finetune",
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_full_finetune_seed7_h96",
+      "run_sha256": "ffabc985cc66871b131f4d04296313583bcc53a358c1fd6b588deea721aece0c",
+      "inference_sha256": "0e8dec2ee91a3c18e4bfdf7f4b291e6038d2665e059d3a2cf18f6c1bed57c53b",
+      "selected_encoder_sha256": "8d9f8cf891a17f56e6a7d0d29079e9fa147a57e27ea2cf153a418d7f1748b22a",
+      "selected_supervised_step": 750,
+      "development_pinball_db": 0.5418137443976551,
+      "resources_full_attempt": {
+        "exit_code": 0,
+        "stopped_for": null,
+        "peak_process_rss_bytes": 5153681408,
+        "elapsed_full_attempt_seconds": 433.4850000000006,
+        "poll_seconds": 0.1,
+        "rss_limit_bytes": 23622320128,
+        "deadline_seconds": 327906.28208987095,
+        "owned_process_pids": [
+          2708,
+          4100,
+          51900
+        ],
+        "peak_each_process_rss_bytes": {
+          "51900": 5570560,
+          "2708": 5115367424,
+          "4100": 32743424
+        },
+        "peak_definition": "Conservative sum of each owned process OS peak working set; sampled RSS fallback",
+        "owned_tree_cleanup_verified": true
+      },
+      "feature_training": "SUPERVISED_FULL_FINETUNING_AFTER_SSL"
+    },
+    {
+      "id": "cf_jepa_frozen_readout_seed13_h96_runtime_retry01",
+      "seed": 13,
+      "mode": "frozen_readout",
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_frozen_readout_seed13_h96_runtime_retry01",
+      "run_sha256": "038800e406151924cae3f2c505962eed8384440ce151634d12344e350aa516fb",
+      "inference_sha256": "8657ec11eaa193115cf58a1f3377aacb98ce9c4d726dace9510bfa36b2c852af",
+      "selected_encoder_sha256": "d310943c7c3471e22e0de61cb6a60eb4228a501144ef0f61e9ee021a00c690d6",
+      "selected_supervised_step": 2000,
+      "development_pinball_db": 0.668064372774757,
+      "resources_full_attempt": {
+        "exit_code": 0,
+        "stopped_for": null,
+        "peak_process_rss_bytes": 5067038720,
+        "elapsed_full_attempt_seconds": 623.4370000000054,
+        "poll_seconds": 0.1,
+        "rss_limit_bytes": 23622320128,
+        "deadline_seconds": 313830.001089871,
+        "owned_process_pids": [
+          32632,
+          39852,
+          60896
+        ],
+        "peak_each_process_rss_bytes": {
+          "32632": 5451776,
+          "39852": 5028745216,
+          "60896": 32841728
+        },
+        "peak_definition": "Conservative sum of each owned process OS peak working set; sampled RSS fallback",
+        "owned_tree_cleanup_verified": true
+      },
+      "feature_training": "SSL_PRETRAINED_FROZEN"
+    },
+    {
+      "id": "cf_jepa_full_finetune_seed13_h96",
+      "seed": 13,
+      "mode": "full_finetune",
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_full_finetune_seed13_h96",
+      "run_sha256": "ace9de5947a02a9cc75ae191e8767771f56d95a9de642b8b6f5efd27520029f4",
+      "inference_sha256": "96be448cea29659d2a6665087055fe67961ab0d827d6fad3470dad7dbedf5478",
+      "selected_encoder_sha256": "53eed946be8ecca728261155a460b9f40b12110f4dc64af34b3176eb290330ae",
+      "selected_supervised_step": 1500,
+      "development_pinball_db": 0.5580568543902262,
+      "resources_full_attempt": {
+        "exit_code": 0,
+        "stopped_for": null,
+        "peak_process_rss_bytes": 5154373632,
+        "elapsed_full_attempt_seconds": 545.5619999999908,
+        "poll_seconds": 0.1,
+        "rss_limit_bytes": 23622320128,
+        "deadline_seconds": 313206.56408987095,
+        "owned_process_pids": [
+          39500,
+          43812,
+          49956
+        ],
+        "peak_each_process_rss_bytes": {
+          "43812": 5459968,
+          "39500": 5116125184,
+          "49956": 32788480
+        },
+        "peak_definition": "Conservative sum of each owned process OS peak working set; sampled RSS fallback",
+        "owned_tree_cleanup_verified": true
+      },
+      "feature_training": "SUPERVISED_FULL_FINETUNING_AFTER_SSL"
+    },
+    {
+      "id": "cf_jepa_frozen_readout_seed23_h96",
+      "seed": 23,
+      "mode": "frozen_readout",
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_frozen_readout_seed23_h96",
+      "run_sha256": "4f561746ec21504954f37db4b49bc84c6c26918ce0874687e9366f6c1af9afd7",
+      "inference_sha256": "61d0ba7cf21d760b551a8174c57795f0aa6583eb898b662c2099d5163efd03fc",
+      "selected_encoder_sha256": "2f9320a45c8a9e00082a07c63347f9b85581ef3d5e8ab1664063000b1a26014a",
+      "selected_supervised_step": 1000,
+      "development_pinball_db": 0.602785393602022,
+      "resources_full_attempt": {
+        "exit_code": 0,
+        "stopped_for": null,
+        "peak_process_rss_bytes": 5067702272,
+        "elapsed_full_attempt_seconds": 650.5780000000086,
+        "poll_seconds": 0.1,
+        "rss_limit_bytes": 23622320128,
+        "deadline_seconds": 312661.002089871,
+        "owned_process_pids": [
+          6992,
+          47488,
+          59760
+        ],
+        "peak_each_process_rss_bytes": {
+          "59760": 5451776,
+          "47488": 5029462016,
+          "6992": 32788480
+        },
+        "peak_definition": "Conservative sum of each owned process OS peak working set; sampled RSS fallback",
+        "owned_tree_cleanup_verified": true
+      },
+      "feature_training": "SSL_PRETRAINED_FROZEN"
+    },
+    {
+      "id": "cf_jepa_full_finetune_seed23_h96",
+      "seed": 23,
+      "mode": "full_finetune",
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_full_finetune_seed23_h96",
+      "run_sha256": "b92b65efa2a5bfce695ab0e82d330dd7a66697a4ef0d34839317484f3af96f8e",
+      "inference_sha256": "bffba377c49edc0e2ab288c5dfb4a703de62c07bdae5c235834b56e61633585e",
+      "selected_encoder_sha256": "6982950b163af6afd692da9a5ffa704ee9f98592be104470e255f50556b5c5e4",
+      "selected_supervised_step": 1500,
+      "development_pinball_db": 0.5768602812033142,
+      "resources_full_attempt": {
+        "exit_code": 0,
+        "stopped_for": null,
+        "peak_process_rss_bytes": 5155672064,
+        "elapsed_full_attempt_seconds": 551.0939999999973,
+        "poll_seconds": 0.1,
+        "rss_limit_bytes": 23622320128,
+        "deadline_seconds": 312010.42408987094,
+        "owned_process_pids": [
+          3640,
+          20212,
+          50804
+        ],
+        "peak_each_process_rss_bytes": {
+          "50804": 5455872,
+          "3640": 5115940864,
+          "20212": 34275328
+        },
+        "peak_definition": "Conservative sum of each owned process OS peak working set; sampled RSS fallback",
+        "owned_tree_cleanup_verified": true
+      },
+      "feature_training": "SUPERVISED_FULL_FINETUNING_AFTER_SSL"
+    }
+  ],
+  "all_seeds_preserved": true,
+  "seed_selection": "NONE",
+  "test_access": "NOT_RUN",
+  "native_seed13_failed_attempt": "Retained unchanged, charged164.14s, followed by one fresh-output same-recipe retry after bounded CUDA smoke",
+  "seed13_queue_actual_exit_witness": "Root session45636 chunk179f95 exit0",
+  "seed23_queue_actual_exit_witness": "Root session22909 chunk840387 exit0",
+  "metric_scope": "Development runner reports; expanded independent numerical reconstruction pending",
+  "scientific_claim": "NOT_ESTABLISHED"
+}

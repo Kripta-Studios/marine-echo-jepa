@@ -1,0 +1,111 @@
+{
+  "kind": "reviewed_native_band_serial_queue_v1",
+  "jobs": [
+    {
+      "id": "band_shared_ssl_seed7_h96_reviewed",
+      "method": "shared_ssl",
+      "kind": "ssl",
+      "entrypoint": "tools/execute_native_band_job.py",
+      "args": [
+        "--kind",
+        "ssl",
+        "--config",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_band_execution_v1\\native_band_shared_ssl_screen_v1.json",
+        "--review",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-shared-ssl-prefit-review-final.json",
+        "--output",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed7_h96_reviewed",
+        "--receipt",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-shared-ssl-attempt-01"
+      ],
+      "review_sha256": "8a0069ac0bd4eac20934d39078a03357108d80f915654f2832cdd42e32f1addf",
+      "report": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed7_h96_reviewed\\run.json"
+    },
+    {
+      "id": "band_masked_ssl_seed7_h96_reviewed",
+      "method": "masked_ssl",
+      "kind": "ssl",
+      "entrypoint": "tools/execute_native_band_job.py",
+      "args": [
+        "--kind",
+        "ssl",
+        "--config",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_band_execution_v1\\native_band_masked_ssl_screen_v1.json",
+        "--review",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-masked-ssl-prefit-review-final.json",
+        "--output",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_masked_ssl_seed7_h96_reviewed",
+        "--receipt",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-masked-ssl-attempt-01"
+      ],
+      "review_sha256": "8f0e144ed5f5d0a3a3293bfd44c8173958b69503810e2723e71f4520dacaf2d3",
+      "report": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_masked_ssl_seed7_h96_reviewed\\run.json"
+    },
+    {
+      "id": "band_permuted_ssl_seed7_h96_reviewed",
+      "method": "permuted_ssl",
+      "kind": "ssl",
+      "entrypoint": "tools/execute_native_band_job.py",
+      "args": [
+        "--kind",
+        "ssl",
+        "--config",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_band_execution_v1\\native_band_permuted_ssl_screen_v1.json",
+        "--review",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-permuted-ssl-prefit-review-final.json",
+        "--output",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_permuted_ssl_seed7_h96_reviewed",
+        "--receipt",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-permuted-ssl-attempt-01"
+      ],
+      "review_sha256": "e23538b61282606bc561b77a4c2e09b0d955e5ddb19683cf0f946a58728f0eeb",
+      "report": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_permuted_ssl_seed7_h96_reviewed\\run.json"
+    },
+    {
+      "id": "band_random_frozen_seed7_h96_reviewed",
+      "method": "random_frozen",
+      "kind": "ssl",
+      "entrypoint": "tools/execute_native_band_job.py",
+      "args": [
+        "--kind",
+        "ssl",
+        "--config",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_band_execution_v1\\native_band_random_frozen_screen_v1.json",
+        "--review",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-random-frozen-prefit-review-final.json",
+        "--output",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_random_frozen_seed7_h96_reviewed",
+        "--receipt",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-random-frozen-attempt-01"
+      ],
+      "review_sha256": "d745fd07dedeb1fd7e56887d9c16ce45ed2b83def7e1165d2551a56ae3e3d163",
+      "report": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_random_frozen_seed7_h96_reviewed\\run.json"
+    },
+    {
+      "id": "band_direct_end_to_end_seed7_h96_reviewed",
+      "method": "direct",
+      "kind": "downstream",
+      "entrypoint": "tools/execute_native_band_job.py",
+      "args": [
+        "--kind",
+        "downstream",
+        "--config",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_band_execution_v1\\native_band_direct_end_to_end_v1.json",
+        "--review",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-direct-end-to-end-prefit-review-final.json",
+        "--output",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_direct_end_to_end_seed7_h96_reviewed",
+        "--receipt",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-direct-end-to-end-attempt-01"
+      ],
+      "review_sha256": "02ae76c017b2d5ab92af513d085dd08f7d31b73362e2d20cfd35daa64e144fa2",
+      "report": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_direct_end_to_end_seed7_h96_reviewed\\run.json"
+    }
+  ],
+  "recipe_count_including_original": 11,
+  "band_full_owned_gpu_limit_hours": 12,
+  "aggregate_full_owned_gpu_limit_hours": 96,
+  "approval_extraction_sha256": "7615e8edaca437b346bd1cb437bc0acae1badc07b8b7d3dcc2d4b32a243074a6",
+  "app_release_work": "FROZEN",
+  "final_numeric_access": "NOT_AUTHORIZED"
+}

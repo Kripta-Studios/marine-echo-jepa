@@ -1,0 +1,253 @@
+{
+  "kind": "native_latent_builder_handoff_v1",
+  "status": "IMPLEMENTATION_CLOSED_AWAITING_ROOT_INTEGRATION_REAL_REPLAY_AND_DISTINCT_REVIEW",
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "implementer_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "authored_sha256": {
+    "src/marine_echo/inference/native_latent.py": "cfdbc430d9e9a57c6b815492254119fe0682d728b1e89d2c5e5ec97ed7c14822",
+    "tests/unit/test_native_latent.py": "09543753f52810ecae17cf4d7d5a9babce1a117cd5510c633861b77a7110c3a8",
+    "tests/integration/test_native_latent.py": "a5c16aa378d98563f5b2707df6533fb47e91ee030120fdf513588530efc9fcfc"
+  },
+  "support_and_evidence_sha256": {
+    "evidence/ssl-latent-builder-v1/source-proof-final-v1.json": "652b992f50ff946b69e1a28cc8c871e7b1162dbc26e1eb255cb005160c9dd3d8",
+    "evidence/ssl-latent-builder-v1/NATIVE_LATENT_IMPLEMENTATION_V1.md": "499d857ebbb75b09840669c46059e57bfedfcba62a586bbe7b7a41864f001624",
+    "evidence/ssl-latent-builder-v1/test_support.py": "404100f0190b9c8921b8c74514f4d57ddaec91e4ca492a4e268e0833ddcb2170",
+    "evidence/ssl-latent-builder-v1/source_probe.py": "fe0a1cc479b77fda63e382315350fbf185590dec857a00a4d9fa9c6c2f64315d",
+    "evidence/ssl-latent-builder-v1/verify_delivery.py": "289865d942a46b042088add8d1eae3d8a53c78e7f3bd8048156b825ec6233294",
+    "evidence/ssl-latent-builder-v1/green-final-v1.log": "c0d054db037e94ca843784790b166938ab098a31f0aef539fb57850d323b5f5b",
+    "evidence/ssl-latent-builder-v1/proof-lint-final-v1.log": "ff6a15b37844dea8953723081a5f2d032106beb679ed10ac938a9cfbf28e6e6c"
+  },
+  "protected_main_sha256": {
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\pyproject.toml": "2fd75de20d002f718bd1c621e0692671f7b3e59314f6890a15c5b6d8d4d5d64b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\__init__.py": "3fcc1878588f5a89775363e099fab7d7323acebccae26d10db4a6da627425b68",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\native_ssl_corpus.py": "ebda9d460fa14df749b8f774bcb02a6622f0d69402443098a6100670a4c8f7ba",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_acoustic.py": "ed7f50ebebcb630ce484a6eeeefdc3e51343ba42d0ea79c04fa733cbbc59a213",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_band_acoustic.py": "6181baf22b75be73767f4b76370c65bfc37fdeb189da3deabcabe8a7c2dcd1bf",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_encoder.py": "6cc07a15ea93427d6628f1b317945f6e38ff3008894a31cab2173c0b666c0f7f",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\__init__.py": "5bdc97a6119b2dd3d519df36406c8bcb9e801be81c8b6c3f44e4a527db1f87a3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_band_temporal.py": "1550bb3f130e3981f57b46031e39d0d42ce7dac4738aea9280362210dfaca96b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_temporal.py": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\sigreg.py": "2cf5dc8e6fc610fbe167339a8750f5e2d9ddf9a48f416717b8310500536469a3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\__init__.py": "c98c60178f566d43dd60641704ccd9c652d406487b4838cbf5a9df49ea5dd735",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\aeon_corpus.py": "398e021a5807ab8068ceef03dd692f3b688c744751cd4e65d3efbee94d9a3efd",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_downstream.py": "95becf2cd01a7ab07c67a4da8d26c8e8bf58297f56513a439b0ab2b2be776619",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_ssl.py": "ca33bf3141ea17c5adb3d0a4cd2ed0d186be8efb846a5b581003f2088a105e4f",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_resources.py": "c9ca3fbd0759ae00824774ed61a08185361234430d5ed63f09fa3885545c7c38",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_ssl.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\uv.lock": "980c87913ed3dd0c28692a0c9e6d4b297d7994092fce6a1763d833f80699aa9a"
+  },
+  "actual_imports": {
+    "native_encoder": {
+      "path": "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_encoder.py",
+      "sha256": "6cc07a15ea93427d6628f1b317945f6e38ff3008894a31cab2173c0b666c0f7f"
+    },
+    "input_validator": {
+      "path": "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_encoder.py",
+      "sha256": "6cc07a15ea93427d6628f1b317945f6e38ff3008894a31cab2173c0b666c0f7f"
+    },
+    "scaler_validator": {
+      "path": "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_encoder.py",
+      "sha256": "6cc07a15ea93427d6628f1b317945f6e38ff3008894a31cab2173c0b666c0f7f"
+    },
+    "query_validator": {
+      "path": "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_band_acoustic.py",
+      "sha256": "6181baf22b75be73767f4b76370c65bfc37fdeb189da3deabcabe8a7c2dcd1bf"
+    },
+    "state_validator": {
+      "path": "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_band_acoustic.py",
+      "sha256": "6181baf22b75be73767f4b76370c65bfc37fdeb189da3deabcabe8a7c2dcd1bf"
+    },
+    "NativeTemporalModel": {
+      "path": "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_temporal.py",
+      "sha256": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32"
+    },
+    "NativeBandTemporalModel": {
+      "path": "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_band_temporal.py",
+      "sha256": "1550bb3f130e3981f57b46031e39d0d42ce7dac4738aea9280362210dfaca96b"
+    },
+    "CFTemporalEncoder": {
+      "path": "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_temporal.py",
+      "sha256": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32"
+    },
+    "QueryHead": {
+      "path": "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_temporal.py",
+      "sha256": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32"
+    },
+    "Config": {
+      "path": "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_ssl.py",
+      "sha256": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744"
+    },
+    "BandConfig": {
+      "path": "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_ssl.py",
+      "sha256": "ca33bf3141ea17c5adb3d0a4cd2ed0d186be8efb846a5b581003f2088a105e4f"
+    }
+  },
+  "protected_sources_unchanged": true,
+  "closed_band_execution_unchanged": true,
+  "allowed_writes": [
+    "src/marine_echo/inference/native_latent.py",
+    "tests/unit/test_native_latent.py",
+    "tests/integration/test_native_latent.py",
+    "evidence/ssl-latent-builder-v1/**"
+  ],
+  "api": {
+    "class": "marine_echo.inference.native_latent.NativeLatentPredictor",
+    "constructor": "NativeLatentPredictor(weights, device='cpu')",
+    "devices": [
+      "cpu",
+      "cuda:0"
+    ],
+    "accepted_kinds": [
+      "native_ssl_weights_only_inference_v1",
+      "native_band_ssl_weights_only_inference_v1"
+    ],
+    "band_architecture": "nonlinear_frequency_conditioned_v1",
+    "legacy_architecture_field": "Absent in actual original schema; band architecture is never reinterpreted.",
+    "load": "torch.load(weights_only=True,map_location='cpu')",
+    "construction": "Float32 meta templates; strict assign, complete finite CPU state validation; CF layout skips stochastic training constructor.",
+    "encode": {
+      "signature": "encode(x,observed,metadata)",
+      "shape": "[N,D] float32",
+      "branch": "Selected shared/band encoder or CF selected EMA pooled features",
+      "labels": {
+        "shared_ssl": "ssl_pretrained",
+        "permuted_ssl": "permuted_pairing_ssl_control",
+        "cf_jepa": "ssl_pretrained",
+        "masked_ssl": "ssl_pretrained with untrained forward head",
+        "random_frozen": "untrained_control",
+        "direct": "supervised_feature_encoder with untrained forward head"
+      }
+    },
+    "predict_latents": {
+      "signature": "predict_latents(x,observed,metadata,query)",
+      "allowed_methods": [
+        "shared_ssl",
+        "permuted_ssl"
+      ],
+      "shape": "[N,3,D] float32",
+      "branch": "Selected shared encoder followed by saved trained QueryHead",
+      "source_offsets": [
+        1,
+        3,
+        6
+      ],
+      "target_block_length": 4,
+      "target_blocks_overlap": true,
+      "units": "Latent coordinates; not acoustic dB or profiles/biology",
+      "untrained_head_methods_rejected": [
+        "masked_ssl",
+        "random_frozen",
+        "direct"
+      ],
+      "cf_rejection": "Ordinal future-zone objective requires predict_cf_zones; no queried native-offset forecast equivalence.",
+      "required_selected_pretrain_step": "Positive existing inference checkpoint field bounded by saved pretrain_updates."
+    },
+    "predict_cf_zones": {
+      "signature": "predict_cf_zones(x,observed,metadata)",
+      "allowed_methods": [
+        "cf_jepa"
+      ],
+      "shape": "[N,96,3,D] float32",
+      "axes": [
+        "sample",
+        "context_token",
+        "ordinal_zone",
+        "latent"
+      ],
+      "branch": "Saved ONLINE sequence plus saved three linear predictors",
+      "teacher_branch": "Saved EMA encoder, separately used by encode",
+      "normalization": "Returns raw linear coordinates; training loss normalized directions.",
+      "semantics": "Ordinal future zones, not fixed1/3/6 horizons or acoustic forecasts",
+      "input_support": "Full issued H96 outside sampled forward training crop-view distribution; explicitly disclosed."
+    },
+    "inputs": "Raw-dB x[N,96,4], Boolean observed of same shape, complete finite native metadata[N,4,10]; shared issued query[N,3,10].",
+    "native_contract": "Primary38kHz complete; channel38/125/200/455kHz order; nominal60min; integrated actual bounds preserved including0–230m; context offset0; query1/3/6 matches primary fields.",
+    "scalers": "Saved complete TRAIN channel/target state validated; only channels used; no fit or new-site normalization.",
+    "batch_limit": 64,
+    "metadata": "Deep-copy config/scalers/bindings/objective/branch metadata; absolute ancestral paths never opened/imported/hashed/executed.",
+    "unsupported": [
+      "Selected-encoder/resume/optimizer/unknown/downstream kinds or payloads",
+      "Supervised ancestry/downstream config even with SSL inference kind",
+      "Acoustic forecast/readout API",
+      "Training/objective/rollout/adaptation",
+      "History24 for this interface"
+    ]
+  },
+  "checks": [
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_latent.py -k cf_uses_online",
+      "exit_code": 1,
+      "failed": 1,
+      "deselected": 70,
+      "elapsed_seconds": 19.59,
+      "evidence": "evidence/ssl-latent-builder-v1/red-cf-branch-v1.log",
+      "meaning": "EMA/predictor mixing failed against actual divergent saved ONLINE sequence objective."
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_latent.py tests/integration/test_native_latent.py",
+      "exit_code": 0,
+      "passed": 81,
+      "elapsed_seconds": 38.8,
+      "evidence": "evidence/ssl-latent-builder-v1/green-initial-v1.log"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_latent.py tests/integration/test_native_latent.py",
+      "exit_code": 0,
+      "passed": 89,
+      "elapsed_seconds": 41.77,
+      "evidence": "evidence/ssl-latent-builder-v1/green-final-v1.log",
+      "final_frozen_bytes": true
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff check --no-cache src/marine_echo/inference/native_latent.py tests/unit/test_native_latent.py tests/integration/test_native_latent.py evidence/ssl-latent-builder-v1/test_support.py evidence/ssl-latent-builder-v1/source_probe.py evidence/ssl-latent-builder-v1/verify_delivery.py",
+      "exit_code": 0,
+      "evidence": "evidence/ssl-latent-builder-v1/proof-lint-final-v1.log"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff format --check --no-cache src/marine_echo/inference/native_latent.py tests/unit/test_native_latent.py tests/integration/test_native_latent.py evidence/ssl-latent-builder-v1/test_support.py evidence/ssl-latent-builder-v1/source_probe.py evidence/ssl-latent-builder-v1/verify_delivery.py",
+      "exit_code": 0,
+      "files_already_formatted": 6,
+      "evidence": "evidence/ssl-latent-builder-v1/proof-lint-final-v1.log"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B evidence/ssl-latent-builder-v1/verify_delivery.py",
+      "exit_code": 0,
+      "protected_main_files": 17,
+      "after_final_tests": true,
+      "evidence": "evidence/ssl-latent-builder-v1/source-proof-final-v1.json"
+    }
+  ],
+  "verification_scope": {
+    "executed_by": "BUILDER",
+    "cpu_only": true,
+    "torch_codecs": "Actual torch.save/load in-memory ZIP; unsafe pickle global refused by real weights-only decoder.",
+    "inference_equivalence": "Original/shared/band QueryHead, CF ONLINE zone sequence and SELECTED EMA encoder.",
+    "frozen_state": "Exact before/after parameters and BN/regularizer buffers; no gradients/state changes.",
+    "side_effect_guards": "No RNG consumption/reset, Config fit policy, optimizer, cache/compile or global dtype change; inaccessible ancestor Path reads forbidden.",
+    "synthetic_production_schema": "Two full-size zero-tensor codec fixtures; REAL-shaped identity fields are only synthetic schema fixtures, no scientific evidence."
+  },
+  "not_run": {
+    "root_integration": "NOT_RUN",
+    "root_durable_checkpoint_codec_and_relocation": "NOT_RUN",
+    "actual_trained_public_checkpoint_replay": "NOT_RUN",
+    "public_arrays_and_selected_tensors": "NOT_RUN",
+    "gpu_execution": "NOT_RUN",
+    "scientific_fit": "NOT_RUN",
+    "independent_review": "NOT_RUN",
+    "packaging_or_release": "NOT_RUN",
+    "git_index": "NOT_RUN"
+  },
+  "root_next_steps": [
+    "Integrate three exact authored files plus test/evidence support; verify copied byte hashes and actual root import closure.",
+    "Execute the documented synthetic CPU pytest/Ruff checks with the existing environment and no caches/installations.",
+    "Root alone performs durable/actual trained checkpoint forward replay and any permitted CUDA inference checks.",
+    "Obtain distinct exact inference/package review before packaging; no approval is supplied by this implementation."
+  ],
+  "root_test_command": ".venv\\Scripts\\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_latent.py tests/integration/test_native_latent.py",
+  "report_path": "evidence/ssl-latent-builder-v1/NATIVE_LATENT_IMPLEMENTATION_V1.md",
+  "source_proof_path": "evidence/ssl-latent-builder-v1/source-proof-final-v1.json",
+  "scientific_approval": false,
+  "self_review": false,
+  "commit": "NOT_RUN_NO_GIT_INDEX_OPERATION",
+  "denied_operation_retries": false
+}

@@ -1,0 +1,9 @@
+SYNTHETIC_CORRECTNESS_ONLY; actual CPU / real Torch in-memory ZIP codecs.
+Command:
+..\marine-echo-jepa\.venv\Scripts\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_latent.py tests/integration/test_native_latent.py
+Actual exit: 0
+........................................................................ [ 88%]
+.........                                                                [100%]
+81 passed in 38.80s
+This precedes the final style refactor and eight additional semantic/safety checks.
+No optimizer, public tensor/data loading, fitting or GPU operation occurred.

@@ -1,0 +1,15 @@
+SYNTHETIC_CORRECTNESS_ONLY; actual CPU/in-memory fixture, no public tensors or scores.
+Shell: cmd.exe, login=false, existing environment; cacheprovider disabled, python -B.
+Command:
+..\marine-echo-jepa\.venv\Scripts\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_latent.py -k cf_uses_online
+Actual exit: 1
+Actual result: 1 failed, 70 deselected in 19.59s
+
+FAILED test_cf_uses_online_sequence_and_selected_ema_separately
+Failure: np.testing.assert_allclose(adapter.predict_cf_zones(*arrays[:3]), expected, atol=2e-6, rtol=2e-6)
+Mismatched elements: 5184 / 5184 (100%)
+Max absolute difference: 1.1433086
+The fixture separately serialized divergent online/EMA parameters and BN buffers.
+The initial zone path used self._model.encoder.sequence; expected was actual model.online.sequence followed by its original three predictors.
+Correction changes that zone path to self._model.online.sequence; encode remains selected EMA.
+This is failing implementation evidence, not a scientific comparison.

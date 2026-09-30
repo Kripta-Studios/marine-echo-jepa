@@ -1,0 +1,34 @@
+{
+  "status": "FIVE_EXACT_BAND_SCREEN_APPROVALS_VERIFIED_AND_EXTRACTED",
+  "parent_review_sha256": "c582fd24c0bdf739aea21d75ea334f7773d7177f649d7797c9af4d2c6061206b",
+  "scientific_fields_unchanged": true,
+  "derived": {
+    "shared_ssl": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-shared-ssl-prefit-review-final.json",
+      "sha256": "8a0069ac0bd4eac20934d39078a03357108d80f915654f2832cdd42e32f1addf",
+      "binding_count": 39
+    },
+    "masked_ssl": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-masked-ssl-prefit-review-final.json",
+      "sha256": "8f0e144ed5f5d0a3a3293bfd44c8173958b69503810e2723e71f4520dacaf2d3",
+      "binding_count": 39
+    },
+    "permuted_ssl": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-permuted-ssl-prefit-review-final.json",
+      "sha256": "e23538b61282606bc561b77a4c2e09b0d955e5ddb19683cf0f946a58728f0eeb",
+      "binding_count": 39
+    },
+    "random_frozen": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-random-frozen-prefit-review-final.json",
+      "sha256": "d745fd07dedeb1fd7e56887d9c16ce45ed2b83def7e1165d2551a56ae3e3d163",
+      "binding_count": 39
+    },
+    "direct": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-direct-end-to-end-prefit-review-final.json",
+      "sha256": "02ae76c017b2d5ab92af513d085dd08f7d31b73362e2d20cfd35daa64e144fa2",
+      "binding_count": 39
+    }
+  },
+  "training_execution": "NOT_RUN",
+  "final_numeric_access": "NOT_AUTHORIZED"
+}

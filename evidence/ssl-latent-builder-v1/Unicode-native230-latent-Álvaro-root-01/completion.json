@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "native_lower_m": 230,
+  "device": "cpu",
+  "fitting": false,
+  "public_data_access": false,
+  "records": [
+    {
+      "method": "shared_ssl",
+      "band": false,
+      "artifact_sha256": "d749ad2b38248fb3aa978a4d2471c5afd998f91576fcdfc3a70f4420ca74e12c",
+      "encoding_shape": [
+        3,
+        4
+      ],
+      "prediction_shape": [
+        3,
+        3,
+        4
+      ],
+      "replay": "CPU_BITIDENTICAL"
+    },
+    {
+      "method": "cf_jepa",
+      "band": false,
+      "artifact_sha256": "8aa87fc6bd3c8b6f88639b592d5dae46ab892ca0a28a4f92118acfa9eef8f743",
+      "encoding_shape": [
+        3,
+        6
+      ],
+      "prediction_shape": [
+        3,
+        96,
+        3,
+        6
+      ],
+      "replay": "CPU_BITIDENTICAL"
+    },
+    {
+      "method": "shared_ssl",
+      "band": true,
+      "artifact_sha256": "da28a9bfa28cd27da425022016d1aea935527ab69c94157577e2919bfb2ca0d4",
+      "encoding_shape": [
+        3,
+        4
+      ],
+      "prediction_shape": [
+        3,
+        3,
+        4
+      ],
+      "replay": "CPU_BITIDENTICAL"
+    }
+  ]
+}
