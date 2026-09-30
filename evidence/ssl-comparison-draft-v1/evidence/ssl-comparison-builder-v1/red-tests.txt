@@ -1,0 +1,16 @@
+
+=================================== ERRORS ====================================
+____________ ERROR collecting tests/unit/test_native_comparison.py ____________
+tests\unit\test_native_comparison.py:26: in <module>
+    spec.loader.exec_module(api)
+<frozen importlib._bootstrap_external>:995: in exec_module
+    ???
+<frozen importlib._bootstrap_external>:1132: in get_code
+    ???
+<frozen importlib._bootstrap_external>:1190: in get_data
+    ???
+E   FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\evaluation\\native_comparison.py'
+=========================== short test summary info ===========================
+ERROR tests/unit/test_native_comparison.py - FileNotFoundError: [Errno 2] No ...
+!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 2.28s

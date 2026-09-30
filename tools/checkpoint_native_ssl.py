@@ -69,8 +69,14 @@ and owned-tree termination. The bounded platform builder delivered equivalent
 pooling and Python UTF-8 booster serialization. Parent127 CPU checks and34 core
 regression checks passed; actual deterministic CUDA backward replay passed with
 zero optimizer updates. Distinct neural reviewV3 approved the remaining five
-screens and all104 exact bindings passed. The CF retry is running through the
-bound indexed-device wrapper and owned-tree supervisor in a new output directory.
+screens and all104 exact bindings passed. The CF retry completed exit0 through
+the bound indexed-device wrapper and owned-tree supervisor:6000 SSL updates and
+2000 frozen-probe updates, selected encoder step1500 at0.745726589903934 daily
+development pinball. Device-owned elapsed4727.313seconds; full attempt4743.094
+seconds charged. Peak allocated1,075,154,432/reserved1,235,222,528bytes; conservative
+owned-tree peak RSS5,275,938,816bytes. Actual128-dimensional encoder features replay
+bit-identically on64 DEV prefixes through the encoder-only CPU API; forecast
+replay maximum absolute CPU/CUDA difference0.000106812dB passes the fixed tolerances.
 Comparator renewalV3 approved LightGBM and local Chronos2, with130 exact bindings
 verified. Separate downstream prefit approved the actual shared encoder's fresh
 2000-update frozen readout and3000-update full fine-tuning, plus a matched
@@ -78,9 +84,14 @@ verified. Separate downstream prefit approved the actual shared encoder's fresh
 strong endpoint fits remain NOT_RUN while CF owns the scientific process.
 The new encoder-only API passed81 parent CPU checks and reproduced the actual
 shared pretrained features bit-identically on64 real development prefixes using
-only context values, masks and native metadata; a separate inference review is
-running. CF's second candidate completed3000 SSL updates and its second500-update
-probe, with interim best still step1500 at0.745726589903934 development pinball.
+only context values, masks and native metadata. Separate inference review passed
+all81 synthetic CPU checks and approved this interface; all57 exact bindings
+were verified. Nine already reviewed comparisons/endpoints are frozen in the
+serial queue; required wrappers recheck every approval/ownership/resource binding
+at launch and stop the queue on failure. Additional control/CF downstream configs
+are frozen before their fits but still require exact completed-parent reviews.
+The unexecuted comparison draft is preserved; its coordinator recipe error is
+being corrected to ADR0015's48-hour nominal source-calendar blocks/seed20260929.
 Actual primary, builder
 and reviewer runtime is GPT-6.1 Sol/high in three distinct sessions. Builder
 scratch/Git denials are retained; no restricted path or denied junction action

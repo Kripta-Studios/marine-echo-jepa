@@ -1,0 +1,44 @@
+{
+  "status": "PASSED_ACTUAL_CONTEXT_ONLY_CPU_REPLAY",
+  "run": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed7_h96_deterministic",
+  "run_sha256": "0c0865b9c8d605a6a5e8e57870d9e32168a3ac22152acd200a06fc88550fab62",
+  "artifact_sha256": {
+    "inference": "d6eef2c06807843848c029a0655ddb8b2694d9f1802141daace0c8c41a1812cc",
+    "selected_encoder": "2f34c61a4e0d7937a56b97ec1a51ea5f50d45802ec0eff31057fa243e55d386a"
+  },
+  "selected_encoder_hash_in_run_report": null,
+  "method": "cf_jepa",
+  "mode": "screen",
+  "development_prefixes": 64,
+  "forecast_input_keys": [
+    "metadata",
+    "observed",
+    "query",
+    "x"
+  ],
+  "target_or_future_acoustic_inputs": [],
+  "embedding_shape": [
+    64,
+    128
+  ],
+  "encoder_only_replay": {
+    "status": "BIT_IDENTICAL",
+    "input_keys": [
+      "x",
+      "observed",
+      "metadata"
+    ],
+    "training_kind": "ssl_pretrained",
+    "maximum_absolute_error": 0.0
+  },
+  "maximum_absolute_forecast_replay_error_db": 0.0001068115234375,
+  "native_bounds_m": [
+    [
+      0.0,
+      225.0
+    ]
+  ],
+  "optimizer_updates": 0,
+  "test_access": "NOT_RUN",
+  "representation_transfer_advantage": "NOT_ESTABLISHED"
+}

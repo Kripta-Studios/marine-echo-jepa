@@ -1,0 +1,102 @@
+..................................................FF......
+================================== FAILURES ===================================
+__ test_identity_and_source_gate_adversaries_before_numeric_load[case_self] ___
+
+case = (<test_native_comparison.MemoryArtifacts object at 0x0000018E3D2F1610>, WindowsPath('C:/Users/Álvaro Schwiedop/Desktop...reviewer_session_id': '01A0EF20-7397-7BA1-A98C-F59BC38DDCC1', 'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', ...}, ...)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000018E3D2F19D0>
+change = 'case_self'
+
+    @pytest.mark.parametrize("change", ["case_self", "padded_self", "missing_coordinator", "missing_builder_source", "empty_bindings", "unknown_role"])
+    def test_identity_and_source_gate_adversaries_before_numeric_load(case, monkeypatch, change):
+        fs, _, review_path, _, manifest, review, _, a, b, refresh = case
+        if change == "case_self":
+            review["reviewer_session_id"] = api.IMPLEMENTER_SESSION_ID.upper()
+        elif change == "padded_self":
+            review["reviewer_session_id"] = " " + api.IMPLEMENTER_SESSION_ID + " "
+        elif change == "missing_coordinator":
+            del manifest["root_coordinator_session_id"]
+            refresh(a, b)
+        elif change == "missing_builder_source":
+            del review["bindings"][str(Path(api.__file__).resolve())]
+        elif change == "empty_bindings":
+            review["bindings"] = {}
+        else:
+            manifest["role"] = "test"
+            refresh(a, b)
+        fs.put_json(review_path, review)
+        monkeypatch.setattr(np, "load", lambda *a, **k: pytest.fail("Rejected identity/source reached numeric loading."))
+        with pytest.raises(ValueError):
+>           run(case)
+
+tests\unit\test_native_comparison.py:448: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\unit\test_native_comparison.py:146: in run
+    result = api.compare_saved_predictions(manifest, review, output)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\evaluation\native_comparison.py:327: in compare_saved_predictions
+    loaded = {name: _load(snapshots[paths[name]], manifest["role"], manifest["evidence_kind"]) for name in names}
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\evaluation\native_comparison.py:147: in _load
+    with np.load(io.BytesIO(payload), allow_pickle=False) as saved:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+a = (<_io.BytesIO object at 0x0000018E0F1E6DE0>,), k = {'allow_pickle': False}
+
+>   monkeypatch.setattr(np, "load", lambda *a, **k: pytest.fail("Rejected identity/source reached numeric loading."))
+                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: Rejected identity/source reached numeric loading.
+
+tests\unit\test_native_comparison.py:446: Failed
+_ test_identity_and_source_gate_adversaries_before_numeric_load[padded_self] __
+
+case = (<test_native_comparison.MemoryArtifacts object at 0x0000018E3D41F530>, WindowsPath('C:/Users/Álvaro Schwiedop/Desktop...viewer_session_id': ' 01a0ef20-7397-7ba1-a98c-f59bc38ddcc1 ', 'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', ...}, ...)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000018E3D41E030>
+change = 'padded_self'
+
+    @pytest.mark.parametrize("change", ["case_self", "padded_self", "missing_coordinator", "missing_builder_source", "empty_bindings", "unknown_role"])
+    def test_identity_and_source_gate_adversaries_before_numeric_load(case, monkeypatch, change):
+        fs, _, review_path, _, manifest, review, _, a, b, refresh = case
+        if change == "case_self":
+            review["reviewer_session_id"] = api.IMPLEMENTER_SESSION_ID.upper()
+        elif change == "padded_self":
+            review["reviewer_session_id"] = " " + api.IMPLEMENTER_SESSION_ID + " "
+        elif change == "missing_coordinator":
+            del manifest["root_coordinator_session_id"]
+            refresh(a, b)
+        elif change == "missing_builder_source":
+            del review["bindings"][str(Path(api.__file__).resolve())]
+        elif change == "empty_bindings":
+            review["bindings"] = {}
+        else:
+            manifest["role"] = "test"
+            refresh(a, b)
+        fs.put_json(review_path, review)
+        monkeypatch.setattr(np, "load", lambda *a, **k: pytest.fail("Rejected identity/source reached numeric loading."))
+        with pytest.raises(ValueError):
+>           run(case)
+
+tests\unit\test_native_comparison.py:448: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\unit\test_native_comparison.py:146: in run
+    result = api.compare_saved_predictions(manifest, review, output)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\evaluation\native_comparison.py:327: in compare_saved_predictions
+    loaded = {name: _load(snapshots[paths[name]], manifest["role"], manifest["evidence_kind"]) for name in names}
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\evaluation\native_comparison.py:147: in _load
+    with np.load(io.BytesIO(payload), allow_pickle=False) as saved:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+a = (<_io.BytesIO object at 0x0000018E3D258270>,), k = {'allow_pickle': False}
+
+>   monkeypatch.setattr(np, "load", lambda *a, **k: pytest.fail("Rejected identity/source reached numeric loading."))
+                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: Rejected identity/source reached numeric loading.
+
+tests\unit\test_native_comparison.py:446: Failed
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_comparison.py::test_identity_and_source_gate_adversaries_before_numeric_load[case_self]
+FAILED tests/unit/test_native_comparison.py::test_identity_and_source_gate_adversaries_before_numeric_load[padded_self]
+2 failed, 56 passed in 22.91s
