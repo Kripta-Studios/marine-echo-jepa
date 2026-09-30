@@ -1,0 +1,9 @@
+{
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "command": "../marine-echo-jepa/.venv/Scripts/python.exe -B -m pytest tests/unit/test_native_prefix_transfer.py tests/integration/test_native_prefix_transfer.py --import-mode=importlib -p no:cacheprovider -q",
+  "chunk_id": "f9424b",
+  "wall_time_seconds": 0.0000134,
+  "exit_code": 0,
+  "original_token_count": 61,
+  "output": "......................... [ 60%]\r\n....................................................sss.....ssssss...... [ 91%]\r\n.........ss..........                                                    [100%]\r\n226 passed, 11 skipped in 297.19s (0:04:57)\r\n"
+}

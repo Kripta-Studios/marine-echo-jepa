@@ -1,0 +1,160 @@
+{
+  "kind": "native_replication_assessment_prefix_builder_handoff_v4",
+  "status": "ENGINEERING_DELIVERY_CLOSED_NOT_INDEPENDENTLY_REVIEWED",
+  "implementer_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "authored": {
+    "src/marine_echo/training/native_prefix_transfer.py": "844159d11a1d9a410f7cb7f1a83c782360427e04aae965c19cb94a74d5a28d38",
+    "tests/unit/test_native_prefix_transfer.py": "676009597d42123d501c439c56f90aa7ebc95e548060a60ed8fc5471dfdca495",
+    "tests/integration/test_native_prefix_transfer.py": "765ae56494a56f8da0a738b748f3106e123d5d7ea31041e5b7cb1642cb9d2886",
+    "src/marine_echo/evaluation/native_assessment_replication.py": "f8c7e9272c9ecbbb68d60695e9e4e92494f42ca9420989500b7c3f409778c9ef",
+    "tools/execute_bounded_native_replication_assessment.py": "d431c5ec642821c8906a2b8c09d45ffb6ce9d4a52d8e4fdb5138b7778b5161da",
+    "tools/execute_native_replication_assessment_worker.py": "802168ec645a82ec322cefbea430e2bffcf3707b254e038efca19c5b037379e4",
+    "tests/unit/test_native_replication_assessment.py": "c1003e232c99fb8da99b66418594e5786bf31608ea5f20469b039c0d3a874fdd",
+    "tests/integration/test_native_replication_assessment.py": "482cbc1b76a9eec9f4527b9b7c0ec11f73184480e99503210f470c7c89e867d4"
+  },
+  "evidence": {
+    "assessment-full-before-fixture-correction-v4.json": "4badd77df43abaab0ae8cfa19d08f8619b2777683d6fa1088252f12aa81e54a3",
+    "authored-closed-snapshots-v4.json": "d2ade7cc2975a8e63b050308e75c1a250bef5aecbcc8e7a762ae231459b580bf",
+    "authored-final-snapshots-v4.json": "ba76e05f6e120a0405486e2b6a16120d8c73305a021f640b1cb3d795f36d13cd",
+    "baseline-dependencies-v4.json": "918f6c61ca15e87337092c30d9d73bad13e639943f8826c964fd151a1d53ed34",
+    "baseline-prefix-v4.json": "f7a31c8025af106cfffa05de932e3870eb4f07bb6f55b8eb52e2db85f1538e05",
+    "development-intermediate-checks-v4.json": "d59840a7cbf19af81e32baf61bef2e96ec62cbfc5dc50dfcc7130718e5b27010",
+    "executed-checks-closed-v4.json": "d7b11fe2d9ce3625ba0f5e59d2d9e3b98bfe9132224d42dbc4520663e194c5cd",
+    "green-assessment-mixed-v4.json": "2c2b705e793877f149935fdb7a2cf8e971cefb8b12b4a82273ac60f01b64f74c",
+    "green-prefix-full-v4.json": "c5505de82526853eea5da187d12cdb35588147312afe0805111957b04063c607",
+    "green-resource-focused-v4.json": "a73557e0f57a30669c46ac0dcc0a2106ef2dcfa3b2bc38127132484cb360807f",
+    "green-worker-owned-resource-closed-v4.json": "11d42698eba2ac47afcd1540a7f43b8142ce9e51b0def84b4334c649ddacfb80",
+    "hash_delivery.py": "7393c31a26b412fc7fee88d47928f10663b2f59d249e8a45ff8276cd238afdbb",
+    "inspect_sources.py": "1b4887208f6b8367eadae2af645ebce0108ce021899d665aae8af1c3da9175fa",
+    "integration-closed-v4.patch": "6466e4627b037956a6e04c5b86cecea47871fb48e0cea1fb8df3e54e4994623d",
+    "main-acoustic-observed-change-v4.json": "957926dc1b5dbb54a0a1a2e2d9ca5149f24b815f81da56bf2ac4567246947913",
+    "NATIVE_REPLICATION_ASSESSMENT_PREFIX_IMPLEMENTATION_V4.md": "1725d5fec4f13b6fe16df75de44fe053eb4ae3381bab163d695a60295fcf5adc",
+    "prefix_test_support.py": "3c6a1e915508f373b16a3640acf1a7695e9a62156e11653819508ae7b5cb2cf8",
+    "red-prefix-typed-v4.json": "d5a1f8d27df3a57815e3e5b73696a4baa64ddaca165e033696cb6e5f12a6442e",
+    "red-resource-transport-v4.json": "fa2f7c3fbd79f4686a1152fa7938767c54b47e2567d19d37c8c4f577d5a08849",
+    "resource_test_support.py": "db78bba429988814d39f9d2983825849e23a811c16b31eadbbcc5dfed9b4e31d",
+    "root_owned_lifecycle_check.py": "dad9eb6d85896802b5e004df4392573291d266b483d5085b4e4209b2fe7fb423",
+    "source-proof-closed-v4.json": "a65cb326f9b5e3f0ed6293178b420f11e6fa761e49bb7601847b995900849e88",
+    "source-proof-final-v4.json": "b93b86deabb6d9104615cfb2a37c257cd1aa72572abb52d0d3cb9e39f601ae40",
+    "verify_delivery.py": "9ed98229b7457bb5c0ab0625f26b34708643080193c9468f586e9864a422c923"
+  },
+  "source_closure": {
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\__init__.py": "3fcc1878588f5a89775363e099fab7d7323acebccae26d10db4a6da627425b68",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\__init__.py": "dddaccd3cb0c952e88796d75e7a15966cfab87f98c2cfe8452a5fff4c3138c68",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_assessment.py": "8dfc5830209153a2079a2158d4f041d01b769e41432082069971650dabd9a42b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_product.py": "fd1c643fde93494a21d560794f886056e58031f1ef6dd41ebe53662750bab314",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_band_acoustic.py": "6181baf22b75be73767f4b76370c65bfc37fdeb189da3deabcabe8a7c2dcd1bf",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_band_replication_acoustic.py": "e689d80077152b4c784966426846bfb154eb4e16a46494f2140129c003288149",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_band_replication_encoder.py": "e21bfc7f724ab4c86296a6b377b478cff017f4de74eaa736a75770b8df16fb07",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_band_replication_latent.py": "7cb0e2b76f77659d19e1b3f42bdf1afc36811772a29cb56ee5ae5d165f23ac07",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_encoder.py": "6cc07a15ea93427d6628f1b317945f6e38ff3008894a31cab2173c0b666c0f7f",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_latent.py": "cfdbc430d9e9a57c6b815492254119fe0682d728b1e89d2c5e5ec97ed7c14822",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\__init__.py": "5bdc97a6119b2dd3d519df36406c8bcb9e801be81c8b6c3f44e4a527db1f87a3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_band_temporal.py": "1550bb3f130e3981f57b46031e39d0d42ce7dac4738aea9280362210dfaca96b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_temporal.py": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\sigreg.py": "2cf5dc8e6fc610fbe167339a8750f5e2d9ddf9a48f416717b8310500536469a3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\__init__.py": "c98c60178f566d43dd60641704ccd9c652d406487b4838cbf5a9df49ea5dd735",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_downstream.py": "95becf2cd01a7ab07c67a4da8d26c8e8bf58297f56513a439b0ab2b2be776619",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_replication_downstream.py": "f5a6747b3a37dcd8856b617a95cd939862ba716a1d7e50fe7ef9090a08d4084d",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_replication_ssl.py": "94c04d2d585c39d49e849f4b86375e201898ae104e8a808341363a2f22518f72",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_ssl.py": "ca33bf3141ea17c5adb3d0a4cd2ed0d186be8efb846a5b581003f2088a105e4f",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_downstream.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_references.py": "0d6583644ab1fce8d87a4194048f2176237b47deb57f0fa8494df6aa9012d584",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_resources.py": "c9ca3fbd0759ae00824774ed61a08185361234430d5ed63f09fa3885545c7c38",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_ssl.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_bounded_native_assessment.py": "5fb5ed948c23eca057473ca57ec4acd61754b1a1fcebec4a09ea601f7fa41b9b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_native_assessment_worker.py": "1e0d7cab6d218c7aa88337be874b312568bae095a20475a9b11ed8bf4a5dfbc0",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_native_band_replication_job.py": "ffbfe9310ee9a1c17e4f784cfcf9d7e221be4658408080621eaff6c8b2104eea",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_native_prefix_job.py": "c663aa8bb88f71fb9ddf79be1c105039195f2cee6eb1ba906232f7bdf76b4e01",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\native_reference_supervisor.py": "ec5456584ca6f6a805e13f4137365c2c0a785b2dbc52782b191c1528befb30dd",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\evaluation\\native_assessment_replication.py": "f8c7e9272c9ecbbb68d60695e9e4e92494f42ca9420989500b7c3f409778c9ef",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\training\\native_prefix_transfer.py": "844159d11a1d9a410f7cb7f1a83c782360427e04aae965c19cb94a74d5a28d38",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\tools\\execute_bounded_native_replication_assessment.py": "d431c5ec642821c8906a2b8c09d45ffb6ce9d4a52d8e4fdb5138b7778b5161da",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\tools\\execute_native_replication_assessment_worker.py": "802168ec645a82ec322cefbea430e2bffcf3707b254e038efca19c5b037379e4"
+  },
+  "baseline": "baseline-prefix-v4.json",
+  "source_proof": "source-proof-closed-v4.json",
+  "snapshots": "authored-closed-snapshots-v4.json",
+  "integration_patch": "integration-closed-v4.patch",
+  "report": "NATIVE_REPLICATION_ASSESSMENT_PREFIX_IMPLEMENTATION_V4.md",
+  "allowed_paths_only": true,
+  "main_written": false,
+  "main_unchanged": {
+    "src/marine_echo/evaluation/native_assessment.py": "8dfc5830209153a2079a2158d4f041d01b769e41432082069971650dabd9a42b",
+    "tools/execute_bounded_native_assessment.py": "5fb5ed948c23eca057473ca57ec4acd61754b1a1fcebec4a09ea601f7fa41b9b",
+    "tools/execute_native_assessment_worker.py": "1e0d7cab6d218c7aa88337be874b312568bae095a20475a9b11ed8bf4a5dfbc0",
+    "tools/execute_native_prefix_job.py": "c663aa8bb88f71fb9ddf79be1c105039195f2cee6eb1ba906232f7bdf76b4e01",
+    "tools/native_reference_supervisor.py": "ec5456584ca6f6a805e13f4137365c2c0a785b2dbc52782b191c1528befb30dd",
+    "src/marine_echo/training/native_band_replication_ssl.py": "94c04d2d585c39d49e849f4b86375e201898ae104e8a808341363a2f22518f72",
+    "src/marine_echo/training/native_band_replication_downstream.py": "f5a6747b3a37dcd8856b617a95cd939862ba716a1d7e50fe7ef9090a08d4084d",
+    "src/marine_echo/inference/native_band_replication_encoder.py": "e21bfc7f724ab4c86296a6b377b478cff017f4de74eaa736a75770b8df16fb07",
+    "src/marine_echo/inference/native_band_replication_latent.py": "7cb0e2b76f77659d19e1b3f42bdf1afc36811772a29cb56ee5ae5d165f23ac07",
+    "tools/execute_native_band_replication_job.py": "ffbfe9310ee9a1c17e4f784cfcf9d7e221be4658408080621eaff6c8b2104eea",
+    "orchestration/native_band_budget_owner_resolution_v1.json": "d13cc7875bba5400cfe0761a371dcf69bb743e4914f9449d288ecaee9b5d15db",
+    "docs/adr/0023-owner-resolved-band-budget.md": "e7dffe900a969f03ceb13254116997041536ab818ab32fe67ff4d6c437b4b67d",
+    "src/marine_echo/training/native_prefix_transfer.py": "448e6a0e3044d457ed9f8d04fb6d07948eceb2240d6e0ed6f96ab5bfc8466181",
+    "tests/unit/test_native_prefix_transfer.py": "9751a823476d6a6d170b0d9705ada3b8c03c3d804f374f7cdddb10e26c56a485",
+    "tests/integration/test_native_prefix_transfer.py": "b6166fc71a8e75de2cece68e1269a521ff7ad49e9de6520df7d71508bfcd0b80"
+  },
+  "main_observed_external_changes": {
+    "src/marine_echo/inference/native_band_replication_acoustic.py": {
+      "baseline_sha256": "3cb348dab3c9235a9cede09cf86082f25faecb0ab1e83c4103135ff2d6ef6224",
+      "current_sha256": "e689d80077152b4c784966426846bfb154eb4e16a46494f2140129c003288149",
+      "builder_write": false,
+      "cause": "UNKNOWN_EXTERNAL_CHANGE",
+      "current_source_text": "\"\"\"Safe target-free inference for the separate nonlinear band family.\n\nFrozen source ancestry is exposed, never opened or executed. Meta constructors\nconsume no CPU RNG and initialize no optimizer, determinism policy or disk cache.\nNative inputs retain their actual sensing geometry; embeddings are not profiles.\n\"\"\"\n\nfrom __future__ import annotations\n\nimport copy\nimport math\nfrom collections.abc import Mapping\nfrom dataclasses import fields\n\nimport numpy as np\nimport torch\n\nfrom marine_echo.inference import native_encoder as legacy\nfrom marine_echo.models.native_band_temporal import (\n    ARCHITECTURE,\n    NativeBandEncoder,\n    NativeBandTemporalModel,\n)\nfrom marine_echo.training.native_band_replication_ssl import METHODS, Config\n\nTRAINING_KINDS = {key: value for key, value in legacy.TRAINING_KINDS.items() if key in METHODS}\nSELECTED_KIND = \"native_band_replication_ssl_selected_encoder_v2\"\nINFERENCE_KIND = \"native_band_replication_ssl_weights_only_inference_v2\"\n\n\ndef _configuration(artifact, device):\n    raw = artifact.get(\"config\")\n    if (\n        artifact.get(\"architecture\") != ARCHITECTURE\n        or not isinstance(raw, dict)\n        or raw.get(\"architecture\") != ARCHITECTURE\n        or raw.get(\"method\") not in METHODS\n    ):\n        raise ValueError(\"Exact band architecture/config required; legacy and CF are unsupported.\")\n    expected = {field.name: field.default for field in fields(Config)}\n    if set(raw) != set(expected):\n        raise ValueError(\"Complete exact saved replication Config required.\")\n    for key, default in expected.items():\n        value = raw[key]\n        if type(default) is int:\n            if type(value) is not int or value < 0:\n                raise ValueError(\"Invalid saved integer configuration.\")\n        elif type(default) is float:\n            if (\n                isinstance(value, bool)\n                or not isinstance(value, (int, float))\n                or not math.isfinite(value)\n            ):\n                raise ValueError(\"Nonfinite or incompatible saved configuration.\")\n        elif not isinstance(value, str) or not value:\n            raise ValueError(\"Invalid saved string configuration.\")\n    if (\n        not 1 <= raw[\"batch_size\"] <= 256\n        or max(raw[\"width\"], raw[\"latent\"]) > 512\n        or max(raw[\"blocks\"], raw[\"heads\"]) > 16\n    ):\n        raise ValueError(\"Saved inference dimensions must remain bounded.\")\n    for key in (\"seed\", \"history\", \"batch_size\", \"width\", \"latent\", \"blocks\", \"heads\"):\n        if type(raw.get(key)) is not int or raw[key] < (0 if key == \"seed\" else 1):\n            raise ValueError(f\"Explicit compatible saved dimension/config required: {key}\")\n    try:\n        config = Config(**raw)\n    except TypeError as error:\n        raise ValueError(\"Incompatible band Config fields.\") from error\n    if config.history != 96 or config.width % config.heads:\n        raise ValueError(\"Band inference requires H96 and valid attention dimensions.\")\n    smoke = artifact.get(\"evidence_kind\") == \"SYNTHETIC_CORRECTNESS_ONLY\"\n    if smoke and (device.type != \"cpu\" or artifact.get(\"correctness_smoke\") is not True):\n        raise ValueError(\"Tiny correctness artifacts require explicit synthetic CPU identity.\")\n    if not smoke and artifact.get(\"evidence_kind\") != \"REAL_TRAIN_DEVELOPMENT_FIT\":\n        raise ValueError(\"Saved band evidence kind is missing or incompatible.\")\n    if config.seed not in (7, 13, 23):\n        raise ValueError(\"Band replication seed must be exactly7/13/23.\")\n    if not smoke and (config.width, config.latent, config.blocks, config.heads) != (\n        192,\n        64,\n        4,\n        4,\n    ):\n        raise ValueError(\"Scientific band dimensions/seed are frozen.\")\n    config.validate(correctness_smoke=smoke)\n    return config\n\n\ndef _check_state(state, expected):\n    if not isinstance(state, Mapping) or set(state) != set(expected):\n        raise ValueError(\"Safe state must contain exactly the required tensors/buffers.\")\n    for key, template in expected.items():\n        value = state[key]\n        if (\n            not isinstance(value, torch.Tensor)\n            or value.layout != torch.strided\n            or value.device.type != \"cpu\"\n            or value.shape != template.shape\n            or value.dtype != template.dtype\n            or not torch.isfinite(value).all()\n        ):\n            raise ValueError(f\"Incompatible or nonfinite safe tensor: {key}\")\n\n\ndef _base(instance, artifact, device):\n    if not isinstance(artifact, Mapping):\n        raise TypeError(\"Expected a safe band artifact mapping.\")\n    allowed = {\n        \"kind\",\n        \"architecture\",\n        \"config\",\n        \"scalers\",\n        \"bindings\",\n        \"encoder\",\n        \"model\",\n        \"evidence_kind\",\n        \"correctness_smoke\",\n        \"selected_pretrain_step\",\n        \"downstream_config\",\n        \"supervised_ancestry\",\n        \"review_sha256\",\n    }\n    if not set(artifact).issubset(allowed):\n        raise ValueError(\"Unknown or unsafe fields in replication inference artifact.\")\n    if \"review_sha256\" in artifact:\n        review_hash = artifact[\"review_sha256\"]\n        if (\n            not isinstance(review_hash, str)\n            or len(review_hash) != 64\n            or any(char not in \"0123456789abcdef\" for char in review_hash)\n        ):\n            raise ValueError(\"Invalid opaque review hash in replication inference artifact.\")\n    if (artifact.get(\"kind\") == INFERENCE_KIND and \"encoder\" in artifact) or (\n        artifact.get(\"kind\") == SELECTED_KIND\n        and (\n            \"model\" in artifact\n            or \"supervised_ancestry\" in artifact\n            or \"downstream_config\" in artifact\n        )\n    ):\n        raise ValueError(\"Artifact contains incompatible branch or supervised state.\")\n    if str(device) not in (\"cpu\", \"cuda:0\"):\n        raise ValueError(\"Device must be explicitly cpu or cuda:0.\")\n    instance.device = torch.device(device)\n    if instance.device.type not in (\"cpu\", \"cuda\"):\n        raise ValueError(\"Only local CPU/CUDA devices are supported.\")\n    instance.config = _configuration(artifact, instance.device)\n    instance.scalers = legacy._scalers(artifact.get(\"scalers\"))\n    instance._bindings = legacy._bindings(artifact.get(\"bindings\"))\n    instance._config_metadata = copy.deepcopy(artifact[\"config\"])\n    instance._scaler_metadata = copy.deepcopy(artifact[\"scalers\"])\n    instance.method = instance.config.method\n    instance.architecture = ARCHITECTURE\n    instance.training_kind = TRAINING_KINDS[instance.method]\n    instance.embedding_dimension = instance.config.latent\n\n\nclass NativeBandAcousticEncoder(legacy.NativeAcousticEncoder):\n    \"\"\"Selected shared-band encoder only; no query, readout, targets or future.\n\n    Separately supervised selected encoders are explicitly unsupported here.\n    Issuance/source-clock association remains the caller's responsibility.\n    \"\"\"\n\n    def __init__(self, weights, device=\"cpu\"):\n        artifact = torch.load(weights, map_location=\"cpu\", weights_only=True)\n        if not isinstance(artifact, Mapping) or artifact.get(\"kind\") != SELECTED_KIND:\n            raise ValueError(\"Expected native_band_replication_ssl_selected_encoder_v2 only.\")\n        _base(self, artifact, device)\n        self.feature_branch = \"shared_band_encoder\"\n        self.selected_pretrain_step = artifact.get(\"selected_pretrain_step\")\n        if self.selected_pretrain_step is not None and (\n            type(self.selected_pretrain_step) is not int or self.selected_pretrain_step < 0\n        ):\n            raise ValueError(\"Optional selected step must be a nonnegative integer.\")\n        with torch.device(\"meta\"):\n            encoder = NativeBandEncoder(\n                self.config.width, self.config.latent, self.config.blocks, self.config.heads\n            ).float()\n        _check_state(artifact.get(\"encoder\"), encoder.state_dict())\n        encoder.load_state_dict(artifact[\"encoder\"], strict=True, assign=True)\n        self.encoder = encoder.eval().requires_grad_(False).to(self.device)\n\n\ndef _query(query, metadata):\n    query = np.asarray(query)\n    if (\n        query.shape != (len(metadata), 3, 10)\n        or query.dtype.kind != \"f\"\n        or not np.isfinite(query).all()\n        or not np.allclose(query[..., :9], metadata[:, :1, :9], rtol=0, atol=1e-6)\n        or not np.allclose(query[..., 9], [1, 3, 6], rtol=0, atol=1e-6)\n    ):\n        raise ValueError(\"Issued query must retain primary native fields and horizons1/3/6.\")\n    with np.errstate(over=\"ignore\", invalid=\"ignore\"):\n        result = query.astype(np.float32, copy=False)\n    if not np.isfinite(result).all() or (result[..., 4] <= result[..., 3]).any():\n        raise ValueError(\"Issued native query must remain finite/valid at model precision.\")\n    return result\n\n\ndef _ancestry(artifact, config):\n    ancestry = artifact.get(\"supervised_ancestry\")\n    if ancestry is None:\n        if \"downstream_config\" in artifact:\n            raise ValueError(\"Downstream forecast requires explicit supervised ancestry.\")\n        return None\n    from marine_echo.training.native_band_replication_downstream import DownstreamConfig\n\n    if not isinstance(ancestry, dict) or not isinstance(artifact.get(\"downstream_config\"), dict):\n        raise TypeError(\"Complete supervised ancestry/config is required.\")\n    try:\n        downstream = DownstreamConfig(**artifact[\"downstream_config\"])\n    except TypeError as error:\n        raise ValueError(\"Incompatible downstream config.\") from error\n    downstream.validate(correctness_smoke=artifact.get(\"correctness_smoke\") is True)\n    for key in (\"method\", \"seed\", \"history\", \"batch_size\", \"lr\", \"weight_decay\", \"architecture\"):\n        if getattr(downstream, key) != getattr(config, key):\n            raise ValueError(\"Downstream inference config differs from its supervised ancestry.\")\n    steps, selected = ancestry.get(\"supervised_updates\"), ancestry.get(\"selected_supervised_step\")\n    if (\n        ancestry.get(\"mode\") != downstream.mode\n        or ancestry.get(\"ssl_only\") is not False\n        or type(steps) is not int\n        or not 1 <= steps <= downstream.updates\n        or type(selected) is not int\n        or not 1 <= selected <= steps\n    ):\n        raise ValueError(\"Invalid supervised update/selection ancestry.\")\n    for key in (\"ancestor_encoder_sha256\", \"ancestor_run_sha256\"):\n        value = ancestry.get(key)\n        if downstream.mode == \"direct_end_to_end\":\n            if value is not None:\n                raise ValueError(\"Direct endpoint must have no selected ancestor.\")\n        elif (\n            not isinstance(value, str)\n            or len(value) != 64\n            or any(c not in \"0123456789abcdef\" for c in value)\n        ):\n            raise ValueError(\"Transferred inference requires exact ancestor identities.\")\n    return copy.deepcopy(ancestry)\n\n\nclass NativeBandAcousticPredictor:\n    \"\"\"Safe band forecast plus reusable encoding, including downstream forecasts.\"\"\"\n\n    def __init__(self, weights, *, device=\"cpu\"):\n        self._initialize(torch.load(weights, map_location=\"cpu\", weights_only=True), device)\n\n    def _initialize(self, artifact, device):\n        if not isinstance(artifact, Mapping) or artifact.get(\"kind\") != INFERENCE_KIND:\n            raise ValueError(\"Expected native_band_replication_ssl_weights_only_inference_v2 only.\")\n        _base(self, artifact, device)\n        self.feature_training_kind = self.training_kind\n        self.supervised_ancestry = _ancestry(artifact, self.config)\n        if self.supervised_ancestry is not None:\n            mode = self.supervised_ancestry[\"mode\"]\n            self.training_kind = \"supervised_downstream_\" + mode\n            if mode != \"frozen_readout\":\n                self.feature_training_kind = \"supervised_feature_encoder\"\n        else:\n            self.training_kind = \"train_fitted_readout_on_\" + self.feature_training_kind\n        with torch.device(\"meta\"):\n            model = NativeBandTemporalModel(\n                self.config.width, self.config.latent, self.config.blocks, self.config.heads\n            ).float()\n        _check_state(artifact.get(\"model\"), model.state_dict())\n        model.load_state_dict(artifact[\"model\"], strict=True, assign=True)\n        self.model = model.eval().requires_grad_(False).to(self.device)\n        self.encoder = self.model.encoder\n\n    @property\n    def config_metadata(self):\n        return copy.deepcopy(self._config_metadata)\n\n    @property\n    def scaler_metadata(self):\n        return copy.deepcopy(self._scaler_metadata)\n\n    @property\n    def source_bindings(self):\n        return copy.deepcopy(self._bindings)\n\n    @torch.inference_mode()\n    def encode(self, x, observed, metadata):\n        # Inherited encoder-only implementation validates raw native inputs and\n        # batches with saved scalers. It never requires the readout/query path.\n        return legacy.NativeAcousticEncoder.encode(self, x, observed, metadata)\n\n    @torch.inference_mode()\n    def forecast(self, x, observed, metadata, query):\n        x, observed, metadata = legacy._inputs(x, observed, metadata, self.config.history)\n        query = _query(query, metadata)\n        self.model.eval()\n        result = []\n        for start in range(0, len(x), self.config.batch_size):\n            end = min(start + self.config.batch_size, len(x))\n            with np.errstate(over=\"ignore\", invalid=\"ignore\"):\n                values = self.scalers.channels(x[start:end], observed[start:end])\n            if not np.isfinite(values).all():\n                raise ValueError(\"Observed scaled dB must be finite at model precision.\")\n            prediction = (\n                self.model.forecast(\n                    torch.as_tensor(values, device=self.device),\n                    torch.as_tensor(observed[start:end].copy(order=\"C\"), device=self.device),\n                    torch.as_tensor(metadata[start:end].copy(order=\"C\"), device=self.device),\n                    torch.as_tensor(query[start:end].copy(order=\"C\"), device=self.device),\n                )\n                .cpu()\n                .numpy()\n            )\n            prediction = (\n                prediction * self.scalers.target_std[None, :, None]\n                + self.scalers.target_mean[None, :, None]\n            )\n            if prediction.shape != (end - start, 3, 5) or not np.isfinite(prediction).all():\n                raise ValueError(\"Forecast output must be finite native dB [N,3,5].\")\n            result.append(prediction)\n        return np.concatenate(result)\n\n\ndef load_inference(weights, *, device=\"cpu\"):\n    return NativeBandAcousticPredictor(weights, device=device)\n"
+    }
+  },
+  "verification": {
+    "prefix_full": {
+      "exit_code": 0,
+      "passed": 226,
+      "root_only_skipped": 11
+    },
+    "assessment_full_before_invalid_fixture_correction": {
+      "exit_code": 1,
+      "passed": 133,
+      "failed": 1,
+      "explanation": "Gate correctly denied aggregate4h below Band11.5h; fixture corrected to aggregate12h."
+    },
+    "corrected_mixed_budget": {
+      "exit_code": 0,
+      "passed": 2
+    },
+    "resource_focused": {
+      "exit_code": 0,
+      "passed": 14
+    },
+    "worker_owned_resource": {
+      "exit_code": 0,
+      "passed": 2
+    },
+    "virtual_attempts_final": {
+      "exit_code": 0,
+      "passed": 7
+    },
+    "ruff_check_exit": 0,
+    "ruff_format_check_exit": 0,
+    "scientific_ast_proof_exit": 0,
+    "all_assessment_tests_repeated_after_fixture_correction": false,
+    "actual_processes_executed": false
+  },
+  "root_required": {
+    "optimizer_resume": "python -B -c \"import os,pytest; os.environ['NATIVE_PREFIX_ROOT_RUNNER_CHECKS']='1'; raise SystemExit(pytest.main(['tests/unit/test_native_prefix_transfer.py','tests/integration/test_native_prefix_transfer.py','--import-mode=importlib','-p','no:cacheprovider','-q']))\"",
+    "assessment_full": "python -B -m pytest tests/unit/test_native_replication_assessment.py tests/integration/test_native_replication_assessment.py --import-mode=importlib -p no:cacheprovider -q",
+    "owned_cpu_supervisor": "python -B evidence/ssl-replication-assessment-prefix-builder-v4/root_owned_lifecycle_check.py",
+    "actual_worker": "NOT_RUN; exact distinct actual immutable model/data/runtime review required before production wrapper command",
+    "budget_followup": "Immutable execute_native_band_replication_job.budget_totals rejects existing prefix terminal statuses; separate root follow-up required if later band jobs follow prefix attempts.",
+    "reviews": "Distinct exact source/protocol/config/model/ancestry/numeric/runtime admission remains REQUIRED_NOT_GRANTED"
+  },
+  "protected_denials_retried": false,
+  "public_numeric_access": "NOT_RUN",
+  "public_tensor_access": "NOT_RUN",
+  "scientific_fit": "NOT_RUN",
+  "gpu": "NOT_RUN",
+  "final_assessment": "NOT_RUN",
+  "prefit_approval": "NOT_GRANTED",
+  "self_review": false,
+  "commit": "NOT_ATTEMPTED_GIT_INDEX_CLOSED"
+}

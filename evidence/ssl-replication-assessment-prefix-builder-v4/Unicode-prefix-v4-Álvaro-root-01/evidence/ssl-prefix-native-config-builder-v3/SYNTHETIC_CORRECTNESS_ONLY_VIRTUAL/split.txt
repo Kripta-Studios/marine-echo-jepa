@@ -1,0 +1,1 @@
+{"sources": [{"archive_sha256": "synthetic-site-archive", "deployment": "synthetic-site", "role": "test"}, {"archive_sha256": "synthetic-dev-archive", "deployment": "synthetic-original-dev", "role": "development"}, {"archive_sha256": "synthetic-TRAIN-archive", "deployment": "synthetic-TRAIN-deployment", "role": "train"}]}

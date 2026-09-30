@@ -1,0 +1,63 @@
+{
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "actual_owned_processes_executed": false,
+  "scientific_execution": false,
+  "checks": {
+    "prefix_full": {
+      "chunk_id": "f9424b",
+      "wall_time_seconds": 0.0000134,
+      "exit_code": 0,
+      "original_token_count": 61,
+      "output": "......................... [ 60%]\r\n....................................................sss.....ssssss...... [ 91%]\r\n.........ss..........                                                    [100%]\r\n226 passed, 11 skipped in 297.19s (0:04:57)\r\n"
+    },
+    "assessment_full_before_fixture_correction": {
+      "chunk_id": "7799ea",
+      "wall_time_seconds": 0.0000146,
+      "exit_code": 1,
+      "original_token_count": 2329,
+      "output": "..........           [100%]\r\n================================== FAILURES ===================================\r\n____ test_mixed_band_versions_use_lesser_full_owned_allowance[4-11.5-1800] ____\r\n\r\nmonkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001D4273F59A0>\r\naggregate = 4, band_hours = 11.5, remaining = 1800\r\n\r\n    @pytest.mark.parametrize(\"aggregate,band_hours,remaining\", [(95, 2, 3600), (4, 11.5, 1800)])\r\n    def test_mixed_band_versions_use_lesser_full_owned_allowance(\r\n        monkeypatch, aggregate, band_hours, remaining\r\n    ):\r\n        helper = policy_support()\r\n        f = helper.resource_case(sys.modules[__name__], monkeypatch, cuda=True, band=True)\r\n        helper.add_attempt(sys.modules[__name__], f, band_hours * 3600)\r\n        ledger = wrapper.read_json(f.root / wrapper.LEDGER)\r\n        ledger[\"gpu_hours_spent_owned_scientific_jobs\"] = aggregate\r\n        f.fs.files[f.root / wrapper.LEDGER] = _encoded(ledger)\r\n        # V1 and V2 are distinct typed artifacts; the entire mixed attempt is Band.\r\n        helper.add_v1_method(sys.modules[__name__], f)\r\n>       plan = f.plan()\r\n               ^^^^^^^^\r\n\r\ntests\\unit\\test_native_replication_assessment.py:47: \r\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\r\nevidence\\ssl-replication-assessment-prefix-builder-v4\\resource_test_support.py:146: in <lambda>\r\n    case=case, fs=fs, root=root, job=job, plan=lambda: wrapper.prelaunch(job, _root=root)\r\n                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\r\n\r\njob = Job(manifest=WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/evidence/ssl-repli...ssment-prefix-builder-v4/SYNTHETIC_CORRECTNESS_ONLY_virtual/SYNTHETIC_CORRECTNESS_ONLY_root/evidence/attempt-receipt'))\r\n_root = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/evidence/ssl-replication-assessment-prefix-builder-v4/SYNTHETIC_CORRECTNESS_ONLY_virtual/SYNTHETIC_CORRECTNESS_ONLY_root')\r\n\r\n    def prelaunch(job, *, _root=None):\r\n        \"\"\"No subprocess, output mutation, NumPy, Torch or scientific import.\"\"\"\r\n        root = ROOT if _root is None else Path(_root).resolve()\r\n        job = Job(*(Path(p).resolve() for p in (job.manifest, job.review, job.output, job.receipt)))\r\n        review, manifest = read_json(job.review), read_json(job.manifest)\r\n        # CLI permits genuine reviewed evidence only. CPU private fixtures must use\r\n        # the same complete graph with an explicit synthetic identity.\r\n        if _root is None and manifest.get(\"evidence_kind\") != \"REVIEWED_FROZEN_ASSESSMENT\":\r\n            raise ValueError(\"Production execution requires genuine reviewed frozen assessment.\")\r\n        admission = admit(job.manifest, job.review, job.output, source_package=root / \"src/marine_echo\")\r\n        if any(spec[\"loader\"] != \"builtin\" for spec in manifest[\"methods\"].values()):\r\n            raise ValueError(\"Production worker supports only enumerated immutable loaders.\")\r\n        if review.get(\"receipt_path\") != str(job.receipt) or review.get(\"runtime_arguments\") != {\r\n            \"manifest\": str(job.manifest),\r\n            \"review\": str(job.review),\r\n            \"output\": str(job.output),\r\n            \"receipt\": str(job.receipt),\r\n            \"device\": manifest[\"device\"],\r\n        }:\r\n            raise ValueError(\"Exact reviewed receipt/runtime required.\")\r\n        if (\r\n            job.receipt.exists()\r\n            or job.output.exists()\r\n            or (\r\n                job.receipt == job.output\r\n                or job.receipt.is_relative_to(job.output)\r\n                or job.output.is_relative_to(job.receipt)\r\n            )\r\n        ):\r\n            raise FileExistsError(\"Fresh disjoint protected output and receipt required.\")\r\n        if not job.output.is_relative_to(root / \"evidence\") or not job.receipt.is_relative_to(\r\n            root / \"evidence\"\r\n        ):\r\n            raise ValueError(\"Root-owned evidence output/receipt required before mutation.\")\r\n        bindings = _bindings(review[\"bindings\"])\r\n        for p, h in bindings.items():\r\n            if digest(p) != h:\r\n                raise ValueError(\"Stale binding before launch/mutation: \" + p)\r\n        required = [\r\n            root / \".venv/Scripts/python.exe\",\r\n            root / OWNER,\r\n            root / \"docs/adr/0023-owner-resolved-band-budget.md\",\r\n            Path(__file__).resolve(),\r\n            root / \"tools/execute_native_replication_assessment_worker.py\",\r\n            root / \"tools/native_reference_supervisor.py\",\r\n            root / \"tools/execute_native_band_replication_job.py\",\r\n        ]\r\n        if any(str(p.resolve()) not in bindings for p in required):\r\n            raise ValueError(\"Missing wrapper/worker/python/supervisor/budget binding.\")\r\n        for target in (job.output, job.receipt):\r\n            if any(Path(p) == target or Path(p).is_relative_to(target) for p in bindings):\r\n                raise ValueError(\"Protected destination contains immutable source/input.\")\r\n            if not target.parent.is_dir():\r\n                raise ValueError(\"Root must prepare output/receipt parent directories.\")\r\n        lock, ledger_path = root / LOCK, root / LEDGER\r\n        if lock.exists():\r\n            raise ValueError(\"An owner lock exists; never remove an unknown lock.\")\r\n        if any(\r\n            ledger_path.with_suffix(s).exists()\r\n            for s in (\r\n                \".pending\",\r\n                \".band-pending\",\r\n                \".prefix-pending\",\r\n                \".assessment-pending\",\r\n            )\r\n        ):\r\n            raise ValueError(\"Pending journal requires root reconciliation.\")\r\n        ledger = read_json(ledger_path)\r\n        if ledger.get(\"gpu_limit_hours\") != 96 or isinstance(ledger.get(\"gpu_limit_hours\"), bool):\r\n            raise ValueError(\"Aggregate limit must remain96.\")\r\n        aggregate = _number(ledger.get(\"gpu_hours_spent_owned_scientific_jobs\"), \"aggregate hours\")\r\n        if not isinstance(ledger.get(\"runs\"), list) or any(\r\n            not isinstance(r, dict)\r\n            or str(r.get(\"status\", \"\")).startswith(\"RUNNING_\")\r\n            or r.get(\"requires_reconciliation\")\r\n            or r.get(\"reconciliation_required\")\r\n            for r in ledger[\"runs\"]\r\n        ):\r\n            raise ValueError(\"Active/unknown/unreconciled run ledger.\")\r\n        policy = _policy(root, bindings)\r\n        resolution = read_json(root / OWNER)\r\n        policy.validate_budget(resolution)\r\n        if review.get(\"band_budget_status\") != \"ROOT_RESOLVED\" or review.get(\r\n            \"budget_resolution_path\"\r\n        ) != str(root / OWNER):\r\n            raise ValueError(\"Exact ROOT_RESOLVED owner binding required.\")\r\n        # Validate accounting even for CPU/non-band jobs, without reopening an\r\n        # exhausted band allowance when only a genuine CPU assessment is requested.\r\n        band_seconds = 0.0\r\n        for record in ledger[\"runs\"]:\r\n            signature = (\r\n                record.get(\"architecture\") == \"nonlinear_frequency_conditioned_v1\"\r\n                or \"native_band\" in str(record.get(\"config\", \"\")).lower()\r\n                or any(\"native_band\" in str(v) for v in record.get(\"command\", []))\r\n                or record.get(\"family\") == \"band\"\r\n                or isinstance(record.get(\"config\"), dict)\r\n                and record[\"config\"].get(\"family\") == \"band\"\r\n                or record.get(\"uses_band_model\") is True\r\n                and record.get(\"device\") == \"cuda:0\"\r\n            )\r\n            if signature and record.get(\"budget_family\") != FAMILY:\r\n                raise ValueError(\"Unaccounted historical band attempt.\")\r\n            if record.get(\"budget_family\") == FAMILY:\r\n                if record.get(\"status\") not in {\r\n                    \"COMPLETED_REAL_BAND_CUDA\",\r\n                    \"FAILED_REAL_BAND_CUDA_ATTEMPT\",\r\n                    \"COMPLETED_REAL_CUDA\",\r\n                    \"FAILED_REAL_CUDA_ATTEMPT\",\r\n                    \"COMPLETED_REAL_PREFIX_TRANSFER\",\r\n                    \"PREFIX_TRANSFER_NOT_ASSESSABLE\",\r\n                    \"PREFIX_TRANSFER_FAILED_OR_BLOCKED\",\r\n                }:\r\n                    raise ValueError(\"Unknown band job requires reconciliation.\")\r\n                full = record.get(\"resources_full_attempt\", {}).get(\"elapsed_full_attempt_seconds\")\r\n                seconds = _number(record.get(\"elapsed_owned_seconds\", full), \"owned attempt\")\r\n                if full is not None and not math.isclose(\r\n                    seconds, _number(full, \"full time\"), abs_tol=1e-6, rel_tol=1e-9\r\n                ):\r\n                    raise ValueError(\"Conflicting full-owned counters.\")\r\n                band_seconds += seconds\r\n        if aggregate * 3600 + 1e-6 < band_seconds:\r\n>           raise ValueError(\"Aggregate undercounts band attempts.\")\r\nE           ValueError: Aggregate undercounts band attempts.\r\n\r\ntools\\execute_bounded_native_replication_assessment.py:816: ValueError\r\n=========================== short test summary info ===========================\r\nFAILED tests/unit/test_native_replication_assessment.py::test_mixed_band_versions_use_lesser_full_owned_allowance[4-11.5-1800]\r\n1 failed, 133 passed in 533.60s (0:08:53)\r\n"
+    },
+    "mixed_budget_corrected": {
+      "chunk_id": "3555b2",
+      "wall_time_seconds": 0.0000133,
+      "exit_code": 0,
+      "original_token_count": 30,
+      "output": "..                                                                       [100%]\r\n2 passed, 105 deselected in 51.93s\r\n"
+    },
+    "resource_focused": {
+      "chunk_id": "2eea60",
+      "wall_time_seconds": 0.0000133,
+      "exit_code": 0,
+      "original_token_count": 32,
+      "output": "..............                                                           [100%]\r\n14 passed, 95 deselected in 117.03s (0:01:57)\r\n"
+    },
+    "worker_owned_resource": {
+      "chunk_id": "a74934",
+      "wall_time_seconds": 0.0000152,
+      "exit_code": 0,
+      "original_token_count": 30,
+      "output": "..                                                                       [100%]\r\n2 passed, 107 deselected in 14.48s\r\n"
+    },
+    "virtual_attempts_closed": {
+      "chunk_id": "584a21",
+      "wall_time_seconds": 0.0000163,
+      "exit_code": 0,
+      "original_token_count": 32,
+      "output": ".......                                                                  [100%]\r\n7 passed, 102 deselected in 84.75s (0:01:24)\r\n"
+    },
+    "ruff_check": {
+      "chunk_id": "4659e4",
+      "wall_time_seconds": 2.0219229,
+      "exit_code": 0,
+      "original_token_count": 5,
+      "output": "All checks passed!\n"
+    },
+    "ruff_format": {
+      "chunk_id": "a6df2b",
+      "wall_time_seconds": 1.6778703,
+      "exit_code": 0,
+      "original_token_count": 7,
+      "output": "13 files already formatted\n"
+    }
+  }
+}

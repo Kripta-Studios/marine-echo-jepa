@@ -36,6 +36,52 @@ root_optimizer = pytest.mark.skipif(
 )
 
 
+@pytest.mark.parametrize("seed", [7, 13, 23])
+@root_optimizer
+def test_replication_root_optimizer_resume_frozen_and_scratch(seed):
+    args = list(trajectory_inputs("scratch_direct", "band"))
+    args[0] = prefix.PrefixConfig(**{**args[0].to_dict(), "band_artifact_version": 2, "seed": seed})
+    from marine_echo.training.native_band_replication_ssl import Config
+
+    args[1] = Config(
+        method="direct", seed=seed, width=8, latent=4, blocks=1, heads=2, pretrain_updates=3000
+    ).to_dict()
+    uninterrupted = prefix._Trajectory(*args)
+    initial = prefix.core.cpu_state(uninterrupted.model.encoder)
+    initial_head = prefix.core.cpu_state(uninterrupted.model.head)
+    rng = prefix.core.rng_state()
+    uninterrupted.advance()
+    partial = prefix._Trajectory(*args)
+    prefix.core.restore_rng(rng)
+    partial.advance(2)
+    restored = prefix._Trajectory(*args)
+    restored.restore(prefix.decode_checkpoint(prefix.encode_checkpoint(partial.checkpoint())))
+    restored.advance()
+    assert all(
+        torch.equal(v, restored.model.state_dict()[k])
+        for k, v in uninterrupted.model.state_dict().items()
+    )
+    assert any(
+        not torch.equal(v, uninterrupted.model.encoder.state_dict()[k]) for k, v in initial.items()
+    )
+    frozen_args = list(args)
+    frozen_args[0] = prefix.PrefixConfig(**{**args[0].to_dict(), "mode": "frozen_readout"})
+    frozen_args[2] = {
+        "kind": prefix.REPLICATION_SUPERVISED_KIND,
+        "architecture": prefix.ARCHITECTURES["band"],
+        "config": args[1],
+        "scalers": args[3],
+        "encoder": initial,
+        "supervised_ancestry": support.direct_ancestry(),
+    }
+    frozen = prefix._Trajectory(*frozen_args)
+    assert all(torch.equal(v, frozen.model.head.state_dict()[k]) for k, v in initial_head.items())
+    frozen.advance()
+    assert all(torch.equal(v, frozen.model.encoder.state_dict()[k]) for k, v in initial.items())
+    assert frozen.samples == uninterrupted.samples
+    assert [v["step"] for v in frozen.candidates] == [1, 2, 3, 4]
+
+
 def trajectory_inputs(mode="scratch_direct", family="core"):
     config = prefix.PrefixConfig(
         method="direct",

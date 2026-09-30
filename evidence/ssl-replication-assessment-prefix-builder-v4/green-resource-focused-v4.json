@@ -1,0 +1,9 @@
+{
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "command": "../marine-echo-jepa/.venv/Scripts/python.exe -B -m pytest tests/unit/test_native_replication_assessment.py --import-mode=importlib -p no:cacheprovider -q -k resource",
+  "chunk_id": "2eea60",
+  "wall_time_seconds": 0.0000133,
+  "exit_code": 0,
+  "original_token_count": 32,
+  "output": "..............                                                           [100%]\r\n14 passed, 95 deselected in 117.03s (0:01:57)\r\n"
+}

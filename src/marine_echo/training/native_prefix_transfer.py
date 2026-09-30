@@ -37,6 +37,8 @@ KINDS = {
     "core": "native_ssl_selected_encoder_v1",
     "band": "native_band_ssl_selected_encoder_v1",
 }
+REPLICATION_KIND = "native_band_replication_ssl_selected_encoder_v2"
+REPLICATION_SUPERVISED_KIND = "native_band_replication_downstream_supervised_encoder_v2"
 SUPERVISED_KINDS = {
     "core": "native_downstream_supervised_encoder_v1",
     "band": "native_band_downstream_supervised_encoder_v1",
@@ -95,6 +97,7 @@ def boundaries(source_start, prefix_days):
 class PrefixConfig:
     method: str = "shared_ssl"
     family: str = "core"
+    band_artifact_version: int = 1
     mode: str = "frozen_readout"
     seed: int = 7
     prefix_days: int = 1
@@ -136,7 +139,13 @@ class PrefixConfig:
             raise ValueError("Scratch is a fresh directly supervised shared backbone.")
         if self.seed not in (7, 13, 23) or self.history != 96 or self.prefix_days not in (1, 7, 30):
             raise ValueError("Frozen seed/history/prefix recipe differs.")
-        if self.family == "band" and self.seed != 7:
+        if (
+            type(self.band_artifact_version) is not int
+            or self.band_artifact_version not in (1, 2)
+            or (self.family != "band" and self.band_artifact_version != 1)
+        ):
+            raise ValueError("Explicit supported band artifact version required.")
+        if self.family == "band" and self.band_artifact_version == 1 and self.seed != 7:
             raise ValueError(
                 "Band seed7 gate requires a separately reviewed replication extension."
             )
@@ -844,13 +853,17 @@ def required_sources():
     return sorted(found)
 
 
-def _backbone(raw, family):
+def _backbone(raw, family, band_artifact_version=1):
     """Preserve original config bytes; adapt only the band Config field wrapper."""
     fields = dict(raw)
     if family == "band":
         if fields.pop("architecture", None) != ARCHITECTURES["band"]:
             raise ValueError("Original band config architecture required.")
-        if fields.get("seed") != 7:
+        if band_artifact_version == 2:
+            from marine_echo.training.native_band_replication_ssl import Config
+
+            Config(**raw).validate(correctness_smoke=True)
+        elif band_artifact_version != 1 or fields.get("seed") != 7:
             raise ValueError("Original band seed7 remains frozen.")
     elif "architecture" in fields:
         raise ValueError("Legacy/CF config cannot be reinterpreted as band.")
@@ -858,7 +871,9 @@ def _backbone(raw, family):
 
 
 def _validate_backbone(config, backbone):
-    c = _backbone(backbone, config.family)
+    c = _backbone(backbone, config.family, config.band_artifact_version)
+    if config.family == "band" and c.seed != config.seed:
+        raise ValueError("Band parent and prefix seeds must match exactly.")
     if c.method != config.method or c.history != 96:
         raise ValueError("Exact saved backbone method/history differs.")
     d = core.model_dimensions(c)
@@ -877,6 +892,8 @@ def _validate_backbone(config, backbone):
 
 
 def selected_kind(config):
+    if config.family == "band" and config.band_artifact_version == 2:
+        return REPLICATION_SUPERVISED_KIND if config.method == "direct" else REPLICATION_KIND
     family = "band" if config.family == "band" else "core"
     return SUPERVISED_KINDS[family] if config.method == "direct" else KINDS[family]
 
@@ -1256,7 +1273,14 @@ def admit(manifest_path, review_path, output_path, *, resume=None):
             _, original_config = doc(manifest["parent_config"])
             review_path, original_review = doc(manifest["parent_review"])
             _, original_input_paths = doc(manifest["parent_inputs"])
-            if config.family == "band":
+            if config.family == "band" and config.band_artifact_version == 2:
+                from marine_echo.training import native_band_replication_ssl as original_core
+                from marine_echo.training.native_band_replication_downstream import (
+                    DownstreamConfig,
+                    RunInputs,
+                    required_paths,
+                )
+            elif config.family == "band":
                 from marine_echo.training import native_band_ssl as original_core
                 from marine_echo.training.native_band_downstream import (
                     DownstreamConfig,
@@ -1345,7 +1369,11 @@ def admit(manifest_path, review_path, output_path, *, resume=None):
                 split_path,
                 _path(manifest["parent_config"], base),
                 Path(original_core.__file__).with_name(
-                    "native_band_downstream.py"
+                    (
+                        "native_band_replication_downstream.py"
+                        if config.band_artifact_version == 2
+                        else "native_band_downstream.py"
+                    )
                     if config.family == "band"
                     else "native_downstream.py"
                 ),
@@ -1363,6 +1391,19 @@ def admit(manifest_path, review_path, output_path, *, resume=None):
                 or original_review.get("split_sha256") != sha(snapshots[split_path])
             ):
                 raise ValueError("Original direct TRAIN/development/split ancestry differs.")
+            if (
+                config.family == "band"
+                and config.band_artifact_version == 2
+                and (
+                    downstream.seed not in original_review.get("allowed_seeds", [])
+                    or original_review.get("architecture") != ARCHITECTURES["band"]
+                    or original_review.get("evidence_kind") != original_evidence
+                    or set(original_review.get("allowed_roles", [])) != {"train", "development"}
+                )
+            ):
+                raise ValueError(
+                    "Exact replication direct parent seed/architecture/role review required."
+                )
             membership = _json(parent_membership)
             rows, deployments, archives = (
                 membership.get(k)
@@ -1410,6 +1451,151 @@ def admit(manifest_path, review_path, output_path, *, resume=None):
                     or entry.get("sha256") != core.sequence_hash(np.asarray(ids, dtype=np.int64))
                 ):
                     raise ValueError("Actual direct sampling row/index/step/hash receipt differs.")
+        elif config.family == "band" and config.band_artifact_version == 2:
+            from marine_echo.training import native_band_replication_ssl as original_core
+
+            parent_config_path, original_config = doc(manifest["parent_config"])
+            review_path, original_review = doc(manifest["parent_review"])
+            _, original_inputs = doc(manifest["parent_inputs"])
+            if set(original_inputs) != {"train", "dev", "split", "protocol", "config", "review"}:
+                raise ValueError("Exact replication SSL runtime paths required.")
+            input_paths = {k: _path(v, base) for k, v in original_inputs.items()}
+            if (
+                input_paths["dev"] != _path(manifest["dev_npz"], base)
+                or input_paths["split"] != split_path
+                or input_paths["config"] != parent_config_path
+                or input_paths["review"] != review_path
+                or sha(bound(input_paths["train"])) not in ancestor_inputs
+                or original_config != architecture
+            ):
+                raise ValueError("Replication SSL runtime/config/TRAIN lineage differs.")
+            parent_cfg = original_core.Config(**original_config)
+            parent_cfg.validate(correctness_smoke=config.correctness_smoke)
+            original_evidence = (
+                EVIDENCE if config.correctness_smoke else "REAL_TRAIN_DEVELOPMENT_FIT"
+            )
+            reviewer = original_review.get("reviewer_session_id")
+            excluded = {
+                IMPLEMENTER_SESSION_ID,
+                manifest["implementer_session_id"],
+                manifest["coordinator_session_id"],
+                original_review.get("implementer_session_id"),
+                original_review.get("root_coordinator_session_id"),
+            }
+            if (
+                not isinstance(reviewer, str)
+                or not reviewer.strip()
+                or reviewer.casefold() in {v.casefold() for v in excluded if isinstance(v, str)}
+                or not original_review.get("root_coordinator_session_id")
+                or original_review.get("status") != "APPROVED_PREFIT"
+                or original_review.get("architecture") != ARCHITECTURES["band"]
+                or original_review.get("evidence_kind") != original_evidence
+                or set(original_review.get("allowed_roles", [])) != {"train", "development"}
+                or config.seed not in original_review.get("allowed_seeds", [])
+                or config.method not in original_review.get("allowed_methods", [])
+                or parent_run.get("status") != "COMPLETED"
+                or parent_run.get("evidence_kind") != original_evidence
+                or parent_run.get("test_access") != "NOT_RUN"
+                or parent_run.get("architecture") != ARCHITECTURES["band"]
+                or parent_run.get("review_sha256") != sha(snapshots[review_path])
+            ):
+                raise ValueError(
+                    "Genuine distinct completed replication SSL parent review required."
+                )
+            original_bindings = parent_run.get("bindings")
+            if not isinstance(original_bindings, dict) or not original_bindings:
+                raise ValueError("Replication SSL source/data/config bindings required.")
+            original_sources = manifest.get("parent_source_snapshots", {})
+            for p, h in original_bindings.items():
+                if (
+                    original_review.get("bindings", {}).get(p) != h
+                    or sha(bound(_path(original_sources.get(p, p), base))) != h
+                ):
+                    raise ValueError("Replication SSL source/parent review identity differs.")
+            required_original = [
+                *(p for k, p in input_paths.items() if k != "review"),
+                *original_core.required_sources(parent_cfg),
+            ]
+            if any(str(p) not in original_bindings for p in required_original):
+                raise ValueError("Replication SSL review misses exact source/runtime closure.")
+            for key, name in (
+                ("train", "train_npz_sha256"),
+                ("dev", "dev_npz_sha256"),
+                ("split", "split_sha256"),
+                ("protocol", "protocol_sha256"),
+            ):
+                if original_review.get(name) != sha(bound(input_paths[key])):
+                    raise ValueError("Replication SSL original TRAIN/dev/split/protocol differs.")
+            membership = _json(parent_membership)
+            rows = membership.get("train_row_ids")
+            deployments = membership.get("train_deployments")
+            archives = membership.get("train_archive_sha256")
+            if (
+                not isinstance(rows, list)
+                or not rows
+                or not isinstance(deployments, list)
+                or not isinstance(archives, list)
+                or len(rows) != len(deployments)
+                or len(rows) != len(archives)
+                or any(not isinstance(r, str) or not r for r in rows)
+                or len(set(zip(deployments, rows, strict=True))) != len(rows)
+                or any(
+                    (d, a) not in ancestor_members
+                    for d, a in zip(deployments, archives, strict=True)
+                )
+                or not isinstance(membership.get("sequence"), list)
+                or any(
+                    not isinstance(membership.get(k), list)
+                    or not membership[k]
+                    or len(set(membership[k])) != len(membership[k])
+                    or any(type(i) is not int or not 0 <= i < len(rows) for i in membership[k])
+                    for k in ("ssl_eligible_indices", "supervised_indices")
+                )
+            ):
+                raise ValueError("Complete replication SSL original TRAIN membership required.")
+            sequence = membership["sequence"]
+            counts = {"pretrain": 0, "readout": 0}
+            for entry in sequence:
+                phase, ids = entry.get("phase"), entry.get("context_indices")
+                pool = membership[
+                    "ssl_eligible_indices" if phase == "pretrain" else "supervised_indices"
+                ]
+                if (
+                    phase not in counts
+                    or not isinstance(ids, list)
+                    or len(ids) != min(parent_cfg.batch_size, len(pool))
+                    or len(set(ids)) != len(ids)
+                    or any(type(i) is not int or i not in pool for i in ids)
+                    or type(entry.get("step")) is not int
+                    or entry["step"] < 0
+                    or entry.get("context_sha256")
+                    != core.sequence_hash(np.asarray(ids, dtype=np.int64))
+                ):
+                    raise ValueError("Replication SSL sampling phase/index/hash receipt differs.")
+                if phase == "pretrain":
+                    targets = entry.get("target_indices")
+                    if (
+                        not isinstance(targets, list)
+                        or sorted(targets) != sorted(ids)
+                        or (config.method != "permuted_ssl" and targets != ids)
+                        or entry.get("target_multiset_sha256")
+                        != core.sequence_hash(np.asarray(sorted(ids), dtype=np.int64))
+                    ):
+                        raise ValueError("Replication SSL pairing/multiset receipt differs.")
+                counts[phase] += 1
+            if (
+                type(parent_run.get("pretrain_steps")) is not int
+                or type(parent_run.get("readout_steps_all_probes")) is not int
+                or counts
+                != {
+                    "pretrain": parent_run["pretrain_steps"],
+                    "readout": parent_run["readout_steps_all_probes"],
+                }
+                or parent_run.get("optimizer_steps_total") != sum(counts.values())
+                or counts["pretrain"] > parent_cfg.pretrain_updates
+                or (config.method == "random_frozen" and counts["pretrain"] != 0)
+            ):
+                raise ValueError("Actual replication SSL update/membership accounting differs.")
     elif manifest.get("encoder") is not None:
         raise ValueError("Scratch must have no inherited encoder.")
     for key in ("prefix_npz", "dev_npz"):
@@ -1456,9 +1642,9 @@ def _strict_state(module, state, *, assign=True):
 
 
 class PrefixModel(nn.Module):
-    def __init__(self, backbone_config, family):
+    def __init__(self, backbone_config, family, band_artifact_version=1):
         super().__init__()
-        c = _backbone(backbone_config, family)
+        c = _backbone(backbone_config, family, band_artifact_version)
         d = core.model_dimensions(c)
         self.encoder = (
             CFTemporalEncoder(d["width"], d["latent"], d["blocks"])
@@ -1500,20 +1686,24 @@ def prepare_model(config, backbone, selected, scalers, *, parent_bindings=None):
         elif selected.get("supervised_ancestry") is not None:
             raise ValueError("SSL/control parent cannot hide supervised feature ancestry.")
         with torch.device("meta"):
-            model = PrefixModel(backbone, config.family).float()
+            model = PrefixModel(backbone, config.family, config.band_artifact_version).float()
         _strict_state(model.encoder, selected.get("encoder"))
         with torch.random.fork_rng(devices=[]):
             torch.manual_seed(config.seed + 100000)
-            d = core.model_dimensions(_backbone(backbone, config.family))["latent"]
+            d = core.model_dimensions(
+                _backbone(backbone, config.family, config.band_artifact_version)
+            )["latent"]
             model.head = QueryHead(d, 5, d)
     else:
         if selected is not None:
             raise ValueError("Scratch may not load selected weights.")
         with torch.random.fork_rng(devices=[]):
             torch.manual_seed(config.seed)
-            model = PrefixModel(backbone, config.family).float()
+            model = PrefixModel(backbone, config.family, config.band_artifact_version).float()
             torch.manual_seed(config.seed + 100000)
-            d = core.model_dimensions(_backbone(backbone, config.family))["latent"]
+            d = core.model_dimensions(
+                _backbone(backbone, config.family, config.band_artifact_version)
+            )["latent"]
             model.head = QueryHead(d, 5, d)
     model.to(config.device)
     model.encoder.requires_grad_(config.mode == "scratch_direct")
@@ -1903,7 +2093,9 @@ class PrefixPredictor:
             raise ValueError("Synthetic replay CPU only; one declared local device.")
         self.device = device
         with torch.device("meta"):
-            self.model = PrefixModel(artifact["backbone_config"], self.config.family).float()
+            self.model = PrefixModel(
+                artifact["backbone_config"], self.config.family, self.config.band_artifact_version
+            ).float()
         _strict_state(self.model, artifact["model"])
         self.model.to(device).eval().requires_grad_(False)
 
@@ -1961,11 +2153,15 @@ def fit(manifest_path, review_path, output_path, *, resume=None):
         ):
             raise ValueError("Selected safe encoder kind/config/scalers/source lineage differs.")
         with torch.device("meta"):
-            template = PrefixModel(backbone, config.family).float()
+            template = PrefixModel(backbone, config.family, config.band_artifact_version).float()
         _strict_state(template.encoder, selected.get("encoder"))
         parent_artifact = decode_checkpoint(admission.snapshots[_path(m["parent_inference"], base)])
         inference_kind = (
-            "native_band_ssl_weights_only_inference_v1"
+            (
+                "native_band_replication_ssl_weights_only_inference_v2"
+                if config.band_artifact_version == 2
+                else "native_band_ssl_weights_only_inference_v1"
+            )
             if config.family == "band"
             else "native_ssl_weights_only_inference_v1"
         )
@@ -1996,11 +2192,15 @@ def fit(manifest_path, review_path, output_path, *, resume=None):
                     from marine_echo.models.native_band_temporal import NativeBandTemporalModel
 
                     full_template = NativeBandTemporalModel(
-                        **core.model_dimensions(_backbone(backbone, config.family))
+                        **core.model_dimensions(
+                            _backbone(backbone, config.family, config.band_artifact_version)
+                        )
                     ).float()
                 else:
                     full_template = core.native_temporal.NativeTemporalModel(
-                        **core.model_dimensions(_backbone(backbone, config.family))
+                        **core.model_dimensions(
+                            _backbone(backbone, config.family, config.band_artifact_version)
+                        )
                     ).float()
             _strict_state(full_template, parent_artifact.get("model"))
         parent_state = {

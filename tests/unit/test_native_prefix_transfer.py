@@ -7,6 +7,122 @@ from pathlib import Path
 import pytest
 
 
+def replication_support():
+    spec = importlib.util.spec_from_file_location(
+        "native_prefix_replication_test_support",
+        BUILDER / "evidence/ssl-replication-assessment-prefix-builder-v4/prefix_test_support.py",
+    )
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+@pytest.mark.parametrize("seed", [7, 13, 23])
+def test_actual_replication_direct_parent_metadata_gate_before_decode(monkeypatch, seed):
+    helper = replication_support()
+    c = helper.frozen_case(prefix, monkeypatch, BUILDER, family="band", version=2, seed=seed)
+    monkeypatch.setattr(
+        prefix.np, "load", lambda *a, **k: pytest.fail("Metadata gate decoded corpus")
+    )
+    monkeypatch.setattr(
+        prefix.torch, "load", lambda *a, **k: pytest.fail("Metadata gate decoded weights")
+    )
+    admitted = prefix.admit(c.manifest_path, c.review_path, c.output)
+    assert admitted.config.band_artifact_version == 2
+    assert admitted.config.seed == seed
+    assert admitted.config.family == "band"  # Existing root wrapper charges native_band_v1.
+
+
+@pytest.mark.parametrize("method", ["shared_ssl", "masked_ssl", "permuted_ssl", "random_frozen"])
+def test_replication_ssl_typed_parent_metadata_before_decode(monkeypatch, method):
+    helper = replication_support()
+    c = helper.replication_ssl_case(prefix, monkeypatch, BUILDER, method=method)
+    monkeypatch.setattr(prefix.np, "load", lambda *a, **k: pytest.fail("Decoded public corpus"))
+    monkeypatch.setattr(prefix.torch, "load", lambda *a, **k: pytest.fail("Decoded public tensor"))
+    assert prefix.admit(c.manifest_path, c.review_path, c.output).config.method == method
+
+
+@pytest.mark.parametrize("damage", ["seed", "review", "source", "scalers", "ancestry"])
+def test_replication_direct_bad_parent_before_decode(monkeypatch, damage):
+    helper = replication_support()
+    c = helper.frozen_case(prefix, monkeypatch, BUILDER, family="band", version=2, seed=13)
+    if damage == "seed":
+        c.documents["parent-review.json"]["allowed_seeds"] = [7]
+    elif damage == "review":
+        c.documents["parent-review.json"]["reviewer_session_id"] = prefix.IMPLEMENTER_SESSION_ID
+    elif damage == "source":
+        c.documents["parent-run.json"]["bindings"].pop(
+            str(MAIN / "src/marine_echo/training/native_band_replication_ssl.py")
+        )
+    elif damage == "scalers":
+        c.documents["parent-run.json"]["core_config"]["seed"] = 23
+    else:
+        c.documents["parent-run.json"]["supervised_ancestry"]["mode"] = "full_finetune"
+    c.seal()
+    monkeypatch.setattr(prefix.np, "load", lambda *a, **k: pytest.fail("Decoded bad parent"))
+    monkeypatch.setattr(prefix.torch, "load", lambda *a, **k: pytest.fail("Decoded bad weights"))
+    with pytest.raises(ValueError):
+        prefix.admit(c.manifest_path, c.review_path, c.output)
+
+
+@pytest.mark.parametrize("seed", [7, 13, 23])
+def test_replication_typed_frozen_fresh_head_preserves_backbone(seed):
+    """SYNTHETIC_CORRECTNESS_ONLY: actual revised encoder, no optimizer."""
+    import torch
+
+    from marine_echo.training.native_band_replication_ssl import Config
+
+    cfg = prefix.PrefixConfig(
+        family="band",
+        band_artifact_version=2,
+        method="direct",
+        seed=seed,
+        mode="scratch_direct",
+        correctness_smoke=True,
+        updates=4,
+        cadence=1,
+    )
+    backbone = Config(
+        method="direct", seed=seed, pretrain_updates=3000, width=8, latent=4, blocks=1, heads=2
+    ).to_dict()
+    statistics = {
+        "channel_mean": [0.0] * 4,
+        "channel_std": [1.0] * 4,
+        "target_mean": [0.0] * 3,
+        "target_std": [1.0] * 3,
+    }
+    scratch = prefix.prepare_model(cfg, backbone, None, statistics)
+    artifact = {
+        "kind": "native_band_replication_downstream_supervised_encoder_v2",
+        "architecture": "nonlinear_frequency_conditioned_v1",
+        "config": backbone,
+        "scalers": statistics,
+        "encoder": prefix.core.cpu_state(scratch.encoder),
+        "supervised_ancestry": {
+            "mode": "direct_end_to_end",
+            "ssl_only": False,
+            "supervised_updates": 3000,
+            "selected_supervised_step": 750,
+            "ancestor_encoder_sha256": None,
+            "ancestor_run_sha256": None,
+        },
+    }
+    frozen = prefix.prepare_model(
+        prefix.PrefixConfig(**{**cfg.to_dict(), "mode": "frozen_readout"}),
+        backbone,
+        artifact,
+        statistics,
+    )
+    assert all(
+        torch.equal(v, frozen.encoder.state_dict()[k]) for k, v in artifact["encoder"].items()
+    )
+    assert all(
+        torch.equal(v, frozen.head.state_dict()[k]) for k, v in scratch.head.state_dict().items()
+    )
+    assert not any(p.requires_grad for p in frozen.encoder.parameters())
+
+
 def test_native_consecutive_source_intervals_accept_clock_jitter():
     from datetime import datetime, timedelta
 

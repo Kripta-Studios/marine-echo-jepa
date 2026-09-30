@@ -1,0 +1,1 @@
+{"aggregation": "equal_target_source_date_then_horizon_then_deployment", "cohort_sha256": "b7999940d35bbfab75aac6c36ae8139af37013d73c5a32d92f3dab3dc2fffce5", "floor": 18, "opportunities": [1, 2, 3, 4], "role": "original_development"}

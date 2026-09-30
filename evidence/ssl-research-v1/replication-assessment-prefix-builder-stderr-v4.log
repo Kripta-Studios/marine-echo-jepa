@@ -1,0 +1,5 @@
+2026-09-30T14:16:51.638653Z ERROR codex_rmcp_client::oauth::refresh_transaction: error=failed to refresh OAuth tokens for server exa: OAuth refresh token was rejected: Server returned error response: invalid_grant: Refresh token has been revoked
+2026-09-30T14:36:17.366209Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-jepa-vnext-builder\src\marine_echo\training\native_prefix_transfer.py:
+                    "native_band_downstream.py"
+2026-09-30T15:12:32.497122Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-jepa-vnext-builder\tests\unit\test_native_replication_assessment.py:
+    [(95, 2, 3600), (4, 11.5, 1800)],

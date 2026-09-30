@@ -1,0 +1,43 @@
+..........F..................                                            [100%]
+================================== FAILURES ===================================
+______ test_band_failed_time_limits_prefix_to_lesser_remaining_allowance ______
+
+    def test_band_failed_time_limits_prefix_to_lesser_remaining_allowance():
+>       deadline, aggregate, band = wrapper.resource_budget(ledger(), "band")
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\unit\test_native_prefix_execution_v2.py:108: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tools\execute_native_prefix_job_v2.py:89: in resource_budget
+    aggregate, band_spent, band_remaining = budget_totals(ledger)
+                                            ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+ledger = {'gpu_limit_hours': 96, 'gpu_hours_spent_owned_scientific_jobs': 95.9, 'runs': [{'id': 'retained_failed_band_attempt',...s': 'FAILED', 'budget_family': 'native_band_v1', 'resources_full_attempt': {'elapsed_full_attempt_seconds': 43164.0}}]}
+
+    def budget_totals(ledger):
+        aggregate = number(ledger.get("gpu_hours_spent_owned_scientific_jobs"), "aggregate owned GPU hours")
+        if ledger.get("gpu_limit_hours") != 96 or not isinstance(ledger.get("runs"), list):
+            raise ValueError("Complete aggregate96-hour ledger required")
+        band_seconds = 0.0
+        for record in ledger["runs"]:
+            if not isinstance(record, dict):
+                raise TypeError("Exact operation record required")
+            if str(record.get("status", "")).startswith("RUNNING_") or record.get("requires_reconciliation"):
+                raise ValueError("Active or unreconciled operation blocks the next process")
+            signature = (record.get("architecture") == ARCHITECTURE
+                         or str(record.get("method", "")).startswith("band_")
+                         or "native_band" in str(record.get("config", "")).lower()
+                         or any("native_band" in str(value) for value in record.get("command", [])))
+            if signature and record.get("budget_family") != FAMILY:
+                raise ValueError("Unaccounted Band operation")
+            if record.get("budget_family") != FAMILY:
+                continue
+            if record.get("status") not in CLOSED:
+>               raise ValueError("Unknown Band operation status")
+E               ValueError: Unknown Band operation status
+
+tools\native_band_budget_history_v2.py:37: ValueError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_prefix_execution_v2.py::test_band_failed_time_limits_prefix_to_lesser_remaining_allowance
+1 failed, 28 passed in 1.95s

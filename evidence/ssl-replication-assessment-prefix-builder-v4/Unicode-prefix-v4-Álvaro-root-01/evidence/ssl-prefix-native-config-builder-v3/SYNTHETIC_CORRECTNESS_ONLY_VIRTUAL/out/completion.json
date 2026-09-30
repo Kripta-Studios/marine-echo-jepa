@@ -1,0 +1,1942 @@
+{
+  "kind": "native_prefix_transfer_completion_v1",
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "status": "COMPLETED",
+  "config": {
+    "method": "direct",
+    "family": "core",
+    "band_artifact_version": 1,
+    "mode": "scratch_direct",
+    "seed": 7,
+    "prefix_days": 1,
+    "history": 96,
+    "updates": 4,
+    "cadence": 1,
+    "batch_size": 8,
+    "lr": 0.0003,
+    "weight_decay": 0.0001,
+    "clip": 1.0,
+    "floor": 18,
+    "device": "cpu",
+    "correctness_smoke": true
+  },
+  "architecture": "shared_temporal_v1",
+  "bindings": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-replication-assessment-prefix-builder-v4\\Unicode-prefix-v4-\u00c1lvaro-root-01\\evidence\\ssl-prefix-native-config-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL\\manifest.json": "f2a57b7638be1e4611e5b6c4bedd16d93af2941080133e9f5a8580568cb463ff",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\__init__.py": "3fcc1878588f5a89775363e099fab7d7323acebccae26d10db4a6da627425b68",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\__init__.py": "dddaccd3cb0c952e88796d75e7a15966cfab87f98c2cfe8452a5fff4c3138c68",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_product.py": "fd1c643fde93494a21d560794f886056e58031f1ef6dd41ebe53662750bab314",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_band_acoustic.py": "6181baf22b75be73767f4b76370c65bfc37fdeb189da3deabcabe8a7c2dcd1bf",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_band_replication_acoustic.py": "e689d80077152b4c784966426846bfb154eb4e16a46494f2140129c003288149",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_encoder.py": "6cc07a15ea93427d6628f1b317945f6e38ff3008894a31cab2173c0b666c0f7f",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\__init__.py": "5bdc97a6119b2dd3d519df36406c8bcb9e801be81c8b6c3f44e4a527db1f87a3",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_band_temporal.py": "1550bb3f130e3981f57b46031e39d0d42ce7dac4738aea9280362210dfaca96b",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_temporal.py": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\sigreg.py": "2cf5dc8e6fc610fbe167339a8750f5e2d9ddf9a48f416717b8310500536469a3",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\__init__.py": "c98c60178f566d43dd60641704ccd9c652d406487b4838cbf5a9df49ea5dd735",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_downstream.py": "95becf2cd01a7ab07c67a4da8d26c8e8bf58297f56513a439b0ab2b2be776619",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_replication_downstream.py": "f5a6747b3a37dcd8856b617a95cd939862ba716a1d7e50fe7ef9090a08d4084d",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_replication_ssl.py": "94c04d2d585c39d49e849f4b86375e201898ae104e8a808341363a2f22518f72",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_ssl.py": "ca33bf3141ea17c5adb3d0a4cd2ed0d186be8efb846a5b581003f2088a105e4f",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_downstream.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_prefix_transfer.py": "844159d11a1d9a410f7cb7f1a83c782360427e04aae965c19cb94a74d5a28d38",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_resources.py": "c9ca3fbd0759ae00824774ed61a08185361234430d5ed63f09fa3885545c7c38",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_ssl.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-replication-assessment-prefix-builder-v4\\Unicode-prefix-v4-\u00c1lvaro-root-01\\evidence\\ssl-prefix-native-config-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL\\protocol.txt": "f4f6c03b68697fca4cc42828b2a644e28cb980c7e6d6622ab499f3c7f223e1d2",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-replication-assessment-prefix-builder-v4\\Unicode-prefix-v4-\u00c1lvaro-root-01\\evidence\\ssl-prefix-native-config-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL\\split.txt": "9ec411df8738c642eee1f393d7753503a95cdc27b19401d1fd9d970784f1023d",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-replication-assessment-prefix-builder-v4\\Unicode-prefix-v4-\u00c1lvaro-root-01\\evidence\\ssl-prefix-native-config-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL\\selection.txt": "8c375825d241576a4b4616aeda7431dbda7eb4d047ce5099b837c24deffe6d4d",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-replication-assessment-prefix-builder-v4\\Unicode-prefix-v4-\u00c1lvaro-root-01\\evidence\\ssl-prefix-native-config-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL\\lock.txt": "f4f6c03b68697fca4cc42828b2a644e28cb980c7e6d6622ab499f3c7f223e1d2",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-replication-assessment-prefix-builder-v4\\Unicode-prefix-v4-\u00c1lvaro-root-01\\evidence\\ssl-prefix-native-config-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL\\supervisor.txt": "f4f6c03b68697fca4cc42828b2a644e28cb980c7e6d6622ab499f3c7f223e1d2",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-replication-assessment-prefix-builder-v4\\Unicode-prefix-v4-\u00c1lvaro-root-01\\evidence\\ssl-prefix-native-config-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL\\sources.txt": "57966bf0b8b19e9e0932fcf4aca2bf72d590b90e78d11688b84f29310c313427",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-replication-assessment-prefix-builder-v4\\Unicode-prefix-v4-\u00c1lvaro-root-01\\evidence\\ssl-prefix-native-config-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL\\config.json": "922faa4b38d3ac29f8f3fae5e840e01bbd398a16aaa55fc7971ff97797fe9e92",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-replication-assessment-prefix-builder-v4\\Unicode-prefix-v4-\u00c1lvaro-root-01\\evidence\\ssl-prefix-native-config-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL\\backbone.json": "beedf390e7fd224713625c82b792ea468da5c36ed38b1d766d58a27e006bdb8e",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-replication-assessment-prefix-builder-v4\\Unicode-prefix-v4-\u00c1lvaro-root-01\\evidence\\ssl-prefix-native-config-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL\\raw.json": "7e48905760bf4cf0f54c869128cf11490fe5776c59f270de753f3906f8628878",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-replication-assessment-prefix-builder-v4\\Unicode-prefix-v4-\u00c1lvaro-root-01\\evidence\\ssl-prefix-native-config-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL\\prefix-cohort.json": "c66e0b75c494578e010beb4e89d28e3079e9675c658928671059c119d95576e5",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-replication-assessment-prefix-builder-v4\\Unicode-prefix-v4-\u00c1lvaro-root-01\\evidence\\ssl-prefix-native-config-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL\\dev-cohort.json": "b7999940d35bbfab75aac6c36ae8139af37013d73c5a32d92f3dab3dc2fffce5",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-replication-assessment-prefix-builder-v4\\Unicode-prefix-v4-\u00c1lvaro-root-01\\evidence\\ssl-prefix-native-config-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL\\stats.json": "a383b8e873b3fbdc7c4dac6ba9922dcf9e1ef9f88fa8edc7ee597201c5191f4d",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-replication-assessment-prefix-builder-v4\\Unicode-prefix-v4-\u00c1lvaro-root-01\\evidence\\ssl-prefix-native-config-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL\\ancestry.json": "9dd2b39af897ce9b6f4485969f3f144fdf328e6a2249454bcc0a4791561585f1",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-replication-assessment-prefix-builder-v4\\Unicode-prefix-v4-\u00c1lvaro-root-01\\evidence\\ssl-prefix-native-config-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL\\train-cohort.json": "426dba7884c4a2e9675a21a3a88b2d5005c7150b46964146601f83b9ee006420",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-replication-assessment-prefix-builder-v4\\Unicode-prefix-v4-\u00c1lvaro-root-01\\evidence\\ssl-prefix-native-config-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL\\train.npz": "f4f6c03b68697fca4cc42828b2a644e28cb980c7e6d6622ab499f3c7f223e1d2",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-replication-assessment-prefix-builder-v4\\Unicode-prefix-v4-\u00c1lvaro-root-01\\evidence\\ssl-prefix-native-config-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL\\train-intervals.json": "209f9f619a7fc7e6625cf96ba539a9b2da1466cf96bb4c42e021eec5e2fecc5f",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-replication-assessment-prefix-builder-v4\\Unicode-prefix-v4-\u00c1lvaro-root-01\\evidence\\ssl-prefix-native-config-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL\\prefix.npz": "166fb83b063cf937229da4b1adb3f17c6dd4f9699f6b41b07df75cc3229b1e1d",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-replication-assessment-prefix-builder-v4\\Unicode-prefix-v4-\u00c1lvaro-root-01\\evidence\\ssl-prefix-native-config-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL\\dev.npz": "0d149085dc3672342b5f877265e9494cb2622560e4f6dc3f61edbe073dabb488",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-replication-assessment-prefix-builder-v4\\Unicode-prefix-v4-\u00c1lvaro-root-01\\evidence\\ssl-prefix-native-config-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL\\numeric.json": "3c2aa85d32dc6127e4b5497985dae39cbb987489db775fedf0d4b173d0e62bc6"
+  },
+  "partition": {
+    "fit_rows": [
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-0"
+      ],
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-1"
+      ],
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-2"
+      ],
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-3"
+      ],
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-4"
+      ],
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-5"
+      ],
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-6"
+      ],
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-7"
+      ],
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-8"
+      ],
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-9"
+      ],
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-10"
+      ],
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-11"
+      ],
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-12"
+      ],
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-13"
+      ],
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-14"
+      ],
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-15"
+      ],
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-16"
+      ],
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-17"
+      ]
+    ],
+    "suffix_rows": [
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-888"
+      ],
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-889"
+      ],
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-890"
+      ],
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-891"
+      ],
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-892"
+      ],
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-893"
+      ],
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-894"
+      ],
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-895"
+      ],
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-896"
+      ],
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-897"
+      ],
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-898"
+      ],
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-899"
+      ],
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-900"
+      ],
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-901"
+      ],
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-902"
+      ],
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-903"
+      ],
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-904"
+      ],
+      [
+        "synthetic-site",
+        "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-905"
+      ]
+    ],
+    "fit_interval_ids": [
+      "synthetic-site:2026-01-01T01:00:00:c0",
+      "synthetic-site:2026-01-01T01:00:00:c1",
+      "synthetic-site:2026-01-01T01:00:00:c2",
+      "synthetic-site:2026-01-01T01:00:00:c3",
+      "synthetic-site:2026-01-01T02:00:00:c0",
+      "synthetic-site:2026-01-01T02:00:00:c1",
+      "synthetic-site:2026-01-01T02:00:00:c2",
+      "synthetic-site:2026-01-01T02:00:00:c3",
+      "synthetic-site:2026-01-01T03:00:00:c0",
+      "synthetic-site:2026-01-01T03:00:00:c1",
+      "synthetic-site:2026-01-01T03:00:00:c2",
+      "synthetic-site:2026-01-01T03:00:00:c3",
+      "synthetic-site:2026-01-01T04:00:00:c0",
+      "synthetic-site:2026-01-01T04:00:00:c1",
+      "synthetic-site:2026-01-01T04:00:00:c2",
+      "synthetic-site:2026-01-01T04:00:00:c3",
+      "synthetic-site:2026-01-01T05:00:00:c0",
+      "synthetic-site:2026-01-01T05:00:00:c1",
+      "synthetic-site:2026-01-01T05:00:00:c2",
+      "synthetic-site:2026-01-01T05:00:00:c3",
+      "synthetic-site:2026-01-01T06:00:00:c0",
+      "synthetic-site:2026-01-01T06:00:00:c1",
+      "synthetic-site:2026-01-01T06:00:00:c2",
+      "synthetic-site:2026-01-01T06:00:00:c3",
+      "synthetic-site:2026-01-01T07:00:00:c0",
+      "synthetic-site:2026-01-01T07:00:00:c1",
+      "synthetic-site:2026-01-01T07:00:00:c2",
+      "synthetic-site:2026-01-01T07:00:00:c3",
+      "synthetic-site:2026-01-01T08:00:00:c0",
+      "synthetic-site:2026-01-01T08:00:00:c1",
+      "synthetic-site:2026-01-01T08:00:00:c2",
+      "synthetic-site:2026-01-01T08:00:00:c3",
+      "synthetic-site:2026-01-01T09:00:00:c0",
+      "synthetic-site:2026-01-01T09:00:00:c1",
+      "synthetic-site:2026-01-01T09:00:00:c2",
+      "synthetic-site:2026-01-01T09:00:00:c3",
+      "synthetic-site:2026-01-01T10:00:00:c0",
+      "synthetic-site:2026-01-01T10:00:00:c1",
+      "synthetic-site:2026-01-01T10:00:00:c2",
+      "synthetic-site:2026-01-01T10:00:00:c3",
+      "synthetic-site:2026-01-01T11:00:00:c0",
+      "synthetic-site:2026-01-01T11:00:00:c1",
+      "synthetic-site:2026-01-01T11:00:00:c2",
+      "synthetic-site:2026-01-01T11:00:00:c3",
+      "synthetic-site:2026-01-01T12:00:00:c0",
+      "synthetic-site:2026-01-01T12:00:00:c1",
+      "synthetic-site:2026-01-01T12:00:00:c2",
+      "synthetic-site:2026-01-01T12:00:00:c3",
+      "synthetic-site:2026-01-01T13:00:00:c0",
+      "synthetic-site:2026-01-01T13:00:00:c1",
+      "synthetic-site:2026-01-01T13:00:00:c2",
+      "synthetic-site:2026-01-01T13:00:00:c3",
+      "synthetic-site:2026-01-01T14:00:00:c0",
+      "synthetic-site:2026-01-01T14:00:00:c1",
+      "synthetic-site:2026-01-01T14:00:00:c2",
+      "synthetic-site:2026-01-01T14:00:00:c3",
+      "synthetic-site:2026-01-01T15:00:00:c0",
+      "synthetic-site:2026-01-01T15:00:00:c1",
+      "synthetic-site:2026-01-01T15:00:00:c2",
+      "synthetic-site:2026-01-01T15:00:00:c3",
+      "synthetic-site:2026-01-01T16:00:00:c0",
+      "synthetic-site:2026-01-01T16:00:00:c1",
+      "synthetic-site:2026-01-01T16:00:00:c2",
+      "synthetic-site:2026-01-01T16:00:00:c3",
+      "synthetic-site:2026-01-01T17:00:00:c0",
+      "synthetic-site:2026-01-01T17:00:00:c1",
+      "synthetic-site:2026-01-01T17:00:00:c2",
+      "synthetic-site:2026-01-01T17:00:00:c3",
+      "synthetic-site:2026-01-01T18:00:00:c0",
+      "synthetic-site:2026-01-01T18:00:00:c1",
+      "synthetic-site:2026-01-01T18:00:00:c2",
+      "synthetic-site:2026-01-01T18:00:00:c3",
+      "synthetic-site:2026-01-01T19:00:00:c0",
+      "synthetic-site:2026-01-01T19:00:00:c1",
+      "synthetic-site:2026-01-01T19:00:00:c2",
+      "synthetic-site:2026-01-01T19:00:00:c3",
+      "synthetic-site:2026-01-01T20:00:00:c0",
+      "synthetic-site:2026-01-01T20:00:00:c1",
+      "synthetic-site:2026-01-01T20:00:00:c2",
+      "synthetic-site:2026-01-01T20:00:00:c3",
+      "synthetic-site:2026-01-01T21:00:00:c0",
+      "synthetic-site:2026-01-01T21:00:00:c1",
+      "synthetic-site:2026-01-01T21:00:00:c2",
+      "synthetic-site:2026-01-01T21:00:00:c3",
+      "synthetic-site:2026-01-01T22:00:00:c0",
+      "synthetic-site:2026-01-01T22:00:00:c1",
+      "synthetic-site:2026-01-01T22:00:00:c2",
+      "synthetic-site:2026-01-01T22:00:00:c3",
+      "synthetic-site:2026-01-01T23:00:00:c0",
+      "synthetic-site:2026-01-01T23:00:00:c1",
+      "synthetic-site:2026-01-01T23:00:00:c2",
+      "synthetic-site:2026-01-01T23:00:00:c3",
+      "synthetic-site:2026-01-02T00:00:00:c0",
+      "synthetic-site:2026-01-02T00:00:00:c1",
+      "synthetic-site:2026-01-02T00:00:00:c2",
+      "synthetic-site:2026-01-02T00:00:00:c3",
+      "synthetic-site:2026-01-02T01:00:00:c0",
+      "synthetic-site:2026-01-02T01:00:00:c1",
+      "synthetic-site:2026-01-02T01:00:00:c2",
+      "synthetic-site:2026-01-02T01:00:00:c3",
+      "synthetic-site:2026-01-02T02:00:00:c0",
+      "synthetic-site:2026-01-02T02:00:00:c1",
+      "synthetic-site:2026-01-02T02:00:00:c2",
+      "synthetic-site:2026-01-02T02:00:00:c3",
+      "synthetic-site:2026-01-02T03:00:00:c0",
+      "synthetic-site:2026-01-02T03:00:00:c1",
+      "synthetic-site:2026-01-02T03:00:00:c2",
+      "synthetic-site:2026-01-02T03:00:00:c3",
+      "synthetic-site:2026-01-02T04:00:00:c0",
+      "synthetic-site:2026-01-02T04:00:00:c1",
+      "synthetic-site:2026-01-02T04:00:00:c2",
+      "synthetic-site:2026-01-02T04:00:00:c3",
+      "synthetic-site:2026-01-02T05:00:00:c0",
+      "synthetic-site:2026-01-02T05:00:00:c1",
+      "synthetic-site:2026-01-02T05:00:00:c2",
+      "synthetic-site:2026-01-02T05:00:00:c3",
+      "synthetic-site:2026-01-02T06:00:00:c0",
+      "synthetic-site:2026-01-02T06:00:00:c1",
+      "synthetic-site:2026-01-02T06:00:00:c2",
+      "synthetic-site:2026-01-02T06:00:00:c3",
+      "synthetic-site:2026-01-02T07:00:00:c0",
+      "synthetic-site:2026-01-02T07:00:00:c1",
+      "synthetic-site:2026-01-02T07:00:00:c2",
+      "synthetic-site:2026-01-02T07:00:00:c3",
+      "synthetic-site:2026-01-02T08:00:00:c0",
+      "synthetic-site:2026-01-02T08:00:00:c1",
+      "synthetic-site:2026-01-02T08:00:00:c2",
+      "synthetic-site:2026-01-02T08:00:00:c3",
+      "synthetic-site:2026-01-02T09:00:00:c0",
+      "synthetic-site:2026-01-02T09:00:00:c1",
+      "synthetic-site:2026-01-02T09:00:00:c2",
+      "synthetic-site:2026-01-02T09:00:00:c3",
+      "synthetic-site:2026-01-02T10:00:00:c0",
+      "synthetic-site:2026-01-02T10:00:00:c1",
+      "synthetic-site:2026-01-02T10:00:00:c2",
+      "synthetic-site:2026-01-02T10:00:00:c3",
+      "synthetic-site:2026-01-02T11:00:00:c0",
+      "synthetic-site:2026-01-02T11:00:00:c1",
+      "synthetic-site:2026-01-02T11:00:00:c2",
+      "synthetic-site:2026-01-02T11:00:00:c3",
+      "synthetic-site:2026-01-02T12:00:00:c0",
+      "synthetic-site:2026-01-02T12:00:00:c1",
+      "synthetic-site:2026-01-02T12:00:00:c2",
+      "synthetic-site:2026-01-02T12:00:00:c3",
+      "synthetic-site:2026-01-02T13:00:00:c0",
+      "synthetic-site:2026-01-02T13:00:00:c1",
+      "synthetic-site:2026-01-02T13:00:00:c2",
+      "synthetic-site:2026-01-02T13:00:00:c3",
+      "synthetic-site:2026-01-02T14:00:00:c0",
+      "synthetic-site:2026-01-02T14:00:00:c1",
+      "synthetic-site:2026-01-02T14:00:00:c2",
+      "synthetic-site:2026-01-02T14:00:00:c3",
+      "synthetic-site:2026-01-02T15:00:00:c0",
+      "synthetic-site:2026-01-02T15:00:00:c1",
+      "synthetic-site:2026-01-02T15:00:00:c2",
+      "synthetic-site:2026-01-02T15:00:00:c3",
+      "synthetic-site:2026-01-02T16:00:00:c0",
+      "synthetic-site:2026-01-02T16:00:00:c1",
+      "synthetic-site:2026-01-02T16:00:00:c2",
+      "synthetic-site:2026-01-02T16:00:00:c3",
+      "synthetic-site:2026-01-02T17:00:00:c0",
+      "synthetic-site:2026-01-02T17:00:00:c1",
+      "synthetic-site:2026-01-02T17:00:00:c2",
+      "synthetic-site:2026-01-02T17:00:00:c3",
+      "synthetic-site:2026-01-02T18:00:00:c0",
+      "synthetic-site:2026-01-02T18:00:00:c1",
+      "synthetic-site:2026-01-02T18:00:00:c2",
+      "synthetic-site:2026-01-02T18:00:00:c3",
+      "synthetic-site:2026-01-02T19:00:00:c0",
+      "synthetic-site:2026-01-02T19:00:00:c1",
+      "synthetic-site:2026-01-02T19:00:00:c2",
+      "synthetic-site:2026-01-02T19:00:00:c3",
+      "synthetic-site:2026-01-02T20:00:00:c0",
+      "synthetic-site:2026-01-02T20:00:00:c1",
+      "synthetic-site:2026-01-02T20:00:00:c2",
+      "synthetic-site:2026-01-02T20:00:00:c3",
+      "synthetic-site:2026-01-02T21:00:00:c0",
+      "synthetic-site:2026-01-02T21:00:00:c1",
+      "synthetic-site:2026-01-02T21:00:00:c2",
+      "synthetic-site:2026-01-02T21:00:00:c3",
+      "synthetic-site:2026-01-02T22:00:00:c0",
+      "synthetic-site:2026-01-02T22:00:00:c1",
+      "synthetic-site:2026-01-02T22:00:00:c2",
+      "synthetic-site:2026-01-02T22:00:00:c3",
+      "synthetic-site:2026-01-02T23:00:00:c0",
+      "synthetic-site:2026-01-02T23:00:00:c1",
+      "synthetic-site:2026-01-02T23:00:00:c2",
+      "synthetic-site:2026-01-02T23:00:00:c3",
+      "synthetic-site:2026-01-03T00:00:00:c0",
+      "synthetic-site:2026-01-03T00:00:00:c1",
+      "synthetic-site:2026-01-03T00:00:00:c2",
+      "synthetic-site:2026-01-03T00:00:00:c3",
+      "synthetic-site:2026-01-03T01:00:00:c0",
+      "synthetic-site:2026-01-03T01:00:00:c1",
+      "synthetic-site:2026-01-03T01:00:00:c2",
+      "synthetic-site:2026-01-03T01:00:00:c3",
+      "synthetic-site:2026-01-03T02:00:00:c0",
+      "synthetic-site:2026-01-03T02:00:00:c1",
+      "synthetic-site:2026-01-03T02:00:00:c2",
+      "synthetic-site:2026-01-03T02:00:00:c3",
+      "synthetic-site:2026-01-03T03:00:00:c0",
+      "synthetic-site:2026-01-03T03:00:00:c1",
+      "synthetic-site:2026-01-03T03:00:00:c2",
+      "synthetic-site:2026-01-03T03:00:00:c3",
+      "synthetic-site:2026-01-03T04:00:00:c0",
+      "synthetic-site:2026-01-03T04:00:00:c1",
+      "synthetic-site:2026-01-03T04:00:00:c2",
+      "synthetic-site:2026-01-03T04:00:00:c3",
+      "synthetic-site:2026-01-03T05:00:00:c0",
+      "synthetic-site:2026-01-03T05:00:00:c1",
+      "synthetic-site:2026-01-03T05:00:00:c2",
+      "synthetic-site:2026-01-03T05:00:00:c3",
+      "synthetic-site:2026-01-03T06:00:00:c0",
+      "synthetic-site:2026-01-03T06:00:00:c1",
+      "synthetic-site:2026-01-03T06:00:00:c2",
+      "synthetic-site:2026-01-03T06:00:00:c3",
+      "synthetic-site:2026-01-03T07:00:00:c0",
+      "synthetic-site:2026-01-03T07:00:00:c1",
+      "synthetic-site:2026-01-03T07:00:00:c2",
+      "synthetic-site:2026-01-03T07:00:00:c3",
+      "synthetic-site:2026-01-03T08:00:00:c0",
+      "synthetic-site:2026-01-03T08:00:00:c1",
+      "synthetic-site:2026-01-03T08:00:00:c2",
+      "synthetic-site:2026-01-03T08:00:00:c3",
+      "synthetic-site:2026-01-03T09:00:00:c0",
+      "synthetic-site:2026-01-03T09:00:00:c1",
+      "synthetic-site:2026-01-03T09:00:00:c2",
+      "synthetic-site:2026-01-03T09:00:00:c3",
+      "synthetic-site:2026-01-03T10:00:00:c0",
+      "synthetic-site:2026-01-03T10:00:00:c1",
+      "synthetic-site:2026-01-03T10:00:00:c2",
+      "synthetic-site:2026-01-03T10:00:00:c3",
+      "synthetic-site:2026-01-03T11:00:00:c0",
+      "synthetic-site:2026-01-03T11:00:00:c1",
+      "synthetic-site:2026-01-03T11:00:00:c2",
+      "synthetic-site:2026-01-03T11:00:00:c3",
+      "synthetic-site:2026-01-03T12:00:00:c0",
+      "synthetic-site:2026-01-03T12:00:00:c1",
+      "synthetic-site:2026-01-03T12:00:00:c2",
+      "synthetic-site:2026-01-03T12:00:00:c3",
+      "synthetic-site:2026-01-03T13:00:00:c0",
+      "synthetic-site:2026-01-03T13:00:00:c1",
+      "synthetic-site:2026-01-03T13:00:00:c2",
+      "synthetic-site:2026-01-03T13:00:00:c3",
+      "synthetic-site:2026-01-03T14:00:00:c0",
+      "synthetic-site:2026-01-03T14:00:00:c1",
+      "synthetic-site:2026-01-03T14:00:00:c2",
+      "synthetic-site:2026-01-03T14:00:00:c3",
+      "synthetic-site:2026-01-03T15:00:00:c0",
+      "synthetic-site:2026-01-03T15:00:00:c1",
+      "synthetic-site:2026-01-03T15:00:00:c2",
+      "synthetic-site:2026-01-03T15:00:00:c3",
+      "synthetic-site:2026-01-03T16:00:00:c0",
+      "synthetic-site:2026-01-03T16:00:00:c1",
+      "synthetic-site:2026-01-03T16:00:00:c2",
+      "synthetic-site:2026-01-03T16:00:00:c3",
+      "synthetic-site:2026-01-03T17:00:00:c0",
+      "synthetic-site:2026-01-03T17:00:00:c1",
+      "synthetic-site:2026-01-03T17:00:00:c2",
+      "synthetic-site:2026-01-03T17:00:00:c3",
+      "synthetic-site:2026-01-03T18:00:00:c0",
+      "synthetic-site:2026-01-03T18:00:00:c1",
+      "synthetic-site:2026-01-03T18:00:00:c2",
+      "synthetic-site:2026-01-03T18:00:00:c3",
+      "synthetic-site:2026-01-03T19:00:00:c0",
+      "synthetic-site:2026-01-03T19:00:00:c1",
+      "synthetic-site:2026-01-03T19:00:00:c2",
+      "synthetic-site:2026-01-03T19:00:00:c3",
+      "synthetic-site:2026-01-03T20:00:00:c0",
+      "synthetic-site:2026-01-03T20:00:00:c1",
+      "synthetic-site:2026-01-03T20:00:00:c2",
+      "synthetic-site:2026-01-03T20:00:00:c3",
+      "synthetic-site:2026-01-03T21:00:00:c0",
+      "synthetic-site:2026-01-03T21:00:00:c1",
+      "synthetic-site:2026-01-03T21:00:00:c2",
+      "synthetic-site:2026-01-03T21:00:00:c3",
+      "synthetic-site:2026-01-03T22:00:00:c0",
+      "synthetic-site:2026-01-03T22:00:00:c1",
+      "synthetic-site:2026-01-03T22:00:00:c2",
+      "synthetic-site:2026-01-03T22:00:00:c3",
+      "synthetic-site:2026-01-03T23:00:00:c0",
+      "synthetic-site:2026-01-03T23:00:00:c1",
+      "synthetic-site:2026-01-03T23:00:00:c2",
+      "synthetic-site:2026-01-03T23:00:00:c3",
+      "synthetic-site:2026-01-04T00:00:00:c0",
+      "synthetic-site:2026-01-04T00:00:00:c1",
+      "synthetic-site:2026-01-04T00:00:00:c2",
+      "synthetic-site:2026-01-04T00:00:00:c3",
+      "synthetic-site:2026-01-04T01:00:00:c0",
+      "synthetic-site:2026-01-04T01:00:00:c1",
+      "synthetic-site:2026-01-04T01:00:00:c2",
+      "synthetic-site:2026-01-04T01:00:00:c3",
+      "synthetic-site:2026-01-04T02:00:00:c0",
+      "synthetic-site:2026-01-04T02:00:00:c1",
+      "synthetic-site:2026-01-04T02:00:00:c2",
+      "synthetic-site:2026-01-04T02:00:00:c3",
+      "synthetic-site:2026-01-04T03:00:00:c0",
+      "synthetic-site:2026-01-04T03:00:00:c1",
+      "synthetic-site:2026-01-04T03:00:00:c2",
+      "synthetic-site:2026-01-04T03:00:00:c3",
+      "synthetic-site:2026-01-04T04:00:00:c0",
+      "synthetic-site:2026-01-04T04:00:00:c1",
+      "synthetic-site:2026-01-04T04:00:00:c2",
+      "synthetic-site:2026-01-04T04:00:00:c3",
+      "synthetic-site:2026-01-04T05:00:00:c0",
+      "synthetic-site:2026-01-04T05:00:00:c1",
+      "synthetic-site:2026-01-04T05:00:00:c2",
+      "synthetic-site:2026-01-04T05:00:00:c3",
+      "synthetic-site:2026-01-04T06:00:00:c0",
+      "synthetic-site:2026-01-04T06:00:00:c1",
+      "synthetic-site:2026-01-04T06:00:00:c2",
+      "synthetic-site:2026-01-04T06:00:00:c3",
+      "synthetic-site:2026-01-04T07:00:00:c0",
+      "synthetic-site:2026-01-04T07:00:00:c1",
+      "synthetic-site:2026-01-04T07:00:00:c2",
+      "synthetic-site:2026-01-04T07:00:00:c3",
+      "synthetic-site:2026-01-04T08:00:00:c0",
+      "synthetic-site:2026-01-04T08:00:00:c1",
+      "synthetic-site:2026-01-04T08:00:00:c2",
+      "synthetic-site:2026-01-04T08:00:00:c3",
+      "synthetic-site:2026-01-04T09:00:00:c0",
+      "synthetic-site:2026-01-04T09:00:00:c1",
+      "synthetic-site:2026-01-04T09:00:00:c2",
+      "synthetic-site:2026-01-04T09:00:00:c3",
+      "synthetic-site:2026-01-04T10:00:00:c0",
+      "synthetic-site:2026-01-04T10:00:00:c1",
+      "synthetic-site:2026-01-04T10:00:00:c2",
+      "synthetic-site:2026-01-04T10:00:00:c3",
+      "synthetic-site:2026-01-04T11:00:00:c0",
+      "synthetic-site:2026-01-04T11:00:00:c1",
+      "synthetic-site:2026-01-04T11:00:00:c2",
+      "synthetic-site:2026-01-04T11:00:00:c3",
+      "synthetic-site:2026-01-04T12:00:00:c0",
+      "synthetic-site:2026-01-04T12:00:00:c1",
+      "synthetic-site:2026-01-04T12:00:00:c2",
+      "synthetic-site:2026-01-04T12:00:00:c3",
+      "synthetic-site:2026-01-04T13:00:00:c0",
+      "synthetic-site:2026-01-04T13:00:00:c1",
+      "synthetic-site:2026-01-04T13:00:00:c2",
+      "synthetic-site:2026-01-04T13:00:00:c3",
+      "synthetic-site:2026-01-04T14:00:00:c0",
+      "synthetic-site:2026-01-04T14:00:00:c1",
+      "synthetic-site:2026-01-04T14:00:00:c2",
+      "synthetic-site:2026-01-04T14:00:00:c3",
+      "synthetic-site:2026-01-04T15:00:00:c0",
+      "synthetic-site:2026-01-04T15:00:00:c1",
+      "synthetic-site:2026-01-04T15:00:00:c2",
+      "synthetic-site:2026-01-04T15:00:00:c3",
+      "synthetic-site:2026-01-04T16:00:00:c0",
+      "synthetic-site:2026-01-04T16:00:00:c1",
+      "synthetic-site:2026-01-04T16:00:00:c2",
+      "synthetic-site:2026-01-04T16:00:00:c3",
+      "synthetic-site:2026-01-04T17:00:00:c0",
+      "synthetic-site:2026-01-04T17:00:00:c1",
+      "synthetic-site:2026-01-04T17:00:00:c2",
+      "synthetic-site:2026-01-04T17:00:00:c3",
+      "synthetic-site:2026-01-04T18:00:00:c0",
+      "synthetic-site:2026-01-04T18:00:00:c1",
+      "synthetic-site:2026-01-04T18:00:00:c2",
+      "synthetic-site:2026-01-04T18:00:00:c3",
+      "synthetic-site:2026-01-04T19:00:00:c0",
+      "synthetic-site:2026-01-04T19:00:00:c1",
+      "synthetic-site:2026-01-04T19:00:00:c2",
+      "synthetic-site:2026-01-04T19:00:00:c3",
+      "synthetic-site:2026-01-04T20:00:00:c0",
+      "synthetic-site:2026-01-04T20:00:00:c1",
+      "synthetic-site:2026-01-04T20:00:00:c2",
+      "synthetic-site:2026-01-04T20:00:00:c3",
+      "synthetic-site:2026-01-04T21:00:00:c0",
+      "synthetic-site:2026-01-04T21:00:00:c1",
+      "synthetic-site:2026-01-04T21:00:00:c2",
+      "synthetic-site:2026-01-04T21:00:00:c3",
+      "synthetic-site:2026-01-04T22:00:00:c0",
+      "synthetic-site:2026-01-04T22:00:00:c1",
+      "synthetic-site:2026-01-04T22:00:00:c2",
+      "synthetic-site:2026-01-04T22:00:00:c3",
+      "synthetic-site:2026-01-04T23:00:00:c0",
+      "synthetic-site:2026-01-04T23:00:00:c1",
+      "synthetic-site:2026-01-04T23:00:00:c2",
+      "synthetic-site:2026-01-04T23:00:00:c3",
+      "synthetic-site:2026-01-05T00:00:00:c0",
+      "synthetic-site:2026-01-05T00:00:00:c1",
+      "synthetic-site:2026-01-05T00:00:00:c2",
+      "synthetic-site:2026-01-05T00:00:00:c3",
+      "synthetic-site:2026-01-05T01:00:00:c0",
+      "synthetic-site:2026-01-05T01:00:00:c1",
+      "synthetic-site:2026-01-05T01:00:00:c2",
+      "synthetic-site:2026-01-05T01:00:00:c3",
+      "synthetic-site:2026-01-05T02:00:00:c0",
+      "synthetic-site:2026-01-05T02:00:00:c1",
+      "synthetic-site:2026-01-05T02:00:00:c2",
+      "synthetic-site:2026-01-05T02:00:00:c3",
+      "synthetic-site:2026-01-05T03:00:00:c0",
+      "synthetic-site:2026-01-05T03:00:00:c1",
+      "synthetic-site:2026-01-05T03:00:00:c2",
+      "synthetic-site:2026-01-05T03:00:00:c3",
+      "synthetic-site:2026-01-05T04:00:00:c0",
+      "synthetic-site:2026-01-05T04:00:00:c1",
+      "synthetic-site:2026-01-05T04:00:00:c2",
+      "synthetic-site:2026-01-05T04:00:00:c3",
+      "synthetic-site:2026-01-05T05:00:00:c0",
+      "synthetic-site:2026-01-05T05:00:00:c1",
+      "synthetic-site:2026-01-05T05:00:00:c2",
+      "synthetic-site:2026-01-05T05:00:00:c3",
+      "synthetic-site:2026-01-05T06:00:00:c0",
+      "synthetic-site:2026-01-05T06:00:00:c1",
+      "synthetic-site:2026-01-05T06:00:00:c2",
+      "synthetic-site:2026-01-05T06:00:00:c3",
+      "synthetic-site:2026-01-05T07:00:00:c0",
+      "synthetic-site:2026-01-05T07:00:00:c1",
+      "synthetic-site:2026-01-05T07:00:00:c2",
+      "synthetic-site:2026-01-05T07:00:00:c3",
+      "synthetic-site:2026-01-05T08:00:00:c0",
+      "synthetic-site:2026-01-05T08:00:00:c1",
+      "synthetic-site:2026-01-05T08:00:00:c2",
+      "synthetic-site:2026-01-05T08:00:00:c3",
+      "synthetic-site:2026-01-05T09:00:00:c0",
+      "synthetic-site:2026-01-05T09:00:00:c1",
+      "synthetic-site:2026-01-05T09:00:00:c2",
+      "synthetic-site:2026-01-05T09:00:00:c3",
+      "synthetic-site:2026-01-05T10:00:00:c0",
+      "synthetic-site:2026-01-05T10:00:00:c1",
+      "synthetic-site:2026-01-05T10:00:00:c2",
+      "synthetic-site:2026-01-05T10:00:00:c3",
+      "synthetic-site:2026-01-05T11:00:00:c0",
+      "synthetic-site:2026-01-05T11:00:00:c1",
+      "synthetic-site:2026-01-05T11:00:00:c2",
+      "synthetic-site:2026-01-05T11:00:00:c3",
+      "synthetic-site:2026-01-05T12:00:00:c0",
+      "synthetic-site:2026-01-05T12:00:00:c1",
+      "synthetic-site:2026-01-05T12:00:00:c2",
+      "synthetic-site:2026-01-05T12:00:00:c3",
+      "synthetic-site:2026-01-05T13:00:00:c0",
+      "synthetic-site:2026-01-05T13:00:00:c1",
+      "synthetic-site:2026-01-05T13:00:00:c2",
+      "synthetic-site:2026-01-05T13:00:00:c3",
+      "synthetic-site:2026-01-05T14:00:00:c0",
+      "synthetic-site:2026-01-05T14:00:00:c1",
+      "synthetic-site:2026-01-05T14:00:00:c2",
+      "synthetic-site:2026-01-05T14:00:00:c3",
+      "synthetic-site:2026-01-05T15:00:00:c0",
+      "synthetic-site:2026-01-05T15:00:00:c1",
+      "synthetic-site:2026-01-05T15:00:00:c2",
+      "synthetic-site:2026-01-05T15:00:00:c3",
+      "synthetic-site:2026-01-05T16:00:00:c0",
+      "synthetic-site:2026-01-05T16:00:00:c1",
+      "synthetic-site:2026-01-05T16:00:00:c2",
+      "synthetic-site:2026-01-05T16:00:00:c3",
+      "synthetic-site:2026-01-05T17:00:00:c0",
+      "synthetic-site:2026-01-05T17:00:00:c1",
+      "synthetic-site:2026-01-05T17:00:00:c2",
+      "synthetic-site:2026-01-05T17:00:00:c3",
+      "synthetic-site:2026-01-05T18:00:00:c0",
+      "synthetic-site:2026-01-05T19:00:00:c0",
+      "synthetic-site:2026-01-05T20:00:00:c0",
+      "synthetic-site:2026-01-05T21:00:00:c0",
+      "synthetic-site:2026-01-05T22:00:00:c0",
+      "synthetic-site:2026-01-05T23:00:00:c0"
+    ],
+    "suffix_interval_ids": [
+      "synthetic-site:2026-02-07T01:00:00:c0",
+      "synthetic-site:2026-02-07T01:00:00:c1",
+      "synthetic-site:2026-02-07T01:00:00:c2",
+      "synthetic-site:2026-02-07T01:00:00:c3",
+      "synthetic-site:2026-02-07T02:00:00:c0",
+      "synthetic-site:2026-02-07T02:00:00:c1",
+      "synthetic-site:2026-02-07T02:00:00:c2",
+      "synthetic-site:2026-02-07T02:00:00:c3",
+      "synthetic-site:2026-02-07T03:00:00:c0",
+      "synthetic-site:2026-02-07T03:00:00:c1",
+      "synthetic-site:2026-02-07T03:00:00:c2",
+      "synthetic-site:2026-02-07T03:00:00:c3",
+      "synthetic-site:2026-02-07T04:00:00:c0",
+      "synthetic-site:2026-02-07T04:00:00:c1",
+      "synthetic-site:2026-02-07T04:00:00:c2",
+      "synthetic-site:2026-02-07T04:00:00:c3",
+      "synthetic-site:2026-02-07T05:00:00:c0",
+      "synthetic-site:2026-02-07T05:00:00:c1",
+      "synthetic-site:2026-02-07T05:00:00:c2",
+      "synthetic-site:2026-02-07T05:00:00:c3",
+      "synthetic-site:2026-02-07T06:00:00:c0",
+      "synthetic-site:2026-02-07T06:00:00:c1",
+      "synthetic-site:2026-02-07T06:00:00:c2",
+      "synthetic-site:2026-02-07T06:00:00:c3",
+      "synthetic-site:2026-02-07T07:00:00:c0",
+      "synthetic-site:2026-02-07T07:00:00:c1",
+      "synthetic-site:2026-02-07T07:00:00:c2",
+      "synthetic-site:2026-02-07T07:00:00:c3",
+      "synthetic-site:2026-02-07T08:00:00:c0",
+      "synthetic-site:2026-02-07T08:00:00:c1",
+      "synthetic-site:2026-02-07T08:00:00:c2",
+      "synthetic-site:2026-02-07T08:00:00:c3",
+      "synthetic-site:2026-02-07T09:00:00:c0",
+      "synthetic-site:2026-02-07T09:00:00:c1",
+      "synthetic-site:2026-02-07T09:00:00:c2",
+      "synthetic-site:2026-02-07T09:00:00:c3",
+      "synthetic-site:2026-02-07T10:00:00:c0",
+      "synthetic-site:2026-02-07T10:00:00:c1",
+      "synthetic-site:2026-02-07T10:00:00:c2",
+      "synthetic-site:2026-02-07T10:00:00:c3",
+      "synthetic-site:2026-02-07T11:00:00:c0",
+      "synthetic-site:2026-02-07T11:00:00:c1",
+      "synthetic-site:2026-02-07T11:00:00:c2",
+      "synthetic-site:2026-02-07T11:00:00:c3",
+      "synthetic-site:2026-02-07T12:00:00:c0",
+      "synthetic-site:2026-02-07T12:00:00:c1",
+      "synthetic-site:2026-02-07T12:00:00:c2",
+      "synthetic-site:2026-02-07T12:00:00:c3",
+      "synthetic-site:2026-02-07T13:00:00:c0",
+      "synthetic-site:2026-02-07T13:00:00:c1",
+      "synthetic-site:2026-02-07T13:00:00:c2",
+      "synthetic-site:2026-02-07T13:00:00:c3",
+      "synthetic-site:2026-02-07T14:00:00:c0",
+      "synthetic-site:2026-02-07T14:00:00:c1",
+      "synthetic-site:2026-02-07T14:00:00:c2",
+      "synthetic-site:2026-02-07T14:00:00:c3",
+      "synthetic-site:2026-02-07T15:00:00:c0",
+      "synthetic-site:2026-02-07T15:00:00:c1",
+      "synthetic-site:2026-02-07T15:00:00:c2",
+      "synthetic-site:2026-02-07T15:00:00:c3",
+      "synthetic-site:2026-02-07T16:00:00:c0",
+      "synthetic-site:2026-02-07T16:00:00:c1",
+      "synthetic-site:2026-02-07T16:00:00:c2",
+      "synthetic-site:2026-02-07T16:00:00:c3",
+      "synthetic-site:2026-02-07T17:00:00:c0",
+      "synthetic-site:2026-02-07T17:00:00:c1",
+      "synthetic-site:2026-02-07T17:00:00:c2",
+      "synthetic-site:2026-02-07T17:00:00:c3",
+      "synthetic-site:2026-02-07T18:00:00:c0",
+      "synthetic-site:2026-02-07T18:00:00:c1",
+      "synthetic-site:2026-02-07T18:00:00:c2",
+      "synthetic-site:2026-02-07T18:00:00:c3",
+      "synthetic-site:2026-02-07T19:00:00:c0",
+      "synthetic-site:2026-02-07T19:00:00:c1",
+      "synthetic-site:2026-02-07T19:00:00:c2",
+      "synthetic-site:2026-02-07T19:00:00:c3",
+      "synthetic-site:2026-02-07T20:00:00:c0",
+      "synthetic-site:2026-02-07T20:00:00:c1",
+      "synthetic-site:2026-02-07T20:00:00:c2",
+      "synthetic-site:2026-02-07T20:00:00:c3",
+      "synthetic-site:2026-02-07T21:00:00:c0",
+      "synthetic-site:2026-02-07T21:00:00:c1",
+      "synthetic-site:2026-02-07T21:00:00:c2",
+      "synthetic-site:2026-02-07T21:00:00:c3",
+      "synthetic-site:2026-02-07T22:00:00:c0",
+      "synthetic-site:2026-02-07T22:00:00:c1",
+      "synthetic-site:2026-02-07T22:00:00:c2",
+      "synthetic-site:2026-02-07T22:00:00:c3",
+      "synthetic-site:2026-02-07T23:00:00:c0",
+      "synthetic-site:2026-02-07T23:00:00:c1",
+      "synthetic-site:2026-02-07T23:00:00:c2",
+      "synthetic-site:2026-02-07T23:00:00:c3",
+      "synthetic-site:2026-02-08T00:00:00:c0",
+      "synthetic-site:2026-02-08T00:00:00:c1",
+      "synthetic-site:2026-02-08T00:00:00:c2",
+      "synthetic-site:2026-02-08T00:00:00:c3",
+      "synthetic-site:2026-02-08T01:00:00:c0",
+      "synthetic-site:2026-02-08T01:00:00:c1",
+      "synthetic-site:2026-02-08T01:00:00:c2",
+      "synthetic-site:2026-02-08T01:00:00:c3",
+      "synthetic-site:2026-02-08T02:00:00:c0",
+      "synthetic-site:2026-02-08T02:00:00:c1",
+      "synthetic-site:2026-02-08T02:00:00:c2",
+      "synthetic-site:2026-02-08T02:00:00:c3",
+      "synthetic-site:2026-02-08T03:00:00:c0",
+      "synthetic-site:2026-02-08T03:00:00:c1",
+      "synthetic-site:2026-02-08T03:00:00:c2",
+      "synthetic-site:2026-02-08T03:00:00:c3",
+      "synthetic-site:2026-02-08T04:00:00:c0",
+      "synthetic-site:2026-02-08T04:00:00:c1",
+      "synthetic-site:2026-02-08T04:00:00:c2",
+      "synthetic-site:2026-02-08T04:00:00:c3",
+      "synthetic-site:2026-02-08T05:00:00:c0",
+      "synthetic-site:2026-02-08T05:00:00:c1",
+      "synthetic-site:2026-02-08T05:00:00:c2",
+      "synthetic-site:2026-02-08T05:00:00:c3",
+      "synthetic-site:2026-02-08T06:00:00:c0",
+      "synthetic-site:2026-02-08T06:00:00:c1",
+      "synthetic-site:2026-02-08T06:00:00:c2",
+      "synthetic-site:2026-02-08T06:00:00:c3",
+      "synthetic-site:2026-02-08T07:00:00:c0",
+      "synthetic-site:2026-02-08T07:00:00:c1",
+      "synthetic-site:2026-02-08T07:00:00:c2",
+      "synthetic-site:2026-02-08T07:00:00:c3",
+      "synthetic-site:2026-02-08T08:00:00:c0",
+      "synthetic-site:2026-02-08T08:00:00:c1",
+      "synthetic-site:2026-02-08T08:00:00:c2",
+      "synthetic-site:2026-02-08T08:00:00:c3",
+      "synthetic-site:2026-02-08T09:00:00:c0",
+      "synthetic-site:2026-02-08T09:00:00:c1",
+      "synthetic-site:2026-02-08T09:00:00:c2",
+      "synthetic-site:2026-02-08T09:00:00:c3",
+      "synthetic-site:2026-02-08T10:00:00:c0",
+      "synthetic-site:2026-02-08T10:00:00:c1",
+      "synthetic-site:2026-02-08T10:00:00:c2",
+      "synthetic-site:2026-02-08T10:00:00:c3",
+      "synthetic-site:2026-02-08T11:00:00:c0",
+      "synthetic-site:2026-02-08T11:00:00:c1",
+      "synthetic-site:2026-02-08T11:00:00:c2",
+      "synthetic-site:2026-02-08T11:00:00:c3",
+      "synthetic-site:2026-02-08T12:00:00:c0",
+      "synthetic-site:2026-02-08T12:00:00:c1",
+      "synthetic-site:2026-02-08T12:00:00:c2",
+      "synthetic-site:2026-02-08T12:00:00:c3",
+      "synthetic-site:2026-02-08T13:00:00:c0",
+      "synthetic-site:2026-02-08T13:00:00:c1",
+      "synthetic-site:2026-02-08T13:00:00:c2",
+      "synthetic-site:2026-02-08T13:00:00:c3",
+      "synthetic-site:2026-02-08T14:00:00:c0",
+      "synthetic-site:2026-02-08T14:00:00:c1",
+      "synthetic-site:2026-02-08T14:00:00:c2",
+      "synthetic-site:2026-02-08T14:00:00:c3",
+      "synthetic-site:2026-02-08T15:00:00:c0",
+      "synthetic-site:2026-02-08T15:00:00:c1",
+      "synthetic-site:2026-02-08T15:00:00:c2",
+      "synthetic-site:2026-02-08T15:00:00:c3",
+      "synthetic-site:2026-02-08T16:00:00:c0",
+      "synthetic-site:2026-02-08T16:00:00:c1",
+      "synthetic-site:2026-02-08T16:00:00:c2",
+      "synthetic-site:2026-02-08T16:00:00:c3",
+      "synthetic-site:2026-02-08T17:00:00:c0",
+      "synthetic-site:2026-02-08T17:00:00:c1",
+      "synthetic-site:2026-02-08T17:00:00:c2",
+      "synthetic-site:2026-02-08T17:00:00:c3",
+      "synthetic-site:2026-02-08T18:00:00:c0",
+      "synthetic-site:2026-02-08T18:00:00:c1",
+      "synthetic-site:2026-02-08T18:00:00:c2",
+      "synthetic-site:2026-02-08T18:00:00:c3",
+      "synthetic-site:2026-02-08T19:00:00:c0",
+      "synthetic-site:2026-02-08T19:00:00:c1",
+      "synthetic-site:2026-02-08T19:00:00:c2",
+      "synthetic-site:2026-02-08T19:00:00:c3",
+      "synthetic-site:2026-02-08T20:00:00:c0",
+      "synthetic-site:2026-02-08T20:00:00:c1",
+      "synthetic-site:2026-02-08T20:00:00:c2",
+      "synthetic-site:2026-02-08T20:00:00:c3",
+      "synthetic-site:2026-02-08T21:00:00:c0",
+      "synthetic-site:2026-02-08T21:00:00:c1",
+      "synthetic-site:2026-02-08T21:00:00:c2",
+      "synthetic-site:2026-02-08T21:00:00:c3",
+      "synthetic-site:2026-02-08T22:00:00:c0",
+      "synthetic-site:2026-02-08T22:00:00:c1",
+      "synthetic-site:2026-02-08T22:00:00:c2",
+      "synthetic-site:2026-02-08T22:00:00:c3",
+      "synthetic-site:2026-02-08T23:00:00:c0",
+      "synthetic-site:2026-02-08T23:00:00:c1",
+      "synthetic-site:2026-02-08T23:00:00:c2",
+      "synthetic-site:2026-02-08T23:00:00:c3",
+      "synthetic-site:2026-02-09T00:00:00:c0",
+      "synthetic-site:2026-02-09T00:00:00:c1",
+      "synthetic-site:2026-02-09T00:00:00:c2",
+      "synthetic-site:2026-02-09T00:00:00:c3",
+      "synthetic-site:2026-02-09T01:00:00:c0",
+      "synthetic-site:2026-02-09T01:00:00:c1",
+      "synthetic-site:2026-02-09T01:00:00:c2",
+      "synthetic-site:2026-02-09T01:00:00:c3",
+      "synthetic-site:2026-02-09T02:00:00:c0",
+      "synthetic-site:2026-02-09T02:00:00:c1",
+      "synthetic-site:2026-02-09T02:00:00:c2",
+      "synthetic-site:2026-02-09T02:00:00:c3",
+      "synthetic-site:2026-02-09T03:00:00:c0",
+      "synthetic-site:2026-02-09T03:00:00:c1",
+      "synthetic-site:2026-02-09T03:00:00:c2",
+      "synthetic-site:2026-02-09T03:00:00:c3",
+      "synthetic-site:2026-02-09T04:00:00:c0",
+      "synthetic-site:2026-02-09T04:00:00:c1",
+      "synthetic-site:2026-02-09T04:00:00:c2",
+      "synthetic-site:2026-02-09T04:00:00:c3",
+      "synthetic-site:2026-02-09T05:00:00:c0",
+      "synthetic-site:2026-02-09T05:00:00:c1",
+      "synthetic-site:2026-02-09T05:00:00:c2",
+      "synthetic-site:2026-02-09T05:00:00:c3",
+      "synthetic-site:2026-02-09T06:00:00:c0",
+      "synthetic-site:2026-02-09T06:00:00:c1",
+      "synthetic-site:2026-02-09T06:00:00:c2",
+      "synthetic-site:2026-02-09T06:00:00:c3",
+      "synthetic-site:2026-02-09T07:00:00:c0",
+      "synthetic-site:2026-02-09T07:00:00:c1",
+      "synthetic-site:2026-02-09T07:00:00:c2",
+      "synthetic-site:2026-02-09T07:00:00:c3",
+      "synthetic-site:2026-02-09T08:00:00:c0",
+      "synthetic-site:2026-02-09T08:00:00:c1",
+      "synthetic-site:2026-02-09T08:00:00:c2",
+      "synthetic-site:2026-02-09T08:00:00:c3",
+      "synthetic-site:2026-02-09T09:00:00:c0",
+      "synthetic-site:2026-02-09T09:00:00:c1",
+      "synthetic-site:2026-02-09T09:00:00:c2",
+      "synthetic-site:2026-02-09T09:00:00:c3",
+      "synthetic-site:2026-02-09T10:00:00:c0",
+      "synthetic-site:2026-02-09T10:00:00:c1",
+      "synthetic-site:2026-02-09T10:00:00:c2",
+      "synthetic-site:2026-02-09T10:00:00:c3",
+      "synthetic-site:2026-02-09T11:00:00:c0",
+      "synthetic-site:2026-02-09T11:00:00:c1",
+      "synthetic-site:2026-02-09T11:00:00:c2",
+      "synthetic-site:2026-02-09T11:00:00:c3",
+      "synthetic-site:2026-02-09T12:00:00:c0",
+      "synthetic-site:2026-02-09T12:00:00:c1",
+      "synthetic-site:2026-02-09T12:00:00:c2",
+      "synthetic-site:2026-02-09T12:00:00:c3",
+      "synthetic-site:2026-02-09T13:00:00:c0",
+      "synthetic-site:2026-02-09T13:00:00:c1",
+      "synthetic-site:2026-02-09T13:00:00:c2",
+      "synthetic-site:2026-02-09T13:00:00:c3",
+      "synthetic-site:2026-02-09T14:00:00:c0",
+      "synthetic-site:2026-02-09T14:00:00:c1",
+      "synthetic-site:2026-02-09T14:00:00:c2",
+      "synthetic-site:2026-02-09T14:00:00:c3",
+      "synthetic-site:2026-02-09T15:00:00:c0",
+      "synthetic-site:2026-02-09T15:00:00:c1",
+      "synthetic-site:2026-02-09T15:00:00:c2",
+      "synthetic-site:2026-02-09T15:00:00:c3",
+      "synthetic-site:2026-02-09T16:00:00:c0",
+      "synthetic-site:2026-02-09T16:00:00:c1",
+      "synthetic-site:2026-02-09T16:00:00:c2",
+      "synthetic-site:2026-02-09T16:00:00:c3",
+      "synthetic-site:2026-02-09T17:00:00:c0",
+      "synthetic-site:2026-02-09T17:00:00:c1",
+      "synthetic-site:2026-02-09T17:00:00:c2",
+      "synthetic-site:2026-02-09T17:00:00:c3",
+      "synthetic-site:2026-02-09T18:00:00:c0",
+      "synthetic-site:2026-02-09T18:00:00:c1",
+      "synthetic-site:2026-02-09T18:00:00:c2",
+      "synthetic-site:2026-02-09T18:00:00:c3",
+      "synthetic-site:2026-02-09T19:00:00:c0",
+      "synthetic-site:2026-02-09T19:00:00:c1",
+      "synthetic-site:2026-02-09T19:00:00:c2",
+      "synthetic-site:2026-02-09T19:00:00:c3",
+      "synthetic-site:2026-02-09T20:00:00:c0",
+      "synthetic-site:2026-02-09T20:00:00:c1",
+      "synthetic-site:2026-02-09T20:00:00:c2",
+      "synthetic-site:2026-02-09T20:00:00:c3",
+      "synthetic-site:2026-02-09T21:00:00:c0",
+      "synthetic-site:2026-02-09T21:00:00:c1",
+      "synthetic-site:2026-02-09T21:00:00:c2",
+      "synthetic-site:2026-02-09T21:00:00:c3",
+      "synthetic-site:2026-02-09T22:00:00:c0",
+      "synthetic-site:2026-02-09T22:00:00:c1",
+      "synthetic-site:2026-02-09T22:00:00:c2",
+      "synthetic-site:2026-02-09T22:00:00:c3",
+      "synthetic-site:2026-02-09T23:00:00:c0",
+      "synthetic-site:2026-02-09T23:00:00:c1",
+      "synthetic-site:2026-02-09T23:00:00:c2",
+      "synthetic-site:2026-02-09T23:00:00:c3",
+      "synthetic-site:2026-02-10T00:00:00:c0",
+      "synthetic-site:2026-02-10T00:00:00:c1",
+      "synthetic-site:2026-02-10T00:00:00:c2",
+      "synthetic-site:2026-02-10T00:00:00:c3",
+      "synthetic-site:2026-02-10T01:00:00:c0",
+      "synthetic-site:2026-02-10T01:00:00:c1",
+      "synthetic-site:2026-02-10T01:00:00:c2",
+      "synthetic-site:2026-02-10T01:00:00:c3",
+      "synthetic-site:2026-02-10T02:00:00:c0",
+      "synthetic-site:2026-02-10T02:00:00:c1",
+      "synthetic-site:2026-02-10T02:00:00:c2",
+      "synthetic-site:2026-02-10T02:00:00:c3",
+      "synthetic-site:2026-02-10T03:00:00:c0",
+      "synthetic-site:2026-02-10T03:00:00:c1",
+      "synthetic-site:2026-02-10T03:00:00:c2",
+      "synthetic-site:2026-02-10T03:00:00:c3",
+      "synthetic-site:2026-02-10T04:00:00:c0",
+      "synthetic-site:2026-02-10T04:00:00:c1",
+      "synthetic-site:2026-02-10T04:00:00:c2",
+      "synthetic-site:2026-02-10T04:00:00:c3",
+      "synthetic-site:2026-02-10T05:00:00:c0",
+      "synthetic-site:2026-02-10T05:00:00:c1",
+      "synthetic-site:2026-02-10T05:00:00:c2",
+      "synthetic-site:2026-02-10T05:00:00:c3",
+      "synthetic-site:2026-02-10T06:00:00:c0",
+      "synthetic-site:2026-02-10T06:00:00:c1",
+      "synthetic-site:2026-02-10T06:00:00:c2",
+      "synthetic-site:2026-02-10T06:00:00:c3",
+      "synthetic-site:2026-02-10T07:00:00:c0",
+      "synthetic-site:2026-02-10T07:00:00:c1",
+      "synthetic-site:2026-02-10T07:00:00:c2",
+      "synthetic-site:2026-02-10T07:00:00:c3",
+      "synthetic-site:2026-02-10T08:00:00:c0",
+      "synthetic-site:2026-02-10T08:00:00:c1",
+      "synthetic-site:2026-02-10T08:00:00:c2",
+      "synthetic-site:2026-02-10T08:00:00:c3",
+      "synthetic-site:2026-02-10T09:00:00:c0",
+      "synthetic-site:2026-02-10T09:00:00:c1",
+      "synthetic-site:2026-02-10T09:00:00:c2",
+      "synthetic-site:2026-02-10T09:00:00:c3",
+      "synthetic-site:2026-02-10T10:00:00:c0",
+      "synthetic-site:2026-02-10T10:00:00:c1",
+      "synthetic-site:2026-02-10T10:00:00:c2",
+      "synthetic-site:2026-02-10T10:00:00:c3",
+      "synthetic-site:2026-02-10T11:00:00:c0",
+      "synthetic-site:2026-02-10T11:00:00:c1",
+      "synthetic-site:2026-02-10T11:00:00:c2",
+      "synthetic-site:2026-02-10T11:00:00:c3",
+      "synthetic-site:2026-02-10T12:00:00:c0",
+      "synthetic-site:2026-02-10T12:00:00:c1",
+      "synthetic-site:2026-02-10T12:00:00:c2",
+      "synthetic-site:2026-02-10T12:00:00:c3",
+      "synthetic-site:2026-02-10T13:00:00:c0",
+      "synthetic-site:2026-02-10T13:00:00:c1",
+      "synthetic-site:2026-02-10T13:00:00:c2",
+      "synthetic-site:2026-02-10T13:00:00:c3",
+      "synthetic-site:2026-02-10T14:00:00:c0",
+      "synthetic-site:2026-02-10T14:00:00:c1",
+      "synthetic-site:2026-02-10T14:00:00:c2",
+      "synthetic-site:2026-02-10T14:00:00:c3",
+      "synthetic-site:2026-02-10T15:00:00:c0",
+      "synthetic-site:2026-02-10T15:00:00:c1",
+      "synthetic-site:2026-02-10T15:00:00:c2",
+      "synthetic-site:2026-02-10T15:00:00:c3",
+      "synthetic-site:2026-02-10T16:00:00:c0",
+      "synthetic-site:2026-02-10T16:00:00:c1",
+      "synthetic-site:2026-02-10T16:00:00:c2",
+      "synthetic-site:2026-02-10T16:00:00:c3",
+      "synthetic-site:2026-02-10T17:00:00:c0",
+      "synthetic-site:2026-02-10T17:00:00:c1",
+      "synthetic-site:2026-02-10T17:00:00:c2",
+      "synthetic-site:2026-02-10T17:00:00:c3",
+      "synthetic-site:2026-02-10T18:00:00:c0",
+      "synthetic-site:2026-02-10T18:00:00:c1",
+      "synthetic-site:2026-02-10T18:00:00:c2",
+      "synthetic-site:2026-02-10T18:00:00:c3",
+      "synthetic-site:2026-02-10T19:00:00:c0",
+      "synthetic-site:2026-02-10T19:00:00:c1",
+      "synthetic-site:2026-02-10T19:00:00:c2",
+      "synthetic-site:2026-02-10T19:00:00:c3",
+      "synthetic-site:2026-02-10T20:00:00:c0",
+      "synthetic-site:2026-02-10T20:00:00:c1",
+      "synthetic-site:2026-02-10T20:00:00:c2",
+      "synthetic-site:2026-02-10T20:00:00:c3",
+      "synthetic-site:2026-02-10T21:00:00:c0",
+      "synthetic-site:2026-02-10T21:00:00:c1",
+      "synthetic-site:2026-02-10T21:00:00:c2",
+      "synthetic-site:2026-02-10T21:00:00:c3",
+      "synthetic-site:2026-02-10T22:00:00:c0",
+      "synthetic-site:2026-02-10T22:00:00:c1",
+      "synthetic-site:2026-02-10T22:00:00:c2",
+      "synthetic-site:2026-02-10T22:00:00:c3",
+      "synthetic-site:2026-02-10T23:00:00:c0",
+      "synthetic-site:2026-02-10T23:00:00:c1",
+      "synthetic-site:2026-02-10T23:00:00:c2",
+      "synthetic-site:2026-02-10T23:00:00:c3",
+      "synthetic-site:2026-02-11T00:00:00:c0",
+      "synthetic-site:2026-02-11T00:00:00:c1",
+      "synthetic-site:2026-02-11T00:00:00:c2",
+      "synthetic-site:2026-02-11T00:00:00:c3",
+      "synthetic-site:2026-02-11T01:00:00:c0",
+      "synthetic-site:2026-02-11T01:00:00:c1",
+      "synthetic-site:2026-02-11T01:00:00:c2",
+      "synthetic-site:2026-02-11T01:00:00:c3",
+      "synthetic-site:2026-02-11T02:00:00:c0",
+      "synthetic-site:2026-02-11T02:00:00:c1",
+      "synthetic-site:2026-02-11T02:00:00:c2",
+      "synthetic-site:2026-02-11T02:00:00:c3",
+      "synthetic-site:2026-02-11T03:00:00:c0",
+      "synthetic-site:2026-02-11T03:00:00:c1",
+      "synthetic-site:2026-02-11T03:00:00:c2",
+      "synthetic-site:2026-02-11T03:00:00:c3",
+      "synthetic-site:2026-02-11T04:00:00:c0",
+      "synthetic-site:2026-02-11T04:00:00:c1",
+      "synthetic-site:2026-02-11T04:00:00:c2",
+      "synthetic-site:2026-02-11T04:00:00:c3",
+      "synthetic-site:2026-02-11T05:00:00:c0",
+      "synthetic-site:2026-02-11T05:00:00:c1",
+      "synthetic-site:2026-02-11T05:00:00:c2",
+      "synthetic-site:2026-02-11T05:00:00:c3",
+      "synthetic-site:2026-02-11T06:00:00:c0",
+      "synthetic-site:2026-02-11T06:00:00:c1",
+      "synthetic-site:2026-02-11T06:00:00:c2",
+      "synthetic-site:2026-02-11T06:00:00:c3",
+      "synthetic-site:2026-02-11T07:00:00:c0",
+      "synthetic-site:2026-02-11T07:00:00:c1",
+      "synthetic-site:2026-02-11T07:00:00:c2",
+      "synthetic-site:2026-02-11T07:00:00:c3",
+      "synthetic-site:2026-02-11T08:00:00:c0",
+      "synthetic-site:2026-02-11T08:00:00:c1",
+      "synthetic-site:2026-02-11T08:00:00:c2",
+      "synthetic-site:2026-02-11T08:00:00:c3",
+      "synthetic-site:2026-02-11T09:00:00:c0",
+      "synthetic-site:2026-02-11T09:00:00:c1",
+      "synthetic-site:2026-02-11T09:00:00:c2",
+      "synthetic-site:2026-02-11T09:00:00:c3",
+      "synthetic-site:2026-02-11T10:00:00:c0",
+      "synthetic-site:2026-02-11T10:00:00:c1",
+      "synthetic-site:2026-02-11T10:00:00:c2",
+      "synthetic-site:2026-02-11T10:00:00:c3",
+      "synthetic-site:2026-02-11T11:00:00:c0",
+      "synthetic-site:2026-02-11T11:00:00:c1",
+      "synthetic-site:2026-02-11T11:00:00:c2",
+      "synthetic-site:2026-02-11T11:00:00:c3",
+      "synthetic-site:2026-02-11T12:00:00:c0",
+      "synthetic-site:2026-02-11T12:00:00:c1",
+      "synthetic-site:2026-02-11T12:00:00:c2",
+      "synthetic-site:2026-02-11T12:00:00:c3",
+      "synthetic-site:2026-02-11T13:00:00:c0",
+      "synthetic-site:2026-02-11T13:00:00:c1",
+      "synthetic-site:2026-02-11T13:00:00:c2",
+      "synthetic-site:2026-02-11T13:00:00:c3",
+      "synthetic-site:2026-02-11T14:00:00:c0",
+      "synthetic-site:2026-02-11T14:00:00:c1",
+      "synthetic-site:2026-02-11T14:00:00:c2",
+      "synthetic-site:2026-02-11T14:00:00:c3",
+      "synthetic-site:2026-02-11T15:00:00:c0",
+      "synthetic-site:2026-02-11T15:00:00:c1",
+      "synthetic-site:2026-02-11T15:00:00:c2",
+      "synthetic-site:2026-02-11T15:00:00:c3",
+      "synthetic-site:2026-02-11T16:00:00:c0",
+      "synthetic-site:2026-02-11T16:00:00:c1",
+      "synthetic-site:2026-02-11T16:00:00:c2",
+      "synthetic-site:2026-02-11T16:00:00:c3",
+      "synthetic-site:2026-02-11T17:00:00:c0",
+      "synthetic-site:2026-02-11T17:00:00:c1",
+      "synthetic-site:2026-02-11T17:00:00:c2",
+      "synthetic-site:2026-02-11T17:00:00:c3",
+      "synthetic-site:2026-02-11T18:00:00:c0",
+      "synthetic-site:2026-02-11T19:00:00:c0",
+      "synthetic-site:2026-02-11T20:00:00:c0",
+      "synthetic-site:2026-02-11T21:00:00:c0",
+      "synthetic-site:2026-02-11T22:00:00:c0",
+      "synthetic-site:2026-02-11T23:00:00:c0"
+    ],
+    "boundaries": {
+      "synthetic-site": [
+        "2026-01-01T00:00:00",
+        "2026-02-20T00:00:00",
+        "2026-01-05T00:00:00",
+        "2026-01-06T00:00:00",
+        "2026-02-11T00:00:00"
+      ]
+    },
+    "reserved_suffix_support": [
+      {
+        "deployment": "synthetic-site",
+        "row_id": "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-888",
+        "target_ids": [
+          "synthetic-site:2026-02-11T01:00:00:c0",
+          "synthetic-site:2026-02-11T03:00:00:c0",
+          "synthetic-site:2026-02-11T06:00:00:c0"
+        ],
+        "target_timestamps": [
+          "2026-02-11T01:00:00",
+          "2026-02-11T03:00:00",
+          "2026-02-11T06:00:00"
+        ],
+        "observed": [
+          true,
+          true,
+          true
+        ],
+        "target_absence_refs": [
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "deployment": "synthetic-site",
+        "row_id": "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-889",
+        "target_ids": [
+          "synthetic-site:2026-02-11T02:00:00:c0",
+          "synthetic-site:2026-02-11T04:00:00:c0",
+          "synthetic-site:2026-02-11T07:00:00:c0"
+        ],
+        "target_timestamps": [
+          "2026-02-11T02:00:00",
+          "2026-02-11T04:00:00",
+          "2026-02-11T07:00:00"
+        ],
+        "observed": [
+          true,
+          true,
+          true
+        ],
+        "target_absence_refs": [
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "deployment": "synthetic-site",
+        "row_id": "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-890",
+        "target_ids": [
+          "synthetic-site:2026-02-11T03:00:00:c0",
+          "synthetic-site:2026-02-11T05:00:00:c0",
+          "synthetic-site:2026-02-11T08:00:00:c0"
+        ],
+        "target_timestamps": [
+          "2026-02-11T03:00:00",
+          "2026-02-11T05:00:00",
+          "2026-02-11T08:00:00"
+        ],
+        "observed": [
+          true,
+          true,
+          true
+        ],
+        "target_absence_refs": [
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "deployment": "synthetic-site",
+        "row_id": "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-891",
+        "target_ids": [
+          "synthetic-site:2026-02-11T04:00:00:c0",
+          "synthetic-site:2026-02-11T06:00:00:c0",
+          "synthetic-site:2026-02-11T09:00:00:c0"
+        ],
+        "target_timestamps": [
+          "2026-02-11T04:00:00",
+          "2026-02-11T06:00:00",
+          "2026-02-11T09:00:00"
+        ],
+        "observed": [
+          true,
+          true,
+          true
+        ],
+        "target_absence_refs": [
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "deployment": "synthetic-site",
+        "row_id": "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-892",
+        "target_ids": [
+          "synthetic-site:2026-02-11T05:00:00:c0",
+          "synthetic-site:2026-02-11T07:00:00:c0",
+          "synthetic-site:2026-02-11T10:00:00:c0"
+        ],
+        "target_timestamps": [
+          "2026-02-11T05:00:00",
+          "2026-02-11T07:00:00",
+          "2026-02-11T10:00:00"
+        ],
+        "observed": [
+          true,
+          true,
+          true
+        ],
+        "target_absence_refs": [
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "deployment": "synthetic-site",
+        "row_id": "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-893",
+        "target_ids": [
+          "synthetic-site:2026-02-11T06:00:00:c0",
+          "synthetic-site:2026-02-11T08:00:00:c0",
+          "synthetic-site:2026-02-11T11:00:00:c0"
+        ],
+        "target_timestamps": [
+          "2026-02-11T06:00:00",
+          "2026-02-11T08:00:00",
+          "2026-02-11T11:00:00"
+        ],
+        "observed": [
+          true,
+          true,
+          true
+        ],
+        "target_absence_refs": [
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "deployment": "synthetic-site",
+        "row_id": "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-894",
+        "target_ids": [
+          "synthetic-site:2026-02-11T07:00:00:c0",
+          "synthetic-site:2026-02-11T09:00:00:c0",
+          "synthetic-site:2026-02-11T12:00:00:c0"
+        ],
+        "target_timestamps": [
+          "2026-02-11T07:00:00",
+          "2026-02-11T09:00:00",
+          "2026-02-11T12:00:00"
+        ],
+        "observed": [
+          true,
+          true,
+          true
+        ],
+        "target_absence_refs": [
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "deployment": "synthetic-site",
+        "row_id": "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-895",
+        "target_ids": [
+          "synthetic-site:2026-02-11T08:00:00:c0",
+          "synthetic-site:2026-02-11T10:00:00:c0",
+          "synthetic-site:2026-02-11T13:00:00:c0"
+        ],
+        "target_timestamps": [
+          "2026-02-11T08:00:00",
+          "2026-02-11T10:00:00",
+          "2026-02-11T13:00:00"
+        ],
+        "observed": [
+          true,
+          true,
+          true
+        ],
+        "target_absence_refs": [
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "deployment": "synthetic-site",
+        "row_id": "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-896",
+        "target_ids": [
+          "synthetic-site:2026-02-11T09:00:00:c0",
+          "synthetic-site:2026-02-11T11:00:00:c0",
+          "synthetic-site:2026-02-11T14:00:00:c0"
+        ],
+        "target_timestamps": [
+          "2026-02-11T09:00:00",
+          "2026-02-11T11:00:00",
+          "2026-02-11T14:00:00"
+        ],
+        "observed": [
+          true,
+          true,
+          true
+        ],
+        "target_absence_refs": [
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "deployment": "synthetic-site",
+        "row_id": "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-897",
+        "target_ids": [
+          "synthetic-site:2026-02-11T10:00:00:c0",
+          "synthetic-site:2026-02-11T12:00:00:c0",
+          "synthetic-site:2026-02-11T15:00:00:c0"
+        ],
+        "target_timestamps": [
+          "2026-02-11T10:00:00",
+          "2026-02-11T12:00:00",
+          "2026-02-11T15:00:00"
+        ],
+        "observed": [
+          true,
+          true,
+          true
+        ],
+        "target_absence_refs": [
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "deployment": "synthetic-site",
+        "row_id": "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-898",
+        "target_ids": [
+          "synthetic-site:2026-02-11T11:00:00:c0",
+          "synthetic-site:2026-02-11T13:00:00:c0",
+          "synthetic-site:2026-02-11T16:00:00:c0"
+        ],
+        "target_timestamps": [
+          "2026-02-11T11:00:00",
+          "2026-02-11T13:00:00",
+          "2026-02-11T16:00:00"
+        ],
+        "observed": [
+          true,
+          true,
+          true
+        ],
+        "target_absence_refs": [
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "deployment": "synthetic-site",
+        "row_id": "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-899",
+        "target_ids": [
+          "synthetic-site:2026-02-11T12:00:00:c0",
+          "synthetic-site:2026-02-11T14:00:00:c0",
+          "synthetic-site:2026-02-11T17:00:00:c0"
+        ],
+        "target_timestamps": [
+          "2026-02-11T12:00:00",
+          "2026-02-11T14:00:00",
+          "2026-02-11T17:00:00"
+        ],
+        "observed": [
+          true,
+          true,
+          true
+        ],
+        "target_absence_refs": [
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "deployment": "synthetic-site",
+        "row_id": "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-900",
+        "target_ids": [
+          "synthetic-site:2026-02-11T13:00:00:c0",
+          "synthetic-site:2026-02-11T15:00:00:c0",
+          "synthetic-site:2026-02-11T18:00:00:c0"
+        ],
+        "target_timestamps": [
+          "2026-02-11T13:00:00",
+          "2026-02-11T15:00:00",
+          "2026-02-11T18:00:00"
+        ],
+        "observed": [
+          true,
+          true,
+          true
+        ],
+        "target_absence_refs": [
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "deployment": "synthetic-site",
+        "row_id": "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-901",
+        "target_ids": [
+          "synthetic-site:2026-02-11T14:00:00:c0",
+          "synthetic-site:2026-02-11T16:00:00:c0",
+          "synthetic-site:2026-02-11T19:00:00:c0"
+        ],
+        "target_timestamps": [
+          "2026-02-11T14:00:00",
+          "2026-02-11T16:00:00",
+          "2026-02-11T19:00:00"
+        ],
+        "observed": [
+          true,
+          true,
+          true
+        ],
+        "target_absence_refs": [
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "deployment": "synthetic-site",
+        "row_id": "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-902",
+        "target_ids": [
+          "synthetic-site:2026-02-11T15:00:00:c0",
+          "synthetic-site:2026-02-11T17:00:00:c0",
+          "synthetic-site:2026-02-11T20:00:00:c0"
+        ],
+        "target_timestamps": [
+          "2026-02-11T15:00:00",
+          "2026-02-11T17:00:00",
+          "2026-02-11T20:00:00"
+        ],
+        "observed": [
+          true,
+          true,
+          true
+        ],
+        "target_absence_refs": [
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "deployment": "synthetic-site",
+        "row_id": "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-903",
+        "target_ids": [
+          "synthetic-site:2026-02-11T16:00:00:c0",
+          "synthetic-site:2026-02-11T18:00:00:c0",
+          "synthetic-site:2026-02-11T21:00:00:c0"
+        ],
+        "target_timestamps": [
+          "2026-02-11T16:00:00",
+          "2026-02-11T18:00:00",
+          "2026-02-11T21:00:00"
+        ],
+        "observed": [
+          true,
+          true,
+          true
+        ],
+        "target_absence_refs": [
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "deployment": "synthetic-site",
+        "row_id": "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-904",
+        "target_ids": [
+          "synthetic-site:2026-02-11T17:00:00:c0",
+          "synthetic-site:2026-02-11T19:00:00:c0",
+          "synthetic-site:2026-02-11T22:00:00:c0"
+        ],
+        "target_timestamps": [
+          "2026-02-11T17:00:00",
+          "2026-02-11T19:00:00",
+          "2026-02-11T22:00:00"
+        ],
+        "observed": [
+          true,
+          true,
+          true
+        ],
+        "target_absence_refs": [
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "deployment": "synthetic-site",
+        "row_id": "SYNTHETIC_CORRECTNESS_ONLY-row-synthetic-site-905",
+        "target_ids": [
+          "synthetic-site:2026-02-11T18:00:00:c0",
+          "synthetic-site:2026-02-11T20:00:00:c0",
+          "synthetic-site:2026-02-11T23:00:00:c0"
+        ],
+        "target_timestamps": [
+          "2026-02-11T18:00:00",
+          "2026-02-11T20:00:00",
+          "2026-02-11T23:00:00"
+        ],
+        "observed": [
+          true,
+          true,
+          true
+        ],
+        "target_absence_refs": [
+          null,
+          null,
+          null
+        ]
+      }
+    ],
+    "suffix_support_sha256": "af36ac1aa403f8e36f3630d8e74c4f940accd8071a0e1cda23701eb7741ad02a",
+    "suffix_eligible_daily_support": [
+      {
+        "deployment": "synthetic-site",
+        "horizon": 1,
+        "target_source_date": "2026-02-11",
+        "rows": 18
+      },
+      {
+        "deployment": "synthetic-site",
+        "horizon": 3,
+        "target_source_date": "2026-02-11",
+        "rows": 18
+      },
+      {
+        "deployment": "synthetic-site",
+        "horizon": 6,
+        "target_source_date": "2026-02-11",
+        "rows": 18
+      }
+    ],
+    "suffix_support_status": "ASSESSABLE_METADATA_SUPPORT",
+    "source_clock": "nominal_source_calendar_not_verified_UTC",
+    "source_gaps": {},
+    "prefix_absence_boundary_unproven_rows": [],
+    "absence_boundary_policy": "conservative_55_65min_envelope_not_actual_missing_timestamps",
+    "configuration_mode": "legacy_single_configuration_v1",
+    "configuration_map": null,
+    "metadata_only_interval_ids": []
+  },
+  "prefit_review_sha256": "e9ab10fd2e3c23b53bad8ca581c473e5ac4da71c61d4fbe55a30f22dd6f64000",
+  "prefix_ancestors_explicit": true,
+  "zero_shot": false,
+  "suffix_numerical_access": false,
+  "original_train_scalers": {
+    "channel_mean": [
+      -50.0,
+      -50.0,
+      -50.0,
+      -50.0
+    ],
+    "channel_std": [
+      5.0,
+      5.0,
+      5.0,
+      5.0
+    ],
+    "target_mean": [
+      -50.0,
+      -50.0,
+      -50.0
+    ],
+    "target_std": [
+      5.0,
+      5.0,
+      5.0
+    ]
+  },
+  "feature_ancestor": {
+    "selected_kind": null,
+    "training_kind": "fresh_scratch_supervised_encoder",
+    "supervised_ancestry": null,
+    "original_parent_bindings": null,
+    "original_train_scalers": {
+      "channel_mean": [
+        -50.0,
+        -50.0,
+        -50.0,
+        -50.0
+      ],
+      "channel_std": [
+        5.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "target_mean": [
+        -50.0,
+        -50.0,
+        -50.0
+      ],
+      "target_std": [
+        5.0,
+        5.0,
+        5.0
+      ]
+    },
+    "parent_head_reused": false,
+    "fresh_head_seed": 100007
+  },
+  "parent_run_sha256": null,
+  "parent_inference_sha256": null,
+  "external_dev_exposure": "original_DEV0\u2013225_selection_only",
+  "label_counts": [
+    18,
+    18,
+    18
+  ],
+  "unique_prefix_rows": 18,
+  "support_sha256": "7e5906b7c0e1829e4d0c25851f3e2fbecb999a2f7e901828b79f714463055cd5",
+  "observed_prefix_target_values_sha256": "c767077e450fb074af15e99c44ce89b5f0f97b0ff67036469e8d979bca51e4fe",
+  "sample_sequence_sha256": "bb68a941c3573fd33a264fc8713412ddedbfc172150e374ec719c64572cdd15f",
+  "updates": 4,
+  "candidates": [
+    {
+      "step": 1,
+      "role": "original_development",
+      "metrics": {
+        "primary_pinball_db": 0.7769734389693648,
+        "per_deployment": {
+          "synthetic-original-dev": {
+            "horizons_pinball_db": [
+              1.5252142800225152,
+              0.5979330507914224,
+              0.20777298609415693
+            ],
+            "primary_pinball_db": 0.7769734389693648
+          }
+        },
+        "daily_rows": [
+          {
+            "deployment": "synthetic-original-dev",
+            "horizon_intervals": 1,
+            "target_source_date": "2026-05-01",
+            "rows": 18,
+            "pinball_db": 1.5252142800225152
+          },
+          {
+            "deployment": "synthetic-original-dev",
+            "horizon_intervals": 3,
+            "target_source_date": "2026-05-01",
+            "rows": 18,
+            "pinball_db": 0.5979330507914224
+          },
+          {
+            "deployment": "synthetic-original-dev",
+            "horizon_intervals": 6,
+            "target_source_date": "2026-05-01",
+            "rows": 18,
+            "pinball_db": 0.20777298609415693
+          }
+        ],
+        "issued_rows": 18,
+        "scored_per_horizon": [
+          18,
+          18,
+          18
+        ],
+        "eligible_source_dates_per_horizon": [
+          1,
+          1,
+          1
+        ],
+        "quantiles": [
+          0.05,
+          0.25,
+          0.5,
+          0.75,
+          0.95
+        ],
+        "minimum_daily_rows": 18,
+        "aggregation": "equal_target_source_date_then_horizon_then_deployment",
+        "unit": "source_reported_conditioned_native_product_dB"
+      }
+    },
+    {
+      "step": 2,
+      "role": "original_development",
+      "metrics": {
+        "primary_pinball_db": 0.7722843940169724,
+        "per_deployment": {
+          "synthetic-original-dev": {
+            "horizons_pinball_db": [
+              1.5170352194044325,
+              0.593864926232232,
+              0.20595303641425242
+            ],
+            "primary_pinball_db": 0.7722843940169724
+          }
+        },
+        "daily_rows": [
+          {
+            "deployment": "synthetic-original-dev",
+            "horizon_intervals": 1,
+            "target_source_date": "2026-05-01",
+            "rows": 18,
+            "pinball_db": 1.5170352194044325
+          },
+          {
+            "deployment": "synthetic-original-dev",
+            "horizon_intervals": 3,
+            "target_source_date": "2026-05-01",
+            "rows": 18,
+            "pinball_db": 0.593864926232232
+          },
+          {
+            "deployment": "synthetic-original-dev",
+            "horizon_intervals": 6,
+            "target_source_date": "2026-05-01",
+            "rows": 18,
+            "pinball_db": 0.20595303641425242
+          }
+        ],
+        "issued_rows": 18,
+        "scored_per_horizon": [
+          18,
+          18,
+          18
+        ],
+        "eligible_source_dates_per_horizon": [
+          1,
+          1,
+          1
+        ],
+        "quantiles": [
+          0.05,
+          0.25,
+          0.5,
+          0.75,
+          0.95
+        ],
+        "minimum_daily_rows": 18,
+        "aggregation": "equal_target_source_date_then_horizon_then_deployment",
+        "unit": "source_reported_conditioned_native_product_dB"
+      }
+    },
+    {
+      "step": 3,
+      "role": "original_development",
+      "metrics": {
+        "primary_pinball_db": 0.7686256161442508,
+        "per_deployment": {
+          "synthetic-original-dev": {
+            "horizons_pinball_db": [
+              1.510673173268636,
+              0.5906784502665202,
+              0.20452522489759656
+            ],
+            "primary_pinball_db": 0.7686256161442508
+          }
+        },
+        "daily_rows": [
+          {
+            "deployment": "synthetic-original-dev",
+            "horizon_intervals": 1,
+            "target_source_date": "2026-05-01",
+            "rows": 18,
+            "pinball_db": 1.510673173268636
+          },
+          {
+            "deployment": "synthetic-original-dev",
+            "horizon_intervals": 3,
+            "target_source_date": "2026-05-01",
+            "rows": 18,
+            "pinball_db": 0.5906784502665202
+          },
+          {
+            "deployment": "synthetic-original-dev",
+            "horizon_intervals": 6,
+            "target_source_date": "2026-05-01",
+            "rows": 18,
+            "pinball_db": 0.20452522489759656
+          }
+        ],
+        "issued_rows": 18,
+        "scored_per_horizon": [
+          18,
+          18,
+          18
+        ],
+        "eligible_source_dates_per_horizon": [
+          1,
+          1,
+          1
+        ],
+        "quantiles": [
+          0.05,
+          0.25,
+          0.5,
+          0.75,
+          0.95
+        ],
+        "minimum_daily_rows": 18,
+        "aggregation": "equal_target_source_date_then_horizon_then_deployment",
+        "unit": "source_reported_conditioned_native_product_dB"
+      }
+    },
+    {
+      "step": 4,
+      "role": "original_development",
+      "metrics": {
+        "primary_pinball_db": 0.7670847080371997,
+        "per_deployment": {
+          "synthetic-original-dev": {
+            "horizons_pinball_db": [
+              1.5079994519551596,
+              0.589330596923828,
+              0.2039240752326118
+            ],
+            "primary_pinball_db": 0.7670847080371997
+          }
+        },
+        "daily_rows": [
+          {
+            "deployment": "synthetic-original-dev",
+            "horizon_intervals": 1,
+            "target_source_date": "2026-05-01",
+            "rows": 18,
+            "pinball_db": 1.5079994519551596
+          },
+          {
+            "deployment": "synthetic-original-dev",
+            "horizon_intervals": 3,
+            "target_source_date": "2026-05-01",
+            "rows": 18,
+            "pinball_db": 0.589330596923828
+          },
+          {
+            "deployment": "synthetic-original-dev",
+            "horizon_intervals": 6,
+            "target_source_date": "2026-05-01",
+            "rows": 18,
+            "pinball_db": 0.2039240752326118
+          }
+        ],
+        "issued_rows": 18,
+        "scored_per_horizon": [
+          18,
+          18,
+          18
+        ],
+        "eligible_source_dates_per_horizon": [
+          1,
+          1,
+          1
+        ],
+        "quantiles": [
+          0.05,
+          0.25,
+          0.5,
+          0.75,
+          0.95
+        ],
+        "minimum_daily_rows": 18,
+        "aggregation": "equal_target_source_date_then_horizon_then_deployment",
+        "unit": "source_reported_conditioned_native_product_dB"
+      }
+    }
+  ],
+  "selected_step": 4,
+  "encoder_parameters": 1428,
+  "head_parameters": 89,
+  "parameter_matching": "CF128/head18565 versus shared64/head5189; not cross-architecture matched",
+  "encoder_unchanged": false,
+  "resources": {
+    "peak_rss_bytes": 616468480,
+    "peak_allocated_bytes": 0,
+    "peak_reserved_bytes": 0,
+    "elapsed_seconds": 12.781000000002678,
+    "elapsed_gpu_seconds": 0,
+    "gpu_time_definition": "synchronized elapsed device-owned runtime, including probes and evaluation"
+  },
+  "elapsed_trajectory_seconds": 0.6342197000194574,
+  "suffix_status": "NOT_RUN_requires_separate_reviewed_inference_and_floor18_support",
+  "scientific_claim": null
+}

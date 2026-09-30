@@ -1,0 +1,35 @@
+...F.......                                                              [100%]
+================================== FAILURES ===================================
+_______ test_bad_or_unreconciled_prefix_accounting_is_rejected[status] ________
+
+damage = 'status'
+
+    @pytest.mark.parametrize("damage", ["status", "active", "reconciliation", "negative", "bool",
+                                        "conflict", "unaccounted", "aggregate"])
+    def test_bad_or_unreconciled_prefix_accounting_is_rejected(damage):
+        ledger = case()
+        record = ledger["runs"][0]
+        if damage == "status":
+            record["status"] = "UNKNOWN_TERMINAL"
+        elif damage == "active":
+            record["status"] = "RUNNING_CUDA"
+        elif damage == "reconciliation":
+            record["requires_reconciliation"] = True
+        elif damage == "negative":
+            record["elapsed_owned_seconds"] = -1
+        elif damage == "bool":
+            record["elapsed_owned_seconds"] = True
+        elif damage == "conflict":
+            record["elapsed_owned_seconds"] = 1
+        elif damage == "unaccounted":
+            record.pop("budget_family")
+        else:
+            ledger["gpu_hours_spent_owned_scientific_jobs"] = .5
+>       with pytest.raises((ValueError, TypeError)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE any of (ValueError, TypeError)
+
+tests\unit\test_native_prefix_budget_history_v2.py:58: Failed
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_prefix_budget_history_v2.py::test_bad_or_unreconciled_prefix_accounting_is_rejected[status]
+1 failed, 10 passed in 2.30s
