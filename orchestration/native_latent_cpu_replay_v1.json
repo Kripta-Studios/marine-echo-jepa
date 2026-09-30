@@ -1,0 +1,29 @@
+{
+  "kind": "native_latent_cpu_replay_manifest_v1",
+  "role": "development",
+  "context_rows": 64,
+  "fitting": false,
+  "final_numeric_access": false,
+  "runs": [
+    {
+      "directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0",
+      "method": "shared_ssl",
+      "seed": 7
+    },
+    {
+      "directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed7_h96_deterministic",
+      "method": "cf_jepa",
+      "seed": 7
+    },
+    {
+      "directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed13_h96_replication",
+      "method": "cf_jepa",
+      "seed": 13
+    },
+    {
+      "directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed23_h96_replication",
+      "method": "cf_jepa",
+      "seed": 23
+    }
+  ]
+}
