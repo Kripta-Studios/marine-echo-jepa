@@ -1,0 +1,12 @@
+{
+  "status": "ACTUAL_FIVE_JOB_SERIAL_CLI_CLOSED",
+  "actual_cli_exit_code": 0,
+  "session_id": 82615,
+  "actual_exit_chunk_id": "deff5a",
+  "controller": "tools/run_reviewed_native_band_queue.py",
+  "queue": "orchestration/native_band_seed7_approved_screen_queue_v1.json",
+  "jobs": 5,
+  "scientific_evidence": "REAL_TRAIN_DEVELOPMENT_FIT",
+  "distinct_metric_review": "PENDING",
+  "final_numeric_access": "NOT_RUN"
+}

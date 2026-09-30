@@ -1,0 +1,64 @@
+{
+  "status": "PREFIX_NATIVE_CONFIG_V3_ROOT_CHECKS_PASSED_NOT_PREFIT_APPROVAL",
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "passed_checks_total": 237,
+  "prefix_checks": 219,
+  "wrapper_policy_checks": 18,
+  "skipped": 0,
+  "cpu_exit_witness": {
+    "status": "ACTUAL_UNCHANGED_ROOT_CPU_RETRY_COMPLETED",
+    "session_id": 72811,
+    "actual_cli_exit_code": 0,
+    "actual_exit_chunk_id": "a30644",
+    "observed_result": "237 passed in 195.70s",
+    "root_runner_checks": true,
+    "skipped": 0,
+    "tests": [
+      "tests/unit/test_native_prefix_transfer.py",
+      "tests/integration/test_native_prefix_transfer.py",
+      "tests/unit/test_native_prefix_execution.py"
+    ],
+    "log_path": "evidence/ssl-prefix-native-config-builder-v3/root-all-checks-retry-01-v3.log",
+    "prior_native_failure_preserved": true,
+    "recipe_source_or_permission_changes": false,
+    "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+    "public_numeric_access": "NOT_RUN",
+    "scientific_prefit": "NOT_RUN"
+  },
+  "durable_exit_witness": {
+    "actual_cli_exit_code": 0,
+    "actual_tool_chunk_id": "5214eb"
+  },
+  "durable": {
+    "status": "COMPLETED",
+    "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+    "synthetic_optimizer_updates": 4,
+    "public_scientific_fit": false,
+    "gpu_execution": false,
+    "durable_replay": "PASSED",
+    "output": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-prefix-native-config-builder-v3\\Unicode-prefix-v3-\u00c1lvaro-root-01\\evidence\\ssl-prefix-native-config-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL\\out"
+  },
+  "authored_sha256": {
+    "src/marine_echo/training/native_prefix_transfer.py": "448e6a0e3044d457ed9f8d04fb6d07948eceb2240d6e0ed6f96ab5bfc8466181",
+    "tests/unit/test_native_prefix_transfer.py": "9751a823476d6a6d170b0d9705ada3b8c03c3d804f374f7cdddb10e26c56a485",
+    "tests/integration/test_native_prefix_transfer.py": "b6166fc71a8e75de2cece68e1269a521ff7ad49e9de6520df7d71508bfcd0b80"
+  },
+  "bindings": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-prefix-native-config-builder-v3\\source-proof-final-v3.json": "e885730e1398431bd654306775c80e523330afcce2bfbbf4aa04896e1a916b2b",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-prefix-native-config-builder-v3\\root-integration-v3.json": "c850aa9c2b43fe5a028cf6310b5b87476aceb034be601ee0410ff5a52deba90c",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-prefix-native-config-builder-v3\\root-all-checks-retry-01-v3.log": "b83c45680a68b0590dca3eb71a90c1ca3688dcf4da17cd302fb0a9ba0ab202ad",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-prefix-native-config-builder-v3\\root-durable-v3.log": "871b4d820b90f33fdadd44ec8348e6b55afbdbc096ac315264f52ff60f8c3717",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-prefix-native-config-builder-v3\\Unicode-prefix-v3-\u00c1lvaro-root-01\\evidence\\ssl-prefix-native-config-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL\\out\\completion.json": "8833abd10b3d7f10cb64f0351f3948027cde1baf1d81d0d9c9e0e6dd7c32dc83",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-prefix-native-config-builder-v3\\root-all-checks-native-failure-v3.json": "f6eb822d2f9337b7707a2e54e4bd42bfa1c65c29b0e6ca2703abcb77d8f8195d",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-prefix-native-config-builder-v3\\root-native-failure-os-event-v3.json": "afe9cdbf41486cd75336ea55e84218254203163fa7bba54c4f4aa3de27dc8531",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_native_prefix_job.py": "c663aa8bb88f71fb9ddf79be1c105039195f2cee6eb1ba906232f7bdf76b4e01",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_native_prefix_worker.py": "39ab2ecdd8cc8d6843289c384f05bd61436d4bf1c3a4ecbe4033653d47c04ca6"
+  },
+  "prior_failure_preserved": true,
+  "failure_cause": "UNKNOWN",
+  "source_recipe_or_permission_changes_for_retry": false,
+  "independent_software_review": "NOT_RUN",
+  "scientific_prefit": "NOT_RUN",
+  "public_numeric_access": "NOT_RUN",
+  "final_numeric_access": "NOT_RUN"
+}

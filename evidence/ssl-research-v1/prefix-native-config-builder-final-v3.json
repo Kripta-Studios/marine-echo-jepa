@@ -1,0 +1,26 @@
+Implemented the native configuration follow-up. Positive nominal future IDs now require bound structural-absence evidence; eligible 150/180 configurations remain within one deployment, with 165-ping quarantine preserved.
+
+Synthetic CPU verification: **211 passed, eight root-only cases skipped; exit 0**. Ruff passed. Version-two evidence and tracked main sources remain unchanged. No scientific fitting or approval occurred.
+
+Delivery: [report](evidence/ssl-prefix-native-config-builder-v3/NATIVE_PREFIX_NATIVE_CONFIGURATION_V3.md), [handoff](evidence/ssl-prefix-native-config-builder-v3/closeout-handoff-v3.json), [bounded patch](evidence/ssl-prefix-native-config-builder-v3/bounded-final-v3.patch).
+
+Exact authored SHA256:
+
+```text
+native_prefix_transfer.py
+448e6a0e3044d457ed9f8d04fb6d07948eceb2240d6e0ed6f96ab5bfc8466181
+
+unit/test_native_prefix_transfer.py
+9751a823476d6a6d170b0d9705ada3b8c03c3d804f374f7cdddb10e26c56a485
+
+integration/test_native_prefix_transfer.py
+b6166fc71a8e75de2cece68e1269a521ff7ad49e9de6520df7d71508bfcd0b80
+
+Report
+12d0a5dda972f45a917a84cedaeaa7e72b62a6152901a500e8c2f5945ab66632
+
+Handoff
+2daec45e88adea5c68927b3779b73f56439bd1d6fb3474eb8b1a1976a57a6397
+```
+
+Root integration, optimizer/durable checks, and distinct review remain outstanding.

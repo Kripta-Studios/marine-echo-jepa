@@ -1,0 +1,12 @@
+{
+  "status": "ACTUAL_DISTINCT_REVIEW_CLI_CLOSED",
+  "actual_cli_exit_code": 0,
+  "session_id": 41506,
+  "actual_exit_chunk_id": "3323e8",
+  "reviewer_session_id": "01a0ef27-876b-7692-917e-3975afc6893d",
+  "events_path": "evidence/ssl-research-v1/development-comparison-v3-numeric-review-events-v2.jsonl",
+  "final_path": "evidence/ssl-research-v1/development-comparison-v3-numeric-review-final-v2.json",
+  "previous_capacity_failure_preserved": true,
+  "current_binding_verification": "PENDING_ROOT_VERIFICATION",
+  "final_numeric_access": "NOT_RUN"
+}

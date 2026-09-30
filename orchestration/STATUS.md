@@ -1,6 +1,6 @@
 ## Active model-first research — native acoustic SSL
 
-Updated 2026-09-30T12:20:42.106857+00:00.
+Updated 2026-09-30T13:44:57.084863+00:00.
 
 Branch `research/marine-jepa-vnext`; owner-authorized local model research.
 App/release work is frozen; historical protocols, evidence and approved r3 are preserved.
@@ -16,9 +16,9 @@ LightGBM15 quantile boosters and deterministic persistence/seasonal references c
 Shared/CF encoder CPU replay and LightGBM all15-booster CPU replay passed.
 Independent learning-path audit found no defect within inspected scope.
 
-Active scientific job: band-permuted-ssl-attempt-01.
+Active scientific job: none recorded.
 Original serial queue: COMPLETED_REVIEWED_SERIAL_QUEUE; 9/9 reports inspected.
-Charged owned GPU-hours at ledger snapshot: 11.236814/96.
+Charged owned GPU-hours at ledger snapshot: 12.654609/96.
 The active wrappers own ledger writes; coordinator does not overwrite live accounting.
 All20 seed7 endpoints and controls completed; each serial queue exited0 with owned cleanup.
 CF strong frozen/full DEV0.614422/0.541814; masked frozen/full0.786842/0.691806dB.
@@ -59,6 +59,11 @@ Five exact per-job band prefits approved:195 approval bindings plus16 engineerin
 Approved five-job serial band queue launched, shared SSL first, within12/96 full-owned GPU hours.
 Band shared SSL completed6000+2000 real updates, selected4500, DEV0.789188dB.
 Its wrapper exited0 with owned cleanup;1.243043 full-owned GPU-hours charged, real weights preserved.
+Band masked/permuted/random screens completed with owned cleanup: DEV0.701138/0.893408/0.937210dB.
+Band scratch supervised completed at DEV0.550881dB; all five-job commands actually exited0.
+All five immutable reports/weights/resources verified;3.171089 full-owned Band GPU-hours charged.
+These are runner selection scores; matched strong endpoints and numerical verification remain required.
+Six actual-parent frozen/full comparison proposals exist; proposal status is not fitting approval.
 Reusable latent inference source approved by distinct reviewer;40 exact bindings verified.
 Root89 synthetic CPU checks and actual Unicode disk replay passed for shared/CF/band.
 Real64-context CPU replay approved after metadata transport recovery;96 bindings verified.
@@ -67,6 +72,10 @@ No history24/latent128/extra architecture or final numerical access is approved.
 
 The20-method DEV reconstruction completed under150-binding admission; distinct numerical
 review verified20 scores/18,960 daily losses, all19 paired intervals and common support.
+All28 original/replicated DEV endpoints were reconstructed under216 verified admission bindings.
+The numerical reviewer reported28 scores/26,544 daily losses/27 CIs matching within round-off,
+then exited1 on model capacity before its final artifact; same distinct reviewer completed closeout.
+Actual recovery CLI exited0 and all228 bindings verified; CF full mean0.558910/sampleSD0.017539dB.
 Shared-vs-random strong frozen paired interval includes0; JEPA representation value is unproven.
 Held-out executor integrated; original native split/indexedCUDA repairs and115 CPU checks passed.
 Distinct assessment software/16-node ancestry review approved; all244 exact bindings verified.
@@ -76,7 +85,12 @@ Root source-interval repair accepts native55–65minute adjacency and exact ordi
 Unicode durable prefix synthetic CPU fit/replay passed after explicit evidence-label repair.
 Prefix v2 typed supervised parents and structural gap guards integrated;171 root CPU checks passed.
 Eight actual optimizer/resume checks and new Unicode saved-artifact CPU fit/replay passed.
-Native150/180 configuration maps and nominal missing-ID compatibility are active builder work.
+Native150/180 configuration maps and nominal missing-ID compatibility integrated as prefix v3.
+Builder211 CPU checks passed; eight optimizer cases require root. Root attempt exited native0xc000070a
+after WMI import exception and partial test progress; failed log/Event1000 retained, cause unknown.
+One unchanged root retry passed237 checks in195.70s after the scientific queue closed, no skips.
+Physical Unicode four-update saved-artifact CPU replay passed; prefix software review/prefit remain pending.
+Separately versioned Band7/13/23 replication engineering is active in the isolated builder checkout.
 Actual assessment resource-worker synthetic CPU smoke exited0 and removed its exclusive lock.
 CF backbone extra controls remain proposed/unfitted and deferred outside authorized11 recipes.
 Finalist and matched-direct seeds13/23 remain required; no extra architecture search is approved.

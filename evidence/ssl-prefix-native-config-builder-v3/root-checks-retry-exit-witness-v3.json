@@ -1,0 +1,20 @@
+{
+  "status": "ACTUAL_UNCHANGED_ROOT_CPU_RETRY_COMPLETED",
+  "session_id": 72811,
+  "actual_cli_exit_code": 0,
+  "actual_exit_chunk_id": "a30644",
+  "observed_result": "237 passed in 195.70s",
+  "root_runner_checks": true,
+  "skipped": 0,
+  "tests": [
+    "tests/unit/test_native_prefix_transfer.py",
+    "tests/integration/test_native_prefix_transfer.py",
+    "tests/unit/test_native_prefix_execution.py"
+  ],
+  "log_path": "evidence/ssl-prefix-native-config-builder-v3/root-all-checks-retry-01-v3.log",
+  "prior_native_failure_preserved": true,
+  "recipe_source_or_permission_changes": false,
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "public_numeric_access": "NOT_RUN",
+  "scientific_prefit": "NOT_RUN"
+}

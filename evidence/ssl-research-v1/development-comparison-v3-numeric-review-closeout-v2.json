@@ -1,0 +1,88 @@
+{
+  "status": "ALL_228_CLOSED_DISTINCT_NUMERICAL_REVIEW_BINDINGS_VERIFIED",
+  "actual_exit_witness": {
+    "status": "ACTUAL_DISTINCT_REVIEW_CLI_CLOSED",
+    "actual_cli_exit_code": 0,
+    "session_id": 41506,
+    "actual_exit_chunk_id": "3323e8",
+    "reviewer_session_id": "01a0ef27-876b-7692-917e-3975afc6893d",
+    "events_path": "evidence/ssl-research-v1/development-comparison-v3-numeric-review-events-v2.jsonl",
+    "final_path": "evidence/ssl-research-v1/development-comparison-v3-numeric-review-final-v2.json",
+    "previous_capacity_failure_preserved": true,
+    "current_binding_verification": "PENDING_ROOT_VERIFICATION",
+    "final_numeric_access": "NOT_RUN"
+  },
+  "review_sha256": "c0199ddc348794056defe66ef90611de6ac306333b362da6001d2a602a96645f",
+  "binding_count": 228,
+  "independent_errors": {
+    "max_point_score_discrepancy_db": 6.661338147750939e-16,
+    "max_daily_loss_discrepancy_db": 1.3322676295501878e-15,
+    "max_source_report_point_discrepancy_db": 6.661338147750939e-16,
+    "max_paired_point_difference_discrepancy_db": 7.771561172376096e-16,
+    "max_interval_endpoint_discrepancy_db": 5.551115123125783e-16
+  },
+  "seed_summaries": {
+    "semantics": "Descriptive arithmetic means and sample standard deviations of all three fixed seed endpoints, using denominator n-1. No best-seed substitution or population interval is made.",
+    "cf_frozen_readout": {
+      "seeds": [
+        7,
+        13,
+        23
+      ],
+      "points_db": [
+        0.6144220773212318,
+        0.6680643727747567,
+        0.6027853936020219
+      ],
+      "mean_db": 0.6284239478993369,
+      "sample_sd_db": 0.03481918386784919
+    },
+    "cf_full_finetune": {
+      "seeds": [
+        7,
+        13,
+        23
+      ],
+      "points_db": [
+        0.5418137443976551,
+        0.5580568543902263,
+        0.5768602812033142
+      ],
+      "mean_db": 0.5589102933303985,
+      "sample_sd_db": 0.017538848423886255
+    },
+    "fresh_direct_end_to_end": {
+      "seeds": [
+        7,
+        13,
+        23
+      ],
+      "points_db": [
+        0.7651851961000803,
+        0.741446217750941,
+        0.7658691172222207
+      ],
+      "mean_db": 0.7575001770244141,
+      "sample_sd_db": 0.013907341345170004
+    },
+    "cf_short_probe": {
+      "seeds": [
+        7,
+        13,
+        23
+      ],
+      "points_db": [
+        0.7457265899039339,
+        0.9251928324563994,
+        0.7145854497680473
+      ],
+      "mean_db": 0.7951682907094603,
+      "sample_sd_db": 0.11367598138840447
+    }
+  },
+  "scope": "Saved development artifacts; one development deployment; no final-site claim",
+  "capacity_failure_preserved": true,
+  "recovery_redecoded_predictions": false,
+  "new_fitting_or_selection": false,
+  "final_numeric_access": "NOT_RUN"
+}

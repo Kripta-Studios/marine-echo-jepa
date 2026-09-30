@@ -1,0 +1,325 @@
+{
+  "status": "FIVE_REAL_BAND_SCREEN_ENDPOINTS_VERIFIED_CLOSED",
+  "actual_exit_witness": {
+    "status": "ACTUAL_FIVE_JOB_SERIAL_CLI_CLOSED",
+    "actual_cli_exit_code": 0,
+    "session_id": 82615,
+    "actual_exit_chunk_id": "deff5a",
+    "controller": "tools/run_reviewed_native_band_queue.py",
+    "queue": "orchestration/native_band_seed7_approved_screen_queue_v1.json",
+    "jobs": 5,
+    "scientific_evidence": "REAL_TRAIN_DEVELOPMENT_FIT",
+    "distinct_metric_review": "PENDING",
+    "final_numeric_access": "NOT_RUN"
+  },
+  "jobs": [
+    {
+      "id": "band_shared_ssl_seed7_h96_reviewed",
+      "config": {
+        "architecture": "nonlinear_frequency_conditioned_v1",
+        "method": "shared_ssl",
+        "seed": 7,
+        "history": 96,
+        "pretrain_updates": 6000,
+        "readout_updates": 500,
+        "batch_size": 64,
+        "width": 192,
+        "latent": 64,
+        "blocks": 4,
+        "heads": 4,
+        "lr": 0.0003,
+        "weight_decay": 0.0001,
+        "sigreg_weight": 0.03,
+        "pretrain_cadence": 1500,
+        "readout_cadence": 250,
+        "patience": 4,
+        "min_daily_anchors": 18,
+        "cf_source": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\external\\cf-jepa-vnext",
+        "cf_width": 256,
+        "cf_latent": 128,
+        "cf_blocks": 5,
+        "cf_lr": 0.00034,
+        "cf_weight_decay": 0.05,
+        "selection_policy": "train_only_frozen_probe_per_candidate_daily_dev_patience4",
+        "inference_replay_atol_db": 2e-05,
+        "inference_replay_rtol": 1e-05
+      },
+      "development_pinball_db": 0.7891878442101499,
+      "artifacts_sha256": {
+        "run.json": "3c54abcf1732386110167d95b1aa8eaf4de7ec768e4c8dc81bbfaad24df10dcc",
+        "inference.pt": "57fbb4ea652484dc9a63b895d116badaf8039dd51972633f7a345fcd56618bc7",
+        "selected_encoder.pt": "fbe4736dcb65a597392f7b307f21e3785b9320c07cd82bd73d2ecba9b5becdf1",
+        "membership.json": "80c10115e5816c2000f4156ccee1da42db2c3e3f706b65192476948c24c97997",
+        "predictions.npz": "186bb05949c4327880a93ca83360c587f95c92c9c23e56041c23000eac932e63"
+      },
+      "review_sha256": "8a0069ac0bd4eac20934d39078a03357108d80f915654f2832cdd42e32f1addf",
+      "attempt_sha256": "e33382ce2054b3f3e0860c3a2960b08a2e2f0b4db4e900387b669a6b33af0d52",
+      "resources_full_attempt": {
+        "exit_code": 0,
+        "stopped_for": null,
+        "peak_process_rss_bytes": 5168132096,
+        "elapsed_full_attempt_seconds": 4474.953000000009,
+        "poll_seconds": 0.1,
+        "rss_limit_bytes": 23622320128,
+        "deadline_seconds": 43200.0,
+        "owned_process_pids": [
+          28932,
+          48180,
+          50384
+        ],
+        "peak_each_process_rss_bytes": {
+          "50384": 5451776,
+          "28932": 5129871360,
+          "48180": 32808960
+        },
+        "peak_definition": "Conservative sum of each owned process OS peak working set; sampled RSS fallback",
+        "owned_tree_cleanup_verified": true
+      }
+    },
+    {
+      "id": "band_masked_ssl_seed7_h96_reviewed",
+      "config": {
+        "architecture": "nonlinear_frequency_conditioned_v1",
+        "method": "masked_ssl",
+        "seed": 7,
+        "history": 96,
+        "pretrain_updates": 6000,
+        "readout_updates": 500,
+        "batch_size": 64,
+        "width": 192,
+        "latent": 64,
+        "blocks": 4,
+        "heads": 4,
+        "lr": 0.0003,
+        "weight_decay": 0.0001,
+        "sigreg_weight": 0.03,
+        "pretrain_cadence": 1500,
+        "readout_cadence": 250,
+        "patience": 4,
+        "min_daily_anchors": 18,
+        "cf_source": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\external\\cf-jepa-vnext",
+        "cf_width": 256,
+        "cf_latent": 128,
+        "cf_blocks": 5,
+        "cf_lr": 0.00034,
+        "cf_weight_decay": 0.05,
+        "selection_policy": "train_only_frozen_probe_per_candidate_daily_dev_patience4",
+        "inference_replay_atol_db": 2e-05,
+        "inference_replay_rtol": 1e-05
+      },
+      "development_pinball_db": 0.7011381071013472,
+      "artifacts_sha256": {
+        "run.json": "36e789df9c91b5beeafec91e501972cf1c55719f666cb5f33e91e75593bb9154",
+        "inference.pt": "4b27e30f858fde0211bcbed799ae9b6fbed93a24ae650ff271e223cada662a8b",
+        "selected_encoder.pt": "3910de3e2aab729189009d6ed7021d7f43b5445cd2bcdd94d805e1738a3fc461",
+        "membership.json": "9480116afd67210b855827cad53677f2caa8f2f0a3b6780aab1b0f5abba73084",
+        "predictions.npz": "2c60cdf6e97cb7262a3facdb11c45dcc8865fbf7591cfd06bb66db76fb24bd5a"
+      },
+      "review_sha256": "8f0e144ed5f5d0a3a3293bfd44c8173958b69503810e2723e71f4520dacaf2d3",
+      "attempt_sha256": "d3f4c729c5daaf9892c65e10d0c098075dba5c816658e571f37b619dc29c0921",
+      "resources_full_attempt": {
+        "exit_code": 0,
+        "stopped_for": null,
+        "peak_process_rss_bytes": 5216751616,
+        "elapsed_full_attempt_seconds": 1836.9060000000027,
+        "poll_seconds": 0.1,
+        "rss_limit_bytes": 23622320128,
+        "deadline_seconds": 38725.04699999999,
+        "owned_process_pids": [
+          36592,
+          58116,
+          59044
+        ],
+        "peak_each_process_rss_bytes": {
+          "58116": 5451776,
+          "59044": 5177012224,
+          "36592": 34287616
+        },
+        "peak_definition": "Conservative sum of each owned process OS peak working set; sampled RSS fallback",
+        "owned_tree_cleanup_verified": true
+      }
+    },
+    {
+      "id": "band_permuted_ssl_seed7_h96_reviewed",
+      "config": {
+        "architecture": "nonlinear_frequency_conditioned_v1",
+        "method": "permuted_ssl",
+        "seed": 7,
+        "history": 96,
+        "pretrain_updates": 6000,
+        "readout_updates": 500,
+        "batch_size": 64,
+        "width": 192,
+        "latent": 64,
+        "blocks": 4,
+        "heads": 4,
+        "lr": 0.0003,
+        "weight_decay": 0.0001,
+        "sigreg_weight": 0.03,
+        "pretrain_cadence": 1500,
+        "readout_cadence": 250,
+        "patience": 4,
+        "min_daily_anchors": 18,
+        "cf_source": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\external\\cf-jepa-vnext",
+        "cf_width": 256,
+        "cf_latent": 128,
+        "cf_blocks": 5,
+        "cf_lr": 0.00034,
+        "cf_weight_decay": 0.05,
+        "selection_policy": "train_only_frozen_probe_per_candidate_daily_dev_patience4",
+        "inference_replay_atol_db": 2e-05,
+        "inference_replay_rtol": 1e-05
+      },
+      "development_pinball_db": 0.8934084363138081,
+      "artifacts_sha256": {
+        "run.json": "65e8fea4ad5152ff0c3de83c5043e3e86f2f17f3e13c2052aa481179dca01d35",
+        "inference.pt": "00e099f30eab9c1a49748b7b79587c55324d70543003bbebf897307f98da60dd",
+        "selected_encoder.pt": "309f3d48380e28c03b7d5788c711e56de330af0a264ecb065df3b586d5827395",
+        "membership.json": "92d9b7ddbc0f25429f785108aa4f1a644c566a3bd82ca49ae0aefe64d3ddc065",
+        "predictions.npz": "8429d849a69ffb2712cdc8faba5a9ec14eace02d2ad01a203be5cf65482d19e5"
+      },
+      "review_sha256": "e23538b61282606bc561b77a4c2e09b0d955e5ddb19683cf0f946a58728f0eeb",
+      "attempt_sha256": "f7dc2d94028eb5f5b82def6d156d539845d71446b554fc9c00611467f54d73c5",
+      "resources_full_attempt": {
+        "exit_code": 0,
+        "stopped_for": null,
+        "peak_process_rss_bytes": 5167747072,
+        "elapsed_full_attempt_seconds": 4269.983999999997,
+        "poll_seconds": 0.1,
+        "rss_limit_bytes": 23622320128,
+        "deadline_seconds": 36888.14099999999,
+        "owned_process_pids": [
+          24124,
+          38792,
+          61192
+        ],
+        "peak_each_process_rss_bytes": {
+          "38792": 5451776,
+          "24124": 5129318400,
+          "61192": 32976896
+        },
+        "peak_definition": "Conservative sum of each owned process OS peak working set; sampled RSS fallback",
+        "owned_tree_cleanup_verified": true
+      }
+    },
+    {
+      "id": "band_random_frozen_seed7_h96_reviewed",
+      "config": {
+        "architecture": "nonlinear_frequency_conditioned_v1",
+        "method": "random_frozen",
+        "seed": 7,
+        "history": 96,
+        "pretrain_updates": 0,
+        "readout_updates": 500,
+        "batch_size": 64,
+        "width": 192,
+        "latent": 64,
+        "blocks": 4,
+        "heads": 4,
+        "lr": 0.0003,
+        "weight_decay": 0.0001,
+        "sigreg_weight": 0.03,
+        "pretrain_cadence": 1500,
+        "readout_cadence": 250,
+        "patience": 4,
+        "min_daily_anchors": 18,
+        "cf_source": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\external\\cf-jepa-vnext",
+        "cf_width": 256,
+        "cf_latent": 128,
+        "cf_blocks": 5,
+        "cf_lr": 0.00034,
+        "cf_weight_decay": 0.05,
+        "selection_policy": "train_only_frozen_probe_per_candidate_daily_dev_patience4",
+        "inference_replay_atol_db": 2e-05,
+        "inference_replay_rtol": 1e-05
+      },
+      "development_pinball_db": 0.9372099023960452,
+      "artifacts_sha256": {
+        "run.json": "689f940cfbe4e399e0c4e99edff4e45e0e326c712ff9cca2e63d2364954d17bd",
+        "inference.pt": "0cd9ac14601a990c78d9b671177f1cc648ca75814105558ad87236b08aed1d21",
+        "selected_encoder.pt": "944571f0fadbe09cef39b0d474fcc5e793a70399880032933fc05dac6c6b0c1a",
+        "membership.json": "d2d01cc06413c5379ea6eb53ed43b59a7a530e650e3f080d5512620bd384f065",
+        "predictions.npz": "91543579182aa0a13edf52237f45fbe9ca4cbc8615333a3bf5f43466a39a49a8"
+      },
+      "review_sha256": "d745fd07dedeb1fd7e56887d9c16ce45ed2b83def7e1165d2551a56ae3e3d163",
+      "attempt_sha256": "a25c3fd43c367846b71edb40ee246df08cde3a3763a6de7f5054a8181ae6156f",
+      "resources_full_attempt": {
+        "exit_code": 0,
+        "stopped_for": null,
+        "peak_process_rss_bytes": 5095874560,
+        "elapsed_full_attempt_seconds": 174.07799999999406,
+        "poll_seconds": 0.1,
+        "rss_limit_bytes": 23622320128,
+        "deadline_seconds": 32618.156999999992,
+        "owned_process_pids": [
+          43940,
+          54844,
+          58400
+        ],
+        "peak_each_process_rss_bytes": {
+          "54844": 5427200,
+          "43940": 5057667072,
+          "58400": 32780288
+        },
+        "peak_definition": "Conservative sum of each owned process OS peak working set; sampled RSS fallback",
+        "owned_tree_cleanup_verified": true
+      }
+    },
+    {
+      "id": "band_direct_end_to_end_seed7_h96_reviewed",
+      "config": {
+        "architecture": "nonlinear_frequency_conditioned_v1",
+        "batch_size": 64,
+        "cadence": 750,
+        "gradient_clip": 1.0,
+        "history": 96,
+        "lr": 0.0003,
+        "method": "direct",
+        "min_daily_anchors": 18,
+        "mode": "direct_end_to_end",
+        "patience": 4,
+        "seed": 7,
+        "selection_policy": "scheduled_native_daily_pinball_earliest_strict_improvement_v1",
+        "updates": 3000,
+        "weight_decay": 0.0001
+      },
+      "development_pinball_db": 0.5508813751342773,
+      "artifacts_sha256": {
+        "run.json": "54ab1642ee46d0a3095cb4df61f3fb25688e3705a71ece6db3078d9f535d52ff",
+        "inference.pt": "329b3aab5d52cbb2f9b2a2a98a896a8e44f7d73ed9175ba0bc454b8212a4e673",
+        "selected_encoder.pt": "9eaec6771e1d710e0415a32010d28a0ab263f035f832dc0e692a5a3f95b75474",
+        "membership.json": "a4c8695f6cec1f30cae5fea5f8cbbb79e55151a0da4c0c4b052b74a48a9a47e9",
+        "predictions.npz": "ad4eadafabd09c8b10677d31ef4ef158b25312ebaf9c2d17d4f528ef6ff64f36"
+      },
+      "review_sha256": "02ae76c017b2d5ab92af513d085dd08f7d31b73362e2d20cfd35daa64e144fa2",
+      "attempt_sha256": "abc1ea8695b6e3022fdd82b836abc431c26919d6a66ef83516313bf6cab7378e",
+      "resources_full_attempt": {
+        "exit_code": 0,
+        "stopped_for": null,
+        "peak_process_rss_bytes": 5217525760,
+        "elapsed_full_attempt_seconds": 660.0,
+        "poll_seconds": 0.1,
+        "rss_limit_bytes": 23622320128,
+        "deadline_seconds": 32444.078999999998,
+        "owned_process_pids": [
+          34280,
+          46560,
+          61796
+        ],
+        "peak_each_process_rss_bytes": {
+          "46560": 5451776,
+          "34280": 5179326464,
+          "61796": 32747520
+        },
+        "peak_definition": "Conservative sum of each owned process OS peak working set; sampled RSS fallback",
+        "owned_tree_cleanup_verified": true
+      }
+    }
+  ],
+  "band_screen_full_owned_gpu_hours": 3.1710891666666674,
+  "aggregate_charged_full_owned_gpu_hours": 12.65460858614696,
+  "metric_scope": "Runner development selection; independent reconstruction pending",
+  "representation_transfer_value": "NOT_ESTABLISHED",
+  "final_numeric_access": "NOT_RUN",
+  "ledger_written": false
+}
