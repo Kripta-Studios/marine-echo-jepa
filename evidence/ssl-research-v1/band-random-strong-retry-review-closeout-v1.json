@@ -1,0 +1,16 @@
+{
+  "status": "DISTINCT_EXACT_RANDOM_RETRY_REVIEW_VERIFIED_NOT_LAUNCHED",
+  "actual_cli_exit_code": 0,
+  "session_id": 95740,
+  "actual_exit_chunk_id": "00949c",
+  "review_sha256": "e87c2e0f25b239b23059d2005afdb2522c22531ea7d662545088b0369e5ab9e1",
+  "proposal_sha256": "30555300e887fc95bc7e298f30e4d8f185e946267cfdcc923ccdc92b50e94ca0",
+  "verified_binding_counts": {
+    "bindings": 53,
+    "proof_bindings": 7
+  },
+  "scientific_fields_unchanged": true,
+  "launch_pending": "Four fixed-replication queue closure, reconciled ownership and live budget recomputation",
+  "additional_retry_authorized": false,
+  "scientific_completion": false
+}
