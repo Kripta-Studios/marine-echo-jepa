@@ -40,7 +40,7 @@ def main():
     for seed in (13, 23):
         endpoints.extend([
             (f"band_shared_ssl_short_probe_seed{seed}", f"band_shared_ssl_seed{seed}_h96_replication_v2", "shared_ssl", seed, None),
-            (f"band_direct_end_to_end_seed{seed}", f"band_direct_end_to_end_seed{seed}_h96_replication_v2", "direct", seed, "direct_end_to_end"),
+            (f"band_direct_end_to_end_seed{seed}", f"band_direct_end_to_end_seed{seed}_h96_replication_v2" + ("_ownership_retry01" if seed == 13 else ""), "direct", seed, "direct_end_to_end"),
         ])
         for mode in ("frozen_readout", "full_finetune"):
             name = f"band_shared_ssl_{mode}_seed{seed}"
@@ -81,7 +81,7 @@ def main():
         "manifest_path": str(target), "methods": 47,
         "output": str(ROOT / "evidence/ssl-research-v1/development-comparison-v4.json"),
         "fitting": False, "final_numeric_access": False,
-        "retained_failed_attempts": "Original CF13 and Band random native failures preserved and charged; exact reviewed retries only",
+        "retained_failed_attempts": "CF13 and Band random native failures and Band direct13 pre-update ownership refusal preserved and charged; exact reviewed retries only",
     }
     with admission.open("x", encoding="utf-8") as stream:
         json.dump(proposal, stream, indent=2, sort_keys=True, allow_nan=False)
