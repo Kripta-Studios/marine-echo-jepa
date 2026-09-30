@@ -1,0 +1,172 @@
+{
+  "kind": "reviewed_native_serial_queue_v1",
+  "jobs": [
+    {
+      "id": "lightgbm_seed7_h96_text",
+      "entrypoint": "tools/execute_bounded_native_comparator.py",
+      "args": [
+        "--method",
+        "lightgbm",
+        "--review",
+        "evidence/ssl-research-v1/baseline-prefit-review-final-03.json",
+        "--output",
+        "outputs/native_acoustic_ssl_v1/lightgbm_seed7_h96_text",
+        "--receipt",
+        "evidence/ssl-research-v1/lightgbm-attempt-02",
+        "--history",
+        "96"
+      ],
+      "method": "lightgbm",
+      "mode": null,
+      "report": "outputs/native_acoustic_ssl_v1/lightgbm_seed7_h96_text/result.json"
+    },
+    {
+      "id": "shared_ssl_frozen_readout_seed7_h96",
+      "entrypoint": "tools/execute_native_downstream_job.py",
+      "args": [
+        "--config",
+        "configs/native_downstream_shared_ssl_frozen_readout_seed7_h96_v1.json",
+        "--review",
+        "evidence/ssl-research-v1/downstream-prefit-review-final.json",
+        "--output",
+        "outputs/native_acoustic_ssl_v1/shared_ssl_frozen_readout_seed7_h96",
+        "--receipt",
+        "evidence/ssl-research-v1/shared_ssl_frozen_readout_seed7_h96-attempt-01",
+        "--encoder",
+        "outputs/native_acoustic_ssl_v1/shared_ssl_seed7_h96_cuda0/selected_encoder.pt",
+        "--ancestor-review",
+        "evidence/ssl-research-v1/prefit-review-final-02.json",
+        "--ancestor-config",
+        "configs/native_ssl_shared_ssl_seed7_h96_v1.json"
+      ],
+      "method": "shared_ssl",
+      "mode": "frozen_readout",
+      "report": "outputs/native_acoustic_ssl_v1/shared_ssl_frozen_readout_seed7_h96/run.json"
+    },
+    {
+      "id": "shared_ssl_full_finetune_seed7_h96",
+      "entrypoint": "tools/execute_native_downstream_job.py",
+      "args": [
+        "--config",
+        "configs/native_downstream_shared_ssl_full_finetune_seed7_h96_v1.json",
+        "--review",
+        "evidence/ssl-research-v1/downstream-prefit-review-final.json",
+        "--output",
+        "outputs/native_acoustic_ssl_v1/shared_ssl_full_finetune_seed7_h96",
+        "--receipt",
+        "evidence/ssl-research-v1/shared_ssl_full_finetune_seed7_h96-attempt-01",
+        "--encoder",
+        "outputs/native_acoustic_ssl_v1/shared_ssl_seed7_h96_cuda0/selected_encoder.pt",
+        "--ancestor-review",
+        "evidence/ssl-research-v1/prefit-review-final-02.json",
+        "--ancestor-config",
+        "configs/native_ssl_shared_ssl_seed7_h96_v1.json"
+      ],
+      "method": "shared_ssl",
+      "mode": "full_finetune",
+      "report": "outputs/native_acoustic_ssl_v1/shared_ssl_full_finetune_seed7_h96/run.json"
+    },
+    {
+      "id": "direct_direct_end_to_end_seed7_h96",
+      "entrypoint": "tools/execute_native_downstream_job.py",
+      "args": [
+        "--config",
+        "configs/native_downstream_direct_direct_end_to_end_seed7_h96_v1.json",
+        "--review",
+        "evidence/ssl-research-v1/downstream-prefit-review-final.json",
+        "--output",
+        "outputs/native_acoustic_ssl_v1/direct_direct_end_to_end_seed7_h96",
+        "--receipt",
+        "evidence/ssl-research-v1/direct_direct_end_to_end_seed7_h96-attempt-01"
+      ],
+      "method": "direct",
+      "mode": "direct_end_to_end",
+      "report": "outputs/native_acoustic_ssl_v1/direct_direct_end_to_end_seed7_h96/run.json"
+    },
+    {
+      "id": "masked_ssl_seed7_h96_reviewed",
+      "entrypoint": "tools/execute_native_ssl_job.py",
+      "args": [
+        "--config",
+        "configs/native_ssl_masked_ssl_seed7_h96_v1.json",
+        "--review",
+        "evidence/ssl-research-v1/prefit-review-final-03.json",
+        "--output",
+        "outputs/native_acoustic_ssl_v1/masked_ssl_seed7_h96_reviewed"
+      ],
+      "method": "masked_ssl",
+      "mode": null,
+      "report": "outputs/native_acoustic_ssl_v1/masked_ssl_seed7_h96_reviewed/run.json"
+    },
+    {
+      "id": "permuted_ssl_seed7_h96_reviewed",
+      "entrypoint": "tools/execute_native_ssl_job.py",
+      "args": [
+        "--config",
+        "configs/native_ssl_permuted_ssl_seed7_h96_v1.json",
+        "--review",
+        "evidence/ssl-research-v1/prefit-review-final-03.json",
+        "--output",
+        "outputs/native_acoustic_ssl_v1/permuted_ssl_seed7_h96_reviewed"
+      ],
+      "method": "permuted_ssl",
+      "mode": null,
+      "report": "outputs/native_acoustic_ssl_v1/permuted_ssl_seed7_h96_reviewed/run.json"
+    },
+    {
+      "id": "direct_seed7_h96_reviewed",
+      "entrypoint": "tools/execute_native_ssl_job.py",
+      "args": [
+        "--config",
+        "configs/native_ssl_direct_seed7_h96_v1.json",
+        "--review",
+        "evidence/ssl-research-v1/prefit-review-final-03.json",
+        "--output",
+        "outputs/native_acoustic_ssl_v1/direct_seed7_h96_reviewed"
+      ],
+      "method": "direct",
+      "mode": null,
+      "report": "outputs/native_acoustic_ssl_v1/direct_seed7_h96_reviewed/run.json"
+    },
+    {
+      "id": "random_frozen_seed7_h96_reviewed",
+      "entrypoint": "tools/execute_native_ssl_job.py",
+      "args": [
+        "--config",
+        "configs/native_ssl_random_frozen_seed7_h96_v1.json",
+        "--review",
+        "evidence/ssl-research-v1/prefit-review-final-03.json",
+        "--output",
+        "outputs/native_acoustic_ssl_v1/random_frozen_seed7_h96_reviewed"
+      ],
+      "method": "random_frozen",
+      "mode": null,
+      "report": "outputs/native_acoustic_ssl_v1/random_frozen_seed7_h96_reviewed/run.json"
+    },
+    {
+      "id": "chronos2_h96_local",
+      "entrypoint": "tools/execute_bounded_native_comparator.py",
+      "args": [
+        "--method",
+        "chronos2",
+        "--review",
+        "evidence/ssl-research-v1/baseline-prefit-review-final-03.json",
+        "--output",
+        "outputs/native_acoustic_ssl_v1/chronos2_h96_local",
+        "--receipt",
+        "evidence/ssl-research-v1/chronos2-attempt-01",
+        "--history",
+        "96",
+        "--snapshot",
+        "C:/Users/\u00c1lvaro Schwiedop/.cache/huggingface/hub/models--amazon--chronos-2/snapshots/29ec3766d36d6f73f0696f85560a422f50e8498c"
+      ],
+      "method": "chronos2",
+      "mode": null,
+      "report": "outputs/native_acoustic_ssl_v1/chronos2_h96_local/result.json"
+    }
+  ],
+  "authorization": "Owner local mission plus exact existing distinct reviews",
+  "execution": "Required approved wrappers only; serial; stop on first failure",
+  "final_test_access": "NOT_AUTHORIZED",
+  "app_release_work": "FROZEN"
+}

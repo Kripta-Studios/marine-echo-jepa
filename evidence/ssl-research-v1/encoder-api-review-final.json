@@ -1,0 +1,188 @@
+{
+  "status": "APPROVED_ENCODER_INFERENCE",
+  "reviewer_session_id": "01a0ef27-876b-7692-917e-3975afc6893d",
+  "implementer_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "builder_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "coordinator_session_id": "01a0ef1a-b166-7f83-91b7-2a2aff7c1b10",
+  "bindings": {
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\ssl_vnext_encoder_api_contract.txt": "b2dba1c42e07d06c7dc036fa3e5104a678a20dc5b0c3eff3d70b3a898357eee6",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_encoder.py": "6cc07a15ea93427d6628f1b317945f6e38ff3008894a31cab2173c0b666c0f7f",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_native_encoder.py": "37e241a00c9fa87f0a886326364975783ce39bbdfd37d4158305062c59769ab6",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\encoder-api-integration.json": "1498e7132da47ab6e4dfb1ba13af2a968267961cc63025a1d66eca756dd449ac",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\encoder-api-parent-cpu-tests.log": "f3024398fbc70822d3ead6d22f1c09a1fd99ef2e95e1d855e92267fa25355436",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\shared-encoder-only-cpu-replay.json": "7a266a9b37ebac6c1b8ecba06425bfe5848291c7b832739a0199af7fd2457834",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\shared-encoder-only-cpu-replay.log": "5386990535b661512a2a60c6197116d52529449cc068012b98fbb7e175e4e856",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-encoder-api-builder-v1\\executed-checks.json": "909cc0d89e1aaa0e3e6da5580880f3f43eebde1bbd182443f30643cc8aaa03b3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-encoder-api-builder-v1\\NATIVE_ENCODER_IMPLEMENTATION_V1.md": "4f9438d92ec48c572ac6645bd8856ff3f43ac6c3e5cf150d4e41feecf490529d",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-encoder-api-builder-v1\\final-source-provenance.json": "e1a5203011ff4768271456d1c2f59c964753df617f79666ae0bfdb6eef34debc",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-encoder-api-builder-v1\\green-final.txt": "0e597e6a0268f633ed7ca2750b5e4d56fcc8b5674b0fe7433ae4458c809b35e5",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-encoder-api-builder-v1\\red-boundaries.txt": "91186c97189c3d2221fb164c25791bd2e93dc34768b38451e7f6b497ed7edfc1",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_temporal.py": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_ssl.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_acoustic.py": "ed7f50ebebcb630ce484a6eeeefdc3e51343ba42d0ea79c04fa733cbbc59a213",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\__init__.py": "3fcc1878588f5a89775363e099fab7d7323acebccae26d10db4a6da627425b68",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\__init__.py": "5bdc97a6119b2dd3d519df36406c8bcb9e801be81c8b6c3f44e4a527db1f87a3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\sigreg.py": "2cf5dc8e6fc610fbe167339a8750f5e2d9ddf9a48f416717b8310500536469a3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\__init__.py": "c98c60178f566d43dd60641704ccd9c652d406487b4838cbf5a9df49ea5dd735",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_resources.py": "c9ca3fbd0759ae00824774ed61a08185361234430d5ed63f09fa3885545c7c38",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\AGENTS.md": "0646ce8483a027f694842e25c2e0f6de3af83526028a518807357672a374ed57",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\CODEX_SSL_RESEARCH_MISSION.md": "5bf3fbca35ebe2f803f6c61aff965ae3059e3f3142a85809ecde9bead1c130bd",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\pyproject.toml": "2fd75de20d002f718bd1c621e0692671f7b3e59314f6890a15c5b6d8d4d5d64b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\uv.lock": "980c87913ed3dd0c28692a0c9e6d4b297d7994092fce6a1763d833f80699aa9a",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_ssl_shared_ssl_seed7_h96_v1.json": "c9a37a3ac2948e6703dd1f15b18e13f713b91ec02845e9a3b9a1304503371be3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\ancestor-source\\native_temporal_shared_screen_v1.py": "85c4af6c67acb661359cde8bcf22de479e4da6a499cc7843bce0fee6c155e422",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\prefit-review-final-02.json": "4115ff2a2a2cb0fcafbd5273288c762efdaa15e106f7361f9352917a69ee85a3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\prefit-review-final-03.json": "21252c65d292f491124dee03de256fb2cf242a17468db1b29d4faf2d2454e462",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\source-pins.json": "e07cad3e7cd8d6df68ea4e84a1e3ac905dfbcc08997e5e5e9037605327622d8b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\selected_encoder.pt": "a9f332f080201dccd99bccc25ba658b4136ba760df08a3b29f6c4f1bdc164141",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\inference.pt": "b085583862f9b69e153bc041d9a07277bea70cac8e891ccaa859facc3fddd4d8",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\run.json": "c4a5453e187b69356acf6d37c44878639dde4d99dc4b82822f356c493a9525b0",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\scalers.json": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\torch-2.11.0+cu128.dist-info\\METADATA": "bb53a1e8e258707e738e108afaf1041304fa085a3775206876232345257e00b7",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\torch-2.11.0+cu128.dist-info\\RECORD": "41711285166f3fa6171e8e78fd9b3648bc041058013687b15b65028948d2e8cb",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\numpy-2.5.3.dist-info\\METADATA": "451a9b8028000588e66b0b415587b6aef0bbc51a96d8e8a0cba0dc23acf64f99",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\numpy-2.5.3.dist-info\\RECORD": "3d3e3efe646beefa3448fefa3daab33d1c10eb63f6da704d07ccf84d12526c4e",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-encoder-api-builder-v1\\format-check-complete.txt": "eee76f865de5a9f2456950f710ae5d5f9b5bd0ea02aa54f614c5eed6642a0bfd",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-encoder-api-builder-v1\\format-check-final.txt": "eee76f865de5a9f2456950f710ae5d5f9b5bd0ea02aa54f614c5eed6642a0bfd",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-encoder-api-builder-v1\\format-check-handoff.txt": "f114d83b30c5c657ee43a847a45bafccaea255d82673feb87c26d252c61e29c1",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-encoder-api-builder-v1\\format-final.txt": "44b7183e1f210a4817679f52d6f965f5de6331fb1c9174e863b4b0fc479a3e24",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-encoder-api-builder-v1\\format-handoff.txt": "413a709001976657cb743636fd34e48fc41d8d302d665460d3f874b3313da127",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-encoder-api-builder-v1\\format-provenance.txt": "413a709001976657cb743636fd34e48fc41d8d302d665460d3f874b3313da127",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-encoder-api-builder-v1\\format.txt": "878d50bf4ab752ab41ae942ac518b87e744d994b21bb15dca142ed7a470b3b3a",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-encoder-api-builder-v1\\green-attempt-1.txt": "831cf0cd6d6921ead5a25363531d00790029dc9bfa4d88010ddbc5df9915bb8f",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-encoder-api-builder-v1\\green-boundaries.txt": "1dc0566c29335ece29212455c91ea6d490f0ae1d4364476a76fded033300c85a",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-encoder-api-builder-v1\\green-default-dimensions.txt": "91d2c508a5a312c4f7a1fff959748984cdced61417fbab448dbd89d35b286ace",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-encoder-api-builder-v1\\handoff-verification.json": "c85043b8b48001068cb0899b341e0973878e425645efd529dcd1aa0a44244c2b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-encoder-api-builder-v1\\inspect_sources.py": "60774a95c39757005e9bebe2eb5fe898deaeba9bfbe9ba7ea1fa8756a33a088a",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-encoder-api-builder-v1\\lint-before.txt": "1c3655a2dd07ddacda63d915e2476d5748a9a4497edf2424e40ac73d502abc3c",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-encoder-api-builder-v1\\lint-complete.txt": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-encoder-api-builder-v1\\lint-final.txt": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-encoder-api-builder-v1\\lint-handoff.txt": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-encoder-api-builder-v1\\lint-provenance.txt": "100c906c84e090d2104ca7ead5bf3d742aa2b2bbb7529477f40691e0ca9c7d78",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-encoder-api-builder-v1\\main-source-provenance.json": "a4232121f66c4197d21bf7038547c078e86b41490eb00418c4fc416c3e28229e",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-encoder-api-builder-v1\\red-tests.txt": "b17e1194d70b4d7fe13cc4035eb9ba63baca8ad52fad2861f6ddfd4db861b5cc",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-encoder-api-builder-v1\\verify_handoff.py": "7fe91de01177cb81fcb50f14870ab12b0cf3c16679df6eabfd1111b88d385fa0"
+  },
+  "findings": [
+    {
+      "id": "E1",
+      "status": "VERIFIED",
+      "finding": "encode requires only x, observed and metadata. It constructs only the saved shared or CF backbone on the meta device, loads exact backbone tensors, freezes parameters and reasserts eval mode. It creates no head or optimizer and does not reset RNG, change determinism policy or invoke training admission/cache setup."
+    },
+    {
+      "id": "E2",
+      "status": "VERIFIED",
+      "finding": "Loading uses weights_only=True and map_location='cpu'. Artifact kind, explicit dimensions, supported history, complete scaler state, float32 precision, exact tensor keys/shapes/dtypes and finiteness are checked. Downstream-supervised artifact kinds are explicitly rejected."
+    },
+    {
+      "id": "E3",
+      "status": "VERIFIED",
+      "finding": "Input validation enforces exact saved history, four ordered frequencies, Boolean masks, a complete primary prefix, finite observed values and metadata, nominal 60-minute interval, integrated-product geometry, increasing nonnegative bounds, orientation0=unknown, Boolean known flags and relative offset0. Native bounds are passed unchanged; dB normalization has no depth scaling. Masked secondary fills, including NaN/Inf, do not affect features."
+    },
+    {
+      "id": "E4",
+      "status": "VERIFIED",
+      "finding": "Method labels distinguish shared/masked/CF SSL, permuted pairing control, direct supervised features and random untrained control. CF selected EMA tensors and BatchNorm buffers remain frozen in eval mode. Historical source bindings are defensive-copy provenance and are never opened or dynamically executed."
+    },
+    {
+      "id": "E5",
+      "status": "VERIFIED_ACTUAL_SHARED_ARTIFACT",
+      "finding": "The completed shared selected artifact matches the original inference and run config, bindings, scalers and all 58 encoder tensor keys. CPU loading produced only the 2,424,448-parameter backbone with latent64/history96, preserved Torch RNG and left CUDA uninitialized. The absent selected_pretrain_step field remains absent; the original inference/run record retains step4500."
+    },
+    {
+      "id": "E6",
+      "status": "VERIFIED_LIMIT",
+      "finding": "The API explicitly states that source-date contiguity and association with issuance cutoff remain caller responsibilities. Three timestamp-free arrays cannot verify temporal provenance or the truth of caller-supplied geometry. No timestamp-verification or scientific-value claim is introduced."
+    }
+  ],
+  "issues": [],
+  "executed_checks": [
+    {
+      "command": "call .venv\\Scripts\\python.exe -B -c exec(bytes.fromhex('696d706f7274206f732c7379730a6f732e656e7669726f6e5b27505954484f4e444f4e54575249544542595445434f4445275d3d2731270a696d706f7274207079746573740a7379732e65786974287079746573742e6d61696e285b2774657374732f756e69742f746573745f6e61746976655f656e636f6465722e7079272c272d71272c272d73272c272d70272c276e6f3a636163686570726f7669646572275d29290a').decode())",
+      "shell": "cmd.exe",
+      "login": false,
+      "exitcode": 0,
+      "result": "81 synthetic CPU tests passed in 21.77 seconds with PYTHONDONTWRITEBYTECODE=1, -B, -s and cacheprovider disabled. BytesIO codecs; no optimizer, GPU or real acoustic input. No denial occurred."
+    },
+    {
+      "command": {
+        "shell": "cmd.exe",
+        "login": false,
+        "prefix": "call .venv\\Scripts\\python.exe -B -c ",
+        "argument_construction": "exec(bytes.fromhex('<UTF-8 hexadecimal encoding of python_source>').decode())",
+        "python_source": "import hashlib,json\nfrom pathlib import Path\nimport torch\nfrom marine_echo.inference.native_encoder import NativeAcousticEncoder\np=Path('outputs/native_acoustic_ssl_v1/shared_ssl_seed7_h96_cuda0')\ns=torch.load(p/'selected_encoder.pt',weights_only=True,map_location='cpu')\ni=torch.load(p/'inference.pt',weights_only=True,map_location='cpu')\nr=json.loads((p/'run.json').read_text())\nassert s['kind']=='native_ssl_selected_encoder_v1' and i['kind']=='native_ssl_weights_only_inference_v1'\nassert s['config']==i['config']==r['config']\nassert s['bindings']==i['bindings']==r['bindings']\nassert s['scalers']==i['scalers']==json.loads((p/'scalers.json').read_text())\ne={k.removeprefix('encoder.'):v for k,v in i['model'].items() if k.startswith('encoder.')}\nassert set(e)==set(s['encoder']) and all(torch.equal(v,e[k]) for k,v in s['encoder'].items())\nassert 'selected_pretrain_step' not in s and i['selected_pretrain_step']==r['selected_pretrain_step']==4500\nbefore=torch.get_rng_state().clone()\na=NativeAcousticEncoder(p/'selected_encoder.pt',device='cpu')\nassert torch.equal(before,torch.get_rng_state())\nassert all(not v.requires_grad and v.grad is None for v in a.encoder.parameters())\nassert all(not m.training for m in a.encoder.modules())\nassert all(torch.equal(v,a.encoder.state_dict()[k]) for k,v in s['encoder'].items())\nprint(json.dumps({'artifact_hashes':{n:hashlib.file_digest(open(p/n,'rb'),'sha256').hexdigest() for n in ['selected_encoder.pt','inference.pt','run.json','scalers.json']},'kind':s['kind'],'method':a.method,'training_kind':a.training_kind,'history':a.config.history,'embedding_dimension':a.embedding_dimension,'encoder_parameters':sum(v.numel() for v in a.encoder.parameters()),'tensor_keys':len(e),'source_binding_count':len(a.source_bindings),'optional_step_in_selected':a.selected_pretrain_step,'parent_inference_selected_step':i['selected_pretrain_step'],'cpu_frozen_backbone_loaded_without_rng_change':True,'cuda_initialized':torch.cuda.is_initialized(),'encode_real_data':'NOT_RUN'}))\n"
+      },
+      "exitcode": 0,
+      "result": "Actual shared artifact metadata and tensor provenance passed. Exact artifact hashes verified, frozen CPU backbone loaded, RNG preserved, CUDA uninitialized. No encode call on real data."
+    },
+    {
+      "command": "node_repl: var closedChanges=[];for(var [p,h]of Object.entries(eb)){var b=await fs.readFile(p);if(crypto.createHash('sha256').update(b).digest('hex')!==h)closedChanges.push(p);}",
+      "exitcode": null,
+      "result": "Read-only closing check completed across all 57 bindings; closedChanges=[]. No TRAIN/development NPZ was opened or hashed."
+    },
+    {
+      "command": null,
+      "exitcode": null,
+      "result": "NOT_RUN by scope: actual acoustic replay, TRAIN/development NPZ access, final-test access, GPU inference and scientific fitting. No denied operation was retried."
+    }
+  ],
+  "inspected_parent_evidence": [
+    {
+      "evidence": "encoder-api-parent-cpu-tests.log",
+      "result": "Parent reported 81 passed in 22.80 seconds. Distinguished from this reviewer's independent 81-passed execution."
+    },
+    {
+      "evidence": "shared-encoder-only-cpu-replay.json/log",
+      "result": "Inspected root's recorded 64-development-prefix replay: x/observed/metadata only, embedding[64,64], bit-identical features, zero optimizer updates and no final-test access. Reviewer did not invoke this replay or open its inputs."
+    },
+    {
+      "evidence": "Closed ssl-encoder-api-builder-v1 evidence and encoder-api-integration.json",
+      "result": "Inspected preserved missing-module and dtype/stride failures, subsequent green checks, 81-test final report, source provenance and handoff inventory. Integration records no active-fit source changes."
+    },
+    {
+      "evidence": "Immutable current backbone/scaler/forecast schemas and original shared source snapshot",
+      "result": "Current helper identities and historical provenance retained. No scientific model review, diagnostic, census or source-paper search repeated."
+    },
+    {
+      "evidence": "Actual session metadata",
+      "result": "Verified session01a0ef27-876b-7692-917e-3975afc6893d as gpt-6.1-sol/high with read-only sandbox, distinct from builder and coordinator."
+    }
+  ],
+  "residual_limits": [
+    "Timestamp contiguity, issuance association and correctness of caller-supplied geometry require external provenance; the API does not verify them.",
+    "Artifact method/source/scaler metadata are declared provenance, not cryptographic proof of scientific training or comprehensive ancestry validation.",
+    "The completed real shared artifact was independently inspected. Other method schemas and CF EMA/BatchNorm behavior were tested with explicitly synthetic fixtures; this does not certify future real artifacts or completed fits.",
+    "CUDA is an available implementation option but is excluded from this approval.",
+    "Downstream-supervised encoder artifact kinds are unsupported by this interface.",
+    "Correct feature replay establishes interface correctness, not representation transfer advantage, JEPA value, biological meaning or SOTA."
+  ],
+  "approval_scope": {
+    "device": "cpu",
+    "interface": "NativeAcousticEncoder.encode(x, observed, metadata)",
+    "output": "Float32 NumPy embeddings[N,D]",
+    "accepted_artifact_kind": "native_ssl_selected_encoder_v1",
+    "actual_shared_artifact_sha256": "a9f332f080201dccd99bccc25ba658b4136ba760df08a3b29f6c4f1bdc164141",
+    "schema_training_labels": {
+      "shared_ssl": "ssl_pretrained",
+      "masked_ssl": "ssl_pretrained",
+      "cf_jepa": "ssl_pretrained",
+      "permuted_ssl": "permuted_pairing_ssl_control",
+      "direct": "supervised_feature_encoder",
+      "random_frozen": "untrained_control"
+    },
+    "data_authorization": "No expansion of existing numerical-access permissions. This review neither authorizes new materialization nor opens final-test access.",
+    "historical_and_active_work": "Preserve all prior records and the running CF job's immutable bindings; this approval changes no scientific fitting authorization.",
+    "excluded": [
+      "Optimizer or scientific fitting",
+      "GPU operation",
+      "Query, forecast head, target or future input",
+      "New materialization or real-data replay authorized by this review",
+      "Final-test numerical access or assessment",
+      "Timestamp, calibration or source-truth certification",
+      "Deployment, package, app or release work",
+      "SOTA, JEPA-value or scientific-result claims",
+      "Cloud, installs, payments, credentials or permission changes",
+      "Denied-path retries, junction operations, foreign process actions or additional agents"
+    ]
+  }
+}

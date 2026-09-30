@@ -1,0 +1,190 @@
+FF..                                                                     [100%]
+================================== FAILURES ===================================
+_______________ test_actual_report_schemas[report0-masked_ssl] ________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002744105E210>
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-4215/test_actual_report_schemas_rep0')
+report = {'status': 'COMPLETED', 'config': {'method': 'masked_ssl'}}
+method = 'masked_ssl'
+
+    @pytest.mark.parametrize(
+        "report,method",
+        [
+            ({"status": "COMPLETED", "config": {"method": "masked_ssl"}}, "masked_ssl"),
+            ({"status": "COMPLETED_ZERO_SHOT_DEVELOPMENT", "method": "chronos2"}, "chronos2"),
+        ],
+    )
+    def test_actual_report_schemas(monkeypatch, tmp_path, report, method):
+        monkeypatch.setattr(queue, "ROOT", tmp_path)
+        job = {"id": "synthetic", "entrypoint": "tools/execute_native_ssl_job.py", "args": [],
+               "report": "result.json", "method": method}
+        path = tmp_path / "queue.json"
+        path.write_text(json.dumps({"kind": "reviewed_native_serial_queue_v1", "jobs": [job]}))
+        monkeypatch.setattr("sys.argv", ["queue", str(path), "--receipt", str(tmp_path / "receipt")])
+        calls = []
+    
+        def run(command, **kwargs):
+            calls.append(command)
+            (tmp_path / "result.json").write_text(json.dumps(report))
+            return SimpleNamespace(returncode=0)
+    
+        monkeypatch.setattr(queue.subprocess, "run", run)
+>       queue.main()
+
+tests\unit\test_native_queue.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def main():
+        parser = argparse.ArgumentParser(description=__doc__)
+        parser.add_argument("queue", type=Path)
+        parser.add_argument("--receipt", type=Path, required=True)
+        args = parser.parse_args()
+        raw = args.queue.read_bytes()
+        queue = json.loads(raw)
+        if queue.get("kind") != "reviewed_native_serial_queue_v1" or args.receipt.exists():
+            raise ValueError("Require a fixed queue and a new coordinator receipt.")
+        jobs = queue["jobs"]
+        if not jobs or any(job["entrypoint"] not in ENTRYPOINTS for job in jobs):
+            raise ValueError("Only distinctly reviewed supervising entrypoints are admitted.")
+        args.receipt.mkdir(parents=True)
+        results = {
+            "queue_sha256": hashlib.sha256(raw).hexdigest(),
+            "status": "RUNNING",
+            "jobs": [],
+            "app_release_work": "FROZEN",
+        }
+        receipt = args.receipt / "queue.json"
+        receipt.write_text(json.dumps(results, indent=2) + "\n", encoding="utf-8")
+        for job in jobs:
+            # Each required wrapper independently verifies all approvals, bindings,
+            # ledger ownership and the remaining finite budget immediately at launch.
+            command = [str(ROOT / ".venv/Scripts/python.exe"), "-u", job["entrypoint"], *job["args"]]
+            print(json.dumps({"event": "LAUNCH", "id": job["id"], "command": command}), flush=True)
+            with (args.receipt / (job["id"] + ".log")).open("x", encoding="utf-8") as log:
+                completed = subprocess.run(command, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT)
+            report_path = ROOT / job["report"]
+            result = {"id": job["id"], "exit_code": completed.returncode, "report": job["report"]}
+            valid = completed.returncode == 0 and report_path.is_file()
+            if valid:
+                report_raw = report_path.read_bytes()
+                report = json.loads(report_raw)
+                valid = report.get("status") in STATUSES and report.get("method") == job["method"]
+                if job.get("mode"):
+                    valid = valid and report.get("mode") == job["mode"]
+                result.update(
+                    report_sha256=hashlib.sha256(report_raw).hexdigest(),
+                    report_status=report.get("status"),
+                    development_pinball_db=report.get(
+                        "selected_daily_dev_pinball", report.get("metrics", {}).get("primary_pinball_db")
+                    ),
+                    scientific_claim="NOT_ESTABLISHED",
+                )
+            result["status"] = "VERIFIED_COMPLETED" if valid else "FAILED_QUEUE_STOPPED"
+            results["jobs"].append(result)
+            results["status"] = "RUNNING" if valid else "STOPPED_AFTER_FAILURE"
+            receipt.write_text(json.dumps(results, indent=2) + "\n", encoding="utf-8")
+            print(json.dumps(result), flush=True)
+            if not valid:
+>               sys.exit(1)
+E               SystemExit: 1
+
+tools\run_reviewed_native_queue.py:72: SystemExit
+---------------------------- Captured stdout call -----------------------------
+{"event": "LAUNCH", "id": "synthetic", "command": ["C:\\Users\\\u00c1lvaro Schwiedop\\AppData\\Local\\Temp\\pytest-of-\u00c1lvaro Schwiedop\\pytest-4215\\test_actual_report_schemas_rep0\\.venv\\Scripts\\python.exe", "-u", "tools/execute_native_ssl_job.py"]}
+{"id": "synthetic", "exit_code": 0, "report": "result.json", "report_sha256": "8f9e3fe5370701c9bbd6733b57b0238ee7bcbf5e6315f007c036afa26f0a5228", "report_status": "COMPLETED", "development_pinball_db": null, "scientific_claim": "NOT_ESTABLISHED", "status": "FAILED_QUEUE_STOPPED"}
+________________ test_actual_report_schemas[report1-chronos2] _________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002744105FA10>
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-4215/test_actual_report_schemas_rep1')
+report = {'status': 'COMPLETED_ZERO_SHOT_DEVELOPMENT', 'method': 'chronos2'}
+method = 'chronos2'
+
+    @pytest.mark.parametrize(
+        "report,method",
+        [
+            ({"status": "COMPLETED", "config": {"method": "masked_ssl"}}, "masked_ssl"),
+            ({"status": "COMPLETED_ZERO_SHOT_DEVELOPMENT", "method": "chronos2"}, "chronos2"),
+        ],
+    )
+    def test_actual_report_schemas(monkeypatch, tmp_path, report, method):
+        monkeypatch.setattr(queue, "ROOT", tmp_path)
+        job = {"id": "synthetic", "entrypoint": "tools/execute_native_ssl_job.py", "args": [],
+               "report": "result.json", "method": method}
+        path = tmp_path / "queue.json"
+        path.write_text(json.dumps({"kind": "reviewed_native_serial_queue_v1", "jobs": [job]}))
+        monkeypatch.setattr("sys.argv", ["queue", str(path), "--receipt", str(tmp_path / "receipt")])
+        calls = []
+    
+        def run(command, **kwargs):
+            calls.append(command)
+            (tmp_path / "result.json").write_text(json.dumps(report))
+            return SimpleNamespace(returncode=0)
+    
+        monkeypatch.setattr(queue.subprocess, "run", run)
+>       queue.main()
+
+tests\unit\test_native_queue.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def main():
+        parser = argparse.ArgumentParser(description=__doc__)
+        parser.add_argument("queue", type=Path)
+        parser.add_argument("--receipt", type=Path, required=True)
+        args = parser.parse_args()
+        raw = args.queue.read_bytes()
+        queue = json.loads(raw)
+        if queue.get("kind") != "reviewed_native_serial_queue_v1" or args.receipt.exists():
+            raise ValueError("Require a fixed queue and a new coordinator receipt.")
+        jobs = queue["jobs"]
+        if not jobs or any(job["entrypoint"] not in ENTRYPOINTS for job in jobs):
+            raise ValueError("Only distinctly reviewed supervising entrypoints are admitted.")
+        args.receipt.mkdir(parents=True)
+        results = {
+            "queue_sha256": hashlib.sha256(raw).hexdigest(),
+            "status": "RUNNING",
+            "jobs": [],
+            "app_release_work": "FROZEN",
+        }
+        receipt = args.receipt / "queue.json"
+        receipt.write_text(json.dumps(results, indent=2) + "\n", encoding="utf-8")
+        for job in jobs:
+            # Each required wrapper independently verifies all approvals, bindings,
+            # ledger ownership and the remaining finite budget immediately at launch.
+            command = [str(ROOT / ".venv/Scripts/python.exe"), "-u", job["entrypoint"], *job["args"]]
+            print(json.dumps({"event": "LAUNCH", "id": job["id"], "command": command}), flush=True)
+            with (args.receipt / (job["id"] + ".log")).open("x", encoding="utf-8") as log:
+                completed = subprocess.run(command, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT)
+            report_path = ROOT / job["report"]
+            result = {"id": job["id"], "exit_code": completed.returncode, "report": job["report"]}
+            valid = completed.returncode == 0 and report_path.is_file()
+            if valid:
+                report_raw = report_path.read_bytes()
+                report = json.loads(report_raw)
+                valid = report.get("status") in STATUSES and report.get("method") == job["method"]
+                if job.get("mode"):
+                    valid = valid and report.get("mode") == job["mode"]
+                result.update(
+                    report_sha256=hashlib.sha256(report_raw).hexdigest(),
+                    report_status=report.get("status"),
+                    development_pinball_db=report.get(
+                        "selected_daily_dev_pinball", report.get("metrics", {}).get("primary_pinball_db")
+                    ),
+                    scientific_claim="NOT_ESTABLISHED",
+                )
+            result["status"] = "VERIFIED_COMPLETED" if valid else "FAILED_QUEUE_STOPPED"
+            results["jobs"].append(result)
+            results["status"] = "RUNNING" if valid else "STOPPED_AFTER_FAILURE"
+            receipt.write_text(json.dumps(results, indent=2) + "\n", encoding="utf-8")
+            print(json.dumps(result), flush=True)
+            if not valid:
+>               sys.exit(1)
+E               SystemExit: 1
+
+tools\run_reviewed_native_queue.py:72: SystemExit
+---------------------------- Captured stdout call -----------------------------
+{"event": "LAUNCH", "id": "synthetic", "command": ["C:\\Users\\\u00c1lvaro Schwiedop\\AppData\\Local\\Temp\\pytest-of-\u00c1lvaro Schwiedop\\pytest-4215\\test_actual_report_schemas_rep1\\.venv\\Scripts\\python.exe", "-u", "tools/execute_native_ssl_job.py"]}
+{"id": "synthetic", "exit_code": 0, "report": "result.json", "report_sha256": "a03742d866272838f75442d3b13e2da827082db046323c061d32fc77ff023110", "report_status": "COMPLETED_ZERO_SHOT_DEVELOPMENT", "development_pinball_db": null, "scientific_claim": "NOT_ESTABLISHED", "status": "FAILED_QUEUE_STOPPED"}
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_queue.py::test_actual_report_schemas[report0-masked_ssl]
+FAILED tests/unit/test_native_queue.py::test_actual_report_schemas[report1-chronos2]
+2 failed, 2 passed in 1.03s

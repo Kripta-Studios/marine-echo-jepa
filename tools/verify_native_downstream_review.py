@@ -12,6 +12,11 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("review", type=Path)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument(
+        "--status",
+        default="APPROVED_DOWNSTREAM_PREFIT",
+        choices=("APPROVED_DOWNSTREAM_PREFIT", "APPROVED_ENCODER_INFERENCE"),
+    )
     args = parser.parse_args()
     review = json.loads(args.review.read_text(encoding="utf-8"))
     sessions = {
@@ -20,7 +25,7 @@ def main():
         "reviewer_session_id": "01a0ef27-876b-7692-917e-3975afc6893d",
         "coordinator_session_id": "01a0ef1a-b166-7f83-91b7-2a2aff7c1b10",
     }
-    if review.get("status") != "APPROVED_DOWNSTREAM_PREFIT":
+    if review.get("status") != args.status:
         raise ValueError("Separate downstream approval is absent.")
     if any(review.get(key) != value for key, value in sessions.items()):
         raise ValueError("Verified distinct author/reviewer identities differ.")
@@ -40,8 +45,9 @@ def main():
         "stale_bindings": stale,
         "noncanonical_keys": noncanonical,
         "sessions": sessions,
-        "allowed_methods": review["allowed_methods"],
-        "allowed_modes": review["allowed_modes"],
+        "approval_status": args.status,
+        "allowed_methods": review.get("allowed_methods"),
+        "allowed_modes": review.get("allowed_modes"),
         "scientific_optimizer_updates": 0,
         "final_test_access": "NOT_RUN",
     }
