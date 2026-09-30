@@ -1,6 +1,6 @@
 ## Active model-first research — native acoustic SSL
 
-Updated 2026-09-30T17:03:38.747434+00:00.
+Updated 2026-09-30T17:57:11.398557+00:00.
 
 Branch `research/marine-jepa-vnext`; owner-authorized local model research.
 App/release work is frozen; historical protocols, evidence and approved r3 are preserved.
@@ -21,7 +21,7 @@ Original serial queue: COMPLETED_REVIEWED_SERIAL_QUEUE; 9/9 reports inspected.
 Charged owned GPU-hours at ledger snapshot: 13.692942/96.
 The active wrappers own ledger writes; coordinator does not overwrite live accounting.
 Band charged full-owned GPU-hours at snapshot: 4.209423/12 (inside96).
-Band strong queue: STOPPED_AFTER_FAILURE; 6/6 completions.
+Band strong queue: STOPPED_AFTER_FAILURE; 5/6 verified completions.
 All20 seed7 endpoints and controls completed; each serial queue exited0 with owned cleanup.
 CF strong frozen/full DEV0.614422/0.541814; masked frozen/full0.786842/0.691806dB.
 Permuted/random/supervised frozen DEV0.854690/0.812868/0.776118dB.
@@ -65,9 +65,12 @@ Band masked/permuted/random screens completed with owned cleanup: DEV0.701138/0.
 Band scratch supervised completed at DEV0.550881dB; all five-job commands actually exited0.
 All five immutable reports/weights/resources verified;3.171089 full-owned Band GPU-hours charged.
 These are runner selection scores; matched strong endpoints and numerical verification remain required.
-Six actual-parent frozen/full proposals exist; two prefit CLI attempts failed on model capacity
-before delivering approval. Same distinct reviewer is completing an exact compact referential verdict.
-No strong Band job has started; proposals and retained inspection progress are not approval.
+Six Band strong endpoints received distinct exact-reference approval after two retained capacity failures.
+Five real strong fits completed: shared frozen/full, masked frozen/full and permuted frozen.
+Random strong control failed native0xc000070a;190.172 full-owned seconds retained and charged.
+Exact dead-owner reconciliation preserved the failed evidence; cause remains unknown.
+One unchanged fresh-output random retry is independently approved, waiting for replication queue closure.
+All60 retry source/proof bindings verified; no second retry is authorized.
 Reusable latent inference source approved by distinct reviewer;40 exact bindings verified.
 Root89 synthetic CPU checks and actual Unicode disk replay passed for shared/CF/band.
 Real64-context CPU replay approved after metadata transport recovery;96 bindings verified.
@@ -100,11 +103,12 @@ Unfitted metadata-only repair admits lowercase64hex hashes; seven red/green guar
 Repaired233 root CPU checks passed with all12 optimizer/resume cases; fresh Unicode replay passed.
 Four fixed shared/direct13/23 replication proposals approved by the distinct reviewer after source-closure repair.
 Exact canonical references and all58 scientific bindings verified; materialized leaf approvals preserve all scientific fields.
-Their serial queue waits for current scientific ownership to close; no additional screening recipes.
+Their four-job serial queue is executing under one scientific owner; no additional screening recipes.
 Typed v2 prefix/assessment compatibility integrated;391 root CPU checks passed674.98s, no skips.
 Physical Unicode synthetic four-update prefix fit and saved-artifact replay passed; no public transfer results.
 New Band-aware assessment supervisor retains12/96 full-owned accounting for mixed-model operations.
-Prospective strict-status prefix supervisor passed29 policy checks; distinct software/prefit still required.
+Prospective strict-status prefix supervisor passed31 policy/pending-journal checks after focused red/green repair.
+Distinct transfer software review approved all79 exact bindings; actual prefix/assessment prefits remain required.
 Original prefix accounting already includes completed prefix histories; all Band training precedes prefix operations.
 Builder is implementing an additive native transfer-corpus/registry adapter with synthetic fixtures only.
 Actual assessment resource-worker synthetic CPU smoke exited0 and removed its exclusive lock.
