@@ -1,0 +1,33 @@
+F
+================================== FAILURES ===================================
+________________ test_cf_loss_never_calls_native_adaptive_pool ________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000022837CAEAE0>
+
+    def test_cf_loss_never_calls_native_adaptive_pool(monkeypatch):
+        candidate, inputs = toy_model_and_inputs(torch.float32)
+        monkeypatch.setattr(F, "adaptive_avg_pool1d", lambda *a, **k: pytest.fail("CF invokes the CUDA-rejected adaptive pooling operation."))
+        np.random.seed(23)
+>       loss = candidate.cf_loss(*inputs, step=0, total=10)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\unit\test_native_cf_pooling.py:148: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\marine_echo\models\native_temporal.py:326: in cf_loss
+    predicted = F.adaptive_avg_pool1d(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+a = (tensor([[[-0.1708,  0.9045,  0.2260,  ..., -0.2828, -0.2779, -0.3691],
+         [ 0.5473,  0.0369,  0.4891,  ...,  0....119],
+         [ 0.5136,  0.1921,  0.4152,  ...,  0.3872,  0.4269,  0.4370]]],
+       grad_fn=<TransposeBackward0>), 4)
+k = {}
+
+>   monkeypatch.setattr(F, "adaptive_avg_pool1d", lambda *a, **k: pytest.fail("CF invokes the CUDA-rejected adaptive pooling operation."))
+                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: CF invokes the CUDA-rejected adaptive pooling operation.
+
+tests\unit\test_native_cf_pooling.py:146: Failed
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_cf_pooling.py::test_cf_loss_never_calls_native_adaptive_pool
+1 failed, 46 deselected in 2.83s

@@ -1,0 +1,114 @@
+{
+  "status": "SCOPED_NEW_BYTES_INTEGRATED",
+  "builder": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder",
+  "denied_builder_paths_retried": false,
+  "files": [
+    {
+      "path": "src\\marine_echo\\training\\native_downstream.py",
+      "bytes": 39303,
+      "sha256": "3a1680a6b8094ee72866def6c2d4878646bc72e653e880ed4915402296da3c47"
+    },
+    {
+      "path": "tests\\integration\\test_native_downstream.py",
+      "bytes": 36001,
+      "sha256": "479258aa72fb602ee26d3c8b8b968000ab558c7052744ca143e76a777e086237"
+    },
+    {
+      "path": "orchestration\\reports\\NATIVE_DOWNSTREAM_IMPLEMENTATION_V1.md",
+      "bytes": 15000,
+      "sha256": "332f8c5ce1607d684b38819d9cf0437cf02e24e47fe209e9323953c2c881f3e7"
+    },
+    {
+      "path": "evidence\\ssl-downstream-builder-v1\\cli-help.txt",
+      "bytes": 1221,
+      "sha256": "eac7d80709b2b424e40cd269ffe639d15f874c5a532c94e298a9893f5e2bad7b"
+    },
+    {
+      "path": "evidence\\ssl-downstream-builder-v1\\continuation-tests.txt",
+      "bytes": 49,
+      "sha256": "5a2bf0f6cae05461ecd2c9b163ac9e63f7f439e7ef8666ef448860562a00a2c0"
+    },
+    {
+      "path": "evidence\\ssl-downstream-builder-v1\\executed-checks.json",
+      "bytes": 4060,
+      "sha256": "cc1bd48b7cf82a460898f22649e3d6d87d6bcb5adf4ae792b36aed3512b01bfe"
+    },
+    {
+      "path": "evidence\\ssl-downstream-builder-v1\\expanded-continuation-tests.txt",
+      "bytes": 55,
+      "sha256": "5569bce71f931dafab38683d0ee159a58545b5f836a41128d98875a6e933cbb0"
+    },
+    {
+      "path": "evidence\\ssl-downstream-builder-v1\\extended-tests-1.txt",
+      "bytes": 49,
+      "sha256": "ebf40beea21247b6d17afcd29002d761dd5b0640e25a7152b714741275d363b1"
+    },
+    {
+      "path": "evidence\\ssl-downstream-builder-v1\\focused-pytest-final.txt",
+      "bytes": 60,
+      "sha256": "d4de771c09295fa618c7bb89992aa7a4c575a1a526caf6daa8d1a1c1b553a2a1"
+    },
+    {
+      "path": "evidence\\ssl-downstream-builder-v1\\format-check-final.txt",
+      "bytes": 26,
+      "sha256": "eee76f865de5a9f2456950f710ae5d5f9b5bd0ea02aa54f614c5eed6642a0bfd"
+    },
+    {
+      "path": "evidence\\ssl-downstream-builder-v1\\format-final.txt",
+      "bytes": 20,
+      "sha256": "878d50bf4ab752ab41ae942ac518b87e744d994b21bb15dca142ed7a470b3b3a"
+    },
+    {
+      "path": "evidence\\ssl-downstream-builder-v1\\format.txt",
+      "bytes": 20,
+      "sha256": "96a977f329ec3c59092d40e041a019b49dcf03ca04055e177aa0ccb8c27234df"
+    },
+    {
+      "path": "evidence\\ssl-downstream-builder-v1\\green-attempt-1.txt",
+      "bytes": 9524,
+      "sha256": "693dea04bea68040f5e140d50b156e74d214df5b694947ba6f3d715f297b3416"
+    },
+    {
+      "path": "evidence\\ssl-downstream-builder-v1\\green-attempt-2.txt",
+      "bytes": 29861,
+      "sha256": "f8ea240126311a986f550dd4bc412b8bac550d8478b1576278ab08fd5e9603ed"
+    },
+    {
+      "path": "evidence\\ssl-downstream-builder-v1\\green-attempt-3.txt",
+      "bytes": 27,
+      "sha256": "464b5e1da839647ae5e79a8ed7e744a2688dedcd3a69f16b0cecc7211726f62f"
+    },
+    {
+      "path": "evidence\\ssl-downstream-builder-v1\\red-tests.txt",
+      "bytes": 1272,
+      "sha256": "4334999d0a38a45d9a68c351832b8f9d1d9e3803214525165d107feabc5ace61"
+    },
+    {
+      "path": "evidence\\ssl-downstream-builder-v1\\ruff-before-format.txt",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "evidence\\ssl-downstream-builder-v1\\ruff-final.txt",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "evidence\\ssl-downstream-builder-v1\\source-inspection-final.json",
+      "bytes": 3932,
+      "sha256": "fc4279cf5da3d62b507665bd9a808046f351030d8da1b008500ff2cc44f1c457"
+    },
+    {
+      "path": "evidence\\ssl-downstream-builder-v1\\source-inspection.json",
+      "bytes": 3932,
+      "sha256": "e8531514349f1d21cd94ed16edb1b5953b6cd847ad4ea43641ab330590c19ae8"
+    },
+    {
+      "path": "evidence\\ssl-downstream-builder-v1\\verify_sources.py",
+      "bytes": 2672,
+      "sha256": "bf57566c2c64223242c162b7e9079df6817252958a17810de9d26889d8e00c8f"
+    }
+  ],
+  "durable_checks": "PENDING_COORDINATOR",
+  "scientific_fits": "NOT_RUN"
+}

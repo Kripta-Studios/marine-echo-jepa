@@ -1,0 +1,38 @@
+--- a/src/marine_echo/training/native_references.py
++++ b/src/marine_echo/training/native_references.py
+@@ -17,6 +17,26 @@
+ def digest(path: Path) -> str:
+     with path.open("rb") as stream:
+         return hashlib.file_digest(stream, "sha256").hexdigest()
++
++
++def save_booster_text(booster, path: Path) -> None:
++    """Save complete model text through Python's Unicode-aware exclusive IO.
++
++    Use only a reviewed new run path. Permission/existence errors propagate;
++    there is no native filename fallback, relocation, or write retry.
++    """
++    text = booster.model_to_string()
++    with Path(path).open("x", encoding="utf-8", newline="") as stream:
++        stream.write(text)
++
++
++def load_booster_text(path: Path):
++    """Replay complete model text without passing a filename to the C++ API."""
++    import lightgbm as lgb
++
++    with Path(path).open("r", encoding="utf-8") as stream:
++        text = stream.read()
++    return lgb.Booster(model_str=text)
+ 
+ 
+ def feature_matrix(corpus: dict, history: int) -> np.ndarray:
+@@ -109,7 +129,7 @@
+                 model.fit(tx[eligible], train["y"][eligible, horizon])
+                 predictions[:, horizon, q_index] = model.predict(dx)
+                 path = output / f"h{(1, 3, 6)[horizon]}_q{quantile:.2f}.txt"
+-                model.booster_.save_model(str(path))
++                save_booster_text(model.booster_, path)
+                 models.append({"path": path.name, "sha256": digest(path)})
+         predictions.sort(axis=-1)
+     else:

@@ -1,0 +1,14 @@
+{
+  "evidence_kind": "SOURCE_INSPECTION_ONLY",
+  "expected_main_model_sha256": "85c4af6c67acb661359cde8bcf22de479e4da6a499cc7843bce0fee6c155e422",
+  "builder_model_matches_main": false,
+  "main_model_matches_expected": true,
+  "lightgbm_version": "4.6.0",
+  "sha256": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\models\\native_temporal.py": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_temporal.py": "85c4af6c67acb661359cde8bcf22de479e4da6a499cc7843bce0fee6c155e422",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_references.py": "b692368053501ca946978a3c583d649356584e91c1e020597397e669d8aa1d7b",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\lightgbm\\basic.py": "3bb8761547ec0c5064947ab95eee3785c36defc294494d459c0db58a51a722f2",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\lightgbm\\VERSION.txt": "e1c74a9e953f1685f14e3d26aec63ba4646947b879c25538b169a8f1f3818310"
+  }
+}

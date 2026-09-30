@@ -1,0 +1,11 @@
+usage: root_cuda_correctness.py [-h] --device {cuda} --root-gpu-owner
+
+ROOT ONLY: synthetic deterministic CUDA CF pooling/backward, no optimizer. Run
+only after integrating the exact platform patch, with root GPU ownership. This
+script is not executed by the builder. It neither loads a corpus nor saves a
+checkpoint. Output is correctness evidence only, never a scientific score.
+
+options:
+  -h, --help        show this help message and exit
+  --device {cuda}
+  --root-gpu-owner

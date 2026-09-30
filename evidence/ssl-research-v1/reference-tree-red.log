@@ -1,0 +1,36 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_____ test_redirector_descendant_memory_is_counted_and_owned_tree_stopped _____
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-4209/test_redirector_descendant_mem0')
+
+    def test_redirector_descendant_memory_is_counted_and_owned_tree_stopped(tmp_path):
+        marker = tmp_path / "owned-descendant.json"
+        script = (
+            "import subprocess,sys,time,json; "
+            "p=subprocess.Popen([sys.executable,'-c',"
+            "'import time; allocation=bytearray(100*2**20); time.sleep(30)']); "
+            f"open({str(marker)!r},'w').write(json.dumps({{'pid':p.pid}})); p.wait()"
+        )
+        child = subprocess.Popen([sys.executable, "-c", script])
+        descendants = []
+        try:
+            until = time.monotonic() + 5
+            while not marker.exists() and time.monotonic() < until:
+                time.sleep(0.02)
+            assert marker.exists()
+            descendants = psutil.Process(child.pid).children(recursive=True)
+            report = supervise_owned(
+                child, started=time.monotonic(), deadline_seconds=3,
+                rss_limit_bytes=64*2**20, poll_seconds=0.02,
+            )
+>           assert report["stopped_for"] == "PROCESS_RAM_LIMIT"
+E           AssertionError: assert 'FULL_OWNED_ATTEMPT_DEADLINE' == 'PROCESS_RAM_LIMIT'
+E             
+E             - PROCESS_RAM_LIMIT
+E             + FULL_OWNED_ATTEMPT_DEADLINE
+
+tests\unit\test_native_reference_supervisor.py:93: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_reference_supervisor.py::test_redirector_descendant_memory_is_counted_and_owned_tree_stopped
+1 failed, 3 deselected in 3.32s

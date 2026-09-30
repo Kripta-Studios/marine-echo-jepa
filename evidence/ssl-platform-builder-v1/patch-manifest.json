@@ -1,0 +1,22 @@
+{
+  "status": "PATCHES_PREPARED_NOT_APPLIED_NOT_APPROVED",
+  "changes": [
+    {
+      "target": "src/marine_echo/models/native_temporal.py",
+      "main_before_sha256": "85c4af6c67acb661359cde8bcf22de479e4da6a499cc7843bce0fee6c155e422",
+      "after_sha256": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32",
+      "patch": "native_temporal.patch",
+      "patch_sha256": "44addb67f0aa1e13619ea797489ec3a643bde7f5f2dbfa416a034e0f4976fa60"
+    },
+    {
+      "target": "src/marine_echo/training/native_references.py",
+      "main_before_sha256": "b692368053501ca946978a3c583d649356584e91c1e020597397e669d8aa1d7b",
+      "after_sha256": "0d6583644ab1fce8d87a4194048f2176237b47deb57f0fa8494df6aa9012d584",
+      "patch": "native_references.patch",
+      "patch_sha256": "b4d91ab0acdb23b821ad00aaecf1160c2e9fc04a61a878b3f3f254b1b3624dd9"
+    }
+  ],
+  "integration_owner": "ROOT",
+  "renewed_independent_review": "REQUIRED_BEFORE_FITS",
+  "scientific_claim": "NONE"
+}

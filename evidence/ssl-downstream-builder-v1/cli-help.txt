@@ -1,0 +1,30 @@
+usage: verify_sources.py [-h] --train TRAIN --dev DEV --train-cohort
+                         TRAIN_COHORT --dev-cohort DEV_COHORT --split SPLIT
+                         --adr0016 ADR0016 --protocol PROTOCOL --config CONFIG
+                         --review REVIEW --output OUTPUT [--encoder ENCODER]
+                         [--ancestor-review ANCESTOR_REVIEW]
+                         [--ancestor-config ANCESTOR_CONFIG] [--resume RESUME]
+                         [--device {cpu,cuda}]
+
+Reviewed, separate downstream endpoints using the frozen native SSL helpers.
+No screen probe is a downstream result. Only TRAIN supplies optimization and
+scaling; development selects scheduled checkpoints on native daily pinball.
+The portable inference interface never accepts future crops or target values.
+
+options:
+  -h, --help            show this help message and exit
+  --train TRAIN
+  --dev DEV
+  --train-cohort TRAIN_COHORT
+  --dev-cohort DEV_COHORT
+  --split SPLIT
+  --adr0016 ADR0016
+  --protocol PROTOCOL
+  --config CONFIG
+  --review REVIEW
+  --output OUTPUT
+  --encoder ENCODER
+  --ancestor-review ANCESTOR_REVIEW
+  --ancestor-config ANCESTOR_CONFIG
+  --resume RESUME
+  --device {cpu,cuda}

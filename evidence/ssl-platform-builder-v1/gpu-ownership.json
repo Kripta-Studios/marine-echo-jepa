@@ -1,0 +1,202 @@
+{
+  "driver_model": "WDDM",
+  "blocking_pids": [],
+  "desktop_graphics_pids": [
+    1916,
+    4000,
+    4532,
+    7192,
+    8400,
+    10468,
+    10976,
+    12372,
+    12400,
+    13900,
+    15096,
+    15860,
+    15864,
+    16376,
+    17096,
+    17400,
+    18344,
+    18384,
+    18868,
+    19420,
+    19556,
+    20288,
+    21044,
+    21156,
+    25216,
+    27360,
+    27772,
+    34908,
+    38216,
+    44736,
+    51308,
+    54184
+  ],
+  "hardware_exclusivity": "UNVERIFIABLE_WDDM",
+  "policy": "exclusive_local_training_lock_plus_gpu_process_runtime_check",
+  "desktop_allowlist": [
+    "amdrssrcext.exe",
+    "applicationframehost.exe",
+    "chatgpt classic.exe",
+    "code.exe",
+    "discord.exe",
+    "docker desktop.exe",
+    "dwm.exe",
+    "explorer.exe",
+    "firefox.exe",
+    "jabra-direct.exe",
+    "lockapp.exe",
+    "logonui.exe",
+    "microsoft.cmdpal.ui.exe",
+    "ms-teams.exe",
+    "msedgewebview2.exe",
+    "notepad.exe",
+    "notion calendar.exe",
+    "powertoys.colorpickerui.exe",
+    "powertoys.exe",
+    "powertoys.fancyzones.exe",
+    "powertoys.powerlauncher.exe",
+    "powertoys.quickaccess.exe",
+    "radeonsoftware.exe",
+    "searchhost.exe",
+    "shellexperiencehost.exe",
+    "shellhost.exe",
+    "startmenuexperiencehost.exe",
+    "systemsettings.exe",
+    "textinputhost.exe",
+    "windowsterminal.exe"
+  ],
+  "observed_processes": [
+    {
+      "pid": 1916,
+      "executable": "ms-teams.exe"
+    },
+    {
+      "pid": 4000,
+      "executable": "dwm.exe"
+    },
+    {
+      "pid": 4532,
+      "executable": "jabra-direct.exe"
+    },
+    {
+      "pid": 7192,
+      "executable": "ms-teams.exe"
+    },
+    {
+      "pid": 8400,
+      "executable": "ApplicationFrameHost.exe"
+    },
+    {
+      "pid": 10468,
+      "executable": "explorer.exe"
+    },
+    {
+      "pid": 10976,
+      "executable": "SystemSettings.exe"
+    },
+    {
+      "pid": 12372,
+      "executable": "SearchHost.exe"
+    },
+    {
+      "pid": 12400,
+      "executable": "StartMenuExperienceHost.exe"
+    },
+    {
+      "pid": 13900,
+      "executable": "Notepad.exe"
+    },
+    {
+      "pid": 15096,
+      "executable": "LockApp.exe"
+    },
+    {
+      "pid": 15860,
+      "executable": "ShellExperienceHost.exe"
+    },
+    {
+      "pid": 15864,
+      "executable": "PowerToys.exe"
+    },
+    {
+      "pid": 16376,
+      "executable": "msedgewebview2.exe"
+    },
+    {
+      "pid": 17096,
+      "executable": "PowerToys.QuickAccess.exe"
+    },
+    {
+      "pid": 17400,
+      "executable": "Code.exe"
+    },
+    {
+      "pid": 18344,
+      "executable": "PowerToys.ColorPickerUI.exe"
+    },
+    {
+      "pid": 18384,
+      "executable": "TextInputHost.exe"
+    },
+    {
+      "pid": 18868,
+      "executable": "PowerToys.FancyZones.exe"
+    },
+    {
+      "pid": 19420,
+      "executable": "Microsoft.CmdPal.UI.exe"
+    },
+    {
+      "pid": 19556,
+      "executable": "WindowsTerminal.exe"
+    },
+    {
+      "pid": 20288,
+      "executable": "ChatGPT Classic.exe"
+    },
+    {
+      "pid": 21044,
+      "executable": "RadeonSoftware.exe"
+    },
+    {
+      "pid": 21156,
+      "executable": "PowerToys.PowerLauncher.exe"
+    },
+    {
+      "pid": 25216,
+      "executable": "AMDRSSrcExt.exe"
+    },
+    {
+      "pid": 27360,
+      "executable": "firefox.exe"
+    },
+    {
+      "pid": 27772,
+      "executable": "firefox.exe"
+    },
+    {
+      "pid": 34908,
+      "executable": "ShellHost.exe"
+    },
+    {
+      "pid": 38216,
+      "executable": "Docker Desktop.exe"
+    },
+    {
+      "pid": 44736,
+      "executable": "Notion Calendar.exe"
+    },
+    {
+      "pid": 51308,
+      "executable": "LogonUI.exe"
+    },
+    {
+      "pid": 54184,
+      "executable": "Discord.exe"
+    }
+  ]
+}

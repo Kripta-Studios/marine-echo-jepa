@@ -1,0 +1,12 @@
+{
+  "status": "PASSED",
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "device": "cpu",
+  "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\evidence\\ssl-platform-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY_Unicode_\u00c1_\u00e9_booster_v1.txt",
+  "model_sha256": "11bdd3c08b606b3dfa992cbd227ec459d79094f13ce46f1e7b7d177c4c7e6266",
+  "model_trees": 12,
+  "prediction_rows": 29,
+  "prediction_roundtrip": "BIT_IDENTICAL",
+  "native_filename_api_calls": 0,
+  "original_failed_path_retried": false
+}

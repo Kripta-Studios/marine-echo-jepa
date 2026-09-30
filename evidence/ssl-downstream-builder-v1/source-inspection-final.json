@@ -1,0 +1,52 @@
+{
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "operation": "CPU_INITIALIZATION_AND_SOURCE_HASHING_NO_FIT",
+  "python": "3.12.13 (main, Mar 10 2026, 18:15:39) [MSC v.1944 64 bit (AMD64)]",
+  "torch": "2.11.0+cu128",
+  "cuda_initialized": false,
+  "parameters": [
+    {
+      "method": "shared_ssl",
+      "dimensions": {
+        "width": 192,
+        "latent": 64,
+        "blocks": 4,
+        "heads": 4
+      },
+      "total_parameters": 2457621,
+      "encoder_parameters": 2424448,
+      "head_parameters": 5189,
+      "frozen_optimized_parameters": 5189
+    },
+    {
+      "method": "cf_jepa",
+      "dimensions": {
+        "width": 256,
+        "latent": 128,
+        "blocks": 5,
+        "heads": 4
+      },
+      "total_parameters": 893701,
+      "encoder_parameters": 412800,
+      "head_parameters": 18565,
+      "frozen_optimized_parameters": 18565
+    }
+  ],
+  "source_sha256": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\external\\cf-jepa-vnext\\baselines\\cf_jepa\\cf_jepa.py": "3f344b53a210f778d367d733cadff1eb08bd8409e6ed97f43d90a1027771a220",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\external\\cf-jepa-vnext\\baselines\\cf_jepa\\encoder.py": "d91301710147ff1c47158675b1c487ea7e2fa8782150a6a58cc7e25e5047df0f",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\external\\cf-jepa-vnext\\baselines\\cf_jepa\\losses.py": "f5220761a0b4ea2bab60dea4d889062e06a9e501260f9ed48c4e918a9625b8ee",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\external\\cf-jepa-vnext\\baselines\\cf_jepa\\trainer.py": "0c9b8f51208681a384274edd8117a0a179f0f79c63b8cd1019c4f816d6e2fc01",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\external\\cf-jepa-vnext\\LICENSE": "b58978a4e2f6c5c3cfe0e8755cc08775ba4d57a79364398aa6bc3bc969b8ea2c",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\__init__.py": "3fcc1878588f5a89775363e099fab7d7323acebccae26d10db4a6da627425b68",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\__init__.py": "5bdc97a6119b2dd3d519df36406c8bcb9e801be81c8b6c3f44e4a527db1f87a3",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_temporal.py": "85c4af6c67acb661359cde8bcf22de479e4da6a499cc7843bce0fee6c155e422",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\sigreg.py": "2cf5dc8e6fc610fbe167339a8750f5e2d9ddf9a48f416717b8310500536469a3",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\__init__.py": "c98c60178f566d43dd60641704ccd9c652d406487b4838cbf5a9df49ea5dd735",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_resources.py": "c9ca3fbd0759ae00824774ed61a08185361234430d5ed63f09fa3885545c7c38",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_ssl.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\evidence\\ssl-downstream-builder-v1\\verify_sources.py": "bf57566c2c64223242c162b7e9079df6817252958a17810de9d26889d8e00c8f",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\training\\native_downstream.py": "3a1680a6b8094ee72866def6c2d4878646bc72e653e880ed4915402296da3c47",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\tests\\integration\\test_native_downstream.py": "479258aa72fb602ee26d3c8b8b968000ab558c7052744ca143e76a777e086237"
+  }
+}

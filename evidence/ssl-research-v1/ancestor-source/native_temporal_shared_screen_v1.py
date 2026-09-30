@@ -20,31 +20,6 @@ QUANTILES = (0.05, 0.25, 0.5, 0.75, 0.95)
 HORIZONS = (1, 3, 6)
 
 
-def deterministic_adaptive_avg_pool1d(values: torch.Tensor, output_size: int) -> torch.Tensor:
-    """Adaptive average bins using slice means, without native pooling backward.
-
-    For input length L/output O, bin i is [floor(i*L/O), ceil((i+1)*L/O)).
-    Integer arithmetic preserves overlapping bins, including O greater than L.
-    Ordinary mean/stack autograd preserves the objective while avoiding CUDA's
-    nondeterministic adaptive pooling backward. Reduction rounding can differ
-    from the native kernel; the bins and mathematical gradients are identical.
-    """
-    if values.ndim not in (2, 3) or values.shape[-1] < 1:
-        raise ValueError("Expected nonempty temporal values [C,L] or [B,C,L].")
-    if type(output_size) is not int or output_size < 1:
-        raise ValueError("Output size must be a positive integer.")
-    length = values.shape[-1]
-    return torch.stack(
-        [
-            values[
-                ..., i * length // output_size : ((i + 1) * length + output_size - 1) // output_size
-            ].mean(-1)
-            for i in range(output_size)
-        ],
-        dim=-1,
-    )
-
-
 class SharedTemporalEncoder(nn.Module):
     """Patch4 shared channel projection, observation pooling, four temporal blocks.
 
@@ -348,7 +323,7 @@ class CFNativeModel(nn.Module):
                     target = full_target[:, target_start : target_start + length]
                 else:
                     target = full_target[:, zone_start:zone_end]
-                    predicted = deterministic_adaptive_avg_pool1d(
+                    predicted = F.adaptive_avg_pool1d(
                         predicted.transpose(1, 2), available
                     ).transpose(1, 2)
                 prediction = prediction + F.l1_loss(
@@ -356,9 +331,7 @@ class CFNativeModel(nn.Module):
                 )
                 prediction_terms += 1
         prediction = prediction / max(prediction_terms, 1)
-        pooled = torch.cat(
-            [deterministic_adaptive_avg_pool1d(z.transpose(1, 2), 8).mean(-1) for z in crops]
-        )
+        pooled = torch.cat([F.adaptive_avg_pool1d(z.transpose(1, 2), 8).mean(-1) for z in crops])
         variance = F.relu(1 - pooled.std(0)).mean()
         centered = pooled - pooled.mean(0)
         cov = centered.T @ centered / (len(pooled) - 1)
@@ -367,10 +340,7 @@ class CFNativeModel(nn.Module):
         scales = [p for p in (2, 4, 8) if p <= min(z.shape[1] for z in crops)] or [1]
         for scale in scales:
             z = torch.stack(
-                [
-                    deterministic_adaptive_avg_pool1d(c.transpose(1, 2), scale).mean(-1)
-                    for c in crops
-                ]
+                [F.adaptive_avg_pool1d(c.transpose(1, 2), scale).mean(-1) for c in crops]
             )
             invariance = invariance + (z - z.mean(0, keepdim=True)).square().mean() / len(scales)
         return (

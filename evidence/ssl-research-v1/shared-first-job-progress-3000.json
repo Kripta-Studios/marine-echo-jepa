@@ -1,0 +1,46 @@
+{
+  "phase": "pretrain",
+  "pretrain_step": 3000,
+  "readout_step": 500,
+  "optimizer_steps": 4000,
+  "selected_pretrain_step": 1500,
+  "best_score": 0.8317172039630104,
+  "probe_best_score": 0.8472103362393658,
+  "resources": {
+    "peak_rss_bytes": 5140586496,
+    "peak_allocated_bytes": 199167488,
+    "peak_reserved_bytes": 247463936,
+    "elapsed_seconds": 1655.859000000004,
+    "elapsed_gpu_seconds": 1655.859000000004,
+    "gpu_time_definition": "synchronized elapsed device-owned runtime, including probes and evaluation"
+  },
+  "latest_training": {
+    "phase": "readout",
+    "candidate": 3000,
+    "step": 499,
+    "context_sha256": "89df1a4d40e580d231fd4d314a67bca53b318a808975f674b29bb97353ecf7d3",
+    "loss": 0.18637165427207947
+  },
+  "development_selection": [
+    {
+      "pretrain_step": 1500,
+      "readout_step": 250,
+      "daily_dev_pinball": 0.8478479569378304
+    },
+    {
+      "pretrain_step": 1500,
+      "readout_step": 500,
+      "daily_dev_pinball": 0.8317172039630104
+    },
+    {
+      "pretrain_step": 3000,
+      "readout_step": 250,
+      "daily_dev_pinball": 0.8492392725129498
+    },
+    {
+      "pretrain_step": 3000,
+      "readout_step": 500,
+      "daily_dev_pinball": 0.8472103362393658
+    }
+  ]
+}

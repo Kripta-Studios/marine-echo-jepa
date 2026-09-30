@@ -1,0 +1,14 @@
+{
+  "status": "MATCHED_SHARED_AST_NOT_INDEPENDENT_APPROVAL",
+  "original_sha256": "85c4af6c67acb661359cde8bcf22de479e4da6a499cc7843bce0fee6c155e422",
+  "current_sha256": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32",
+  "unchanged_non_cf_definition_count": 15,
+  "unchanged_classes": [
+    "SharedTemporalEncoder",
+    "QueryHead",
+    "NativeTemporalModel",
+    "CFTemporalEncoder"
+  ],
+  "allowed_delta": "CFNativeModel pooling calls and new deterministic pooling helper",
+  "scientific_fitting": "NOT_RUN"
+}

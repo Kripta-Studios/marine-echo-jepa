@@ -1,0 +1,257 @@
+{
+  "status": "APPROVED_PREFIT",
+  "reviewer_session_id": "01a0ef27-876b-7692-917e-3975afc6893d",
+  "implementer_session_id": "01a0ef1a-b166-7f83-91b7-2a2aff7c1b10",
+  "builder_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "allowed_methods": [
+    "shared_ssl",
+    "masked_ssl",
+    "direct",
+    "random_frozen",
+    "permuted_ssl",
+    "cf_jepa",
+    "persistence",
+    "seasonal24"
+  ],
+  "bindings": {
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\AGENTS.md": "0646ce8483a027f694842e25c2e0f6de3af83526028a518807357672a374ed57",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\CODEX_SSL_RESEARCH_MISSION.md": "5bf3fbca35ebe2f803f6c61aff965ae3059e3f3142a85809ecde9bead1c130bd",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\pyproject.toml": "2fd75de20d002f718bd1c621e0692671f7b3e59314f6890a15c5b6d8d4d5d64b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\uv.lock": "980c87913ed3dd0c28692a0c9e6d4b297d7994092fce6a1763d833f80699aa9a",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0015-native-acoustic-ssl-research.md": "82deb36e88df2a6660a2389a653d077a186e5072fbb4ede11d9fbc06c9816148",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0016-native-ssl-selection-and-source-baseline.md": "1e42b3aec76e6673e014ddc4894667ff7bcd786be0f59c84d33fa9d4b4ae7b1d",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_ssl_split_v1.json": "3b4728e16da3c09c58d9316560283e19ecf79885bbf38a7c7025ce4b83e8993b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_ssl_shared_ssl_seed7_h96_v1.json": "c9a37a3ac2948e6703dd1f15b18e13f713b91ec02845e9a3b9a1304503371be3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_ssl_masked_ssl_seed7_h96_v1.json": "9540b5beee6a735b4565de0cae5d9055dffbc1c5b0ff0c5921e74ae179f791e6",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_ssl_direct_seed7_h96_v1.json": "7b310a515d0168e8579294503fa9a3e6b349ea18c991bd7f4f79df7c107f78c9",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_ssl_random_frozen_seed7_h96_v1.json": "549efd50bb4cc43bdd29a39369fa1b442a51c2a9d3697fc7103859a57c276d9e",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_ssl_permuted_ssl_seed7_h96_v1.json": "da748df5f82cd3c30514cb893aecc60fd51ccff6045da5ad74222b9796a3db99",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_ssl_cf_jepa_seed7_h96_v1.json": "435a64b2b509cbb86e5d3e2224b349bd6baaa884e52f9b121bd3a91422211612",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\data\\processed\\native_ssl_v1\\train.npz": "c2a529b6180b427ee7259a77ea0926919350cc42eb03f2067d0956138aa6461a",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\data\\processed\\native_ssl_v1\\development.npz": "4ca59c6b3539e6e214ac949a3294408f59a28386b9731461f2f03881198f2023",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\data\\processed\\native_ssl_v1\\train.json": "0f9958a9048fe988a3577dc3d6063d1c0968d4b010faae9e177b49d9027ec180",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\data\\processed\\native_ssl_v1\\development.json": "f72c18d1d9cf8fc4a0b84c026e019b5a5a71db1f4a000437fc0f33f04d2d90c3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\reserve_native_ssl.py": "8fcc311188a41d7add3300e403d4d9f7a71e92238bd33d7cd413ad59131fe599",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\__init__.py": "3fcc1878588f5a89775363e099fab7d7323acebccae26d10db4a6da627425b68",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\__init__.py": "5bdc97a6119b2dd3d519df36406c8bcb9e801be81c8b6c3f44e4a527db1f87a3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\__init__.py": "c98c60178f566d43dd60641704ccd9c652d406487b4838cbf5a9df49ea5dd735",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\__init__.py": "dddaccd3cb0c952e88796d75e7a15966cfab87f98c2cfe8452a5fff4c3138c68",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\__init__.py": "011583e04b7f119ffcc2ae18712a4af2e613cff87bcbeb5435fbfb10dcd01508",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_temporal.py": "85c4af6c67acb661359cde8bcf22de479e4da6a499cc7843bce0fee6c155e422",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\sigreg.py": "2cf5dc8e6fc610fbe167339a8750f5e2d9ddf9a48f416717b8310500536469a3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_ssl.py": "c2ac62961a47c51a126540adaad186af3a186b3caae53335ac26c36cb561519d",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_product.py": "65b164a34a9feeae82a29ccf8ecee9e9eb89ca2508dc6ab6a65ac61ae13f2e92",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\native_ssl_corpus.py": "ebda9d460fa14df749b8f774bcb02a6622f0d69402443098a6100670a4c8f7ba",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\aeon_corpus.py": "398e021a5807ab8068ceef03dd692f3b688c744751cd4e65d3efbee94d9a3efd",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_references.py": "b692368053501ca946978a3c583d649356584e91c1e020597397e669d8aa1d7b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_chronos.py": "22bea6321b68e7a71158225171b380c3816de98f3dfbce9604d2da43b00f1aec",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\aeon_chronos.py": "be66e3e323730d07624d32183c5f1c3f2855abe8f3653da1ba23970dfff2f0f1",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\aeon_windows.py": "d6a1dc53188da5329daa23fe11e7660e36d1d1666fcafda5dcc5a256bf54023b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\aeon.py": "5dff72c1baf2f5528f13f369936d2ca5710eeb8b8a6e6cae12a0ef95366225ff",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\aeon_chronos.json": "c0d8962fecdddef9ab4a771640a6ac07342805b50809b008a3ec490585d2104a",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_native_corpus.py": "36ca8dafd76b46fc7083cb1a92b21218f828357e4c2379a08e133f2ee28ec6e4",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_native_corpus_boundaries.py": "1a35a46427c4ec164f0554ed31624dfd4b9446d4cfc94f75413bbb6edf201997",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_native_temporal.py": "f8015277837ad141817f7b77f8c52f5d5d4bc4fffe6c6ab94c82933cd7328529",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\integration\\test_native_ssl.py": "4b68d49b20f713cff6025f41b659305747fc2f967b4ca12e5812af2cdedf48c3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_native_product.py": "22f024a032a1566f9622bf89b1e3305adcbce215426ba82fc38694816df3a8ab",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_native_references.py": "f28869b5982840068d301aef1a080464107210f44b8279845142648ea8246d05",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_native_chronos.py": "e1e17fd196d1c933e727d717ef1554a462101756db853e8662d3c18f29c00a8c",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\external\\cf-jepa-vnext\\baselines\\cf_jepa\\encoder.py": "d91301710147ff1c47158675b1c487ea7e2fa8782150a6a58cc7e25e5047df0f",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\external\\cf-jepa-vnext\\baselines\\cf_jepa\\losses.py": "f5220761a0b4ea2bab60dea4d889062e06a9e501260f9ed48c4e918a9625b8ee",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\external\\cf-jepa-vnext\\baselines\\cf_jepa\\trainer.py": "0c9b8f51208681a384274edd8117a0a179f0f79c63b8cd1019c4f816d6e2fc01",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\external\\cf-jepa-vnext\\baselines\\cf_jepa\\cf_jepa.py": "3f344b53a210f778d367d733cadff1eb08bd8409e6ed97f43d90a1027771a220",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\external\\cf-jepa-vnext\\LICENSE": "b58978a4e2f6c5c3cfe0e8755cc08775ba4d57a79364398aa6bc3bc969b8ea2c",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\numeric-review-final-03.json": "241e079660d88731bce28dbc9b8380d3bba6933a60cc7a5ab600f5a92a618a9a",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\materialization.json": "a80c9bc4590b2fa1f8e7dc2fdfd8f68e8ab5203d9d93fdc24585833ee3a8061f",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\preflight.json": "7cf68dcee9600d9109c03a8a3f85012d54ec81187835e72e2a4e5ad2b432b3b4",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\routing.json": "f09371cc56e48f6bbe60657722173d6e19a7ed1ddc6fbb5aefd9f4524e123057",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\source-pins.json": "e07cad3e7cd8d6df68ea4e84a1e3ac905dfbcc08997e5e5e9037605327622d8b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\builder-integration.json": "cf96b5c3b3979398e66bc600098b3003ecbf4feeae398aa9665c3933f89e09d1",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\parent-durable-tests.log": "3c06977619164d1f6c9752ac3727b0c479929b33f9a60c05014dfe0ba674107f",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\root-tests-green-v4.log": "58cee1f91ef5dfe74ae9b0848e1b32a392a4c0ad6fb245745af0974bb3bc5a70",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\reused-ssl-regression-tests.log": "2b9b33804bda7438e3a93fe250587bbc2a3bce19b66a210bc95f82f67076ab02",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-builder-v1\\implementation_ledger.json": "39fa53298bee7f728d6ed6b1966d987de2636920087ad373297ce67cf278daf4",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reports\\NATIVE_SSL_IMPLEMENTATION_V1.md": "0d4a944a5aaca141fef0c6ef2dcd61f57d8770ff2e587663ff3377cbf24da003"
+  },
+  "train_npz_sha256": "c2a529b6180b427ee7259a77ea0926919350cc42eb03f2067d0956138aa6461a",
+  "dev_npz_sha256": "4ca59c6b3539e6e214ac949a3294408f59a28386b9731461f2f03881198f2023",
+  "split_sha256": "3b4728e16da3c09c58d9316560283e19ecf79885bbf38a7c7025ce4b83e8993b",
+  "protocol_sha256": "1e42b3aec76e6673e014ddc4894667ff7bcd786be0f59c84d33fa9d4b4ae7b1d",
+  "findings": [
+    {
+      "id": "P1",
+      "severity": "PASS",
+      "scope": "shared_ssl",
+      "finding": "The reviewed model has 2457621 parameters. Shared weights encode context and actual later horizon1/3/6 blocks; future targets retain gradients. SIGReg receives encoded observations, not predictor outputs, and latents are not unit-normalized. SSL batches exclude scalar forecast labels. Reusable inference accepts only permitted context, masks, metadata and queries."
+    },
+    {
+      "id": "P2",
+      "severity": "PASS",
+      "scope": "neural_screens",
+      "finding": "Fresh matching initial tensors/readouts, deterministic context sampling and nonidentity permutation of the same target multiset support the controls. Frozen probes do not optimize the encoder. Four candidate probes of500 updates bound SSL supervision at2000 and direct supervision at3000+2000=5000. Random_frozen has one500-update probe. Development supplies ranking only; fitting and scalers use TRAIN."
+    },
+    {
+      "id": "P3",
+      "severity": "PASS",
+      "scope": "cohorts",
+      "finding": "Both actual NPZs were loaded with allow_pickle=False and validated against the split. TRAIN has18593 rows/18312 SSL-eligible rows; development has7593/7484 in AEON4_JOB:61937266. Deployments and row identities are disjoint. Observed target values/masks match the first primary observation of each future block. Context/future IDs are disjoint; declared horizon overlaps retain identical values and masks. Actual processing IDs, ping counts and observed metadata preserve configuration alignment."
+    },
+    {
+      "id": "P4",
+      "severity": "PASS",
+      "scope": "cf_jepa",
+      "finding": "Pinned author source and MIT license hashes were inspected. The encoder parity test against that actual source passed independently. Hidden256/output128/depth5, symmetric multiscale convolutions, four crops, three remaining future zones, normalizedL1, variance/covariance/crop invariance, horizon annealing and parameter-only EMA with eval target BatchNorm buffers match the inspected core. Deduplicated TRAIN trajectory uses context96 plus future1..9. Marine masks, metadata, pooling, quantile readout and update scheduling remain disclosed adaptations."
+    },
+    {
+      "id": "R1",
+      "severity": "METHOD_WITHHELD",
+      "scope": [
+        "lightgbm",
+        "chronos2"
+      ],
+      "finding": "native_product.native_scores silently removes nonfinite predictions from scoring support. A synthetic reproduction scored19/20/20 rows and returned a primary score after one nonfinite issuance; native_ssl.daily_metrics rejected the same input. Neither optional executor guarantees rejection before this evaluator. These methods are withheld until forecast finiteness and fixed common scoring support fail closed, with regression coverage.",
+      "shared_first_job_blocked": false
+    },
+    {
+      "id": "P5",
+      "severity": "PASS_WITH_SCOPE_LIMIT",
+      "scope": [
+        "persistence",
+        "seasonal24"
+      ],
+      "finding": "Both deterministic references use permitted primary past observations only. Their required actual cohort inputs are finite, so their forecasts cannot trigger R1 under these exact bound cohorts. Approval is restricted to history96 on the existing96-context issuance support."
+    },
+    {
+      "id": "L1",
+      "severity": "VALIDATION_LIMITATION",
+      "finding": "Independent execution passed26 checks but14 optimizer/resume checks could not complete because PyTorch attempted disk-cache initialization without a usable writable temporary directory, followed by partial-import errors. Those operations were not bypassed or retried. The inspected parent log reports34 passing checks; this is coordinator evidence, not independent execution."
+    }
+  ],
+  "executed_checks": [
+    {
+      "command": "git branch --show-current",
+      "exit_code": 0,
+      "result": "research/marine-jepa-vnext"
+    },
+    {
+      "command": "git -C external\\cf-jepa-vnext rev-parse HEAD",
+      "exit_code": 0,
+      "result": "5d3d2fd1273c283fbfa03249c078619245e84033"
+    },
+    {
+      "command": "set PYTHONDONTWRITEBYTECODE=1&& set MARINE_NATIVE_DURABLE_TESTS=0&& .venv\\Scripts\\python.exe -B -m pytest -s -p no:cacheprovider tests\\unit\\test_native_temporal.py tests\\integration\\test_native_ssl.py tests\\unit\\test_native_product.py tests\\unit\\test_native_references.py::test_reference_features_are_causal_and_masked tests\\unit\\test_native_chronos.py",
+      "exit_code": 1,
+      "result": "26 passed;14 failed to complete because of read-only temporary/cache initialization and subsequent partial-import errors. Includes passing actual-source CF encoder parity, mask/gradient/inference/control, metric, budget and metadata checks. No real scientific fit."
+    },
+    {
+      "command": "call .venv\\Scripts\\python.exe -B -c exec(bytes.fromhex('696d706f727420686173686c69622c6a736f6e0a66726f6d20706174686c696220696d706f727420506174680a696d706f7274206e756d7079206173206e700a66726f6d206d6172696e655f6563686f2e747261696e696e672e6e61746976655f73736c20696d706f7274206c6f61645f636f727075732c76616c69646174655f6d656d626572736869700a73706c69743d506174682827636f6e666967732f6e61746976655f73736c5f73706c69745f76312e6a736f6e27293b2073683d686173686c69622e66696c655f6469676573742873706c69742e6f70656e2827726227292c2773686132353627292e68657864696765737428290a6f75743d7b7d3b20736574733d7b7d0a666f7220726f6c6520696e202827747261696e272c27646576656c6f706d656e7427293a0a20703d506174682827646174612f70726f6365737365642f6e61746976655f73736c5f763127292f28726f6c652b272e6e707a27290a206469676573743d686173686c69622e66696c655f64696765737428702e6f70656e2827726227292c2773686132353627292e68657864696765737428290a20643d6c6f61645f636f7270757328702c726f6c653d726f6c652c73706c69745f686173683d7368293b2076616c69646174655f6d656d6265727368697028642c73706c69742c726f6c653d726f6c65290a207265706f72743d6a736f6e2e6c6f61647328702e776974685f73756666697828272e6a736f6e27292e726561645f746578742829290a20617373657274206469676573743d3d7265706f72745b276e707a5f736861323536275d20616e64206c656e28645b2778275d293d3d7265706f72745b27697373756564275d0a20617373657274206e702e61727261795f657175616c28645b27795f6f62736572766564275d2c645b276675747572655f6f62736572766564275d5b3a2c3a2c302c305d290a20617373657274206e702e61727261795f657175616c28645b2779275d5b645b27795f6f62736572766564275d5d2c645b27667574757265275d5b3a2c3a2c302c305d5b645b27795f6f62736572766564275d5d290a20617373657274206e702e616c6c28645b27636f6e746578745f696473275d2e6d61782831293c645b276675747572655f696473275d2e6d696e2828312c322929290a20617373657274206e702e61727261795f657175616c28645b277175657279275d5b3a2c3a2c3a395d2c6e702e72657065617428645b276d65746164617461275d5b3a2c4e6f6e652c302c3a395d2c332c617869733d3129290a20736574735b726f6c655d3d2873657428645b276465706c6f796d656e74275d292c73657428645b27726f775f6964275d29290a206f75745b726f6c655d3d7b27736861323536273a6469676573742c27726f7773273a6c656e28645b2778275d292c2773736c5f656c696769626c65273a696e7428645b2773736c5f656c696769626c65275d2e73756d2829292c276465706c6f796d656e7473273a64696374287a6970282a5b612e746f6c697374282920666f72206120696e206e702e756e6971756528645b276465706c6f796d656e74275d2c72657475726e5f636f756e74733d54727565295d29292c277461726765745f6461746573273a5b6d696e28645b277461726765745f6461746573275d2e726176656c28292e746f6c6973742829292c6d617828645b277461726765745f6461746573275d2e726176656c28292e746f6c6973742829295d2c27617272617973273a7b6b3a5b6c69737428762e7368617065292c73747228762e6474797065295d20666f72206b2c7620696e20642e6974656d7328297d2c276e61746976655f7072696d6172795f626f756e6473273a6e702e756e6971756528645b277175657279275d5b3a2c3a2c333a355d2e72657368617065282d312c32292c617869733d30292e746f6c69737428292c27795f737570706f7274273a645b27795f6f62736572766564275d2e73756d2830292e746f6c69737428297d0a2064656c20640a61737365727420736574735b27747261696e275d5b305d2e69736469736a6f696e7428736574735b27646576656c6f706d656e74275d5b305d2920616e6420736574735b27747261696e275d5b315d2e69736469736a6f696e7428736574735b27646576656c6f706d656e74275d5b315d290a7072696e74286a736f6e2e64756d7073287b2773706c69745f736861323536273a73682c27636f686f727473273a6f75742c27636865636b73273a27726f6c652f6d656d626572736869702f66696e6974652d6f62736572766174696f6e732f6d657461646174612f4944732f7461726765742d6964656e746974792f71756572792f737570706f72742f6469736a6f696e742d6465706c6f796d656e747320504153533b206e6f2066697474696e673b206e6f2066696e616c2d74657374206f70656e6564277d29290a').decode())",
+      "exit_code": 0,
+      "result": "Actual cohort hashes, roles, source membership, shapes/dtypes, finite observed values, per-observation metadata, interval IDs, target identity, query geometry, eligibility and train/development separation passed. No scalers fitted or optimizer updates. An earlier date-summary variant exited1 on NumPy string-minimum support; the corrected inspection completed."
+    },
+    {
+      "command": "call .venv\\Scripts\\python.exe -B -c exec(bytes.fromhex('696d706f7274206e756d7079206173206e702c6a736f6e0a66726f6d20706174686c696220696d706f727420506174680a66726f6d206d6172696e655f6563686f2e747261696e696e672e6e61746976655f73736c20696d706f7274206c6f61645f636f727075732c7368613235360a73706c69743d506174682827636f6e666967732f6e61746976655f73736c5f73706c69745f76312e6a736f6e27293b2073683d7368613235362873706c6974293b207265706f7274733d5b5d0a666f7220726f6c6520696e202827747261696e272c27646576656c6f706d656e7427293a0a20643d6c6f61645f636f7270757328506174682827646174612f70726f6365737365642f6e61746976655f73736c5f763127292f28726f6c652b272e6e707a27292c726f6c653d726f6c652c73706c69745f686173683d7368290a20666f72206320696e2072616e67652834293a0a20206d61736b3d645b276f62736572766564275d5b3a2c3a2c635d3b206861733d6d61736b2e616e792831293b206c6173743d39352d6d61736b5b3a2c3a3a2d315d2e6172676d61782831293b20726f77733d6e702e6172616e6765286c656e286d61736b29290a2020666f7220612c6620696e205b282770726f63657373696e675f69645f6f725f756e6b6e6f776e272c276675747572655f70726f63657373696e675f69645f6f725f756e6b6e6f776e27292c282770696e675f636f756e7473272c276675747572655f70696e675f636f756e747327295d3a0a2020207265663d645b615d5b726f77732c6c6173742c635d0a202020617373657274206e6f74206e702e616e792828645b615d5b3a2c3a2c635d213d7265665b3a2c4e6f6e655d292026206d61736b2026206861735b3a2c4e6f6e655d290a202020617373657274206e6f74206e702e616e792828645b665d5b3a2c3a2c3a2c635d213d7265665b3a2c4e6f6e652c4e6f6e655d29202620645b276675747572655f6f62736572766564275d5b3a2c3a2c3a2c635d2026206861735b3a2c4e6f6e652c4e6f6e655d290a20743d645b27696e74657276616c5f7374617274275d2e61737479706528276461746574696d6536345b735d27293b2064656c74613d6e702e6469666628742c617869733d31292e617374797065282774696d6564656c746136345b735d27292e61737479706528696e74290a20617373657274206e702e616c6c282864656c74613e3d3333303029262864656c74613c3d3339303029290a20617373657274206e702e616c6c28645b27696e74657276616c5f656e64275d2e61737479706528276461746574696d6536345b735d27292d743d3d6e702e74696d6564656c7461363428333630302c27732729290a20666f7220612c6220696e205b28302c31292c28302c32292c28312c32295d3a0a2020666f72206920696e2072616e67652834293a0a202020666f72206a20696e2072616e67652834293a0a2020202073616d653d645b276675747572655f696473275d5b3a2c612c695d3d3d645b276675747572655f696473275d5b3a2c622c6a5d0a20202020617373657274206e702e61727261795f657175616c28645b27667574757265275d5b73616d652c612c695d2c645b27667574757265275d5b73616d652c622c6a5d290a20202020617373657274206e702e61727261795f657175616c28645b276675747572655f6f62736572766564275d5b73616d652c612c695d2c645b276675747572655f6f62736572766564275d5b73616d652c622c6a5d290a2064617465733d645b277461726765745f6461746573275d5b645b27795f6f62736572766564275d5d0a20617373657274206e702e616c6c286461746573213d2727290a207265706f7274732e617070656e64287b27726f6c65273a726f6c652c27636f6e66696775726174696f6e5f70726f76656e616e6365273a2750415353272c27636c6f636b5f70726f78795f61646a6163656e6379273a2750415353272c276465636c617265645f6f7665726c61705f76616c75655f6964656e74697479273a2750415353272c276f627365727665645f7461726765745f646174655f72616e6765273a5b6d696e2864617465732e746f6c6973742829292c6d61782864617465732e746f6c6973742829295d2c2770657273697374656e63655f736561736f6e616c5f66696e697465273a626f6f6c286e702e697366696e69746528645b2778275d5b3a2c2d32352b6e702e6172726179285b312c332c365d292c305d292e616c6c282920616e64206e702e697366696e69746528645b2778275d5b3a2c2d312c305d292e616c6c2829297d290a2064656c20640a7072696e74286a736f6e2e64756d7073287265706f72747329290a').decode())",
+      "exit_code": 0,
+      "result": "Actual observed per-channel processing/ping invariants,55–65-minute clock-proxy adjacency,60-minute proxy widths, declared future overlap identities and deterministic-reference finiteness passed. Observed target-date ranges: TRAIN2021-02-18 through2024-10-07; development2022-12-16 through2023-12-16."
+    },
+    {
+      "command": "call .venv\\Scripts\\python.exe -B -c exec(bytes.fromhex('696d706f7274206e756d7079206173206e702c6a736f6e0a66726f6d206d6172696e655f6563686f2e6576616c756174696f6e2e6e61746976655f70726f6475637420696d706f7274206e61746976655f73636f7265730a66726f6d206d6172696e655f6563686f2e747261696e696e672e6e61746976655f73736c20696d706f7274206461696c795f6d6574726963730a793d6e702e7a65726f73282832302c3329293b20703d6e702e6f6e6573282832302c332c3529293b206d3d6e702e6f6e6573282832302c33292c626f6f6c293b20643d6e702e66756c6c282832302c33292c27323030312d30312d303127293b20673d6e702e66756c6c2832302c2773796e74686574696327290a705b302c305d3d6e702e6e616e0a723d6e61746976655f73636f72657328702c792c6d2c642c67290a7472793a206461696c795f6d65747269637328702c792c6d2c642c67290a6578636570742056616c75654572726f723a20636f72653d2752454a45435445445f4e4f4e46494e495445270a656c73653a20636f72653d274143434550544544270a7072696e74286a736f6e2e64756d7073287b27696e646570656e64656e745f6576616c7561746f725f73636f726564273a725b2773636f7265645f7065725f686f72697a6f6e275d2c27696e646570656e64656e745f6576616c7561746f725f7072696d617279273a725b277072696d6172795f70696e62616c6c5f6462275d2c27636f72655f6576616c7561746f72273a636f72652c2773796e7468657469635f6f6e6c79273a547275657d29290a').decode())",
+      "exit_code": 0,
+      "result": "Synthetic-only R1 reproduction: independent evaluator accepted19/20/20 scored rows and primary0.5; core evaluator rejected nonfinite forecasts."
+    },
+    {
+      "command": "call .venv\\Scripts\\python.exe -B -c exec(bytes.fromhex('696d706f7274206a736f6e2c686173686c69622c696d706f72746c69622e6d657461646174610a66726f6d20706174686c696220696d706f727420506174680a66726f6d206d6172696e655f6563686f2e747261696e696e672e61656f6e5f6368726f6e6f7320696d706f7274205f7665726966795f736e617073686f740a703d506174682e686f6d6528292f272e63616368652f68756767696e67666163652f6875622f6d6f64656c732d2d616d617a6f6e2d2d6368726f6e6f732d322f736e617073686f74732f32396563333736366433366436663733663036393666383535363061343232663530653834393863270a633d6a736f6e2e6c6f61647328506174682827636f6e666967732f61656f6e5f6368726f6e6f732e6a736f6e27292e726561645f746578742829290a7072696e74286a736f6e2e64756d7073287b2776657273696f6e273a696d706f72746c69622e6d657461646174612e76657273696f6e28276368726f6e6f732d666f726563617374696e6727292c27736e617073686f74273a7374722870292c27686173686573273a5f7665726966795f736e617073686f7428702c635b276d6f64656c275d5b27736e617073686f745f66696c65735f736861323536275d297d29290a').decode())",
+      "exit_code": 0,
+      "result": "Installed chronos-forecasting2.3.2 and all four cached snapshot hashes match the pinned29ec3766d36d6f73f0696f85560a422f50e8498c configuration. No Chronos inference or fitting; method remains withheld."
+    },
+    {
+      "command": "node_repl: for(var [p,h] of Object.entries(prefitBindings)){var b=await reviewFs.readFile(p);var now=reviewCrypto.createHash('sha256').update(b).digest('hex');if(now!==h)stableCheck.push({path:p,before:h,after:now});}",
+      "exit_code": null,
+      "result": "Completed read-only hash comparison; all previously bound source/config/test/evidence files remained unchanged. Node REPL calls do not provide a shell exit code."
+    },
+    {
+      "command": "NOT_RUN: temporary-file reference rejection cases and independent durable checkpoint writes",
+      "exit_code": null,
+      "result": "Write-dependent checks were excluded or blocked. No permission changes, junction removal, installs or filesystem-denial bypass."
+    }
+  ],
+  "inspected_evidence": [
+    {
+      "path": "evidence/ssl-research-v1/numeric-review-final-03.json",
+      "result": "Preserved same-session TRAIN/development numerical-access approval; reader, constants and split hashes remain unchanged."
+    },
+    {
+      "path": "evidence/ssl-research-v1/routing.json",
+      "result": "Distinct root, builder and reviewer sessions. Current request metadata independently confirms reviewer thread01a0ef27-876b-7692-917e-3975afc6893d, gpt-6.1-sol/high, read-only."
+    },
+    {
+      "path": "evidence/ssl-research-v1/materialization.json",
+      "result": "Counts and NPZ hashes reproduced independently. Coordinator reports4.04GiB materialization peak RSS; this is not a reviewer measurement. Final-test materialization is prohibited."
+    },
+    {
+      "path": "evidence/ssl-research-v1/parent-durable-tests.log",
+      "result": "Inspected34-passed coordinator log and matching integrated source/test hashes. Not claimed as reviewer execution; log does not itself embed the complete command/environment envelope."
+    },
+    {
+      "path": "evidence/ssl-research-v1/root-tests-green-v4.log",
+      "result": "Inspected22-passed coordinator log."
+    },
+    {
+      "path": "evidence/ssl-research-v1/reused-ssl-regression-tests.log",
+      "result": "Inspected6-passed coordinator regression log."
+    },
+    {
+      "path": "evidence/ssl-research-v1/preflight.json",
+      "result": "CUDA build/device smoke evidence inspected. Full scientific-model CUDA execution was not performed by this reviewer."
+    },
+    {
+      "path": "evidence/ssl-research-v1/builder-integration.json",
+      "result": "Integrated model/runner/test hashes match inspected files. Builder write and git-index denials remain documented."
+    },
+    {
+      "path": "evidence/ssl-builder-v1/implementation_ledger.json",
+      "result": "Synthetic correctness, update budgets, source ancestry and blocked durable checks inspected."
+    },
+    {
+      "path": "external/cf-jepa-vnext",
+      "result": "Actual pinned encoder, loss, trainer, configuration and license inspected; marine deviations distinguished from source-core behavior."
+    },
+    {
+      "path": "src/marine_echo/training/native_chronos.py",
+      "result": "Past acoustic covariates and known query covariates match the locally inspected official2.3.2 API. No future acoustic covariates or cross-learning. Snapshot verification passed, but R1 prevents method approval."
+    }
+  ],
+  "residual_risks": [
+    "Publisher interval edges remain center proxies plus/minus30minutes. Absolute timezone, clock calibration, censoring thresholds, instrument mode and calibration remain unknown; processing IDs establish boundaries without proving absolute calibration.",
+    "Future target blocks overlap across horizons as declared. Their correlated latent rows are not independent SIGReg observations.",
+    "Development is one later AEON4 deployment; TRAIN includes other deployments and later calendar periods at AEON3. This is not a universal chronological future holdout or field-wide generalization claim.",
+    "Historical exposure accounting remains relevant. Fresh weights/scalers prevent fitted-ancestor import but do not erase prior human knowledge or establish universally sealed acoustic ancestry.",
+    "CF uses a different feature width and explicit marine adaptations. Approval does not establish full paper reproduction or equal total compute between recipes.",
+    "Independent optimizer/resume and durable-write verification remains limited by the read-only environment. CUDA memory enforcement and scientific runtime behavior require owner execution and preserved records.",
+    "The runner enforces memory limits, but the aggregate96GPU-hour and maximum-eight-screen limits require coordinator accounting across jobs. One GPU owner remains mandatory.",
+    "LightGBM and Chronos remain unapproved because nonfinite forecasts can change evaluator support. Public Chronos pretraining cannot be claimed comprehensively acoustic-unexposed.",
+    "No scientific performance, JEPA advantage, biological causality, biomass/species/catch benefit, production integration or release readiness is established."
+  ],
+  "approval_scope": {
+    "priority_first_job": "shared_ssl",
+    "permitted_roles": [
+      "train",
+      "development"
+    ],
+    "neural_jobs": "Only the six exact bound seed7/history96 screen configurations. Shared/masked/permuted/CF:6000 pretraining updates, four candidate opportunities and at most4x500 frozen readout updates. Direct:3000 backbone updates plus at most4x500 probes. Random_frozen:one500-update probe.",
+    "deterministic_references": "Persistence and seasonal24 on the exact bound development issuance rows using history96 support; no tuning or alternative cohort selection.",
+    "fitting": "Fresh initialization and TRAIN-only new scalers, neural optimization and readout fitting are permitted for the allowed bound screens. Development is assessment/selection only.",
+    "execution_conditions": "Coordinator verifies every exact binding before execution, preserves runtime/source records, enforces one GPU owner, aggregate96GPU hours, maximum eight seed7 screens, allocated/reserved memory below10GiB and RSS below22GiB. Any bound-file/config/cohort change requires renewed review.",
+    "withheld_methods": [
+      "lightgbm",
+      "chronos2"
+    ],
+    "excluded": [
+      "Any AEON2 final-test numerical access, materialization, inference or assessment",
+      "Later2000-update stronger frozen readout trajectories",
+      "History24 fits or other seeds/configurations",
+      "Finalist/refit/full-fine-tuning or final-assessment approval",
+      "Results/package/release approval",
+      "Cloud, paid work, installs, permission changes or public deployment"
+    ]
+  }
+}

@@ -1,0 +1,136 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_________ test_cli_accepts_explicit_cuda_index_without_executing_fit __________
+
+self = ArgumentParser(prog='__main__.py', usage=None, description='Reviewed, separate downstream endpoints using the frozen n... crops or target values.\n', formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='error', add_help=True)
+args = ['--train', 'C:\\Users\\�lvaro Schwiedop\\AppData\\Local\\Temp\\pytest-of-�lvaro Schwiedop\\pytest-4211\\test_cli_acce...op\\AppData\\Local\\Temp\\pytest-of-�lvaro Schwiedop\\pytest-4211\\test_cli_accepts_explicit_cuda0\\train-cohort', ...]
+namespace = Namespace(train=WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-4211/test_...i_accepts_explicit_cuda0/output'), encoder=None, ancestor_review=None, ancestor_config=None, resume=None, device='cpu')
+intermixed = False
+
+    def _parse_known_args2(self, args, namespace, intermixed):
+        if args is None:
+            # args default to the system args
+            args = _sys.argv[1:]
+        else:
+            # make sure that args are mutable
+            args = list(args)
+    
+        # default Namespace built from parser defaults
+        if namespace is None:
+            namespace = Namespace()
+    
+        # add any action defaults that aren't present
+        for action in self._actions:
+            if action.dest is not SUPPRESS:
+                if not hasattr(namespace, action.dest):
+                    if action.default is not SUPPRESS:
+                        setattr(namespace, action.dest, action.default)
+    
+        # add any parser defaults that aren't present
+        for dest in self._defaults:
+            if not hasattr(namespace, dest):
+                setattr(namespace, dest, self._defaults[dest])
+    
+        # parse the arguments and exit if there are any errors
+        if self.exit_on_error:
+            try:
+>               namespace, args = self._parse_known_args(args, namespace, intermixed)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\argparse.py:1943: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\argparse.py:2184: in _parse_known_args
+    start_index = consume_optional(start_index)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\argparse.py:2113: in consume_optional
+    take_action(action, args, option_string)
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\argparse.py:2003: in take_action
+    argument_values = self._get_values(action, argument_strings)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\argparse.py:2514: in _get_values
+    self._check_value(action, value)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = ArgumentParser(prog='__main__.py', usage=None, description='Reviewed, separate downstream endpoints using the frozen n... crops or target values.\n', formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='error', add_help=True)
+action = _StoreAction(option_strings=['--device'], dest='device', nargs=None, const=None, default='cpu', type=None, choices=('cpu', 'cuda'), required=False, help=None, metavar=None)
+value = 'cuda:0'
+
+    def _check_value(self, action, value):
+        # converted value must be one of the choices (if specified)
+        choices = action.choices
+        if choices is not None:
+            if isinstance(choices, str):
+                choices = iter(choices)
+            if value not in choices:
+                args = {'value': str(value),
+                        'choices': ', '.join(map(str, action.choices))}
+                msg = _('invalid choice: %(value)r (choose from %(choices)s)')
+>               raise ArgumentError(action, msg % args)
+E               argparse.ArgumentError: argument --device: invalid choice: 'cuda:0' (choose from cpu, cuda)
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\argparse.py:2573: ArgumentError
+
+During handling of the above exception, another exception occurred:
+
+tmp_path = WindowsPath('C:/Users/�lvaro Schwiedop/AppData/Local/Temp/pytest-of-�lvaro Schwiedop/pytest-4211/test_cli_accepts_explicit_cuda0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C87796FA40>
+
+    def test_cli_accepts_explicit_cuda_index_without_executing_fit(tmp_path, monkeypatch):
+        from marine_echo.training import native_downstream as module
+        config = tmp_path / "cli-config.json"
+        config.write_text(json.dumps(module.DownstreamConfig().to_dict()))
+        seen = []
+    
+        def inspect_only(inputs, cfg, **kwargs):
+            seen.append(kwargs["device"])
+            return {"status": "SYNTHETIC_CORRECTNESS_ONLY", "mode": cfg.mode,
+                    "supervised_updates": 0, "inference_sha256": "NOT_RUN"}
+    
+        monkeypatch.setattr(module, "run", inspect_only)
+        argv = []
+        for flag in ("train", "dev", "train-cohort", "dev-cohort", "split",
+                     "adr0016", "protocol", "review", "output"):
+            argv += ["--" + flag, str(tmp_path / flag)]
+        argv += ["--config", str(config), "--device", "cuda:0"]
+>       module.main(argv)
+
+tests\integration\test_native_downstream.py:1016: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\marine_echo\training\native_downstream.py:916: in main
+    args = parser.parse_args(argv)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\argparse.py:1904: in parse_args
+    args, argv = self.parse_known_args(args, namespace)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\argparse.py:1914: in parse_known_args
+    return self._parse_known_args2(args, namespace, intermixed=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\argparse.py:1945: in _parse_known_args2
+    self.error(str(err))
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\argparse.py:2650: in error
+    self.exit(2, _('%(prog)s: error: %(message)s\n') % args)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = ArgumentParser(prog='__main__.py', usage=None, description='Reviewed, separate downstream endpoints using the frozen n... crops or target values.\n', formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='error', add_help=True)
+status = 2
+message = "__main__.py: error: argument --device: invalid choice: 'cuda:0' (choose from cpu, cuda)\n"
+
+    def exit(self, status=0, message=None):
+        if message:
+            self._print_message(message, _sys.stderr)
+>       _sys.exit(status)
+E       SystemExit: 2
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\argparse.py:2637: SystemExit
+---------------------------- Captured stderr call -----------------------------
+usage: __main__.py [-h] --train TRAIN --dev DEV --train-cohort TRAIN_COHORT
+                   --dev-cohort DEV_COHORT --split SPLIT --adr0016 ADR0016
+                   --protocol PROTOCOL --config CONFIG --review REVIEW
+                   --output OUTPUT [--encoder ENCODER]
+                   [--ancestor-review ANCESTOR_REVIEW]
+                   [--ancestor-config ANCESTOR_CONFIG] [--resume RESUME]
+                   [--device {cpu,cuda}]
+__main__.py: error: argument --device: invalid choice: 'cuda:0' (choose from cpu, cuda)
+=========================== short test summary info ===========================
+FAILED tests/integration/test_native_downstream.py::test_cli_accepts_explicit_cuda_index_without_executing_fit
+1 failed, 41 deselected in 2.01s

@@ -1,0 +1,160 @@
+FFF...
+================================== FAILURES ===================================
+__ test_updates_freezing_full_resume_and_target_free_replay[frozen_readout] ___
+
+memory = (WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/evidence/ssl-downstream-builde...80\x01\xd4k\x01\x00split_sha256.npyPK\x05\x06\x00\x00\x00\x00\x12\x00\x12\x00"\x04\x00\x00\x96m\x01\x00\x00\x00', ...})
+mode = 'frozen_readout'
+
+    @pytest.mark.parametrize("mode", ["frozen_readout", "full_finetune", "direct_end_to_end"])
+    def test_updates_freezing_full_resume_and_target_free_replay(memory, mode):
+        root, _ = memory
+        config, core_config, inputs, initial = fixture_run(root, mode=mode)
+        before = ds.sha256(root / "parent/selected_encoder.pt")
+        interrupted = root / "interrupted"
+>       ds.run(inputs, config, output=interrupted, device="cpu", correctness_smoke=True, smoke_core_config=core_config, stop_after=1)
+
+tests\integration\test_native_downstream.py:170: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\marine_echo\training\native_downstream.py:419: in run
+    predictions = _forecast_train(model, batch, config.mode)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_downstream.py:290: in _forecast_train
+    return model.readout(features, batch["query"], quantiles=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\marine-echo-jepa\.venv\Lib\site-packages\torch\nn\modules\module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = QueryHead(
+  (net): Sequential(
+    (0): Linear(in_features=19, out_features=8, bias=True)
+    (1): GELU(approximate='none')
+    (2): Linear(in_features=8, out_features=5, bias=True)
+  )
+)
+args = (tensor([[-0.3109,  0.6265,  1.3683,  0.0319,  0.4426, -0.2052, -0.8513, -1.5519],
+        [-0.2351,  0.6569,  1.3917,....0000, 3.0000],
+         [0.0000, 0.0000, 0.0000, 0.0000, 0.9200, 0.0000, 0.0000, 0.0000,
+          0.0000, 6.0000]]]))
+kwargs = {'quantiles': True}
+
+    def _call_impl(self, *args, **kwargs):
+        forward_call = (self._slow_forward if torch._C._get_tracing_state() else self.forward)
+        # If we don't have any hooks, we want to skip the rest of the logic in
+        # this function, and just call forward.
+        if not (self._backward_hooks or self._backward_pre_hooks or self._forward_hooks or self._forward_pre_hooks
+                or _global_backward_pre_hooks or _global_backward_hooks
+                or _global_forward_hooks or _global_forward_pre_hooks):
+>           return forward_call(*args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           TypeError: QueryHead.forward() got an unexpected keyword argument 'quantiles'
+
+..\marine-echo-jepa\.venv\Lib\site-packages\torch\nn\modules\module.py:1790: TypeError
+___ test_updates_freezing_full_resume_and_target_free_replay[full_finetune] ___
+
+memory = (WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/evidence/ssl-downstream-builde...80\x01\xd4k\x01\x00split_sha256.npyPK\x05\x06\x00\x00\x00\x00\x12\x00\x12\x00"\x04\x00\x00\x96m\x01\x00\x00\x00', ...})
+mode = 'full_finetune'
+
+    @pytest.mark.parametrize("mode", ["frozen_readout", "full_finetune", "direct_end_to_end"])
+    def test_updates_freezing_full_resume_and_target_free_replay(memory, mode):
+        root, _ = memory
+        config, core_config, inputs, initial = fixture_run(root, mode=mode)
+        before = ds.sha256(root / "parent/selected_encoder.pt")
+        interrupted = root / "interrupted"
+>       ds.run(inputs, config, output=interrupted, device="cpu", correctness_smoke=True, smoke_core_config=core_config, stop_after=1)
+
+tests\integration\test_native_downstream.py:170: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\marine_echo\training\native_downstream.py:419: in run
+    predictions = _forecast_train(model, batch, config.mode)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_downstream.py:290: in _forecast_train
+    return model.readout(features, batch["query"], quantiles=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\marine-echo-jepa\.venv\Lib\site-packages\torch\nn\modules\module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = QueryHead(
+  (net): Sequential(
+    (0): Linear(in_features=19, out_features=8, bias=True)
+    (1): GELU(approximate='none')
+    (2): Linear(in_features=8, out_features=5, bias=True)
+  )
+)
+args = (tensor([[-0.3109,  0.6265,  1.3683,  0.0319,  0.4426, -0.2052, -0.8513, -1.5519],
+        [-0.2351,  0.6569,  1.3917,....0000, 3.0000],
+         [0.0000, 0.0000, 0.0000, 0.0000, 0.9200, 0.0000, 0.0000, 0.0000,
+          0.0000, 6.0000]]]))
+kwargs = {'quantiles': True}
+
+    def _call_impl(self, *args, **kwargs):
+        forward_call = (self._slow_forward if torch._C._get_tracing_state() else self.forward)
+        # If we don't have any hooks, we want to skip the rest of the logic in
+        # this function, and just call forward.
+        if not (self._backward_hooks or self._backward_pre_hooks or self._forward_hooks or self._forward_pre_hooks
+                or _global_backward_pre_hooks or _global_backward_hooks
+                or _global_forward_hooks or _global_forward_pre_hooks):
+>           return forward_call(*args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           TypeError: QueryHead.forward() got an unexpected keyword argument 'quantiles'
+
+..\marine-echo-jepa\.venv\Lib\site-packages\torch\nn\modules\module.py:1790: TypeError
+_ test_updates_freezing_full_resume_and_target_free_replay[direct_end_to_end] _
+
+memory = (WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/evidence/ssl-downstream-builde...80\x01\xd4k\x01\x00split_sha256.npyPK\x05\x06\x00\x00\x00\x00\x12\x00\x12\x00"\x04\x00\x00\x96m\x01\x00\x00\x00', ...})
+mode = 'direct_end_to_end'
+
+    @pytest.mark.parametrize("mode", ["frozen_readout", "full_finetune", "direct_end_to_end"])
+    def test_updates_freezing_full_resume_and_target_free_replay(memory, mode):
+        root, _ = memory
+        config, core_config, inputs, initial = fixture_run(root, mode=mode)
+        before = ds.sha256(root / "parent/selected_encoder.pt")
+        interrupted = root / "interrupted"
+>       ds.run(inputs, config, output=interrupted, device="cpu", correctness_smoke=True, smoke_core_config=core_config, stop_after=1)
+
+tests\integration\test_native_downstream.py:170: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\marine_echo\training\native_downstream.py:419: in run
+    predictions = _forecast_train(model, batch, config.mode)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_downstream.py:290: in _forecast_train
+    return model.readout(features, batch["query"], quantiles=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\marine-echo-jepa\.venv\Lib\site-packages\torch\nn\modules\module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = QueryHead(
+  (net): Sequential(
+    (0): Linear(in_features=19, out_features=8, bias=True)
+    (1): GELU(approximate='none')
+    (2): Linear(in_features=8, out_features=5, bias=True)
+  )
+)
+args = (tensor([[-0.3109,  0.6265,  1.3683,  0.0319,  0.4426, -0.2052, -0.8513, -1.5519],
+        [-0.2351,  0.6569,  1.3917,....0000, 3.0000],
+         [0.0000, 0.0000, 0.0000, 0.0000, 0.9200, 0.0000, 0.0000, 0.0000,
+          0.0000, 6.0000]]]))
+kwargs = {'quantiles': True}
+
+    def _call_impl(self, *args, **kwargs):
+        forward_call = (self._slow_forward if torch._C._get_tracing_state() else self.forward)
+        # If we don't have any hooks, we want to skip the rest of the logic in
+        # this function, and just call forward.
+        if not (self._backward_hooks or self._backward_pre_hooks or self._forward_hooks or self._forward_pre_hooks
+                or _global_backward_pre_hooks or _global_backward_hooks
+                or _global_forward_hooks or _global_forward_pre_hooks):
+>           return forward_call(*args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           TypeError: QueryHead.forward() got an unexpected keyword argument 'quantiles'
+
+..\marine-echo-jepa\.venv\Lib\site-packages\torch\nn\modules\module.py:1790: TypeError
+=========================== short test summary info ===========================
+FAILED tests/integration/test_native_downstream.py::test_updates_freezing_full_resume_and_target_free_replay[frozen_readout]
+FAILED tests/integration/test_native_downstream.py::test_updates_freezing_full_resume_and_target_free_replay[full_finetune]
+FAILED tests/integration/test_native_downstream.py::test_updates_freezing_full_resume_and_target_free_replay[direct_end_to_end]
+3 failed, 3 passed in 8.71s

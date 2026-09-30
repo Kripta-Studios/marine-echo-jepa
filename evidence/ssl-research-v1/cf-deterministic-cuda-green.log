@@ -1,0 +1,16 @@
+{
+  "status": "PASSED",
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "optimizer_updates": 0,
+  "device": "cuda",
+  "cf_gradient_replay": "BIT_IDENTICAL",
+  "native_pooling_used_in_cf": false,
+  "resources": {
+    "peak_rss_bytes": 1520762880,
+    "peak_allocated_bytes": 68888576,
+    "peak_reserved_bytes": 69206016,
+    "elapsed_seconds": 0.875,
+    "elapsed_gpu_seconds": 0.875,
+    "gpu_time_definition": "synchronized elapsed device-owned runtime, including probes and evaluation"
+  }
+}

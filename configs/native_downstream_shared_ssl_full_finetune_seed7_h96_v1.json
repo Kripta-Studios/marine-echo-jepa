@@ -1,0 +1,15 @@
+{
+  "batch_size": 64,
+  "cadence": 750,
+  "gradient_clip": 1.0,
+  "history": 96,
+  "lr": 0.0003,
+  "method": "shared_ssl",
+  "min_daily_anchors": 18,
+  "mode": "full_finetune",
+  "patience": 4,
+  "seed": 7,
+  "selection_policy": "scheduled_native_daily_pinball_earliest_strict_improvement_v1",
+  "updates": 3000,
+  "weight_decay": 0.0001
+}

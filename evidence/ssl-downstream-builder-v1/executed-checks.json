@@ -1,0 +1,81 @@
+{
+  "task": "NATIVE_DOWNSTREAM_IMPLEMENTATION_V1",
+  "implementer_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "shell": "cmd.exe",
+  "login": false,
+  "permissions": "workspace-write/never unchanged",
+  "real_corpus_access": "NOT_RUN",
+  "final_test_access": "NOT_RUN",
+  "gpu_execution": "NOT_RUN",
+  "independent_downstream_approval": "NOT_RUN_PARENT_OWNED",
+  "durable_model_prediction_artifacts": "NOT_RUN_PARENT_OWNED",
+  "git_commit": "NOT_RUN_PRIOR_INDEX_LOCK_DENIAL_NOT_RETRIED",
+  "authored_paths": [
+    "src/marine_echo/training/native_downstream.py",
+    "tests/integration/test_native_downstream.py",
+    "orchestration/reports/NATIVE_DOWNSTREAM_IMPLEMENTATION_V1.md",
+    "evidence/ssl-downstream-builder-v1/**"
+  ],
+  "checks": [
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q -s -p no:cacheprovider tests\\integration\\test_native_downstream.py",
+      "phase": "RED_COLLECTION_MISSING_NEW_MODULE",
+      "exit_code": 2,
+      "output": "red-tests.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q -s -p no:cacheprovider tests\\integration\\test_native_downstream.py",
+      "phase": "RED_OPTIMIZER_API_MISMATCH",
+      "exit_code": 1,
+      "passed": 3,
+      "failed": 3,
+      "output": "green-attempt-1.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q -s -p no:cacheprovider tests\\integration\\test_native_downstream.py",
+      "phase": "RED_EVALUATOR_KEY_MISMATCH",
+      "exit_code": 1,
+      "passed": 3,
+      "failed": 3,
+      "output": "green-attempt-2.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q -s -p no:cacheprovider tests\\integration\\test_native_downstream.py",
+      "phase": "FINAL_GREEN_AFTER_REFACTOR",
+      "exit_code": 0,
+      "passed": 37,
+      "elapsed_pytest_seconds": 11.99,
+      "output": "focused-pytest-final.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff check --no-cache src\\marine_echo\\training\\native_downstream.py tests\\integration\\test_native_downstream.py evidence\\ssl-downstream-builder-v1\\verify_sources.py",
+      "exit_code": 0,
+      "output": "ruff-final.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff format --check src\\marine_echo\\training\\native_downstream.py tests\\integration\\test_native_downstream.py evidence\\ssl-downstream-builder-v1\\verify_sources.py",
+      "exit_code": 0,
+      "output": "format-check-final.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B evidence\\ssl-downstream-builder-v1\\verify_sources.py",
+      "exit_code": 0,
+      "operation": "CPU_INITIALIZATION_AND_SOURCE_HASHING_NO_FIT",
+      "output": "source-inspection-final.json"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B evidence\\ssl-downstream-builder-v1\\verify_sources.py --runner --help",
+      "exit_code": 0,
+      "output": "cli-help.txt"
+    }
+  ],
+  "final_authored_source_sha256": {
+    "src/marine_echo/training/native_downstream.py": "3a1680a6b8094ee72866def6c2d4878646bc72e653e880ed4915402296da3c47",
+    "tests/integration/test_native_downstream.py": "479258aa72fb602ee26d3c8b8b968000ab558c7052744ca143e76a777e086237",
+    "evidence/ssl-downstream-builder-v1/verify_sources.py": "bf57566c2c64223242c162b7e9079df6817252958a17810de9d26889d8e00c8f"
+  },
+  "hash_scope_note": "Source inspection lists main helper and pinned source hashes. No real NPZ was hashed or numerically opened in this lane. Parent must bind integrated paths in a new independent review.",
+  "correctness_transport": "Real Torch weights-only and NumPy codecs over an in-memory file transport; no durable model/prediction artifact claim.",
+  "denial_note": "Prior denied durable fixture/index writes were not retried; no optimizer cache denial occurred in these CPU checks."
+}

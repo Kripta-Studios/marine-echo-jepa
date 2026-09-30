@@ -1,0 +1,17 @@
+{
+  "status": "COMPLETED",
+  "pretrain_steps": 6000,
+  "readout_steps_all_probes": 2000,
+  "optimizer_steps_total": 8000,
+  "selected_pretrain_step": 4500,
+  "selected_daily_dev_pinball": 0.8246468454704822,
+  "resources": {
+    "peak_rss_bytes": 5176950784,
+    "peak_allocated_bytes": 199167488,
+    "peak_reserved_bytes": 247463936,
+    "elapsed_seconds": 3371.063000000002,
+    "elapsed_gpu_seconds": 3371.063000000002,
+    "gpu_time_definition": "synchronized elapsed device-owned runtime, including probes and evaluation"
+  },
+  "inference_sha256": "b085583862f9b69e153bc041d9a07277bea70cac8e891ccaa859facc3fddd4d8"
+}

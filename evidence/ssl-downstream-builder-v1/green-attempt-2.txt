@@ -1,0 +1,403 @@
+FFF...
+================================== FAILURES ===================================
+__ test_updates_freezing_full_resume_and_target_free_replay[frozen_readout] ___
+
+memory = (WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/evidence/ssl-downstream-builde...80\x01\xd4k\x01\x00split_sha256.npyPK\x05\x06\x00\x00\x00\x00\x12\x00\x12\x00"\x04\x00\x00\x96m\x01\x00\x00\x00', ...})
+mode = 'frozen_readout'
+
+    @pytest.mark.parametrize("mode", ["frozen_readout", "full_finetune", "direct_end_to_end"])
+    def test_updates_freezing_full_resume_and_target_free_replay(memory, mode):
+        root, _ = memory
+        config, core_config, inputs, initial = fixture_run(root, mode=mode)
+        before = ds.sha256(root / "parent/selected_encoder.pt")
+        interrupted = root / "interrupted"
+>       ds.run(inputs, config, output=interrupted, device="cpu", correctness_smoke=True, smoke_core_config=core_config, stop_after=1)
+
+tests\integration\test_native_downstream.py:170: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+inputs = RunInputs(train=WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/evidence/ssl-do...tudios/marine-jepa-vnext-builder/evidence/ssl-downstream-builder-v1/virtual/parent/review.json'), ancestor_config=None)
+config = DownstreamConfig(mode='frozen_readout', method='shared_ssl', seed=7, history=96, updates=3, cadence=1, patience=4, min...ight_decay=0.0001, gradient_clip=1.0, selection_policy='scheduled_native_daily_pinball_earliest_strict_improvement_v1')
+output = WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/evidence/ssl-downstream-builder-v1/virtual/interrupted')
+device = device(type='cpu'), resume = None, correctness_smoke = True
+smoke_core_config = Config(method='shared_ssl', seed=7, history=96, pretrain_updates=6000, readout_updates=500, batch_size=64, width=24, l...rain_only_frozen_probe_per_candidate_daily_dev_patience4', inference_replay_atol_db=2e-05, inference_replay_rtol=1e-05)
+stop_after = 1
+
+    def run(inputs, config, *, output, device="cpu", resume=None, correctness_smoke=False,
+            smoke_core_config=None, stop_after=None):
+        config.validate(correctness_smoke=correctness_smoke)
+        device = torch.device(device)
+        if device.type not in ("cpu", "cuda") or (correctness_smoke and device.type != "cpu"):
+            raise ValueError("Correctness smoke is CPU only; endpoints support local CPU/CUDA only.")
+        if stop_after is not None and (not correctness_smoke or stop_after < 1):
+            raise ValueError("Artificial interruption is reserved for CPU correctness checks.")
+        ancestor_config = _core_config(inputs, config, correctness_smoke=correctness_smoke, smoke_core_config=smoke_core_config)
+        review = check_prefit(inputs, config, ancestor_config, correctness_smoke=correctness_smoke)
+        identities = {"bindings": {str(p): sha256(p) for p in required_paths(inputs, ancestor_config)},
+                      "review_sha256": sha256(inputs.review), "config": config.to_dict(),
+                      "core_config": ancestor_config.to_dict(), "device_kind": device.type,
+                      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY" if correctness_smoke else "REAL_TRAIN_DEVELOPMENT_FIT"}
+        saved = None
+        if resume is not None:
+            saved = torch.load(resume, map_location="cpu", weights_only=True)
+            if saved.get("kind") != "native_downstream_resume_v1" or saved.get("identities") != identities:
+                raise ValueError("Resume source/config/review/ancestor/device identities differ.")
+        output = Path(output).resolve()
+        if output.exists():
+            if resume is None or Path(resume).resolve().parent != output or Path(resume).name != "latest.pt":
+                raise ValueError("Existing outputs require explicit same-run latest.pt resume.")
+            if (output / "run.json").exists():
+                raise ValueError("Completed outputs cannot be overwritten or silently extended.")
+        # Refuse a nonempty directory even with filesystem transports that do not
+        # represent directories separately; normal output directories are created below.
+        try:
+            nonempty = bool(list(output.iterdir()))
+        except FileNotFoundError:
+            nonempty = False
+        if nonempty and (resume is None or Path(resume).resolve().parent != output):
+            raise ValueError("New output path must be empty; no silent overwrite.")
+        selected = _load_ancestor(inputs, ancestor_config)
+        train = core.load_corpus(inputs.train, role="train", split_hash=sha256(inputs.split), correctness_smoke=correctness_smoke)
+        dev = core.load_corpus(inputs.dev, role="development", split_hash=sha256(inputs.split), correctness_smoke=correctness_smoke)
+        scalers = _verify_data(inputs, train, dev, selected)
+        pool = np.flatnonzero(train["y_observed"].any(1))
+        if not len(pool):
+            raise ValueError("No observed TRAIN supervised rows.")
+        inference_config = replace(ancestor_config, method=config.method, seed=config.seed, history=config.history,
+                                   batch_size=config.batch_size, lr=config.lr, weight_decay=config.weight_decay)
+        random.seed(config.seed)
+        np.random.seed(config.seed)
+        torch.manual_seed(config.seed)
+        model = prepare_model(config, ancestor_config, selected)
+        frozen_state = core.cpu_state(model.encoder) if config.mode == "frozen_readout" else None
+        parameters = [p for p in model.parameters() if p.requires_grad]
+        state = {"step": 0, "best_step": None, "best_score": None, "best_model": None,
+                 "bad_checks": 0, "sequence": [], "records": [], "scalers": scalers.to_dict(), "stopped": False}
+        output.mkdir(parents=True, exist_ok=True)
+        with core.Resources(device, output) as resources:
+            model.to(device)
+            if device.type == "cuda":
+                torch.cuda.manual_seed_all(config.seed)
+            optimizer = torch.optim.AdamW(parameters, lr=config.lr, weight_decay=config.weight_decay)
+            scheduler = core.schedule(optimizer, config.updates)
+            if saved is not None:
+                state = saved["state"]
+                if state["scalers"] != scalers.to_dict():
+                    raise ValueError("Resume scaler identity differs from TRAIN lineage.")
+                model.load_state_dict(saved["model"], strict=True)
+                optimizer.load_state_dict(saved["optimizer"])
+                scheduler.load_state_dict(saved["scheduler"])
+                for item in optimizer.state.values():
+                    for key, value in item.items():
+                        if isinstance(value, torch.Tensor):
+                            item[key] = value.to(device)
+                core.restore_rng(saved["rng"])
+                resources.elapsed = saved["resources"]["elapsed_seconds"]
+                resources.peak_rss = saved["resources"]["peak_rss_bytes"]
+                resources.peak_allocated = saved["resources"]["peak_allocated_bytes"]
+                resources.peak_reserved = saved["resources"]["peak_reserved_bytes"]
+    
+            def save(name="latest.pt"):
+                payload = {"kind": "native_downstream_resume_v1", "identities": identities,
+                           "state": _safe_cpu(state), "model": core.cpu_state(model),
+                           "optimizer": _safe_cpu(optimizer.state_dict()), "scheduler": scheduler.state_dict(),
+                           "rng": core.rng_state(), "resources": resources.snapshot()}
+                core.atomic_checkpoint(output / name, payload)
+                if name != "latest.pt":
+                    core.atomic_checkpoint(output / "latest.pt", payload)
+    
+            while state["step"] < config.updates and not state["stopped"]:
+                ids = supervised_indices(pool, config, state["step"])
+                batch = core.tensor_batch(train, ids, scalers, config.history, device)
+                optimizer.zero_grad(set_to_none=True)
+                predictions = _forecast_train(model, batch, config.mode)
+                loss = core.pinball(predictions, batch["y"], batch["y_observed"])
+                if not torch.isfinite(loss):
+                    raise RuntimeError("Nonfinite downstream loss.")
+                loss.backward()
+                torch.nn.utils.clip_grad_norm_(parameters, config.gradient_clip, error_if_nonfinite=True)
+                optimizer.step()
+                scheduler.step()
+                state["sequence"].append({"step": state["step"], "indices": ids.tolist(),
+                                          "row_ids": train["row_id"][ids].tolist(), "sha256": core.sequence_hash(ids)})
+                state["step"] += 1
+                resources.check()
+                if frozen_state is not None and any(not torch.equal(v, model.encoder.state_dict()[k].detach().cpu()) for k, v in frozen_state.items()):
+                    raise RuntimeError("Frozen encoder parameters/buffers changed.")
+                if state["step"] % config.cadence == 0 or state["step"] == config.updates:
+                    values = core.predict(model, dev, scalers, inference_config, device)
+                    metrics = core.daily_metrics(values, dev["y"], dev["y_observed"], dev["target_dates"], dev["deployment"], min_anchors=config.min_daily_anchors)
+>                   score = metrics["daily_pinball"]
+                            ^^^^^^^^^^^^^^^^^^^^^^^^
+E                   KeyError: 'daily_pinball'
+
+src\marine_echo\training\native_downstream.py:436: KeyError
+___ test_updates_freezing_full_resume_and_target_free_replay[full_finetune] ___
+
+memory = (WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/evidence/ssl-downstream-builde...80\x01\xd4k\x01\x00split_sha256.npyPK\x05\x06\x00\x00\x00\x00\x12\x00\x12\x00"\x04\x00\x00\x96m\x01\x00\x00\x00', ...})
+mode = 'full_finetune'
+
+    @pytest.mark.parametrize("mode", ["frozen_readout", "full_finetune", "direct_end_to_end"])
+    def test_updates_freezing_full_resume_and_target_free_replay(memory, mode):
+        root, _ = memory
+        config, core_config, inputs, initial = fixture_run(root, mode=mode)
+        before = ds.sha256(root / "parent/selected_encoder.pt")
+        interrupted = root / "interrupted"
+>       ds.run(inputs, config, output=interrupted, device="cpu", correctness_smoke=True, smoke_core_config=core_config, stop_after=1)
+
+tests\integration\test_native_downstream.py:170: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+inputs = RunInputs(train=WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/evidence/ssl-do...tudios/marine-jepa-vnext-builder/evidence/ssl-downstream-builder-v1/virtual/parent/review.json'), ancestor_config=None)
+config = DownstreamConfig(mode='full_finetune', method='shared_ssl', seed=7, history=96, updates=3, cadence=1, patience=4, min_...ight_decay=0.0001, gradient_clip=1.0, selection_policy='scheduled_native_daily_pinball_earliest_strict_improvement_v1')
+output = WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/evidence/ssl-downstream-builder-v1/virtual/interrupted')
+device = device(type='cpu'), resume = None, correctness_smoke = True
+smoke_core_config = Config(method='shared_ssl', seed=7, history=96, pretrain_updates=6000, readout_updates=500, batch_size=64, width=24, l...rain_only_frozen_probe_per_candidate_daily_dev_patience4', inference_replay_atol_db=2e-05, inference_replay_rtol=1e-05)
+stop_after = 1
+
+    def run(inputs, config, *, output, device="cpu", resume=None, correctness_smoke=False,
+            smoke_core_config=None, stop_after=None):
+        config.validate(correctness_smoke=correctness_smoke)
+        device = torch.device(device)
+        if device.type not in ("cpu", "cuda") or (correctness_smoke and device.type != "cpu"):
+            raise ValueError("Correctness smoke is CPU only; endpoints support local CPU/CUDA only.")
+        if stop_after is not None and (not correctness_smoke or stop_after < 1):
+            raise ValueError("Artificial interruption is reserved for CPU correctness checks.")
+        ancestor_config = _core_config(inputs, config, correctness_smoke=correctness_smoke, smoke_core_config=smoke_core_config)
+        review = check_prefit(inputs, config, ancestor_config, correctness_smoke=correctness_smoke)
+        identities = {"bindings": {str(p): sha256(p) for p in required_paths(inputs, ancestor_config)},
+                      "review_sha256": sha256(inputs.review), "config": config.to_dict(),
+                      "core_config": ancestor_config.to_dict(), "device_kind": device.type,
+                      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY" if correctness_smoke else "REAL_TRAIN_DEVELOPMENT_FIT"}
+        saved = None
+        if resume is not None:
+            saved = torch.load(resume, map_location="cpu", weights_only=True)
+            if saved.get("kind") != "native_downstream_resume_v1" or saved.get("identities") != identities:
+                raise ValueError("Resume source/config/review/ancestor/device identities differ.")
+        output = Path(output).resolve()
+        if output.exists():
+            if resume is None or Path(resume).resolve().parent != output or Path(resume).name != "latest.pt":
+                raise ValueError("Existing outputs require explicit same-run latest.pt resume.")
+            if (output / "run.json").exists():
+                raise ValueError("Completed outputs cannot be overwritten or silently extended.")
+        # Refuse a nonempty directory even with filesystem transports that do not
+        # represent directories separately; normal output directories are created below.
+        try:
+            nonempty = bool(list(output.iterdir()))
+        except FileNotFoundError:
+            nonempty = False
+        if nonempty and (resume is None or Path(resume).resolve().parent != output):
+            raise ValueError("New output path must be empty; no silent overwrite.")
+        selected = _load_ancestor(inputs, ancestor_config)
+        train = core.load_corpus(inputs.train, role="train", split_hash=sha256(inputs.split), correctness_smoke=correctness_smoke)
+        dev = core.load_corpus(inputs.dev, role="development", split_hash=sha256(inputs.split), correctness_smoke=correctness_smoke)
+        scalers = _verify_data(inputs, train, dev, selected)
+        pool = np.flatnonzero(train["y_observed"].any(1))
+        if not len(pool):
+            raise ValueError("No observed TRAIN supervised rows.")
+        inference_config = replace(ancestor_config, method=config.method, seed=config.seed, history=config.history,
+                                   batch_size=config.batch_size, lr=config.lr, weight_decay=config.weight_decay)
+        random.seed(config.seed)
+        np.random.seed(config.seed)
+        torch.manual_seed(config.seed)
+        model = prepare_model(config, ancestor_config, selected)
+        frozen_state = core.cpu_state(model.encoder) if config.mode == "frozen_readout" else None
+        parameters = [p for p in model.parameters() if p.requires_grad]
+        state = {"step": 0, "best_step": None, "best_score": None, "best_model": None,
+                 "bad_checks": 0, "sequence": [], "records": [], "scalers": scalers.to_dict(), "stopped": False}
+        output.mkdir(parents=True, exist_ok=True)
+        with core.Resources(device, output) as resources:
+            model.to(device)
+            if device.type == "cuda":
+                torch.cuda.manual_seed_all(config.seed)
+            optimizer = torch.optim.AdamW(parameters, lr=config.lr, weight_decay=config.weight_decay)
+            scheduler = core.schedule(optimizer, config.updates)
+            if saved is not None:
+                state = saved["state"]
+                if state["scalers"] != scalers.to_dict():
+                    raise ValueError("Resume scaler identity differs from TRAIN lineage.")
+                model.load_state_dict(saved["model"], strict=True)
+                optimizer.load_state_dict(saved["optimizer"])
+                scheduler.load_state_dict(saved["scheduler"])
+                for item in optimizer.state.values():
+                    for key, value in item.items():
+                        if isinstance(value, torch.Tensor):
+                            item[key] = value.to(device)
+                core.restore_rng(saved["rng"])
+                resources.elapsed = saved["resources"]["elapsed_seconds"]
+                resources.peak_rss = saved["resources"]["peak_rss_bytes"]
+                resources.peak_allocated = saved["resources"]["peak_allocated_bytes"]
+                resources.peak_reserved = saved["resources"]["peak_reserved_bytes"]
+    
+            def save(name="latest.pt"):
+                payload = {"kind": "native_downstream_resume_v1", "identities": identities,
+                           "state": _safe_cpu(state), "model": core.cpu_state(model),
+                           "optimizer": _safe_cpu(optimizer.state_dict()), "scheduler": scheduler.state_dict(),
+                           "rng": core.rng_state(), "resources": resources.snapshot()}
+                core.atomic_checkpoint(output / name, payload)
+                if name != "latest.pt":
+                    core.atomic_checkpoint(output / "latest.pt", payload)
+    
+            while state["step"] < config.updates and not state["stopped"]:
+                ids = supervised_indices(pool, config, state["step"])
+                batch = core.tensor_batch(train, ids, scalers, config.history, device)
+                optimizer.zero_grad(set_to_none=True)
+                predictions = _forecast_train(model, batch, config.mode)
+                loss = core.pinball(predictions, batch["y"], batch["y_observed"])
+                if not torch.isfinite(loss):
+                    raise RuntimeError("Nonfinite downstream loss.")
+                loss.backward()
+                torch.nn.utils.clip_grad_norm_(parameters, config.gradient_clip, error_if_nonfinite=True)
+                optimizer.step()
+                scheduler.step()
+                state["sequence"].append({"step": state["step"], "indices": ids.tolist(),
+                                          "row_ids": train["row_id"][ids].tolist(), "sha256": core.sequence_hash(ids)})
+                state["step"] += 1
+                resources.check()
+                if frozen_state is not None and any(not torch.equal(v, model.encoder.state_dict()[k].detach().cpu()) for k, v in frozen_state.items()):
+                    raise RuntimeError("Frozen encoder parameters/buffers changed.")
+                if state["step"] % config.cadence == 0 or state["step"] == config.updates:
+                    values = core.predict(model, dev, scalers, inference_config, device)
+                    metrics = core.daily_metrics(values, dev["y"], dev["y_observed"], dev["target_dates"], dev["deployment"], min_anchors=config.min_daily_anchors)
+>                   score = metrics["daily_pinball"]
+                            ^^^^^^^^^^^^^^^^^^^^^^^^
+E                   KeyError: 'daily_pinball'
+
+src\marine_echo\training\native_downstream.py:436: KeyError
+_ test_updates_freezing_full_resume_and_target_free_replay[direct_end_to_end] _
+
+memory = (WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/evidence/ssl-downstream-builde...80\x01\xd4k\x01\x00split_sha256.npyPK\x05\x06\x00\x00\x00\x00\x12\x00\x12\x00"\x04\x00\x00\x96m\x01\x00\x00\x00', ...})
+mode = 'direct_end_to_end'
+
+    @pytest.mark.parametrize("mode", ["frozen_readout", "full_finetune", "direct_end_to_end"])
+    def test_updates_freezing_full_resume_and_target_free_replay(memory, mode):
+        root, _ = memory
+        config, core_config, inputs, initial = fixture_run(root, mode=mode)
+        before = ds.sha256(root / "parent/selected_encoder.pt")
+        interrupted = root / "interrupted"
+>       ds.run(inputs, config, output=interrupted, device="cpu", correctness_smoke=True, smoke_core_config=core_config, stop_after=1)
+
+tests\integration\test_native_downstream.py:170: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+inputs = RunInputs(train=WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/evidence/ssl-do...der/evidence/ssl-downstream-builder-v1/virtual/review.json'), encoder=None, ancestor_review=None, ancestor_config=None)
+config = DownstreamConfig(mode='direct_end_to_end', method='direct', seed=7, history=96, updates=3, cadence=1, patience=4, min_...ight_decay=0.0001, gradient_clip=1.0, selection_policy='scheduled_native_daily_pinball_earliest_strict_improvement_v1')
+output = WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/evidence/ssl-downstream-builder-v1/virtual/interrupted')
+device = device(type='cpu'), resume = None, correctness_smoke = True
+smoke_core_config = Config(method='direct', seed=7, history=96, pretrain_updates=6000, readout_updates=500, batch_size=64, width=24, laten...rain_only_frozen_probe_per_candidate_daily_dev_patience4', inference_replay_atol_db=2e-05, inference_replay_rtol=1e-05)
+stop_after = 1
+
+    def run(inputs, config, *, output, device="cpu", resume=None, correctness_smoke=False,
+            smoke_core_config=None, stop_after=None):
+        config.validate(correctness_smoke=correctness_smoke)
+        device = torch.device(device)
+        if device.type not in ("cpu", "cuda") or (correctness_smoke and device.type != "cpu"):
+            raise ValueError("Correctness smoke is CPU only; endpoints support local CPU/CUDA only.")
+        if stop_after is not None and (not correctness_smoke or stop_after < 1):
+            raise ValueError("Artificial interruption is reserved for CPU correctness checks.")
+        ancestor_config = _core_config(inputs, config, correctness_smoke=correctness_smoke, smoke_core_config=smoke_core_config)
+        review = check_prefit(inputs, config, ancestor_config, correctness_smoke=correctness_smoke)
+        identities = {"bindings": {str(p): sha256(p) for p in required_paths(inputs, ancestor_config)},
+                      "review_sha256": sha256(inputs.review), "config": config.to_dict(),
+                      "core_config": ancestor_config.to_dict(), "device_kind": device.type,
+                      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY" if correctness_smoke else "REAL_TRAIN_DEVELOPMENT_FIT"}
+        saved = None
+        if resume is not None:
+            saved = torch.load(resume, map_location="cpu", weights_only=True)
+            if saved.get("kind") != "native_downstream_resume_v1" or saved.get("identities") != identities:
+                raise ValueError("Resume source/config/review/ancestor/device identities differ.")
+        output = Path(output).resolve()
+        if output.exists():
+            if resume is None or Path(resume).resolve().parent != output or Path(resume).name != "latest.pt":
+                raise ValueError("Existing outputs require explicit same-run latest.pt resume.")
+            if (output / "run.json").exists():
+                raise ValueError("Completed outputs cannot be overwritten or silently extended.")
+        # Refuse a nonempty directory even with filesystem transports that do not
+        # represent directories separately; normal output directories are created below.
+        try:
+            nonempty = bool(list(output.iterdir()))
+        except FileNotFoundError:
+            nonempty = False
+        if nonempty and (resume is None or Path(resume).resolve().parent != output):
+            raise ValueError("New output path must be empty; no silent overwrite.")
+        selected = _load_ancestor(inputs, ancestor_config)
+        train = core.load_corpus(inputs.train, role="train", split_hash=sha256(inputs.split), correctness_smoke=correctness_smoke)
+        dev = core.load_corpus(inputs.dev, role="development", split_hash=sha256(inputs.split), correctness_smoke=correctness_smoke)
+        scalers = _verify_data(inputs, train, dev, selected)
+        pool = np.flatnonzero(train["y_observed"].any(1))
+        if not len(pool):
+            raise ValueError("No observed TRAIN supervised rows.")
+        inference_config = replace(ancestor_config, method=config.method, seed=config.seed, history=config.history,
+                                   batch_size=config.batch_size, lr=config.lr, weight_decay=config.weight_decay)
+        random.seed(config.seed)
+        np.random.seed(config.seed)
+        torch.manual_seed(config.seed)
+        model = prepare_model(config, ancestor_config, selected)
+        frozen_state = core.cpu_state(model.encoder) if config.mode == "frozen_readout" else None
+        parameters = [p for p in model.parameters() if p.requires_grad]
+        state = {"step": 0, "best_step": None, "best_score": None, "best_model": None,
+                 "bad_checks": 0, "sequence": [], "records": [], "scalers": scalers.to_dict(), "stopped": False}
+        output.mkdir(parents=True, exist_ok=True)
+        with core.Resources(device, output) as resources:
+            model.to(device)
+            if device.type == "cuda":
+                torch.cuda.manual_seed_all(config.seed)
+            optimizer = torch.optim.AdamW(parameters, lr=config.lr, weight_decay=config.weight_decay)
+            scheduler = core.schedule(optimizer, config.updates)
+            if saved is not None:
+                state = saved["state"]
+                if state["scalers"] != scalers.to_dict():
+                    raise ValueError("Resume scaler identity differs from TRAIN lineage.")
+                model.load_state_dict(saved["model"], strict=True)
+                optimizer.load_state_dict(saved["optimizer"])
+                scheduler.load_state_dict(saved["scheduler"])
+                for item in optimizer.state.values():
+                    for key, value in item.items():
+                        if isinstance(value, torch.Tensor):
+                            item[key] = value.to(device)
+                core.restore_rng(saved["rng"])
+                resources.elapsed = saved["resources"]["elapsed_seconds"]
+                resources.peak_rss = saved["resources"]["peak_rss_bytes"]
+                resources.peak_allocated = saved["resources"]["peak_allocated_bytes"]
+                resources.peak_reserved = saved["resources"]["peak_reserved_bytes"]
+    
+            def save(name="latest.pt"):
+                payload = {"kind": "native_downstream_resume_v1", "identities": identities,
+                           "state": _safe_cpu(state), "model": core.cpu_state(model),
+                           "optimizer": _safe_cpu(optimizer.state_dict()), "scheduler": scheduler.state_dict(),
+                           "rng": core.rng_state(), "resources": resources.snapshot()}
+                core.atomic_checkpoint(output / name, payload)
+                if name != "latest.pt":
+                    core.atomic_checkpoint(output / "latest.pt", payload)
+    
+            while state["step"] < config.updates and not state["stopped"]:
+                ids = supervised_indices(pool, config, state["step"])
+                batch = core.tensor_batch(train, ids, scalers, config.history, device)
+                optimizer.zero_grad(set_to_none=True)
+                predictions = _forecast_train(model, batch, config.mode)
+                loss = core.pinball(predictions, batch["y"], batch["y_observed"])
+                if not torch.isfinite(loss):
+                    raise RuntimeError("Nonfinite downstream loss.")
+                loss.backward()
+                torch.nn.utils.clip_grad_norm_(parameters, config.gradient_clip, error_if_nonfinite=True)
+                optimizer.step()
+                scheduler.step()
+                state["sequence"].append({"step": state["step"], "indices": ids.tolist(),
+                                          "row_ids": train["row_id"][ids].tolist(), "sha256": core.sequence_hash(ids)})
+                state["step"] += 1
+                resources.check()
+                if frozen_state is not None and any(not torch.equal(v, model.encoder.state_dict()[k].detach().cpu()) for k, v in frozen_state.items()):
+                    raise RuntimeError("Frozen encoder parameters/buffers changed.")
+                if state["step"] % config.cadence == 0 or state["step"] == config.updates:
+                    values = core.predict(model, dev, scalers, inference_config, device)
+                    metrics = core.daily_metrics(values, dev["y"], dev["y_observed"], dev["target_dates"], dev["deployment"], min_anchors=config.min_daily_anchors)
+>                   score = metrics["daily_pinball"]
+                            ^^^^^^^^^^^^^^^^^^^^^^^^
+E                   KeyError: 'daily_pinball'
+
+src\marine_echo\training\native_downstream.py:436: KeyError
+=========================== short test summary info ===========================
+FAILED tests/integration/test_native_downstream.py::test_updates_freezing_full_resume_and_target_free_replay[frozen_readout]
+FAILED tests/integration/test_native_downstream.py::test_updates_freezing_full_resume_and_target_free_replay[full_finetune]
+FAILED tests/integration/test_native_downstream.py::test_updates_freezing_full_resume_and_target_free_replay[direct_end_to_end]
+3 failed, 3 passed in 7.26s

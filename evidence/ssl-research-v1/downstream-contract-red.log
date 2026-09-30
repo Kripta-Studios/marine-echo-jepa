@@ -1,0 +1,160 @@
+FFFF                                                                     [100%]
+================================== FAILURES ===================================
+__________ test_reserved_final_test_role_matches_actual_native_split __________
+
+memory = (WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/evidence/ssl-downstream-builder-v1/virt...80\x01\xd4k\x01\x00split_sha256.npyPK\x05\x06\x00\x00\x00\x00\x12\x00\x12\x00"\x04\x00\x00\x96m\x01\x00\x00\x00', ...})
+
+    def test_reserved_final_test_role_matches_actual_native_split(memory):
+        root, _ = memory
+        _, _, inputs, _ = fixture_run(root)
+        split = json.loads(inputs.split.read_text())
+        split["sources"].append({"role": "final_test", "deployment": "reserved-final-site",
+                                 "archive_sha256": "reserved-final-archive"})
+        inputs.split.write_text(json.dumps(split))
+>       roles = ds._split_roles(inputs)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\integration\test_native_downstream.py:353: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+inputs = RunInputs(train=WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/evidence/ssl-downstream-...p/KriptaStudios/marine-echo-jepa/evidence/ssl-downstream-builder-v1/virtual/parent/review.json'), ancestor_config=None)
+
+    def _split_roles(inputs):
+        sources = _json(inputs.split).get("sources", [])
+        if not isinstance(sources, list) or any(
+            s.get("role") not in ("train", "development", "test")
+            or not s.get("deployment")
+            or not s.get("archive_sha256")
+            for s in sources
+        ):
+>           raise ValueError("Invalid declared split source roles.")
+E           ValueError: Invalid declared split source roles.
+
+src\marine_echo\training\native_downstream.py:192: ValueError
+__ test_full_parent_review_can_contain_more_bindings_than_minimal_run_record __
+
+memory = (WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/evidence/ssl-downstream-builder-v1/virt...80\x01\xd4k\x01\x00split_sha256.npyPK\x05\x06\x00\x00\x00\x00\x12\x00\x12\x00"\x04\x00\x00\x96m\x01\x00\x00\x00', ...})
+
+    def test_full_parent_review_can_contain_more_bindings_than_minimal_run_record(memory):
+        root, _ = memory
+        config, core_config, inputs, _ = fixture_run(root)
+        review = json.loads(inputs.ancestor_review.read_text())
+        additional = MAIN / "src/marine_echo/__init__.py"
+        review["bindings"][str(additional.resolve())] = ds.sha256(additional)
+        inputs.ancestor_review.write_text(json.dumps(review))
+        report_path = root / "parent/run.json"
+        parent = json.loads(report_path.read_text())
+        parent["review_sha256"] = ds.sha256(inputs.ancestor_review)
+        report_path.write_text(json.dumps(parent))
+        downstream = json.loads(inputs.review.read_text())
+        for path in (inputs.ancestor_review, report_path):
+            downstream["bindings"][str(path.resolve())] = ds.sha256(path)
+        inputs.review.write_text(json.dumps(downstream))
+>       ds.check_prefit(inputs, config, core_config, correctness_smoke=True)
+
+tests\integration\test_native_downstream.py:372: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+inputs = RunInputs(train=WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/evidence/ssl-downstream-...p/KriptaStudios/marine-echo-jepa/evidence/ssl-downstream-builder-v1/virtual/parent/review.json'), ancestor_config=None)
+config = DownstreamConfig(mode='frozen_readout', method='shared_ssl', seed=7, history=96, updates=3, cadence=1, patience=4, min...ight_decay=0.0001, gradient_clip=1.0, selection_policy='scheduled_native_daily_pinball_earliest_strict_improvement_v1')
+core_config = Config(method='shared_ssl', seed=7, history=96, pretrain_updates=6000, readout_updates=500, batch_size=64, width=24, l...rain_only_frozen_probe_per_candidate_daily_dev_patience4', inference_replay_atol_db=2e-05, inference_replay_rtol=1e-05)
+correctness_smoke = True
+
+    def check_prefit(inputs, config, core_config, *, correctness_smoke=False):
+        """No NumPy payload or torch checkpoint loading occurs until this succeeds."""
+        review = _json(inputs.review)
+        _distinct_review(
+            review, status="APPROVED_DOWNSTREAM_PREFIT", implementer=IMPLEMENTER_SESSION_ID
+        )
+        if review.get("implementer_session_id") != IMPLEMENTER_SESSION_ID:
+            raise ValueError("Downstream review does not identify this implementation session.")
+        if config.mode not in review.get("allowed_modes", []) or config.method not in review.get(
+            "allowed_methods", []
+        ):
+            raise ValueError("Mode/method is not approved for downstream fitting.")
+        _bindings(review, required_paths(inputs, core_config))
+        for key, path in (
+            ("train_npz_sha256", inputs.train),
+            ("dev_npz_sha256", inputs.dev),
+            ("split_sha256", inputs.split),
+        ):
+            if review.get(key) != sha256(path):
+                raise ValueError(f"Review identity mismatch: {key}")
+        if _json(inputs.config) != config.to_dict():
+            raise ValueError("Runtime downstream config differs from reviewed config.")
+        if correctness_smoke and review.get("correctness_core_config") != core_config.to_dict():
+            raise ValueError("CPU correctness architecture is not explicitly bound in review.")
+        _split_roles(inputs)
+        _cohort(inputs, "train")
+        _cohort(inputs, "development")
+        if inputs.encoder is not None:
+            paths = _ancestor_paths(inputs)
+            parent = _json(paths[1])
+            parent_review = _json(paths[5])
+            _distinct_review(
+                parent_review, status="APPROVED_PREFIT", implementer=core.IMPLEMENTER_SESSION_ID
+            )
+            if config.method not in parent_review.get("allowed_methods", []):
+                raise ValueError("Ancestor method was not independently approved.")
+            required = [
+                inputs.train,
+                inputs.dev,
+                inputs.split,
+                inputs.adr0016,
+                paths[4],
+                *core.required_sources(core_config),
+            ]
+            _bindings(parent, required)
+            _bindings(parent_review, required)
+            if (
+                parent.get("config") != core_config.to_dict()
+                or _json(paths[4]) != core_config.to_dict()
+            ):
+                raise ValueError("Ancestor config identity mismatch.")
+            if parent_review.get("bindings") != parent.get("bindings"):
+>               raise ValueError("Ancestor review/run source bindings differ.")
+E               ValueError: Ancestor review/run source bindings differ.
+
+src\marine_echo\training\native_downstream.py:259: ValueError
+_ test_changed_transitive_scaler_source_binding_is_rejected[data/native_ssl_corpus.py] _
+
+memory = (WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/evidence/ssl-downstream-builder-v1/virt...80\x01\xd4k\x01\x00split_sha256.npyPK\x05\x06\x00\x00\x00\x00\x12\x00\x12\x00"\x04\x00\x00\x96m\x01\x00\x00\x00', ...})
+relative = 'data/native_ssl_corpus.py'
+
+    @pytest.mark.parametrize("relative", ["data/native_ssl_corpus.py", "training/aeon_corpus.py"])
+    def test_changed_transitive_scaler_source_binding_is_rejected(memory, relative):
+        root, _ = memory
+        config, core_config, inputs, _ = fixture_run(root)
+        source = MAIN / "src/marine_echo" / relative
+        review = json.loads(inputs.review.read_text())
+        review["bindings"][str(source.resolve())] = "0" * 64
+        inputs.review.write_text(json.dumps(review))
+>       with pytest.raises(ValueError, match="binding"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\integration\test_native_downstream.py:383: Failed
+_ test_changed_transitive_scaler_source_binding_is_rejected[training/aeon_corpus.py] _
+
+memory = (WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/evidence/ssl-downstream-builder-v1/virt...80\x01\xd4k\x01\x00split_sha256.npyPK\x05\x06\x00\x00\x00\x00\x12\x00\x12\x00"\x04\x00\x00\x96m\x01\x00\x00\x00', ...})
+relative = 'training/aeon_corpus.py'
+
+    @pytest.mark.parametrize("relative", ["data/native_ssl_corpus.py", "training/aeon_corpus.py"])
+    def test_changed_transitive_scaler_source_binding_is_rejected(memory, relative):
+        root, _ = memory
+        config, core_config, inputs, _ = fixture_run(root)
+        source = MAIN / "src/marine_echo" / relative
+        review = json.loads(inputs.review.read_text())
+        review["bindings"][str(source.resolve())] = "0" * 64
+        inputs.review.write_text(json.dumps(review))
+>       with pytest.raises(ValueError, match="binding"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\integration\test_native_downstream.py:383: Failed
+=========================== short test summary info ===========================
+FAILED tests/integration/test_native_downstream.py::test_reserved_final_test_role_matches_actual_native_split
+FAILED tests/integration/test_native_downstream.py::test_full_parent_review_can_contain_more_bindings_than_minimal_run_record
+FAILED tests/integration/test_native_downstream.py::test_changed_transitive_scaler_source_binding_is_rejected[data/native_ssl_corpus.py]
+FAILED tests/integration/test_native_downstream.py::test_changed_transitive_scaler_source_binding_is_rejected[training/aeon_corpus.py]
+4 failed, 37 deselected in 18.22s

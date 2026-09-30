@@ -1,0 +1,42 @@
+{
+  "id": "lightgbm_seed7_h96",
+  "status": "FAILED_COMPARATOR_ATTEMPT",
+  "method": "lightgbm",
+  "history": 96,
+  "command": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+    "-u",
+    "-m",
+    "marine_echo.training.native_references",
+    "--train",
+    "data/processed/native_ssl_v1/train.npz",
+    "--dev",
+    "data/processed/native_ssl_v1/development.npz",
+    "--output",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\lightgbm_seed7_h96",
+    "--review",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\baseline-prefit-review-final-02.json",
+    "--method",
+    "lightgbm",
+    "--history",
+    "96",
+    "--seed",
+    "7"
+  ],
+  "output": "outputs\\native_acoustic_ssl_v1\\lightgbm_seed7_h96",
+  "receipt": "evidence\\ssl-research-v1\\lightgbm-attempt-01",
+  "maximum_full_attempt_seconds": 10800,
+  "rss_limit_bytes": 23622320128,
+  "gpu_owner": null,
+  "pid": 26480,
+  "resources_full_attempt": {
+    "exit_code": 1,
+    "stopped_for": null,
+    "peak_process_rss_bytes": 5410816,
+    "elapsed_full_attempt_seconds": 31.593999999997322,
+    "poll_seconds": 0.1,
+    "rss_limit_bytes": 23622320128,
+    "deadline_seconds": 10800,
+    "peak_definition": "OS peak working set when available, otherwise sampled process RSS"
+  }
+}

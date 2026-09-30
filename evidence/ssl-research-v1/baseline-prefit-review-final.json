@@ -1,0 +1,299 @@
+{
+  "status": "REQUEST_CHANGES",
+  "reviewer_session_id": "01a0ef27-876b-7692-917e-3975afc6893d",
+  "implementer_session_id": "01a0ef1a-b166-7f83-91b7-2a2aff7c1b10",
+  "builder_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "allowed_methods": [],
+  "bindings": {
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\AGENTS.md": "0646ce8483a027f694842e25c2e0f6de3af83526028a518807357672a374ed57",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\CODEX_SSL_RESEARCH_MISSION.md": "5bf3fbca35ebe2f803f6c61aff965ae3059e3f3142a85809ecde9bead1c130bd",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\pyproject.toml": "2fd75de20d002f718bd1c621e0692671f7b3e59314f6890a15c5b6d8d4d5d64b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\uv.lock": "980c87913ed3dd0c28692a0c9e6d4b297d7994092fce6a1763d833f80699aa9a",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0015-native-acoustic-ssl-research.md": "82deb36e88df2a6660a2389a653d077a186e5072fbb4ede11d9fbc06c9816148",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0016-native-ssl-selection-and-source-baseline.md": "1e42b3aec76e6673e014ddc4894667ff7bcd786be0f59c84d33fa9d4b4ae7b1d",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0017-windows-native-training-ownership.md": "f748b1fe4ae7bc6c2f79d91706b014a79b679717b41878df34f93ff79bee86aa",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_ssl_split_v1.json": "3b4728e16da3c09c58d9316560283e19ecf79885bbf38a7c7025ce4b83e8993b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\aeon_chronos.json": "c0d8962fecdddef9ab4a771640a6ac07342805b50809b008a3ec490585d2104a",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\data\\processed\\native_ssl_v1\\train.npz": "c2a529b6180b427ee7259a77ea0926919350cc42eb03f2067d0956138aa6461a",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\data\\processed\\native_ssl_v1\\development.npz": "4ca59c6b3539e6e214ac949a3294408f59a28386b9731461f2f03881198f2023",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\data\\processed\\native_ssl_v1\\train.json": "0f9958a9048fe988a3577dc3d6063d1c0968d4b010faae9e177b49d9027ec180",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\data\\processed\\native_ssl_v1\\development.json": "f72c18d1d9cf8fc4a0b84c026e019b5a5a71db1f4a000437fc0f33f04d2d90c3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\reserve_native_ssl.py": "8fcc311188a41d7add3300e403d4d9f7a71e92238bd33d7cd413ad59131fe599",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_native_ssl_job.py": "dd688444fa48b95e40ccb8b29b260550cc998b805273aa196f35909ff0175f9d",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_native_chronos.py": "74a6aa0d063e2d06e7cc799b375956c24806c4db1ef9d6e0a4c85fe60235c063",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\__init__.py": "3fcc1878588f5a89775363e099fab7d7323acebccae26d10db4a6da627425b68",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\__init__.py": "5bdc97a6119b2dd3d519df36406c8bcb9e801be81c8b6c3f44e4a527db1f87a3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_temporal.py": "85c4af6c67acb661359cde8bcf22de479e4da6a499cc7843bce0fee6c155e422",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\sigreg.py": "2cf5dc8e6fc610fbe167339a8750f5e2d9ddf9a48f416717b8310500536469a3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\__init__.py": "c98c60178f566d43dd60641704ccd9c652d406487b4838cbf5a9df49ea5dd735",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_ssl.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_resources.py": "c9ca3fbd0759ae00824774ed61a08185361234430d5ed63f09fa3885545c7c38",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_references.py": "b692368053501ca946978a3c583d649356584e91c1e020597397e669d8aa1d7b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_chronos.py": "22bea6321b68e7a71158225171b380c3816de98f3dfbce9604d2da43b00f1aec",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\aeon_chronos.py": "be66e3e323730d07624d32183c5f1c3f2855abe8f3653da1ba23970dfff2f0f1",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\aeon_windows.py": "d6a1dc53188da5329daa23fe11e7660e36d1d1666fcafda5dcc5a256bf54023b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\aeon_corpus.py": "398e021a5807ab8068ceef03dd692f3b688c744751cd4e65d3efbee94d9a3efd",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\__init__.py": "dddaccd3cb0c952e88796d75e7a15966cfab87f98c2cfe8452a5fff4c3138c68",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_product.py": "fd1c643fde93494a21d560794f886056e58031f1ef6dd41ebe53662750bab314",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\aeon.py": "5dff72c1baf2f5528f13f369936d2ca5710eeb8b8a6e6cae12a0ef95366225ff",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\__init__.py": "011583e04b7f119ffcc2ae18712a4af2e613cff87bcbeb5435fbfb10dcd01508",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\native_ssl_corpus.py": "ebda9d460fa14df749b8f774bcb02a6622f0d69402443098a6100670a4c8f7ba",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_native_corpus.py": "36ca8dafd76b46fc7083cb1a92b21218f828357e4c2379a08e133f2ee28ec6e4",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_native_corpus_boundaries.py": "1a35a46427c4ec164f0554ed31624dfd4b9446d4cfc94f75413bbb6edf201997",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_native_references.py": "f28869b5982840068d301aef1a080464107210f44b8279845142648ea8246d05",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_native_chronos.py": "e1e17fd196d1c933e727d717ef1554a462101756db853e8662d3c18f29c00a8c",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_native_product.py": "9fa090f9b4d0a4e7f1e56485865dc97615c39c491f1dae57dad33a37c2530b12",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_native_resources.py": "cf37c0137aa66a5f8c020832d1f1f53ba6f2444beba19dce48f6ec34f5a71bf2",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\numeric-review-final-03.json": "241e079660d88731bce28dbc9b8380d3bba6933a60cc7a5ab600f5a92a618a9a",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\prefit-review-final-02.json": "4115ff2a2a2cb0fcafbd5273288c762efdaa15e106f7361f9352917a69ee85a3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\parent-prefit-repairs-green.log": "1dd7a14b2aad25ae972c8af265eb2ec2ea5436cef79efb8d99d7ef712165e019",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\root-tests-green-v4.log": "58cee1f91ef5dfe74ae9b0848e1b32a392a4c0ad6fb245745af0974bb3bc5a70",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\chronos\\__init__.py": "f4602aa57fbe3bd3f328414a591d0594ed62099ef7621736ff9733420295bbf0",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\chronos\\base.py": "8938c48de071534c3fecd4e2762a5f99b86d592e8de26aeaa21ce81a08f99c31",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\chronos\\boto_utils.py": "f84a7bca1e69838359309f58bd66f41d9c6da6619b803e88fb87af59d8012e0b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\chronos\\chronos.py": "52a8ad41894195b1c244784e35e238c57e572d54fd980816b579c9c5fab78e3b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\chronos\\chronos_bolt.py": "93b3af9e4521ea981c4228b1acaa252321f7a190512f956088394426182c8b8c",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\chronos\\df_utils.py": "df452a311b406948e0dac1f36b0685e1b7eb6c245eb4b88fd0595037221fec38",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\chronos\\utils.py": "0299e91f6ca902ff18c99e1260cfe81655744eae1ca82e541bda24eb395680ad",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\chronos\\__about__.py": "2780919e9477bfbd8518e329f20a92b9afd7599a407d7baa8155a240507e8136",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\chronos\\chronos2\\config.py": "d4ffa61c796ee87b340540e7f8131008aedcf7b1c580321053dec51d609d3101",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\chronos\\chronos2\\dataset.py": "90b34b05af99069972a33aa780019ab2fca7514e907b68921a2d5c9205584e0a",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\chronos\\chronos2\\layers.py": "73493f306ecfaa21fa57636ff46321ccb5d50ded02a382598cf759dbfc9dd60f",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\chronos\\chronos2\\model.py": "2aaab2f90cc9bb486d69483cb1f0d11b593643ce54c97f4902958a7776905782",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\chronos\\chronos2\\pipeline.py": "9fad1e4fb7251471463a40408a32d25d31b23b7afb88069911f095071b9b0599",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\chronos\\chronos2\\preprocess.py": "a6da6192bc3e51a24d7adee4398c7436ce56f532fbdcf8dcef4c0c366ee02246",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\chronos\\chronos2\\trainer.py": "3868aaefd2477eb0d6a68b2b0c7309ad0f00d1d3b02fb8deb4f8f211afecbd88",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\chronos\\chronos2\\__init__.py": "128856d0b4660e586b74a4971a19dfaaca666e350ebbfb50297b667c1d949995",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\lightgbm\\basic.py": "3bb8761547ec0c5064947ab95eee3785c36defc294494d459c0db58a51a722f2",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\lightgbm\\callback.py": "958d3aed952cd6d2001f2b1fec4b06a7bdf85b19ac78f407bc955b70c8892775",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\lightgbm\\compat.py": "74422408002c29854e29f9746199fc44097800883f95c9952ee412b9e07ca232",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\lightgbm\\dask.py": "f57d9810b566701fff81b792b1c953a642e7b7b8974d78fbd826c733ac505521",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\lightgbm\\engine.py": "56782ac9b113182273a22b4732158a9a90eaf423c4c3808d32d8f52abf70881f",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\lightgbm\\libpath.py": "8bbb0e24ec927715d44e6af5da412a62149a2c2eaff5a3150b56c9e636a1b363",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\lightgbm\\plotting.py": "7aced1bd07f60b9dc2b5be64212dc81b1d3ed05bc0430852316a06f946ae03b9",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\lightgbm\\sklearn.py": "0d1e4ed615464d26dcfa09549f4081573e6c12431a929e64b8e17684e31c2987",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\lightgbm\\__init__.py": "402e67c2be1e884cea21453f97e32bdfaf10d013e989a3788573342479d55baa",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\lightgbm\\bin\\lib_lightgbm.dll": "d2a41567e16b127b2486b417cc25813588fe015a0481e06fe8ce662ebed1ec61",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\transformers\\__init__.py": "2725cadd5afaa29b2a12faec1960cb7ac1df77dc76d655310efb33d4607b35f5",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\transformers\\configuration_utils.py": "02826ac9e987487b645135d8f1d747f60a7e567d1b8f72327de8514d02b6f15d",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\transformers\\modeling_utils.py": "38c2bd02ed7af229f54e2f02dae65663be7af29ed2c9498bd1c460cf60fbb62d",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\transformers\\models\\auto\\configuration_auto.py": "5eaeb741896b05e852fcca8d316b329e42fa3788e2017c560d2e95002b84f0e9",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\transformers\\utils\\peft_utils.py": "a805cdac30f2966d8fa5f421d731116ae194ecdf87b78f8ad729ba0c549f9905",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\transformers\\utils\\hub.py": "e6d2f051acabd11f43cd1ed6e0b1e4d0bd69a9b254d511e9b597187f6a92d8e9",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\huggingface_hub\\file_download.py": "2ee4e4898858191f67bbcd3667c4ceb3a699cacfecefc5ab69c07e638ab7ca58",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\safetensors\\torch.py": "81f477f2ab5e05e99308fc55ed26028eb2bf36334404e9c5558e4730184483f0",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\accelerate-1.15.0.dist-info\\METADATA": "64e744885238d853870093f1d4526eb93ac6ae8a5420a2b3f864fe5d16189d37",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\accelerate-1.15.0.dist-info\\RECORD": "c226b37708d261329d8f0693810c80c1123ef29b1bf73690063fffd1c4ec842f",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\chronos_forecasting-2.3.2.dist-info\\METADATA": "1cc28987a7321b6fe6338c9c6a62a4134f79acaee0351478b468715c1f8611ae",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\chronos_forecasting-2.3.2.dist-info\\RECORD": "3f518dde5fa6561985fc018ae17c0aab1bc5e3c1791edebbd905d9af8aeb7d5c",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\huggingface_hub-1.33.0.dist-info\\METADATA": "bee565776d66f486d224f74024b656a69ed42e2639d80b18811fca4365adc42e",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\huggingface_hub-1.33.0.dist-info\\RECORD": "abf86509649db06024d0552eeb11ed0e3abffb946e23b03a08004a18797ad9e8",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\lightgbm-4.6.0.dist-info\\METADATA": "6cae173638e3581cfa60cd0e07660b0a72efe67ca3db4d3d3cfaa7d31d03b65d",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\lightgbm-4.6.0.dist-info\\RECORD": "a437decc10a7cf4c671edb08066d1148a76bd9934ea568021955bc2e610977e3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\numpy-2.5.3.dist-info\\METADATA": "451a9b8028000588e66b0b415587b6aef0bbc51a96d8e8a0cba0dc23acf64f99",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\numpy-2.5.3.dist-info\\RECORD": "3d3e3efe646beefa3448fefa3daab33d1c10eb63f6da704d07ccf84d12526c4e",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\psutil-7.2.2.dist-info\\METADATA": "a263a40220d921d9cb963fc636d34f817aa2eb72c2696e3e3465d088cdb1976b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\psutil-7.2.2.dist-info\\RECORD": "0d4c336a396000d4cae7c9225ae020e4ec471be9873d2e3b92fb516fc9d6fff4",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\safetensors-0.8.0.dist-info\\METADATA": "597731d1baf7a94219753fa0a74abd1a8a18562d50d98b2e25d91e11e3224d36",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\safetensors-0.8.0.dist-info\\RECORD": "5104da9df47c2cfd517218e0450554a9045addf1f97b31cc83fda17f1e556625",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\torch-2.11.0+cu128.dist-info\\METADATA": "bb53a1e8e258707e738e108afaf1041304fa085a3775206876232345257e00b7",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\torch-2.11.0+cu128.dist-info\\RECORD": "41711285166f3fa6171e8e78fd9b3648bc041058013687b15b65028948d2e8cb",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\transformers-5.17.0.dist-info\\METADATA": "cd295c5ad2c605e3c04456740df174e6a1bf5418eb2563788dc2163253f6d882",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\transformers-5.17.0.dist-info\\RECORD": "3411ee02ea0b364307528285a397afb8da65f6d70b5cab8ab7e5343cca8432f0",
+    "C:\\Users\\Álvaro Schwiedop\\.cache\\huggingface\\hub\\models--amazon--chronos-2\\snapshots\\29ec3766d36d6f73f0696f85560a422f50e8498c\\.gitattributes": "11ad7efa24975ee4b0c3c3a38ed18737f0658a5f75a0a96787b576a78a023361",
+    "C:\\Users\\Álvaro Schwiedop\\.cache\\huggingface\\hub\\models--amazon--chronos-2\\snapshots\\29ec3766d36d6f73f0696f85560a422f50e8498c\\README.md": "c7b29bc88f5bc3ebc6e7213b6353be80090d671fefa4aa74ed20498838c16558",
+    "C:\\Users\\Álvaro Schwiedop\\.cache\\huggingface\\hub\\models--amazon--chronos-2\\snapshots\\29ec3766d36d6f73f0696f85560a422f50e8498c\\config.json": "ef1143bfdc9c0376d9a056eefca46cb4b1ec3d0ffacd541ff56feb40fb708031",
+    "C:\\Users\\Álvaro Schwiedop\\.cache\\huggingface\\hub\\models--amazon--chronos-2\\snapshots\\29ec3766d36d6f73f0696f85560a422f50e8498c\\model.safetensors": "ddcda3c7508bf2528087723e98a20707cc04b7f370ae275a9fd88078ddba4f42"
+  },
+  "train_npz_sha256": "c2a529b6180b427ee7259a77ea0926919350cc42eb03f2067d0956138aa6461a",
+  "dev_npz_sha256": "4ca59c6b3539e6e214ac949a3294408f59a28386b9731461f2f03881198f2023",
+  "split_sha256": "3b4728e16da3c09c58d9316560283e19ecf79885bbf38a7c7025ce4b83e8993b",
+  "protocol_sha256": "1e42b3aec76e6673e014ddc4894667ff7bcd786be0f59c84d33fa9d4b4ae7b1d",
+  "chronos_snapshot_sha256": null,
+  "findings": [
+    {
+      "id": "L1",
+      "severity": "BLOCKING",
+      "method": "lightgbm",
+      "location": "src/marine_echo/training/native_references.py:73-145",
+      "finding": "The executor does not enforce the 22 GiB process-RAM ceiling or measure peak RSS. Its only RSS measurement is rss_gib_at_completion after loading both corpora, constructing feature matrices, fitting all fifteen boosters, predicting and saving artifacts. Completion RSS cannot establish compliance during these operations.",
+      "required_change": "Provide a separately reviewed comparator supervisor that monitors owned-process peak RSS from startup through artifact completion and stops only the owned comparator when the ceiling is reached. Verify this behavior without scientific fitting. Do not change sources bound to the running shared fit."
+    },
+    {
+      "id": "C1",
+      "severity": "BLOCKING",
+      "method": "chronos2",
+      "location": "src/marine_echo/training/native_chronos.py:121-221; tools/execute_native_chronos.py:38-43",
+      "finding": "The advertised complete two-hour slot is not enforced. The internal timer starts after corpus loading and context preparation, checks the deadline only after each shard, and excludes final concatenation, prediction-artifact saving, scoring and result saving. Model loading or a single inference call can exceed the deadline before control reaches a check. Resume accounting also omits preparation and work after the last saved manifest. The ownership wrapper has no independent deadline watchdog.",
+      "required_change": "Use a separately bound owned-child supervisor covering startup, loading, preparation, inference, evaluation, saving and failed/resumed attempts. Enforce the remaining cumulative two-hour comparator allowance and remaining aggregate 96-hour programme allowance, journal actual owned walltime and exit, and terminate only its owned child. The existing execute_native_ssl_job.py hardcodes the neural runner and does not supervise this Chronos wrapper."
+    },
+    {
+      "id": "C2",
+      "severity": "BLOCKING",
+      "method": "chronos2",
+      "location": "tools/execute_native_chronos.py:38-40; src/marine_echo/training/native_chronos.py:183-188",
+      "finding": "The wrapper calls Resources.snapshot only after run returns. Consequently its reported peak_rss_bytes is effectively a completion sample. Chronos samples current RSS between shards, which can miss loading or prediction peaks and does not update the Resources peak-RSS accumulator. The retained allocator fraction and CUDA maximum-memory checks do not establish the separate process-RAM limit.",
+      "required_change": "Include continuous owned-process RSS monitoring and honest peak reporting in the comparator supervisor requested by C1. Cover loading and long inference calls, not only shard boundaries."
+    },
+    {
+      "id": "P1",
+      "severity": "PASS",
+      "finding": "The repaired evaluator rejects every nonfinite forecast and every nonfinite observed target. Its mask-only support and equal date/horizon/deployment weighting remain intact. The four metric tests passed independently in this review."
+    },
+    {
+      "id": "P2",
+      "severity": "PASS",
+      "method": "lightgbm",
+      "finding": "The inspected scientific recipe uses only permitted context, masks, native metadata and causal summaries. It creates fifteen fresh quantile regressors with the specified fixed hyperparameters and TRAIN labels only, without development early stopping, historical fitted weights or scalers. Exact TRAIN/development and executor/metric hashes are checked before corpus loading. Native booster text files and their digests are saved alongside predictions and cohort identifiers. Actual fitted-artifact replay remains unexecuted because no comparator fitting was authorized."
+    },
+    {
+      "id": "P3",
+      "severity": "PASS",
+      "method": "chronos2",
+      "finding": "The inspected dictionary inputs use one primary target history, secondary past-only acoustic covariates and known native query descriptors. Future covariates contain no acoustic values. Inference requests context96, horizons1/3/6 and five quantiles with cross_learning=false. Installed2.3.2 source supports these dictionary inputs and output dimensions; the pinned snapshot contains the requested quantile levels. No historical 24-hour acoustic adapter is invoked by the native execution path."
+    },
+    {
+      "id": "P4",
+      "severity": "PASS_WITH_LIMIT",
+      "method": "chronos2",
+      "finding": "The new wrapper verifies all supplied review bindings and its own hash, requires a reviewer distinct from root and builder, and acquires the shared exclusive GPU-owner lock through Resources with cuda:0 before model loading. Separate ownership output preserves the executor's empty-output guard. Manifest identities and shard digests bind development data, history, snapshot, review, executor and row identifiers; changed or unbound existing shards fail closed. These controls do not resolve the deadline and peak-RSS defects."
+    },
+    {
+      "id": "P5",
+      "severity": "PASS",
+      "finding": "Fresh opaque hashes of both corpora match prefit-review-final-02.json. All overlapping retained source/contract bindings checked in this review also match. The immutable approval remains unchanged. This comparator decision neither revokes nor modifies the running shared fit's approval."
+    }
+  ],
+  "executed_checks": [
+    {
+      "command": "call .venv\\Scripts\\python.exe -B -m pytest -s -p no:cacheprovider tests\\unit\\test_native_references.py::test_reference_features_are_causal_and_masked tests\\unit\\test_native_chronos.py tests\\unit\\test_native_product.py",
+      "exit_code": 0,
+      "result": "8 passed in 14.34s. Synthetic/in-memory causal-feature, Chronos input/horizon and strict-metric checks only. No scientific fitting, real pipeline loading or GPU execution."
+    },
+    {
+      "command": "call .venv\\Scripts\\python.exe -B -c print(__import__('hashlib').file_digest(open('data/processed/native_ssl_v1/train.npz','rb'),'sha256').hexdigest(),__import__('hashlib').file_digest(open('data/processed/native_ssl_v1/development.npz','rb'),'sha256').hexdigest())",
+      "exit_code": 0,
+      "result": "Both actual NPZ digests match the immutable approval. Opaque hashing only; no corpus census or final-test access."
+    },
+    {
+      "command": "call .venv\\Scripts\\python.exe -B -c print(__import__('marine_echo.training.aeon_chronos',fromlist=['_verify_snapshot'])._verify_snapshot(__import__('pathlib').Path.home()/'.cache/huggingface/hub/models--amazon--chronos-2/snapshots/29ec3766d36d6f73f0696f85560a422f50e8498c',__import__('json').load(open('configs/aeon_chronos.json'))['model']['snapshot_files_sha256']),__import__('importlib.metadata',fromlist=['version']).version('chronos-forecasting'),__import__('importlib.metadata',fromlist=['version']).version('lightgbm'))",
+      "exit_code": 0,
+      "result": "Exact four-file snapshot inventory and hashes verified. Installed versions are chronos-forecasting2.3.2 and LightGBM4.6.0. No pipeline or model weights were instantiated."
+    },
+    {
+      "command": "rg --files .venv\\Lib\\site-packages\\chronos -g *.py",
+      "exit_code": 0,
+      "result": "Listed installed package source files; additional chronos2 files were inventoried with read-only filesystem reads."
+    },
+    {
+      "command": "node_repl: var changes=[];for(var [p,h]of Object.entries(bindings)){if(p.endsWith('.npz')||p.includes('snapshots\\\\'))continue;var now=crypto.createHash('sha256').update(await fs.readFile(p)).digest('hex');if(now!==h)changes.push(p);}",
+      "exit_code": null,
+      "result": "Completed closing read-only comparison with no changed files.99 actual bindings recorded; NPZs and snapshot were independently hashed by the commands above. No overlapping retained binding differed from prefit-review-final-02.json. Node REPL has no shell exit code."
+    },
+    {
+      "command": "node_repl: console.log(JSON.stringify({threadId:nodeRepl.requestMeta.threadId,sessionId:nodeRepl.requestMeta.sessionId,turn:nodeRepl.requestMeta['x-codex-turn-metadata']}));",
+      "exit_code": null,
+      "result": "Actual thread/session01a0ef27-876b-7692-917e-3975afc6893d, gpt-6.1-sol/high, read-only; distinct from root and builder."
+    },
+    {
+      "command": "node_repl: await fs.readFile(root+'/.venv/Lib/site-packages/lightgbm/lib/lib_lightgbm.dll')",
+      "exit_code": null,
+      "result": "ENOENT for this guessed location. Read-only inspection of installed libpath.py and directory inventory located the actual bin/lib_lightgbm.dll, which was hashed. No filesystem denial or write was retried."
+    },
+    {
+      "command": "NOT_RUN: tests/unit/test_native_references.py::test_reference_fitting_is_blocked_before_any_corpus_access",
+      "exit_code": null,
+      "result": "Excluded because the existing test writes a tmp_path review fixture. Its source was inspected; no temporary-file permission was requested."
+    },
+    {
+      "command": "NOT_RUN: real LightGBM fitting, booster replay, Chronos loading/inference, durable shard/resume execution and resource-watchdog execution",
+      "exit_code": null,
+      "result": "No fitting, new weights, concurrent GPU process or output writes were authorized. Resource findings are established by inspected control flow, not invented runtime outcomes."
+    }
+  ],
+  "inspected_evidence": [
+    {
+      "path": "evidence/ssl-research-v1/prefit-review-final-02.json",
+      "result": "Immutable existing approval inspected and independently hashed. Its allowed methods exclude LightGBM and Chronos2; this separate review does not change that approval."
+    },
+    {
+      "path": "src/marine_echo/training/native_references.py",
+      "result": "Inspected complete role/hash gates, causal features, fixed fifteen-model recipe, native booster serialization, prediction support and completion-only RSS measurement."
+    },
+    {
+      "path": "src/marine_echo/training/native_chronos.py",
+      "result": "Inspected complete native-input, output-shape, zero-shot, source/snapshot, manifest/shard and resource/timing paths."
+    },
+    {
+      "path": "tools/execute_native_chronos.py",
+      "result": "Inspected complete new wrapper, including all-binding verification, distinct-review gate, separate ownership directory and retained CUDA ownership helper."
+    },
+    {
+      "path": "src/marine_echo/training/native_ssl.py; src/marine_echo/training/native_resources.py",
+      "result": "Inspected retained Resources and ownership behavior relevant to comparator invocation. Accepted shared/CF scientific model review was not repeated."
+    },
+    {
+      "path": "tools/execute_native_ssl_job.py",
+      "result": "Inspected supervisor applicability: its child command is hardcoded to the neural runner, so its existing aggregate-budget watchdog does not cover the new Chronos wrapper."
+    },
+    {
+      "path": ".venv/Lib/site-packages/chronos/chronos2/pipeline.py; dataset.py; model.py; configs/aeon_chronos.json; pinned snapshot/config.json",
+      "result": "Inspected official installed dictionary-covariate, quantile-output and local from_pretrained contracts, plus actual pinned model configuration. Historical config supplied snapshot/version provenance only; its historical acoustic cohort/input recipe was not reused."
+    },
+    {
+      "path": ".venv/Lib/site-packages/lightgbm/sklearn.py; basic.py; libpath.py",
+      "result": "Inspected parameter handling, native booster save/load support and actual DLL lookup. No booster was fitted or loaded."
+    },
+    {
+      "path": "tests/unit/test_native_references.py; tests/unit/test_native_chronos.py; tests/unit/test_native_product.py",
+      "result": "Inspected focused test coverage. Existing comparator tests do not cover complete-attempt deadline enforcement or continuous peak-RSS supervision."
+    },
+    {
+      "path": "evidence/ssl-research-v1/parent-prefit-repairs-green.log",
+      "result": "Inspected parent evidence reporting49 passed in15.41s. This is not reviewer execution and does not establish the new comparator resource controls."
+    },
+    {
+      "path": "evidence/ssl-research-v1/root-tests-green-v4.log",
+      "result": "Inspected parent evidence reporting22 passed in2.56s. This is not reviewer execution."
+    },
+    {
+      "path": "data/processed/native_ssl_v1/train.json; development.json; configs/native_ssl_split_v1.json; reader/constants; ADR0015/0016/0017",
+      "result": "Retained metadata, source and contract identities verified without repeating materialization or corpus census."
+    }
+  ],
+  "residual_risks": [
+    "Chronos pretrained ancestry remains externally unverified. Exact snapshot hashes do not establish comprehensive exclusion of these acoustic sources from public pretraining.",
+    "WDDM executable-name classification cannot prove hardware exclusivity. UNVERIFIABLE_WDDM remains the accurate ownership disclosure.",
+    "Accepted interval-edge proxies and unknown absolute clock, censoring, processing and calibration uncertainty remain. Whole-site generalization claims remain limited.",
+    "Actual booster replay and durable Chronos restart behavior remain unexecuted in this read-only review.",
+    "Snapshot and installed-source bindings identify inspected bytes; distribution RECORD files alone are not independent verification of every transitive installed binary.",
+    "No comparator score, JEPA advantage, SOTA result, biological causality, production integration or release readiness is established."
+  ],
+  "approval_scope": {
+    "review_type": "Separate bounded prefit review of previously withheld development comparators",
+    "new_execution_authorized": false,
+    "withheld_methods": [
+      "lightgbm",
+      "chronos2"
+    ],
+    "candidate_scope_for_renewal": {
+      "histories": [96],
+      "seeds": [7],
+      "horizons": [1, 3, 6],
+      "quantiles": [0.05, 0.25, 0.5, 0.75, 0.95],
+      "lightgbm": "One fixed CPU recipe; fifteen fresh quantile models; TRAIN labels only; no tuning or early stopping.",
+      "chronos2": "Pinned local zero-shot snapshot only; no fitting, cross_learning or future acoustic covariates; cumulative complete-attempt allowance at most two GPU-hours."
+    },
+    "existing_shared_approval": "prefit-review-final-02.json remains immutable and unchanged. This REQUEST_CHANGES applies only to the separate comparator authorization and does not revoke, alter or interrupt the currently approved shared fit.",
+    "remediation_boundary": "Use new separately reviewed comparator supervision and tests. Do not modify sources bound to the running shared fit.",
+    "future_execution_conditions": "After renewed approval and completion of the current shared job: one root supervisor, serialized scientific jobs, no concurrent GPU or second fitting process, complete binding verification, honest owned-attempt accounting, aggregate programme at most96 GPU-hours, allocated/reserved memory below10GiB and process RSS below22GiB.",
+    "excluded": [
+      "Final-test numerical access, inference or assessment",
+      "History24, extra seeds, tuning or additional selection opportunities",
+      "Later downstream fitting or finalist/refit approval",
+      "Results, app, package or release approval",
+      "Cloud, purchases, credentials, installs, permission changes or junction operations",
+      "Termination of desktop applications"
+    ]
+  }
+}

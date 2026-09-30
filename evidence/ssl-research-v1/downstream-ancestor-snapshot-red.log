@@ -1,0 +1,52 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_ test_reviewed_historical_shared_model_snapshot_keeps_original_ancestor_bindings _
+
+memory = (WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/evidence/ssl-downstream-builder-v1/virt...80\x01\xd4k\x01\x00split_sha256.npyPK\x05\x06\x00\x00\x00\x00\x12\x00\x12\x00"\x04\x00\x00\x96m\x01\x00\x00\x00', ...})
+
+    def test_reviewed_historical_shared_model_snapshot_keeps_original_ancestor_bindings(memory):
+        root, _ = memory
+        config, core_config, inputs, _ = fixture_run(root)
+        model_path = Path(ds.core.native_temporal.__file__).resolve()
+        snapshot = root / "historical-model.py"
+        snapshot.write_text(model_path.read_text() + "\n# SYNTHETIC_CORRECTNESS_ONLY provenance fixture\n")
+        old_hash = ds.sha256(snapshot)
+        parent_path = inputs.encoder.parent / "run.json"
+        parent = json.loads(parent_path.read_text())
+        parent_review = json.loads(inputs.ancestor_review.read_text())
+        parent["bindings"][str(model_path)] = old_hash
+        parent_review["bindings"][str(model_path)] = old_hash
+        inputs.ancestor_review.write_text(json.dumps(parent_review))
+        parent["review_sha256"] = ds.sha256(inputs.ancestor_review)
+        parent_path.write_text(json.dumps(parent))
+        reviewed = json.loads(inputs.review.read_text())
+        reviewed["compatible_ancestor_model_source"] = {
+            "path": str(snapshot.resolve()), "sha256": old_hash,
+            "methods": ["shared_ssl"],
+        }
+        inputs.review.write_text(json.dumps(reviewed))
+        refresh_review(inputs, core_config)
+>       ds.check_prefit(inputs, config, core_config, correctness_smoke=True)
+
+tests\integration\test_native_downstream.py:1042: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\marine_echo\training\native_downstream.py:253: in check_prefit
+    _bindings(parent, required)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+record = {'status': 'COMPLETED', 'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', 'config': {'method': 'shared_ssl', 'seed': 7, '...stream-builder-v1\\virtual\\adr0016.md': '65fd3b51a2df26f4a71078755ddf1d5df8fdd6cd58515216e61f6dff3c67fc0b', ...}, ...}
+paths = [WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/evidence/ssl-downstream-builder-v1/virt...wsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/src/marine_echo/training/native_ssl.py'), ...]
+
+    def _bindings(record, paths):
+        bindings = record.get("bindings")
+        if not isinstance(bindings, dict) or not bindings:
+            raise ValueError("Required bindings are missing.")
+        for path in paths:
+            if bindings.get(str(Path(path).resolve())) != sha256(Path(path)):
+>               raise ValueError(f"Missing or stale binding: {path}")
+E               ValueError: Missing or stale binding: C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\src\marine_echo\models\native_temporal.py
+
+src\marine_echo\training\native_downstream.py:169: ValueError
+=========================== short test summary info ===========================
+FAILED tests/integration/test_native_downstream.py::test_reviewed_historical_shared_model_snapshot_keeps_original_ancestor_bindings
+1 failed, 42 deselected in 1.87s

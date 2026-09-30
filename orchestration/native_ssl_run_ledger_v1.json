@@ -1,6 +1,6 @@
 {
   "schema_version": "native_acoustic_ssl_v1",
-  "status": "REAL_CORPORA_AND_MODEL_IMPLEMENTED_PREFIT_REVIEW_RUNNING",
+  "status": "PLATFORM_REPAIRS_PENDING_RENEWED_PREFIT",
   "branch": "research/marine-jepa-vnext",
   "base_commit": "2455fd3",
   "owner_authorization": "2026-09-29 activated model-first native acoustic SSL mission",
@@ -13,8 +13,8 @@
   "routing": "evidence/ssl-research-v1/routing.json",
   "gpu_owner": "root",
   "gpu_limit_hours": 96,
-  "gpu_hours_completed_scientific_training": 0,
-  "scientific_fits_completed": 0,
+  "gpu_hours_completed_scientific_training": 0.9364063888888894,
+  "scientific_fits_completed": 1,
   "cloud": "DISABLED",
   "paid_spend_usd": 0,
   "runs": [
@@ -49,9 +49,10 @@
     },
     {
       "id": "shared_ssl_seed7_history96",
-      "status": "NOT_RUN_PENDING_PREFIT",
+      "status": "INITIAL_PLAN_EXECUTING_AS_BOUND_CUDA_JOB",
       "pretrain_updates_ceiling_initial": 6000,
-      "readout_updates_ceiling_initial": 2000
+      "readout_updates_ceiling_initial": 2000,
+      "execution_id": "shared_ssl_seed7_h96_cuda0"
     },
     {
       "id": "native_train_materialization",
@@ -81,8 +82,222 @@
     },
     {
       "id": "model_prefit_review",
-      "status": "RUNNING",
-      "events": "evidence/ssl-research-v1/prefit-review-events.jsonl"
+      "status": "APPROVED_EXACT_RENEWED_BINDINGS",
+      "events": "evidence/ssl-research-v1/prefit-review-events.jsonl",
+      "review": "evidence/ssl-research-v1/prefit-review-final-02.json",
+      "verification": "evidence/ssl-research-v1/prefit-bindings-verification-02.json"
+    },
+    {
+      "id": "shared_ssl_seed7_h96",
+      "status": "FAILED_REAL_CUDA_ATTEMPT",
+      "config": "configs\\native_ssl_shared_ssl_seed7_h96_v1.json",
+      "config_sha256": "c9a37a3ac2948e6703dd1f15b18e13f713b91ec02845e9a3b9a1304503371be3",
+      "review": "evidence\\ssl-research-v1\\prefit-review-final-02.json",
+      "review_sha256": "4115ff2a2a2cb0fcafbd5273288c762efdaa15e106f7361f9352917a69ee85a3",
+      "output": "outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96",
+      "method": "shared_ssl",
+      "seed": 7,
+      "history": 96,
+      "gpu_owner": "root",
+      "parent_commit": "62f652778195a7ea81594877694c877ae376caea",
+      "resume": null,
+      "pid": 5904,
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-u",
+        "-m",
+        "marine_echo.training.native_ssl",
+        "--train",
+        "data/processed/native_ssl_v1/train.npz",
+        "--dev",
+        "data/processed/native_ssl_v1/development.npz",
+        "--split",
+        "configs/native_ssl_split_v1.json",
+        "--protocol",
+        "docs/adr/0016-native-ssl-selection-and-source-baseline.md",
+        "--config",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_ssl_shared_ssl_seed7_h96_v1.json",
+        "--review",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\prefit-review-final-02.json",
+        "--output",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96",
+        "--device",
+        "cuda"
+      ],
+      "exit_code": 1,
+      "elapsed_owned_seconds": 14.014999999999418,
+      "budget_exceeded": false
+    },
+    {
+      "id": "shared_ssl_seed7_h96_cuda0",
+      "status": "COMPLETED_REAL_CUDA",
+      "pid": 56460,
+      "output": "outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0",
+      "device": "cuda:0",
+      "method": "shared_ssl",
+      "seed": 7,
+      "history": 96,
+      "process_created_epoch": 1790724276.2057924,
+      "started_utc": "2026-09-29T23:24:36.205792+00:00",
+      "config": "configs/native_ssl_shared_ssl_seed7_h96_v1.json",
+      "review": "evidence\\ssl-research-v1\\prefit-review-final-02.json",
+      "review_sha256": "4115ff2a2a2cb0fcafbd5273288c762efdaa15e106f7361f9352917a69ee85a3",
+      "binding_verification": "evidence/ssl-research-v1/prefit-bindings-verification-02.json",
+      "console": "evidence/ssl-research-v1/shared-first-job-cuda0.log",
+      "executor": "approved native_ssl CLI with explicit indexed CUDA device",
+      "tool_session_id": 41703,
+      "gpu_owner": "root",
+      "durable_progress": {
+        "phase": "pretrain",
+        "pretrain_step": 1500,
+        "readout_step": 500,
+        "optimizer_steps": 2000,
+        "selected_pretrain_step": 1500,
+        "best_score": 0.8317172039630104,
+        "probe_best_score": 0.8317172039630104,
+        "resources": {
+          "peak_rss_bytes": 5127544832,
+          "peak_allocated_bytes": 199097344,
+          "peak_reserved_bytes": 247463936,
+          "elapsed_seconds": 822.5630000000019,
+          "elapsed_gpu_seconds": 822.5630000000019,
+          "gpu_time_definition": "synchronized elapsed device-owned runtime, including probes and evaluation"
+        },
+        "latest_training": {
+          "phase": "readout",
+          "candidate": 1500,
+          "step": 499,
+          "context_sha256": "89df1a4d40e580d231fd4d314a67bca53b318a808975f674b29bb97353ecf7d3",
+          "loss": 0.18792951107025146
+        },
+        "development_selection": [
+          {
+            "pretrain_step": 1500,
+            "readout_step": 250,
+            "daily_dev_pinball": 0.8478479569378304
+          },
+          {
+            "pretrain_step": 1500,
+            "readout_step": 500,
+            "daily_dev_pinball": 0.8317172039630104
+          }
+        ]
+      },
+      "exit_code": 0,
+      "elapsed_owned_seconds": 3569.4359476566315,
+      "run_sha256": "c4a5453e187b69356acf6d37c44878639dde4d99dc4b82822f356c493a9525b0",
+      "resources": {
+        "peak_rss_bytes": 5176950784,
+        "peak_allocated_bytes": 199167488,
+        "peak_reserved_bytes": 247463936,
+        "elapsed_seconds": 3371.063000000002,
+        "elapsed_gpu_seconds": 3371.063000000002,
+        "gpu_time_definition": "synchronized elapsed device-owned runtime, including probes and evaluation"
+      },
+      "selected_pretrain_step": 4500,
+      "selected_daily_dev_pinball": 0.8246468454704822
+    },
+    {
+      "id": "persistence_h96",
+      "status": "COMPLETED_DEVELOPMENT_REFERENCE",
+      "exit_code": 0,
+      "output": "outputs\\native_acoustic_ssl_v1\\persistence_h96\\result.json",
+      "daily_dev_pinball_db": 0.9891759561557131,
+      "elapsed_seconds": 29.080934799996612,
+      "fitted_parameters": 0,
+      "test_access": "NOT_RUN",
+      "gpu_hours": 0
+    },
+    {
+      "id": "seasonal24_h96",
+      "status": "COMPLETED_DEVELOPMENT_REFERENCE",
+      "exit_code": 0,
+      "output": "outputs\\native_acoustic_ssl_v1\\seasonal24_h96\\result.json",
+      "daily_dev_pinball_db": 1.031738466565871,
+      "elapsed_seconds": 30.010945699999866,
+      "fitted_parameters": 0,
+      "test_access": "NOT_RUN",
+      "gpu_hours": 0
+    },
+    {
+      "id": "lightgbm_seed7_h96",
+      "status": "FAILED_COMPARATOR_ATTEMPT",
+      "method": "lightgbm",
+      "history": 96,
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-u",
+        "-m",
+        "marine_echo.training.native_references",
+        "--train",
+        "data/processed/native_ssl_v1/train.npz",
+        "--dev",
+        "data/processed/native_ssl_v1/development.npz",
+        "--output",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\lightgbm_seed7_h96",
+        "--review",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\baseline-prefit-review-final-02.json",
+        "--method",
+        "lightgbm",
+        "--history",
+        "96",
+        "--seed",
+        "7"
+      ],
+      "output": "outputs\\native_acoustic_ssl_v1\\lightgbm_seed7_h96",
+      "receipt": "evidence\\ssl-research-v1\\lightgbm-attempt-01",
+      "maximum_full_attempt_seconds": 10800,
+      "rss_limit_bytes": 23622320128,
+      "gpu_owner": null,
+      "pid": 26480,
+      "resources_full_attempt": {
+        "exit_code": 1,
+        "stopped_for": null,
+        "peak_process_rss_bytes": 5410816,
+        "elapsed_full_attempt_seconds": 31.593999999997322,
+        "poll_seconds": 0.1,
+        "rss_limit_bytes": 23622320128,
+        "deadline_seconds": 10800,
+        "peak_definition": "OS peak working set when available, otherwise sampled process RSS"
+      },
+      "resource_measurement_limit": "INCOMPLETE_LAUNCHER_ONLY_PEAK; actual interpreter descendant was not monitored in this preserved failed attempt"
+    },
+    {
+      "id": "cf_jepa_seed7_h96_cuda0",
+      "status": "FAILED_REAL_CUDA_ATTEMPT",
+      "exit_code": 1,
+      "tool_session_id": 24368,
+      "method": "cf_jepa",
+      "seed": 7,
+      "history": 96,
+      "output": "outputs/native_acoustic_ssl_v1/cf_jepa_seed7_h96_cuda0",
+      "review": "evidence/ssl-research-v1/prefit-review-final-02.json",
+      "console": "evidence\\ssl-research-v1\\cf-jepa-first-job-cuda0.log",
+      "optimizer_steps_completed": 0,
+      "failure": "First backward rejected non-deterministic adaptive average pool CUDA kernel",
+      "elapsed_owned_seconds": null,
+      "budget_charged_seconds": 441.1619529724121,
+      "accounting": "Conservative observation window from console creation through this journal; actual process time was not measured",
+      "final_test_access": "NOT_RUN"
+    },
+    {
+      "id": "cf_deterministic_cuda_correctness_v1",
+      "status": "PASSED",
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "optimizer_updates": 0,
+      "device": "cuda",
+      "cf_gradient_replay": "BIT_IDENTICAL",
+      "native_pooling_used_in_cf": false,
+      "resources": {
+        "peak_rss_bytes": 1520762880,
+        "peak_allocated_bytes": 68888576,
+        "peak_reserved_bytes": 69206016,
+        "elapsed_seconds": 0.875,
+        "elapsed_gpu_seconds": 0.875,
+        "gpu_time_definition": "synchronized elapsed device-owned runtime, including probes and evaluation"
+      },
+      "exit_code": 0,
+      "full_tool_owned_wall_seconds": 6.0730095
     }
   ],
   "screen_policy": {
@@ -92,5 +307,6 @@
     "probe_updates_each": 500,
     "SSL_total_probe_updates": 2000,
     "direct_total_supervised_updates": 5000
-  }
+  },
+  "gpu_hours_spent_owned_scientific_jobs": 1.1196349750358454
 }

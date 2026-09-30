@@ -1,0 +1,773 @@
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF.
+================================== FAILURES ===================================
+_______ test_exact_bins_values_and_weighted_gradients[False-1-1-dtype0] _______
+
+dtype = torch.float32, length = 1, output = 1, batched = False
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+_______ test_exact_bins_values_and_weighted_gradients[False-1-1-dtype1] _______
+
+dtype = torch.float64, length = 1, output = 1, batched = False
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+_______ test_exact_bins_values_and_weighted_gradients[False-1-8-dtype0] _______
+
+dtype = torch.float32, length = 1, output = 8, batched = False
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+_______ test_exact_bins_values_and_weighted_gradients[False-1-8-dtype1] _______
+
+dtype = torch.float64, length = 1, output = 8, batched = False
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+_______ test_exact_bins_values_and_weighted_gradients[False-3-8-dtype0] _______
+
+dtype = torch.float32, length = 3, output = 8, batched = False
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+_______ test_exact_bins_values_and_weighted_gradients[False-3-8-dtype1] _______
+
+dtype = torch.float64, length = 3, output = 8, batched = False
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+_______ test_exact_bins_values_and_weighted_gradients[False-5-2-dtype0] _______
+
+dtype = torch.float32, length = 5, output = 2, batched = False
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+_______ test_exact_bins_values_and_weighted_gradients[False-5-2-dtype1] _______
+
+dtype = torch.float64, length = 5, output = 2, batched = False
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+_______ test_exact_bins_values_and_weighted_gradients[False-7-3-dtype0] _______
+
+dtype = torch.float32, length = 7, output = 3, batched = False
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+_______ test_exact_bins_values_and_weighted_gradients[False-7-3-dtype1] _______
+
+dtype = torch.float64, length = 7, output = 3, batched = False
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+_______ test_exact_bins_values_and_weighted_gradients[False-9-8-dtype0] _______
+
+dtype = torch.float32, length = 9, output = 8, batched = False
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+_______ test_exact_bins_values_and_weighted_gradients[False-9-8-dtype1] _______
+
+dtype = torch.float64, length = 9, output = 8, batched = False
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+______ test_exact_bins_values_and_weighted_gradients[False-11-17-dtype0] ______
+
+dtype = torch.float32, length = 11, output = 17, batched = False
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+______ test_exact_bins_values_and_weighted_gradients[False-11-17-dtype1] ______
+
+dtype = torch.float64, length = 11, output = 17, batched = False
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+______ test_exact_bins_values_and_weighted_gradients[False-17-5-dtype0] _______
+
+dtype = torch.float32, length = 17, output = 5, batched = False
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+______ test_exact_bins_values_and_weighted_gradients[False-17-5-dtype1] _______
+
+dtype = torch.float64, length = 17, output = 5, batched = False
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+______ test_exact_bins_values_and_weighted_gradients[False-31-8-dtype0] _______
+
+dtype = torch.float32, length = 31, output = 8, batched = False
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+______ test_exact_bins_values_and_weighted_gradients[False-31-8-dtype1] _______
+
+dtype = torch.float64, length = 31, output = 8, batched = False
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+_______ test_exact_bins_values_and_weighted_gradients[True-1-1-dtype0] ________
+
+dtype = torch.float32, length = 1, output = 1, batched = True
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+_______ test_exact_bins_values_and_weighted_gradients[True-1-1-dtype1] ________
+
+dtype = torch.float64, length = 1, output = 1, batched = True
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+_______ test_exact_bins_values_and_weighted_gradients[True-1-8-dtype0] ________
+
+dtype = torch.float32, length = 1, output = 8, batched = True
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+_______ test_exact_bins_values_and_weighted_gradients[True-1-8-dtype1] ________
+
+dtype = torch.float64, length = 1, output = 8, batched = True
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+_______ test_exact_bins_values_and_weighted_gradients[True-3-8-dtype0] ________
+
+dtype = torch.float32, length = 3, output = 8, batched = True
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+_______ test_exact_bins_values_and_weighted_gradients[True-3-8-dtype1] ________
+
+dtype = torch.float64, length = 3, output = 8, batched = True
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+_______ test_exact_bins_values_and_weighted_gradients[True-5-2-dtype0] ________
+
+dtype = torch.float32, length = 5, output = 2, batched = True
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+_______ test_exact_bins_values_and_weighted_gradients[True-5-2-dtype1] ________
+
+dtype = torch.float64, length = 5, output = 2, batched = True
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+_______ test_exact_bins_values_and_weighted_gradients[True-7-3-dtype0] ________
+
+dtype = torch.float32, length = 7, output = 3, batched = True
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+_______ test_exact_bins_values_and_weighted_gradients[True-7-3-dtype1] ________
+
+dtype = torch.float64, length = 7, output = 3, batched = True
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+_______ test_exact_bins_values_and_weighted_gradients[True-9-8-dtype0] ________
+
+dtype = torch.float32, length = 9, output = 8, batched = True
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+_______ test_exact_bins_values_and_weighted_gradients[True-9-8-dtype1] ________
+
+dtype = torch.float64, length = 9, output = 8, batched = True
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+______ test_exact_bins_values_and_weighted_gradients[True-11-17-dtype0] _______
+
+dtype = torch.float32, length = 11, output = 17, batched = True
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+______ test_exact_bins_values_and_weighted_gradients[True-11-17-dtype1] _______
+
+dtype = torch.float64, length = 11, output = 17, batched = True
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+_______ test_exact_bins_values_and_weighted_gradients[True-17-5-dtype0] _______
+
+dtype = torch.float32, length = 17, output = 5, batched = True
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+_______ test_exact_bins_values_and_weighted_gradients[True-17-5-dtype1] _______
+
+dtype = torch.float64, length = 17, output = 5, batched = True
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+_______ test_exact_bins_values_and_weighted_gradients[True-31-8-dtype0] _______
+
+dtype = torch.float32, length = 31, output = 8, batched = True
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+_______ test_exact_bins_values_and_weighted_gradients[True-31-8-dtype1] _______
+
+dtype = torch.float64, length = 31, output = 8, batched = True
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    @pytest.mark.parametrize("length,output", [(1, 1), (1, 8), (3, 8), (5, 2), (7, 3), (9, 8), (11, 17), (17, 5), (31, 8)])
+    @pytest.mark.parametrize("batched", [False, True])
+    def test_exact_bins_values_and_weighted_gradients(dtype, length, output, batched):
+        generator = torch.Generator().manual_seed(31)
+        shape = (2, 3, length) if batched else (3, length)
+        source = torch.randn(shape, generator=generator, dtype=dtype)
+        a, b = source.clone().requires_grad_(), source.clone().requires_grad_()
+>       actual = model.deterministic_adaptive_avg_pool1d(a, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:44: AttributeError
+______ test_overlapping_upsampling_bins_noncontiguous_input_and_autograd ______
+
+    def test_overlapping_upsampling_bins_noncontiguous_input_and_autograd():
+        base = torch.arange(30, dtype=torch.float64).reshape(2, 5, 3)
+        a = base.transpose(1, 2).detach().requires_grad_()
+        b = a.detach().clone().requires_grad_()
+        # L5/O3 intervals are [0,2), [1,4), [3,5), with overlap.
+>       output = model.deterministic_adaptive_avg_pool1d(a, 3)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:60: AttributeError
+___________ test_invalid_pooling_requests_fail_explicitly[shape0-2] ___________
+
+shape = (2, 3, 0), output = 2
+
+    @pytest.mark.parametrize("shape,output", [((2, 3, 0), 2), ((2, 3), 0), ((2, 3), -1), ((2, 3), True), ((2, 3), 2.5), ((3,), 2)])
+    def test_invalid_pooling_requests_fail_explicitly(shape, output):
+        with pytest.raises(ValueError):
+>           model.deterministic_adaptive_avg_pool1d(torch.zeros(shape), output)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:72: AttributeError
+___________ test_invalid_pooling_requests_fail_explicitly[shape1-0] ___________
+
+shape = (2, 3), output = 0
+
+    @pytest.mark.parametrize("shape,output", [((2, 3, 0), 2), ((2, 3), 0), ((2, 3), -1), ((2, 3), True), ((2, 3), 2.5), ((3,), 2)])
+    def test_invalid_pooling_requests_fail_explicitly(shape, output):
+        with pytest.raises(ValueError):
+>           model.deterministic_adaptive_avg_pool1d(torch.zeros(shape), output)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:72: AttributeError
+__________ test_invalid_pooling_requests_fail_explicitly[shape2--1] ___________
+
+shape = (2, 3), output = -1
+
+    @pytest.mark.parametrize("shape,output", [((2, 3, 0), 2), ((2, 3), 0), ((2, 3), -1), ((2, 3), True), ((2, 3), 2.5), ((3,), 2)])
+    def test_invalid_pooling_requests_fail_explicitly(shape, output):
+        with pytest.raises(ValueError):
+>           model.deterministic_adaptive_avg_pool1d(torch.zeros(shape), output)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:72: AttributeError
+_________ test_invalid_pooling_requests_fail_explicitly[shape3-True] __________
+
+shape = (2, 3), output = True
+
+    @pytest.mark.parametrize("shape,output", [((2, 3, 0), 2), ((2, 3), 0), ((2, 3), -1), ((2, 3), True), ((2, 3), 2.5), ((3,), 2)])
+    def test_invalid_pooling_requests_fail_explicitly(shape, output):
+        with pytest.raises(ValueError):
+>           model.deterministic_adaptive_avg_pool1d(torch.zeros(shape), output)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:72: AttributeError
+__________ test_invalid_pooling_requests_fail_explicitly[shape4-2.5] __________
+
+shape = (2, 3), output = 2.5
+
+    @pytest.mark.parametrize("shape,output", [((2, 3, 0), 2), ((2, 3), 0), ((2, 3), -1), ((2, 3), True), ((2, 3), 2.5), ((3,), 2)])
+    def test_invalid_pooling_requests_fail_explicitly(shape, output):
+        with pytest.raises(ValueError):
+>           model.deterministic_adaptive_avg_pool1d(torch.zeros(shape), output)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:72: AttributeError
+___________ test_invalid_pooling_requests_fail_explicitly[shape5-2] ___________
+
+shape = (3,), output = 2
+
+    @pytest.mark.parametrize("shape,output", [((2, 3, 0), 2), ((2, 3), 0), ((2, 3), -1), ((2, 3), True), ((2, 3), 2.5), ((3,), 2)])
+    def test_invalid_pooling_requests_fail_explicitly(shape, output):
+        with pytest.raises(ValueError):
+>           model.deterministic_adaptive_avg_pool1d(torch.zeros(shape), output)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:72: AttributeError
+_________ test_cf_loss_all_pooling_sites_and_gradient_parity[dtype0] __________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001CA1292D850>
+dtype = torch.float32
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    def test_cf_loss_all_pooling_sites_and_gradient_parity(monkeypatch, dtype):
+        candidate, inputs = toy_model_and_inputs(dtype)
+        reference = copy.deepcopy(candidate)
+>       utility = model.deterministic_adaptive_avg_pool1d
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:92: AttributeError
+_________ test_cf_loss_all_pooling_sites_and_gradient_parity[dtype1] __________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001CA1292D520>
+dtype = torch.float64
+
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    def test_cf_loss_all_pooling_sites_and_gradient_parity(monkeypatch, dtype):
+        candidate, inputs = toy_model_and_inputs(dtype)
+        reference = copy.deepcopy(candidate)
+>       utility = model.deterministic_adaptive_avg_pool1d
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'native_cf_pooling_candidate' has no attribute 'deterministic_adaptive_avg_pool1d'
+
+tests\unit\test_native_cf_pooling.py:92: AttributeError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[False-1-1-dtype0]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[False-1-1-dtype1]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[False-1-8-dtype0]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[False-1-8-dtype1]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[False-3-8-dtype0]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[False-3-8-dtype1]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[False-5-2-dtype0]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[False-5-2-dtype1]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[False-7-3-dtype0]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[False-7-3-dtype1]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[False-9-8-dtype0]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[False-9-8-dtype1]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[False-11-17-dtype0]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[False-11-17-dtype1]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[False-17-5-dtype0]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[False-17-5-dtype1]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[False-31-8-dtype0]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[False-31-8-dtype1]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[True-1-1-dtype0]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[True-1-1-dtype1]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[True-1-8-dtype0]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[True-1-8-dtype1]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[True-3-8-dtype0]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[True-3-8-dtype1]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[True-5-2-dtype0]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[True-5-2-dtype1]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[True-7-3-dtype0]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[True-7-3-dtype1]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[True-9-8-dtype0]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[True-9-8-dtype1]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[True-11-17-dtype0]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[True-11-17-dtype1]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[True-17-5-dtype0]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[True-17-5-dtype1]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[True-31-8-dtype0]
+FAILED tests/unit/test_native_cf_pooling.py::test_exact_bins_values_and_weighted_gradients[True-31-8-dtype1]
+FAILED tests/unit/test_native_cf_pooling.py::test_overlapping_upsampling_bins_noncontiguous_input_and_autograd
+FAILED tests/unit/test_native_cf_pooling.py::test_invalid_pooling_requests_fail_explicitly[shape0-2]
+FAILED tests/unit/test_native_cf_pooling.py::test_invalid_pooling_requests_fail_explicitly[shape1-0]
+FAILED tests/unit/test_native_cf_pooling.py::test_invalid_pooling_requests_fail_explicitly[shape2--1]
+FAILED tests/unit/test_native_cf_pooling.py::test_invalid_pooling_requests_fail_explicitly[shape3-True]
+FAILED tests/unit/test_native_cf_pooling.py::test_invalid_pooling_requests_fail_explicitly[shape4-2.5]
+FAILED tests/unit/test_native_cf_pooling.py::test_invalid_pooling_requests_fail_explicitly[shape5-2]
+FAILED tests/unit/test_native_cf_pooling.py::test_cf_loss_all_pooling_sites_and_gradient_parity[dtype0]
+FAILED tests/unit/test_native_cf_pooling.py::test_cf_loss_all_pooling_sites_and_gradient_parity[dtype1]
+45 failed, 1 passed in 3.17s

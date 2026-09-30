@@ -10,6 +10,8 @@ import sys
 import time
 from pathlib import Path
 
+from native_reference_supervisor import supervise_owned
+
 ROOT = Path(__file__).resolve().parents[1]
 LEDGER = ROOT / "orchestration/native_ssl_run_ledger_v1.json"
 
@@ -26,6 +28,7 @@ def write_ledger(ledger):
 
 
 def main():
+    started = time.monotonic()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, required=True)
     parser.add_argument("--review", type=Path, required=True)
@@ -42,7 +45,7 @@ def main():
     if config["method"] not in review.get("allowed_methods", []):
         raise ValueError("Method is outside prefit approval scope.")
     ledger = json.loads(LEDGER.read_text(encoding="utf-8"))
-    if any(run.get("status") == "RUNNING_CUDA" for run in ledger["runs"]):
+    if any(run.get("status") in ("RUNNING_CUDA", "RUNNING_CPU_FIT") for run in ledger["runs"]):
         raise ValueError("Another journalled CUDA trajectory is active.")
     spent = float(ledger.get("gpu_hours_spent_owned_scientific_jobs", 0))
     remaining_seconds = (float(ledger["gpu_limit_hours"]) - spent) * 3600
@@ -86,13 +89,12 @@ def main():
         "--output",
         str(args.output.resolve()),
         "--device",
-        "cuda",
+        "cuda:0",
     ]
     if args.resume:
         command += ["--resume", str(args.resume.resolve())]
     log = args.output / ("resume-console.log" if args.resume else "console.log")
     with log.open("x", encoding="utf-8") as stream:
-        started = time.monotonic()
         child = subprocess.Popen(command, cwd=ROOT, stdout=stream, stderr=subprocess.STDOUT)
         record["pid"] = child.pid
         record["command"] = command
@@ -103,18 +105,35 @@ def main():
             json.dumps({"status": record["status"], "pid": child.pid, "output": str(args.output)}),
             flush=True,
         )
-        timed_out = False
-        while child.poll() is None:
-            if time.monotonic() - started >= remaining_seconds:
-                child.terminate()  # Only the explicitly owned child, never user applications.
-                timed_out = True
-                break
-            time.sleep(2)
-        exit_code = child.wait()
-        elapsed = time.monotonic() - started
-    record.update(exit_code=exit_code, elapsed_owned_seconds=elapsed, budget_exceeded=timed_out)
+        resources = supervise_owned(
+            child,
+            started=started,
+            deadline_seconds=remaining_seconds,
+            rss_limit_bytes=22 * 2**30,
+        )
+        exit_code = resources["exit_code"]
+        elapsed = resources["elapsed_full_attempt_seconds"]
+        timed_out = resources["stopped_for"] is not None
+    record.update(
+        exit_code=exit_code,
+        elapsed_owned_seconds=elapsed,
+        budget_exceeded=timed_out,
+        resources_full_attempt=resources,
+    )
+    lock = ROOT / "evidence/ssl-builder-v1/gpu-owner.lock"
+    if timed_out and lock.exists():
+        owner = json.loads(lock.read_text(encoding="utf-8"))
+        if (
+            resources["owned_tree_cleanup_verified"]
+            and owner.get("pid") in resources["owned_process_pids"]
+            and owner.get("output") == str(args.output.resolve())
+        ):
+            lock.unlink()
+            record["owned_terminated_tree_lock_cleanup"] = True
+        else:
+            record["unknown_lock_preserved"] = True
     report = args.output / "run.json"
-    if exit_code == 0 and report.exists():
+    if exit_code == 0 and not timed_out and report.exists():
         result = json.loads(report.read_text(encoding="utf-8"))
         if (
             result["status"] != "COMPLETED"

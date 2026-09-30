@@ -1,0 +1,18 @@
+C:\Users\¡lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\.venv\Lib\site-packages\sklearn\utils\validation.py:2830: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+[LightGBM] [Fatal] Model file C:\Users\√Ålvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\outputs\native_acoustic_ssl_v1\lightgbm_seed7_h96\h1_q0.05.txt is not available for writes
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\¡lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\src\marine_echo\training\native_references.py", line 174, in <module>
+    main()
+  File "C:\Users\¡lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\src\marine_echo\training\native_references.py", line 159, in main
+    result = run(
+             ^^^^
+  File "C:\Users\¡lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\src\marine_echo\training\native_references.py", line 112, in run
+    model.booster_.save_model(str(path))
+  File "C:\Users\¡lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\.venv\Lib\site-packages\lightgbm\basic.py", line 4480, in save_model
+    _safe_call(
+  File "C:\Users\¡lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\.venv\Lib\site-packages\lightgbm\basic.py", line 313, in _safe_call
+    raise LightGBMError(_LIB.LGBM_GetLastError().decode("utf-8"))
+lightgbm.basic.LightGBMError: Model file C:\Users\¡lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\outputs\native_acoustic_ssl_v1\lightgbm_seed7_h96\h1_q0.05.txt is not available for writes

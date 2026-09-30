@@ -19,21 +19,41 @@ model has2,457,621 parameters. Parent verification passed34 durable model/runner
 tests and22 data/metric/reference tests; the subsequent operational repair suite
 passed49 checks including native inference and process ownership. Exact first-screen schedules/configs
 are frozen under ADR0016 with four matched checkpoint opportunities and bounded
-readout updates. The distinct model-prefit review is running; scientific fitting
-and numerical model scoring are NOT_RUN until approval. A fixed Windows desktop
+readout updates. The distinct model-prefit review approved the six bound screens
+and deterministic references; all73 exact bindings passed. A fixed Windows desktop
 allowlist repairs the WDDM guard; strict baseline scoring now rejects nonfinite
-outputs instead of reducing assessment support. These changes require renewed
-exact prefit bindings. A bounded builder is implementing separately accounted
-strong frozen readouts and supervised fine-tuning. Actual primary, builder
+outputs instead of reducing assessment support. These renewed bindings are now
+approved. The first CUDA attempt exited1 before optimizer updates because its
+device needed an explicit index. The preserved retry uses unchanged approved
+code/configuration with `cuda:0`. This real job completed exit0:6000 SSL updates
+and2000 total frozen-probe updates. Final selected encoder step4500, daily
+development pinball0.8246468454704822, peak reserved0.2305GiB and RSS4.821GiB,
+synchronized device-owned elapsed3371.063seconds. Real pretrained weights,
+resumable checkpoints and reusable inference exist. Controls and strong readouts
+are needed before any JEPA-value claim. Completed
+deterministic development references: persistence0.989176 and seasonal24
+1.031738dB pinball. These are development values, not final-test results.
+The bounded downstream builder delivered37 CPU checks; coordinator reproduced
+and repaired4 contract issues, then passed41 durable CPU checks. The downstream
+CLI device index fix separately passed its focused check. Strong downstream
+fitting remains NOT_RUN. CF first backward failed before optimizer updates on
+deterministic CUDA adaptive pooling. LightGBM failed saving its first booster
+under the Unicode checkout. Both failures are preserved. The supervisor's former
+launcher-only RAM observation missed the Windows interpreter child; a real tree
+test reproduced the defect and four checks now pass with descendant monitoring
+and owned-tree termination. A bounded platform builder is preparing mathematically
+equivalent pooling and Python UTF-8 booster serialization. Renewed independent
+review is required before scientific retries. Actual primary, builder
 and reviewer runtime is GPT-6.1 Sol/high in three distinct sessions. Builder
 scratch/Git denials are retained; no restricted path or denied junction action
 was bypassed. Coordinator integration used new paths in its own checkout.
 
-Next: execute the first approved shared SSL CUDA trajectory, then matched real
+Next: review platform repairs and execute CF-JEPA and matched real
 comparisons, stronger frozen readouts, held-out transfer and scientific package.
 This is an active research programme, not another app or meeting deliverable.
 Ledger: `orchestration/native_ssl_run_ledger_v1.json`; evidence:
-`evidence/ssl-research-v1/`. No new trained model, result or SOTA claim yet.
+`evidence/ssl-research-v1/`. Real SSL checkpoints exist; a completed comparative
+model package, held-out result and SOTA claim remain unestablished.
 
 All historical status content follows intact.
 
