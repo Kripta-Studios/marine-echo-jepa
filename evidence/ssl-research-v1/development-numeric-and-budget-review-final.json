@@ -1,0 +1,284 @@
+{
+  "reviewer_session_id": "01a0ef27-876b-7692-917e-3975afc6893d",
+  "implementer_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "builder_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "coordinator_session_id": "01a0ef1a-b166-7f83-91b7-2a2aff7c1b10",
+  "runtime_verified": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "sandbox_mode": "read-only",
+    "distinct_session_identity_source": "Actual node_repl request metadata"
+  },
+  "numeric_reconstruction": {
+    "status": "VERIFIED_SAVED_DEVELOPMENT_RECONSTRUCTION",
+    "allowed_roles": ["development"],
+    "evidence_kind": "REVIEWED_SAVED_PREDICTIONS",
+    "binding_verification": {
+      "approval_path": "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/evidence/ssl-research-v1/development-reconstruction-review-final.json",
+      "approval_sha256": "386340c3f9a8118d7a7f3f007a8ad93eea75662cecc40916202b2f2dde4c331d",
+      "required_bindings": 58,
+      "independently_verified_before_prediction_decoding": 58,
+      "mismatches": [],
+      "binding_map_sha256": "c5bf797fc84c2cdb57d3809918405587564e31f7bc09150baa4d4676c0168e98",
+      "binding_map_canonicalization": "UTF8 JSON.stringify of the original absolute-path-to-SHA256 mapping sorted by path",
+      "inheritance": "All 58 exact bindings remain recorded in the hash-bound immutable approval; none were replaced.",
+      "post_reconstruction_check": "Approval, output, manifest and all eight prediction artifact hashes remained unchanged."
+    },
+    "numeric_method": {
+      "implementation": "Independent in-memory Python/NumPy calculations; no import or invocation of native_comparison or native_product",
+      "python_version": "3.12.13",
+      "numpy_version": "2.5.3",
+      "artifact_loading": "Explicit eight manifest paths only, numpy.load with allow_pickle=False",
+      "arithmetic": "Float64 target-minus-forecast residuals; max(q*residual,(q-1)*residual), averaged over five quantiles",
+      "quantiles": [0.05, 0.25, 0.5, 0.75, 0.95],
+      "aggregation": "Observed rows within each eligible target source date; equal eligible-date weighting within horizon; equal horizon weighting within deployment; equal deployment weighting",
+      "minimum_observed_rows_per_date_horizon": 18,
+      "torch_imported": false,
+      "corpus_loading_or_inference": false
+    },
+    "common_support": {
+      "issued_rows_per_method": 7593,
+      "unique_row_ids_per_method": 7593,
+      "deployments": ["AEON4_JOB:61937266"],
+      "horizons_source_intervals": [1, 3, 6],
+      "observed_target_rows_per_horizon": [7581, 7557, 7521],
+      "rows_contributing_after_daily_floor_per_horizon": [7572, 7548, 7512],
+      "eligible_dates_per_horizon": [316, 316, 316],
+      "daily_records_per_method": 948,
+      "daily_records_independently_compared": 7584,
+      "nonempty_target_source_date_range": ["2022-12-16", "2023-12-16"],
+      "native_query": {
+        "frequency_hz": 38000,
+        "nominal_interval_seconds": 3600,
+        "geometry": "Integrated native 0–225 m",
+        "verified_UTC": false
+      },
+      "verified_equal_across_all_eight_methods": [
+        "Exact unique row sets and canonical deployment/row ordering",
+        "Deployment identities",
+        "Target source dates",
+        "Canonical target-observation masks",
+        "Every observed target value",
+        "Every encoded query"
+      ],
+      "prediction_checks": [
+        "Every forecast finite, including forecasts with unobserved targets",
+        "Every observed target finite",
+        "All five quantiles ordered",
+        "No intersection, finite-value filtering or target filling",
+        "No geometry relabelling or dB rescaling"
+      ]
+    },
+    "independently_reconstructed_metrics_db": {
+      "shared_short_probe": {
+        "primary": 0.8246468454704822,
+        "horizons": [0.8030128647064729, 0.8172910151228696, 0.853636656582104],
+        "endpoint": "Historical short selection probe"
+      },
+      "cf_short_probe": {
+        "primary": 0.745726589903934,
+        "horizons": [0.7464925133178179, 0.7431337579206361, 0.7475534984733485],
+        "endpoint": "Historical short selection probe"
+      },
+      "shared_frozen_readout": {
+        "primary": 0.7857153104554978,
+        "horizons": [0.770542520659273, 0.7819556627767931, 0.8046477479304275],
+        "endpoint": "Strong frozen readout"
+      },
+      "shared_full_finetune": {
+        "primary": 0.7725943368134387,
+        "horizons": [0.7384341127875529, 0.7748189541832232, 0.8045299434695399],
+        "endpoint": "Strong full fine-tuning"
+      },
+      "direct_end_to_end": {
+        "primary": 0.76518519610008,
+        "horizons": [0.7391457424752539, 0.7679996490377917, 0.7884101967871944],
+        "endpoint": "Fresh supervised end-to-end"
+      },
+      "lightgbm": {
+        "primary": 0.5052735500936681,
+        "horizons": [0.455477379574593, 0.5179512223748176, 0.5423920483315936],
+        "endpoint": "Fixed 15-booster recipe"
+      },
+      "persistence": {
+        "primary": 0.9891759561557131,
+        "horizons": [0.7976108060541819, 1.0106497648036787, 1.1592672976092784]
+      },
+      "seasonal24": {
+        "primary": 1.031738466565871,
+        "horizons": [1.0317330841098744, 1.031826459765075, 1.0316558558226638]
+      }
+    },
+    "reconstruction_errors_db": {
+      "maximum_primary_error_against_comparison_output": 0,
+      "maximum_daily_loss_error_against_comparison_output": 0,
+      "maximum_primary_error_against_completed_source_reports": 0,
+      "maximum_bootstrap_interval_endpoint_error": 1.1102230246251565e-16
+    },
+    "bootstrap": {
+      "verification": "Independently recomputed from artifact-derived daily losses",
+      "seed": 20260929,
+      "replicates_requested": 2000,
+      "replicates_generated": 2000,
+      "replicates_supported": 2000,
+      "replicates_unsupported": 0,
+      "status": "ASSESSABLE",
+      "nominal_block_hours": 48,
+      "block_source_calendar_days": 2,
+      "deployment_count": 1,
+      "independent_site_count": null,
+      "anchor_source_date": "2022-12-16",
+      "observed_source_dates": 318,
+      "observed_calendar_blocks": 165,
+      "calendar_block_id_range": [0, 182],
+      "unsampled_empty_calendar_block_ids": [8, 9, 24, 38, 53, 54, 68, 69, 84, 99, 114, 115, 130, 145, 160, 161, 175, 176],
+      "eligible_day_count_ranges_per_horizon": [[299, 328], [299, 328], [299, 328]],
+      "sequence_sha256": "f40aa16237c3842ed32053289479ad4a5101bec33919e639d59b42c649283026",
+      "sequence_matches_output": true,
+      "block_ids_and_per_block_horizon_day_counts_match_output": true,
+      "pairing": "The same deployment/block draw is applied jointly to every method and horizon; repeated blocks retain multiplicity.",
+      "percentile_method": "Linear 2.5th and 97.5th percentiles",
+      "difference_direction": "Method minus LightGBM",
+      "independently_recomputed_ci95_db": {
+        "cf_short_probe": [0.20855484829418736, 0.279103629370476],
+        "direct_end_to_end": [0.23131253858438156, 0.2922709959777744],
+        "persistence": [0.46248703733068325, 0.504157662991101],
+        "seasonal24": [0.4996342010762067, 0.5543650601625814],
+        "shared_frozen_readout": [0.25652631742068627, 0.30447878329190725],
+        "shared_full_finetune": [0.2387174495695162, 0.2992089163113082],
+        "shared_short_probe": [0.2973928397849839, 0.3422314715387635]
+      }
+    },
+    "findings": [
+      {
+        "severity": "information",
+        "finding": "The eight saved-artifact point metrics, eligible daily records, common support and paired bootstrap are independently reproduced."
+      },
+      {
+        "severity": "coverage_label_caveat",
+        "finding": "The existing scored_per_horizon field reports all observed targets. Nine observed rows per horizon occur in dates below the floor and do not contribute to the primary aggregate. The effective contributing counts are 7572/7548/7512; this distinction does not change any reconstructed score or interval."
+      },
+      {
+        "severity": "information",
+        "finding": "All eight forecast arrays vary across issuances. Every reported quantile range was independently reproduced; constant_across_issuance is false for each method."
+      }
+    ],
+    "executed_checks": [
+      {
+        "executor": "Reviewer Node read-only filesystem inspection",
+        "check": "Hash every immutable approval binding before prediction decoding",
+        "result": "58/58 matched; zero failed reads or mismatches"
+      },
+      {
+        "executor": "cmd.exe; existing .venv/Scripts/python.exe -B",
+        "check": "Initial independent metric/support calculation",
+        "command_sha256": "6248caccaacc633404a36171cafdd770a71463525e536d67bb0eb75672f4fe73",
+        "source_sha256": "0ac82387bbfdf81614093b608ba434f49287e4b1c20ad66ec40af2b2ce5c1b27",
+        "exit_code": 1,
+        "result": "Final summary formatting failed because NumPy minimum does not support the Unicode date dtype. No permission denial occurred."
+      },
+      {
+        "executor": "cmd.exe; existing .venv/Scripts/python.exe -B",
+        "check": "Corrected independent metric/support calculation with Python string date extrema and explicit common query/observed-target comparison",
+        "command_sha256": "e43470feed5b04e836a3c2c367e5fccf49a8bae0d3d5f6bbf1e7e9a4a5f6f576",
+        "source_sha256": "2a981df6e26ebd8faabaf4443cde4ee703410985f2285dec6b75942662f3650d",
+        "exit_code": 0,
+        "result": "All support assertions passed; all eight primary and 7584 daily losses exactly matched."
+      },
+      {
+        "executor": "cmd.exe; existing .venv/Scripts/python.exe -B",
+        "check": "Independent paired calendar-block bootstrap",
+        "command_sha256": "21b261fd5ae648e1a4e41cdd7b72d23c16c401c78b9f6a0d422ee37ae2c00182",
+        "source_sha256": "3bdf514612ad8d630fb1f025faaf6f3c00a6a010ee5867d22a69928318a8e013",
+        "exit_code": 0,
+        "result": "Exact draw-sequence hash, block identities, support counts and supported-draw count; interval errors at most 1.11e-16 dB."
+      },
+      {
+        "executor": "cmd.exe; existing .venv/Scripts/python.exe -B",
+        "check": "Quantile/horizon declarations, effective floor support, forecast variation and completed source metric agreement",
+        "command_sha256": "ea61b35582dd208c358af19e085e350da2d6c8190e07d095d4fb979031a9b9f2",
+        "source_sha256": "4118aab26bf783ba027c4d62a235ea6889ab090d7018cd9bf0aafdec8a20d411",
+        "exit_code": 0,
+        "result": "Assertions passed for all eight artifacts."
+      }
+    ],
+    "inspected_parent_evidence": {
+      "completed_source_reports": "All eight bound run/result JSON files were inspected and their reported primary scores matched exactly.",
+      "root_reconstruction_output": "The completed comparison JSON was inspected and independently reproduced.",
+      "root_execution_exit": "Exit0 was supplied by the coordinator. The inspected development-comparison-execution-v1.log is empty and independently supplies no exit-status evidence.",
+      "synthetic_suite": "Previously reviewed 82-check evidence retained; not rerun.",
+      "blocked_checks_this_review": []
+    },
+    "bindings": {
+      "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/evidence/ssl-research-v1/development-reconstruction-review-final.json": "386340c3f9a8118d7a7f3f007a8ad93eea75662cecc40916202b2f2dde4c331d",
+      "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/evidence/ssl-research-v1/development-comparison-result-v1.json": "32683c0df55a71cf183bcb90a2619a2a0784241f94d00dae606156e513b29eeb",
+      "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/evidence/ssl-research-v1/development-comparison-execution-v1.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/orchestration/native_development_comparison_v1.json": "cfc737ccede4d9d6fb65817b427d207b8127378440856a8c7fd60a1ec2b8f605",
+      "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/src/marine_echo/evaluation/native_comparison.py": "51c5374e188bd3c7f2b00d5f1b5887f33b456c291cb0290e8b8e020ff28df020",
+      "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/src/marine_echo/evaluation/native_product.py": "fd1c643fde93494a21d560794f886056e58031f1ef6dd41ebe53662750bab314",
+      "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/tests/unit/test_native_comparison.py": "b81927eb163364dfd89472eb95ccb4550d03eb9d0917f6179eafabf32ebec4e8",
+      "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/shared_ssl_seed7_h96_cuda0/predictions.npz": "5d203587d07da9009c4539fda509ee3ce315b715b5a7f3b8beb501a0bebcf2fd",
+      "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/cf_jepa_seed7_h96_deterministic/predictions.npz": "8023943165bc9ddd798a510d07eee72b85ba7d10a64b028b0dcdd69b8b82475d",
+      "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/shared_ssl_frozen_readout_seed7_h96/predictions.npz": "7259f4b0e0c0f7e09ccb4de7afc397dae90595ef5edc0a0b259b81de525a58f1",
+      "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/shared_ssl_full_finetune_seed7_h96/predictions.npz": "508695a681e7155f3c2e1bbba23486ddb741feb3f8206a15f025e454264e83da",
+      "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/direct_direct_end_to_end_seed7_h96/predictions.npz": "0bd5fa9e617dac6d5a90e1cc66d9e59beb8ed9342cb9745f292f4dda83eb882e",
+      "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/lightgbm_seed7_h96_text/predictions.npz": "da01b65ffc5baba0b6e41170c44a9a21910d3216b86070bc84b8e0080044a016",
+      "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/persistence_h96/predictions.npz": "3ad9c7cbc42317cdc8e71d35ad691913d704e97cf88acf320abcce1d8d98d3d4",
+      "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/seasonal24_h96/predictions.npz": "0b9eff8fc5c8cb79d3cf8f8f15e4eb616e427c0a4f24656e134c89b887377ab9"
+    },
+    "interpretation_limits": [
+      "Intervals are conditional on this single development deployment, saved issued rows and already selected artifacts.",
+      "Bootstrap reconstruction does not repeat development-based model/checkpoint selection or account for its selection optimism.",
+      "Nominal source-calendar blocks do not establish absolute-time or UTC correctness.",
+      "Dependence beyond the declared blocks remains an assumption; hourly rows are not independent deployments or sites.",
+      "Short probes, strong frozen endpoints, fine-tuning and supervised recipes have different budgets and remain separately labelled.",
+      "Clock, calibration and absolute censoring uncertainty remains unresolved.",
+      "No unbound control prediction arrays, numerical corpora or final-test values were opened.",
+      "Correct reconstruction does not establish representation quality, JEPA value, held-out competitiveness or SOTA."
+    ]
+  },
+  "budget_review": {
+    "status": "OWNER_CLARIFICATION_REQUIRED",
+    "scope": "ADR0020 budget interpretation only",
+    "proposal_counts": {
+      "original_seed7_encoder_screen_recipes": 6,
+      "additional_proposed_seed7_encoder_screen_recipes": 5,
+      "total_seed7_encoder_screen_recipes": 11,
+      "main_AB_configurations": 3,
+      "matched_control_recipes": 8,
+      "potential_AB_variants_frozen_unused": 5,
+      "additional_proposed_strong_endpoints": 8,
+      "hypothesis_revisions": 1,
+      "additional_GPU_hour_ceiling": 12,
+      "aggregate_programme_GPU_hour_ceiling": 96
+    },
+    "reason": "The owner mission limits seed7 candidate/configuration screens to eight total across the two main SSL routes. ADR0015 retains an eight-screen limit. ADR0020 explicitly proposes eleven encoder-screen recipes and acknowledges that it exceeds an eight-total-recipes interpretation. Counting only three A/B configurations and freezing five variants does not independently establish authorization to exclude eight control recipes from the screen ceiling.",
+    "owner_clarification_needed": "Clarify whether the eight-screen ceiling includes every seed7 encoder-screen recipe, including masked/permuted/direct/random controls, or permits separately enumerated controls beyond eight main A/B configurations. Eleven recipes require explicit authorization under the inclusive interpretation.",
+    "resource_and_selection_assessment": {
+      "one_hypothesis_cap": "The proposal explicitly retains one revision.",
+      "selection_opportunities": "Four encoder checkpoint opportunities for SSL/direct screens and four scheduled strong-endpoint opportunities are declared. Short-probe head evaluations must remain separately accounted; four encoder opportunities do not mean only four total score evaluations.",
+      "controls": "All proposed controls and their downstream endpoints must count toward compute and selection accounting.",
+      "additional_time_reservation": "A twelve-hour ceiling does not resolve the recipe-count ambiguity or prove execution feasibility. Any eventual reservation must fit the then-current remaining96h allowance and include full-owned startup, failures, retries and resumes.",
+      "ledger_observation": {
+        "path": "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/orchestration/native_ssl_run_ledger_v1.json",
+        "snapshot_sha256": "754933d7fec881e8a1b919f5e76b9eb5b97f4520d611ee556c2b8f4dc333640f",
+        "recorded_closed_owned_scientific_GPU_hours": 4.247825252813624,
+        "active_scientific_job_recorded": true,
+        "qualification": "Read-only observation of a mutable ledger, not certification of remaining time or a reservation. The active attempt and subsequent queue costs must be reconciled before any new allocation."
+      }
+    },
+    "bindings": {
+      "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/docs/adr/0020-native-band-conditioning-revision.md": "c8ae13d6a6e52fa128351fbc6718a92f603bd2677ffeaafe9007b855133bcc92",
+      "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/CODEX_SSL_RESEARCH_MISSION.md": "5bf3fbca35ebe2f803f6c61aff965ae3059e3f3142a85809ecde9bead1c130bd",
+      "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/docs/adr/0015-native-acoustic-ssl-research.md": "82deb36e88df2a6660a2389a653d077a186e5072fbb4ede11d9fbc06c9816148"
+    },
+    "authorization": {
+      "new_fits_authorized": false,
+      "band_source_or_prefit_approved": false,
+      "numerical_model_selection_approved": false,
+      "existing_approved_serial_queue_changed": false,
+      "later_requirements": "Even after an explicit budget resolution, exact source, durable tests, data/scaler/ancestor contracts, executor accounting and distinct prefit review remain required."
+    }
+  },
+  "overall_scope": "Read-only reconstruction and budget review only. Historical evidence and approvals remain unchanged. No new fitting, recipes, final-test access, cloud/payment/install/credential/permission/junction actions, foreign-process termination, package/app/release or scientific comparative/SOTA claims are authorized."
+}

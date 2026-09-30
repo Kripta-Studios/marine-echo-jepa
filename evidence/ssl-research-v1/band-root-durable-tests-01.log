@@ -1,0 +1,620 @@
+..............................................................FFF....... [ 86%]
+........FFF                                                              [100%]
+================================== FAILURES ===================================
+______ test_root_only_full_safe_resume_and_inference_replay[shared_ssl] _______
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000021C2A89DCA0>
+method = 'shared_ssl'
+
+    @pytest.mark.skipif(
+        not ROOT_RUNNER_CHECKS,
+        reason="NOT_RUN builder: prior optimizer cache denial; ROOT-only synthetic CPU fixture",
+    )
+    @pytest.mark.parametrize("method", ["shared_ssl", "masked_ssl", "permuted_ssl"])
+    def test_root_only_full_safe_resume_and_inference_replay(monkeypatch, method):
+        from marine_echo.inference.native_band_acoustic import NativeBandAcousticPredictor
+    
+        fs, p, cfg, _, _, _, _, _, dev = gate_fixture(monkeypatch, method=method)
+        # Transport only the NEW module's checkpoints with actual Torch codecs.
+        # No legacy factory or fitter is patched; original optimizer/schedule execute.
+        monkeypatch.setattr(band, "atomic_checkpoint", fs.checkpoint)
+    
+        def run(output, resume=None, stop_after=None):
+            return band.run(
+                p["train"],
+                p["dev"],
+                p["split"],
+                p["protocol"],
+                p["config"],
+                p["review"],
+                output=output,
+                config=cfg,
+                device="cpu",
+                correctness_smoke=True,
+                resume=resume,
+                stop_after=stop_after,
+            )
+    
+        first, continued = fs.base / "whole", fs.base / "continued"
+>       run(first)
+
+tests\integration\test_native_band_ssl.py:231: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\integration\test_native_band_ssl.py:215: in run
+    return band.run(
+src\marine_echo\training\native_band_ssl.py:1177: in run
+    np.savez_compressed(
+.venv\Lib\site-packages\numpy\lib\_npyio_impl.py:753: in savez_compressed
+    _savez(file, args, kwds, True, allow_pickle=allow_pickle)
+.venv\Lib\site-packages\numpy\lib\_npyio_impl.py:779: in _savez
+    zipf = zipfile_factory(file, mode="w", compression=compression)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\numpy\lib\_npyio_impl.py:112: in zipfile_factory
+    return zipfile.ZipFile(file, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <zipfile.ZipFile [closed]>
+file = 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-band-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL\\whole\\predictions.npz'
+mode = 'w', compression = 8, allowZip64 = True, compresslevel = None
+strict_timestamps = True, metadata_encoding = None
+
+    def __init__(self, file, mode="r", compression=ZIP_STORED, allowZip64=True,
+                 compresslevel=None, *, strict_timestamps=True, metadata_encoding=None):
+        """Open the ZIP file with mode read 'r', write 'w', exclusive create 'x',
+        or append 'a'."""
+        if mode not in ('r', 'w', 'x', 'a'):
+            raise ValueError("ZipFile requires mode 'r', 'w', 'x', or 'a'")
+    
+        _check_compression(compression)
+    
+        self._allowZip64 = allowZip64
+        self._didModify = False
+        self.debug = 0  # Level of printing: 0 through 3
+        self.NameToInfo = {}    # Find file info given name
+        self.filelist = []      # List of ZipInfo instances for archive
+        self.compression = compression  # Method of compression
+        self.compresslevel = compresslevel
+        self.mode = mode
+        self.pwd = None
+        self._comment = b''
+        self._strict_timestamps = strict_timestamps
+        self.metadata_encoding = metadata_encoding
+    
+        # Check that we don't try to write with nonconforming codecs
+        if self.metadata_encoding and mode != 'r':
+            raise ValueError(
+                "metadata_encoding is only supported for reading files")
+    
+        # Check if we were passed a file-like object
+        if isinstance(file, os.PathLike):
+            file = os.fspath(file)
+        if isinstance(file, str):
+            # No, it's a filename
+            self._filePassed = 0
+            self.filename = file
+            modeDict = {'r' : 'rb', 'w': 'w+b', 'x': 'x+b', 'a' : 'r+b',
+                        'r+b': 'w+b', 'w+b': 'wb', 'x+b': 'xb'}
+            filemode = modeDict[mode]
+            while True:
+                try:
+>                   self.fp = io.open(file, filemode)
+                              ^^^^^^^^^^^^^^^^^^^^^^^
+E                   FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-band-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL\\whole\\predictions.npz'
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\zipfile\__init__.py:1352: FileNotFoundError
+______ test_root_only_full_safe_resume_and_inference_replay[masked_ssl] _______
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000021C2A89EFF0>
+method = 'masked_ssl'
+
+    @pytest.mark.skipif(
+        not ROOT_RUNNER_CHECKS,
+        reason="NOT_RUN builder: prior optimizer cache denial; ROOT-only synthetic CPU fixture",
+    )
+    @pytest.mark.parametrize("method", ["shared_ssl", "masked_ssl", "permuted_ssl"])
+    def test_root_only_full_safe_resume_and_inference_replay(monkeypatch, method):
+        from marine_echo.inference.native_band_acoustic import NativeBandAcousticPredictor
+    
+        fs, p, cfg, _, _, _, _, _, dev = gate_fixture(monkeypatch, method=method)
+        # Transport only the NEW module's checkpoints with actual Torch codecs.
+        # No legacy factory or fitter is patched; original optimizer/schedule execute.
+        monkeypatch.setattr(band, "atomic_checkpoint", fs.checkpoint)
+    
+        def run(output, resume=None, stop_after=None):
+            return band.run(
+                p["train"],
+                p["dev"],
+                p["split"],
+                p["protocol"],
+                p["config"],
+                p["review"],
+                output=output,
+                config=cfg,
+                device="cpu",
+                correctness_smoke=True,
+                resume=resume,
+                stop_after=stop_after,
+            )
+    
+        first, continued = fs.base / "whole", fs.base / "continued"
+>       run(first)
+
+tests\integration\test_native_band_ssl.py:231: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\integration\test_native_band_ssl.py:215: in run
+    return band.run(
+src\marine_echo\training\native_band_ssl.py:1177: in run
+    np.savez_compressed(
+.venv\Lib\site-packages\numpy\lib\_npyio_impl.py:753: in savez_compressed
+    _savez(file, args, kwds, True, allow_pickle=allow_pickle)
+.venv\Lib\site-packages\numpy\lib\_npyio_impl.py:779: in _savez
+    zipf = zipfile_factory(file, mode="w", compression=compression)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\numpy\lib\_npyio_impl.py:112: in zipfile_factory
+    return zipfile.ZipFile(file, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <zipfile.ZipFile [closed]>
+file = 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-band-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL\\whole\\predictions.npz'
+mode = 'w', compression = 8, allowZip64 = True, compresslevel = None
+strict_timestamps = True, metadata_encoding = None
+
+    def __init__(self, file, mode="r", compression=ZIP_STORED, allowZip64=True,
+                 compresslevel=None, *, strict_timestamps=True, metadata_encoding=None):
+        """Open the ZIP file with mode read 'r', write 'w', exclusive create 'x',
+        or append 'a'."""
+        if mode not in ('r', 'w', 'x', 'a'):
+            raise ValueError("ZipFile requires mode 'r', 'w', 'x', or 'a'")
+    
+        _check_compression(compression)
+    
+        self._allowZip64 = allowZip64
+        self._didModify = False
+        self.debug = 0  # Level of printing: 0 through 3
+        self.NameToInfo = {}    # Find file info given name
+        self.filelist = []      # List of ZipInfo instances for archive
+        self.compression = compression  # Method of compression
+        self.compresslevel = compresslevel
+        self.mode = mode
+        self.pwd = None
+        self._comment = b''
+        self._strict_timestamps = strict_timestamps
+        self.metadata_encoding = metadata_encoding
+    
+        # Check that we don't try to write with nonconforming codecs
+        if self.metadata_encoding and mode != 'r':
+            raise ValueError(
+                "metadata_encoding is only supported for reading files")
+    
+        # Check if we were passed a file-like object
+        if isinstance(file, os.PathLike):
+            file = os.fspath(file)
+        if isinstance(file, str):
+            # No, it's a filename
+            self._filePassed = 0
+            self.filename = file
+            modeDict = {'r' : 'rb', 'w': 'w+b', 'x': 'x+b', 'a' : 'r+b',
+                        'r+b': 'w+b', 'w+b': 'wb', 'x+b': 'xb'}
+            filemode = modeDict[mode]
+            while True:
+                try:
+>                   self.fp = io.open(file, filemode)
+                              ^^^^^^^^^^^^^^^^^^^^^^^
+E                   FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-band-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL\\whole\\predictions.npz'
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\zipfile\__init__.py:1352: FileNotFoundError
+_____ test_root_only_full_safe_resume_and_inference_replay[permuted_ssl] ______
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000021C2A89F2F0>
+method = 'permuted_ssl'
+
+    @pytest.mark.skipif(
+        not ROOT_RUNNER_CHECKS,
+        reason="NOT_RUN builder: prior optimizer cache denial; ROOT-only synthetic CPU fixture",
+    )
+    @pytest.mark.parametrize("method", ["shared_ssl", "masked_ssl", "permuted_ssl"])
+    def test_root_only_full_safe_resume_and_inference_replay(monkeypatch, method):
+        from marine_echo.inference.native_band_acoustic import NativeBandAcousticPredictor
+    
+        fs, p, cfg, _, _, _, _, _, dev = gate_fixture(monkeypatch, method=method)
+        # Transport only the NEW module's checkpoints with actual Torch codecs.
+        # No legacy factory or fitter is patched; original optimizer/schedule execute.
+        monkeypatch.setattr(band, "atomic_checkpoint", fs.checkpoint)
+    
+        def run(output, resume=None, stop_after=None):
+            return band.run(
+                p["train"],
+                p["dev"],
+                p["split"],
+                p["protocol"],
+                p["config"],
+                p["review"],
+                output=output,
+                config=cfg,
+                device="cpu",
+                correctness_smoke=True,
+                resume=resume,
+                stop_after=stop_after,
+            )
+    
+        first, continued = fs.base / "whole", fs.base / "continued"
+>       run(first)
+
+tests\integration\test_native_band_ssl.py:231: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\integration\test_native_band_ssl.py:215: in run
+    return band.run(
+src\marine_echo\training\native_band_ssl.py:1177: in run
+    np.savez_compressed(
+.venv\Lib\site-packages\numpy\lib\_npyio_impl.py:753: in savez_compressed
+    _savez(file, args, kwds, True, allow_pickle=allow_pickle)
+.venv\Lib\site-packages\numpy\lib\_npyio_impl.py:779: in _savez
+    zipf = zipfile_factory(file, mode="w", compression=compression)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\numpy\lib\_npyio_impl.py:112: in zipfile_factory
+    return zipfile.ZipFile(file, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <zipfile.ZipFile [closed]>
+file = 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-band-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL\\whole\\predictions.npz'
+mode = 'w', compression = 8, allowZip64 = True, compresslevel = None
+strict_timestamps = True, metadata_encoding = None
+
+    def __init__(self, file, mode="r", compression=ZIP_STORED, allowZip64=True,
+                 compresslevel=None, *, strict_timestamps=True, metadata_encoding=None):
+        """Open the ZIP file with mode read 'r', write 'w', exclusive create 'x',
+        or append 'a'."""
+        if mode not in ('r', 'w', 'x', 'a'):
+            raise ValueError("ZipFile requires mode 'r', 'w', 'x', or 'a'")
+    
+        _check_compression(compression)
+    
+        self._allowZip64 = allowZip64
+        self._didModify = False
+        self.debug = 0  # Level of printing: 0 through 3
+        self.NameToInfo = {}    # Find file info given name
+        self.filelist = []      # List of ZipInfo instances for archive
+        self.compression = compression  # Method of compression
+        self.compresslevel = compresslevel
+        self.mode = mode
+        self.pwd = None
+        self._comment = b''
+        self._strict_timestamps = strict_timestamps
+        self.metadata_encoding = metadata_encoding
+    
+        # Check that we don't try to write with nonconforming codecs
+        if self.metadata_encoding and mode != 'r':
+            raise ValueError(
+                "metadata_encoding is only supported for reading files")
+    
+        # Check if we were passed a file-like object
+        if isinstance(file, os.PathLike):
+            file = os.fspath(file)
+        if isinstance(file, str):
+            # No, it's a filename
+            self._filePassed = 0
+            self.filename = file
+            modeDict = {'r' : 'rb', 'w': 'w+b', 'x': 'x+b', 'a' : 'r+b',
+                        'r+b': 'w+b', 'w+b': 'wb', 'x+b': 'xb'}
+            filemode = modeDict[mode]
+            while True:
+                try:
+>                   self.fp = io.open(file, filemode)
+                              ^^^^^^^^^^^^^^^^^^^^^^^
+E                   FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-band-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL\\whole\\predictions.npz'
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\zipfile\__init__.py:1352: FileNotFoundError
+_ test_root_only_resume_weights_changes_frozen_identity_counts_and_forecast[frozen_readout] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000021C2DC85430>
+mode = 'frozen_readout'
+
+    @pytest.mark.skipif(
+        not ROOT_RUNNER_CHECKS,
+        reason="NOT_RUN builder: prior optimizer cache denial; ROOT-only synthetic CPU fixture",
+    )
+    @pytest.mark.parametrize("mode", downstream.MODES)
+    def test_root_only_resume_weights_changes_frozen_identity_counts_and_forecast(monkeypatch, mode):
+        method = "direct" if mode == "direct_end_to_end" else "shared_ssl"
+        fs, _p, cfg, _, inputs, dcfg, _, _train, dev = gate_fixture(
+            monkeypatch, mode=mode, method=method
+        )
+        monkeypatch.setattr(core, "atomic_checkpoint", fs.checkpoint)
+        original = core.cpu_state(
+            downstream.prepare_model(dcfg, cfg, downstream._load_ancestor(inputs, cfg)).encoder
+        )
+    
+        def run(output, resume=None, stop_after=None):
+            return downstream.run(
+                inputs,
+                dcfg,
+                output=output,
+                device="cpu",
+                correctness_smoke=True,
+                smoke_core_config=cfg,
+                resume=resume,
+                stop_after=stop_after,
+            )
+    
+        whole, resumed = fs.base / "whole-downstream", fs.base / "resumed-downstream"
+>       report = run(whole)
+                 ^^^^^^^^^^
+
+tests\integration\test_native_band_downstream.py:168: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\integration\test_native_band_downstream.py:156: in run
+    return downstream.run(
+src\marine_echo\training\native_band_downstream.py:861: in run
+    np.savez_compressed(
+.venv\Lib\site-packages\numpy\lib\_npyio_impl.py:753: in savez_compressed
+    _savez(file, args, kwds, True, allow_pickle=allow_pickle)
+.venv\Lib\site-packages\numpy\lib\_npyio_impl.py:779: in _savez
+    zipf = zipfile_factory(file, mode="w", compression=compression)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\numpy\lib\_npyio_impl.py:112: in zipfile_factory
+    return zipfile.ZipFile(file, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <zipfile.ZipFile [closed]>
+file = 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-band-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL\\whole-downstream\\predictions.npz'
+mode = 'w', compression = 8, allowZip64 = True, compresslevel = None
+strict_timestamps = True, metadata_encoding = None
+
+    def __init__(self, file, mode="r", compression=ZIP_STORED, allowZip64=True,
+                 compresslevel=None, *, strict_timestamps=True, metadata_encoding=None):
+        """Open the ZIP file with mode read 'r', write 'w', exclusive create 'x',
+        or append 'a'."""
+        if mode not in ('r', 'w', 'x', 'a'):
+            raise ValueError("ZipFile requires mode 'r', 'w', 'x', or 'a'")
+    
+        _check_compression(compression)
+    
+        self._allowZip64 = allowZip64
+        self._didModify = False
+        self.debug = 0  # Level of printing: 0 through 3
+        self.NameToInfo = {}    # Find file info given name
+        self.filelist = []      # List of ZipInfo instances for archive
+        self.compression = compression  # Method of compression
+        self.compresslevel = compresslevel
+        self.mode = mode
+        self.pwd = None
+        self._comment = b''
+        self._strict_timestamps = strict_timestamps
+        self.metadata_encoding = metadata_encoding
+    
+        # Check that we don't try to write with nonconforming codecs
+        if self.metadata_encoding and mode != 'r':
+            raise ValueError(
+                "metadata_encoding is only supported for reading files")
+    
+        # Check if we were passed a file-like object
+        if isinstance(file, os.PathLike):
+            file = os.fspath(file)
+        if isinstance(file, str):
+            # No, it's a filename
+            self._filePassed = 0
+            self.filename = file
+            modeDict = {'r' : 'rb', 'w': 'w+b', 'x': 'x+b', 'a' : 'r+b',
+                        'r+b': 'w+b', 'w+b': 'wb', 'x+b': 'xb'}
+            filemode = modeDict[mode]
+            while True:
+                try:
+>                   self.fp = io.open(file, filemode)
+                              ^^^^^^^^^^^^^^^^^^^^^^^
+E                   FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-band-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL\\whole-downstream\\predictions.npz'
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\zipfile\__init__.py:1352: FileNotFoundError
+_ test_root_only_resume_weights_changes_frozen_identity_counts_and_forecast[full_finetune] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000021C301826F0>
+mode = 'full_finetune'
+
+    @pytest.mark.skipif(
+        not ROOT_RUNNER_CHECKS,
+        reason="NOT_RUN builder: prior optimizer cache denial; ROOT-only synthetic CPU fixture",
+    )
+    @pytest.mark.parametrize("mode", downstream.MODES)
+    def test_root_only_resume_weights_changes_frozen_identity_counts_and_forecast(monkeypatch, mode):
+        method = "direct" if mode == "direct_end_to_end" else "shared_ssl"
+        fs, _p, cfg, _, inputs, dcfg, _, _train, dev = gate_fixture(
+            monkeypatch, mode=mode, method=method
+        )
+        monkeypatch.setattr(core, "atomic_checkpoint", fs.checkpoint)
+        original = core.cpu_state(
+            downstream.prepare_model(dcfg, cfg, downstream._load_ancestor(inputs, cfg)).encoder
+        )
+    
+        def run(output, resume=None, stop_after=None):
+            return downstream.run(
+                inputs,
+                dcfg,
+                output=output,
+                device="cpu",
+                correctness_smoke=True,
+                smoke_core_config=cfg,
+                resume=resume,
+                stop_after=stop_after,
+            )
+    
+        whole, resumed = fs.base / "whole-downstream", fs.base / "resumed-downstream"
+>       report = run(whole)
+                 ^^^^^^^^^^
+
+tests\integration\test_native_band_downstream.py:168: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\integration\test_native_band_downstream.py:156: in run
+    return downstream.run(
+src\marine_echo\training\native_band_downstream.py:861: in run
+    np.savez_compressed(
+.venv\Lib\site-packages\numpy\lib\_npyio_impl.py:753: in savez_compressed
+    _savez(file, args, kwds, True, allow_pickle=allow_pickle)
+.venv\Lib\site-packages\numpy\lib\_npyio_impl.py:779: in _savez
+    zipf = zipfile_factory(file, mode="w", compression=compression)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\numpy\lib\_npyio_impl.py:112: in zipfile_factory
+    return zipfile.ZipFile(file, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <zipfile.ZipFile [closed]>
+file = 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-band-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL\\whole-downstream\\predictions.npz'
+mode = 'w', compression = 8, allowZip64 = True, compresslevel = None
+strict_timestamps = True, metadata_encoding = None
+
+    def __init__(self, file, mode="r", compression=ZIP_STORED, allowZip64=True,
+                 compresslevel=None, *, strict_timestamps=True, metadata_encoding=None):
+        """Open the ZIP file with mode read 'r', write 'w', exclusive create 'x',
+        or append 'a'."""
+        if mode not in ('r', 'w', 'x', 'a'):
+            raise ValueError("ZipFile requires mode 'r', 'w', 'x', or 'a'")
+    
+        _check_compression(compression)
+    
+        self._allowZip64 = allowZip64
+        self._didModify = False
+        self.debug = 0  # Level of printing: 0 through 3
+        self.NameToInfo = {}    # Find file info given name
+        self.filelist = []      # List of ZipInfo instances for archive
+        self.compression = compression  # Method of compression
+        self.compresslevel = compresslevel
+        self.mode = mode
+        self.pwd = None
+        self._comment = b''
+        self._strict_timestamps = strict_timestamps
+        self.metadata_encoding = metadata_encoding
+    
+        # Check that we don't try to write with nonconforming codecs
+        if self.metadata_encoding and mode != 'r':
+            raise ValueError(
+                "metadata_encoding is only supported for reading files")
+    
+        # Check if we were passed a file-like object
+        if isinstance(file, os.PathLike):
+            file = os.fspath(file)
+        if isinstance(file, str):
+            # No, it's a filename
+            self._filePassed = 0
+            self.filename = file
+            modeDict = {'r' : 'rb', 'w': 'w+b', 'x': 'x+b', 'a' : 'r+b',
+                        'r+b': 'w+b', 'w+b': 'wb', 'x+b': 'xb'}
+            filemode = modeDict[mode]
+            while True:
+                try:
+>                   self.fp = io.open(file, filemode)
+                              ^^^^^^^^^^^^^^^^^^^^^^^
+E                   FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-band-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL\\whole-downstream\\predictions.npz'
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\zipfile\__init__.py:1352: FileNotFoundError
+_ test_root_only_resume_weights_changes_frozen_identity_counts_and_forecast[direct_end_to_end] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000021C300AEBD0>
+mode = 'direct_end_to_end'
+
+    @pytest.mark.skipif(
+        not ROOT_RUNNER_CHECKS,
+        reason="NOT_RUN builder: prior optimizer cache denial; ROOT-only synthetic CPU fixture",
+    )
+    @pytest.mark.parametrize("mode", downstream.MODES)
+    def test_root_only_resume_weights_changes_frozen_identity_counts_and_forecast(monkeypatch, mode):
+        method = "direct" if mode == "direct_end_to_end" else "shared_ssl"
+        fs, _p, cfg, _, inputs, dcfg, _, _train, dev = gate_fixture(
+            monkeypatch, mode=mode, method=method
+        )
+        monkeypatch.setattr(core, "atomic_checkpoint", fs.checkpoint)
+        original = core.cpu_state(
+            downstream.prepare_model(dcfg, cfg, downstream._load_ancestor(inputs, cfg)).encoder
+        )
+    
+        def run(output, resume=None, stop_after=None):
+            return downstream.run(
+                inputs,
+                dcfg,
+                output=output,
+                device="cpu",
+                correctness_smoke=True,
+                smoke_core_config=cfg,
+                resume=resume,
+                stop_after=stop_after,
+            )
+    
+        whole, resumed = fs.base / "whole-downstream", fs.base / "resumed-downstream"
+>       report = run(whole)
+                 ^^^^^^^^^^
+
+tests\integration\test_native_band_downstream.py:168: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\integration\test_native_band_downstream.py:156: in run
+    return downstream.run(
+src\marine_echo\training\native_band_downstream.py:861: in run
+    np.savez_compressed(
+.venv\Lib\site-packages\numpy\lib\_npyio_impl.py:753: in savez_compressed
+    _savez(file, args, kwds, True, allow_pickle=allow_pickle)
+.venv\Lib\site-packages\numpy\lib\_npyio_impl.py:779: in _savez
+    zipf = zipfile_factory(file, mode="w", compression=compression)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\numpy\lib\_npyio_impl.py:112: in zipfile_factory
+    return zipfile.ZipFile(file, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <zipfile.ZipFile [closed]>
+file = 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-band-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL\\whole-downstream\\predictions.npz'
+mode = 'w', compression = 8, allowZip64 = True, compresslevel = None
+strict_timestamps = True, metadata_encoding = None
+
+    def __init__(self, file, mode="r", compression=ZIP_STORED, allowZip64=True,
+                 compresslevel=None, *, strict_timestamps=True, metadata_encoding=None):
+        """Open the ZIP file with mode read 'r', write 'w', exclusive create 'x',
+        or append 'a'."""
+        if mode not in ('r', 'w', 'x', 'a'):
+            raise ValueError("ZipFile requires mode 'r', 'w', 'x', or 'a'")
+    
+        _check_compression(compression)
+    
+        self._allowZip64 = allowZip64
+        self._didModify = False
+        self.debug = 0  # Level of printing: 0 through 3
+        self.NameToInfo = {}    # Find file info given name
+        self.filelist = []      # List of ZipInfo instances for archive
+        self.compression = compression  # Method of compression
+        self.compresslevel = compresslevel
+        self.mode = mode
+        self.pwd = None
+        self._comment = b''
+        self._strict_timestamps = strict_timestamps
+        self.metadata_encoding = metadata_encoding
+    
+        # Check that we don't try to write with nonconforming codecs
+        if self.metadata_encoding and mode != 'r':
+            raise ValueError(
+                "metadata_encoding is only supported for reading files")
+    
+        # Check if we were passed a file-like object
+        if isinstance(file, os.PathLike):
+            file = os.fspath(file)
+        if isinstance(file, str):
+            # No, it's a filename
+            self._filePassed = 0
+            self.filename = file
+            modeDict = {'r' : 'rb', 'w': 'w+b', 'x': 'x+b', 'a' : 'r+b',
+                        'r+b': 'w+b', 'w+b': 'wb', 'x+b': 'xb'}
+            filemode = modeDict[mode]
+            while True:
+                try:
+>                   self.fp = io.open(file, filemode)
+                              ^^^^^^^^^^^^^^^^^^^^^^^
+E                   FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-band-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL\\whole-downstream\\predictions.npz'
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\zipfile\__init__.py:1352: FileNotFoundError
+=========================== short test summary info ===========================
+FAILED tests/integration/test_native_band_ssl.py::test_root_only_full_safe_resume_and_inference_replay[shared_ssl]
+FAILED tests/integration/test_native_band_ssl.py::test_root_only_full_safe_resume_and_inference_replay[masked_ssl]
+FAILED tests/integration/test_native_band_ssl.py::test_root_only_full_safe_resume_and_inference_replay[permuted_ssl]
+FAILED tests/integration/test_native_band_downstream.py::test_root_only_resume_weights_changes_frozen_identity_counts_and_forecast[frozen_readout]
+FAILED tests/integration/test_native_band_downstream.py::test_root_only_resume_weights_changes_frozen_identity_counts_and_forecast[full_finetune]
+FAILED tests/integration/test_native_band_downstream.py::test_root_only_resume_weights_changes_frozen_identity_counts_and_forecast[direct_end_to_end]
+6 failed, 77 passed in 56.53s

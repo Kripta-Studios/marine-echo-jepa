@@ -1,0 +1,465 @@
+I001 [*] Import block is un-sorted or un-formatted
+  --> evidence\ssl-band-builder-v1\band_test_support.py:7:1
+   |
+ 5 |   """
+ 6 |
+ 7 | / import io
+ 8 | | import builtins
+ 9 | | import hashlib
+10 | | import json
+11 | | import sys
+12 | | from pathlib import Path
+13 | |
+14 | | import numpy as np
+15 | | import torch
+   | |____________^
+16 |
+17 |   # Bound synthetic CPU checks; runtime inference itself never changes threading.
+   |
+help: Organize imports
+   |
+6  |
+   - import io
+7  | import builtins
+8  | import hashlib
+9  + import io
+10 | import json
+   |
+
+F401 [*] `hashlib` imported but unused
+  --> evidence\ssl-band-builder-v1\band_test_support.py:9:8
+   |
+ 7 | import io
+ 8 | import builtins
+ 9 | import hashlib
+   |        ^^^^^^^
+10 | import json
+11 | import sys
+   |
+help: Remove unused import: `hashlib`
+  |
+8 | import builtins
+  - import hashlib
+9 | import json
+  |
+
+I001 [*] Import block is un-sorted or un-formatted
+   --> evidence\ssl-band-builder-v1\band_test_support.py:174:5
+    |
+173 |   def gate_fixture(monkeypatch, *, method="shared_ssl", mode="frozen_readout"):
+174 | /     from marine_echo.training import native_band_ssl as core
+175 | |     from marine_echo.training import native_band_downstream as downstream
+    | |_________________________________________________________________________^
+176 |
+177 |       fs = MemoryFiles(monkeypatch)
+    |
+help: Organize imports
+    |
+173 | def gate_fixture(monkeypatch, *, method="shared_ssl", mode="frozen_readout"):
+174 +     from marine_echo.training import native_band_downstream as downstream
+175 |     from marine_echo.training import native_band_ssl as core
+    -     from marine_echo.training import native_band_downstream as downstream
+176 |
+    |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> src\marine_echo\inference\native_band_acoustic.py:8:1
+   |
+ 6 |   """
+ 7 |
+ 8 | / from __future__ import annotations
+ 9 | |
+10 | | import copy
+11 | | from collections.abc import Mapping
+12 | |
+13 | | import numpy as np
+14 | | import torch
+15 | |
+16 | | from marine_echo.inference import native_encoder as legacy
+17 | | from marine_echo.models.native_band_temporal import (
+18 | |     ARCHITECTURE,
+19 | |     NativeBandEncoder,
+20 | |     NativeBandTemporalModel,
+21 | | )
+22 | | from marine_echo.training.native_band_ssl import Config, METHODS
+   | |________________________________________________________________^
+23 |
+24 |   TRAINING_KINDS = {key: value for key, value in legacy.TRAINING_KINDS.items() if key in METHODS}
+   |
+help: Organize imports
+   |
+21 | )
+   - from marine_echo.training.native_band_ssl import Config, METHODS
+22 + from marine_echo.training.native_band_ssl import METHODS, Config
+23 |
+   |
+
+TRY004 Prefer `TypeError` exception for invalid type
+  --> src\marine_echo\inference\native_band_acoustic.py:78:9
+   |
+76 | def _base(instance, artifact, device):
+77 |     if not isinstance(artifact, Mapping):
+78 |         raise ValueError("Expected a safe band artifact mapping.")
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+79 |     instance.device = torch.device(device)
+80 |     if instance.device.type not in ("cpu", "cuda"):
+   |
+
+TRY004 Prefer `TypeError` exception for invalid type
+   --> src\marine_echo\inference\native_band_acoustic.py:146:9
+    |
+145 |     if not isinstance(ancestry, dict) or not isinstance(artifact.get("downstream_config"), dict):
+146 |         raise ValueError("Complete supervised ancestry/config is required.")
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+147 |     try:
+148 |         downstream = DownstreamConfig(**artifact["downstream_config"])
+    |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> src\marine_echo\models\native_band_temporal.py:8:1
+   |
+ 6 |   """
+ 7 |
+ 8 | / from torch import nn
+ 9 | | from torch.nn import functional as F
+10 | | import torch
+11 | | import math
+12 | |
+13 | | from marine_echo.models.native_temporal import (
+14 | |     HORIZONS as HORIZONS, QUANTILES as QUANTILES, NativeTemporalModel, QueryHead, SharedTemporalEncoder,
+15 | | )
+16 | | from marine_echo.models.sigreg import SlicedEppsPulley
+   | |______________________________________________________^
+17 |
+18 |   ARCHITECTURE = "nonlinear_frequency_conditioned_v1"
+   |
+help: Organize imports
+   |
+7  |
+8  + import math
+9  +
+10 + import torch
+11 | from torch import nn
+12 | from torch.nn import functional as F
+   - import torch
+   - import math
+13 |
+14 | from marine_echo.models.native_temporal import (
+   -     HORIZONS as HORIZONS, QUANTILES as QUANTILES, NativeTemporalModel, QueryHead, SharedTemporalEncoder,
+15 +     HORIZONS as HORIZONS,
+16 + )
+17 + from marine_echo.models.native_temporal import (
+18 +     QUANTILES as QUANTILES,
+19 + )
+20 + from marine_echo.models.native_temporal import (
+21 +     NativeTemporalModel,
+22 +     QueryHead,
+23 +     SharedTemporalEncoder,
+24 | )
+   |
+
+PLC0414 Import alias does not rename original package
+  --> src\marine_echo\models\native_band_temporal.py:14:5
+   |
+13 | from marine_echo.models.native_temporal import (
+14 |     HORIZONS as HORIZONS, QUANTILES as QUANTILES, NativeTemporalModel, QueryHead, SharedTemporalEncoder,
+   |     ^^^^^^^^^^^^^^^^^^^^
+15 | )
+16 | from marine_echo.models.sigreg import SlicedEppsPulley
+   |
+help: Remove import alias
+
+PLC0414 Import alias does not rename original package
+  --> src\marine_echo\models\native_band_temporal.py:14:27
+   |
+13 | from marine_echo.models.native_temporal import (
+14 |     HORIZONS as HORIZONS, QUANTILES as QUANTILES, NativeTemporalModel, QueryHead, SharedTemporalEncoder,
+   |                           ^^^^^^^^^^^^^^^^^^^^^^
+15 | )
+16 | from marine_echo.models.sigreg import SlicedEppsPulley
+   |
+help: Remove import alias
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> src\marine_echo\training\native_band_downstream.py:8:1
+   |
+ 6 |   """
+ 7 |
+ 8 | / from __future__ import annotations
+ 9 | |
+10 | | import argparse
+11 | | import copy
+12 | | import hashlib
+13 | | import json
+14 | | import random
+15 | | from dataclasses import asdict, dataclass, replace
+16 | | from pathlib import Path
+17 | |
+18 | | import numpy as np
+19 | | import torch
+20 | |
+21 | | from marine_echo.training import native_band_ssl as core
+22 | | from marine_echo.inference.native_band_acoustic import NativeBandAcousticPredictor, _check_state, _configuration
+   | |________________________________________________________________________________________________________________^
+23 |
+24 |   ARCHITECTURE = core.ARCHITECTURE
+   |
+help: Organize imports
+   |
+20 |
+21 + from marine_echo.inference.native_band_acoustic import (
+22 +     NativeBandAcousticPredictor,
+23 +     _check_state,
+24 +     _configuration,
+25 + )
+26 | from marine_echo.training import native_band_ssl as core
+   - from marine_echo.inference.native_band_acoustic import NativeBandAcousticPredictor, _check_state, _configuration
+27 |
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> src\marine_echo\training\native_band_ssl.py:8:1
+   |
+ 6 |   """
+ 7 |
+ 8 | / from __future__ import annotations
+ 9 | |
+10 | | import argparse
+11 | | import copy
+12 | | import hashlib
+13 | | import json
+14 | | import math
+15 | | import os
+16 | | import random
+17 | | import time
+18 | | from dataclasses import asdict, dataclass
+19 | | from pathlib import Path
+20 | |
+21 | | import numpy as np
+22 | | import psutil
+23 | | import torch
+24 | |
+25 | | from marine_echo.models import native_band_temporal as native_temporal, native_temporal as legacy_temporal, sigreg
+26 | | from marine_echo.training import native_ssl as legacy_core
+27 | | from marine_echo.inference import native_encoder as legacy_encoder
+28 | | from marine_echo.models.native_band_temporal import (
+29 | |     ARCHITECTURE,
+30 | |     QUANTILES,
+31 | |     NativeBandTemporalModel as NativeTemporalModel,
+32 | |     QueryHead,
+33 | | )
+34 | | from marine_echo.training import native_resources
+   | |_________________________________________________^
+35 |
+36 |   IMPLEMENTER_SESSION_ID = "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1"
+   |
+help: Organize imports
+   |
+24 |
+   - from marine_echo.models import native_band_temporal as native_temporal, native_temporal as legacy_temporal, sigreg
+   - from marine_echo.training import native_ssl as legacy_core
+25 | from marine_echo.inference import native_encoder as legacy_encoder
+26 + from marine_echo.models import native_band_temporal as native_temporal
+27 + from marine_echo.models import native_temporal as legacy_temporal
+28 + from marine_echo.models import sigreg
+29 | from marine_echo.models.native_band_temporal import (
+30 |     ARCHITECTURE,
+31 |     QUANTILES,
+   -     NativeBandTemporalModel as NativeTemporalModel,
+32 |     QueryHead,
+33 | )
+34 + from marine_echo.models.native_band_temporal import (
+35 +     NativeBandTemporalModel as NativeTemporalModel,
+36 + )
+37 | from marine_echo.training import native_resources
+38 + from marine_echo.training import native_ssl as legacy_core
+39 |
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> tests\integration\test_native_band_downstream.py:14:1
+   |
+13 |   sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "evidence/ssl-band-builder-v1"))
+14 | / from band_test_support import MAIN, gate_fixture
+15 | | from marine_echo.training import native_band_downstream as downstream
+16 | | from marine_echo.training import native_band_ssl as core
+   | |________________________________________________________^
+17 |
+18 |   ROOT_RUNNER_CHECKS = os.environ.get("NATIVE_BAND_ROOT_RUNNER_CHECKS") == "1" and Path(core.__file__).resolve().is_relative_to(MAIN /…
+   |
+help: Organize imports
+   |
+14 | from band_test_support import MAIN, gate_fixture
+15 +
+16 | from marine_echo.training import native_band_downstream as downstream
+   |
+
+RUF059 Unpacked variable `fs` is never used
+  --> tests\integration\test_native_band_downstream.py:24:5
+   |
+22 | def test_frozen_state_or_full_direct_gradients_and_matched_head_sampler(monkeypatch, mode):
+23 |     method = "direct" if mode == "direct_end_to_end" else "shared_ssl"
+24 |     fs, p, cfg, _, inputs, dcfg, _, train, _ = gate_fixture(monkeypatch, mode=mode, method=method)
+   |     ^^
+25 |     downstream.check_prefit(inputs, dcfg, cfg, correctness_smoke=True)
+26 |     selected = downstream._load_ancestor(inputs, cfg)
+   |
+help: Prefix it with an underscore or any other dummy variable pattern
+
+RUF059 Unpacked variable `p` is never used
+   --> tests\integration\test_native_band_downstream.py:106:9
+    |
+104 | def test_root_only_resume_weights_changes_frozen_identity_counts_and_forecast(monkeypatch, mode):
+105 |     method = "direct" if mode == "direct_end_to_end" else "shared_ssl"
+106 |     fs, p, cfg, _, inputs, dcfg, _, train, dev = gate_fixture(monkeypatch, mode=mode, method=method)
+    |         ^
+107 |     monkeypatch.setattr(core, "atomic_checkpoint", fs.checkpoint)
+108 |     original = core.cpu_state(downstream.prepare_model(dcfg, cfg, downstream._load_ancestor(inputs, cfg)).encoder)
+    |
+help: Prefix it with an underscore or any other dummy variable pattern
+
+RUF059 Unpacked variable `train` is never used
+   --> tests\integration\test_native_band_downstream.py:106:37
+    |
+104 | def test_root_only_resume_weights_changes_frozen_identity_counts_and_forecast(monkeypatch, mode):
+105 |     method = "direct" if mode == "direct_end_to_end" else "shared_ssl"
+106 |     fs, p, cfg, _, inputs, dcfg, _, train, dev = gate_fixture(monkeypatch, mode=mode, method=method)
+    |                                     ^^^^^
+107 |     monkeypatch.setattr(core, "atomic_checkpoint", fs.checkpoint)
+108 |     original = core.cpu_state(downstream.prepare_model(dcfg, cfg, downstream._load_ancestor(inputs, cfg)).encoder)
+    |
+help: Prefix it with an underscore or any other dummy variable pattern
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> tests\integration\test_native_band_ssl.py:17:1
+   |
+16 |   sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "evidence/ssl-band-builder-v1"))
+17 | / from band_test_support import MAIN, gate_fixture, codec
+18 | | from marine_echo.training import native_band_ssl as band
+19 | | from marine_echo.training import native_ssl as legacy
+   | |_____________________________________________________^
+20 |
+21 |   ROOT_RUNNER_CHECKS = os.environ.get("NATIVE_BAND_ROOT_RUNNER_CHECKS") == "1" and Path(band.__file__).resolve().is_relative_to(MAIN /…
+   |
+help: Organize imports
+   |
+16 | sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "evidence/ssl-band-builder-v1"))
+   - from band_test_support import MAIN, gate_fixture, codec
+17 + from band_test_support import MAIN, codec, gate_fixture
+18 +
+19 | from marine_echo.training import native_band_ssl as band
+   |
+
+RUF059 Unpacked variable `fs` is never used
+  --> tests\integration\test_native_band_ssl.py:57:5
+   |
+56 | def test_transitive_source_closure_and_train_only_scalers_and_paired_sampling(monkeypatch):
+57 |     fs, p, cfg, review, _, _, _, train, dev = gate_fixture(monkeypatch)
+   |     ^^
+58 |     sources = {q.name for q in band.required_sources(cfg)}
+59 |     assert {"native_band_temporal.py", "native_band_ssl.py", "native_band_downstream.py", "native_band_acoustic.py", "native_temporal.…
+   |
+help: Prefix it with an underscore or any other dummy variable pattern
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> tests\unit\test_native_band_inference.py:13:1
+   |
+12 |   sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "evidence/ssl-band-builder-v1"))
+13 | / from band_test_support import artifact, codec, synthetic_inputs
+14 | | from marine_echo.inference.native_band_acoustic import NativeBandAcousticEncoder, NativeBandAcousticPredictor, TRAINING_KINDS
+15 | | from marine_echo.inference.native_encoder import NativeAcousticEncoder
+16 | | from marine_echo.inference.native_acoustic import NativeAcousticPredictor
+   | |_________________________________________________________________________^
+help: Organize imports
+   |
+13 | from band_test_support import artifact, codec, synthetic_inputs
+   - from marine_echo.inference.native_band_acoustic import NativeBandAcousticEncoder, NativeBandAcousticPredictor, TRAINING_KINDS
+   - from marine_echo.inference.native_encoder import NativeAcousticEncoder
+14 | from marine_echo.inference.native_acoustic import NativeAcousticPredictor
+15 |
+16 + from marine_echo.inference.native_band_acoustic import (
+17 +     TRAINING_KINDS,
+18 +     NativeBandAcousticEncoder,
+19 +     NativeBandAcousticPredictor,
+20 + )
+21 + from marine_echo.inference.native_encoder import NativeAcousticEncoder
+22 +
+23 |
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> tests\unit\test_native_band_temporal.py:3:1
+   |
+ 1 |   """SYNTHETIC_CORRECTNESS_ONLY CPU mechanism tests, no scientific weights."""
+ 2 |
+ 3 | / import importlib.util
+ 4 | | import sys
+ 5 | | from pathlib import Path
+ 6 | |
+ 7 | | import torch
+ 8 | | import pytest
+   | |_____________^
+ 9 |
+10 |   sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "evidence/ssl-band-builder-v1"))
+   |
+help: Organize imports
+  |
+6 |
+7 + import pytest
+8 | import torch
+  - import pytest
+9 |
+  |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> tests\unit\test_native_band_temporal.py:11:1
+   |
+10 |   sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "evidence/ssl-band-builder-v1"))
+11 | / from band_test_support import synthetic_inputs
+12 | | from marine_echo.models.native_temporal import SharedTemporalEncoder
+   | |____________________________________________________________________^
+help: Organize imports
+   |
+11 | from band_test_support import synthetic_inputs
+12 +
+13 | from marine_echo.models.native_temporal import SharedTemporalEncoder
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> tests\unit\test_native_band_temporal.py:55:5
+   |
+54 |   def test_initialization_parameters_and_every_head_match_legacy_exactly():
+55 | /     from marine_echo.training import native_ssl as legacy
+56 | |     from marine_echo.training import native_band_ssl as band
+   | |____________________________________________________________^
+57 |
+58 |       baseline = legacy.initialize_model(7)
+   |
+help: Organize imports
+   |
+54 | def test_initialization_parameters_and_every_head_match_legacy_exactly():
+55 +     from marine_echo.training import native_band_ssl as band
+56 |     from marine_echo.training import native_ssl as legacy
+   -     from marine_echo.training import native_band_ssl as band
+57 |
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+   --> tests\unit\test_native_band_temporal.py:153:5
+    |
+152 |   def test_future_perturbation_never_changes_context_forecast_and_regularizer_replays():
+153 | /     from band_test_support import codec
+154 | |     from marine_echo.training.native_band_ssl import cpu_state
+    | |______________________________________________________________^
+155 |
+156 |       model = small_model()
+    |
+help: Organize imports
+    |
+153 |     from band_test_support import codec
+154 +
+155 |     from marine_echo.training.native_band_ssl import cpu_state
+    |
+
+Found 22 errors.
+[*] 14 fixable with the `--fix` option (6 hidden fixes can be enabled with the `--unsafe-fixes` option).

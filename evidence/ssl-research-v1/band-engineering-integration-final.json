@@ -1,0 +1,38 @@
+{
+  "status": "BAND_ENGINEERING_DELIVERY_CLOSED_NOT_APPROVED_FOR_FITTING",
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "copied_closeout": [
+    {
+      "path": "evidence\\ssl-band-builder-v1\\NATIVE_BAND_CLOSEOUT_20260930_V1.md",
+      "sha256": "7f57be7418ddae594ae23ff7eb7f2c37c980540fc9c144c9e72cc9a1f6be200b"
+    },
+    {
+      "path": "evidence\\ssl-band-builder-v1\\closeout-handoff-20260930-v1.json",
+      "sha256": "dc41787d9aaef702a7f02d5d6e1d30cab5c4496d5e190feac5400ee2d858024f"
+    }
+  ],
+  "current_authored_sha256": {
+    "src/marine_echo/models/native_band_temporal.py": "1550bb3f130e3981f57b46031e39d0d42ce7dac4738aea9280362210dfaca96b",
+    "src/marine_echo/training/native_band_ssl.py": "ca33bf3141ea17c5adb3d0a4cd2ed0d186be8efb846a5b581003f2088a105e4f",
+    "src/marine_echo/training/native_band_downstream.py": "95becf2cd01a7ab07c67a4da8d26c8e8bf58297f56513a439b0ab2b2be776619",
+    "src/marine_echo/inference/native_band_acoustic.py": "6181baf22b75be73767f4b76370c65bfc37fdeb189da3deabcabe8a7c2dcd1bf",
+    "tests/unit/test_native_band_temporal.py": "6e98d15bda040fe0122c1495fd112ca7ee43fe90c7cbb7814697ba5b49dc09fc",
+    "tests/unit/test_native_band_inference.py": "e8da6a0bedcd78c2e35a2df963471cb96a59b08375575541f34840b4fb650e7d",
+    "tests/integration/test_native_band_ssl.py": "aca0374a21ebc28a4af357e2431722a34a6b2dc8b9a4741a7c1140334d834fab",
+    "tests/integration/test_native_band_downstream.py": "4d20681481e7c78918e46ae6d30b3c28779b845bf24164573f44c21e90d0e2c7"
+  },
+  "root_test_import_only_delta": [
+    "tests/unit/test_native_band_inference.py"
+  ],
+  "test_fixture_correction": "Real NumPy codec on explicit virtual file handle; no fitter/factory or denied-path retry",
+  "root_fixture_sha256": "f7ec980ea41f8f51bef558e58ef5f5155a37c781d8c04794819de876ec53e077",
+  "builder_original_fixture_sha256": "c8c3c01c2d463c064c2d7c1f011dfc41a6a544cb246ec25d4379f299c37e059e",
+  "root_first_durable_run": "6 failed,77 passed; fixture FileNotFoundError retained",
+  "root_second_durable_run": "83 passed64.18s; real synthetic CPU optimizers/resume/inference",
+  "durable_log_sha256": "5e1b871140d0addc62c71ad3f532fb3343e5f504ccf26912937b3c415ede55d3",
+  "model_training_inference_sources_modified_since_builder_proof": false,
+  "prior_scientific_sources_modified": false,
+  "scientific_optimizer_updates": 0,
+  "budget_resolution": "OWNER_CLARIFICATION_PENDING",
+  "prefit": "NOT_RUN"
+}

@@ -1,0 +1,118 @@
+{
+  "status": "OWNED_AGENT_TREE_INTERRUPTED",
+  "session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "utc": "2026-09-30T04:57:04.673322+00:00",
+  "reason": "Frozen source proof retained; builder event stream remains partial and final handoff absent",
+  "cause_of_stall": "UNKNOWN",
+  "owned_process_identities": [
+    [
+      4488,
+      1790738980.9831636,
+      "codex.exe"
+    ],
+    [
+      8516,
+      1790738998.100974,
+      "node_repl.exe"
+    ],
+    [
+      52520,
+      1790738998.1443777,
+      "cmd.exe"
+    ],
+    [
+      39864,
+      1790738998.213083,
+      "cmd.exe"
+    ],
+    [
+      35132,
+      1790738998.34836,
+      "cmd.exe"
+    ],
+    [
+      47000,
+      1790739023.5006633,
+      "codex-code-mode-host.exe"
+    ],
+    [
+      50184,
+      1790739023.5522606,
+      "conhost.exe"
+    ],
+    [
+      54196,
+      1790738998.444039,
+      "conhost.exe"
+    ],
+    [
+      29064,
+      1790738999.406649,
+      "node.exe"
+    ],
+    [
+      1844,
+      1790739012.3824081,
+      "cmd.exe"
+    ],
+    [
+      11644,
+      1790739012.6242783,
+      "node.exe"
+    ],
+    [
+      28988,
+      1790738998.293933,
+      "conhost.exe"
+    ],
+    [
+      52652,
+      1790738999.3297544,
+      "node.exe"
+    ],
+    [
+      50632,
+      1790739012.4589071,
+      "cmd.exe"
+    ],
+    [
+      53900,
+      1790739012.6885169,
+      "node.exe"
+    ],
+    [
+      59884,
+      1790738998.2483213,
+      "conhost.exe"
+    ],
+    [
+      11532,
+      1790738999.2919528,
+      "node.exe"
+    ],
+    [
+      9716,
+      1790739012.3515365,
+      "cmd.exe"
+    ],
+    [
+      32812,
+      1790739012.5867748,
+      "node.exe"
+    ],
+    [
+      44544,
+      1790739016.0365348,
+      "node.exe"
+    ],
+    [
+      44336,
+      1790738998.17418,
+      "conhost.exe"
+    ]
+  ],
+  "scientific_queue_modified": false,
+  "files_deleted": false,
+  "termination_errors": [],
+  "remaining_owned_pids": []
+}

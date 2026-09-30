@@ -1,0 +1,5 @@
+..............................................................sss...............sss
+=========================== short test summary info ===========================
+SKIPPED [3] tests\integration\test_native_band_ssl.py:201: NOT_RUN builder: prior optimizer cache denial; ROOT-only synthetic CPU fixture
+SKIPPED [3] tests\integration\test_native_band_downstream.py:140: NOT_RUN builder: prior optimizer cache denial; ROOT-only synthetic CPU fixture
+77 passed, 6 skipped in 43.69s

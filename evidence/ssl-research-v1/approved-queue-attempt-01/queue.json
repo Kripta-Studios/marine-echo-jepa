@@ -1,0 +1,97 @@
+{
+  "queue_sha256": "b74e090d792466434060054b3951eac871ae5e66902a2e25d140c720600e5897",
+  "status": "COMPLETED_REVIEWED_SERIAL_QUEUE",
+  "jobs": [
+    {
+      "id": "lightgbm_seed7_h96_text",
+      "exit_code": 0,
+      "report": "outputs/native_acoustic_ssl_v1/lightgbm_seed7_h96_text/result.json",
+      "report_sha256": "22db397302933318633d255a7d544edca4d5c43e294646eb1e339a8199e38ca3",
+      "report_status": "COMPLETED_DEVELOPMENT_REFERENCE",
+      "development_pinball_db": 0.5052735500936681,
+      "scientific_claim": "NOT_ESTABLISHED",
+      "status": "VERIFIED_COMPLETED"
+    },
+    {
+      "id": "shared_ssl_frozen_readout_seed7_h96",
+      "exit_code": 0,
+      "report": "outputs/native_acoustic_ssl_v1/shared_ssl_frozen_readout_seed7_h96/run.json",
+      "report_sha256": "5f6f69bb6954fbf4f298c521e3544d1ead1a2496e9b2411e5dde24add825cf6c",
+      "report_status": "COMPLETED",
+      "development_pinball_db": 0.7857153104554978,
+      "scientific_claim": "NOT_ESTABLISHED",
+      "status": "VERIFIED_COMPLETED"
+    },
+    {
+      "id": "shared_ssl_full_finetune_seed7_h96",
+      "exit_code": 0,
+      "report": "outputs/native_acoustic_ssl_v1/shared_ssl_full_finetune_seed7_h96/run.json",
+      "report_sha256": "6320c8304e7d01624234ab6f5e3cdad0f5fc0322c5d07dac40dbd30d1b2bc62b",
+      "report_status": "COMPLETED",
+      "development_pinball_db": 0.7725943368134387,
+      "scientific_claim": "NOT_ESTABLISHED",
+      "status": "VERIFIED_COMPLETED"
+    },
+    {
+      "id": "direct_direct_end_to_end_seed7_h96",
+      "exit_code": 0,
+      "report": "outputs/native_acoustic_ssl_v1/direct_direct_end_to_end_seed7_h96/run.json",
+      "report_sha256": "d549a5606ecfc7aee9f2ecdbee9a1904563019873f589097aa59fc318a839a95",
+      "report_status": "COMPLETED",
+      "development_pinball_db": 0.76518519610008,
+      "scientific_claim": "NOT_ESTABLISHED",
+      "status": "VERIFIED_COMPLETED"
+    },
+    {
+      "id": "masked_ssl_seed7_h96_reviewed",
+      "exit_code": 0,
+      "report": "outputs/native_acoustic_ssl_v1/masked_ssl_seed7_h96_reviewed/run.json",
+      "report_sha256": "4e20b2f964a3a124ca003677b6451379efd71815ae983a152ce0fdd3ac573c88",
+      "report_status": "COMPLETED",
+      "development_pinball_db": 0.8066704058455193,
+      "scientific_claim": "NOT_ESTABLISHED",
+      "status": "VERIFIED_COMPLETED"
+    },
+    {
+      "id": "permuted_ssl_seed7_h96_reviewed",
+      "exit_code": 0,
+      "report": "outputs/native_acoustic_ssl_v1/permuted_ssl_seed7_h96_reviewed/run.json",
+      "report_sha256": "c41df963dae1caca50e969b11f12abb9eb7797637bd4518c5305b776dd7f9349",
+      "report_status": "COMPLETED",
+      "development_pinball_db": 0.8954741911757144,
+      "scientific_claim": "NOT_ESTABLISHED",
+      "status": "VERIFIED_COMPLETED"
+    },
+    {
+      "id": "direct_seed7_h96_reviewed",
+      "exit_code": 0,
+      "report": "outputs/native_acoustic_ssl_v1/direct_seed7_h96_reviewed/run.json",
+      "report_sha256": "fe0a25d8204f3472f541d218a0e3d1bc66dc9a2feee59379e24772f8ea3a2d39",
+      "report_status": "COMPLETED",
+      "development_pinball_db": 0.7892788713183303,
+      "scientific_claim": "NOT_ESTABLISHED",
+      "status": "VERIFIED_COMPLETED"
+    },
+    {
+      "id": "random_frozen_seed7_h96_reviewed",
+      "exit_code": 0,
+      "report": "outputs/native_acoustic_ssl_v1/random_frozen_seed7_h96_reviewed/run.json",
+      "report_sha256": "e9cee48a757c80ecdc8745b74df1c605ddf89b4514103f7679ab941e316457b1",
+      "report_status": "COMPLETED",
+      "development_pinball_db": 0.8826586601474805,
+      "scientific_claim": "NOT_ESTABLISHED",
+      "status": "VERIFIED_COMPLETED"
+    },
+    {
+      "id": "chronos2_h96_local",
+      "exit_code": 0,
+      "report": "outputs/native_acoustic_ssl_v1/chronos2_h96_local/result.json",
+      "report_sha256": "dcfc446639865cf416aae1f7cdb493cc7e58e5e57bf617eae9cc3e1f863f08ab",
+      "report_status": "COMPLETED_ZERO_SHOT_DEVELOPMENT",
+      "development_pinball_db": 0.5069155334881197,
+      "scientific_claim": "NOT_ESTABLISHED",
+      "status": "VERIFIED_COMPLETED"
+    }
+  ],
+  "app_release_work": "FROZEN"
+}

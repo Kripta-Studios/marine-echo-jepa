@@ -1,6 +1,6 @@
 ## Active model-first research — native acoustic SSL
 
-Updated 2026-09-30T04:23:27.892838+00:00.
+Updated 2026-09-30T05:11:49.836480+00:00.
 
 Branch `research/marine-jepa-vnext`; owner-authorized local model research.
 App/release work is frozen; historical protocols, evidence and approved r3 are preserved.
@@ -16,12 +16,15 @@ LightGBM15 quantile boosters and deterministic persistence/seasonal references c
 Shared/CF encoder CPU replay and LightGBM all15-booster CPU replay passed.
 Independent learning-path audit found no defect within inspected scope.
 
-Active scientific job: permuted_ssl_seed7_h96_reviewed.
-Original serial queue: RUNNING; 5/9 reports inspected.
-Charged owned GPU-hours at ledger snapshot: 3.274596/96.
+Active scientific job: cf_jepa_full_finetune_seed7_h96.
+Original serial queue: COMPLETED_REVIEWED_SERIAL_QUEUE; 9/9 reports inspected.
+Charged owned GPU-hours at ledger snapshot: 4.914922/96.
 The active wrappers own ledger writes; coordinator does not overwrite live accounting.
-CF strong frozen/full endpoints have separate completed-parent89-binding prefit approval, pending serial execution.
-Other strong control endpoints require their completed-parent review before fitting.
+CF strong frozen/full endpoints are executing under separate completed-parent89-binding approval.
+Masked frozen/full and permuted frozen have separate80-binding approval and a frozen next queue.
+Random/direct strong frozen control review is in progress; no fits before its exact approval.
+Original Chronos zero-shot comparator completed475 shards/7,593 rows at0.506916dB DEV pinball;
+its external pretraining ancestry remains unknown and no clean local-ancestry guarantee follows.
 
 Exact eight-method DEV reconstruction passed all58 bindings and actual execution exit0.
 Common support:7,593 issued;7,581/7,557/7,521 targets;316 eligible dates per horizon.
@@ -30,17 +33,22 @@ shared full0.772594; shared frozen0.785715; shared short0.824647;
 persistence0.989176; seasonal1.031738dB. Short probes are not strong matched endpoints.
 All forecasts vary across issuance. Paired2000-draw48-nominal-hour DEV intervals favour LightGBM.
 These conditional single-deployment development results do not establish JEPA-value or SOTA.
-A distinct actual numerical reconstruction is in progress; final-test evidence is NOT_RUN.
+Distinct actual numerical reconstruction verified all eight scores/7,584 daily losses exactly;
+bootstrap sequence identical and interval endpoints within1.11e-16dB. Final-test evidence NOT_RUN.
 
 One parameter-free per-channel GELU revision is proposed under ADR0020 after a synthetic
-frequency-cancellation proof. Its code, budget interpretation and source-prefit remain pending.
+frequency-cancellation proof. Eight authored source/tests integrated; root83 synthetic CPU checks
+passed including real optimizers, exact resume, frozen/updated weights and inference replay.
+Six initial virtual-export fixture failures are retained; only synthetic transport was repaired.
+All prior scientific sources unchanged. Budget clarification and source-prefit remain pending.
 The proof does not identify the cause of the real score gap. No revision fit is authorized yet.
 The proposal explicitly lists11 total seed7 recipes versus three A/B configurations;
-the reviewer must resolve the finite-screen interpretation before any revised training.
+the reviewer requires owner clarification of the finite-screen interpretation before revised training.
 No history24/latent128/extra architecture or final numerical access is approved.
 
-Next: finish serial controls/Chronos, execute separately approved CF endpoints, review strong
-controls/revision, freeze bounded finalists and evaluation before held-out AEON2 assessment.
+Next: complete approved strong endpoints/controls, resolve the optional revision gate, then freeze
+bounded finalists and evaluation before held-out AEON2 assessment. The bounded builder is
+implementing a separate held-out executor with strict ancestor and native230m/dropout guards.
 Complete the model-only package, provenance, independent result review and scientific report.
 Cloud disabled; local paid spend0; software/experiment/JEPA-value/business gates remain separate.
 

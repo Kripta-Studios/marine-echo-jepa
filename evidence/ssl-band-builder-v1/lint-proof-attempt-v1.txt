@@ -1,0 +1,34 @@
+I001 [*] Import block is un-sorted or un-formatted
+  --> evidence\ssl-band-builder-v1\verify_delivery.py:3:1
+   |
+ 1 |   """Mechanical source/AST/import checks only; not scientific or independent review."""
+ 2 |
+ 3 | / import ast
+ 4 | | import difflib
+ 5 | | import hashlib
+ 6 | | import json
+ 7 | | from pathlib import Path
+ 8 | |
+ 9 | | from band_test_support import BUILDER, EVIDENCE, MAIN
+10 | |
+11 | | import torch
+12 | |
+13 | | from marine_echo.inference import native_band_acoustic
+14 | | from marine_echo.models import native_band_temporal, native_temporal
+15 | | from marine_echo.training import native_band_downstream, native_band_ssl, native_ssl
+   | |____________________________________________________________________________________^
+16 |
+17 |   AUTHORED = (
+   |
+help: Organize imports
+   |
+8  |
+   - from band_test_support import BUILDER, EVIDENCE, MAIN
+   -
+9  | import torch
+10 + from band_test_support import BUILDER, EVIDENCE, MAIN
+11 |
+   |
+
+Found 1 error.
+[*] 1 fixable with the `--fix` option.

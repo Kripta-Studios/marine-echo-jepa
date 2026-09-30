@@ -1,0 +1,37 @@
+F
+================================== FAILURES ===================================
+_ test_proposed_hypothesis_breaks_channel_cancellation_with_identical_tensors _
+
+    def test_proposed_hypothesis_breaks_channel_cancellation_with_identical_tensors():
+        # Before the candidate exists, use the actual legacy path to preserve a
+        # meaningful failing mechanism assertion, rather than an import-only failure.
+        if importlib.util.find_spec("marine_echo.models.native_band_temporal"):
+            from marine_echo.models.native_band_temporal import NativeBandEncoder
+        else:
+            NativeBandEncoder = SharedTemporalEncoder
+        with torch.random.fork_rng(devices=[]):
+            torch.manual_seed(7)
+            legacy = SharedTemporalEncoder(width=16, latent=8, blocks=2, heads=4).double().eval()
+            torch.manual_seed(7)
+            candidate = NativeBandEncoder(width=16, latent=8, blocks=2, heads=4).double().eval()
+        for name, tensor in legacy.state_dict().items():
+            assert torch.equal(tensor, candidate.state_dict()[name])
+        x, _, metadata, _ = synthetic_inputs(history=96)
+        x = torch.from_numpy((x + 78) / 3).double()
+        metadata = torch.from_numpy(metadata).double()
+        mask = torch.ones_like(x, dtype=torch.bool)
+        opposite = x.clone()
+        opposite[..., 0] += 2
+        opposite[..., 1] -= 2
+        with torch.no_grad():
+            old_difference = (legacy.encode(x, mask, metadata) - legacy.encode(opposite, mask, metadata)).abs().max()
+            new_difference = (candidate.encode(x, mask, metadata) - candidate.encode(opposite, mask, metadata)).abs().max()
+        assert old_difference < 1e-12
+>       assert new_difference > 1e-4, "Per-channel frequency-conditioned features must survive opposing band changes."
+E       AssertionError: Per-channel frequency-conditioned features must survive opposing band changes.
+E       assert tensor(4.9960e-16, dtype=torch.float64) > 0.0001
+
+tests\unit\test_native_band_temporal.py:39: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_band_temporal.py::test_proposed_hypothesis_breaks_channel_cancellation_with_identical_tensors
+1 failed in 14.89s

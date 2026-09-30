@@ -1,0 +1,140 @@
+{
+  "kind": "native_band_builder_closeout_v1",
+  "status": "CLOSED_IMPLEMENTATION_DELIVERY_NOT_APPROVAL",
+  "date": "2026-09-30",
+  "implementer": "Same owner-verified GPT-6.1 Sol/high builder session",
+  "architecture": "nonlinear_frequency_conditioned_v1",
+  "scope": {
+    "new_writes": [
+      "evidence/ssl-band-builder-v1/NATIVE_BAND_CLOSEOUT_20260930_V1.md",
+      "evidence/ssl-band-builder-v1/closeout-handoff-20260930-v1.json"
+    ],
+    "existing_sources_and_evidence": "READ_ONLY_PRESERVED",
+    "agents_spawned": 0,
+    "scientific_fit": false,
+    "scientific_numeric_artifacts_read": false,
+    "gpu_execution": false,
+    "git_index_operation": false,
+    "self_review": false
+  },
+  "frozen_source_verification": {
+    "operation": "Standard-library SHA256 file reads only; no project/Torch imports.",
+    "exit_code": 0,
+    "match": true,
+    "proof_path": "evidence/ssl-band-builder-v1/ast-proof-final-v1.json",
+    "proof_sha256": "3b63c857c7ad5fe31fea806a2646c4c90d7983adeaa53ca100b2a9efeee8ca59",
+    "authored_sha256": {
+      "src/marine_echo/models/native_band_temporal.py": "1550bb3f130e3981f57b46031e39d0d42ce7dac4738aea9280362210dfaca96b",
+      "src/marine_echo/training/native_band_ssl.py": "ca33bf3141ea17c5adb3d0a4cd2ed0d186be8efb846a5b581003f2088a105e4f",
+      "src/marine_echo/training/native_band_downstream.py": "95becf2cd01a7ab07c67a4da8d26c8e8bf58297f56513a439b0ab2b2be776619",
+      "src/marine_echo/inference/native_band_acoustic.py": "6181baf22b75be73767f4b76370c65bfc37fdeb189da3deabcabe8a7c2dcd1bf",
+      "tests/unit/test_native_band_temporal.py": "6e98d15bda040fe0122c1495fd112ca7ee43fe90c7cbb7814697ba5b49dc09fc",
+      "tests/unit/test_native_band_inference.py": "7ae660584a7980e339aa035d1520c1c06d06a257943c739e31e09ecabb70752a",
+      "tests/integration/test_native_band_ssl.py": "aca0374a21ebc28a4af357e2431722a34a6b2dc8b9a4741a7c1140334d834fab",
+      "tests/integration/test_native_band_downstream.py": "4d20681481e7c78918e46ae6d30b3c28779b845bf24164573f44c21e90d0e2c7"
+    }
+  },
+  "implementation": {
+    "sole_encoder_change": "Parameter-free per-channel GELU after projected values plus native frequency/geometry metadata, before observed-count pooling.",
+    "total_parameters": 2457621,
+    "encoder_parameters": 2424448,
+    "readout_parameters": 5189,
+    "parameter_tensors_and_initialization_order": "Preserved against legacy under frozen AST/tensor proof.",
+    "cf": "Unchanged and rejected by band family.",
+    "ssl": "Encoded context/target SIGReg 0.03; shared context and independent future-crop target gradients; no EMA or stop-gradient.",
+    "safe_kinds": [
+      "native_band_ssl_resume_v1",
+      "native_band_ssl_selected_encoder_v1",
+      "native_band_ssl_weights_only_inference_v1",
+      "native_band_downstream_resume_v1",
+      "native_band_downstream_supervised_encoder_v1"
+    ],
+    "inference": "Strict band kinds/config/scalers/tensors; safe weights_only CPU loading, frozen evaluation state, no RNG/determinism/cache setup; encoder-only needs context/masks/native metadata; forecasts additionally need issued query, never targets/future.",
+    "training_labels": "SSL shared/masked; permuted pairing SSL control; direct supervised; random_frozen untrained control; downstream supervised ancestry explicit.",
+    "native_geometry": "Native 0–230 m remains 0–230 m; no dB rescaling or geometry relabeling."
+  },
+  "recorded_checks": [
+    {
+      "executor": "builder",
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "artifact": "red-mechanism-v1.txt",
+      "exit_code": 1,
+      "result": "Meaningful legacy cancellation failure preserved."
+    },
+    {
+      "executor": "builder",
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "artifact": "green-final-v1.txt",
+      "exit_code": 0,
+      "passed": 77,
+      "not_run": 6,
+      "seconds": 43.69,
+      "result": "Six optimizer-dependent checks explicitly NOT_RUN in builder; original cache denial preserved."
+    },
+    {
+      "executor": "builder",
+      "artifact": "lint-final-v1.txt",
+      "exit_code": 0,
+      "result": "Ruff check passed."
+    },
+    {
+      "executor": "builder",
+      "artifact": "format-check-final-v1.txt",
+      "exit_code": 0,
+      "result": "Eleven files formatted."
+    },
+    {
+      "executor": "builder",
+      "artifact": "ast-proof-final-v1.json",
+      "exit_code": 0,
+      "result": "Frozen narrow-change AST, initialization, source-preservation and parameter proof."
+    },
+    {
+      "executor": "root",
+      "attribution": "Owner-reported; not rerun or independently reviewed by builder.",
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "artifact": "../marine-echo-jepa/evidence/ssl-research-v1/band-root-durable-tests-01.log",
+      "passed": 77,
+      "failed": 6,
+      "result": "NumPy ZipFile io.open bypassed explicit virtual transport: FileNotFoundError, not a permission denial."
+    },
+    {
+      "executor": "root",
+      "attribution": "Owner-reported; not rerun or independently reviewed by builder.",
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "artifact": "../marine-echo-jepa/evidence/ssl-research-v1/band-root-durable-tests-02.log",
+      "passed": 83,
+      "failed": 0,
+      "seconds": 64.18,
+      "environment_flag": "NATIVE_BAND_ROOT_RUNNER_CHECKS=1",
+      "result": "Actual synthetic CPU optimizer, full resume, frozen versus updated encoder and inference replay checks. Root changed only its test transport to use a virtual file handle with the real NumPy codec; the eight authored source/tests remained unchanged."
+    }
+  ],
+  "new_closeout_events": [
+    {
+      "operation": "Initial standard-library hash command",
+      "exit_code": 1,
+      "result": "Command quoting SyntaxError before file reads; not a filesystem denial. Corrected quoting using the same cmd.exe launcher."
+    },
+    {
+      "operation": "Corrected standard-library hash command",
+      "exit_code": 0,
+      "result": "All eight authored hashes match frozen proof."
+    }
+  ],
+  "root_integration_evidence": "../marine-echo-jepa/evidence/ssl-research-v1/band-snapshot-integration.json",
+  "root_transport_change": "Test-only root band_test_support.py np.savez_compressed virtual file handle; no model/trainer/inference/source-test byte changes.",
+  "execution_admission": {
+    "budget_status": "OWNER_CLARIFICATION_REQUIRED",
+    "owner_question": "Pending as reported by coordinator.",
+    "source_prefit_approval": false,
+    "scientific_execution_authorized": false,
+    "real_direct_screen": "Intentionally rejected by native_band_ssl.run; use the fixed native_band_downstream direct_end_to_end trajectory.",
+    "adr0020_ceiling": "Eleven proposed screens do not establish that all eleven recipes are executable or required.",
+    "next_held_out_executor_task": "Requires a separate explicit resume; no model selection or assessment authorized by this closeout."
+  },
+  "import_closure_warning": "Integrated root band modules may now resolve before builder modules while having identical bytes. Do not rerun the historical proof expecting exclusive builder import paths.",
+  "preservation": "Original red/green evidence, denial records, snapshots, reports and partial events remain unchanged. No old proof/test/optimizer/cache/Git operation was rerun during closeout.",
+  "limitations": "Root test results are owner-reported, not builder self-approval or an independent scientific review. No scientific result or improvement claim.",
+  "report_path": "evidence/ssl-band-builder-v1/NATIVE_BAND_CLOSEOUT_20260930_V1.md"
+}

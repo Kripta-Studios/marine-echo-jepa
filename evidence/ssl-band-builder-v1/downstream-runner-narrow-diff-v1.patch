@@ -1,0 +1,347 @@
+--- IMMUTABLE_MAIN/training__native_downstream.py.before.txt
++++ src/marine_echo/training/native_band_downstream.py
+@@ -18,16 +18,24 @@
+ import numpy as np
+ import torch
+ 
+-from marine_echo.training import native_ssl as core
++from marine_echo.inference.native_band_acoustic import (
++    NativeBandAcousticPredictor,
++    _check_state,
++    _configuration,
++)
++from marine_echo.training import native_band_ssl as core
++
++ARCHITECTURE = core.ARCHITECTURE
+ 
+ IMPLEMENTER_SESSION_ID = "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1"
+ MODES = ("frozen_readout", "full_finetune", "direct_end_to_end")
+-METHODS = ("shared_ssl", "masked_ssl", "direct", "random_frozen", "permuted_ssl", "cf_jepa")
++METHODS = core.METHODS
+ sha256 = core.sha256
+ 
+ 
+ @dataclass(frozen=True)
+ class DownstreamConfig:
++    architecture: str = ARCHITECTURE
+     mode: str = "frozen_readout"
+     method: str = "shared_ssl"
+     seed: int = 7
+@@ -52,12 +60,36 @@
+         return asdict(self)
+ 
+     def validate(self, *, correctness_smoke=False):
++        if (self.lr, self.weight_decay, self.gradient_clip) != (0.0003, 0.0001, 1.0):
++            raise ValueError("Band downstream optimizer/clipping are frozen.")
++        if any(
++            type(getattr(self, name)) is not int
++            for name in (
++                "seed",
++                "history",
++                "updates",
++                "cadence",
++                "patience",
++                "min_daily_anchors",
++                "batch_size",
++            )
++        ):
++            raise ValueError("Downstream dimensions/budgets must be exact integers.")
++        if any(
++            not isinstance(getattr(self, name), (int, float))
++            or isinstance(getattr(self, name), bool)
++            or not np.isfinite(getattr(self, name))
++            for name in ("lr", "weight_decay", "gradient_clip")
++        ):
++            raise ValueError("Downstream numeric configuration must be finite.")
++        if self.architecture != ARCHITECTURE:
++            raise ValueError("Exact band downstream architecture required.")
+         if self.mode not in MODES or self.method not in METHODS:
+             raise ValueError("Unsupported downstream mode/method.")
+         if self.mode == "direct_end_to_end" and self.method != "direct":
+             raise ValueError("direct_end_to_end requires the direct method and no ancestor.")
+-        if self.seed not in (7, 13, 23) or self.history not in (24, 96):
+-            raise ValueError("Only matched seeds7/13/23 and histories24/96 are supported.")
++        if self.seed != 7 or self.history != 96:
++            raise ValueError("Band downstream requires seed7 and H96.")
+         if not isinstance(self.updates, int) or not 1 <= self.updates <= 5000:
+             raise ValueError("Hard supervised trajectory limit is5000 updates.")
+         if not isinstance(self.cadence, int) or not 1 <= self.cadence <= self.updates:
+@@ -140,7 +172,7 @@
+         *core.required_sources(core_config),
+         *_ancestor_paths(inputs),
+     ]
+-    source = Path(core.__file__).resolve().parents[1]
++    source = core.HELPER_ROOT
+     paths += [
+         source / "__init__.py",
+         source / "training/__init__.py",
+@@ -149,9 +181,9 @@
+         source / "training/aeon_corpus.py",
+     ]
+     if inputs.review.exists():
+-        compatible = _json(inputs.review).get("compatible_ancestor_model_source")
+-        if compatible:
+-            paths.append(Path(compatible["path"]))
++        budget = _json(inputs.review).get("budget_resolution_path")
++        if budget:
++            paths.append(Path(budget))
+     return list(dict.fromkeys(Path(p).resolve() for p in paths))
+ 
+ 
+@@ -160,7 +192,14 @@
+         raise ValueError(f"Independent {status} review required before fitting.")
+     reviewer = review.get("reviewer_session_id")
+     author = review.get("implementer_session_id")
+-    if not author or not reviewer or reviewer in (author, implementer):
++    excluded = (author, implementer, review.get("root_coordinator_session_id"))
++    if (
++        not author
++        or not isinstance(reviewer, str)
++        or not reviewer
++        or reviewer != reviewer.strip()
++        or reviewer.casefold() in {str(v).casefold() for v in excluded}
++    ):
+         raise ValueError("Reviewer must be a distinct session from the implementer.")
+ 
+ 
+@@ -213,6 +252,22 @@
+ def check_prefit(inputs, config, core_config, *, correctness_smoke=False):
+     """No NumPy payload or torch checkpoint loading occurs until this succeeds."""
+     review = _json(inputs.review)
++    expected_kind = (
++        "SYNTHETIC_CORRECTNESS_ONLY" if correctness_smoke else "REAL_TRAIN_DEVELOPMENT_FIT"
++    )
++    if (
++        review.get("architecture") != ARCHITECTURE
++        or review.get("evidence_kind") != expected_kind
++        or set(review.get("allowed_roles", [])) != {"train", "development"}
++    ):
++        raise ValueError(
++            "Downstream review must explicitly admit band architecture/evidence/roles."
++        )
++    if not correctness_smoke:
++        budget_path = review.get("budget_resolution_path")
++        if review.get("band_budget_status") != "ROOT_RESOLVED" or not budget_path:
++            raise ValueError("Root must resolve the screen/endpoint budget before new prefit.")
++        _bindings(review, [Path(budget_path)])
+     _distinct_review(
+         review, status="APPROVED_DOWNSTREAM_PREFIT", implementer=IMPLEMENTER_SESSION_ID
+     )
+@@ -254,22 +309,10 @@
+             paths[4],
+             *core.required_sources(core_config),
+         ]
+-        compatible = review.get("compatible_ancestor_model_source", {})
+-        model_source = Path(core.native_temporal.__file__).resolve()
+         for path in required:
+             path = Path(path).resolve()
+             expected = sha256(path)
+             historical = parent.get("bindings", {}).get(str(path))
+-            if path == model_source and historical != expected:
+-                # A new, separately reviewed CF-only operation repair does not
+-                # rewrite the historical shared encoder's original source hash.
+-                # This narrowly scoped exception cannot replace data/contracts.
+-                if config.method not in compatible.get("methods", []):
+-                    raise ValueError("Ancestor model source compatibility is not approved.")
+-                snapshot = Path(compatible.get("path", "")).resolve()
+-                expected = sha256(snapshot)
+-                if compatible.get("sha256") != expected:
+-                    raise ValueError("Ancestor model source snapshot binding differs.")
+             if (
+                 historical != expected
+                 or parent_review.get("bindings", {}).get(str(path)) != expected
+@@ -305,6 +348,11 @@
+         expected_kind = (
+             "SYNTHETIC_CORRECTNESS_ONLY" if correctness_smoke else "REAL_TRAIN_DEVELOPMENT_FIT"
+         )
++        if (
++            parent.get("architecture") != ARCHITECTURE
++            or parent_review.get("architecture") != ARCHITECTURE
++        ):
++            raise ValueError("Ancestor architecture/review differs from band family.")
+         if parent.get("status") != "COMPLETED" or parent.get("evidence_kind") != expected_kind:
+             raise ValueError("Incomplete or wrong-kind ancestor cannot supply transfer features.")
+         membership = _json(paths[3])
+@@ -349,12 +397,15 @@
+         value = (
+             smoke_core_config
+             if correctness_smoke and smoke_core_config
+-            else core.Config(method="direct")
++            else core.Config(method="direct", pretrain_updates=3000)
+         )
+     else:
+         if inputs.encoder is None or Path(inputs.encoder).name != "selected_encoder.pt":
+             raise ValueError("Transfer requires an exact selected_encoder.pt artifact.")
+-        value = core.Config(**_json(Path(inputs.encoder).parent / "run.json")["config"])
++        raw = _json(Path(inputs.encoder).parent / "run.json")["config"]
++        if raw.get("architecture") != ARCHITECTURE:
++            raise ValueError("Selected parent config is not the band family.")
++        value = core.Config(**raw)
+         if smoke_core_config is not None and value.to_dict() != smoke_core_config.to_dict():
+             raise ValueError("Smoke architecture differs from selected ancestor.")
+         if value.method != config.method or value.history != config.history:
+@@ -363,13 +414,10 @@
+         if smoke_core_config is not None:
+             raise ValueError("Small architectures require explicit correctness_smoke.")
+         dimensions = core.model_dimensions(value)
+-        expected = (
+-            {"width": 256, "latent": 128, "blocks": 5, "heads": 4}
+-            if config.method == "cf_jepa"
+-            else {"width": 192, "latent": 64, "blocks": 4, "heads": 4}
+-        )
++        expected = {"width": 192, "latent": 64, "blocks": 4, "heads": 4}
+         if dimensions != expected:
+             raise ValueError("Real endpoint backbone dimensions are frozen.")
++    value.validate(correctness_smoke=correctness_smoke)
+     return value
+ 
+ 
+@@ -382,13 +430,14 @@
+     )
+     parent = _json(Path(inputs.encoder).parent / "run.json")
+     if (
+-        selected.get("kind") != "native_ssl_selected_encoder_v1"
+-        or inference.get("kind") != "native_ssl_weights_only_inference_v1"
++        selected.get("kind") != "native_band_ssl_selected_encoder_v1"
++        or inference.get("kind") != "native_band_ssl_weights_only_inference_v1"
+     ):
+         raise ValueError("Unsupported selected ancestor artifact kind.")
+     for record in (selected, inference):
+         if (
+-            record.get("config") != core_config.to_dict()
++            record.get("architecture") != ARCHITECTURE
++            or record.get("config") != core_config.to_dict()
+             or record.get("bindings") != parent["bindings"]
+         ):
+             raise ValueError("Selected artifact source/config lineage mismatch.")
+@@ -396,6 +445,12 @@
+         "selected_pretrain_step"
+     ) != parent.get("selected_pretrain_step"):
+         raise ValueError("Selected artifact scaler/checkpoint lineage mismatch.")
++    # Safe portable loading also validates every full-model tensor and scaler.
++    checked = NativeBandAcousticPredictor.__new__(NativeBandAcousticPredictor)
++    checked._initialize(inference, "cpu")
++    _configuration(selected, torch.device("cpu"))
++    core.Scalers.from_dict(selected.get("scalers"))
++    _check_state(selected.get("encoder"), checked.model.encoder.state_dict())
+     encoder = {
+         k.removeprefix("encoder."): v
+         for k, v in inference["model"].items()
+@@ -428,8 +483,8 @@
+ 
+ 
+ def _forecast_train(model, batch, mode):
+-    # CF forecast() forces EMA eval; explicitly train the selected EMA features
+-    # only in this separate supervised endpoint, with no EMA update or SSL loss.
++    # Only the selected shared band features receive separate supervised gradients.
++    # Frozen mode uses eval/no_grad; no EMA update or SSL loss occurs here.
+     model.readout.train()
+     if mode == "frozen_readout":
+         model.encoder.eval()
+@@ -572,7 +627,8 @@
+     if resume is not None:
+         saved = torch.load(resume, map_location="cpu", weights_only=True)
+         if (
+-            saved.get("kind") != "native_downstream_resume_v1"
++            saved.get("kind") != "native_band_downstream_resume_v1"
++            or saved.get("architecture") != ARCHITECTURE
+             or saved.get("identities") != identities
+         ):
+             raise ValueError("Resume source/config/review/ancestor/device identities differ.")
+@@ -628,6 +684,7 @@
+     model = prepare_model(config, ancestor_config, selected)
+     frozen_state = core.cpu_state(model.encoder) if config.mode == "frozen_readout" else None
+     if saved is not None:
++        _check_state(saved["model"], model.state_dict())
+         model.load_state_dict(saved["model"], strict=True)
+         if frozen_state is not None:
+             for candidate in (saved["model"], saved["state"]["best_model"]):
+@@ -670,7 +727,9 @@
+ 
+         def save(name="latest.pt"):
+             payload = {
+-                "kind": "native_downstream_resume_v1",
++                "kind": "native_band_downstream_resume_v1",
++                "architecture": ARCHITECTURE,
++                "correctness_smoke": correctness_smoke,
+                 "identities": identities,
+                 "state": _safe_cpu(state),
+                 "model": core.cpu_state(model),
+@@ -766,7 +825,9 @@
+             else None,
+         }
+         inference = {
+-            "kind": "native_ssl_weights_only_inference_v1",
++            "kind": "native_band_ssl_weights_only_inference_v1",
++            "architecture": ARCHITECTURE,
++            "correctness_smoke": correctness_smoke,
+             "model": core.cpu_state(model),
+             "config": inference_config.to_dict(),
+             "scalers": scalers.to_dict(),
+@@ -785,7 +846,9 @@
+             core.atomic_checkpoint(
+                 output / "selected_encoder.pt",
+                 {
+-                    "kind": "native_downstream_supervised_encoder_v1",
++                    "kind": "native_band_downstream_supervised_encoder_v1",
++                    "architecture": ARCHITECTURE,
++                    "correctness_smoke": correctness_smoke,
+                     "encoder": core.cpu_state(model.encoder),
+                     "config": inference_config.to_dict(),
+                     "scalers": scalers.to_dict(),
+@@ -837,6 +900,8 @@
+         }
+         _write_json(output / "membership.json", membership)
+         report = {
++            "architecture": ARCHITECTURE,
++            "correctness_smoke": correctness_smoke,
+             "status": "COMPLETED",
+             "evidence_kind": identities["evidence_kind"],
+             "mode": config.mode,
+@@ -875,43 +940,11 @@
+         return report
+ 
+ 
+-class Inference:
+-    """Context-only portable encoding/forecasting; no assessment payload access."""
++class Inference(NativeBandAcousticPredictor):
++    """Safe, frozen target-free endpoint loader without fit initialization."""
+ 
+     def __init__(self, artifact, device):
+-        if artifact.get("kind") != "native_ssl_weights_only_inference_v1":
+-            raise ValueError("Unsupported inference artifact.")
+-        self.config = core.Config(**artifact["config"])
+-        self.scalers = core.Scalers.from_dict(artifact["scalers"])
+-        self.device = torch.device(device)
+-        self.model = core.initialize_model(
+-            self.config.seed, **core.model_dimensions(self.config), method=self.config.method
+-        ).to(self.device)
+-        self.model.load_state_dict(artifact["model"], strict=True)
+-        self.model.eval()
+-        self.model.requires_grad_(False)
+-
+-    @torch.no_grad()
+-    def encode(self, x, observed, metadata):
+-        x, observed = (
+-            np.asarray(x)[:, -self.config.history :],
+-            np.asarray(observed)[:, -self.config.history :],
+-        )
+-        features = self.model.encoder.encode(
+-            torch.as_tensor(self.scalers.channels(x, observed), device=self.device),
+-            torch.as_tensor(observed, device=self.device),
+-            torch.as_tensor(metadata, device=self.device),
+-        )
+-        return features.cpu().numpy()
+-
+-    def forecast(self, x, observed, metadata, query):
+-        data = {
+-            "x": np.asarray(x),
+-            "observed": np.asarray(observed),
+-            "metadata": np.asarray(metadata),
+-            "query": np.asarray(query),
+-        }
+-        return core.predict(self.model, data, self.scalers, self.config, self.device)
++        self._initialize(artifact, device)
+ 
+ 
+ def load_inference(path, *, device="cpu"):

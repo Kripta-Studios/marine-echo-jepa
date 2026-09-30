@@ -1,0 +1,24 @@
+.F........
+================================== FAILURES ===================================
+_____ test_initialization_parameters_and_every_head_match_legacy_exactly ______
+
+    def test_initialization_parameters_and_every_head_match_legacy_exactly():
+        from marine_echo.training import native_ssl as legacy
+        from marine_echo.training import native_band_ssl as band
+    
+        baseline = legacy.initialize_model(7)
+        total = sum(p.numel() for p in baseline.parameters())
+        encoder_total = sum(p.numel() for p in baseline.encoder.parameters())
+        for method in band.METHODS:
+            candidate = band.initialize_model(7, method=method)
+            assert sum(p.numel() for p in candidate.parameters()) == total
+            assert sum(p.numel() for p in candidate.encoder.parameters()) == encoder_total
+            assert set(candidate.state_dict()) == set(baseline.state_dict())
+>           assert all(torch.equal(v, candidate.state_dict()[k]) for k, v in baseline.state_dict().items())
+E           assert False
+E            +  where False = all(<generator object test_initialization_parameters_and_every_head_match_legacy_exactly.<locals>.<genexpr> at 0x00000205AA361F30>)
+
+tests\unit\test_native_band_temporal.py:66: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_band_temporal.py::test_initialization_parameters_and_every_head_match_legacy_exactly
+1 failed, 9 passed in 24.58s

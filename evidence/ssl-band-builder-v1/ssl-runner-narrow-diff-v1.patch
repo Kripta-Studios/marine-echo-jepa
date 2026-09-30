@@ -1,0 +1,397 @@
+--- IMMUTABLE_MAIN/training__native_ssl.py.before.txt
++++ src/marine_echo/training/native_band_ssl.py
+@@ -22,18 +22,25 @@
+ import psutil
+ import torch
+ 
+-from marine_echo.models import native_temporal, sigreg
+-from marine_echo.models.native_temporal import (
++from marine_echo.inference import native_encoder as legacy_encoder
++from marine_echo.models import native_band_temporal as native_temporal
++from marine_echo.models import native_temporal as legacy_temporal
++from marine_echo.models import sigreg
++from marine_echo.models.native_band_temporal import (
++    ARCHITECTURE,
+     QUANTILES,
+-    CFNativeModel,
+-    NativeTemporalModel,
+     QueryHead,
+ )
++from marine_echo.models.native_band_temporal import (
++    NativeBandTemporalModel as NativeTemporalModel,
++)
+ from marine_echo.training import native_resources
++from marine_echo.training import native_ssl as legacy_core
+ 
+ IMPLEMENTER_SESSION_ID = "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1"
+ MAIN = Path(__file__).resolve().parents[3].parent / "marine-echo-jepa"
+-METHODS = ("shared_ssl", "masked_ssl", "direct", "random_frozen", "permuted_ssl", "cf_jepa")
++METHODS = ("shared_ssl", "masked_ssl", "direct", "random_frozen", "permuted_ssl")
++HELPER_ROOT = Path(legacy_core.__file__).resolve().parents[1]
+ 
+ 
+ def sha256(path: Path) -> str:
+@@ -43,6 +50,7 @@
+ 
+ @dataclass(frozen=True)
+ class Config:
++    architecture: str = ARCHITECTURE
+     method: str = "shared_ssl"
+     seed: int = 7
+     history: int = 96
+@@ -74,6 +82,70 @@
+         return asdict(self)
+ 
+     def validate(self, *, correctness_smoke=False):
++        if self.seed != 7 or (self.lr, self.weight_decay, self.sigreg_weight) != (
++            0.0003,
++            0.0001,
++            0.03,
++        ):
++            raise ValueError("Band seed/optimizer/encoded SIGReg coefficient are frozen.")
++        if self.selection_policy != Config.__dataclass_fields__["selection_policy"].default:
++            raise ValueError("Band checkpoint selection policy is frozen.")
++        integers = (
++            "seed",
++            "history",
++            "pretrain_updates",
++            "readout_updates",
++            "batch_size",
++            "width",
++            "latent",
++            "blocks",
++            "heads",
++            "pretrain_cadence",
++            "readout_cadence",
++            "patience",
++            "min_daily_anchors",
++        )
++        if any(type(getattr(self, name)) is not int for name in integers):
++            raise ValueError("Band integer dimensions/budgets must be exact integers.")
++        if any(
++            not isinstance(getattr(self, name), (int, float))
++            or isinstance(getattr(self, name), bool)
++            or not math.isfinite(getattr(self, name))
++            for name in (
++                "lr",
++                "weight_decay",
++                "sigreg_weight",
++                "inference_replay_atol_db",
++                "inference_replay_rtol",
++            )
++        ):
++            raise ValueError("Band numeric configuration must be finite.")
++        if self.architecture != ARCHITECTURE or self.history != 96:
++            raise ValueError("Band family requires its exact architecture and H96.")
++        if not correctness_smoke:
++            fixed = (
++                self.seed,
++                self.width,
++                self.latent,
++                self.blocks,
++                self.heads,
++                self.lr,
++                self.weight_decay,
++                self.sigreg_weight,
++                self.batch_size,
++                self.readout_updates,
++                self.pretrain_cadence,
++                self.readout_cadence,
++            )
++            if fixed != (7, 192, 64, 4, 4, 0.0003, 0.0001, 0.03, 64, 500, 1500, 250):
++                raise ValueError(
++                    "Band scientific recipe is frozen; no dimension/objective/schedule tuning."
++                )
++            expected_updates = (
++                0 if self.method == "random_frozen" else 3000 if self.method == "direct" else 6000
++            )
++            if self.pretrain_updates != expected_updates:
++                raise ValueError("Band method requires its prospective fixed update recipe.")
+         if self.method not in METHODS or self.history not in (24, 96):
+             raise ValueError("Unknown method or undeclared history.")
+         if not 0 <= self.pretrain_updates <= 50000 or not 1 <= self.readout_updates <= 5000:
+@@ -118,29 +190,67 @@
+ 
+ 
+ def required_sources(config: Config) -> list[Path]:
++    """Bind all band factories plus immutable inherited/scaler/loader sources."""
++    if config.method not in METHODS or config.architecture != ARCHITECTURE:
++        raise ValueError("Band source closure rejects legacy architecture and CF.")
+     paths = [
+         Path(__file__),
+         Path(native_temporal.__file__),
++        Path(legacy_temporal.__file__),
++        Path(legacy_core.__file__),
++        Path(legacy_encoder.__file__),
+         Path(sigreg.__file__),
+         Path(native_resources.__file__),
++        Path(__file__).resolve().parents[1] / "inference/native_band_acoustic.py",
++        Path(__file__).with_name("native_band_downstream.py"),
+     ]
+-    if config.method == "cf_jepa":
+-        folder = Path(config.cf_source) / "baselines/cf_jepa"
+-        paths.extend(
+-            folder / name for name in ("encoder.py", "trainer.py", "losses.py", "cf_jepa.py")
+-        )
+-        paths.append(Path(config.cf_source) / "LICENSE")
+-    return [p.resolve() for p in paths]
+-
+-
+-def check_prefit(train, dev, split, protocol, config_path, review_path, *, config):
++    paths += [
++        HELPER_ROOT / name
++        for name in (
++            "__init__.py",
++            "models/__init__.py",
++            "training/__init__.py",
++            "data/__init__.py",
++            "data/native_ssl_corpus.py",
++            "training/aeon_corpus.py",
++        )
++    ]
++    return list(dict.fromkeys(p.resolve() for p in paths))
++
++
++def check_prefit(
++    train, dev, split, protocol, config_path, review_path, *, config, correctness_smoke=False
++):
+     """Verify exact artifacts BEFORE np.load, scaler fitting, or optimizer setup."""
+     review = json.loads(Path(review_path).read_text(encoding="utf-8"))
+     if review.get("status") != "APPROVED_PREFIT":
+         raise ValueError("Independent APPROVED_PREFIT review required before fitting.")
++    if review.get("architecture") != ARCHITECTURE:
++        raise ValueError("Prefit review must explicitly admit the new band architecture.")
++    expected_kind = (
++        "SYNTHETIC_CORRECTNESS_ONLY" if correctness_smoke else "REAL_TRAIN_DEVELOPMENT_FIT"
++    )
++    if review.get("evidence_kind") != expected_kind or set(review.get("allowed_roles", [])) != {
++        "train",
++        "development",
++    }:
++        raise ValueError("Prefit evidence kind and explicit TRAIN/development roles must match.")
++    if not correctness_smoke:
++        budget = review.get("budget_resolution_path")
++        if review.get("band_budget_status") != "ROOT_RESOLVED" or not budget:
++            raise ValueError("Root must resolve the screen budget before a distinct new prefit.")
++        budget_path = Path(budget).resolve()
++        if review.get("bindings", {}).get(str(budget_path)) != sha256(budget_path):
++            raise ValueError("Exact root budget resolution binding is required.")
+     reviewer = review.get("reviewer_session_id")
+     implementer = review.get("implementer_session_id", IMPLEMENTER_SESSION_ID)
+-    if not reviewer or reviewer in (implementer, IMPLEMENTER_SESSION_ID):
++    excluded = (implementer, IMPLEMENTER_SESSION_ID, review.get("root_coordinator_session_id"))
++    if (
++        not isinstance(reviewer, str)
++        or not reviewer
++        or reviewer != reviewer.strip()
++        or reviewer.casefold() in {str(v).casefold() for v in excluded}
++    ):
+         raise ValueError("Reviewer must be a distinct session from the implementer.")
+     if config.method not in review.get("allowed_methods", []):
+         raise ValueError("Method is not approved.")
+@@ -309,7 +419,8 @@
+ 
+     @classmethod
+     def from_dict(cls, data):
+-        return cls(**{key: np.asarray(value, dtype=np.float32) for key, value in data.items()})
++        checked = legacy_encoder._scalers(data)
++        return cls(**{key: value.copy() for key, value in vars(checked).items()})
+ 
+ 
+ def validate_membership(data, split_path, *, role):
+@@ -328,12 +439,12 @@
+ 
+ 
+ def initialize_model(seed, *, width=192, latent=64, blocks=4, heads=4, method="shared_ssl"):
++    if method not in METHODS:
++        raise ValueError("Band factory rejects CF and unknown methods.")
+     # fork_rng makes every common tensor independent of prior constructor consumption.
+     with torch.random.fork_rng(devices=[]):
+         torch.manual_seed(seed)
+-        model = (CFNativeModel if method == "cf_jepa" else NativeTemporalModel)(
+-            width, latent, blocks, heads
+-        )
++        model = NativeTemporalModel(width, latent, blocks, heads)
+         # Head initialization is independent of backbone/predictor RNG consumption.
+         torch.manual_seed(seed + 100000)
+         model.readout = QueryHead(latent, 5, latent)
+@@ -347,21 +458,14 @@
+ 
+ 
+ def model_dimensions(config):
+-    return (
+-        {
+-            "width": config.cf_width,
+-            "latent": config.cf_latent,
+-            "blocks": config.cf_blocks,
+-            "heads": config.heads,
+-        }
+-        if config.method == "cf_jepa"
+-        else {
+-            "width": config.width,
+-            "latent": config.latent,
+-            "blocks": config.blocks,
+-            "heads": config.heads,
+-        }
+-    )
++    if config.method not in METHODS or config.architecture != ARCHITECTURE:
++        raise ValueError("Band model dimensions reject CF/legacy architecture.")
++    return {
++        "width": config.width,
++        "latent": config.latent,
++        "blocks": config.blocks,
++        "heads": config.heads,
++    }
+ 
+ 
+ def paired_indices(indices):
+@@ -544,17 +648,11 @@
+ 
+ 
+ def predict_from_checkpoint(path, data, *, device="cpu"):
+-    artifact = torch.load(path, map_location="cpu", weights_only=True)
+-    if artifact.get("kind") != "native_ssl_weights_only_inference_v1":
+-        raise ValueError("Unsupported inference checkpoint.")
+-    config = Config(**artifact["config"])
+-    model = initialize_model(
+-        config.seed,
+-        **model_dimensions(config),
+-        method=config.method,
+-    ).to(device)
+-    model.load_state_dict(artifact["model"], strict=True)
+-    return predict(model, data, Scalers.from_dict(artifact["scalers"]), config, device)
++    from marine_echo.inference.native_band_acoustic import NativeBandAcousticPredictor
++
++    return NativeBandAcousticPredictor(path, device=device).forecast(
++        data["x"], data["observed"], data["metadata"], data["query"]
++    )
+ 
+ 
+ class Resources:
+@@ -651,12 +749,23 @@
+     stop_after=None,
+ ):
+     config.validate(correctness_smoke=correctness_smoke)
++    if not correctness_smoke and config.method == "direct":
++        raise ValueError(
++            "Scientific direct comparisons require the separate fixed native_band_downstream endpoint."
++        )
+     if str(device).startswith("cuda"):
+         os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")
+     if correctness_smoke and device != "cpu":
+         raise ValueError("Correctness optimizer smokes are synthetic CPU only.")
+     review = check_prefit(
+-        train_path, dev_path, split_path, protocol_path, config_path, review_path, config=config
++        train_path,
++        dev_path,
++        split_path,
++        protocol_path,
++        config_path,
++        review_path,
++        config=config,
++        correctness_smoke=correctness_smoke,
+     )
+     train = load_corpus(
+         train_path,
+@@ -677,6 +786,8 @@
+     ):
+         raise ValueError("Reserved native train/development deployments must be disjoint.")
+     output = Path(output)
++    if output.exists() and resume is None and any(output.iterdir()):
++        raise ValueError("Band runs require a new empty output or explicit resume.")
+     output.mkdir(parents=True, exist_ok=True)
+     if (output / "latest.pt").exists() and resume is None:
+         raise ValueError("Existing run requires explicit resume; no silent overwrite.")
+@@ -689,6 +800,11 @@
+             protocol_path,
+             config_path,
+             *required_sources(config),
++            *(
++                [Path(review["budget_resolution_path"])]
++                if "budget_resolution_path" in review
++                else []
++            ),
+         ]
+     }
+     random.seed(config.seed)
+@@ -706,7 +822,10 @@
+     if resume is not None:
+         saved = torch.load(resume, map_location="cpu", weights_only=True)
+         if (
+-            saved.get("kind") != "native_ssl_resume_v1"
++            saved.get("kind") != "native_band_ssl_resume_v1"
++            or saved.get("architecture") != ARCHITECTURE
++            or saved.get("device") != str(device)
++            or saved["state"].get("review_sha256") != sha256(Path(review_path))
+             or saved["state"]["bindings"] != bindings
+             or saved["state"]["config"] != config.to_dict()
+         ):
+@@ -763,12 +882,16 @@
+         "sequence": [],
+         "bindings": bindings,
+         "config": config.to_dict(),
++        "review_sha256": sha256(Path(review_path)),
+         "initial_readout": initial_readout,
+         "scalers": scalers.to_dict(),
+     }
+     if resume is not None:
+         state = saved["state"]
+-        model.load_state_dict(saved["model"])
++        from marine_echo.inference.native_band_acoustic import _check_state
++
++        _check_state(saved["model"], model.state_dict())
++        model.load_state_dict(saved["model"], strict=True)
+         if direct_head is not None:
+             direct_head.load_state_dict(saved["direct_head"])
+         pre_optimizer.load_state_dict(saved["pre_optimizer"])
+@@ -800,7 +923,12 @@
+ 
+         def save(name="latest.pt"):
+             payload = {
+-                "kind": "native_ssl_resume_v1",
++                "kind": "native_band_ssl_resume_v1",
++                "architecture": ARCHITECTURE,
++                "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY"
++                if correctness_smoke
++                else "REAL_TRAIN_DEVELOPMENT_FIT",
++                "correctness_smoke": correctness_smoke,
+                 "state": state,
+                 "model": cpu_state(model),
+                 "direct_head": cpu_state(direct_head) if direct_head is not None else None,
+@@ -1017,7 +1145,12 @@
+         model.load_state_dict(state["best_model"])
+         model.freeze_encoder()
+         inference = {
+-            "kind": "native_ssl_weights_only_inference_v1",
++            "kind": "native_band_ssl_weights_only_inference_v1",
++            "architecture": ARCHITECTURE,
++            "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY"
++            if correctness_smoke
++            else "REAL_TRAIN_DEVELOPMENT_FIT",
++            "correctness_smoke": correctness_smoke,
+             "model": cpu_state(model),
+             "config": config.to_dict(),
+             "scalers": scalers.to_dict(),
+@@ -1028,7 +1161,12 @@
+         atomic_checkpoint(
+             output / "selected_encoder.pt",
+             {
+-                "kind": "native_ssl_selected_encoder_v1",
++                "kind": "native_band_ssl_selected_encoder_v1",
++                "architecture": ARCHITECTURE,
++                "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY"
++                if correctness_smoke
++                else "REAL_TRAIN_DEVELOPMENT_FIT",
++                "correctness_smoke": correctness_smoke,
+                 "encoder": cpu_state(model.encoder),
+                 "config": config.to_dict(),
+                 "scalers": scalers.to_dict(),
+@@ -1076,6 +1214,8 @@
+             json.dumps(membership, indent=2) + "\n", encoding="utf-8"
+         )
+         report = {
++            "architecture": ARCHITECTURE,
++            "correctness_smoke": correctness_smoke,
+             "status": "COMPLETED",
+             "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY"
+             if correctness_smoke

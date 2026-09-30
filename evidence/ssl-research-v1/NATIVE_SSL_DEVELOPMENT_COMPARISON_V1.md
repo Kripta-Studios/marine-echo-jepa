@@ -3,7 +3,11 @@
 Date: 2026-09-30. Study: native_acoustic_ssl_v1. Actual execution completed
 exit0 after distinct reconstruction approval and verification of all58 bindings.
 This is development evidence; reserved AEON2 final-test values remain unopened.
-The distinct numerical result reconstruction is pending.
+The distinct reviewer subsequently reconstructed the actual eight prediction
+artifacts independently with NumPy: every point score and7,584 daily losses
+matched exactly. The bootstrap sequence hash matched; interval endpoints
+differed by at most1.11e-16dB. The closed review is recorded in
+development-numeric-and-budget-review-final.json, numeric_reconstruction.
 
 The comparison uses exactly7,593 issued windows from AEON4_JOB:61937266,
 native0–225m hourly38kHz integrated Sv, with horizons1/3/6 and five quantiles.

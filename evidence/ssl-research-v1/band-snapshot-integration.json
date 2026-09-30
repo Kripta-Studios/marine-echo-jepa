@@ -1,0 +1,20 @@
+{
+  "status": "ENGINEERING_SNAPSHOT_INTEGRATED_NOT_APPROVED_FOR_FITTING",
+  "builder_final_handoff": "PENDING",
+  "authored_sha256": {
+    "src/marine_echo/models/native_band_temporal.py": "1550bb3f130e3981f57b46031e39d0d42ce7dac4738aea9280362210dfaca96b",
+    "src/marine_echo/training/native_band_ssl.py": "ca33bf3141ea17c5adb3d0a4cd2ed0d186be8efb846a5b581003f2088a105e4f",
+    "src/marine_echo/training/native_band_downstream.py": "95becf2cd01a7ab07c67a4da8d26c8e8bf58297f56513a439b0ab2b2be776619",
+    "src/marine_echo/inference/native_band_acoustic.py": "6181baf22b75be73767f4b76370c65bfc37fdeb189da3deabcabe8a7c2dcd1bf",
+    "tests/unit/test_native_band_temporal.py": "6e98d15bda040fe0122c1495fd112ca7ee43fe90c7cbb7814697ba5b49dc09fc",
+    "tests/unit/test_native_band_inference.py": "7ae660584a7980e339aa035d1520c1c06d06a257943c739e31e09ecabb70752a",
+    "tests/integration/test_native_band_ssl.py": "aca0374a21ebc28a4af357e2431722a34a6b2dc8b9a4741a7c1140334d834fab",
+    "tests/integration/test_native_band_downstream.py": "4d20681481e7c78918e46ae6d30b3c28779b845bf24164573f44c21e90d0e2c7"
+  },
+  "engineering_proof_sha256": "3b63c857c7ad5fe31fea806a2646c4c90d7983adeaa53ca100b2a9efeee8ca59",
+  "prior_sources_modified": false,
+  "ledger_modified": false,
+  "scientific_optimizer_updates": 0,
+  "prefit_review": "NOT_RUN",
+  "budget_resolution": "OWNER_CLARIFICATION_PENDING"
+}

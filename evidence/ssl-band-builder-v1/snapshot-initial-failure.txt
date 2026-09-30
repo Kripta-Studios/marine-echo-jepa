@@ -1,0 +1,6 @@
+SOURCE SNAPSHOT ONLY; no numerical scientific artifact access.
+First snapshot command exit 1: FileNotFoundError [Errno 2] for MAIN
+src/marine_echo/inference/__init__.py, an absent namespace-package initializer.
+The following --source-json read also exited 1 because that snapshot was absent.
+No filesystem denial occurred. Already-created source snapshots were preserved.
+The new helper omits the absent file and verifies existing snapshots read-only.
