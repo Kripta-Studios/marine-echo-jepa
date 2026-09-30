@@ -1,0 +1,3 @@
+Source-only Ruff check --no-cache over three authored files plus evidence helpers.
+Exit code:1. Two findings in the expanded tests: use dict.values when keys unused
+and use a set literal. Both corrected only within the new test file.

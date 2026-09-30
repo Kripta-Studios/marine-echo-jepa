@@ -1,0 +1,15 @@
+SYNTHETIC_CORRECTNESS_ONLY; no public numerical data/tensors, fitting, optimizer or GPU execution.
+Shell: cmd.exe; login=false; existing root Python; no installs/cache writes.
+
+Command:
+..\marine-echo-jepa\.venv\Scripts\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_band_execution.py
+Exit: 0
+........................................................................ [ 75%]
+........................                                                 [100%]
+96 passed in 153.72s (0:02:33)
+
+All new policy checks executed by the builder on frozen source/test bytes.
+No root scientific config generation, child process, actual ledger/lock mutation or durable GPU supervisor invocation occurred.
+Private virtual transports were established before testing, not as a retry of an OS denial.
+Simulated journal PermissionError tested exactly one failed write with no retry.
+Earlier red/green/fixture/lint evidence is preserved separately.

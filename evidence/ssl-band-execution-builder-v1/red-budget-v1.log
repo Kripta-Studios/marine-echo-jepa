@@ -1,0 +1,5 @@
+SYNTHETIC_CORRECTNESS_ONLY; CPU metadata policy; no real ledger or process.
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_band_execution.py
+Exit code:1. 1 failed in0.92s.
+Initial aggregate-only deadline returned21600s, but5h failed+6h resumed band
+attempts leave only1h of the12h band allowance. Expected3600s.

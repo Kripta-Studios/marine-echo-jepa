@@ -1,0 +1,38 @@
+{
+  "architecture": "nonlinear_frequency_conditioned_v1",
+  "budget": {
+    "aggregate_full_owned_gpu_hours": 96,
+    "band_full_owned_gpu_hours": 12,
+    "total_seed7_recipes": 11
+  },
+  "kind": "native_band_config_generation_v1",
+  "model_or_data_loaded": false,
+  "prospective_downstream": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_band_execution_v1\\native_band_shared_ssl_frozen_readout_v1.json",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_band_execution_v1\\native_band_shared_ssl_full_finetune_v1.json",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_band_execution_v1\\native_band_masked_ssl_frozen_readout_v1.json",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_band_execution_v1\\native_band_masked_ssl_full_finetune_v1.json",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_band_execution_v1\\native_band_permuted_ssl_frozen_readout_v1.json",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_band_execution_v1\\native_band_random_frozen_frozen_readout_v1.json"
+  ],
+  "prospective_endpoints_are_not_new_screen_slots": true,
+  "scientific_approval": false,
+  "screen_recipe_slots": 5,
+  "screens": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_band_execution_v1\\native_band_shared_ssl_screen_v1.json",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_band_execution_v1\\native_band_masked_ssl_screen_v1.json",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_band_execution_v1\\native_band_permuted_ssl_screen_v1.json",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_band_execution_v1\\native_band_random_frozen_screen_v1.json",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_band_execution_v1\\native_band_direct_end_to_end_v1.json"
+  ],
+  "seed": 7,
+  "status": "CONFIGS_READY_FOR_DISTINCT_REVIEW_NO_FITTING",
+  "unsupported": [
+    {
+      "method": "direct",
+      "mode": "frozen_readout",
+      "reason": "Current downstream selected-ancestor loader requires native_band_ssl_selected_encoder_v1; direct_end_to_end emits native_band_downstream_supervised_encoder_v1. No direct SSL screen exists.",
+      "status": "NOT_SUPPORTED"
+    }
+  ]
+}

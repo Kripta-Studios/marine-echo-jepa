@@ -1,0 +1,6 @@
+SYNTHETIC_CORRECTNESS_ONLY; mocked CPU child/supervisor/private virtual filesystem.
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_band_execution.py
+Exit code:1. 1 failed,85 passed in125.40s.
+The direct downstream fixture omitted required TRAIN/development cohort bindings.
+The admission gate rejected it before launch/mutation. Added the missing fixture
+metadata; no production binding requirement was relaxed.

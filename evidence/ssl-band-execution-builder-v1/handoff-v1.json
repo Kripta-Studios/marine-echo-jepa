@@ -1,0 +1,240 @@
+{
+  "kind": "native_band_execution_builder_handoff_v1",
+  "status": "IMPLEMENTATION_CLOSED_AWAITING_ROOT_INTEGRATION_AND_DISTINCT_REVIEW",
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "implementer_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "scientific_approval": false,
+  "architecture": "nonlinear_frequency_conditioned_v1",
+  "authored_sha256": {
+    "tools/execute_native_band_job.py": "d66e2fb990ecff500e8927e52aad69afce4937bbeb5fdc6a198efc3493e4e816",
+    "tools/prepare_native_band_configs.py": "52e3e9c7a8e0fd483f76fe25d0103895de3e9fb28b3b8510bf775851fe7cc9a1",
+    "tests/unit/test_native_band_execution.py": "bc170a05bb92cc5583a4825c51a4a39e467b487fc4e9c8433cd7eb58444f6c6d"
+  },
+  "support_and_evidence_sha256": {
+    "evidence/ssl-band-execution-builder-v1/source-proof-final-v1.json": "fd57150962a0c7d5c95b70c10591745764d202408021a24f7a656dc92f0082a1",
+    "evidence/ssl-band-execution-builder-v1/NATIVE_BAND_EXECUTION_IMPLEMENTATION_V1.md": "b5438ca162c7f1a0afdde74d21a834dbdcdc6cba297753336dfdf5bd7dd7c538",
+    "evidence/ssl-band-execution-builder-v1/policy_test_support.py": "05b77ca8365c494759c15a9a852b4073c7ff06ba68244ec80c43080cfa2a7ae2",
+    "evidence/ssl-band-execution-builder-v1/verify_delivery.py": "9c92c097f98c892a521a18f8d51e69f28dfa63590798bc05746cc1bfa1cf55b4",
+    "evidence/ssl-band-execution-builder-v1/green-final-v1.log": "c32872dce9827da206f8a05d9e563a58b927252a0ea89a0cb4660bcccd24fca0",
+    "evidence/ssl-band-execution-builder-v1/lint-final-v1.log": "54028c3d899e0b3367dbd3ed621ada4db1531d17fe7de398d659b4d547fe5964"
+  },
+  "source_proof_path": "evidence/ssl-band-execution-builder-v1/source-proof-final-v1.json",
+  "source_proof_sha256": "fd57150962a0c7d5c95b70c10591745764d202408021a24f7a656dc92f0082a1",
+  "protected_main_sha256": {
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0016-native-ssl-selection-and-source-baseline.md": "1e42b3aec76e6673e014ddc4894667ff7bcd786be0f59c84d33fa9d4b4ae7b1d",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0018-native-acoustic-downstream-transfer.md": "124e3a5834b45e52d1e70e7aff3fe5a6500b55b49abd5fac6df35a0f35ede91d",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0023-owner-resolved-band-budget.md": "e7dffe900a969f03ceb13254116997041536ab818ab32fe67ff4d6c437b4b67d",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_band_budget_owner_resolution_v1.json": "d13cc7875bba5400cfe0761a371dcf69bb743e4914f9449d288ecaee9b5d15db",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\pyproject.toml": "2fd75de20d002f718bd1c621e0692671f7b3e59314f6890a15c5b6d8d4d5d64b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\__init__.py": "3fcc1878588f5a89775363e099fab7d7323acebccae26d10db4a6da627425b68",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\__init__.py": "011583e04b7f119ffcc2ae18712a4af2e613cff87bcbeb5435fbfb10dcd01508",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\native_ssl_corpus.py": "ebda9d460fa14df749b8f774bcb02a6622f0d69402443098a6100670a4c8f7ba",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_band_acoustic.py": "6181baf22b75be73767f4b76370c65bfc37fdeb189da3deabcabe8a7c2dcd1bf",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_encoder.py": "6cc07a15ea93427d6628f1b317945f6e38ff3008894a31cab2173c0b666c0f7f",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\__init__.py": "5bdc97a6119b2dd3d519df36406c8bcb9e801be81c8b6c3f44e4a527db1f87a3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_band_temporal.py": "1550bb3f130e3981f57b46031e39d0d42ce7dac4738aea9280362210dfaca96b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_temporal.py": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\sigreg.py": "2cf5dc8e6fc610fbe167339a8750f5e2d9ddf9a48f416717b8310500536469a3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\__init__.py": "c98c60178f566d43dd60641704ccd9c652d406487b4838cbf5a9df49ea5dd735",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\aeon_corpus.py": "398e021a5807ab8068ceef03dd692f3b688c744751cd4e65d3efbee94d9a3efd",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_downstream.py": "95becf2cd01a7ab07c67a4da8d26c8e8bf58297f56513a439b0ab2b2be776619",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_ssl.py": "ca33bf3141ea17c5adb3d0a4cd2ed0d186be8efb846a5b581003f2088a105e4f",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_resources.py": "c9ca3fbd0759ae00824774ed61a08185361234430d5ed63f09fa3885545c7c38",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_ssl.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_native_downstream_job.py": "94453f9fcf4cb6e62bdb2e6befa2ae845dc65b74fdeefb5464c6761df422490e",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_native_ssl_job.py": "1ac9b66bc564f8b8424ef2cf89f8a5f9b2bd9f3f06a8d9f961c077f84d72e47c",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\native_reference_supervisor.py": "ec5456584ca6f6a805e13f4137365c2c0a785b2dbc52782b191c1528befb30dd",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\uv.lock": "980c87913ed3dd0c28692a0c9e6d4b297d7994092fce6a1763d833f80699aa9a"
+  },
+  "protected_main_unchanged": true,
+  "closed_prefix_three_sources_unchanged": true,
+  "closed_prefix_optimizer_cases": "SIX_ROOT_ONLY_CASES_REMAIN_UNCHANGED_NOT_ASSIGNED_HERE",
+  "owner_budget": {
+    "resolution_path": "orchestration/native_band_budget_owner_resolution_v1.json",
+    "resolution_sha256": "d13cc7875bba5400cfe0761a371dcf69bb743e4914f9449d288ecaee9b5d15db",
+    "adr_path": "docs/adr/0023-owner-resolved-band-budget.md",
+    "adr_sha256": "e7dffe900a969f03ceb13254116997041536ab818ab32fe67ff4d6c437b4b67d",
+    "status": "ROOT_RESOLVED",
+    "seed7_recipe_families_total": 11,
+    "original_families": 6,
+    "band_screen_families": 5,
+    "band_full_owned_gpu_hours": 12,
+    "aggregate_full_owned_gpu_hours": 96,
+    "failed_and_resumed_attempts_charged": true,
+    "prefit_approval": "NOT_GRANTED_BY_OWNER_BUDGET_REPLY"
+  },
+  "configuration_contract": {
+    "screens": [
+      "shared_ssl",
+      "masked_ssl",
+      "permuted_ssl",
+      "random_frozen",
+      "direct_end_to_end"
+    ],
+    "prospective_endpoints": [
+      "shared_ssl/frozen_readout",
+      "shared_ssl/full_finetune",
+      "masked_ssl/frozen_readout",
+      "masked_ssl/full_finetune",
+      "permuted_ssl/frozen_readout",
+      "random_frozen/frozen_readout"
+    ],
+    "unsupported": [
+      {
+        "method": "direct",
+        "mode": "frozen_readout",
+        "status": "NOT_SUPPORTED",
+        "reason": "Immutable selected ancestor loader rejects downstream-supervised encoder kind; no direct SSL screen."
+      }
+    ],
+    "seed": 7,
+    "history": 96,
+    "width": 192,
+    "latent": 64,
+    "blocks": 4,
+    "heads": 4,
+    "shared_masked_permuted": {
+      "pretrain_updates": 6000,
+      "pretrain_cadence": 1500,
+      "screen_readout_updates": 500,
+      "screen_readout_cadence": 250
+    },
+    "random": {
+      "pretrain_updates": 0,
+      "screen_readout_updates": 500,
+      "screen_readout_cadence": 250
+    },
+    "frozen": {
+      "updates": 2000,
+      "cadence": 500
+    },
+    "full_and_direct": {
+      "updates": 3000,
+      "cadence": 750
+    },
+    "fixed_optimizer": "Actual immutable Config/DownstreamConfig.to_dict values; no search or new controls.",
+    "separate_downstream_approval_required": true,
+    "prospective_config_files_do_not_authorize_extra_recipe_families": true
+  },
+  "review_contract": {
+    "ssl_status": "APPROVED_PREFIT",
+    "downstream_status": "APPROVED_DOWNSTREAM_PREFIT",
+    "evidence_kind": "REAL_TRAIN_DEVELOPMENT_FIT",
+    "roles": [
+      "train",
+      "development"
+    ],
+    "reviewer_distinct_from": [
+      "builder",
+      "declared_implementer",
+      "root_coordinator"
+    ],
+    "all_declared_bindings_verified": true,
+    "required_sources": "Wrapper/generator/supervisor/static local import closure/packages/readers/interpreter/pyproject/uv.lock; exact config, budget receipt, ADR0016/0018/0023, original split/TRAIN/development/cohorts and optional ancestor/resume artifacts.",
+    "runtime_arguments_exact": true,
+    "approved_config_exact": true,
+    "resume": "Fresh wrapper review requires trainer_review_path and binds original immutable trainer review plus owned existing resume tensor and fresh receipt. Trainer command retains original review identity; both review hashes recorded.",
+    "deeper_core_admission_preserved": true,
+    "no_production_root_or_synthetic_cli_override": true
+  },
+  "execution_contract": {
+    "root": "Integrated script checkout only",
+    "modules": [
+      "marine_echo.training.native_band_ssl",
+      "marine_echo.training.native_band_downstream"
+    ],
+    "device": "cuda:0",
+    "rss_limit_bytes": 23622320128,
+    "gpu_core_limit": "Existing core requires allocated/reserved below10GiB",
+    "deadline": "min(remaining aggregate96,remaining band12) full owned seconds",
+    "receipt_files": [
+      "console.log",
+      "attempt.json"
+    ],
+    "required_completion_artifacts": [
+      "run.json",
+      "inference.pt",
+      "membership.json"
+    ],
+    "success": "Actual child0, exact completed REAL report/config/architecture/method/mode/seed/review and artifact hashes, owned cleanup verified and GPU lock absent.",
+    "parent_exception": "Active reservation requires root reconciliation; no completed/cleaned claim and no retry of failed journal write.",
+    "cleanup": "Only verified supervisor-terminated captured-tree matching PID/output lock; unknown lock always preserved.",
+    "historical_band_accounting": "All native_band_v1 attempts; untagged/unaccounted/invalid time blocks execution.",
+    "protected_output": "Fresh receipt; fresh output or explicitly approved resume into incomplete owned output; completed outputs protected."
+  },
+  "checks": [
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_band_execution.py",
+      "executed_by": "BUILDER",
+      "exit_code": 0,
+      "passed": 96,
+      "elapsed_seconds": 153.72,
+      "log": "evidence/ssl-band-execution-builder-v1/green-final-v1.log"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff check --no-cache tools/execute_native_band_job.py tools/prepare_native_band_configs.py tests/unit/test_native_band_execution.py evidence/ssl-band-execution-builder-v1/policy_test_support.py evidence/ssl-band-execution-builder-v1/verify_delivery.py",
+      "executed_by": "BUILDER",
+      "exit_code": 0,
+      "log": "evidence/ssl-band-execution-builder-v1/lint-final-v1.log"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff format --check --no-cache tools/execute_native_band_job.py tools/prepare_native_band_configs.py tests/unit/test_native_band_execution.py evidence/ssl-band-execution-builder-v1/policy_test_support.py evidence/ssl-band-execution-builder-v1/verify_delivery.py",
+      "executed_by": "BUILDER",
+      "exit_code": 0,
+      "files_already_formatted": 5,
+      "log": "evidence/ssl-band-execution-builder-v1/lint-final-v1.log"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B evidence/ssl-band-execution-builder-v1/verify_delivery.py --baseline evidence/ssl-band-execution-builder-v1/source-baseline-v2.json",
+      "executed_by": "BUILDER",
+      "exit_code": 0,
+      "rechecked_after_final_tests": true,
+      "protected_main_files": 24
+    }
+  ],
+  "red_evidence": [
+    {
+      "path": "evidence/ssl-band-execution-builder-v1/red-budget-v1.log",
+      "exit_code": 1,
+      "meaningful_gap": "Aggregate-only deadline ignored remaining band allowance."
+    },
+    {
+      "path": "evidence/ssl-band-execution-builder-v1/red-post-verification-deadline-v1.log",
+      "exit_code": 1,
+      "meaningful_gap": "Report verification could cross full-owned deadline after child0."
+    }
+  ],
+  "test_transport": "Private virtual filesystem and fake owned children/supervisors, established before any operation, with actual immutable Config classes; no real corpus/tensor decode/process/fitting. Simulated denial is one write with no retry.",
+  "not_run": {
+    "root_integration": "NOT_RUN",
+    "real_config_generation": "NOT_RUN",
+    "scientific_process": "NOT_RUN",
+    "gpu_execution": "NOT_RUN",
+    "actual_ledger_and_lock_mutation": "NOT_RUN",
+    "actual_resume_tensors": "NOT_RUN",
+    "public_numerical_data": "NOT_RUN",
+    "independent_source_prefit_review": "NOT_RUN",
+    "git_index": "NOT_RUN"
+  },
+  "root_next_steps": [
+    "Integrate exact three authored files and evidence test support; verify immutable closure and copied hashes.",
+    "Run documented synthetic CPU pytest/Ruff checks in root checkout.",
+    "Generate fixed configs exclusively under root/configs when root authorizes it.",
+    "Obtain distinct exact source/config/data/budget/parent prefit review; owner budget is not source approval.",
+    "Use root supervisor/GPU owner for any admitted real job and retain full attempt accounting."
+  ],
+  "public_commands": {
+    "prepare": ".venv\\Scripts\\python.exe -B tools\\prepare_native_band_configs.py",
+    "ssl": ".venv\\Scripts\\python.exe -B tools\\execute_native_band_job.py --kind ssl --config ABS_CONFIG --review ABS_REVIEW --output ABS_NEW_OUTPUT --receipt ABS_NEW_RECEIPT",
+    "downstream": ".venv\\Scripts\\python.exe -B tools\\execute_native_band_job.py --kind downstream --config ABS_CONFIG --review ABS_REVIEW --output ABS_NEW_OUTPUT --receipt ABS_NEW_RECEIPT"
+  },
+  "claims_excluded": [
+    "self-review",
+    "scientific fit",
+    "quality improvement",
+    "model selection",
+    "actual budget consumption",
+    "final numerical admission"
+  ],
+  "commit": "NOT_RUN_NO_GIT_INDEX_RETRY"
+}

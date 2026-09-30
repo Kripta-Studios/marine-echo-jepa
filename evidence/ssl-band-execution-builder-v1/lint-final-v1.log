@@ -1,0 +1,19 @@
+SYNTHETIC_CORRECTNESS_ONLY / SOURCE CHECKS; no scientific execution.
+Shell: cmd.exe; login=false; existing root Python; no installs/cache writes.
+
+Command:
+..\marine-echo-jepa\.venv\Scripts\python.exe -B -m ruff check --no-cache tools/execute_native_band_job.py tools/prepare_native_band_configs.py tests/unit/test_native_band_execution.py evidence/ssl-band-execution-builder-v1/policy_test_support.py evidence/ssl-band-execution-builder-v1/verify_delivery.py
+Exit: 0
+All checks passed!
+
+Command:
+..\marine-echo-jepa\.venv\Scripts\python.exe -B -m ruff format --check --no-cache tools/execute_native_band_job.py tools/prepare_native_band_configs.py tests/unit/test_native_band_execution.py evidence/ssl-band-execution-builder-v1/policy_test_support.py evidence/ssl-band-execution-builder-v1/verify_delivery.py
+Exit: 0
+5 files already formatted
+
+Command:
+..\marine-echo-jepa\.venv\Scripts\python.exe -B evidence/ssl-band-execution-builder-v1/verify_delivery.py --baseline evidence/ssl-band-execution-builder-v1/source-baseline-v2.json
+Exit: 0
+JSON output preserved in source-proof-final-v1.json.
+All 24 referenced main source/protocol/budget/lock hashes unchanged.
+All three closed prefix source/test hashes unchanged.

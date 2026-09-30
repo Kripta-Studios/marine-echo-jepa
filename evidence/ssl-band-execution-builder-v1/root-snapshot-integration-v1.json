@@ -1,0 +1,28 @@
+{
+  "status": "CLOSED_BAND_EXECUTION_SNAPSHOT_INTEGRATED",
+  "copied_sha256": {
+    "tools/execute_native_band_job.py": "d66e2fb990ecff500e8927e52aad69afce4937bbeb5fdc6a198efc3493e4e816",
+    "tools/prepare_native_band_configs.py": "52e3e9c7a8e0fd483f76fe25d0103895de3e9fb28b3b8510bf775851fe7cc9a1",
+    "tests/unit/test_native_band_execution.py": "bc170a05bb92cc5583a4825c51a4a39e467b487fc4e9c8433cd7eb58444f6c6d",
+    "evidence\\ssl-band-execution-builder-v1\\green-final-v1.log": "c32872dce9827da206f8a05d9e563a58b927252a0ea89a0cb4660bcccd24fca0",
+    "evidence\\ssl-band-execution-builder-v1\\green-policy-v1.log": "fc7b0f31bd765d65fe9c5cff19fe86622428f76e0cca5d31ca1acabd8e0e19cc",
+    "evidence\\ssl-band-execution-builder-v1\\handoff-v1.json": "08fbfbf80eeba345020eb97a5ae9651b34267a86d49804d346fb839f9e0c2e59",
+    "evidence\\ssl-band-execution-builder-v1\\lint-attempt-v1.log": "54ac41354cada8520bb9ba5205375749dc173031b4dd7aaba9b7603f3dec8932",
+    "evidence\\ssl-band-execution-builder-v1\\lint-final-v1.log": "54028c3d899e0b3367dbd3ed621ada4db1531d17fe7de398d659b4d547fe5964",
+    "evidence\\ssl-band-execution-builder-v1\\NATIVE_BAND_EXECUTION_IMPLEMENTATION_V1.md": "b5438ca162c7f1a0afdde74d21a834dbdcdc6cba297753336dfdf5bd7dd7c538",
+    "evidence\\ssl-band-execution-builder-v1\\policy-attempt-v1.log": "a2398ecc6568d09fed24d645661e8cbecdf39abc668c9905e97fdfd0232c03eb",
+    "evidence\\ssl-band-execution-builder-v1\\policy_test_support.py": "05b77ca8365c494759c15a9a852b4073c7ff06ba68244ec80c43080cfa2a7ae2",
+    "evidence\\ssl-band-execution-builder-v1\\red-budget-v1.log": "21f2c6573f17e0f7090a243b7d9ded91f8f30c823cfdae0ebef03d455888a30f",
+    "evidence\\ssl-band-execution-builder-v1\\red-post-verification-deadline-v1.log": "6db97b1cda975361a5d353e492f1e27364595dd08864c2ca197cb54a872e535e",
+    "evidence\\ssl-band-execution-builder-v1\\source-baseline-v1.json": "1116ba24e9a24ae7f929742d9d4160cb4e126c7ea85a5d290a9bc3d69e237c54",
+    "evidence\\ssl-band-execution-builder-v1\\source-baseline-v2.json": "fd57150962a0c7d5c95b70c10591745764d202408021a24f7a656dc92f0082a1",
+    "evidence\\ssl-band-execution-builder-v1\\source-proof-final-v1.json": "fd57150962a0c7d5c95b70c10591745764d202408021a24f7a656dc92f0082a1",
+    "evidence\\ssl-band-execution-builder-v1\\verify_delivery.py": "9c92c097f98c892a521a18f8d51e69f28dfa63590798bc05746cc1bfa1cf55b4"
+  },
+  "source_bytes_identical": true,
+  "builder_checkout_modified": false,
+  "root_checks": "NOT_RUN",
+  "config_generation": "NOT_RUN",
+  "prefit": "NOT_RUN",
+  "fitting": false
+}

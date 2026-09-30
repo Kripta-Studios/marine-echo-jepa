@@ -1,0 +1,6 @@
+SYNTHETIC_CORRECTNESS_ONLY; fake child/supervisor/clock, no real process.
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_band_execution.py -k report_verification_elapsed
+Exit code:1. 1 failed,86 deselected in18.37s.
+Child finished at60s with61s remaining, but report verification advanced to62s.
+The wrapper incorrectly returned0. The deadline is now checked again before
+completion counters/receipt are committed; elapsed is still fully charged.
