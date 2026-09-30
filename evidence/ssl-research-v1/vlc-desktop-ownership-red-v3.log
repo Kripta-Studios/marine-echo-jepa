@@ -1,0 +1,271 @@
+F..FFFFFFFFFFF.                                                          [100%]
+================================== FAILURES ===================================
+______ test_explicit_owner_vlc_exception_preserves_other_runtime_blocks _______
+
+    def test_explicit_owner_vlc_exception_preserves_other_runtime_blocks():
+        result = classify([(900, "python.exe"), (1, "vlc.exe"), (2, "python.exe"), (3, "unknown.exe"), (4, "dwm.exe")])
+>       assert result["blocking_pids"] == [2, 3]
+E       assert [1, 2, 3] == [2, 3]
+E         
+E         At index 0 diff: 1 != 2
+E         Left contains one more item: 3
+E         Use -v to get more diff
+
+tests\unit\test_native_vlc_desktop_ownership_v2.py:29: AssertionError
+_ test_tampered_authority_cannot_relax_other_limits[allowed_additional_desktop_executables-value0] _
+
+field = 'allowed_additional_desktop_executables'
+value = ['vlc.exe', 'python.exe']
+
+    @pytest.mark.parametrize("field,value", [
+        ("allowed_additional_desktop_executables", ["vlc.exe", "python.exe"]),
+        ("allowed_driver_model", "TCC"), ("single_scientific_training_process_tree", False),
+        ("unknown_or_other_ml_runtimes_blocked", False), ("foreign_process_termination_authorized", True),
+        ("historical_fitted_source_changes_authorized", True), ("independent_prefit", "NOT_REQUIRED"),
+        ("band_full_owned_gpu_hours", 13), ("aggregate_full_owned_gpu_hours", 97),
+        ("final_numeric_access_or_paid_resources_authorized", True),
+        ("gpu_allocated_reserved_bytes_strictly_less_than", True),
+    ])
+    def test_tampered_authority_cannot_relax_other_limits(field, value):
+        resolution = json.loads((ROOT / "orchestration/native_vlc_desktop_owner_resolution_v1.json").read_bytes())
+        resolution = copy.deepcopy(resolution)
+        resolution[field] = value
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\unit\test_native_vlc_desktop_ownership_v2.py:52: Failed
+_ test_tampered_authority_cannot_relax_other_limits[allowed_driver_model-TCC] _
+
+field = 'allowed_driver_model', value = 'TCC'
+
+    @pytest.mark.parametrize("field,value", [
+        ("allowed_additional_desktop_executables", ["vlc.exe", "python.exe"]),
+        ("allowed_driver_model", "TCC"), ("single_scientific_training_process_tree", False),
+        ("unknown_or_other_ml_runtimes_blocked", False), ("foreign_process_termination_authorized", True),
+        ("historical_fitted_source_changes_authorized", True), ("independent_prefit", "NOT_REQUIRED"),
+        ("band_full_owned_gpu_hours", 13), ("aggregate_full_owned_gpu_hours", 97),
+        ("final_numeric_access_or_paid_resources_authorized", True),
+        ("gpu_allocated_reserved_bytes_strictly_less_than", True),
+    ])
+    def test_tampered_authority_cannot_relax_other_limits(field, value):
+        resolution = json.loads((ROOT / "orchestration/native_vlc_desktop_owner_resolution_v1.json").read_bytes())
+        resolution = copy.deepcopy(resolution)
+        resolution[field] = value
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\unit\test_native_vlc_desktop_ownership_v2.py:52: Failed
+_ test_tampered_authority_cannot_relax_other_limits[single_scientific_training_process_tree-False] _
+
+field = 'single_scientific_training_process_tree', value = False
+
+    @pytest.mark.parametrize("field,value", [
+        ("allowed_additional_desktop_executables", ["vlc.exe", "python.exe"]),
+        ("allowed_driver_model", "TCC"), ("single_scientific_training_process_tree", False),
+        ("unknown_or_other_ml_runtimes_blocked", False), ("foreign_process_termination_authorized", True),
+        ("historical_fitted_source_changes_authorized", True), ("independent_prefit", "NOT_REQUIRED"),
+        ("band_full_owned_gpu_hours", 13), ("aggregate_full_owned_gpu_hours", 97),
+        ("final_numeric_access_or_paid_resources_authorized", True),
+        ("gpu_allocated_reserved_bytes_strictly_less_than", True),
+    ])
+    def test_tampered_authority_cannot_relax_other_limits(field, value):
+        resolution = json.loads((ROOT / "orchestration/native_vlc_desktop_owner_resolution_v1.json").read_bytes())
+        resolution = copy.deepcopy(resolution)
+        resolution[field] = value
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\unit\test_native_vlc_desktop_ownership_v2.py:52: Failed
+_ test_tampered_authority_cannot_relax_other_limits[unknown_or_other_ml_runtimes_blocked-False] _
+
+field = 'unknown_or_other_ml_runtimes_blocked', value = False
+
+    @pytest.mark.parametrize("field,value", [
+        ("allowed_additional_desktop_executables", ["vlc.exe", "python.exe"]),
+        ("allowed_driver_model", "TCC"), ("single_scientific_training_process_tree", False),
+        ("unknown_or_other_ml_runtimes_blocked", False), ("foreign_process_termination_authorized", True),
+        ("historical_fitted_source_changes_authorized", True), ("independent_prefit", "NOT_REQUIRED"),
+        ("band_full_owned_gpu_hours", 13), ("aggregate_full_owned_gpu_hours", 97),
+        ("final_numeric_access_or_paid_resources_authorized", True),
+        ("gpu_allocated_reserved_bytes_strictly_less_than", True),
+    ])
+    def test_tampered_authority_cannot_relax_other_limits(field, value):
+        resolution = json.loads((ROOT / "orchestration/native_vlc_desktop_owner_resolution_v1.json").read_bytes())
+        resolution = copy.deepcopy(resolution)
+        resolution[field] = value
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\unit\test_native_vlc_desktop_ownership_v2.py:52: Failed
+_ test_tampered_authority_cannot_relax_other_limits[foreign_process_termination_authorized-True] _
+
+field = 'foreign_process_termination_authorized', value = True
+
+    @pytest.mark.parametrize("field,value", [
+        ("allowed_additional_desktop_executables", ["vlc.exe", "python.exe"]),
+        ("allowed_driver_model", "TCC"), ("single_scientific_training_process_tree", False),
+        ("unknown_or_other_ml_runtimes_blocked", False), ("foreign_process_termination_authorized", True),
+        ("historical_fitted_source_changes_authorized", True), ("independent_prefit", "NOT_REQUIRED"),
+        ("band_full_owned_gpu_hours", 13), ("aggregate_full_owned_gpu_hours", 97),
+        ("final_numeric_access_or_paid_resources_authorized", True),
+        ("gpu_allocated_reserved_bytes_strictly_less_than", True),
+    ])
+    def test_tampered_authority_cannot_relax_other_limits(field, value):
+        resolution = json.loads((ROOT / "orchestration/native_vlc_desktop_owner_resolution_v1.json").read_bytes())
+        resolution = copy.deepcopy(resolution)
+        resolution[field] = value
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\unit\test_native_vlc_desktop_ownership_v2.py:52: Failed
+_ test_tampered_authority_cannot_relax_other_limits[historical_fitted_source_changes_authorized-True] _
+
+field = 'historical_fitted_source_changes_authorized', value = True
+
+    @pytest.mark.parametrize("field,value", [
+        ("allowed_additional_desktop_executables", ["vlc.exe", "python.exe"]),
+        ("allowed_driver_model", "TCC"), ("single_scientific_training_process_tree", False),
+        ("unknown_or_other_ml_runtimes_blocked", False), ("foreign_process_termination_authorized", True),
+        ("historical_fitted_source_changes_authorized", True), ("independent_prefit", "NOT_REQUIRED"),
+        ("band_full_owned_gpu_hours", 13), ("aggregate_full_owned_gpu_hours", 97),
+        ("final_numeric_access_or_paid_resources_authorized", True),
+        ("gpu_allocated_reserved_bytes_strictly_less_than", True),
+    ])
+    def test_tampered_authority_cannot_relax_other_limits(field, value):
+        resolution = json.loads((ROOT / "orchestration/native_vlc_desktop_owner_resolution_v1.json").read_bytes())
+        resolution = copy.deepcopy(resolution)
+        resolution[field] = value
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\unit\test_native_vlc_desktop_ownership_v2.py:52: Failed
+_ test_tampered_authority_cannot_relax_other_limits[independent_prefit-NOT_REQUIRED] _
+
+field = 'independent_prefit', value = 'NOT_REQUIRED'
+
+    @pytest.mark.parametrize("field,value", [
+        ("allowed_additional_desktop_executables", ["vlc.exe", "python.exe"]),
+        ("allowed_driver_model", "TCC"), ("single_scientific_training_process_tree", False),
+        ("unknown_or_other_ml_runtimes_blocked", False), ("foreign_process_termination_authorized", True),
+        ("historical_fitted_source_changes_authorized", True), ("independent_prefit", "NOT_REQUIRED"),
+        ("band_full_owned_gpu_hours", 13), ("aggregate_full_owned_gpu_hours", 97),
+        ("final_numeric_access_or_paid_resources_authorized", True),
+        ("gpu_allocated_reserved_bytes_strictly_less_than", True),
+    ])
+    def test_tampered_authority_cannot_relax_other_limits(field, value):
+        resolution = json.loads((ROOT / "orchestration/native_vlc_desktop_owner_resolution_v1.json").read_bytes())
+        resolution = copy.deepcopy(resolution)
+        resolution[field] = value
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\unit\test_native_vlc_desktop_ownership_v2.py:52: Failed
+_ test_tampered_authority_cannot_relax_other_limits[band_full_owned_gpu_hours-13] _
+
+field = 'band_full_owned_gpu_hours', value = 13
+
+    @pytest.mark.parametrize("field,value", [
+        ("allowed_additional_desktop_executables", ["vlc.exe", "python.exe"]),
+        ("allowed_driver_model", "TCC"), ("single_scientific_training_process_tree", False),
+        ("unknown_or_other_ml_runtimes_blocked", False), ("foreign_process_termination_authorized", True),
+        ("historical_fitted_source_changes_authorized", True), ("independent_prefit", "NOT_REQUIRED"),
+        ("band_full_owned_gpu_hours", 13), ("aggregate_full_owned_gpu_hours", 97),
+        ("final_numeric_access_or_paid_resources_authorized", True),
+        ("gpu_allocated_reserved_bytes_strictly_less_than", True),
+    ])
+    def test_tampered_authority_cannot_relax_other_limits(field, value):
+        resolution = json.loads((ROOT / "orchestration/native_vlc_desktop_owner_resolution_v1.json").read_bytes())
+        resolution = copy.deepcopy(resolution)
+        resolution[field] = value
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\unit\test_native_vlc_desktop_ownership_v2.py:52: Failed
+_ test_tampered_authority_cannot_relax_other_limits[aggregate_full_owned_gpu_hours-97] _
+
+field = 'aggregate_full_owned_gpu_hours', value = 97
+
+    @pytest.mark.parametrize("field,value", [
+        ("allowed_additional_desktop_executables", ["vlc.exe", "python.exe"]),
+        ("allowed_driver_model", "TCC"), ("single_scientific_training_process_tree", False),
+        ("unknown_or_other_ml_runtimes_blocked", False), ("foreign_process_termination_authorized", True),
+        ("historical_fitted_source_changes_authorized", True), ("independent_prefit", "NOT_REQUIRED"),
+        ("band_full_owned_gpu_hours", 13), ("aggregate_full_owned_gpu_hours", 97),
+        ("final_numeric_access_or_paid_resources_authorized", True),
+        ("gpu_allocated_reserved_bytes_strictly_less_than", True),
+    ])
+    def test_tampered_authority_cannot_relax_other_limits(field, value):
+        resolution = json.loads((ROOT / "orchestration/native_vlc_desktop_owner_resolution_v1.json").read_bytes())
+        resolution = copy.deepcopy(resolution)
+        resolution[field] = value
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\unit\test_native_vlc_desktop_ownership_v2.py:52: Failed
+_ test_tampered_authority_cannot_relax_other_limits[final_numeric_access_or_paid_resources_authorized-True] _
+
+field = 'final_numeric_access_or_paid_resources_authorized', value = True
+
+    @pytest.mark.parametrize("field,value", [
+        ("allowed_additional_desktop_executables", ["vlc.exe", "python.exe"]),
+        ("allowed_driver_model", "TCC"), ("single_scientific_training_process_tree", False),
+        ("unknown_or_other_ml_runtimes_blocked", False), ("foreign_process_termination_authorized", True),
+        ("historical_fitted_source_changes_authorized", True), ("independent_prefit", "NOT_REQUIRED"),
+        ("band_full_owned_gpu_hours", 13), ("aggregate_full_owned_gpu_hours", 97),
+        ("final_numeric_access_or_paid_resources_authorized", True),
+        ("gpu_allocated_reserved_bytes_strictly_less_than", True),
+    ])
+    def test_tampered_authority_cannot_relax_other_limits(field, value):
+        resolution = json.loads((ROOT / "orchestration/native_vlc_desktop_owner_resolution_v1.json").read_bytes())
+        resolution = copy.deepcopy(resolution)
+        resolution[field] = value
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\unit\test_native_vlc_desktop_ownership_v2.py:52: Failed
+_ test_tampered_authority_cannot_relax_other_limits[gpu_allocated_reserved_bytes_strictly_less_than-True] _
+
+field = 'gpu_allocated_reserved_bytes_strictly_less_than', value = True
+
+    @pytest.mark.parametrize("field,value", [
+        ("allowed_additional_desktop_executables", ["vlc.exe", "python.exe"]),
+        ("allowed_driver_model", "TCC"), ("single_scientific_training_process_tree", False),
+        ("unknown_or_other_ml_runtimes_blocked", False), ("foreign_process_termination_authorized", True),
+        ("historical_fitted_source_changes_authorized", True), ("independent_prefit", "NOT_REQUIRED"),
+        ("band_full_owned_gpu_hours", 13), ("aggregate_full_owned_gpu_hours", 97),
+        ("final_numeric_access_or_paid_resources_authorized", True),
+        ("gpu_allocated_reserved_bytes_strictly_less_than", True),
+    ])
+    def test_tampered_authority_cannot_relax_other_limits(field, value):
+        resolution = json.loads((ROOT / "orchestration/native_vlc_desktop_owner_resolution_v1.json").read_bytes())
+        resolution = copy.deepcopy(resolution)
+        resolution[field] = value
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\unit\test_native_vlc_desktop_ownership_v2.py:52: Failed
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_vlc_desktop_ownership_v2.py::test_explicit_owner_vlc_exception_preserves_other_runtime_blocks
+FAILED tests/unit/test_native_vlc_desktop_ownership_v2.py::test_tampered_authority_cannot_relax_other_limits[allowed_additional_desktop_executables-value0]
+FAILED tests/unit/test_native_vlc_desktop_ownership_v2.py::test_tampered_authority_cannot_relax_other_limits[allowed_driver_model-TCC]
+FAILED tests/unit/test_native_vlc_desktop_ownership_v2.py::test_tampered_authority_cannot_relax_other_limits[single_scientific_training_process_tree-False]
+FAILED tests/unit/test_native_vlc_desktop_ownership_v2.py::test_tampered_authority_cannot_relax_other_limits[unknown_or_other_ml_runtimes_blocked-False]
+FAILED tests/unit/test_native_vlc_desktop_ownership_v2.py::test_tampered_authority_cannot_relax_other_limits[foreign_process_termination_authorized-True]
+FAILED tests/unit/test_native_vlc_desktop_ownership_v2.py::test_tampered_authority_cannot_relax_other_limits[historical_fitted_source_changes_authorized-True]
+FAILED tests/unit/test_native_vlc_desktop_ownership_v2.py::test_tampered_authority_cannot_relax_other_limits[independent_prefit-NOT_REQUIRED]
+FAILED tests/unit/test_native_vlc_desktop_ownership_v2.py::test_tampered_authority_cannot_relax_other_limits[band_full_owned_gpu_hours-13]
+FAILED tests/unit/test_native_vlc_desktop_ownership_v2.py::test_tampered_authority_cannot_relax_other_limits[aggregate_full_owned_gpu_hours-97]
+FAILED tests/unit/test_native_vlc_desktop_ownership_v2.py::test_tampered_authority_cannot_relax_other_limits[final_numeric_access_or_paid_resources_authorized-True]
+FAILED tests/unit/test_native_vlc_desktop_ownership_v2.py::test_tampered_authority_cannot_relax_other_limits[gpu_allocated_reserved_bytes_strictly_less_than-True]
+12 failed, 3 passed in 1.31s

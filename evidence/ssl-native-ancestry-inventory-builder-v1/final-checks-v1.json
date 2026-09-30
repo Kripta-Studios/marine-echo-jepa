@@ -1,0 +1,41 @@
+{
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "python": "../marine-echo-jepa/.venv/Scripts/python.exe",
+  "shell": "cmd.exe",
+  "pytest": {
+    "command": "../marine-echo-jepa/.venv/Scripts/python.exe -B -m pytest tests/unit/test_native_ancestry_inventory.py tests/integration/test_native_ancestry_inventory.py --import-mode=importlib -p no:cacheprovider -q",
+    "exit_code": 0,
+    "result": "48 passed in 308.94s (0:05:08)",
+    "exit_witness_chunk": "3accce",
+    "inspected_stdout_chunk": "500ff2",
+    "log": "green-full-v2.log"
+  },
+  "ruff_files": [
+    "src/marine_echo/evaluation/native_ancestry_inventory.py",
+    "tools/prepare_native_research_inventory.py",
+    "tests/unit/test_native_ancestry_inventory.py",
+    "tests/integration/test_native_ancestry_inventory.py",
+    "evidence/ssl-native-ancestry-inventory-builder-v1/source_snapshot.py",
+    "evidence/ssl-native-ancestry-inventory-builder-v1/inspect_schemas.py",
+    "evidence/ssl-native-ancestry-inventory-builder-v1/inspect_remaining.py",
+    "evidence/ssl-native-ancestry-inventory-builder-v1/synthetic_fixture.py",
+    "evidence/ssl-native-ancestry-inventory-builder-v1/close_delivery.py"
+  ],
+  "ruff_check": {
+    "command_prefix": "../marine-echo-jepa/.venv/Scripts/python.exe -B -m ruff check --no-cache",
+    "arguments": "All ruff_files in listed order",
+    "exit_code": 0,
+    "exit_witness_chunk": "fd0c55",
+    "log": "lint-final-v3.log"
+  },
+  "ruff_format_check": {
+    "command_prefix": "../marine-echo-jepa/.venv/Scripts/python.exe -B -m ruff format --check --no-cache",
+    "arguments": "All ruff_files in listed order",
+    "exit_code": 0,
+    "exit_witness_chunk": "b87ff7",
+    "log": "format-check-final-v3.log"
+  },
+  "root_actual_completed_weight_metadata_audit": "NOT_RUN",
+  "real_public_numeric_decode_fit_gpu": "NOT_RUN",
+  "independent_review": "NOT_RUN_DISTINCT_REVIEW_REQUIRED"
+}

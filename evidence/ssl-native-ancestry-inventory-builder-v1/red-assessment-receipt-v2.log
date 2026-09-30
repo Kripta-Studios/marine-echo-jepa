@@ -1,0 +1,32 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+____ test_unicode_durable_multigeneration_inventory_and_recursive_contract ____
+
+    def test_unicode_durable_multigeneration_inventory_and_recursive_contract():
+        f = support.Fixture().add("ssl").add("frozen", mode="frozen_readout", parent="ssl").add("fine", mode="full_finetune", parent="frozen").add("direct", method="direct", mode="direct_end_to_end").add("random", method="random_frozen").finish()
+        rng = torch.get_rng_state().clone()
+        result = f.candidate.derive_inventory(f.manifest, f.output)
+        assert torch.equal(rng, torch.get_rng_state())
+        assert result["numeric_corpus_decoded"] is False
+        assert result["status"] == "DERIVED_METADATA_NOT_FINAL_SELECTION"
+        assert len(result["models"]) == 5
+        cohort = json.loads((f.output / "train_cohort.json").read_bytes())
+        assert cohort["rows"] == f.rows
+        for name, spec in result["models"].items():
+            ancestry = json.loads(Path(spec["ancestry_path"]).read_bytes())
+            assert ancestry["kind"] == "native_assessment_ancestry_v1"
+            assert ancestry["completeness"] == "COMPLETE_LOCAL_ANCESTRY"
+            assert len(ancestry["fit_inputs"]) == 1
+            fit = ancestry["fit_inputs"][0]
+            manifest = json.loads(Path(fit["manifest_path"]).read_bytes())
+            for key in ("input", "cohort", "statistics", "config", "split"):
+>               assert manifest[key + "_sha256"] == support.digest(Path(fit[key + "_path"]))
+E               AssertionError: assert '25660d9c8205...6e38a730d61f3' == '5bf71cf3666d...17ff43aee7a5f'
+E                 
+E                 - 5bf71cf3666da6f7cf3163a4f8ba5e60393407ccef9fadfdb8217ff43aee7a5f
+E                 + 25660d9c82054b641d30d4e51a96cda88fd496eac6e384229526e38a730d61f3
+
+tests\integration\test_native_ancestry_inventory.py:56: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/integration/test_native_ancestry_inventory.py::test_unicode_durable_multigeneration_inventory_and_recursive_contract
+1 failed, 37 deselected in 28.18s

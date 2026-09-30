@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tools\check_native_pretrained_snapshot_worker_v1.py", line 71, in <module>
+    main()
+  File "C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tools\check_native_pretrained_snapshot_worker_v1.py", line 55, in main
+    if not Path(module.__file__).resolve().is_relative_to(bundle / "src"):
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Álvaro Schwiedop\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py", line 1162, in __init__
+    super().__init__(*args)
+  File "C:\Users\Álvaro Schwiedop\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py", line 373, in __init__
+    raise TypeError(
+TypeError: argument should be a str or an os.PathLike object where __fspath__ returns a str, not 'NoneType'

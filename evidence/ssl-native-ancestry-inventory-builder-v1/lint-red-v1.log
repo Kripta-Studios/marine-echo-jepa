@@ -1,0 +1,79 @@
+F401 [*] `copy` imported but unused
+  --> src\marine_echo\evaluation\native_ancestry_inventory.py:11:8
+   |
+10 | import ast
+11 | import copy
+   |        ^^^^
+12 | import hashlib
+13 | import json
+   |
+help: Remove unused import: `copy`
+   |
+10 | import ast
+   - import copy
+11 | import hashlib
+   |
+
+SIM102 Use a single `if` statement instead of nested `if` statements
+   --> src\marine_echo\evaluation\native_ancestry_inventory.py:227:5
+    |
+225 |       elif (config["width"], config["latent"], config["blocks"], config["heads"], config["sigreg_weight"], config["pretrain_cadence"], config["readout_cadence"]) != (192, 64, 4, 4, 0.03, 1500, 250):
+226 |           raise ValueError("Unknown backbone/objective/schedule variant.")
+227 | /     if not downstream:
+228 | |         if config["selection_policy"] != "train_only_frozen_probe_per_candidate_daily_dev_patience4" or (config["cf_width"], config["cf_latent"], config["cf_blocks"], config["cf_lr"], config["cf_weight_decay"]) != (256, 128, 5, 0.00034, 0.05):
+    | |___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________^
+229 |               raise ValueError("Unknown saved source-defined selection/CF variant.")
+    |
+help: Combine `if` statements using `and`
+
+TRY004 Prefer `TypeError` exception for invalid type
+   --> src\marine_echo\evaluation\native_ancestry_inventory.py:249:9
+    |
+247 |     _memory()
+248 |     if not isinstance(artifact, dict):
+249 |         raise ValueError("Safe owned artifact mapping required.")
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+250 |     return artifact
+    |
+
+TRY004 Prefer `TypeError` exception for invalid type
+   --> src\marine_echo\evaluation\native_ancestry_inventory.py:299:9
+    |
+297 |     sequence = member.get("sequence")
+298 |     if not isinstance(sequence, list):
+299 |         raise ValueError("Actual fitted sample sequence missing.")
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+300 |     for item in sequence:
+301 |         ids = item.get("indices")
+    |
+
+PLC0206 Extracting value from dictionary without calling `.items()`
+   --> src\marine_echo\evaluation\native_ancestry_inventory.py:363:13
+    |
+361 |         if source.get("role") not in groups or not source.get("site") or not _digest(source.get("archive_sha256")) or type(source.get…
+362 |             raise ValueError("Unknown/unsafe original source identity or role.")
+363 |         for key in all_ids:
+    |             ^^^^^^^^^^^^^^
+364 |             if source.get(key) in all_ids[key] or not source.get(key):
+    |                                   ------------
+365 |                 raise ValueError("Conflicting fitted/reserved source identity.")
+366 |             all_ids[key].add(source[key])
+    |             ------------
+367 |         groups[source["role"]].append(source)
+368 |     if any(not group for group in groups.values()) or {s["file_id"] for s in groups["train"]} != {18593}:
+    |
+help: Use `for key, value in all_ids.items()` instead
+
+TRY004 Prefer `TypeError` exception for invalid type
+   --> src\marine_echo\evaluation\native_ancestry_inventory.py:611:9
+    |
+609 |     refs = admitted["manifest"].get("references", {})
+610 |     if not isinstance(refs, dict):
+611 |         raise ValueError("Explicit separate reference metadata required.")
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+612 |     for name, spec in refs.items():
+613 |         if not isinstance(spec, dict) or set(spec) != {"kind", "report_path", "config_path", "statistics_path", "review_path"} or spe…
+    |
+
+Found 6 errors.
+[*] 1 fixable with the `--fix` option.

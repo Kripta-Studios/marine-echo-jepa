@@ -1,0 +1,17 @@
+{
+  "status": "OPERATIONAL_PREFIT_NOT_APPROVED_AUTOMATIC_SAFETY_REJECTION",
+  "actual_session_id": 4657,
+  "actual_cli_exit_code": 1,
+  "actual_exit_chunk_id": "eaa562",
+  "reviewer_session_id": "01a0ef27-876b-7692-917e-3975afc6893d",
+  "action": "Independent prefit review of six prospective owner-authorized desktop operational recipes",
+  "reason_verbatim": "This request was blocked by our safety systems. Reason: Potentially unintended activity.",
+  "specific_blocked_step": "UNKNOWN_FROM_RETURNED_REASON",
+  "review_authority": "NONE",
+  "cuda_execution_under_new_policy": "NOT_RUN",
+  "blocked_operation_retried": false,
+  "bindings": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-desktop-operational-prefit-events-v4.jsonl": "800fd98f406b9b2b1a49578ea54e4278617a0eddface36ee9fc2fafea3b2b349"
+  },
+  "remaining": "Genuine independent prefit is required before the new source can execute training"
+}

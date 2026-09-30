@@ -1,0 +1,45 @@
+I001 [*] Import block is un-sorted or un-formatted
+  --> src\marine_echo\training\native_prefix_desktop_transfer_v3.py:9:1
+   |
+ 7 |   """
+ 8 |
+ 9 | / from __future__ import annotations
+10 | |
+11 | | import argparse
+12 | | import ast
+13 | | import copy
+14 | | import hashlib
+15 | | import io
+16 | | import json
+17 | | import time
+18 | | from dataclasses import asdict, dataclass
+19 | | from datetime import date, datetime, timedelta
+20 | | from functools import lru_cache
+21 | | from itertools import chain
+22 | | from pathlib import Path
+23 | |
+24 | | import numpy as np
+25 | | import torch
+26 | | from torch import nn
+27 | |
+28 | | from marine_echo.evaluation.native_product import native_scores
+29 | | from marine_echo.inference.native_encoder import TRAINING_KINDS, _inputs, _scalers
+30 | | from marine_echo.models.native_band_temporal import NativeBandEncoder
+31 | | from marine_echo.models.native_temporal import CFTemporalEncoder, QueryHead, SharedTemporalEncoder
+32 | | from marine_echo.training import native_ssl as core
+33 | | from marine_echo.training import native_desktop_runtime_v3 as desktop_runtime
+   | |_____________________________________________________________________________^
+34 |
+35 |   IMPLEMENTER_SESSION_ID = "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1"
+   |
+help: Organize imports
+   |
+31 | from marine_echo.models.native_temporal import CFTemporalEncoder, QueryHead, SharedTemporalEncoder
+32 + from marine_echo.training import native_desktop_runtime_v3 as desktop_runtime
+33 | from marine_echo.training import native_ssl as core
+   - from marine_echo.training import native_desktop_runtime_v3 as desktop_runtime
+34 |
+   |
+
+Found 1 error.
+[*] 1 fixable with the `--fix` option.

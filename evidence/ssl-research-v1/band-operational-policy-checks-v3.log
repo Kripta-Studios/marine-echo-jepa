@@ -1,0 +1,232 @@
+.....F.................................................................. [ 63%]
+..............FF.........FF...............                               [100%]
+================================== FAILURES ===================================
+_____ test_config_exclusive_generator_and_collision_no_partial_overwrite ______
+
+case = namespace(root=WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/evidence/ssl-band-replica...c08bd19e9ad5f904c24ec1f554b8eaa7', 'split_sha256': 'e096a8ec8ab34fe824c5154fd4a7979cc08bd19e9ad5f904c24ec1f554b8eaa7'})
+
+    def test_config_exclusive_generator_and_collision_no_partial_overwrite(case):
+        c = case
+        output = c.root / "configs/SYNTHETIC_CORRECTNESS_ONLY-generated"
+>       result = generator._generate_for_test(output, c.root, c.definitions)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\unit\test_native_band_operational_execution.py:181: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+output = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/evidence/ssl-band-replication-builder-v2/SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL_ROOT/configs/SYNTHETIC_CORRECTNESS_ONLY-generated')
+root = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/evidence/ssl-band-replication-builder-v2/SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL_ROOT')
+definitions = (<class 'marine_echo.training.native_band_replication_ssl.Config'>, <class 'marine_echo.training.native_band_replication_downstream.DownstreamConfig'>)
+
+    def _generate_for_test(output, root, definitions):
+        caller = inspect.stack()[1]
+        if (
+            Path(caller.filename).name != "test_native_band_replication_execution.py"
+            or not caller.function.startswith("test_")
+            or "SYNTHETIC_CORRECTNESS_ONLY" not in str(root)
+        ):
+>           raise ValueError("Private synthetic test root only; no production CLI override.")
+E           ValueError: Private synthetic test root only; no production CLI override.
+
+tools\prepare_native_band_replication_configs.py:95: ValueError
+____________ test_downstream_direct_actual_entrypoint_no_ancestor _____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000026AE3A1B020>
+
+    def test_downstream_direct_actual_entrypoint_no_ancestor(monkeypatch):
+        c = support.policy_case(job, generator, monkeypatch, BUILDER, MAIN, kind="downstream")
+>       plan = invoke(c)
+               ^^^^^^^^^
+
+tests\unit\test_native_band_operational_execution.py:692: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\unit\test_native_band_operational_execution.py:149: in invoke
+    return job._admit(c.request, c.root, config_validator=c.validator)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tools\execute_native_band_operational_job.py:398: in _admit
+    *source_paths(root),
+     ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+root = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/evidence/ssl-band-replication-builder-v2/SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL_ROOT')
+
+    def source_paths(root):
+        """Fixed local static import closure; no review-controlled imports."""
+        package = root / "src/marine_echo"
+        pending = [
+            root / "tools/execute_native_band_operational_job.py",
+            root / "tools/prepare_native_band_replication_configs.py",
+            root / "tools/native_reference_supervisor.py",
+            package / "training/native_band_operational_ssl.py",
+            package / "training/native_band_operational_downstream.py",
+            package / "inference/native_band_replication_acoustic.py",
+            package / "inference/native_band_replication_encoder.py",
+            package / "inference/native_band_replication_latent.py",
+        ]
+        found = set()
+        while pending:
+            p = pending.pop().resolve()
+            if p in found:
+                continue
+            if not p.is_file():
+>               raise ValueError(f"Required immutable source missing: {p}")
+E               ValueError: Required immutable source missing: C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\evidence\ssl-band-replication-builder-v2\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL_ROOT\src\marine_echo\training\native_band_operational_downstream.py
+
+tools\execute_native_band_operational_job.py:171: ValueError
+________________ test_downstream_missing_ancestor_args_denied _________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000026A9F402210>
+
+    def test_downstream_missing_ancestor_args_denied(monkeypatch):
+>       c = support.policy_case(
+            job,
+            generator,
+            monkeypatch,
+            BUILDER,
+            MAIN,
+            kind="downstream",
+            mode="frozen_readout",
+            method="shared_ssl",
+        )
+
+tests\unit\test_native_band_operational_execution.py:712: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+evidence\ssl-band-replication-builder-v2\replication_policy_support.py:405: in policy_case
+    seal()
+evidence\ssl-band-replication-builder-v2\replication_policy_support.py:289: in seal
+    ancestor_bindings = {str(p): job.digest(p) for p in job.source_paths(root)}
+                                                        ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+root = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/evidence/ssl-band-replication-builder-v2/SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL_ROOT')
+
+    def source_paths(root):
+        """Fixed local static import closure; no review-controlled imports."""
+        package = root / "src/marine_echo"
+        pending = [
+            root / "tools/execute_native_band_operational_job.py",
+            root / "tools/prepare_native_band_replication_configs.py",
+            root / "tools/native_reference_supervisor.py",
+            package / "training/native_band_operational_ssl.py",
+            package / "training/native_band_operational_downstream.py",
+            package / "inference/native_band_replication_acoustic.py",
+            package / "inference/native_band_replication_encoder.py",
+            package / "inference/native_band_replication_latent.py",
+        ]
+        found = set()
+        while pending:
+            p = pending.pop().resolve()
+            if p in found:
+                continue
+            if not p.is_file():
+>               raise ValueError(f"Required immutable source missing: {p}")
+E               ValueError: Required immutable source missing: C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\evidence\ssl-band-replication-builder-v2\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL_ROOT\src\marine_echo\training\native_band_operational_downstream.py
+
+tools\execute_native_band_operational_job.py:171: ValueError
+________ test_pretrained_downstream_preserves_exact_ancestor_arguments ________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000026A9F4586B0>
+
+    def test_pretrained_downstream_preserves_exact_ancestor_arguments(monkeypatch):
+>       c = support.policy_case(
+            job,
+            generator,
+            monkeypatch,
+            BUILDER,
+            MAIN,
+            kind="downstream",
+            mode="frozen_readout",
+            method="shared_ssl",
+        )
+
+tests\unit\test_native_band_operational_execution.py:941: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+evidence\ssl-band-replication-builder-v2\replication_policy_support.py:405: in policy_case
+    seal()
+evidence\ssl-band-replication-builder-v2\replication_policy_support.py:289: in seal
+    ancestor_bindings = {str(p): job.digest(p) for p in job.source_paths(root)}
+                                                        ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+root = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/evidence/ssl-band-replication-builder-v2/SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL_ROOT')
+
+    def source_paths(root):
+        """Fixed local static import closure; no review-controlled imports."""
+        package = root / "src/marine_echo"
+        pending = [
+            root / "tools/execute_native_band_operational_job.py",
+            root / "tools/prepare_native_band_replication_configs.py",
+            root / "tools/native_reference_supervisor.py",
+            package / "training/native_band_operational_ssl.py",
+            package / "training/native_band_operational_downstream.py",
+            package / "inference/native_band_replication_acoustic.py",
+            package / "inference/native_band_replication_encoder.py",
+            package / "inference/native_band_replication_latent.py",
+        ]
+        found = set()
+        while pending:
+            p = pending.pop().resolve()
+            if p in found:
+                continue
+            if not p.is_file():
+>               raise ValueError(f"Required immutable source missing: {p}")
+E               ValueError: Required immutable source missing: C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\evidence\ssl-band-replication-builder-v2\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL_ROOT\src\marine_echo\training\native_band_operational_downstream.py
+
+tools\execute_native_band_operational_job.py:171: ValueError
+____________ test_declared_ancestor_changed_rejected_before_launch ____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000026A9E2D8CB0>
+
+    def test_declared_ancestor_changed_rejected_before_launch(monkeypatch):
+>       c = support.policy_case(
+            job,
+            generator,
+            monkeypatch,
+            BUILDER,
+            MAIN,
+            kind="downstream",
+            mode="frozen_readout",
+            method="shared_ssl",
+        )
+
+tests\unit\test_native_band_operational_execution.py:963: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+evidence\ssl-band-replication-builder-v2\replication_policy_support.py:405: in policy_case
+    seal()
+evidence\ssl-band-replication-builder-v2\replication_policy_support.py:289: in seal
+    ancestor_bindings = {str(p): job.digest(p) for p in job.source_paths(root)}
+                                                        ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+root = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/evidence/ssl-band-replication-builder-v2/SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL_ROOT')
+
+    def source_paths(root):
+        """Fixed local static import closure; no review-controlled imports."""
+        package = root / "src/marine_echo"
+        pending = [
+            root / "tools/execute_native_band_operational_job.py",
+            root / "tools/prepare_native_band_replication_configs.py",
+            root / "tools/native_reference_supervisor.py",
+            package / "training/native_band_operational_ssl.py",
+            package / "training/native_band_operational_downstream.py",
+            package / "inference/native_band_replication_acoustic.py",
+            package / "inference/native_band_replication_encoder.py",
+            package / "inference/native_band_replication_latent.py",
+        ]
+        found = set()
+        while pending:
+            p = pending.pop().resolve()
+            if p in found:
+                continue
+            if not p.is_file():
+>               raise ValueError(f"Required immutable source missing: {p}")
+E               ValueError: Required immutable source missing: C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\evidence\ssl-band-replication-builder-v2\SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL_ROOT\src\marine_echo\training\native_band_operational_downstream.py
+
+tools\execute_native_band_operational_job.py:171: ValueError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_band_operational_execution.py::test_config_exclusive_generator_and_collision_no_partial_overwrite
+FAILED tests/unit/test_native_band_operational_execution.py::test_downstream_direct_actual_entrypoint_no_ancestor
+FAILED tests/unit/test_native_band_operational_execution.py::test_downstream_missing_ancestor_args_denied
+FAILED tests/unit/test_native_band_operational_execution.py::test_pretrained_downstream_preserves_exact_ancestor_arguments
+FAILED tests/unit/test_native_band_operational_execution.py::test_declared_ancestor_changed_rejected_before_launch
+5 failed, 109 passed in 445.29s (0:07:25)

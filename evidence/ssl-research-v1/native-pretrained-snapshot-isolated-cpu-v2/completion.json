@@ -1,0 +1,73 @@
+{
+  "status": "COPIED_MODEL_ONLY_PACKAGE_ISOLATED_CPU_CORRECTNESS_PASSED",
+  "evidence_kind": "SYNTHETIC_INPUT_CORRECTNESS_ONLY_REAL_PRETRAINED_WEIGHTS",
+  "records": [
+    {
+      "id": "shared_ssl_seed7_h96_cuda0",
+      "embedding_shape": [
+        2,
+        64
+      ],
+      "latent_shape": [
+        2,
+        3,
+        64
+      ],
+      "embedding_sha256": "cc5433a873a93ce45fcc937b61f5b02c5dc1107a674a9b01e4b8c4050c7cefd1",
+      "selected_and_latent_encoder_cpu_replay": "BITIDENTICAL"
+    },
+    {
+      "id": "cf_jepa_seed7_h96_deterministic",
+      "embedding_shape": [
+        2,
+        128
+      ],
+      "latent_shape": [
+        2,
+        96,
+        3,
+        128
+      ],
+      "embedding_sha256": "4a4a8e67bdbe37166ea938bfb8f7f016863911481bd030f36bdb8c14c526060d",
+      "selected_and_latent_encoder_cpu_replay": "BITIDENTICAL"
+    },
+    {
+      "id": "cf_jepa_seed13_h96_replication",
+      "embedding_shape": [
+        2,
+        128
+      ],
+      "latent_shape": [
+        2,
+        96,
+        3,
+        128
+      ],
+      "embedding_sha256": "03a05a360dffae02e09d2d510af0c4326a00dc2d1c0222996fe78b5a4ec65420",
+      "selected_and_latent_encoder_cpu_replay": "BITIDENTICAL"
+    },
+    {
+      "id": "cf_jepa_seed23_h96_replication",
+      "embedding_shape": [
+        2,
+        128
+      ],
+      "latent_shape": [
+        2,
+        96,
+        3,
+        128
+      ],
+      "embedding_sha256": "677a0b3d041fd5e991b286f86162a9a89992bba468faaa7764346969a9e02130",
+      "selected_and_latent_encoder_cpu_replay": "BITIDENTICAL"
+    }
+  ],
+  "all_imports_from_copied_source": true,
+  "native230_shared_query_guard": "PASSED",
+  "fitting": false,
+  "public_numerical_corpus_decoded": false,
+  "scientific_performance_assessment": false,
+  "cuda_initialized": false,
+  "rng_unchanged": true,
+  "independent_package_review": "NOT_RUN"
+}

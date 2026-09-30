@@ -1,0 +1,12 @@
+{
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "fitting": false,
+  "resources": {
+    "peak_rss_bytes": 542351360,
+    "peak_allocated_bytes": 0,
+    "peak_reserved_bytes": 0,
+    "elapsed_seconds": 0.0,
+    "elapsed_gpu_seconds": 0,
+    "gpu_time_definition": "synchronized elapsed device-owned runtime, including probes and evaluation"
+  }
+}

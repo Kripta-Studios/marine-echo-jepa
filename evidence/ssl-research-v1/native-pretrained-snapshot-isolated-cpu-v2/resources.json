@@ -1,0 +1,33 @@
+{
+  "command": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+    "-I",
+    "-B",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\check_native_pretrained_snapshot_worker_v2.py",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_pretrained_model_snapshot_v1",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\native-pretrained-snapshot-isolated-cpu-v2\\completion.json"
+  ],
+  "resources": {
+    "exit_code": 0,
+    "stopped_for": null,
+    "peak_process_rss_bytes": 613568512,
+    "elapsed_full_attempt_seconds": 33.546999999991385,
+    "poll_seconds": 0.1,
+    "rss_limit_bytes": 23622320128,
+    "deadline_seconds": 600,
+    "owned_process_pids": [
+      45532,
+      66284
+    ],
+    "peak_each_process_rss_bytes": {
+      "45532": 5410816,
+      "66284": 608157696
+    },
+    "peak_definition": "Conservative sum of each owned process OS peak working set; sampled RSS fallback",
+    "owned_tree_cleanup_verified": true
+  },
+  "fitting": false,
+  "device": "cpu",
+  "snapshot_sha256": "b699227a267886cf5d81335944dd27b952516a92111aa3e7191c8da5fd349c24",
+  "evidence_kind": "SYNTHETIC_INPUT_CORRECTNESS_ONLY_REAL_PRETRAINED_WEIGHTS"
+}

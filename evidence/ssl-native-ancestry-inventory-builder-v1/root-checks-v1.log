@@ -1,0 +1,24 @@
+...............................................F                         [100%]
+================================== FAILURES ===================================
+____________ test_production_inventory_cannot_be_run_from_builder _____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000023B240F06B0>
+
+    def test_production_inventory_cannot_be_run_from_builder(monkeypatch):
+        f = fixture()
+        manifest = json.loads(f.manifest.read_bytes())
+        manifest["evidence_kind"] = "REAL_TRAIN_DEVELOPMENT_FIT"
+        f.rewrite(f.manifest, manifest)
+        monkeypatch.setattr(
+            f.candidate, "_safe_load", lambda p: pytest.fail("Builder decoded actual artifact")
+        )
+>       with pytest.raises(ValueError, match="ROOT-only"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'ROOT-only'
+E         Actual message: 'Actual immutable native split path required.'
+
+tests\integration\test_native_ancestry_inventory.py:463: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/integration/test_native_ancestry_inventory.py::test_production_inventory_cannot_be_run_from_builder
+1 failed, 47 passed in 322.29s (0:05:22)

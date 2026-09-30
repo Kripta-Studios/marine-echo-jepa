@@ -1,0 +1,7 @@
+{
+  "status": "SYNTHETIC_POLICY_CHECK_ADAPTATION_NOT_SCIENTIFIC_APPROVAL",
+  "original_test_sha256": "e0f785cce065d588ace7c6de99c8f007cd442ac28c8846165b3c0d85b5235fd1",
+  "new_test_sha256": "bea667d1a17fad2040fc9964e05fec80e1c5b389342a67dc0591eab0a3c973bf",
+  "adaptation": "Same virtual ledger/command/resource guards; explicit current operational source closure and route expectations",
+  "original_test_modified": false
+}

@@ -1,0 +1,51 @@
+{
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "green": {
+    "command": "python -B -m pytest tests/unit/test_native_ancestry_inventory.py tests/integration/test_native_ancestry_inventory.py --import-mode=importlib -p no:cacheprovider -q",
+    "exit_code": 0,
+    "log": "green-full-v2.log",
+    "result": "48 passed in 308.94s",
+    "tool_chunk": "3accce"
+  },
+  "help": {
+    "command": "python -B tools/prepare_native_research_inventory.py --help",
+    "exit_code": 0,
+    "log": "cli-help-v1.log",
+    "tool_chunk": "1359ad"
+  },
+  "lint": {
+    "corrected_exit_code": 0,
+    "corrected_log": "lint-v2.log",
+    "corrected_tool_chunk": "e22ae3",
+    "final_witness": "final-checks-v1.json",
+    "initial_exit_code": 1,
+    "initial_log": "lint-red-v1.log"
+  },
+  "public_corpus_weights_gpu_fitting": "NOT_RUN",
+  "python": "../marine-echo-jepa/.venv/Scripts/python.exe",
+  "real_root_weight_metadata_audit": "NOT_RUN_ROOT_ONLY",
+  "red": [
+    {
+      "command": "python -B -m pytest tests/unit/test_native_ancestry_inventory.py --import-mode=importlib -p no:cacheprovider -q",
+      "exit_code": 1,
+      "log": "red-parent-graph-v1.log",
+      "tool_chunk": "53e2dd"
+    },
+    {
+      "command": "python -B -m pytest tests/unit/test_native_ancestry_inventory.py tests/integration/test_native_ancestry_inventory.py --import-mode=importlib -p no:cacheprovider -q",
+      "exit_code": 1,
+      "log": "red-full-codec-v1.log",
+      "note": "Only exact owned pytest session 77159 was interrupted during slow checks. One failure observed; no complete count/result claimed. The code enumerated process children for every tensor; replaced with single-process RSS checks. No foreign process or fit affected.",
+      "tool_chunk": "233281"
+    },
+    {
+      "command": "python -B -m pytest tests/integration/test_native_ancestry_inventory.py -k unicode_durable --import-mode=importlib -p no:cacheprovider -q",
+      "exit_code": 1,
+      "log": "red-assessment-receipt-v2.log",
+      "result": "1 failed, 37 deselected in 28.18s",
+      "tool_chunk": "a2a1f5"
+    }
+  ],
+  "restricted_cache_scratch_git_operations": "NOT_RUN_NO_RETRY",
+  "shell": "cmd.exe"
+}

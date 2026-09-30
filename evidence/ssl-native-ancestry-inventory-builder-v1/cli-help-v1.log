@@ -1,0 +1,9 @@
+usage: prepare_native_research_inventory.py [-h] --manifest MANIFEST --output
+                                            OUTPUT
+
+Root-owned explicit completed-endpoint metadata inventory; no final selection.
+
+options:
+  -h, --help           show this help message and exit
+  --manifest MANIFEST
+  --output OUTPUT

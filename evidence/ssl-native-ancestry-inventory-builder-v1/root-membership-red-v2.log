@@ -1,0 +1,91 @@
+F...F..                                                                  [100%]
+================================== FAILURES ===================================
+__________ test_actual_context_and_target_membership_layout_is_valid __________
+
+metadata = ({'train_row_ids': ['9ece49b1950889669095e737ddf0f2fb7b31c226dd853b956ea93c87fcf4b4eb', '742e20e33a960eb16c0de2244511b..., ...}], {'status': 'MATERIALIZED_REAL_NATIVE_PRODUCTS', 'role': 'train', 'issued': 18593, 'ssl_eligible': 18312, ...})
+
+    def test_actual_context_and_target_membership_layout_is_valid(metadata):
+        member, rows, train, report = metadata
+        before = copy.deepcopy(member)
+>       assert inventory._check_membership(member, rows, train, report) == rows
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\unit\test_native_inventory_real_membership.py:29: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+member = {'train_row_ids': ['9ece49b1950889669095e737ddf0f2fb7b31c226dd853b956ea93c87fcf4b4eb', '742e20e33a960eb16c0de2244511bf...df1a231b2a76f79b3a8b1b601476e66373b00cbedf2d0262d0b4b3cd0', ...], 'ssl_eligible_indices': [0, 1, 2, 3, 4, 5, ...], ...}
+cohort_rows = [('AEON4_JOB:61937263', '9ece49b1950889669095e737ddf0f2fb7b31c226dd853b956ea93c87fcf4b4eb'), ('AEON4_JOB:61937263', '7...227e40658b7631bed56'), ('AEON4_JOB:61937263', 'c596883c2c57ea389038cb624081ef60bfeb810d78630197ad7918edaf3ba23b'), ...]
+train_sources = [{'file_id': 61937263, 'path': 'E:\\marine-echo-jepa-scale\\data\\AEON4 JOB_Feb2021-Jul2021_AZFP_Sv.zip', 'archive_sha....zip', 'archive_sha256': '4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde', 'site': 'AEON3_GEB', ...}]
+report = {'status': 'MATERIALIZED_REAL_NATIVE_PRODUCTS', 'role': 'train', 'issued': 18593, 'ssl_eligible': 18312, ...}
+
+    def _check_membership(member, cohort_rows, train_sources, report):
+        names = ("train_deployments", "train_row_ids", "train_archive_sha256")
+        if (
+            any(not isinstance(member.get(k), list) for k in names)
+            or len({len(member[k]) for k in names}) != 1
+        ):
+            raise ValueError("Partial fitted TRAIN membership.")
+        rows = list(zip(member[names[0]], member[names[1]], strict=True))
+        if rows != cohort_rows or len(rows) != report["issued"]:
+            raise ValueError("Exact complete TRAIN row membership differs.")
+        allowed = {s["deployment"]: s["archive_sha256"] for s in train_sources}
+        if any(
+            allowed.get(dep) != sha for dep, sha in zip(member[names[0]], member[names[2]], strict=True)
+        ):
+            raise ValueError("Fitted archive/deployment identity outside original TRAIN.")
+        for field in ("supervised_indices", "ssl_eligible_indices"):
+            if field not in member and field == "ssl_eligible_indices":
+                continue
+            values = member.get(field)
+            if (
+                not isinstance(values, list)
+                or len(set(values)) != len(values)
+                or any(type(i) is not int or not 0 <= i < len(rows) for i in values)
+            ):
+                raise ValueError("Invalid fitted row/eligibility indices.")
+            if field == "ssl_eligible_indices" and len(values) != report["ssl_eligible"]:
+                raise ValueError("TRAIN SSL eligibility is incomplete.")
+        sequence = member.get("sequence")
+        if not isinstance(sequence, list):
+            raise TypeError("Actual fitted sample sequence missing.")
+        for item in sequence:
+            ids = item.get("indices")
+            if (
+                not isinstance(ids, list)
+                or any(type(i) is not int or not 0 <= i < len(rows) for i in ids)
+                or len(set(ids)) != len(ids)
+            ):
+>               raise ValueError("Fitted sequence escapes TRAIN or duplicates samples.")
+E               ValueError: Fitted sequence escapes TRAIN or duplicates samples.
+
+src\marine_echo\evaluation\native_ancestry_inventory.py:479: ValueError
+___ test_actual_sampling_metadata_corruption_is_rejected[ambiguous_layout] ____
+
+metadata = ({'train_row_ids': ['9ece49b1950889669095e737ddf0f2fb7b31c226dd853b956ea93c87fcf4b4eb', '742e20e33a960eb16c0de2244511b..., ...}], {'status': 'MATERIALIZED_REAL_NATIVE_PRODUCTS', 'role': 'train', 'issued': 18593, 'ssl_eligible': 18312, ...})
+defect = 'ambiguous_layout'
+
+    @pytest.mark.parametrize("defect", ["foreign_context", "foreign_target", "duplicate_context", "ambiguous_layout", "context_hash", "target_hash"])
+    def test_actual_sampling_metadata_corruption_is_rejected(metadata, defect):
+        member, rows, train, report = metadata
+        item = member["sequence"][0]
+        if defect == "foreign_context":
+            item["context_indices"][0] = len(rows)
+        elif defect == "foreign_target":
+            item["target_indices"][0] = len(rows)
+        elif defect == "duplicate_context":
+            item["context_indices"][0] = item["context_indices"][1]
+        elif defect == "ambiguous_layout":
+            item["indices"] = item["context_indices"].copy()
+        elif defect == "context_hash":
+            item["context_sha256"] = "0" * 64
+        else:
+            item["target_multiset_sha256"] = "0" * 64
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\unit\test_native_inventory_real_membership.py:49: Failed
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_inventory_real_membership.py::test_actual_context_and_target_membership_layout_is_valid
+FAILED tests/unit/test_native_inventory_real_membership.py::test_actual_sampling_metadata_corruption_is_rejected[ambiguous_layout]
+2 failed, 5 passed in 9.04s

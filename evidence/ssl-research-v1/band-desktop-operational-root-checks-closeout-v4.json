@@ -1,0 +1,24 @@
+{
+  "status": "ROOT_OPERATIONAL_114_AND_TRANSPORT_19_CHECKS_PASSED_PREFIT_PENDING",
+  "closed_actual_commands": [
+    {
+      "session_id": 25127,
+      "exit_code": 0,
+      "exit_chunk_id": "d11a21",
+      "passed": 114
+    },
+    {
+      "session_id": 19953,
+      "exit_code": 0,
+      "exit_chunk_id": "2edd3c",
+      "passed": 19
+    }
+  ],
+  "bindings": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-operational-policy-checks-v4.log": "2490e29f888c758d112bb1039ca23684b595323e94d8451b7dd67a2a4561a821",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-desktop-review-transport-checks-v4.log": "6e93d9fa2aaace4ca5edf42ecef0dfa63dbe43b44fa2b8df3f88b0c08c28f183"
+  },
+  "historical_sources_unchanged": true,
+  "cuda_execution": "NOT_RUN_UNDER_NEW_POLICY",
+  "prefit_authority": "NOT_GRANTED_BY_CHECKS"
+}

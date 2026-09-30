@@ -1,0 +1,37 @@
+{
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "device": "cpu",
+  "fitting": false,
+  "command": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+    "-B",
+    "-m",
+    "pytest",
+    "tests/integration/test_native_transfer_corpus.py",
+    "-k",
+    "actual_reader_source_metadata_and_two_source_equivalence",
+    "--import-mode=importlib",
+    "-p",
+    "no:cacheprovider",
+    "-q"
+  ],
+  "resources": {
+    "exit_code": 0,
+    "stopped_for": null,
+    "peak_process_rss_bytes": 583176192,
+    "elapsed_full_attempt_seconds": 44.89100000000326,
+    "poll_seconds": 0.1,
+    "rss_limit_bytes": 23622320128,
+    "deadline_seconds": 600,
+    "owned_process_pids": [
+      49284,
+      60344
+    ],
+    "peak_each_process_rss_bytes": {
+      "60344": 5410816,
+      "49284": 577765376
+    },
+    "peak_definition": "Conservative sum of each owned process OS peak working set; sampled RSS fallback",
+    "owned_tree_cleanup_verified": true
+  }
+}

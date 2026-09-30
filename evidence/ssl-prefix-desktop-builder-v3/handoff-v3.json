@@ -1,0 +1,483 @@
+{
+  "kind": "native_prefix_desktop_builder_handoff_v3",
+  "status": "CLOSED_ENGINEERING_DELIVERY",
+  "implementer_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "evidence_kind": "SOURCE_AND_SYNTHETIC_CORRECTNESS_ONLY",
+  "authored": {
+    "src/marine_echo/training/native_desktop_runtime_v3.py": "94d69cfb194b0169093fb13e8f7ad0f59160c7e93dd8899ed0de0298e027b1e1",
+    "src/marine_echo/training/native_prefix_desktop_transfer_v3.py": "a7b90e49fee2866363877f4f6c236c99867ce77ca451f90801ee573b5ec2fca0",
+    "tools/execute_native_prefix_desktop_job_v3.py": "e2ea9c3db47ebbcd6f6e83585a951b535b225f6a00bbf18f92a8c91f81fa87fb",
+    "tools/execute_native_prefix_desktop_worker_v3.py": "4a9e3277542cd0b6b98033bd0cb2b0c0e810a6e987d164bd2e0e2a6915c1a019",
+    "tests/unit/test_native_prefix_desktop_execution_v3.py": "85393f97bd42d7f315827af433be6d1e9fe1f670a9c0f10cbec6f241f57fa2b3",
+    "tests/integration/test_native_prefix_desktop_transfer_v3.py": "496f396504c15333a6a797509930028c35708ff74fbf249f1aa24cba3f8b3bbb"
+  },
+  "support": {
+    "evidence/ssl-prefix-desktop-builder-v3/root_fixture.py": "73762890fb145e2642bb04ba55a40297f7cc6114840e92d0d1a955e5201015af"
+  },
+  "source_proof": {
+    "path": "evidence\\ssl-prefix-desktop-builder-v3\\source-proof-final-v3.json",
+    "sha256": "b00b84da1c3ff2681c1b21af0954636713ec205a4660c077e3a7f407d4bfb432"
+  },
+  "report": {
+    "path": "evidence\\ssl-prefix-desktop-builder-v3\\NATIVE_PREFIX_DESKTOP_IMPLEMENTATION_V3.md",
+    "sha256": "f7af277d574aba38d625f92322881b1c45fa899e477740e241e7755eac9c9565"
+  },
+  "protected_sources": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_assessment_replication.py": {
+      "baseline_sha256": "f8c7e9272c9ecbbb68d60695e9e4e92494f42ca9420989500b7c3f409778c9ef",
+      "current_sha256": "f8c7e9272c9ecbbb68d60695e9e4e92494f42ca9420989500b7c3f409778c9ef",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\__init__.py": {
+      "baseline_sha256": "5bdc97a6119b2dd3d519df36406c8bcb9e801be81c8b6c3f44e4a527db1f87a3",
+      "current_sha256": "5bdc97a6119b2dd3d519df36406c8bcb9e801be81c8b6c3f44e4a527db1f87a3",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_prefix_transfer.py": {
+      "baseline_sha256": "844159d11a1d9a410f7cb7f1a83c782360427e04aae965c19cb94a74d5a28d38",
+      "current_sha256": "844159d11a1d9a410f7cb7f1a83c782360427e04aae965c19cb94a74d5a28d38",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_temporal.py": {
+      "baseline_sha256": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32",
+      "current_sha256": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\prepare_native_seed7_assessment_metadata.py": {
+      "baseline_sha256": "829e6e8307eb8f5e8f66012558a9bcaa8904da84aae93253d43a5da02d9f8f50",
+      "current_sha256": "829e6e8307eb8f5e8f66012558a9bcaa8904da84aae93253d43a5da02d9f8f50",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\native_reference_supervisor.py": {
+      "baseline_sha256": "ec5456584ca6f6a805e13f4137365c2c0a785b2dbc52782b191c1528befb30dd",
+      "current_sha256": "ec5456584ca6f6a805e13f4137365c2c0a785b2dbc52782b191c1528befb30dd",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_replication_downstream.py": {
+      "baseline_sha256": "f5a6747b3a37dcd8856b617a95cd939862ba716a1d7e50fe7ef9090a08d4084d",
+      "current_sha256": "f5a6747b3a37dcd8856b617a95cd939862ba716a1d7e50fe7ef9090a08d4084d",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_native_band_job.py": {
+      "baseline_sha256": "d66e2fb990ecff500e8927e52aad69afce4937bbeb5fdc6a198efc3493e4e816",
+      "current_sha256": "d66e2fb990ecff500e8927e52aad69afce4937bbeb5fdc6a198efc3493e4e816",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_native_prefix_worker.py": {
+      "baseline_sha256": "39ab2ecdd8cc8d6843289c384f05bd61436d4bf1c3a4ecbe4033653d47c04ca6",
+      "current_sha256": "39ab2ecdd8cc8d6843289c384f05bd61436d4bf1c3a4ecbe4033653d47c04ca6",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\native_ssl_corpus.py": {
+      "baseline_sha256": "ebda9d460fa14df749b8f774bcb02a6622f0d69402443098a6100670a4c8f7ba",
+      "current_sha256": "ebda9d460fa14df749b8f774bcb02a6622f0d69402443098a6100670a4c8f7ba",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_band_replication_acoustic.py": {
+      "baseline_sha256": "e689d80077152b4c784966426846bfb154eb4e16a46494f2140129c003288149",
+      "current_sha256": "e689d80077152b4c784966426846bfb154eb4e16a46494f2140129c003288149",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\sigreg.py": {
+      "baseline_sha256": "2cf5dc8e6fc610fbe167339a8750f5e2d9ddf9a48f416717b8310500536469a3",
+      "current_sha256": "2cf5dc8e6fc610fbe167339a8750f5e2d9ddf9a48f416717b8310500536469a3",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_band_temporal.py": {
+      "baseline_sha256": "1550bb3f130e3981f57b46031e39d0d42ce7dac4738aea9280362210dfaca96b",
+      "current_sha256": "1550bb3f130e3981f57b46031e39d0d42ce7dac4738aea9280362210dfaca96b",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_ssl.py": {
+      "baseline_sha256": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744",
+      "current_sha256": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\aeon_corpus.py": {
+      "baseline_sha256": "398e021a5807ab8068ceef03dd692f3b688c744751cd4e65d3efbee94d9a3efd",
+      "current_sha256": "398e021a5807ab8068ceef03dd692f3b688c744751cd4e65d3efbee94d9a3efd",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_references.py": {
+      "baseline_sha256": "0d6583644ab1fce8d87a4194048f2176237b47deb57f0fa8494df6aa9012d584",
+      "current_sha256": "0d6583644ab1fce8d87a4194048f2176237b47deb57f0fa8494df6aa9012d584",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0024-owner-authorized-vlc-desktop-coexecution.md": {
+      "baseline_sha256": "11d5f3e31bb88d269d70872509d86dd06ed87b94fd1b51c6e949560bf036325d",
+      "current_sha256": "11d5f3e31bb88d269d70872509d86dd06ed87b94fd1b51c6e949560bf036325d",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_native_prefix_job_v2.py": {
+      "baseline_sha256": "38bb28c1580a09805bcba56f2180a9b8e55001229b1974451ba16a51fafe8b21",
+      "current_sha256": "38bb28c1580a09805bcba56f2180a9b8e55001229b1974451ba16a51fafe8b21",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_replication_ssl.py": {
+      "baseline_sha256": "94c04d2d585c39d49e849f4b86375e201898ae104e8a808341363a2f22518f72",
+      "current_sha256": "94c04d2d585c39d49e849f4b86375e201898ae104e8a808341363a2f22518f72",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\ssl_vnext_native_ancestry_inventory_builder_v1.txt": {
+      "baseline_sha256": "d143f008e2e6b893b31e6dd61885230a4e145c1770d43c2640f8c6db0859858e",
+      "current_sha256": "d143f008e2e6b893b31e6dd61885230a4e145c1770d43c2640f8c6db0859858e",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\native_band_budget_history_v2.py": {
+      "baseline_sha256": "ac05992bfb21126d1f27eff1122ee198522346c23e45c47225287b55243c9e13",
+      "current_sha256": "ac05992bfb21126d1f27eff1122ee198522346c23e45c47225287b55243c9e13",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_ssl_split_v1.json": {
+      "baseline_sha256": "3b4728e16da3c09c58d9316560283e19ecf79885bbf38a7c7025ce4b83e8993b",
+      "current_sha256": "3b4728e16da3c09c58d9316560283e19ecf79885bbf38a7c7025ce4b83e8993b",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\__init__.py": {
+      "baseline_sha256": "011583e04b7f119ffcc2ae18712a4af2e613cff87bcbeb5435fbfb10dcd01508",
+      "current_sha256": "011583e04b7f119ffcc2ae18712a4af2e613cff87bcbeb5435fbfb10dcd01508",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\native_transfer_corpus.py": {
+      "baseline_sha256": "758b0615ef7d6fcce7cbd7e7b8d42d0b535a06eab17aafa96c1fb53cfbc0c034",
+      "current_sha256": "758b0615ef7d6fcce7cbd7e7b8d42d0b535a06eab17aafa96c1fb53cfbc0c034",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_desktop_resources_v2.py": {
+      "baseline_sha256": "f364340c471f2d0bbdc4b541dd44a5f1d669750f2de7978961ade63fe94d8662",
+      "current_sha256": "f364340c471f2d0bbdc4b541dd44a5f1d669750f2de7978961ade63fe94d8662",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_vlc_desktop_owner_resolution_v1.json": {
+      "baseline_sha256": "18e29745c7595a9ea50bccf23e3124b06c57106929ac20c40a8f04776ff598e4",
+      "current_sha256": "18e29745c7595a9ea50bccf23e3124b06c57106929ac20c40a8f04776ff598e4",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\__init__.py": {
+      "baseline_sha256": "c98c60178f566d43dd60641704ccd9c652d406487b4838cbf5a9df49ea5dd735",
+      "current_sha256": "c98c60178f566d43dd60641704ccd9c652d406487b4838cbf5a9df49ea5dd735",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_resources.py": {
+      "baseline_sha256": "c9ca3fbd0759ae00824774ed61a08185361234430d5ed63f09fa3885545c7c38",
+      "current_sha256": "c9ca3fbd0759ae00824774ed61a08185361234430d5ed63f09fa3885545c7c38",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\__init__.py": {
+      "baseline_sha256": "dddaccd3cb0c952e88796d75e7a15966cfab87f98c2cfe8452a5fff4c3138c68",
+      "current_sha256": "dddaccd3cb0c952e88796d75e7a15966cfab87f98c2cfe8452a5fff4c3138c68",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\__init__.py": {
+      "baseline_sha256": "3fcc1878588f5a89775363e099fab7d7323acebccae26d10db4a6da627425b68",
+      "current_sha256": "3fcc1878588f5a89775363e099fab7d7323acebccae26d10db4a6da627425b68",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_product.py": {
+      "baseline_sha256": "fd1c643fde93494a21d560794f886056e58031f1ef6dd41ebe53662750bab314",
+      "current_sha256": "fd1c643fde93494a21d560794f886056e58031f1ef6dd41ebe53662750bab314",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_ssl.py": {
+      "baseline_sha256": "ca33bf3141ea17c5adb3d0a4cd2ed0d186be8efb846a5b581003f2088a105e4f",
+      "current_sha256": "ca33bf3141ea17c5adb3d0a4cd2ed0d186be8efb846a5b581003f2088a105e4f",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_downstream.py": {
+      "baseline_sha256": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a",
+      "current_sha256": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_encoder.py": {
+      "baseline_sha256": "6cc07a15ea93427d6628f1b317945f6e38ff3008894a31cab2173c0b666c0f7f",
+      "current_sha256": "6cc07a15ea93427d6628f1b317945f6e38ff3008894a31cab2173c0b666c0f7f",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_band_acoustic.py": {
+      "baseline_sha256": "6181baf22b75be73767f4b76370c65bfc37fdeb189da3deabcabe8a7c2dcd1bf",
+      "current_sha256": "6181baf22b75be73767f4b76370c65bfc37fdeb189da3deabcabe8a7c2dcd1bf",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_downstream.py": {
+      "baseline_sha256": "95becf2cd01a7ab07c67a4da8d26c8e8bf58297f56513a439b0ab2b2be776619",
+      "current_sha256": "95becf2cd01a7ab07c67a4da8d26c8e8bf58297f56513a439b0ab2b2be776619",
+      "unchanged": true
+    }
+  },
+  "source_closure": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0024-owner-authorized-vlc-desktop-coexecution.md": "11d5f3e31bb88d269d70872509d86dd06ed87b94fd1b51c6e949560bf036325d",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_band_budget_owner_resolution_v1.json": "d13cc7875bba5400cfe0761a371dcf69bb743e4914f9449d288ecaee9b5d15db",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_vlc_desktop_owner_resolution_v1.json": "18e29745c7595a9ea50bccf23e3124b06c57106929ac20c40a8f04776ff598e4",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\__init__.py": "3fcc1878588f5a89775363e099fab7d7323acebccae26d10db4a6da627425b68",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\__init__.py": "dddaccd3cb0c952e88796d75e7a15966cfab87f98c2cfe8452a5fff4c3138c68",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_product.py": "fd1c643fde93494a21d560794f886056e58031f1ef6dd41ebe53662750bab314",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_band_acoustic.py": "6181baf22b75be73767f4b76370c65bfc37fdeb189da3deabcabe8a7c2dcd1bf",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_band_replication_acoustic.py": "e689d80077152b4c784966426846bfb154eb4e16a46494f2140129c003288149",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_encoder.py": "6cc07a15ea93427d6628f1b317945f6e38ff3008894a31cab2173c0b666c0f7f",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\__init__.py": "5bdc97a6119b2dd3d519df36406c8bcb9e801be81c8b6c3f44e4a527db1f87a3",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_band_temporal.py": "1550bb3f130e3981f57b46031e39d0d42ce7dac4738aea9280362210dfaca96b",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_temporal.py": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\sigreg.py": "2cf5dc8e6fc610fbe167339a8750f5e2d9ddf9a48f416717b8310500536469a3",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\__init__.py": "c98c60178f566d43dd60641704ccd9c652d406487b4838cbf5a9df49ea5dd735",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_downstream.py": "95becf2cd01a7ab07c67a4da8d26c8e8bf58297f56513a439b0ab2b2be776619",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_replication_downstream.py": "f5a6747b3a37dcd8856b617a95cd939862ba716a1d7e50fe7ef9090a08d4084d",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_replication_ssl.py": "94c04d2d585c39d49e849f4b86375e201898ae104e8a808341363a2f22518f72",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_ssl.py": "ca33bf3141ea17c5adb3d0a4cd2ed0d186be8efb846a5b581003f2088a105e4f",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_desktop_resources_v2.py": "f364340c471f2d0bbdc4b541dd44a5f1d669750f2de7978961ade63fe94d8662",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_downstream.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_prefix_transfer.py": "844159d11a1d9a410f7cb7f1a83c782360427e04aae965c19cb94a74d5a28d38",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_resources.py": "c9ca3fbd0759ae00824774ed61a08185361234430d5ed63f09fa3885545c7c38",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_ssl.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_native_band_job.py": "d66e2fb990ecff500e8927e52aad69afce4937bbeb5fdc6a198efc3493e4e816",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_native_prefix_job_v2.py": "38bb28c1580a09805bcba56f2180a9b8e55001229b1974451ba16a51fafe8b21",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_native_prefix_worker.py": "39ab2ecdd8cc8d6843289c384f05bd61436d4bf1c3a4ecbe4033653d47c04ca6",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\native_band_budget_history_v2.py": "ac05992bfb21126d1f27eff1122ee198522346c23e45c47225287b55243c9e13",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\native_reference_supervisor.py": "ec5456584ca6f6a805e13f4137365c2c0a785b2dbc52782b191c1528befb30dd",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\training\\native_desktop_runtime_v3.py": "94d69cfb194b0169093fb13e8f7ad0f59160c7e93dd8899ed0de0298e027b1e1",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\training\\native_prefix_desktop_transfer_v3.py": "a7b90e49fee2866363877f4f6c236c99867ce77ca451f90801ee573b5ec2fca0",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\tools\\execute_native_prefix_desktop_job_v3.py": "e2ea9c3db47ebbcd6f6e83585a951b535b225f6a00bbf18f92a8c91f81fa87fb",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\tools\\execute_native_prefix_desktop_worker_v3.py": "4a9e3277542cd0b6b98033bd0cb2b0c0e810a6e987d164bd2e0e2a6915c1a019"
+  },
+  "executed_checks": [
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest --import-mode=importlib -p no:cacheprovider tests\\unit\\test_native_prefix_desktop_execution_v3.py tests\\integration\\test_native_prefix_desktop_transfer_v3.py",
+      "exit_code": 0,
+      "log": "red-initial-v3.log",
+      "result": "34 passed, 1 skipped; initial green despite historical log basename",
+      "log_sha256": "b8843d0a0151604da14984e760e9af86caa704edc17c478fd39f88fab97b9ba6"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest --import-mode=importlib -p no:cacheprovider tests\\unit\\test_native_prefix_desktop_execution_v3.py -k baseline_operational",
+      "exit_code": 1,
+      "log": "red-original-vlc-policy-v3.log",
+      "result": "1 meaningful failure: original classifier blocks exact WDDM VLC",
+      "log_sha256": "17e9077a07641e27cd393db842be848e45fa06ce2ba00dc9d907476f3feb3b9f"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff check --no-cache src\\marine_echo\\training\\native_desktop_runtime_v3.py src\\marine_echo\\training\\native_prefix_desktop_transfer_v3.py tools\\execute_native_prefix_desktop_job_v3.py tools\\execute_native_prefix_desktop_worker_v3.py tests\\unit\\test_native_prefix_desktop_execution_v3.py tests\\integration\\test_native_prefix_desktop_transfer_v3.py evidence\\ssl-prefix-desktop-builder-v3\\root_fixture.py",
+      "exit_code": 1,
+      "log": "lint-final-v3.log",
+      "result": "one import-order error; corrected",
+      "log_sha256": "06952c70979e3802fedf69162da2e0de15b98609a65de5bd8d1eefa97a8727c3"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest --import-mode=importlib -p no:cacheprovider tests\\unit\\test_native_prefix_desktop_execution_v3.py tests\\integration\\test_native_prefix_desktop_transfer_v3.py",
+      "exit_code": 0,
+      "log": "green-final-v3.log",
+      "result": "35 passed, 1 skipped in 23.54 seconds; before final import-order correction",
+      "log_sha256": "8376f6792d83a2eded86fd82ddb45e069054429f39a2f1211280bfce454d59b4"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest --import-mode=importlib -p no:cacheprovider tests\\unit\\test_native_prefix_desktop_execution_v3.py tests\\integration\\test_native_prefix_desktop_transfer_v3.py",
+      "exit_code": 0,
+      "log": "green-closed-v3.log",
+      "result": "35 passed, 1 skipped in 22.45 seconds; closed authored bytes",
+      "exit_witness_chunk": "a8e012",
+      "log_sha256": "dd65f4cd2b057835723694828ba901c34c464d926d1fb815409b900d096bf59c"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B evidence\\ssl-prefix-desktop-builder-v3\\close_source_proof.py",
+      "exit_code": 1,
+      "log": "source-proof-final-v3.log",
+      "result": "snapshot basename collision; no existing snapshot overwritten; preserved failure",
+      "log_sha256": "4bcfcae22da98f1798e272de180e1325d06c26a82e8c2e7d20fa6a43116d361e"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B evidence\\ssl-prefix-desktop-builder-v3\\complete_source_proof_v3.py",
+      "exit_code": 0,
+      "log": "source-proof-completed-v3.log",
+      "result": "36 protected, 6 authored, 32 source bindings verified; byte and bounded AST proof",
+      "exit_witness_chunk": "2d50be",
+      "log_sha256": "8c187a8ead3ad78c499a4b549d7fbcf0be2cbf48986c599c2c4a9e08d894c166"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff check --no-cache src\\marine_echo\\training\\native_desktop_runtime_v3.py src\\marine_echo\\training\\native_prefix_desktop_transfer_v3.py tools\\execute_native_prefix_desktop_job_v3.py tools\\execute_native_prefix_desktop_worker_v3.py tests\\unit\\test_native_prefix_desktop_execution_v3.py tests\\integration\\test_native_prefix_desktop_transfer_v3.py evidence\\ssl-prefix-desktop-builder-v3\\root_fixture.py",
+      "exit_code": 0,
+      "log": "lint-closed-v3.log",
+      "result": "All checks passed",
+      "exit_witness_chunk": "b31aff",
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff format --check --no-cache src\\marine_echo\\training\\native_desktop_runtime_v3.py src\\marine_echo\\training\\native_prefix_desktop_transfer_v3.py tools\\execute_native_prefix_desktop_job_v3.py tools\\execute_native_prefix_desktop_worker_v3.py tests\\unit\\test_native_prefix_desktop_execution_v3.py tests\\integration\\test_native_prefix_desktop_transfer_v3.py evidence\\ssl-prefix-desktop-builder-v3\\root_fixture.py",
+      "exit_code": 0,
+      "log": "format-check-closed-v3.log",
+      "result": "7 files already formatted",
+      "exit_witness_chunk": "2433ea",
+      "log_sha256": "0321fffcb91606a42c0a19d8c1121d5c544379d663821fce616c71a7bb62f6b5"
+    }
+  ],
+  "actual_synthetic_cpu_resource_receipts": [
+    {
+      "path": "evidence\\ssl-prefix-desktop-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY-Recursos-\u00c1-31dd6e10-039a-4928-b33c-f9fcb14717f6\\resources.json",
+      "sha256": "b286a1cee16f748f85c87db1bd71ce2b1417200277154fb3c2bcca84b251e608",
+      "record": {
+        "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+        "fitting": false,
+        "resources": {
+          "peak_rss_bytes": 542228480,
+          "peak_allocated_bytes": 0,
+          "peak_reserved_bytes": 0,
+          "elapsed_seconds": 0.0,
+          "elapsed_gpu_seconds": 0,
+          "gpu_time_definition": "synchronized elapsed device-owned runtime, including probes and evaluation"
+        }
+      }
+    },
+    {
+      "path": "evidence\\ssl-prefix-desktop-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY-Recursos-\u00c1-508672ac-3e3b-47c4-ba10-8e5f316664a2\\resources.json",
+      "sha256": "dc2912368bbd627356b920bbcba169ceed1b71542bcda6fdfc5d93be593af195",
+      "record": {
+        "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+        "fitting": false,
+        "resources": {
+          "peak_rss_bytes": 541487104,
+          "peak_allocated_bytes": 0,
+          "peak_reserved_bytes": 0,
+          "elapsed_seconds": 0.0,
+          "elapsed_gpu_seconds": 0,
+          "gpu_time_definition": "synchronized elapsed device-owned runtime, including probes and evaluation"
+        }
+      }
+    },
+    {
+      "path": "evidence\\ssl-prefix-desktop-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY-Recursos-\u00c1-6ecb8e83-9cd0-459d-8d87-31c4728200f2\\resources.json",
+      "sha256": "04d433fc17879f00e9fa0da36734932d97747c5fa917c6579e23595275921180",
+      "record": {
+        "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+        "fitting": false,
+        "resources": {
+          "peak_rss_bytes": 542351360,
+          "peak_allocated_bytes": 0,
+          "peak_reserved_bytes": 0,
+          "elapsed_seconds": 0.0,
+          "elapsed_gpu_seconds": 0,
+          "gpu_time_definition": "synchronized elapsed device-owned runtime, including probes and evaluation"
+        }
+      }
+    }
+  ],
+  "root_required": {
+    "status": "NOT_RUN_BY_BUILDER",
+    "commands": [
+      ".venv\\Scripts\\python.exe -B -m pytest --import-mode=importlib -p no:cacheprovider tests\\unit\\test_native_prefix_desktop_execution_v3.py tests\\integration\\test_native_prefix_desktop_transfer_v3.py",
+      ".venv\\Scripts\\python.exe -B evidence\\ssl-prefix-desktop-builder-v3\\root_fixture.py --output \"evidence\\ssl-prefix-desktop-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY-\u00c1-Replay-NEW\"",
+      ".venv\\Scripts\\python.exe -B tools\\execute_native_prefix_desktop_job_v3.py --manifest ROOT_APPROVED_MANIFEST --review DISTINCT_NEW_PREFIT_REVIEW --output outputs\\NEW_PREFIX_CELL --receipt evidence\\NEW_OWNED_ATTEMPT"
+    ],
+    "optimizer_cache_denial_retry": false,
+    "actual_owned_process_lifecycle": "ROOT_ONLY_NOT_RUN",
+    "physical_optimizer_save_resume_and_portable_replay": "ROOT_ONLY_NOT_RUN",
+    "actual_WDDM_CUDA_ownership_and_cap_checks": "ROOT_ONLY_NOT_RUN_REQUIRES_DISTINCT_PREFIT",
+    "integration_requires_exact_bytes_and_current_source_bindings": true
+  },
+  "preserved_failures": [
+    "red-original-vlc-policy-v3.log",
+    "lint-final-v3.log",
+    "source-proof-final-v3.log"
+  ],
+  "evidence_files": {
+    "evidence\\ssl-prefix-desktop-builder-v3\\authored-source-00-native_desktop_runtime_v3.py": "94d69cfb194b0169093fb13e8f7ad0f59160c7e93dd8899ed0de0298e027b1e1",
+    "evidence\\ssl-prefix-desktop-builder-v3\\authored-source-01-native_prefix_desktop_transfer_v3.py": "a7b90e49fee2866363877f4f6c236c99867ce77ca451f90801ee573b5ec2fca0",
+    "evidence\\ssl-prefix-desktop-builder-v3\\authored-source-02-execute_native_prefix_desktop_job_v3.py": "e2ea9c3db47ebbcd6f6e83585a951b535b225f6a00bbf18f92a8c91f81fa87fb",
+    "evidence\\ssl-prefix-desktop-builder-v3\\authored-source-03-execute_native_prefix_desktop_worker_v3.py": "4a9e3277542cd0b6b98033bd0cb2b0c0e810a6e987d164bd2e0e2a6915c1a019",
+    "evidence\\ssl-prefix-desktop-builder-v3\\authored-source-04-test_native_prefix_desktop_execution_v3.py": "85393f97bd42d7f315827af433be6d1e9fe1f670a9c0f10cbec6f241f57fa2b3",
+    "evidence\\ssl-prefix-desktop-builder-v3\\authored-source-05-test_native_prefix_desktop_transfer_v3.py": "496f396504c15333a6a797509930028c35708ff74fbf249f1aa24cba3f8b3bbb",
+    "evidence\\ssl-prefix-desktop-builder-v3\\bounded-original-to-desktop-v3.diff": "ff541e0f6cff857d6962a34349dcb7ef1bf1e8217dacc50321f98332d5a56942",
+    "evidence\\ssl-prefix-desktop-builder-v3\\close_source_proof.py": "04214e78087e7895ef0cba3aa239ea80bd0edd8082e32bfaf27b38e8f627a038",
+    "evidence\\ssl-prefix-desktop-builder-v3\\complete_source_proof_v3.py": "321f49fea40e34fbcffa82b09c9dbed1f73d882a72ed2ebb96c15e5286eb014e",
+    "evidence\\ssl-prefix-desktop-builder-v3\\executed-checks-v3.json": "15a53906658e3c6e71599d7cf928d98b823821225fe5f374d9d7118f1ba34503",
+    "evidence\\ssl-prefix-desktop-builder-v3\\fixture-dependency-test_native_prefix_transfer.py": "676009597d42123d501c439c56f90aa7ebc95e548060a60ed8fc5471dfdca495",
+    "evidence\\ssl-prefix-desktop-builder-v3\\fixture-integration-source.py": "765ae56494a56f8da0a738b748f3106e123d5d7ea31041e5b7cb1642cb9d2886",
+    "evidence\\ssl-prefix-desktop-builder-v3\\fixture-support-source.py": "34b4b114ffa27a406aa256893dc309ffae6dadd3605dca4566cc44413a7f6782",
+    "evidence\\ssl-prefix-desktop-builder-v3\\format-check-closed-v3.log": "0321fffcb91606a42c0a19d8c1121d5c544379d663821fce616c71a7bb62f6b5",
+    "evidence\\ssl-prefix-desktop-builder-v3\\format-check-final-v3.log": "0321fffcb91606a42c0a19d8c1121d5c544379d663821fce616c71a7bb62f6b5",
+    "evidence\\ssl-prefix-desktop-builder-v3\\format-root-fixture-final-v3.log": "413a709001976657cb743636fd34e48fc41d8d302d665460d3f874b3313da127",
+    "evidence\\ssl-prefix-desktop-builder-v3\\format-v3.log": "b78b523007e222dc2024f3e9f200c22dcc9cd67780c87859a3701d5ebb6c02ff",
+    "evidence\\ssl-prefix-desktop-builder-v3\\generate_additive_patch.py": "fe5712ab7e814e18751b574161d8dbd925721e61026345d1df191535ccb9cbab",
+    "evidence\\ssl-prefix-desktop-builder-v3\\green-closed-v3.log": "dd65f4cd2b057835723694828ba901c34c464d926d1fb815409b900d096bf59c",
+    "evidence\\ssl-prefix-desktop-builder-v3\\green-final-v3.log": "8376f6792d83a2eded86fd82ddb45e069054429f39a2f1211280bfce454d59b4",
+    "evidence\\ssl-prefix-desktop-builder-v3\\inspect_and_snapshot.py": "3850278246fd470c6b0d8c22eaa3187734a4cc78cf308f3e94444b9214ddac26",
+    "evidence\\ssl-prefix-desktop-builder-v3\\inspect_closeout_source.py": "43deeaf0326a3441cb4ccbae9a349ef7f9f59f6cea3ee2e3c307f2de1580bdab",
+    "evidence\\ssl-prefix-desktop-builder-v3\\inspect_cpu_rng.py": "6702b7f15a05a685d8437207dfe84c9beca8cd4b29445ad0df3ccf15a39c38e0",
+    "evidence\\ssl-prefix-desktop-builder-v3\\inspect_fixture_and_routes.py": "f65f41b931b6ccd6e56be14b31843bec12470b1e960d1f91f678bf282d29bae3",
+    "evidence\\ssl-prefix-desktop-builder-v3\\inspect_fixture_imports.py": "5b20cdcaa60587dd6aa5bc8edaa61bdccc24838270277b10ff30aa8c227cfeb3",
+    "evidence\\ssl-prefix-desktop-builder-v3\\inspect_root_fixture_source.py": "07e6b362c037e09ada7de451ce58aaa5d166a7fb7ba34385e48264abb74583cf",
+    "evidence\\ssl-prefix-desktop-builder-v3\\lint-closed-v3.log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "evidence\\ssl-prefix-desktop-builder-v3\\lint-final-corrected-v3.log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "evidence\\ssl-prefix-desktop-builder-v3\\lint-final-v3.log": "06952c70979e3802fedf69162da2e0de15b98609a65de5bd8d1eefa97a8727c3",
+    "evidence\\ssl-prefix-desktop-builder-v3\\NATIVE_PREFIX_DESKTOP_IMPLEMENTATION_V3.md": "f7af277d574aba38d625f92322881b1c45fa899e477740e241e7755eac9c9565",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-baseline-v3.json": "fe7939aef49e002f838a3ced0efdda2bc47ff5d4ea207d1aa1fbe930619e941b",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-00-native_assessment_replication.py": "f8c7e9272c9ecbbb68d60695e9e4e92494f42ca9420989500b7c3f409778c9ef",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-01-__init__.py": "5bdc97a6119b2dd3d519df36406c8bcb9e801be81c8b6c3f44e4a527db1f87a3",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-02-native_prefix_transfer.py": "844159d11a1d9a410f7cb7f1a83c782360427e04aae965c19cb94a74d5a28d38",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-03-native_temporal.py": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-04-prepare_native_seed7_assessment_metadata.py": "829e6e8307eb8f5e8f66012558a9bcaa8904da84aae93253d43a5da02d9f8f50",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-05-native_reference_supervisor.py": "ec5456584ca6f6a805e13f4137365c2c0a785b2dbc52782b191c1528befb30dd",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-06-native_band_replication_downstream.py": "f5a6747b3a37dcd8856b617a95cd939862ba716a1d7e50fe7ef9090a08d4084d",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-07-execute_native_band_job.py": "d66e2fb990ecff500e8927e52aad69afce4937bbeb5fdc6a198efc3493e4e816",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-08-execute_native_prefix_worker.py": "39ab2ecdd8cc8d6843289c384f05bd61436d4bf1c3a4ecbe4033653d47c04ca6",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-09-native_ssl_corpus.py": "ebda9d460fa14df749b8f774bcb02a6622f0d69402443098a6100670a4c8f7ba",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-10-native_band_replication_acoustic.py": "e689d80077152b4c784966426846bfb154eb4e16a46494f2140129c003288149",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-11-sigreg.py": "2cf5dc8e6fc610fbe167339a8750f5e2d9ddf9a48f416717b8310500536469a3",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-12-native_band_temporal.py": "1550bb3f130e3981f57b46031e39d0d42ce7dac4738aea9280362210dfaca96b",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-13-native_ssl.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-14-aeon_corpus.py": "398e021a5807ab8068ceef03dd692f3b688c744751cd4e65d3efbee94d9a3efd",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-15-native_references.py": "0d6583644ab1fce8d87a4194048f2176237b47deb57f0fa8494df6aa9012d584",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-16-0024-owner-authorized-vlc-desktop-coexecution.md": "11d5f3e31bb88d269d70872509d86dd06ed87b94fd1b51c6e949560bf036325d",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-17-execute_native_prefix_job_v2.py": "38bb28c1580a09805bcba56f2180a9b8e55001229b1974451ba16a51fafe8b21",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-18-native_band_replication_ssl.py": "94c04d2d585c39d49e849f4b86375e201898ae104e8a808341363a2f22518f72",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-19-ssl_vnext_native_ancestry_inventory_builder_v1.txt": "d143f008e2e6b893b31e6dd61885230a4e145c1770d43c2640f8c6db0859858e",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-20-native_band_budget_history_v2.py": "ac05992bfb21126d1f27eff1122ee198522346c23e45c47225287b55243c9e13",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-21-native_ssl_split_v1.json": "3b4728e16da3c09c58d9316560283e19ecf79885bbf38a7c7025ce4b83e8993b",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-22-__init__.py": "011583e04b7f119ffcc2ae18712a4af2e613cff87bcbeb5435fbfb10dcd01508",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-23-native_transfer_corpus.py": "758b0615ef7d6fcce7cbd7e7b8d42d0b535a06eab17aafa96c1fb53cfbc0c034",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-24-native_desktop_resources_v2.py": "f364340c471f2d0bbdc4b541dd44a5f1d669750f2de7978961ade63fe94d8662",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-25-native_vlc_desktop_owner_resolution_v1.json": "18e29745c7595a9ea50bccf23e3124b06c57106929ac20c40a8f04776ff598e4",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-26-__init__.py": "c98c60178f566d43dd60641704ccd9c652d406487b4838cbf5a9df49ea5dd735",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-27-native_resources.py": "c9ca3fbd0759ae00824774ed61a08185361234430d5ed63f09fa3885545c7c38",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-28-__init__.py": "dddaccd3cb0c952e88796d75e7a15966cfab87f98c2cfe8452a5fff4c3138c68",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-29-__init__.py": "3fcc1878588f5a89775363e099fab7d7323acebccae26d10db4a6da627425b68",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-30-native_product.py": "fd1c643fde93494a21d560794f886056e58031f1ef6dd41ebe53662750bab314",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-31-native_band_ssl.py": "ca33bf3141ea17c5adb3d0a4cd2ed0d186be8efb846a5b581003f2088a105e4f",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-32-native_downstream.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-33-native_encoder.py": "6cc07a15ea93427d6628f1b317945f6e38ff3008894a31cab2173c0b666c0f7f",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-34-native_band_acoustic.py": "6181baf22b75be73767f4b76370c65bfc37fdeb189da3deabcabe8a7c2dcd1bf",
+    "evidence\\ssl-prefix-desktop-builder-v3\\protected-source-35-native_band_downstream.py": "95becf2cd01a7ab07c67a4da8d26c8e8bf58297f56513a439b0ab2b2be776619",
+    "evidence\\ssl-prefix-desktop-builder-v3\\red-initial-v3.log": "b8843d0a0151604da14984e760e9af86caa704edc17c478fd39f88fab97b9ba6",
+    "evidence\\ssl-prefix-desktop-builder-v3\\red-original-vlc-policy-v3.log": "17e9077a07641e27cd393db842be848e45fa06ce2ba00dc9d907476f3feb3b9f",
+    "evidence\\ssl-prefix-desktop-builder-v3\\root-fixture-dependencies-v3.json": "47bea11451557788b59a778227b6bef7c69a6d05d0f7254af85a118b5ae8e41c",
+    "evidence\\ssl-prefix-desktop-builder-v3\\root_fixture.py": "73762890fb145e2642bb04ba55a40297f7cc6114840e92d0d1a955e5201015af",
+    "evidence\\ssl-prefix-desktop-builder-v3\\source-proof-completed-v3.log": "8c187a8ead3ad78c499a4b549d7fbcf0be2cbf48986c599c2c4a9e08d894c166",
+    "evidence\\ssl-prefix-desktop-builder-v3\\source-proof-final-v3.json": "b00b84da1c3ff2681c1b21af0954636713ec205a4660c077e3a7f407d4bfb432",
+    "evidence\\ssl-prefix-desktop-builder-v3\\source-proof-final-v3.log": "4bcfcae22da98f1798e272de180e1325d06c26a82e8c2e7d20fa6a43116d361e",
+    "evidence\\ssl-prefix-desktop-builder-v3\\write_closeout_v3.py": "a75d74cf6768a9f62d9d49b855826dcb8d84bf4bba2c2532abdd578bae80007b",
+    "evidence\\ssl-prefix-desktop-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY-17e918db-7a75-49d1-8f98-d68ce0bbf52b\\native_ssl_run_ledger_v1.band-pending": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "evidence\\ssl-prefix-desktop-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY-292865eb-5afc-4aaf-ab68-f54276d7495e\\gpu-owner.lock": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "evidence\\ssl-prefix-desktop-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY-346ea0f0-b33c-4917-93ed-e33185863c0c\\native_ssl_run_ledger_v1.prefix-pending": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "evidence\\ssl-prefix-desktop-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY-4cb7102b-23ce-4cb2-8ec2-ebfd34960a7a\\native_ssl_run_ledger_v1.prefix-pending": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "evidence\\ssl-prefix-desktop-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY-4f2b03f0-3454-465d-8a64-a335f27ebc7f\\gpu-owner.lock": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "evidence\\ssl-prefix-desktop-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY-54855741-e955-4a6b-9542-6f7c2915097f\\all.pending": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "evidence\\ssl-prefix-desktop-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY-5fc78f88-d42b-47e4-a5f0-8318828fa769\\native_ssl_run_ledger_v1.assessment-pending": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "evidence\\ssl-prefix-desktop-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY-6fc5fa72-9a6a-4b13-8308-7008ba20d4db\\native_ssl_run_ledger_v1.reconciliation-pending": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "evidence\\ssl-prefix-desktop-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY-711f38c5-a03d-4c33-af31-82617b6df440\\native_ssl_run_ledger_v1.assessment-pending": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "evidence\\ssl-prefix-desktop-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY-7db0bed5-1a16-4e67-b7cb-1d23722f8ea5\\all.pending": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "evidence\\ssl-prefix-desktop-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY-838aac99-ca2e-4d6e-9940-8c9dbf0fe34a\\gpu-owner.lock": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "evidence\\ssl-prefix-desktop-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY-9095b4ce-9640-4f78-96de-f01f4aa11f09\\native_ssl_run_ledger_v1.reconciliation-pending": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "evidence\\ssl-prefix-desktop-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY-91492077-5c3f-43f0-b812-c3fde6a8ec74\\native_ssl_run_ledger_v1.band-pending": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "evidence\\ssl-prefix-desktop-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY-93e16eaa-5b93-47c2-ab60-cde8176f7094\\native_ssl_run_ledger_v1.band-pending": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "evidence\\ssl-prefix-desktop-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY-973fbaa6-a12f-4f4c-be0a-ae8299a61a4a\\native_ssl_run_ledger_v1.prefix-pending": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "evidence\\ssl-prefix-desktop-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY-a1304f55-60b4-42df-8885-ec18fe371091\\native_ssl_run_ledger_v1.assessment-pending": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "evidence\\ssl-prefix-desktop-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY-a465c729-0e8e-4301-91c5-1cedd7b4b553\\all.pending": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "evidence\\ssl-prefix-desktop-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY-d6f1d9c8-a168-4a9e-9590-07d05f4014c7\\native_ssl_run_ledger_v1.reconciliation-pending": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "evidence\\ssl-prefix-desktop-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY-Recursos-\u00c1-31dd6e10-039a-4928-b33c-f9fcb14717f6\\resources.json": "b286a1cee16f748f85c87db1bd71ce2b1417200277154fb3c2bcca84b251e608",
+    "evidence\\ssl-prefix-desktop-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY-Recursos-\u00c1-508672ac-3e3b-47c4-ba10-8e5f316664a2\\resources.json": "dc2912368bbd627356b920bbcba169ceed1b71542bcda6fdfc5d93be593af195",
+    "evidence\\ssl-prefix-desktop-builder-v3\\SYNTHETIC_CORRECTNESS_ONLY-Recursos-\u00c1-6ecb8e83-9cd0-459d-8d87-31c4728200f2\\resources.json": "04d433fc17879f00e9fa0da36734932d97747c5fa917c6579e23595275921180"
+  },
+  "original_sources_modified": false,
+  "scientific_numerical_functions_modified": false,
+  "public_numeric_or_selected_weights_decoded": false,
+  "cuda_initialized_or_gpu_execution": false,
+  "scientific_fitting_or_prefit_approval": false,
+  "independent_review_required": true,
+  "git_index_or_commit_attempted": false
+}

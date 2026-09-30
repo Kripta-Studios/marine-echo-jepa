@@ -1,0 +1,12 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.13, pytest-9.1.1, pluggy-1.6.0
+rootdir: C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-jepa-vnext-builder
+configfile: pyproject.toml
+plugins: anyio-4.15.1, cov-7.1.0
+collected 36 items
+
+tests\unit\test_native_prefix_desktop_execution_v3.py .................. [ 50%]
+.............                                                            [ 86%]
+tests\integration\test_native_prefix_desktop_transfer_v3.py ....s        [100%]
+
+======================= 35 passed, 1 skipped in 22.45s ========================

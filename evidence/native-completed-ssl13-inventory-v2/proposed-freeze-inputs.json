@@ -1,0 +1,16 @@
+{
+  "kind": "native_proposed_freeze_inputs_v1",
+  "methods": {
+    "band_shared_ssl_seed13": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-ssl13-inventory-v2\\band_shared_ssl_seed13.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed13_h96_replication_v2\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-ssl13-inventory-v2\\band_shared_ssl_seed13.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed13_h96_replication_v2\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed13_h96_replication_v2\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-ssl13-inventory-v2\\band_shared_ssl_seed13.statistics.json",
+      "status": "COMPLETED"
+    }
+  },
+  "status": "PROPOSED_NOT_FINAL_SELECTION"
+}

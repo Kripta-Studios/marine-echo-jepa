@@ -1,0 +1,16 @@
+{
+  "status": "SOFTWARE_REVIEW_NOT_APPROVED_AUTOMATIC_SAFETY_REJECTION",
+  "reviewer_session_id": "01a0ef27-876b-7692-917e-3975afc6893d",
+  "actual_session_id": 78586,
+  "actual_cli_exit_code": 1,
+  "actual_exit_chunk_id": "60525c",
+  "reason_verbatim": "This request was blocked by our safety systems. Reason: Potentially unintended activity.",
+  "action": "Read-only native transfer-corpus software review; final approval not produced",
+  "blocked_step_identification": "UNKNOWN_FROM_RETURNED_REASON",
+  "bindings": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\native-transfer-corpus-software-review-events-v1.jsonl": "8f1f2fc476bfe710a0317d46a1216dcd9201b8c094a6253f1097eb85999d8ffc"
+  },
+  "approval": false,
+  "final_site_numeric_access": "NOT_RUN",
+  "blocked_operation_retried": false
+}

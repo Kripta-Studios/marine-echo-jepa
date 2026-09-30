@@ -1,0 +1,15 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+________________ test_baseline_operational_vlc_owner_exception ________________
+
+    def test_baseline_operational_vlc_owner_exception():
+        result = runtime.original_resources.classify_gpu_processes(
+            [(101, "python.exe"), (102, "vlc.exe")], driver_model="WDDM", owner_pid=101
+        )
+>       assert 102 not in result["blocking_pids"]
+E       assert 102 not in [102]
+
+tests\unit\test_native_prefix_desktop_execution_v3.py:34: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_prefix_desktop_execution_v3.py::test_baseline_operational_vlc_owner_exception
+1 failed, 30 deselected in 15.62s

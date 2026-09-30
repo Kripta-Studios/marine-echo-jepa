@@ -1,0 +1,35 @@
+FFF                                                                      [100%]
+================================== FAILURES ===================================
+____________ test_missing_parent_cannot_be_complete_local_ancestry ____________
+
+    def test_missing_parent_cannot_be_complete_local_ancestry():
+>       with pytest.raises(ValueError, match="parent"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\unit\test_native_ancestry_inventory.py:21: Failed
+________ test_multigeneration_cycle_cannot_be_complete_local_ancestry _________
+
+    def test_multigeneration_cycle_cannot_be_complete_local_ancestry():
+>       with pytest.raises(ValueError, match="[Cc]yclic"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\unit\test_native_ancestry_inventory.py:26: Failed
+__________ test_multigeneration_parents_are_derived_before_children ___________
+
+    def test_multigeneration_parents_are_derived_before_children():
+>       assert candidate.validate_parent_graph({
+            "child": {"parent": "root"}, "root": {"parent": None}
+        }) == ["root", "child"]
+E       AssertionError: assert ['child', 'root'] == ['root', 'child']
+E         
+E         At index 0 diff: 'child' != 'root'
+E         Use -v to get more diff
+
+tests\unit\test_native_ancestry_inventory.py:31: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_ancestry_inventory.py::test_missing_parent_cannot_be_complete_local_ancestry
+FAILED tests/unit/test_native_ancestry_inventory.py::test_multigeneration_cycle_cannot_be_complete_local_ancestry
+FAILED tests/unit/test_native_ancestry_inventory.py::test_multigeneration_parents_are_derived_before_children
+3 failed in 0.72s

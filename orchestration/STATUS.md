@@ -1,6 +1,6 @@
 ## Active model-first research — native acoustic SSL
 
-Updated 2026-09-30T18:18:10.919712+00:00.
+Updated 2026-09-30T20:40:06.748055+00:00.
 
 Branch `research/marine-jepa-vnext`; owner-authorized local model research.
 App/release work is frozen; historical protocols, evidence and approved r3 are preserved.
@@ -106,14 +106,24 @@ Exact canonical references and all58 scientific bindings verified; materialized 
 Fixed replication queue: STOPPED_AFTER_FAILURE; 1/4 verified completions.
 SSL13 completed6000+2000 updates; direct13 ownership guard blocked VLC before its first update.
 Direct13 failed69.234 full-owned seconds preserved and charged; original SSL23/direct23 are still required.
-No foreign process was terminated or GPU safety guard changed; owner asked to close VLC.
+Owner explicitly authorizes VLC to remain open; ADR0024 records a prospective WDDM desktop exception.
+Original guard/fitted sources remain unchanged; new additive executors retain all scientific resource caps.
+114 operational guard checks and19 exact-review transport checks passed; six renewed prefits NOT_APPROVED.
+Independent operational prefit CLI exited1 on automatic safety rejection before approval; GPU queue NOT_RUN.
 Typed v2 prefix/assessment compatibility integrated;391 root CPU checks passed674.98s, no skips.
 Physical Unicode synthetic four-update prefix fit and saved-artifact replay passed; no public transfer results.
 New Band-aware assessment supervisor retains12/96 full-owned accounting for mixed-model operations.
 Prospective strict-status prefix supervisor passed31 policy/pending-journal checks after focused red/green repair.
 Distinct transfer software review approved all79 exact bindings; actual prefix/assessment prefits remain required.
 Original prefix accounting already includes completed prefix histories; all Band training precedes prefix operations.
-Builder is implementing an additive native transfer-corpus/registry adapter with synthetic fixtures only.
+Native transfer-corpus adapter integrated;54 root checks and owned CPU codec passed, no final numeric access.
+Its software reviewer CLI exited1 on automatic safety rejection; no approval was produced.
+Recursive ancestry adapter passed61 root checks; one actual SSL13 metadata audit passed with18593 TRAIN rows.
+Archive-ID/dev-site/original sampling-layout repairs preserve historical fitted sources and failed evidence.
+Desktop prefix route passed35 root checks; separate owned physical synthetic CPU optimizer/save/replay passed.
+Four-model pretrained snapshot copied actual Shared7/CF7/13/23 weights and reusable inference source.
+Its isolated CPU inference and archive byte checks passed; synthetic inputs are not scientific performance evidence.
+Independent software/package reviews and all final numeric/transfer results remain required.
 Actual assessment resource-worker synthetic CPU smoke exited0 and removed its exclusive lock.
 CF backbone extra controls remain proposed/unfitted and deferred outside authorized11 recipes.
 Finalist and matched-direct seeds13/23 remain required; no extra architecture search is approved.

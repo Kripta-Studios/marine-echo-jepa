@@ -1,0 +1,69 @@
+[
+  {
+    "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest --import-mode=importlib -p no:cacheprovider tests\\unit\\test_native_prefix_desktop_execution_v3.py tests\\integration\\test_native_prefix_desktop_transfer_v3.py",
+    "exit_code": 0,
+    "log": "red-initial-v3.log",
+    "result": "34 passed, 1 skipped; initial green despite historical log basename",
+    "log_sha256": "b8843d0a0151604da14984e760e9af86caa704edc17c478fd39f88fab97b9ba6"
+  },
+  {
+    "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest --import-mode=importlib -p no:cacheprovider tests\\unit\\test_native_prefix_desktop_execution_v3.py -k baseline_operational",
+    "exit_code": 1,
+    "log": "red-original-vlc-policy-v3.log",
+    "result": "1 meaningful failure: original classifier blocks exact WDDM VLC",
+    "log_sha256": "17e9077a07641e27cd393db842be848e45fa06ce2ba00dc9d907476f3feb3b9f"
+  },
+  {
+    "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff check --no-cache src\\marine_echo\\training\\native_desktop_runtime_v3.py src\\marine_echo\\training\\native_prefix_desktop_transfer_v3.py tools\\execute_native_prefix_desktop_job_v3.py tools\\execute_native_prefix_desktop_worker_v3.py tests\\unit\\test_native_prefix_desktop_execution_v3.py tests\\integration\\test_native_prefix_desktop_transfer_v3.py evidence\\ssl-prefix-desktop-builder-v3\\root_fixture.py",
+    "exit_code": 1,
+    "log": "lint-final-v3.log",
+    "result": "one import-order error; corrected",
+    "log_sha256": "06952c70979e3802fedf69162da2e0de15b98609a65de5bd8d1eefa97a8727c3"
+  },
+  {
+    "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest --import-mode=importlib -p no:cacheprovider tests\\unit\\test_native_prefix_desktop_execution_v3.py tests\\integration\\test_native_prefix_desktop_transfer_v3.py",
+    "exit_code": 0,
+    "log": "green-final-v3.log",
+    "result": "35 passed, 1 skipped in 23.54 seconds; before final import-order correction",
+    "log_sha256": "8376f6792d83a2eded86fd82ddb45e069054429f39a2f1211280bfce454d59b4"
+  },
+  {
+    "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest --import-mode=importlib -p no:cacheprovider tests\\unit\\test_native_prefix_desktop_execution_v3.py tests\\integration\\test_native_prefix_desktop_transfer_v3.py",
+    "exit_code": 0,
+    "log": "green-closed-v3.log",
+    "result": "35 passed, 1 skipped in 22.45 seconds; closed authored bytes",
+    "exit_witness_chunk": "a8e012",
+    "log_sha256": "dd65f4cd2b057835723694828ba901c34c464d926d1fb815409b900d096bf59c"
+  },
+  {
+    "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B evidence\\ssl-prefix-desktop-builder-v3\\close_source_proof.py",
+    "exit_code": 1,
+    "log": "source-proof-final-v3.log",
+    "result": "snapshot basename collision; no existing snapshot overwritten; preserved failure",
+    "log_sha256": "4bcfcae22da98f1798e272de180e1325d06c26a82e8c2e7d20fa6a43116d361e"
+  },
+  {
+    "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B evidence\\ssl-prefix-desktop-builder-v3\\complete_source_proof_v3.py",
+    "exit_code": 0,
+    "log": "source-proof-completed-v3.log",
+    "result": "36 protected, 6 authored, 32 source bindings verified; byte and bounded AST proof",
+    "exit_witness_chunk": "2d50be",
+    "log_sha256": "8c187a8ead3ad78c499a4b549d7fbcf0be2cbf48986c599c2c4a9e08d894c166"
+  },
+  {
+    "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff check --no-cache src\\marine_echo\\training\\native_desktop_runtime_v3.py src\\marine_echo\\training\\native_prefix_desktop_transfer_v3.py tools\\execute_native_prefix_desktop_job_v3.py tools\\execute_native_prefix_desktop_worker_v3.py tests\\unit\\test_native_prefix_desktop_execution_v3.py tests\\integration\\test_native_prefix_desktop_transfer_v3.py evidence\\ssl-prefix-desktop-builder-v3\\root_fixture.py",
+    "exit_code": 0,
+    "log": "lint-closed-v3.log",
+    "result": "All checks passed",
+    "exit_witness_chunk": "b31aff",
+    "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+  },
+  {
+    "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff format --check --no-cache src\\marine_echo\\training\\native_desktop_runtime_v3.py src\\marine_echo\\training\\native_prefix_desktop_transfer_v3.py tools\\execute_native_prefix_desktop_job_v3.py tools\\execute_native_prefix_desktop_worker_v3.py tests\\unit\\test_native_prefix_desktop_execution_v3.py tests\\integration\\test_native_prefix_desktop_transfer_v3.py evidence\\ssl-prefix-desktop-builder-v3\\root_fixture.py",
+    "exit_code": 0,
+    "log": "format-check-closed-v3.log",
+    "result": "7 files already formatted",
+    "exit_witness_chunk": "2433ea",
+    "log_sha256": "0321fffcb91606a42c0a19d8c1121d5c544379d663821fce616c71a7bb62f6b5"
+  }
+]

@@ -1,0 +1,26 @@
+{
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "device": "cpu",
+  "scientific_fitting": false,
+  "private_synthetic_optimizer_execution": true,
+  "checks": [
+    {
+      "mode": "scratch_direct",
+      "updates": 4,
+      "selected_step": 4
+    },
+    {
+      "mode": "frozen_readout",
+      "updates": 4,
+      "selected_step": 4
+    }
+  ],
+  "resources": {
+    "peak_rss_bytes": 614776832,
+    "peak_allocated_bytes": 0,
+    "peak_reserved_bytes": 0,
+    "elapsed_seconds": 20.375,
+    "elapsed_gpu_seconds": 0,
+    "gpu_time_definition": "synchronized elapsed device-owned runtime, including probes and evaluation"
+  }
+}
