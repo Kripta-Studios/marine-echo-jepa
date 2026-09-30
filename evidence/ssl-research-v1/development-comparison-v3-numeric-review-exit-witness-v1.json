@@ -1,0 +1,13 @@
+{
+  "status": "REVIEW_TRANSPORT_CAPACITY_FAILURE_BEFORE_FINAL_ARTIFACT",
+  "actual_cli_exit_code": 1,
+  "session_id": 15920,
+  "actual_exit_chunk_id": "f5c882",
+  "reviewer_session_id": "01a0ef27-876b-7692-917e-3975afc6893d",
+  "last_error": "Selected model is at capacity. Please try a different model.",
+  "events_path": "evidence/ssl-research-v1/development-comparison-v3-numeric-review-events.jsonl",
+  "final_artifact_exists": false,
+  "scientific_approval": "NOT_DELIVERED",
+  "credential_or_model_changes": false,
+  "numeric_reconstruction_progress": "Reviewer reported completed independent 28 scores, 26544 daily losses and 27 interval endpoints; final binding verification and signed review remain required."
+}
