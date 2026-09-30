@@ -1,0 +1,32 @@
+{
+  "status": "ONE_REAL_REPLICATION_COMPLETED_DIRECT13_OWNERSHIP_GUARD_STOPPED",
+  "actual_cli_exit_code": 1,
+  "session_id": 88883,
+  "actual_exit_chunk_id": "895b96",
+  "queue_sha256": "f4183e5a61b1193d51b825e082495fa43f7063c8e00e25461ad6cc843fe56d39",
+  "completed": {
+    "id": "band_shared_ssl_seed13_h96_replication_v2",
+    "actual_exit_code": 0,
+    "run_sha256": "dba03c7cf31bc357066975098642874252feb3860db057563cdea221e4b7d672",
+    "attempt_sha256": "f83b24674cd811b23512c54bad0ca71c947b86961b530ff8f79427577e8d03ba",
+    "development_pinball_db": 0.8259480255515298,
+    "status": "VERIFIED_COMPLETED"
+  },
+  "failure_attempt_sha256": "29466be45df4e76951c8d1bdc40620c4c4117b31f5e0e611d3afb0da43c28f24",
+  "ownership_sha256": "95aeed23c96126047949d35eff636f89f1acd5d75fe85be15c866db96e550ed9",
+  "console_sha256": "a294d65edc3dd8eeaadeabc3d60542272bc924069aa8952a1b4bdb040552d05b",
+  "failed_full_owned_seconds_retained": 69.23399999999674,
+  "owned_pids_verified_absent": [
+    7044,
+    35352,
+    64020
+  ],
+  "failure_reason": "GPU_OWNERSHIP_GUARD_BLOCKED_VLC_BEFORE_FIRST_UPDATE",
+  "foreign_process_terminated": false,
+  "gpu_guard_changed": false,
+  "remaining_original_jobs": "SSL23 and direct23 NOT_RUN; direct13 needs separately reviewed exact-recipe fresh-output retry",
+  "charged_band_hours_snapshot": 5.4694916666666655,
+  "charged_aggregate_hours_snapshot": 14.95301108614696,
+  "independent_numeric_results": "NOT_RUN",
+  "scientific_programme_complete": false
+}

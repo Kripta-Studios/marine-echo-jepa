@@ -1,6 +1,6 @@
 ## Active model-first research — native acoustic SSL
 
-Updated 2026-09-30T17:57:11.398557+00:00.
+Updated 2026-09-30T18:18:10.919712+00:00.
 
 Branch `research/marine-jepa-vnext`; owner-authorized local model research.
 App/release work is frozen; historical protocols, evidence and approved r3 are preserved.
@@ -16,11 +16,11 @@ LightGBM15 quantile boosters and deterministic persistence/seasonal references c
 Shared/CF encoder CPU replay and LightGBM all15-booster CPU replay passed.
 Independent learning-path audit found no defect within inspected scope.
 
-Active scientific job: band_shared_ssl_seed13_h96_replication_v2-attempt-01.
+Active scientific job: none recorded.
 Original serial queue: COMPLETED_REVIEWED_SERIAL_QUEUE; 9/9 reports inspected.
-Charged owned GPU-hours at ledger snapshot: 13.692942/96.
+Charged owned GPU-hours at ledger snapshot: 14.953011/96.
 The active wrappers own ledger writes; coordinator does not overwrite live accounting.
-Band charged full-owned GPU-hours at snapshot: 4.209423/12 (inside96).
+Band charged full-owned GPU-hours at snapshot: 5.469492/12 (inside96).
 Band strong queue: STOPPED_AFTER_FAILURE; 5/6 verified completions.
 All20 seed7 endpoints and controls completed; each serial queue exited0 with owned cleanup.
 CF strong frozen/full DEV0.614422/0.541814; masked frozen/full0.786842/0.691806dB.
@@ -103,7 +103,10 @@ Unfitted metadata-only repair admits lowercase64hex hashes; seven red/green guar
 Repaired233 root CPU checks passed with all12 optimizer/resume cases; fresh Unicode replay passed.
 Four fixed shared/direct13/23 replication proposals approved by the distinct reviewer after source-closure repair.
 Exact canonical references and all58 scientific bindings verified; materialized leaf approvals preserve all scientific fields.
-Their four-job serial queue is executing under one scientific owner; no additional screening recipes.
+Fixed replication queue: STOPPED_AFTER_FAILURE; 1/4 verified completions.
+SSL13 completed6000+2000 updates; direct13 ownership guard blocked VLC before its first update.
+Direct13 failed69.234 full-owned seconds preserved and charged; original SSL23/direct23 are still required.
+No foreign process was terminated or GPU safety guard changed; owner asked to close VLC.
 Typed v2 prefix/assessment compatibility integrated;391 root CPU checks passed674.98s, no skips.
 Physical Unicode synthetic four-update prefix fit and saved-artifact replay passed; no public transfer results.
 New Band-aware assessment supervisor retains12/96 full-owned accounting for mixed-model operations.

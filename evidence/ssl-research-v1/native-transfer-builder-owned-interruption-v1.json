@@ -1,0 +1,119 @@
+{
+  "status": "OWNED_ENGINEERING_AGENT_INTERRUPTED",
+  "session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "utc": "2026-09-30T18:06:09.850611+00:00",
+  "reason": "Format-check tool has not returned for twenty minutes; no active Python or Ruff child",
+  "cause_of_stall": "UNKNOWN",
+  "owned_process_identities": [
+    [
+      34108,
+      1790784995.7382567,
+      "codex.exe"
+    ],
+    [
+      20276,
+      1790785012.9681203,
+      "node_repl.exe"
+    ],
+    [
+      35416,
+      1790785013.0143545,
+      "cmd.exe"
+    ],
+    [
+      58932,
+      1790785013.0814867,
+      "cmd.exe"
+    ],
+    [
+      17540,
+      1790785013.1881232,
+      "cmd.exe"
+    ],
+    [
+      60352,
+      1790785263.803662,
+      "codex-code-mode-host.exe"
+    ],
+    [
+      53232,
+      1790785263.8621628,
+      "conhost.exe"
+    ],
+    [
+      5636,
+      1790785013.2740219,
+      "conhost.exe"
+    ],
+    [
+      38976,
+      1790785014.7619324,
+      "node.exe"
+    ],
+    [
+      61208,
+      1790785028.36236,
+      "cmd.exe"
+    ],
+    [
+      1588,
+      1790785028.7680447,
+      "node.exe"
+    ],
+    [
+      47952,
+      1790785013.1563528,
+      "conhost.exe"
+    ],
+    [
+      32096,
+      1790785014.5936832,
+      "node.exe"
+    ],
+    [
+      53004,
+      1790785028.3190248,
+      "cmd.exe"
+    ],
+    [
+      44008,
+      1790785028.7538981,
+      "node.exe"
+    ],
+    [
+      61528,
+      1790785034.5268924,
+      "node.exe"
+    ],
+    [
+      50940,
+      1790785013.095667,
+      "conhost.exe"
+    ],
+    [
+      56184,
+      1790785014.6112003,
+      "node.exe"
+    ],
+    [
+      52160,
+      1790785028.5837057,
+      "cmd.exe"
+    ],
+    [
+      60284,
+      1790785028.87583,
+      "node.exe"
+    ],
+    [
+      52896,
+      1790785013.04728,
+      "conhost.exe"
+    ]
+  ],
+  "scientific_queue_modified": false,
+  "files_deleted": false,
+  "source_delivery": "NOT_CLOSED",
+  "pending_format_check": "NO_ACTUAL_EXIT_WITNESS",
+  "remaining_owned_pids": []
+}

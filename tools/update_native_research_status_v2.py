@@ -26,6 +26,8 @@ def main():
               if run.get("status") in ("RUNNING_CUDA", "RUNNING_CPU_FIT")]
     band_queue_path = ROOT / "evidence/ssl-research-v1/band-downstream-serial-attempt-01/queue.json"
     band_queue = json.loads(band_queue_path.read_bytes()) if band_queue_path.exists() else None
+    replication_path = ROOT / "evidence/ssl-research-v1/band-fixed-replication-queue-attempt-01/queue.json"
+    replication = json.loads(replication_path.read_bytes()) if replication_path.exists() else None
     band_hours = sum(run.get("elapsed_owned_seconds", run.get("resources_full_attempt", {}).get("elapsed_full_attempt_seconds", 0))
                      for run in ledger["runs"] if run.get("budget_family") == "native_band_v1") / 3600
     lines = ["## Active model-first research — native acoustic SSL",
@@ -126,7 +128,10 @@ def main():
              "Repaired233 root CPU checks passed with all12 optimizer/resume cases; fresh Unicode replay passed.",
              "Four fixed shared/direct13/23 replication proposals approved by the distinct reviewer after source-closure repair.",
              "Exact canonical references and all58 scientific bindings verified; materialized leaf approvals preserve all scientific fields.",
-             "Their four-job serial queue is executing under one scientific owner; no additional screening recipes.",
+             f"Fixed replication queue: {replication['status'] if replication else 'NOT_RUN'}; {sum(job.get('status') == 'VERIFIED_COMPLETED' for job in replication['jobs']) if replication else 0}/4 verified completions.",
+             "SSL13 completed6000+2000 updates; direct13 ownership guard blocked VLC before its first update.",
+             "Direct13 failed69.234 full-owned seconds preserved and charged; original SSL23/direct23 are still required.",
+             "No foreign process was terminated or GPU safety guard changed; owner asked to close VLC.",
              "Typed v2 prefix/assessment compatibility integrated;391 root CPU checks passed674.98s, no skips.",
              "Physical Unicode synthetic four-update prefix fit and saved-artifact replay passed; no public transfer results.",
              "New Band-aware assessment supervisor retains12/96 full-owned accounting for mixed-model operations.",
