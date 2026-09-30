@@ -1,0 +1,38 @@
+{
+  "coordinator_session_id": "SYNTHETIC_ROOT",
+  "dependency_lock": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-native-transfer-corpus-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY-812a310e-bb01-4847-901e-4359bcad2fd8\\dependencies.txt",
+  "device": "cpu",
+  "evidence_kind": "REVIEWED_NATIVE_NUMERIC_MATERIALIZATION",
+  "fit_authorized": false,
+  "history": 96,
+  "implementer_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "kind": "native_transfer_materialization_manifest_v1",
+  "output_identity": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-native-transfer-corpus-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY-812a310e-bb01-4847-901e-4359bcad2fd8\\output-identity.json",
+  "output_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-native-transfer-corpus-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY-812a310e-bb01-4847-901e-4359bcad2fd8\\NEW_OUTPUT",
+  "prefix_protocol": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0021-native-prefix-transfer-assessment.md",
+  "protocol": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-native-transfer-corpus-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY-812a310e-bb01-4847-901e-4359bcad2fd8\\docs\\protocol.md",
+  "receipt_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-native-transfer-corpus-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY-812a310e-bb01-4847-901e-4359bcad2fd8\\NEW_RECEIPT.json",
+  "resource_policy": {
+    "device": "cpu",
+    "owned_tree_rss_limit_bytes": 23622320128,
+    "single_owned_process": true
+  },
+  "role": "final_test",
+  "selection": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-native-transfer-corpus-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY-812a310e-bb01-4847-901e-4359bcad2fd8\\selection.json",
+  "selection_review": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-native-transfer-corpus-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY-812a310e-bb01-4847-901e-4359bcad2fd8\\selection-review.json",
+  "source_identities": {
+    "SYNTHETIC_A": {
+      "archive": "2aac3e2328076f11edc7fcf0823ad0200d32971bea0d41f98425109f310975da",
+      "deployment": "SYNTHETIC_A",
+      "end": "2020-03-01T00:00:00",
+      "native_bounds_m": [
+        0,
+        230
+      ],
+      "site": "SYNTHETIC_SITE",
+      "start": "2020-01-01T00:00:00"
+    }
+  },
+  "split": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-native-transfer-corpus-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY-812a310e-bb01-4847-901e-4359bcad2fd8\\configs\\split.json",
+  "supervisor": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\native_reference_supervisor.py"
+}

@@ -1,0 +1,25 @@
+{
+  "protocol_path": "docs/protocol.md",
+  "protocol_sha256": "47b9eaf6b8002400cd71a6ac71cdaa6a186356d0acf82480ddefca551df70bad",
+  "schema_version": "native_acoustic_ssl_v1",
+  "sources": [
+    {
+      "archive_sha256": "a1b7b4e5dff8fbc022ed0888e1ec745ff349ea10742c46a3ca2a00aeca15467d",
+      "complete_ping_counts": [
+        150,
+        180
+      ],
+      "deployment": "SYNTHETIC_A",
+      "end_date_inclusive": "20200229",
+      "file_id": 1,
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-native-transfer-corpus-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY-7d13dd6b-8a49-4091-b863-bb9663b653d9\\SYNTHETIC_CORRECTNESS_ONLY.zip",
+      "quarantined_ping_counts": [
+        165
+      ],
+      "role": "final_test",
+      "site": "SYNTHETIC_SITE",
+      "start_date": "20200101"
+    }
+  ],
+  "support_history": 96
+}

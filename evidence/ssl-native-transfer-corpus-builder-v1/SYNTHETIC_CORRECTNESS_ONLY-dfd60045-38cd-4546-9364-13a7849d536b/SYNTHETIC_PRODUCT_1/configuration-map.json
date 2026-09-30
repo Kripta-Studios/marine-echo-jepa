@@ -1,0 +1,118 @@
+{
+  "complete": true,
+  "kind": "native_prefix_source_configuration_map_v1",
+  "quarantined_pings": [
+    165
+  ],
+  "source_metadata": {
+    "SYNTHETIC_1": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-native-transfer-corpus-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY-dfd60045-38cd-4546-9364-13a7849d536b\\SYNTHETIC_PRODUCT_1\\source-metadata.json"
+  },
+  "sources": {
+    "SYNTHETIC_1": {
+      "archive": "040b45bf47c4f7b5de211cb732d2c643e867c3d6921935bb448ab2e84e421d9f",
+      "configurations": {
+        "native-config:470dd88132ddbe552cdf339a563651dd8d0478c386d347b8515dc73fb89c569c": {
+          "channel_bounds_m": [
+            [
+              0.0,
+              230.0
+            ],
+            [
+              0.0,
+              230.0
+            ],
+            [
+              0.0,
+              230.0
+            ],
+            [
+              0.0,
+              230.0
+            ]
+          ],
+          "frequency_hz": [
+            38000,
+            125000,
+            200000,
+            455000
+          ],
+          "interval_seconds": 3600,
+          "ping_counts": [
+            180,
+            180,
+            180,
+            180
+          ],
+          "processing_id_or_unknown": [
+            "SYNTHETIC_PROCESS",
+            "SYNTHETIC_PROCESS",
+            "SYNTHETIC_PROCESS",
+            "SYNTHETIC_PROCESS"
+          ]
+        },
+        "native-config:563876677f990ea7f94b28127b3e0300b7ef8b7367ac9fd6872cf26ea41955d7": {
+          "channel_bounds_m": [
+            [
+              0.0,
+              230.0
+            ],
+            [
+              0.0,
+              230.0
+            ],
+            [
+              0.0,
+              230.0
+            ],
+            [
+              0.0,
+              230.0
+            ]
+          ],
+          "frequency_hz": [
+            38000,
+            125000,
+            200000,
+            455000
+          ],
+          "interval_seconds": 3600,
+          "ping_counts": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "processing_id_or_unknown": [
+            "SYNTHETIC_PROCESS",
+            "SYNTHETIC_PROCESS",
+            "SYNTHETIC_PROCESS",
+            "SYNTHETIC_PROCESS"
+          ]
+        }
+      },
+      "deployment": "SYNTHETIC_1",
+      "end": "2020-03-01T00:00:00",
+      "first_source_interval_index": 0,
+      "last_source_interval_index": 239,
+      "native_bounds_m": [
+        0,
+        230
+      ],
+      "segments": [
+        {
+          "configuration": "native-config:563876677f990ea7f94b28127b3e0300b7ef8b7367ac9fd6872cf26ea41955d7",
+          "first_source_interval_index": 0,
+          "last_source_interval_index": 179
+        },
+        {
+          "configuration": "native-config:470dd88132ddbe552cdf339a563651dd8d0478c386d347b8515dc73fb89c569c",
+          "first_source_interval_index": 180,
+          "last_source_interval_index": 239
+        }
+      ],
+      "site": "SYNTHETIC_SITE",
+      "source_metadata_sha256": "47a7f2ec4719323fe8d5bae04bfa9db3204ad95b722ea9038c60568e9d3f9634",
+      "start": "2020-01-01T00:00:00"
+    }
+  }
+}

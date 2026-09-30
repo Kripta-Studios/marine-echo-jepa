@@ -1,0 +1,18 @@
+{
+  "quarantined_pings": [
+    165
+  ],
+  "sources": {
+    "SYNTHETIC_1": {
+      "archive": "ea9174f7b33367b744d6a638052b040392155f37fb45fd522376a78f7f8bb920",
+      "deployment": "SYNTHETIC_1",
+      "end": "2020-03-01T00:00:00",
+      "native_bounds_m": [
+        0,
+        230
+      ],
+      "site": "SYNTHETIC_SITE",
+      "start": "2020-01-01T00:00:00"
+    }
+  }
+}

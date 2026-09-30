@@ -1,0 +1,16 @@
+{
+  "bindings": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-native-transfer-corpus-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY-b80c514e-9a5f-4dfc-a3c3-6c3e8d06b559\\SYNTHETIC_ancestry.json": "1714fbdd03db4b6957edee2c6b8b2bf3c04ae0dfef54f769e9d03cba18181c90",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-native-transfer-corpus-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY-b80c514e-9a5f-4dfc-a3c3-6c3e8d06b559\\SYNTHETIC_completion.json": "1714fbdd03db4b6957edee2c6b8b2bf3c04ae0dfef54f769e9d03cba18181c90",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-native-transfer-corpus-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY-b80c514e-9a5f-4dfc-a3c3-6c3e8d06b559\\SYNTHETIC_config.json": "1714fbdd03db4b6957edee2c6b8b2bf3c04ae0dfef54f769e9d03cba18181c90",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-native-transfer-corpus-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY-b80c514e-9a5f-4dfc-a3c3-6c3e8d06b559\\SYNTHETIC_model.json": "1714fbdd03db4b6957edee2c6b8b2bf3c04ae0dfef54f769e9d03cba18181c90",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-native-transfer-corpus-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY-b80c514e-9a5f-4dfc-a3c3-6c3e8d06b559\\SYNTHETIC_readout.json": "1714fbdd03db4b6957edee2c6b8b2bf3c04ae0dfef54f769e9d03cba18181c90",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-native-transfer-corpus-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY-b80c514e-9a5f-4dfc-a3c3-6c3e8d06b559\\SYNTHETIC_scalers.json": "1714fbdd03db4b6957edee2c6b8b2bf3c04ae0dfef54f769e9d03cba18181c90",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-native-transfer-corpus-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY-b80c514e-9a5f-4dfc-a3c3-6c3e8d06b559\\selection.json": "991b58b576c87d6bacd86011617f599cd3d559dd0bc71984c5f936b543e8f674"
+  },
+  "implementer_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "reviewed_at": "2026-09-29T01:00:00+00:00",
+  "reviewer_session_id": "SYNTHETIC_DISTINCT_FREEZE_REVIEWER",
+  "scope": "selection_freeze",
+  "status": "APPROVED_SELECTION_FREEZE"
+}

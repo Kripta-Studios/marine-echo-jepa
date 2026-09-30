@@ -1,0 +1,51 @@
+{
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "shell": "cmd.exe",
+  "python": "../marine-echo-jepa/.venv/Scripts/python.exe",
+  "files": [
+    "src/marine_echo/data/native_transfer_corpus.py",
+    "tools/materialize_native_transfer_corpus.py",
+    "tests/unit/test_native_transfer_corpus.py",
+    "tests/integration/test_native_transfer_corpus.py",
+    "evidence/ssl-native-transfer-corpus-builder-v1/root_supervised_fixture.py",
+    "evidence/ssl-native-transfer-corpus-builder-v1/snapshot_sources.py",
+    "evidence/ssl-native-transfer-corpus-builder-v1/inspect_sources.py",
+    "evidence/ssl-native-transfer-corpus-builder-v1/run_closeout_checks.py",
+    "evidence/ssl-native-transfer-corpus-builder-v1/close_delivery.py"
+  ],
+  "check": {
+    "command_prefix": "../marine-echo-jepa/.venv/Scripts/python.exe -B -m ruff check --no-cache",
+    "arguments": "Every entry in files, in listed order",
+    "log": "lint-final-closed-v6.log",
+    "exit_code": 0,
+    "tool_chunk": "4e527d"
+  },
+  "format_check": {
+    "command_prefix": "../marine-echo-jepa/.venv/Scripts/python.exe -B -m ruff format --check --no-cache",
+    "arguments": "Every entry in files, in listed order",
+    "log": "format-check-final-closed-v6.log",
+    "exit_code": 0,
+    "tool_chunk": "025803"
+  },
+  "historical_pending_event": {
+    "cli": 95119,
+    "status": "NO_ACTUAL_EXIT_WITNESS",
+    "cause": "UNKNOWN",
+    "unchanged_by_fresh_checks": true
+  },
+  "additional_failed_noncheck_commands": [
+    {
+      "kind": "cmd quoting error in read-only Python -c SHA command",
+      "exit_code": 1,
+      "tool_chunk": "d163d5",
+      "effect": "Command did not execute Python body; no filesystem denial or write"
+    },
+    {
+      "kind": "cmd quoting error in read-only rg pattern",
+      "exit_code": 2,
+      "tool_chunk": "11c893",
+      "effect": "No file mutation; not a denied filesystem operation"
+    }
+  ],
+  "root_lifecycle_and_scientific_materialization": "NOT_RUN"
+}

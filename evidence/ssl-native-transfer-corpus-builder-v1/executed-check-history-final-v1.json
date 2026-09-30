@@ -1,0 +1,80 @@
+{
+  "actual_checks": [
+    {
+      "command": "python -B -m pytest tests/unit/test_native_transfer_corpus.py tests/integration/test_native_transfer_corpus.py --import-mode=importlib -p no:cacheprovider -q",
+      "exit_code": 0,
+      "result": "35 passed in 386.74s",
+      "version": "Prior witnessed source version before later guards"
+    },
+    {
+      "command": "python -B -m pytest tests/integration/test_native_transfer_corpus.py --import-mode=importlib -p no:cacheprovider -q",
+      "exit_code": 0,
+      "result": "24 passed in 173.98s",
+      "tool_chunk": "a16da6"
+    },
+    {
+      "command": "python -B -m pytest tests/integration/test_native_transfer_corpus.py -k wrong_review --import-mode=importlib -p no:cacheprovider -q",
+      "exit_code": 0,
+      "result": "10 passed, 14 deselected in 44.05s"
+    },
+    {
+      "command": "python -B -m pytest tests/integration/test_native_transfer_corpus.py -k actual_ --import-mode=importlib -p no:cacheprovider -q",
+      "exit_code": 0,
+      "result": "2 passed, 21 deselected in 52.24s",
+      "version": "Prior source version"
+    },
+    {
+      "command": "python -B -m pytest tests/unit/test_native_transfer_corpus.py -k root_only_fixture --import-mode=importlib -p no:cacheprovider -q",
+      "exit_code": 0,
+      "log": "green-actual-ownership-closeout-v2.log",
+      "result": "12 passed, 16 deselected in 1.77s"
+    },
+    {
+      "command": "python -B -m pytest tests/unit/test_native_transfer_corpus.py -k production_transport_calls --import-mode=importlib -p no:cacheprovider -q",
+      "exit_code": 1,
+      "log": "red-production-wiring-closeout-v1.log",
+      "tool_chunk": "0f9b73"
+    },
+    {
+      "command": "python -B -m pytest tests/unit/test_native_transfer_corpus.py -k fixture_or_production --import-mode=importlib -p no:cacheprovider -q",
+      "exit_code": 5,
+      "log": "green-wiring-closeout-v4.log",
+      "note": "No tests selected; not a passing check."
+    },
+    {
+      "command": "python -B -m pytest tests/unit/test_native_transfer_corpus.py -k production_transport_calls --import-mode=importlib -p no:cacheprovider -q",
+      "exit_code": 0,
+      "log": "green-production-wiring-closeout-v5.log",
+      "tool_chunk": "4cdfdd"
+    },
+    {
+      "command": "python -B tools/materialize_native_transfer_corpus.py --help",
+      "exit_code": 0,
+      "tool_chunk": "845f44"
+    }
+  ],
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "inaccessible_or_unexecuted": {
+    "actual_owned_supervisor_lifecycle": "NOT_RUN_ROOT_ONLY_DURING_SCIENTIFIC_QUEUE",
+    "public_arrays_weights_fitting_gpu": "NOT_RUN",
+    "public_materialization": "NOT_RUN_NO_DISTINCT_FREEZE_OR_NUMERIC_ACCESS_REVIEW",
+    "restricted_scratch_cache_git_operations": "NOT_RUN_NO_RETRY"
+  },
+  "interrupted_event": {
+    "cause": "UNKNOWN",
+    "cli": 95119,
+    "format_check": "NO_ACTUAL_EXIT_WITNESS",
+    "not_counted_as_pass": true
+  },
+  "prior_lint": {
+    "ruff_check_exit": 0,
+    "tool_chunk": "50e958"
+  },
+  "receipt_note": "Historical summaries below retain actual prior tool witnesses; they are not invented complete stdout logs.",
+  "retained_red_receipts": [
+    "red-initial-v1.json",
+    "red-semantic-freeze-v1.json",
+    "red-future-approval-v1.json",
+    "red-actual-ownership-closeout-v1.json"
+  ]
+}

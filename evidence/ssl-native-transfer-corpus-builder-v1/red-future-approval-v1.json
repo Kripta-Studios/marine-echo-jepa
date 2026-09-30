@@ -1,0 +1,10 @@
+{
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "command": "../marine-echo-jepa/.venv/Scripts/python.exe -B -m pytest tests/integration/test_native_transfer_corpus.py -k 2099 --import-mode=importlib -p no:cacheprovider -q",
+  "exit_code": 1,
+  "output": "FAILED test_wrong_review_denied_before_archive[reviewed_at-2099-01-01T00:00:00+00:00]: Failed: Decoded rejected source; 1 failed, 23 deselected in 9.25s",
+  "behaviour": "Future-dated fake private approval reached reader.read_source/ZipFile. Spy stopped archive parsing before any numerical decode. Partial private owner/output evidence is retained.",
+  "fix": "Approval chronology must precede current actual access time, in addition to ordered freeze and review receipts.",
+  "public_numeric_access": "NOT_RUN",
+  "scientific_execution": "NOT_RUN"
+}

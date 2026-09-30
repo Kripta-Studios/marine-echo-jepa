@@ -1,0 +1,12 @@
+TRY004 Prefer `TypeError` exception for invalid type
+  --> evidence\ssl-native-transfer-corpus-builder-v1\root_supervised_fixture.py:43:9
+   |
+41 |         ) from error
+42 |     if not isinstance(document, dict) or not isinstance(document.get("runs"), list):
+43 |         raise RuntimeError("Malformed actual scientific ledger; fixture is NOT_RUN.")
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+44 |     records = document["runs"]
+45 |     if any(not isinstance(record, dict) for record in records):
+   |
+
+Found 1 error.

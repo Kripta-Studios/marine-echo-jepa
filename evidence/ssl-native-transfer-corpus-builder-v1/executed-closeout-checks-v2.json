@@ -1,0 +1,62 @@
+{
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "checks": [
+    {
+      "label": "format-closeout-v2",
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "ruff",
+        "format",
+        "--no-cache",
+        "src/marine_echo/data/native_transfer_corpus.py",
+        "tools/materialize_native_transfer_corpus.py",
+        "tests/unit/test_native_transfer_corpus.py",
+        "tests/integration/test_native_transfer_corpus.py",
+        "evidence/ssl-native-transfer-corpus-builder-v1/root_supervised_fixture.py",
+        "evidence/ssl-native-transfer-corpus-builder-v1/snapshot_sources.py",
+        "evidence/ssl-native-transfer-corpus-builder-v1/inspect_sources.py",
+        "evidence/ssl-native-transfer-corpus-builder-v1/run_closeout_checks.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "green-actual-ownership-closeout-v2",
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "pytest",
+        "tests/unit/test_native_transfer_corpus.py",
+        "-k",
+        "root_only_fixture",
+        "--import-mode=importlib",
+        "-p",
+        "no:cacheprovider",
+        "-q"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "lint-closeout-v2",
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "ruff",
+        "check",
+        "--no-cache",
+        "src/marine_echo/data/native_transfer_corpus.py",
+        "tools/materialize_native_transfer_corpus.py",
+        "tests/unit/test_native_transfer_corpus.py",
+        "tests/integration/test_native_transfer_corpus.py",
+        "evidence/ssl-native-transfer-corpus-builder-v1/root_supervised_fixture.py",
+        "evidence/ssl-native-transfer-corpus-builder-v1/snapshot_sources.py",
+        "evidence/ssl-native-transfer-corpus-builder-v1/inspect_sources.py",
+        "evidence/ssl-native-transfer-corpus-builder-v1/run_closeout_checks.py"
+      ],
+      "exit_code": 1
+    }
+  ]
+}

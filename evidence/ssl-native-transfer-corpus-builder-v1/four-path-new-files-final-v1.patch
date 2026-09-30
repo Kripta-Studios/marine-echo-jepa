@@ -1,0 +1,1920 @@
+--- /dev/null
++++ b/src/marine_echo/data/native_transfer_corpus.py
+@@ -0,0 +1,1075 @@
++"""Additive native held-out materialization with exact source interval provenance.
++
++No fitting, inference, model selection, or approval is performed here. Production
++decoding requires independently frozen selection and numeric-access receipts.
++Source-calendar clocks are unknown UTC; centre +/-30 min is only a proxy.
++"""
++
++from __future__ import annotations
++
++import ast
++import copy
++import csv
++import hashlib
++import io
++import json
++import os
++import stat
++import time
++import zipfile
++from dataclasses import dataclass
++from datetime import UTC, date, datetime, timedelta
++from pathlib import Path
++
++from marine_echo.data import native_ssl_corpus as reader
++
++IMPLEMENTER = "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1"
++EVIDENCE = "REVIEWED_NATIVE_NUMERIC_MATERIALIZATION"
++RAM_LIMIT = 22 * 1024**3
++RESOURCE_POLICY = {
++    "device": "cpu",
++    "owned_tree_rss_limit_bytes": RAM_LIMIT,
++    "single_owned_process": True,
++}
++FREQUENCIES = (38000, 125000, 200000, 455000)
++MISSING = {"MISSING_CHANNEL", "DUPLICATE_ROW"}
++LOADED_READER_HASH = reader.sha256(Path(reader.__file__))
++
++
++def encode_json(value):
++    return (json.dumps(value, sort_keys=True, indent=2, allow_nan=False) + "\n").encode("utf-8")
++
++
++def _json(raw):
++    def pairs(items):
++        result = {}
++        for key, value in items:
++            if key in result:
++                raise ValueError("Duplicate JSON key.")
++            result[key] = value
++        return result
++
++    def invalid(value):
++        raise ValueError("Nonfinite JSON constant.")
++
++    result = json.loads(raw, object_pairs_hook=pairs, parse_constant=invalid)
++    if not isinstance(result, dict):
++        raise TypeError("JSON object required.")
++    return result
++
++
++def _hash(raw):
++    return hashlib.sha256(raw).hexdigest()
++
++
++def _path(value, base):
++    if not isinstance(value, str) or not value:
++        raise ValueError("Explicit immutable path required.")
++    value = Path(value)
++    return Path(os.path.abspath(value if value.is_absolute() else base / value))
++
++
++def _no_links(path):
++    for value in (path, *path.parents):
++        if value.exists() or value.is_symlink():
++            record = value.lstat()
++            if stat.S_ISLNK(record.st_mode) or getattr(record, "st_file_attributes", 0) & 0x400:
++                raise ValueError("Symlink/reparse-point identities are unsupported.")
++
++
++def _regular(path):
++    _no_links(path)
++    if not stat.S_ISREG(path.stat().st_mode):
++        raise ValueError("Safe regular input file required.")
++    return path
++
++
++def _date(value):
++    result = datetime.fromisoformat(value)
++    if result.tzinfo is not None:
++        raise ValueError("Source clock timezone is unknown; no UTC conversion.")
++    return result
++
++
++def _review_time(value):
++    result = datetime.fromisoformat(value)
++    if result.tzinfo is None:
++        raise ValueError("Approval chronology needs explicit timezone.")
++    return result
++
++
++def _distinct(review, manifest, status):
++    excluded = {IMPLEMENTER, manifest["implementer_session_id"], manifest["coordinator_session_id"]}
++    reviewer = review.get("reviewer_session_id")
++    if (
++        review.get("status") != status
++        or not isinstance(reviewer, str)
++        or not reviewer.strip()
++        or reviewer.casefold() in {v.casefold() for v in excluded}
++    ):
++        raise ValueError("Genuine distinct approval required.")
++    if review.get("implementer_session_id") != manifest["implementer_session_id"]:
++        raise ValueError("Review implementer identity differs.")
++
++
++def required_sources():
++    """Static local import closure; no provenance-directed imports or commands."""
++    package = Path(reader.__file__).resolve().parents[1]
++    own = Path(__file__).resolve()
++    cli = own.parents[3] / "tools/materialize_native_transfer_corpus.py"
++    pending = [
++        own,
++        cli,
++        package / "data/native_ssl_corpus.py",
++        package / "training/native_prefix_transfer.py",
++        package / "training/native_references.py",
++    ]
++    found = set()
++    while pending:
++        path = pending.pop().resolve()
++        if path in found:
++            continue
++        found.add(path)
++        tree = ast.parse(path.read_bytes())
++        for node in ast.walk(tree):
++            names = []
++            if isinstance(node, ast.ImportFrom) and node.module:
++                names = [node.module] + [node.module + "." + alias.name for alias in node.names]
++            elif isinstance(node, ast.Import):
++                names = [alias.name for alias in node.names]
++            for name in names:
++                if name.split(".")[0] != "marine_echo":
++                    continue
++                parts = name.split(".")[1:]
++                for n in range(len(parts) + 1):
++                    candidate = package.joinpath(*parts[:n])
++                    for source in (candidate.with_suffix(".py"), candidate / "__init__.py"):
++                        if source.is_file():
++                            pending.append(source)
++    return tuple(sorted(found))
++
++
++@dataclass(frozen=True)
++class Admission:
++    manifest: dict
++    review: dict
++    split: dict
++    output: Path
++    receipt: Path
++    bindings: dict
++    paths: dict
++    review_sha256: str
++
++
++def admit(manifest_path, review_path, output_path, receipt_path):
++    """Hash/identity/freeze gate BEFORE archive parsing or output mutation."""
++    manifest_path = _regular(_path(str(manifest_path), Path.cwd()))
++    review_path = _regular(_path(str(review_path), Path.cwd()))
++    review_raw = review_path.read_bytes()
++    m, review = _json(manifest_path.read_bytes()), _json(review_raw)
++    if (
++        m.get("kind") != "native_transfer_materialization_manifest_v1"
++        or m.get("role") != "final_test"
++        or m.get("evidence_kind") != EVIDENCE
++        or m.get("history") != 96
++        or type(m.get("history")) is not int
++        or m.get("device") != "cpu"
++        or m.get("fit_authorized") is not False
++    ):
++        raise ValueError(
++            "Explicit selection-free final-test CPU materialization contract required."
++        )
++    for key in ("implementer_session_id", "coordinator_session_id"):
++        if not isinstance(m.get(key), str) or not m[key].strip():
++            raise ValueError("Explicit session identities required.")
++    if m["implementer_session_id"] != IMPLEMENTER:
++        raise ValueError("Actual builder identity differs.")
++    _distinct(review, m, "APPROVED_NATIVE_NUMERIC_ACCESS")
++    if (
++        review.get("allowed_roles") != ["final_test"]
++        or review.get("evidence_kind") != EVIDENCE
++        or review.get("scope") != "native_transfer_materialization"
++        or review.get("fit_authorized") is not False
++    ):
++        raise ValueError("Exact final-test numeric scope required; no fitting admission.")
++    output, receipt = (_path(str(p), manifest_path.parent) for p in (output_path, receipt_path))
++    for path in (output, receipt):
++        _no_links(path)
++        if path.exists():
++            raise FileExistsError("Fresh output directory and receipt required.")
++        if not path.parent.is_dir():
++            raise ValueError("Root must prepare output/receipt parents.")
++    if output == receipt or output in receipt.parents or receipt in output.parents:
++        raise ValueError("Output and protected receipt must be disjoint.")
++    if review.get("output_path") != str(output) or review.get("receipt_path") != str(receipt):
++        raise ValueError("Review runtime output identities differ.")
++    if m.get("output_path") != str(output) or m.get("receipt_path") != str(receipt):
++        raise ValueError("Manifest runtime output identities differ.")
++    bindings = review.get("bindings")
++    if not isinstance(bindings, dict) or not bindings:
++        raise ValueError("Complete nonempty exact bindings required.")
++    exact = {}
++    for name, digest in bindings.items():
++        path = _regular(_path(name, manifest_path.parent))
++        if str(path) != name or reader.sha256(path) != digest:
++            raise ValueError("Stale or noncanonical numeric review binding.")
++        exact[name] = digest
++
++    def bound(path):
++        path = _regular(path)
++        if exact.get(str(path)) != reader.sha256(path):
++            raise ValueError(f"Missing or stale required binding: {path}")
++        if path == output or output in path.parents or path == receipt:
++            raise ValueError("Output overlaps immutable inputs.")
++        return path
++
++    bound(manifest_path)
++    for path in required_sources():
++        bound(path)
++    if reader.sha256(Path(reader.__file__)) != LOADED_READER_HASH:
++        raise ValueError("Loaded immutable reader changed.")
++    paths = {
++        key: bound(_path(m[key], manifest_path.parent))
++        for key in (
++            "split",
++            "protocol",
++            "prefix_protocol",
++            "dependency_lock",
++            "selection",
++            "selection_review",
++            "output_identity",
++            "supervisor",
++        )
++    }
++    supervisor = Path(reader.__file__).resolve().parents[3] / "tools/native_reference_supervisor.py"
++    prefix_protocol = (
++        Path(reader.__file__).resolve().parents[3]
++        / "docs/adr/0021-native-prefix-transfer-assessment.md"
++    )
++    if paths["prefix_protocol"] != prefix_protocol:
++        raise ValueError("Exact separately versioned prefix protocol binding required.")
++    if (
++        paths["supervisor"] != supervisor
++        or m.get("resource_policy") != RESOURCE_POLICY
++        or review.get("resource_policy") != RESOURCE_POLICY
++    ):
++        raise ValueError("Immutable root supervisor and exact 22 GiB CPU resource policy required.")
++    split = _json(paths["split"].read_bytes())
++    if (
++        split.get("schema_version") != "native_acoustic_ssl_v1"
++        or split.get("support_history") != 96
++        or "train" in split
++        or "reserved_test" in split
++    ):
++        raise ValueError("Original native split schema required.")
++    if (
++        paths["protocol"]
++        != (paths["split"].resolve().parents[1] / split["protocol_path"]).resolve()
++    ):
++        raise ValueError("Exact original split-relative protocol path required.")
++    if _json(paths["output_identity"].read_bytes()) != {
++        "kind": "native_transfer_output_identity_v1",
++        "output_path": str(output),
++        "receipt_path": str(receipt),
++        "role": "final_test",
++        "fit_authorized": False,
++    }:
++        raise ValueError("Bound output identity differs.")
++    selection = _json(paths["selection"].read_bytes())
++    frozen_review = _json(paths["selection_review"].read_bytes())
++    _distinct(frozen_review, m, "APPROVED_SELECTION_FREEZE")
++    if (
++        selection.get("kind") != "native_selection_freeze_v1"
++        or selection.get("selection_role") not in ("development", "prespecified_without_selection")
++        or selection.get("frozen_before_numeric_access") is not True
++        or selection.get("final_test_numerical_model_selection") is not False
++        or selection.get("owner_session_id") != m["coordinator_session_id"]
++        or selection.get("owner_freeze_confirmed") is not True
++        or frozen_review.get("scope") != "selection_freeze"
++        or _review_time(frozen_review["reviewed_at"]) >= _review_time(review["reviewed_at"])
++        or _review_time(selection["frozen_at"]) > _review_time(frozen_review["reviewed_at"])
++        or _review_time(review["reviewed_at"]) > datetime.now(UTC)
++        or review.get("frozen_selection_sha256") != exact[str(paths["selection"])]
++    ):
++        raise ValueError("Independent selected endpoints must freeze before numeric access.")
++    fb = frozen_review.get("bindings", {})
++    if not fb or fb.get(str(paths["selection"])) != exact[str(paths["selection"])]:
++        raise ValueError("Selection freeze itself is not independently hash-bound.")
++    for name, digest in fb.items():
++        if (
++            exact.get(name) != digest
++            or reader.sha256(_regular(_path(name, manifest_path.parent))) != digest
++        ):
++            raise ValueError("Stale selection-review binding.")
++    artifacts = selection.get("methods")
++    if not isinstance(artifacts, dict) or not artifacts:
++        raise ValueError("Frozen completed model/readout/scaler/config identities required.")
++    for entry in artifacts.values():
++        if not isinstance(entry, dict) or entry.get("status") != "COMPLETED":
++            raise ValueError("Incomplete selected ancestor cannot authorize numerical access.")
++        for key in ("model", "readout", "scalers", "config", "completion", "ancestry"):
++            p = bound(_path(entry[key], paths["selection"].parent))
++            if fb.get(str(p)) != exact[str(p)]:
++                raise ValueError("Model endpoint is not bound by both distinct reviews.")
++        completed = _json(_path(entry["completion"], paths["selection"].parent).read_bytes())
++        family = entry.get("artifact_family", "native_neural")
++        if family == "native_neural":
++            complete = (
++                completed.get("status") == "COMPLETED"
++                and completed.get("evidence_kind") == "REAL_TRAIN_DEVELOPMENT_FIT"
++            )
++        elif family == "native_reference":
++            complete = (
++                completed.get("status") == "COMPLETED_DEVELOPMENT_REFERENCE"
++                and completed.get("method") in ("persistence", "seasonal24", "lightgbm")
++                and completed.get("tuning") == "one_fixed_development_recipe_no_test_access"
++                and completed.get("history") == 96
++                and completed.get("evidence_kind") is None
++            )
++            for model in completed.get("models", []):
++                model_path = bound(
++                    _path(
++                        model["path"], _path(entry["completion"], paths["selection"].parent).parent
++                    )
++                )
++                if (
++                    fb.get(str(model_path)) != exact[str(model_path)]
++                    or model.get("sha256") != exact[str(model_path)]
++                ):
++                    raise ValueError("Every fixed booster requires both freeze/access bindings.")
++            if completed.get("method") == "lightgbm" and len(completed.get("models", [])) != 15:
++                complete = False
++        else:
++            complete = False
++        if not complete:
++            raise ValueError(
++                "Actual completed REAL_TRAIN_DEVELOPMENT_FIT endpoint receipt required."
++            )
++    selected_sources, seen = [], {"deployment": set(), "archive": set(), "file_id": set()}
++    declarations = m.get("source_identities", {})
++    if not isinstance(split.get("sources"), list) or not split["sources"]:
++        raise ValueError("Complete original source split required.")
++    sites = {"train": set(), "development": set(), "final_test": set()}
++    for source in split["sources"]:
++        if (
++            source.get("role") not in sites
++            or type(source.get("file_id")) is not int
++            or source["file_id"] <= 0
++            or not source.get("site")
++            or not source.get("deployment")
++            or not isinstance(source.get("archive_sha256"), str)
++            or len(source["archive_sha256"]) != 64
++            or any(c not in "0123456789abcdef" for c in source["archive_sha256"])
++        ):
++            raise ValueError("Unknown/conflicting native source role or identity.")
++        for key, value in (
++            ("deployment", source["deployment"]),
++            ("archive", source["archive_sha256"]),
++            ("file_id", source["file_id"]),
++        ):
++            if value in seen[key]:
++                raise ValueError("Duplicate source or fitted/final identity overlap.")
++            seen[key].add(value)
++        sites[source["role"]].add(source["site"])
++        if source["role"] != "final_test":
++            continue
++        p = bound(_path(source["path"], paths["split"].parent))
++        if exact[str(p)] != source["archive_sha256"]:
++            raise ValueError("Archive and split identities differ.")
++        source = copy.deepcopy(source)
++        source["path"] = str(p)
++        identity = declarations.get(source["deployment"], {})
++        if (
++            identity.get("deployment") != source["deployment"]
++            or identity.get("site") != source["site"]
++            or identity.get("archive") != source["archive_sha256"]
++            or identity.get("native_bounds_m") != [0, 230]
++            or _date(identity["start"]).strftime("%Y%m%d") != source["start_date"]
++            or _date(identity["end"]).strftime("%Y%m%d")
++            != (
++                date(
++                    int(source["end_date_inclusive"][:4]),
++                    int(source["end_date_inclusive"][4:6]),
++                    int(source["end_date_inclusive"][6:]),
++                )
++                + timedelta(days=1)
++            ).strftime("%Y%m%d")
++            or not isinstance(source.get("complete_ping_counts"), list)
++            or not source["complete_ping_counts"]
++            or len(set(source["complete_ping_counts"])) != len(source["complete_ping_counts"])
++            or any(
++                type(v) is not int or v not in (150, 180) for v in source["complete_ping_counts"]
++            )
++            or ("quarantined_ping_counts" in source and source["quarantined_ping_counts"] != [165])
++        ):
++            raise ValueError(
++                "Exact native230 lifetime/configuration/quarantine identities required."
++            )
++        selected_sources.append(source)
++    if sites["final_test"] & (sites["train"] | sites["development"]):
++        raise ValueError("Whole final-site reservations overlap fitted/development sources.")
++    if not selected_sources or set(declarations) != {s["deployment"] for s in selected_sources}:
++        raise ValueError("Every final deployment must be declared; no filtering.")
++    if review.get("source_identities") != declarations:
++        raise ValueError("Review exact source/lifetime identities differ.")
++    # The immutable gate also checks original split-relative ADR identity.
++    admitted_split = reader.check_numeric_review(paths["split"], review_path, "final_test")
++    if admitted_split != split or reader.sha256(paths["protocol"]) != split["protocol_sha256"]:
++        raise ValueError("Original numeric/protocol admission differs.")
++    if m.get("original_dev") is not None:
++        dev = m["original_dev"]
++        paths["dev_input"] = bound(_path(dev["input"], manifest_path.parent))
++        paths["dev_cohort"] = bound(_path(dev["cohort"], manifest_path.parent))
++        c = _json(paths["dev_cohort"].read_bytes())
++        if (
++            c.get("role") != "development"
++            or c.get("input_npz_sha256") != exact[str(paths["dev_input"])]
++            or c.get("split_sha256") != exact[str(paths["split"])]
++            or not c.get("rows")
++            or c.get("complete") is not True
++            or c.get("native_bounds_m") != [0, 225]
++            or review.get("original_dev_transport") != dev
++        ):
++            raise ValueError("Original DEV immutable identity transport differs.")
++        allowed = {s["deployment"] for s in split["sources"] if s["role"] == "development"}
++        if any(r[0] not in allowed for r in c["rows"]):
++            raise ValueError("DEV identity transport is outside original split.")
++    paths["numeric_review"] = review_path
++    if reader.sha256(review_path) != _hash(review_raw):
++        raise ValueError("Numeric review changed during admission.")
++    return Admission(
++        copy.deepcopy(m),
++        copy.deepcopy(review),
++        {**split, "selected_sources": selected_sources},
++        output,
++        receipt,
++        exact,
++        paths,
++        _hash(review_raw),
++    )
++
++
++def source_clock_metadata(source):
++    """Read actual Date_M/Time_M/config/QC precursor fields, never Sv_mean values."""
++    records = {}
++    with zipfile.ZipFile(source["path"]) as archive:
++        for member in sorted(archive.namelist()):
++            match = reader.MEMBER.fullmatch(member)
++            if match is None:
++                continue
++            channel = FREQUENCIES.index(int(match.group(1)) * 1000)
++            with archive.open(member) as stream:
++                for ordinal, row in enumerate(
++                    csv.DictReader(io.TextIOWrapper(stream, encoding="utf-8-sig"))
++                ):
++                    if not source["start_date"] <= row["Date_M"] <= source["end_date_inclusive"]:
++                        continue
++                    records.setdefault(int(row["Interval"]), {}).setdefault(channel, []).append(
++                        {
++                            "member": member,
++                            "row_ordinal": ordinal,
++                            "Date_M": row["Date_M"],
++                            "Time_M": row["Time_M"],
++                            "timestamp": str(reader._timestamp(row)),
++                            "Layer": row["Layer"],
++                            "upper_m": row["Layer_depth_min"],
++                            "lower_m": row["Layer_depth_max"],
++                            "Ping_S": row["Ping_S"],
++                            "Ping_E": row["Ping_E"],
++                            "Process_ID": row["Process_ID"],
++                        }
++                    )
++    return records
++
++
++def _config(slot):
++    return {
++        "channel_bounds_m": slot.bounds.tolist(),
++        "ping_counts": list(slot.ping_counts),
++        "processing_id_or_unknown": list(slot.processing),
++        "frequency_hz": list(FREQUENCIES),
++        "interval_seconds": 3600,
++    }
++
++
++def derive_metadata(slots, arrays, source, metadata_path, *, clock_records=None):
++    """Derive complete raw issuance provenance without modifying reader arrays.
++
++    NativeSlot clocks suffice only for synthetic fixtures; production passes exact
++    original channel metadata so mismatched source clocks cannot be fabricated.
++    """
++    import numpy as np
++
++    if not slots or len(arrays["x"]) == 0:
++        raise ValueError("No native issuance; no synthetic substitution.")
++    by_id = {s.interval: s for s in slots}
++    if len(by_id) != len(slots) or any(s.interval < 0 for s in slots):
++        raise ValueError("Unique nonnegative ordinal interval IDs required.")
++    if (
++        any(
++            s.deployment != source["deployment"] or s.archive_sha256 != source["archive"]
++            for s in slots
++        )
++        or any(not np.array_equal(s.bounds[0], [0, 230]) for s in slots)
++        or source["native_bounds_m"] != [0, 230]
++    ):
++        raise ValueError("True deployment/archive/native230 identity differs.")
++    if str(min(s.timestamp for s in slots)) != str(np.datetime64(source["start"], "us")):
++        raise ValueError("Frozen source start must equal actual earliest primary timestamp.")
++    dep = source["deployment"]
++    ordered = sorted(slots, key=lambda s: s.interval)
++    configs, assignment, groups = {}, {}, []
++    references = []
++    # Missing/partial secondary rows do not introduce an instrument configuration.
++    for slot in ordered:
++        if (
++            groups
++            and slot.interval == groups[-1][-1].interval + 1
++            and all(reader._same_configuration(previous, slot) for previous in references)
++        ):
++            groups[-1].append(slot)
++        else:
++            groups.append([slot])
++            references = [slot] * 4
++        for channel in range(4):
++            if not channel or slot.qc[channel] not in MISSING | {"PARTIAL_SOURCE_INTERVAL"}:
++                references[channel] = slot
++    for group in groups:
++        cfg = _config(group[-1])
++        for c in range(1, 4):
++            candidates = [s for s in group if s.qc[c] not in MISSING | {"PARTIAL_SOURCE_INTERVAL"}]
++            if candidates:
++                actual = candidates[-1]
++                cfg["channel_bounds_m"][c] = actual.bounds[c].tolist()
++                cfg["ping_counts"][c] = actual.ping_counts[c]
++                cfg["processing_id_or_unknown"][c] = actual.processing[c]
++        name = "native-config:" + _hash(encode_json(cfg))
++        configs[name] = cfg
++        assignment.update({s.interval: name for s in group})
++    first, last = ordered[0].interval, ordered[-1].interval
++    segments = []
++    for index in range(first, last + 1):
++        name = assignment.get(index)
++        reason = None
++        if name is None:
++            primary = [] if clock_records is None else clock_records.get(index, {}).get(0, [])
++            reason = "DUPLICATE_ROW" if len(primary) > 1 else "MISSING_SOURCE_INTERVAL"
++        if (
++            segments
++            and segments[-1]["configuration"] == name
++            and segments[-1].get("reason") == reason
++        ):
++            segments[-1]["last_source_interval_index"] = index
++        else:
++            segments.append(
++                {
++                    "first_source_interval_index": index,
++                    "last_source_interval_index": index,
++                    "configuration": name,
++                    **({"reason": reason} if reason else {}),
++                }
++            )
++    evidence = {
++        "kind": "native_prefix_source_configuration_metadata_v1",
++        "complete": True,
++        "source": copy.deepcopy(source),
++        "configurations": configs,
++        "segments": segments,
++        "source_clock": "SOURCE_TIMEZONE_UNKNOWN",
++        "interval_edges": "centre_plus_minus_30min_proxy",
++        "reader_sha256": LOADED_READER_HASH,
++        "channel_metadata": clock_records
++        if clock_records is not None
++        else {
++            s.interval: {
++                c: {
++                    "timestamp": str(s.timestamp),
++                    "bounds": s.bounds[c].tolist(),
++                    "pings": s.ping_counts[c],
++                    "processing": s.processing[c],
++                    "qc": s.qc[c],
++                }
++                for c in range(4)
++                if s.qc[c] not in MISSING
++            }
++            for s in slots
++        },
++        "acoustic_values": "NOT_INCLUDED",
++    }
++    metadata_hash = _hash(encode_json(evidence))
++    entry = {
++        **source,
++        "configurations": configs,
++        "segments": segments,
++        "first_source_interval_index": first,
++        "last_source_interval_index": last,
++        "source_metadata_sha256": metadata_hash,
++    }
++    catalog = {
++        "kind": "native_prefix_source_configuration_map_v1",
++        "complete": True,
++        "quarantined_pings": [165],
++        "sources": {dep: entry},
++        "source_metadata": {dep: str(metadata_path)},
++    }
++    registry = {
++        "kind": "native_prefix_raw_intervals_v2",
++        "complete": True,
++        "configuration_mode": "per_source_configuration_map_v1",
++        "sources": {dep: source},
++        "configuration_map": catalog,
++        "intervals": {},
++        "rows": [],
++        "source_gaps": {},
++    }
++
++    def identity(index, channel):
++        slot = by_id[index]
++        if slot.qc[channel] in MISSING:
++            return None
++        timestamp = str(slot.timestamp)
++        if clock_records is not None:
++            originals = clock_records.get(index, {}).get(channel, [])
++            if len(originals) != 1:
++                raise ValueError("Actual raw channel identity missing or duplicated.")
++            timestamp = originals[0]["timestamp"]
++            if timestamp != str(slot.timestamp):
++                raise ValueError(
++                    "Actual secondary source clock cannot be fabricated to match primary."
++                )
++        key = f"native-raw:{source['archive']}:{index}:{channel}"
++        registry["intervals"][key] = {
++            "deployment": dep,
++            "site": source["site"],
++            "archive": source["archive"],
++            "configuration": assignment[index],
++            "channel": channel,
++            "source_interval_index": index,
++            "timestamp": timestamp,
++            "native_bounds_m": slot.bounds[channel].tolist(),
++            "pings": slot.ping_counts[channel],
++            "processing_id_or_unknown": slot.processing[channel],
++            "observed": bool(slot.observed[channel]),
++            "qc": slot.qc[channel],
++        }
++        return key
++
++    def gap(row, lo, hi, reason, **extra):
++        item = {
++            **{k: row[k] for k in ("deployment", "site", "archive", "configuration")},
++            "complete": True,
++            "first_source_interval_index": lo,
++            "last_source_interval_index": hi,
++            "reason": reason,
++            "source_metadata_sha256": metadata_hash,
++            **extra,
++        }
++        ref = "native-gap:" + _hash(encode_json(item))
++        registry["source_gaps"][ref] = item
++        return ref
++
++    for i, row_id in enumerate(arrays["row_id"]):
++        cutoff = int(arrays["cutoff"][i])
++        cfg = assignment[cutoff]
++        row = {
++            "deployment": dep,
++            "site": source["site"],
++            "archive": source["archive"],
++            "configuration": cfg,
++            "row_id": str(row_id),
++            "cutoff": str(by_id[cutoff].timestamp),
++            "context_ids": [],
++            "context_absence_refs": [],
++            "context_observed": arrays["observed"][i].tolist(),
++            "target_observed": arrays["y_observed"][i].tolist(),
++            "target_requested_indices": [cutoff + h for h in (1, 3, 6)],
++            "target_slot_metadata": arrays["future_metadata"][i, :, 0].tolist(),
++            "target_slot_observed": arrays["future_observed"][i, :, 0].tolist(),
++            "target_slot_ping_counts": arrays["future_ping_counts"][i, :, 0].tolist(),
++            "target_slot_processing_id_or_unknown": arrays["future_processing_id_or_unknown"][
++                i, :, 0
++            ].tolist(),
++        }
++        for index in arrays["context_ids"][i]:
++            ids, refs = [], []
++            for c in range(4):
++                key = identity(int(index), c)
++                ids.append(key)
++                refs.append(
++                    gap(row, int(index), int(index), by_id[int(index)].qc[c], channel=c)
++                    if key is None
++                    else None
++                )
++            row["context_ids"].append(ids)
++            row["context_absence_refs"].append(refs)
++        chain = []
++        previous, broken, absence = by_id[cutoff], False, None
++        # Reuse the immutable reader's actual future availability as authority.
++        available_indices = set(
++            arrays["future_ids"][i][np.any(arrays["future_metadata"][i], axis=(2, 3))].tolist()
++        )
++        for step in range(1, 10):
++            index = cutoff + step
++            current = by_id.get(index)
++            present = index in available_indices
++            if not broken and present:
++                if current is None or assignment[index] != cfg:
++                    raise ValueError(
++                        "Derived native configuration disagrees with reader future support."
++                    )
++                chain.append(identity(index, 0))
++                previous = current
++                continue
++            chain.append(None)
++            if broken:
++                continue
++            broken = True
++            extra = {"break_source_interval_index": index}
++            if current is None:
++                segment = next(
++                    s
++                    for s in segments
++                    if s["first_source_interval_index"] <= index <= s["last_source_interval_index"]
++                )
++                reason = segment.get("reason", "MISSING_SOURCE_INTERVAL")
++            elif current.ping_counts[0] == 165:
++                reason, extra["quarantined_pings"] = "PING_QUARANTINE", [165]
++            elif assignment[index] != cfg:
++                reason, extra["next_configuration"] = "CONFIGURATION_BOUNDARY", assignment[index]
++            elif not reader._consecutive(previous, current):
++                reason = "SOURCE_GAP"
++                extra.update(
++                    previous_timestamp=str(previous.timestamp),
++                    break_timestamp=str(current.timestamp),
++                )
++            else:
++                raise ValueError(
++                    "Reader structural boundary lacks representable exact metadata proof."
++                )
++            absence = gap(row, index, cutoff + 9, reason, **extra)
++        row["future_chain_ids"], row["future_absence_ref"] = chain, absence
++        row["target_ids"] = [
++            chain[h - 1] if chain[h - 1] is not None else cutoff + h for h in (1, 3, 6)
++        ]
++        row["target_absence_refs"] = [
++            None if isinstance(v, str) else absence for v in row["target_ids"]
++        ]
++        registry["rows"].append(row)
++    gaps = {
++        "kind": "native_prefix_source_gaps_v1",
++        "complete": True,
++        "gaps": registry["source_gaps"],
++        "source_metadata": {ref: str(metadata_path) for ref in registry["source_gaps"]},
++    }
++    return {
++        "registry": registry,
++        "configuration_receipt": evidence,
++        "configuration_map": catalog,
++        "gap_receipt": gaps,
++    }
++
++
++def validate_partitions(registry):
++    """Root-bound production closure is checked before calling this validator."""
++    from marine_echo.training.native_prefix_transfer import partitions
++
++    return {days: partitions(registry, days) for days in (1, 7, 30)}
++
++
++def _check_bindings(admission):
++    if reader.sha256(_regular(admission.paths["numeric_review"])) != admission.review_sha256:
++        raise ValueError("Numeric approval changed before source decode.")
++    for name, digest in admission.bindings.items():
++        if reader.sha256(_regular(Path(name))) != digest:
++            raise ValueError("Admitted source/artifact changed before materialization.")
++
++
++def _write_json(path, value):
++    with path.open("xb") as stream:
++        stream.write(encode_json(value))
++    return reader.sha256(path)
++
++
++def _write_npz(path, arrays):
++    import numpy as np
++
++    # Real codec through an exclusive Python file handle, including Unicode paths.
++    with path.open("xb") as stream:
++        np.savez_compressed(stream, **arrays)
++    return reader.sha256(path)
++
++
++def _cohort(arrays, sources, role, evidence, digest, split_hash):
++    return {
++        "kind": "native_transfer_cohort_v1",
++        "role": role,
++        "evidence_kind": evidence,
++        "complete": True,
++        "native_bounds_m": [0, 230],
++        "input_npz_sha256": digest,
++        "split_sha256": split_hash,
++        "rows": list(
++            map(list, zip(arrays["deployment"].tolist(), arrays["row_id"].tolist(), strict=True))
++        ),
++        "identities": [
++            {
++                "deployment_id": s["deployment"],
++                "site_id": s["site"],
++                "archive_id": str(s["file_id"]),
++                "source_ids": [s["archive_sha256"]],
++            }
++            for s in sources
++        ],
++    }
++
++
++def array_provenance(arrays):
++    """Bounded content identities; do not expand acoustic arrays in JSON."""
++    return {
++        name: {
++            "dtype": str(value.dtype),
++            "shape": list(value.shape),
++            "content_sha256_c_order": _hash(value.tobytes(order="C")),
++        }
++        for name, value in arrays.items()
++    }
++
++
++def write_source_products(directory, arrays, bundle, source, split_hash, *, evidence_kind):
++    """Exclusive synthetic-testable transport; production calls only after admit."""
++    import numpy as np
++
++    if evidence_kind not in (EVIDENCE, "SYNTHETIC_CORRECTNESS_ONLY"):
++        raise ValueError("Explicit production or private synthetic transport identity required.")
++    synthetic = evidence_kind == "SYNTHETIC_CORRECTNESS_ONLY"
++    if synthetic and ("SYNTHETIC" not in source["deployment"] or "SYNTHETIC" not in str(directory)):
++        raise ValueError("Synthetic transport cannot relabel a public deployment/output.")
++    directory.mkdir()
++    outputs = {}
++
++    def save(name, value):
++        path = directory / name
++        outputs[name] = _write_json(path, value)
++
++    save("source-metadata.json", bundle["configuration_receipt"])
++    save("configuration-map.json", bundle["configuration_map"])
++    save("raw-intervals.json", bundle["registry"])
++    save("source-gaps.json", bundle["gap_receipt"])
++    save(
++        "source-manifest.json",
++        {"sources": bundle["registry"]["sources"], "quarantined_pings": [165]},
++    )
++    partitions = validate_partitions(bundle["registry"])
++    full = {
++        **arrays,
++        "corpus_role": np.asarray("final_test"),
++        "split_sha256": np.asarray(split_hash),
++    }
++    if synthetic:
++        full.update(
++            evidence_kind=np.asarray(evidence_kind), fixture_identity=np.asarray(evidence_kind)
++        )
++    full_hash = _write_npz(directory / "zero-shot.npz", full)
++    outputs["zero-shot.npz"] = full_hash
++    save(
++        "zero-shot-cohort.json",
++        _cohort(
++            arrays,
++            [source],
++            "final_test",
++            evidence_kind if synthetic else "REVIEWED_FROZEN_ASSESSMENT",
++            full_hash,
++            split_hash,
++        ),
++    )
++    index = {
++        (str(d), str(r)): i
++        for i, (d, r) in enumerate(zip(arrays["deployment"], arrays["row_id"], strict=True))
++    }
++    for days, partition in partitions.items():
++        selected = [index[tuple(pair)] for pair in partition["fit_rows"]]
++        # NO suffix numerical arrays are placed in any fitting input.
++        prefix = {k: v[selected] for k, v in arrays.items()}
++        prefix.update(
++            context_observed=prefix["observed"],
++            targets=prefix["y"],
++            target_observed=prefix["y_observed"],
++            corpus_role=np.asarray("prefix"),
++            evidence_kind=np.asarray(evidence_kind if synthetic else "REVIEWED_PREFIX_TRANSFER"),
++            split_sha256=np.asarray(split_hash),
++        )
++        if synthetic:
++            prefix["fixture_identity"] = np.asarray(evidence_kind)
++        # Context-only fitting schema deliberately omits future-crop values.
++        for key in tuple(prefix):
++            if key.startswith("future"):
++                prefix.pop(key)
++        name = f"prefix-{days}d.npz"
++        digest = _write_npz(directory / name, prefix)
++        outputs[name] = digest
++        save(
++            f"prefix-{days}d-cohort.json",
++            _cohort(
++                prefix,
++                [source],
++                "prefix",
++                evidence_kind if synthetic else "REVIEWED_PREFIX_TRANSFER",
++                digest,
++                split_hash,
++            ),
++        )
++        save(
++            f"partition-{days}d.json",
++            {
++                **partition,
++                "prefix_npz_sha256": digest,
++                "source_clock": "SOURCE_TIMEZONE_UNKNOWN",
++                "suffix_numeric_path": None,
++            },
++        )
++    save(
++        "suffix-identities.json",
++        {
++            "kind": "native_prefix_common_suffix_v1",
++            "role": "prefix_transfer_suffix",
++            "rows": partitions[1]["suffix_rows"],
++            "support": partitions[1]["reserved_suffix_support"],
++            "support_sha256": partitions[1]["suffix_support_sha256"],
++            "status": partitions[1]["suffix_support_status"],
++            "numeric_path": None,
++        },
++    )
++    return outputs
++
++
++def materialize(manifest_path, review_path, output_path, receipt_path):
++    """Actual root-only CLI operation; no public scientific execution by builder."""
++    admitted = admit(manifest_path, review_path, output_path, receipt_path)
++    import numpy as np
++    import psutil
++
++    started = time.monotonic()
++    process, peak = psutil.Process(), 0
++
++    def resources():
++        nonlocal peak
++        rss = sum(p.memory_info().rss for p in [process, *process.children(recursive=True)])
++        peak = max(peak, rss)
++        if peak >= RAM_LIMIT:
++            raise MemoryError("Owned native materialization RSS reaches 22 GiB limit.")
++
++    _check_bindings(admitted)
++    # Lock is within the new exclusively-created output; failures preserve it.
++    admitted.output.mkdir()
++    _write_json(
++        admitted.output / "materialization-owner.json",
++        {
++            "pid": os.getpid(),
++            "operation": "native_transfer_materialization",
++            "device": "cpu",
++            "fitting": False,
++        },
++    )
++    reports, pieces, products = [], [], {}
++    for source in admitted.split["selected_sources"]:
++        _check_bindings(admitted)
++        resources()
++        slots = reader.read_source(source)
++        arrays = reader.issue_windows(slots, history=96)
++        clock = source_clock_metadata(source)
++        identity = admitted.manifest["source_identities"][source["deployment"]]
++        directory = admitted.output / ("source-" + str(source["file_id"]))
++        bundle = derive_metadata(
++            slots, arrays, identity, directory / "source-metadata.json", clock_records=clock
++        )
++        resources()
++        products[source["deployment"]] = write_source_products(
++            directory,
++            arrays,
++            bundle,
++            source,
++            admitted.bindings[str(admitted.paths["split"])],
++            evidence_kind=admitted.manifest["evidence_kind"],
++        )
++        pieces.append(arrays)
++        reports.append(
++            {
++                "deployment": source["deployment"],
++                "site": source["site"],
++                "archive_sha256": source["archive_sha256"],
++                "slots": len(slots),
++                "issued": len(arrays["x"]),
++                "observed_target_counts": arrays["y_observed"].sum(axis=0).tolist(),
++                "array_provenance": array_provenance(arrays),
++                "native_bounds": sorted({tuple(s.bounds[0]) for s in slots}),
++                "qc": {
++                    q: sum(q in s.qc for s in slots)
++                    for q in sorted({q for s in slots for q in s.qc})
++                },
++            }
++        )
++    joined = {key: np.concatenate([piece[key] for piece in pieces]) for key in pieces[0]}
++    joined.update(
++        corpus_role=np.asarray("final_test"),
++        split_sha256=np.asarray(admitted.bindings[str(admitted.paths["split"])]),
++    )
++    resources()
++    joined_hash = _write_npz(admitted.output / "zero-shot-all.npz", joined)
++    _write_json(
++        admitted.output / "zero-shot-all-cohort.json",
++        _cohort(
++            joined,
++            admitted.split["selected_sources"],
++            "final_test",
++            "REVIEWED_FROZEN_ASSESSMENT",
++            joined_hash,
++            admitted.bindings[str(admitted.paths["split"])],
++        ),
++    )
++    if "dev_input" in admitted.paths:
++        # Transport original bytes, never normalize/refit or decode original DEV.
++        with (admitted.output / "original-dev.npz").open("xb") as stream:
++            stream.write(admitted.paths["dev_input"].read_bytes())
++        with (admitted.output / "original-dev-cohort.json").open("xb") as stream:
++            stream.write(admitted.paths["dev_cohort"].read_bytes())
++    _check_bindings(admitted)
++    resources()
++    result = {
++        "kind": "native_transfer_materialization_completion_v1",
++        "status": "MATERIALIZED_REAL_NATIVE_PRODUCTS",
++        "role": "final_test",
++        "evidence_kind": EVIDENCE,
++        "fitting": False,
++        "model_selection": False,
++        "pid": os.getpid(),
++        "device": "cpu",
++        "elapsed_seconds": time.monotonic() - started,
++        "peak_sampled_owned_rss_bytes": peak,
++        "rss_limit_bytes": RAM_LIMIT,
++        "external_supervisor_required": True,
++        "issued": len(joined["x"]),
++        "ssl_eligible": int(joined["ssl_eligible"].sum()),
++        "source_reports": reports,
++        "bindings": admitted.bindings,
++        "numeric_review_sha256": reader.sha256(Path(review_path)),
++        "products": products,
++        "npz_sha256": joined_hash,
++        "source_clock": "SOURCE_TIMEZONE_UNKNOWN",
++        "interval_edges": "centre_plus_minus_30min_proxy",
++        "metadata_fields": list(reader.METADATA_FIELDS),
++        "censoring": "UNKNOWN_ABSOLUTE_CENSORING_SENTINEL_MISSING_PARTIAL_QC_EXPLICIT",
++        "native_product": "published_integrated_products_no_profile_or_biomass_claim",
++        "public_assessment_results": "NOT_RUN",
++        "fit_approval": "NOT_GRANTED",
++    }
++    _write_json(admitted.output / "completion.json", result)
++    _write_json(
++        admitted.receipt,
++        {
++            "kind": "native_transfer_materialization_receipt_v1",
++            "completion_sha256": reader.sha256(admitted.output / "completion.json"),
++            "output": str(admitted.output),
++            "status": result["status"],
++        },
++    )
++    return result
+--- /dev/null
++++ b/tools/materialize_native_transfer_corpus.py
+@@ -0,0 +1,27 @@
++"""Root-owned, independently reviewed CPU native transfer corpus CLI.
++
++Run inside the immutable owned-process supervisor, RSS limit 22 GiB. This tool
++never grants final numeric access, performs fitting, or changes frozen selection.
++"""
++
++from __future__ import annotations
++
++import argparse
++import json
++
++
++def main():
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("--manifest", required=True)
++    parser.add_argument("--review", required=True)
++    parser.add_argument("--output", required=True)
++    parser.add_argument("--receipt", required=True)
++    args = parser.parse_args()
++    from marine_echo.data.native_transfer_corpus import materialize
++
++    result = materialize(args.manifest, args.review, args.output, args.receipt)
++    print(json.dumps({"status": result["status"], "issued": result["issued"], "device": "cpu"}))
++
++
++if __name__ == "__main__":
++    main()
+--- /dev/null
++++ b/tests/unit/test_native_transfer_corpus.py
+@@ -0,0 +1,315 @@
++"""SYNTHETIC_CORRECTNESS_ONLY: native metadata derivation, never public data."""
++
++from __future__ import annotations
++
++import importlib.util
++import sys
++from dataclasses import replace
++from pathlib import Path
++
++import numpy as np
++import pytest
++
++BUILDER = Path(__file__).resolve().parents[2]
++MAIN = BUILDER.parent / "marine-echo-jepa"
++sys.path.insert(0, str(MAIN / "src"))
++SPEC = importlib.util.spec_from_file_location(
++    "native_transfer_candidate", BUILDER / "src/marine_echo/data/native_transfer_corpus.py"
++)
++candidate = importlib.util.module_from_spec(SPEC)
++sys.modules[SPEC.name] = candidate
++SPEC.loader.exec_module(candidate)
++
++from marine_echo.data.native_ssl_corpus import NativeSlot, issue_windows
++
++
++def slots(n=1200, deployment="SYNTHETIC_A", changes=None):
++    changes = changes or {}
++    result = []
++    for i in range(n):
++        pings = 150 if i < 500 else 180
++        observed = np.ones(4, bool)
++        qc = ["OBSERVED_CENSORING_UNKNOWN"] * 4
++        counts, processing = [pings] * 4, ["SYNTHETIC_PROCESS"] * 4
++        if i in changes:
++            channel, reason = changes[i]
++            observed[channel], qc[channel] = False, reason
++            if reason == "MISSING_CHANNEL":
++                counts[channel], processing[channel] = 0, "UNKNOWN"
++            if reason == "PARTIAL_SOURCE_INTERVAL":
++                counts[channel] = 165
++        result.append(
++            NativeSlot(
++                i,
++                np.datetime64("2020-01-01T00:00", "us") + np.timedelta64(i, "h"),
++                np.asarray([-60, -61, -62, -63.0]) + i / 1000,
++                observed,
++                np.tile([0.0, 230.0], (4, 1)),
++                tuple(processing),
++                tuple(counts),
++                deployment,
++                "a" * 64,
++                tuple(qc),
++            )
++        )
++    return result
++
++
++def source(deployment="SYNTHETIC_A"):
++    return {
++        "deployment": deployment,
++        "site": "SYNTHETIC_SITE_" + deployment,
++        "archive": "a" * 64,
++        "start": "2020-01-01T00:00:00",
++        "end": "2020-03-01T00:00:00",
++        "native_bounds_m": [0, 230],
++    }
++
++
++def derive(items):
++    # Small genuine reader windows at prespecified clocks, never value-selected.
++    cuts = [
++        *range(95, 125),
++        195,
++        199,
++        200,
++        201,
++        249,
++        299,
++        495,
++        499,
++        600,
++        700,
++        800,
++        *range(990, 1026),
++    ]
++    pieces = []
++    for end, slot in enumerate(items):
++        if slot.interval not in cuts or end < 95:
++            continue
++        part = issue_windows(items[end - 95 : end + 11])
++        if len(part["x"]):
++            pieces.append({k: v[:1] for k, v in part.items()})
++    arrays = {k: np.concatenate([p[k] for p in pieces]) for k in pieces[0]}
++    return arrays, candidate.derive_metadata(items, arrays, source(), "SYNTHETIC_METADATA.json")
++
++
++def test_original_arrays_preserved_and_fixed_boundaries():
++    items = slots()
++    arrays, bundle = derive(items)
++    original = issue_windows(items[:106])
++    for key, value in original.items():
++        np.testing.assert_array_equal(arrays[key][:1], value[:1])
++    results = candidate.validate_partitions(bundle["registry"])
++    for days, result in results.items():
++        bounds = result["boundaries"]["SYNTHETIC_A"]
++        assert bounds[2] == "2020-01-05T00:00:00"
++        expected_end = f"2020-01-{5 + days:02d}T00:00:00" if days < 30 else "2020-02-04T00:00:00"
++        assert bounds[3] == expected_end
++        assert bounds[4] == "2020-02-11T00:00:00"
++        assert not set(result["fit_interval_ids"]) & set(result["suffix_interval_ids"])
++    assert results[1]["suffix_rows"] == results[30]["suffix_rows"]
++    assert len(results[1]["fit_rows"]) < len(results[7]["fit_rows"]) < len(results[30]["fit_rows"])
++
++
++@pytest.mark.parametrize(
++    "reason", ["MISSING_CHANNEL", "DUPLICATE_ROW", "PARTIAL_SOURCE_INTERVAL", "INVALID_OR_SENTINEL"]
++)
++def test_secondary_missing_values_do_not_invent_ids_or_configurations(reason):
++    arrays, bundle = derive(slots(changes={200: (1, reason)}))
++    registry = bundle["registry"]
++    row = next(r for r in registry["rows"] if r["cutoff"] == "2020-01-09T08:00:00.000000")
++    if reason in {"MISSING_CHANNEL", "DUPLICATE_ROW"}:
++        assert row["context_ids"][-1][1] is None
++        assert row["context_absence_refs"][-1][1] in registry["source_gaps"]
++    else:
++        identity = row["context_ids"][-1][1]
++        assert registry["intervals"][identity]["observed"] is False
++    assert not arrays["observed"][list(arrays["cutoff"]).index(200), -1, 1]
++    assert len(bundle["configuration_receipt"]["configurations"]) == 2
++    candidate.validate_partitions(registry)
++
++
++def test_positive_nominal_missing_target_and_165_quarantine():
++    arrays, bundle = derive(slots(changes={250: (0, "PARTIAL_SOURCE_INTERVAL")}))
++    registry = bundle["registry"]
++    row = next(r for r in registry["rows"] if r["target_requested_indices"][0] == 250)
++    assert row["target_ids"][0] == 250
++    assert row["target_observed"][0] is False
++    gap = registry["source_gaps"][row["target_absence_refs"][0]]
++    assert gap["reason"] == "PING_QUARANTINE"
++    assert gap["quarantined_pings"] == [165]
++    assert not arrays["y_observed"][list(arrays["cutoff"]).index(249)].any()
++    candidate.validate_partitions(registry)
++
++
++def test_configuration_boundary_retains_same_deployment():
++    _, bundle = derive(slots())
++    configs = bundle["configuration_receipt"]["configurations"]
++    assert {tuple(c["ping_counts"]) for c in configs.values()} == {(150,) * 4, (180,) * 4}
++    gaps = bundle["registry"]["source_gaps"].values()
++    assert any(g["reason"] == "CONFIGURATION_BOUNDARY" for g in gaps)
++    assert set(bundle["registry"]["sources"]) == {"SYNTHETIC_A"}
++
++
++def test_gap_not_squeezed_and_no_timestamp_invention():
++    items = slots()
++    del items[300]
++    _, bundle = derive(items)
++    registry = bundle["registry"]
++    assert all(r["source_interval_index"] != 300 for r in registry["intervals"].values())
++    assert any(g["reason"] == "MISSING_SOURCE_INTERVAL" for g in registry["source_gaps"].values())
++    candidate.validate_partitions(registry)
++
++
++def test_duplicate_interval_and_wrong_geometry_rejected():
++    with pytest.raises(ValueError):
++        issue_windows(slots(106) + slots(1))
++    items = slots()
++    items[0].bounds[0, 1] = 200
++    with pytest.raises(ValueError, match="230"):
++        derive(items)
++
++
++def test_target_values_never_change_metadata_or_cohorts():
++    items = slots()
++    _, first = derive(items)
++    for item in items:
++        item.values[:] = 9999
++    _, second = derive(items)
++    assert first == second
++
++
++def test_insufficient_suffix_is_not_assessable():
++    items = slots(993)
++    _, bundle = derive(items)
++    assert (
++        candidate.validate_partitions(bundle["registry"])[1]["suffix_support_status"]
++        == "NOT_ASSESSABLE"
++    )
++
++
++@pytest.mark.parametrize("minutes", [5, -5])
++def test_real_native_55_65_minute_jitter_retained(minutes):
++    items = slots()
++    items[200] = replace(items[200], timestamp=items[200].timestamp + np.timedelta64(minutes, "m"))
++    _, bundle = derive(items)
++    record = next(
++        r
++        for r in bundle["registry"]["intervals"].values()
++        if r["source_interval_index"] == 200 and r["channel"] == 0
++    )
++    assert record["timestamp"] == str(items[200].timestamp)
++    candidate.validate_partitions(bundle["registry"])
++
++
++def test_clock_gap_has_actual_timestamps_and_no_hour_repair():
++    items = slots()
++    items[200] = replace(items[200], timestamp=items[200].timestamp + np.timedelta64(6, "m"))
++    _, bundle = derive(items)
++    gaps = [g for g in bundle["registry"]["source_gaps"].values() if g["reason"] == "SOURCE_GAP"]
++    assert gaps
++    assert gaps[0]["break_timestamp"] == str(items[200].timestamp)
++    candidate.validate_partitions(bundle["registry"])
++
++
++def test_observed_identity_cannot_be_replaced_by_missing_positive_request():
++    _, bundle = derive(slots())
++    registry = bundle["registry"]
++    row = next(r for r in registry["rows"] if all(r["target_observed"]))
++    row["target_ids"][0] = row["target_requested_indices"][0]
++    with pytest.raises(ValueError):
++        candidate.validate_partitions(registry)
++
++
++def test_unknown_utc_and_all_metadata_acoustic_values_excluded():
++    _, bundle = derive(slots())
++    assert bundle["configuration_receipt"]["source_clock"] == "SOURCE_TIMEZONE_UNKNOWN"
++    assert bundle["configuration_receipt"]["acoustic_values"] == "NOT_INCLUDED"
++    assert "values" not in bundle["registry"]["intervals"].values()
++
++
++@pytest.mark.parametrize(
++    "blocker",
++    [
++        "gpu-owner.lock",
++        "RUNNING_CUDA",
++        "RUNNING_CPU_FIT",
++        "record_reconciliation",
++        "ledger_reconciliation",
++        "all.pending",
++        ".prefix-pending",
++        ".band-pending",
++        ".assessment-pending",
++        ".reconciliation-pending",
++        "malformed_ledger",
++        "missing_ledger",
++    ],
++)
++def test_root_only_fixture_rejects_actual_ownership_before_mutation(blocker, monkeypatch):
++    import json
++    import uuid
++
++    spec = importlib.util.spec_from_file_location(
++        "synthetic_owned_transfer_fixture",
++        BUILDER / "evidence/ssl-native-transfer-corpus-builder-v1/root_supervised_fixture.py",
++    )
++    fixture = importlib.util.module_from_spec(spec)
++    spec.loader.exec_module(fixture)
++    private = (
++        BUILDER
++        / "evidence/ssl-native-transfer-corpus-builder-v1"
++        / ("SYNTHETIC_CORRECTNESS_ONLY-ownership-" + str(uuid.uuid4()))
++    )
++    root = private / "marine-echo-jepa"
++    (root / "orchestration").mkdir(parents=True)
++    ledger = root / "orchestration/native_ssl_run_ledger_v1.json"
++    document = {"runs": []}
++    if blocker in {"RUNNING_CUDA", "RUNNING_CPU_FIT"}:
++        document["runs"] = [{"status": blocker}]
++    elif blocker == "record_reconciliation":
++        document["runs"] = [{"status": "FAILED", "requires_reconciliation": True}]
++    elif blocker == "ledger_reconciliation":
++        document["requires_reconciliation"] = True
++    if blocker != "missing_ledger":
++        with ledger.open("x", encoding="utf-8") as stream:
++            json.dump({"runs": "invalid"} if blocker == "malformed_ledger" else document, stream)
++    if blocker == "gpu-owner.lock":
++        lock = root / "evidence/ssl-builder-v1/gpu-owner.lock"
++        lock.parent.mkdir(parents=True)
++        lock.open("x").close()
++    elif blocker.endswith("pending"):
++        journal = (
++            ledger.parent / blocker if blocker == "all.pending" else ledger.with_suffix(blocker)
++        )
++        journal.open("x").close()
++    monkeypatch.setattr(fixture, "__file__", str(root / "evidence/fixture/fixture.py"))
++
++    def forbidden(*args, **kwargs):
++        pytest.fail("Ownership admission must precede spawning or output mkdir.")
++
++    monkeypatch.setattr(fixture.subprocess, "Popen", forbidden)
++    monkeypatch.setattr(Path, "mkdir", forbidden)
++    with pytest.raises(RuntimeError, match="owner|ledger|journal|reconciliation"):
++        fixture.main()
++
++
++@pytest.mark.parametrize("helper", ["write_source_products", "_cohort"])
++def test_production_transport_calls_match_verified_codec_interfaces(helper):
++    """Validate unexecuted public worker wiring against real private-tested codecs."""
++    import ast
++    import inspect
++
++    tree = ast.parse(inspect.getsource(candidate.materialize))
++    calls = [
++        node
++        for node in ast.walk(tree)
++        if isinstance(node, ast.Call) and isinstance(node.func, ast.Name) and node.func.id == helper
++    ]
++    assert calls
++    signature = inspect.signature(getattr(candidate, helper))
++    for call in calls:
++        signature.bind(
++            *[object() for _ in call.args],
++            **{keyword.arg: object() for keyword in call.keywords},
++        )
+--- /dev/null
++++ b/tests/integration/test_native_transfer_corpus.py
+@@ -0,0 +1,491 @@
++"""SYNTHETIC_CORRECTNESS_ONLY private codecs and metadata gates; no public data."""
++
++from __future__ import annotations
++
++import csv
++import importlib.util
++import io
++import json
++import sys
++import uuid
++import zipfile
++from datetime import datetime, timedelta
++from pathlib import Path
++
++import numpy as np
++import pytest
++
++BUILDER = Path(__file__).resolve().parents[2]
++MAIN = BUILDER.parent / "marine-echo-jepa"
++sys.path.insert(0, str(MAIN / "src"))
++SPEC = importlib.util.spec_from_file_location(
++    "native_transfer_integration_candidate",
++    BUILDER / "src/marine_echo/data/native_transfer_corpus.py",
++)
++candidate = importlib.util.module_from_spec(SPEC)
++sys.modules[SPEC.name] = candidate
++SPEC.loader.exec_module(candidate)
++
++
++def save(path, value):
++    path.parent.mkdir(parents=True, exist_ok=True)
++    with path.open("xb") as stream:
++        stream.write(candidate.encode_json(value))
++    return str(path)
++
++
++@pytest.fixture
++def private_dir():
++    path = (
++        BUILDER
++        / "evidence/ssl-native-transfer-corpus-builder-v1"
++        / ("SYNTHETIC_CORRECTNESS_ONLY-" + str(uuid.uuid4()))
++    )
++    path.mkdir()
++    return path
++
++
++def tiny_archive(path, *, n=240, deployment="SYNTHETIC_A", offset=0, invalid_primary=None):
++    with path.open("xb") as transport, zipfile.ZipFile(transport, "w") as archive:
++        for frequency in ("038", "125", "200", "455"):
++            output = io.StringIO()
++            names = [
++                "Interval",
++                "Date_M",
++                "Time_M",
++                "Sv_mean",
++                "Layer",
++                "Layer_depth_min",
++                "Layer_depth_max",
++                "Ping_S",
++                "Ping_E",
++                "Process_ID",
++            ]
++            writer = csv.DictWriter(output, fieldnames=names)
++            writer.writeheader()
++            for i in range(n):
++                if i == 145 and frequency == "125":
++                    continue
++                clock = datetime(2020, 1, 1) + timedelta(hours=i, minutes=offset)  # noqa: DTZ001 -- synthetic source timezone unknown
++                writer.writerow(
++                    dict(
++                        zip(
++                            names,
++                            [
++                                i,
++                                clock.strftime("%Y%m%d"),
++                                clock.strftime("%H:%M:%S"),
++                                -999
++                                if frequency == "038" and i == invalid_primary
++                                else -60 - i / 1000,
++                                1,
++                                0,
++                                230,
++                                1,
++                                150 if i < 180 else 180,
++                                "SYNTHETIC_PROCESS",
++                            ],
++                            strict=True,
++                        )
++                    )
++                )
++            archive.writestr(f"AEON2_1_{frequency}_2020_01_60minFullDepth.csv", output.getvalue())
++    return {
++        "file_id": 1,
++        "deployment": deployment,
++        "site": "SYNTHETIC_SITE",
++        "path": str(path),
++        "archive_sha256": candidate.reader.sha256(path),
++        "role": "final_test",
++        "start_date": "20200101",
++        "end_date_inclusive": "20200229",
++        "complete_ping_counts": [150, 180],
++        "quarantined_ping_counts": [165],
++    }
++
++
++@pytest.fixture
++def policy_fixture(private_dir):
++    """Metadata-only fake signed identities; never invokes production decode."""
++    root = private_dir
++    protocol = root / "docs/protocol.md"
++    protocol.parent.mkdir()
++    protocol.write_text("SYNTHETIC_CORRECTNESS_ONLY frozen protocol\n", encoding="utf-8")
++    lock = root / "dependencies.txt"
++    lock.write_text("SYNTHETIC_CORRECTNESS_ONLY no installed changes\n", encoding="utf-8")
++    source = tiny_archive(root / "SYNTHETIC_CORRECTNESS_ONLY.zip")
++    split_path = root / "configs/split.json"
++    save(
++        split_path,
++        {
++            "schema_version": "native_acoustic_ssl_v1",
++            "support_history": 96,
++            "protocol_path": "docs/protocol.md",
++            "protocol_sha256": candidate.reader.sha256(protocol),
++            "sources": [source],
++        },
++    )
++    artifacts = {}
++    for name in ("model", "readout", "scalers", "config", "completion", "ancestry"):
++        path = root / ("SYNTHETIC_" + name + ".json")
++        save(path, {"status": "COMPLETED", "evidence_kind": "REAL_TRAIN_DEVELOPMENT_FIT"})
++        artifacts[name] = str(path)
++    selection_path = root / "selection.json"
++    save(
++        selection_path,
++        {
++            "kind": "native_selection_freeze_v1",
++            "selection_role": "development",
++            "frozen_before_numeric_access": True,
++            "final_test_numerical_model_selection": False,
++            "owner_session_id": "SYNTHETIC_ROOT",
++            "owner_freeze_confirmed": True,
++            "frozen_at": "2026-09-29T00:00:00+00:00",
++            "methods": {"SYNTHETIC_METHOD": {"status": "COMPLETED", **artifacts}},
++        },
++    )
++    selection_review = root / "selection-review.json"
++    save(
++        selection_review,
++        {
++            "status": "APPROVED_SELECTION_FREEZE",
++            "scope": "selection_freeze",
++            "reviewer_session_id": "SYNTHETIC_DISTINCT_FREEZE_REVIEWER",
++            "implementer_session_id": candidate.IMPLEMENTER,
++            "reviewed_at": "2026-09-29T01:00:00+00:00",
++            "bindings": {
++                str(p): candidate.reader.sha256(p)
++                for p in [selection_path, *map(Path, artifacts.values())]
++            },
++        },
++    )
++    output, receipt = root / "NEW_OUTPUT", root / "NEW_RECEIPT.json"
++    identity_path = root / "output-identity.json"
++    save(
++        identity_path,
++        {
++            "kind": "native_transfer_output_identity_v1",
++            "output_path": str(output),
++            "receipt_path": str(receipt),
++            "role": "final_test",
++            "fit_authorized": False,
++        },
++    )
++    identity = {
++        "deployment": source["deployment"],
++        "site": source["site"],
++        "archive": source["archive_sha256"],
++        "start": "2020-01-01T00:00:00",
++        "end": "2020-03-01T00:00:00",
++        "native_bounds_m": [0, 230],
++    }
++    manifest_path = root / "manifest.json"
++    manifest = {
++        "kind": "native_transfer_materialization_manifest_v1",
++        "role": "final_test",
++        "evidence_kind": candidate.EVIDENCE,
++        "fit_authorized": False,
++        "history": 96,
++        "device": "cpu",
++        "implementer_session_id": candidate.IMPLEMENTER,
++        "coordinator_session_id": "SYNTHETIC_ROOT",
++        "output_path": str(output),
++        "receipt_path": str(receipt),
++        "split": str(split_path),
++        "protocol": str(protocol),
++        "prefix_protocol": str(MAIN / "docs/adr/0021-native-prefix-transfer-assessment.md"),
++        "dependency_lock": str(lock),
++        "selection": str(selection_path),
++        "supervisor": str(MAIN / "tools/native_reference_supervisor.py"),
++        "resource_policy": candidate.RESOURCE_POLICY,
++        "selection_review": str(selection_review),
++        "output_identity": str(identity_path),
++        "source_identities": {source["deployment"]: identity},
++    }
++    save(manifest_path, manifest)
++    bindings = {
++        str(p): candidate.reader.sha256(p)
++        for p in [
++            *candidate.required_sources(),
++            manifest_path,
++            split_path,
++            protocol,
++            lock,
++            selection_path,
++            selection_review,
++            identity_path,
++            Path(source["path"]),
++            *map(Path, artifacts.values()),
++            MAIN / "tools/native_reference_supervisor.py",
++            MAIN / "docs/adr/0021-native-prefix-transfer-assessment.md",
++        ]
++    }
++    review_path = root / "numeric-review.json"
++    review = {
++        "status": "APPROVED_NATIVE_NUMERIC_ACCESS",
++        "scope": "native_transfer_materialization",
++        "allowed_roles": ["final_test"],
++        "evidence_kind": candidate.EVIDENCE,
++        "fit_authorized": False,
++        "reviewer_session_id": "SYNTHETIC_DISTINCT_NUMERIC_REVIEWER",
++        "implementer_session_id": candidate.IMPLEMENTER,
++        "reviewed_at": "2026-09-30T00:00:00+00:00",
++        "output_path": str(output),
++        "receipt_path": str(receipt),
++        "frozen_selection_sha256": candidate.reader.sha256(selection_path),
++        "source_identities": manifest["source_identities"],
++        "bindings": bindings,
++    }
++    review["resource_policy"] = candidate.RESOURCE_POLICY
++    save(review_path, review)
++    return manifest_path, review_path, output, receipt
++
++
++def rewrite(path, value):
++    # Private synthetic fixture changes deliberately invalidate prior bindings.
++    with path.open("w", encoding="utf-8") as stream:
++        json.dump(value, stream)
++
++
++def test_complete_metadata_gate_does_not_decode(policy_fixture, monkeypatch):
++    def forbidden(*args, **kwargs):
++        raise AssertionError("Numeric parsing before gate")
++
++    monkeypatch.setattr(zipfile, "ZipFile", forbidden)
++    admitted = candidate.admit(*policy_fixture)
++    assert admitted.manifest["role"] == "final_test"
++    assert not policy_fixture[2].exists()
++
++
++@pytest.mark.parametrize(
++    "field,value",
++    [
++        ("status", "APPROVED_PREFIT"),
++        ("allowed_roles", ["development"]),
++        ("reviewer_session_id", candidate.IMPLEMENTER),
++        ("reviewer_session_id", "SYNTHETIC_ROOT"),
++        ("evidence_kind", "SYNTHETIC_CORRECTNESS_ONLY"),
++        ("fit_authorized", True),
++        ("scope", "fitting"),
++        ("frozen_selection_sha256", "0" * 64),
++        ("reviewed_at", "2026-09-28T00:00:00+00:00"),
++        ("reviewed_at", "2099-01-01T00:00:00+00:00"),
++    ],
++)
++def test_wrong_review_denied_before_archive(policy_fixture, monkeypatch, field, value):
++    review = json.loads(policy_fixture[1].read_text(encoding="utf-8"))
++    review[field] = value
++    rewrite(policy_fixture[1], review)
++    monkeypatch.setattr(zipfile, "ZipFile", lambda *a, **k: pytest.fail("Decoded rejected source"))
++    with pytest.raises(ValueError):
++        candidate.materialize(*policy_fixture)
++    assert not policy_fixture[2].exists()
++    assert not policy_fixture[3].exists()
++
++
++@pytest.mark.parametrize("choice", ["source", "cli", "prefix", "selection", "archive", "lock"])
++def test_missing_required_bindings(policy_fixture, choice):
++    review = json.loads(policy_fixture[1].read_text(encoding="utf-8"))
++    manifest = json.loads(policy_fixture[0].read_text(encoding="utf-8"))
++    match = {
++        "source": str(Path(candidate.reader.__file__).resolve()),
++        "cli": str(BUILDER / "tools/materialize_native_transfer_corpus.py"),
++        "prefix": str(MAIN / "src/marine_echo/training/native_prefix_transfer.py"),
++        "selection": manifest["selection"],
++        "archive": next(k for k in review["bindings"] if k.endswith(".zip")),
++        "lock": manifest["dependency_lock"],
++    }[choice]
++    del review["bindings"][match]
++    rewrite(policy_fixture[1], review)
++    with pytest.raises(ValueError):
++        candidate.admit(*policy_fixture)
++    assert not policy_fixture[2].exists()
++
++
++def test_stale_archive_and_protected_output(policy_fixture):
++    archive = next(
++        Path(p)
++        for p in json.loads(policy_fixture[1].read_text(encoding="utf-8"))["bindings"]
++        if p.endswith(".zip")
++    )
++    with archive.open("ab") as stream:
++        stream.write(b"SYNTHETIC_TAMPER")
++    with pytest.raises(ValueError, match="Stale"):
++        candidate.admit(*policy_fixture)
++
++
++def test_synthetic_completed_weights_cannot_authorize_real_access(policy_fixture, monkeypatch):
++    """All hashes updated, but a smoke endpoint is still semantically inadmissible."""
++    manifest = json.loads(policy_fixture[0].read_bytes())
++    selection = json.loads(Path(manifest["selection"]).read_bytes())
++    completion = Path(selection["methods"]["SYNTHETIC_METHOD"]["completion"])
++    rewrite(completion, {"status": "COMPLETED", "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY"})
++    freeze_review_path = Path(manifest["selection_review"])
++    freeze_review = json.loads(freeze_review_path.read_bytes())
++    freeze_review["bindings"][str(completion)] = candidate.reader.sha256(completion)
++    rewrite(freeze_review_path, freeze_review)
++    review = json.loads(policy_fixture[1].read_bytes())
++    for path in (completion, freeze_review_path):
++        review["bindings"][str(path)] = candidate.reader.sha256(path)
++    rewrite(policy_fixture[1], review)
++    monkeypatch.setattr(
++        zipfile, "ZipFile", lambda *a, **k: pytest.fail("Decoded source for synthetic endpoint")
++    )
++    with pytest.raises(ValueError, match="completed.*REAL|REAL.*completed"):
++        candidate.admit(*policy_fixture)
++    assert not policy_fixture[2].exists()
++    policy_fixture[2].mkdir()
++    with pytest.raises(FileExistsError):
++        candidate.admit(*policy_fixture)
++
++
++def refresh_bindings(fixture):
++    manifest = json.loads(fixture[0].read_bytes())
++    freeze_path = Path(manifest["selection_review"])
++    freeze = json.loads(freeze_path.read_bytes())
++    freeze["bindings"] = {p: candidate.reader.sha256(Path(p)) for p in freeze["bindings"]}
++    rewrite(freeze_path, freeze)
++    review = json.loads(fixture[1].read_bytes())
++    review["bindings"] = {p: candidate.reader.sha256(Path(p)) for p in review["bindings"]}
++    review["frozen_selection_sha256"] = review["bindings"][manifest["selection"]]
++    rewrite(fixture[1], review)
++
++
++def test_original_split_single_complete_ping_count_without_quarantine_field(policy_fixture):
++    manifest = json.loads(policy_fixture[0].read_bytes())
++    split_path = Path(manifest["split"])
++    split = json.loads(split_path.read_bytes())
++    split["sources"][0]["complete_ping_counts"] = [150]
++    del split["sources"][0]["quarantined_ping_counts"]
++    rewrite(split_path, split)
++    refresh_bindings(policy_fixture)
++    assert candidate.admit(*policy_fixture).split["selected_sources"][0][
++        "complete_ping_counts"
++    ] == [150]
++
++
++def test_current_numeric_review_cannot_change_after_gate(policy_fixture):
++    admission = candidate.admit(*policy_fixture)
++    with policy_fixture[1].open("ab") as stream:
++        stream.write(b"\n")
++    with pytest.raises(ValueError, match="approval changed"):
++        candidate._check_bindings(admission)
++
++
++def test_fixed_reference_completion_is_typed_and_frozen(policy_fixture):
++    manifest = json.loads(policy_fixture[0].read_bytes())
++    selection_path = Path(manifest["selection"])
++    selection = json.loads(selection_path.read_bytes())
++    entry = selection["methods"]["SYNTHETIC_METHOD"]
++    entry["artifact_family"] = "native_reference"
++    rewrite(
++        Path(entry["completion"]),
++        {
++            "status": "COMPLETED_DEVELOPMENT_REFERENCE",
++            "method": "persistence",
++            "history": 96,
++            "models": [],
++            "tuning": "one_fixed_development_recipe_no_test_access",
++        },
++    )
++    rewrite(selection_path, selection)
++    refresh_bindings(policy_fixture)
++    candidate.admit(*policy_fixture)
++    entry["artifact_family"] = "native_neural"
++    rewrite(selection_path, selection)
++    refresh_bindings(policy_fixture)
++    with pytest.raises(ValueError, match="completed"):
++        candidate.admit(*policy_fixture)
++
++
++def test_actual_reader_source_metadata_and_two_source_equivalence(private_dir):
++    for index in (1, 2):
++        source = tiny_archive(
++            private_dir / f"SYNTHETIC_SOURCE_{index}.zip", n=240, deployment=f"SYNTHETIC_{index}"
++        )
++        items = candidate.reader.read_source(source)
++        arrays = candidate.reader.issue_windows(items)
++        clock = candidate.source_clock_metadata(source)
++        identity = {
++            "deployment": source["deployment"],
++            "site": source["site"],
++            "archive": source["archive_sha256"],
++            "start": "2020-01-01T00:00:00",
++            "end": "2020-03-01T00:00:00",
++            "native_bounds_m": [0, 230],
++        }
++        directory = private_dir / f"SYNTHETIC_PRODUCT_{index}"
++        bundle = candidate.derive_metadata(
++            items, arrays, identity, directory / "source-metadata.json", clock_records=clock
++        )
++        assert "Sv_mean" not in json.dumps(bundle["configuration_receipt"])
++        assert clock[145].get(1) is None
++        products = candidate.write_source_products(
++            directory, arrays, bundle, source, "a" * 64, evidence_kind="SYNTHETIC_CORRECTNESS_ONLY"
++        )
++        with np.load(directory / "zero-shot.npz", allow_pickle=False) as decoded:
++            for key, original in arrays.items():
++                np.testing.assert_array_equal(decoded[key], original)
++                assert decoded[key].dtype == original.dtype
++                assert decoded[key].tobytes(order="C") == original.tobytes(order="C")
++            assert decoded["corpus_role"].item() == "final_test"
++            assert (decoded["metadata"][:, 0, 4] * 250 == 230).all()
++        metadata_bytes = (directory / "source-metadata.json").read_bytes()
++        assert (
++            candidate._hash(metadata_bytes)
++            == bundle["configuration_map"]["sources"][source["deployment"]][
++                "source_metadata_sha256"
++            ]
++        )
++        for days in (1, 7, 30):
++            with np.load(directory / f"prefix-{days}d.npz", allow_pickle=False) as prefix:
++                assert "future" not in prefix.files
++                assert prefix["evidence_kind"].item() == "SYNTHETIC_CORRECTNESS_ONLY"
++                assert np.array_equal(prefix["targets"], prefix["y"])
++                assert prefix["metadata"].shape[1:] == (4, 10)
++        cohort = json.loads((directory / "zero-shot-cohort.json").read_bytes())
++        assert cohort["rows"] == list(
++            map(list, zip(arrays["deployment"].tolist(), arrays["row_id"].tolist(), strict=True))
++        )
++        assert cohort["identities"][0]["source_ids"] == [source["archive_sha256"]]
++        assert len(products) > 12
++        with pytest.raises(FileExistsError):
++            candidate.write_source_products(
++                directory,
++                arrays,
++                bundle,
++                source,
++                "a" * 64,
++                evidence_kind="SYNTHETIC_CORRECTNESS_ONLY",
++            )
++
++
++def test_actual_masked_sentinel_keeps_real_target_identity(private_dir):
++    source = tiny_archive(private_dir / "SYNTHETIC_SENTINEL.zip", n=150, invalid_primary=140)
++    items = candidate.reader.read_source(source)
++    arrays = candidate.reader.issue_windows(items)
++    identity = {
++        "deployment": source["deployment"],
++        "site": source["site"],
++        "archive": source["archive_sha256"],
++        "start": "2020-01-01T00:00:00",
++        "end": "2020-03-01T00:00:00",
++        "native_bounds_m": [0, 230],
++    }
++    bundle = candidate.derive_metadata(
++        items,
++        arrays,
++        identity,
++        private_dir / "SYNTHETIC_METADATA.json",
++        clock_records=candidate.source_clock_metadata(source),
++    )
++    row = next(r for r in bundle["registry"]["rows"] if r["target_requested_indices"][0] == 140)
++    raw = bundle["registry"]["intervals"][row["target_ids"][0]]
++    assert raw["observed"] is False
++    assert raw["qc"] == "INVALID_OR_SENTINEL"
++    assert raw["timestamp"] == str(items[140].timestamp)
++    assert row["target_absence_refs"][0] is None
++    position = list(arrays["cutoff"]).index(139)
++    assert arrays["y"][position, 0] == 0
++    assert not arrays["y_observed"][position, 0]
++    candidate.validate_partitions(bundle["registry"])

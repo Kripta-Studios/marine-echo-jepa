@@ -1,0 +1,25 @@
+{
+  "status": "TWO_EXACT_COMPLETED_PARENT_APPROVALS_MATERIALIZED",
+  "seed": 13,
+  "derived": [
+    {
+      "id": "band_shared_ssl_frozen_readout_seed13_h96_replication_v3",
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band_shared_ssl_frozen_readout_seed13_h96_replication_v3-prefit-review-final.json",
+      "sha256": "00ebe6ae35cb77b66102286ba87fb562acb0ec10757a50e0b6140a951369cec0"
+    },
+    {
+      "id": "band_shared_ssl_full_finetune_seed13_h96_replication_v3",
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band_shared_ssl_full_finetune_seed13_h96_replication_v3-prefit-review-final.json",
+      "sha256": "bc15843f7b2e168c7b7674171843c7b0c786c09269fb1d1ce23a9cc308a7a195"
+    }
+  ],
+  "parent_review_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-seed13-strong-prefit-compact-final-v3.json",
+  "parent_review_sha256": "12fbc17ee7631e6324c38e1dddfff4260a0a3d78b89443054913874ec0ef9038",
+  "scientific_fields_unchanged": true,
+  "actual_exit_witness": {
+    "review_sha256": "12fbc17ee7631e6324c38e1dddfff4260a0a3d78b89443054913874ec0ef9038",
+    "session_id": 7604,
+    "actual_exit_chunk_id": "acf43a",
+    "actual_cli_exit_code": 0
+  }
+}

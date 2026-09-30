@@ -1,0 +1,10 @@
+{
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest tests/unit/test_native_transfer_corpus.py -k root_only_fixture --import-mode=importlib -p no:cacheprovider -q",
+  "exit_code": 1,
+  "summary": "12 failed, 16 deselected in 6.76s",
+  "tool_chunks": ["2c8e14", "ceec0c"],
+  "failure": "Actual-path private ownership fixtures reached missing supervisor source instead of rejecting actual GPU lock, active ledger, reconciliation, pending journals or missing/malformed ledger. FileNotFoundError was a synthetic absent file, not an OS write denial.",
+  "stdout_preservation": "Tool output was truncated; this is an executed-check receipt, not a purported complete stdout log.",
+  "real_process_lifecycle": "NOT_RUN"
+}

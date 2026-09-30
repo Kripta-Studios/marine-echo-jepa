@@ -1,0 +1,16 @@
+{
+  "bindings": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-native-transfer-corpus-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY-e41d831a-dab9-4d8a-9a2c-20092fa6fdcb\\SYNTHETIC_ancestry.json": "1714fbdd03db4b6957edee2c6b8b2bf3c04ae0dfef54f769e9d03cba18181c90",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-native-transfer-corpus-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY-e41d831a-dab9-4d8a-9a2c-20092fa6fdcb\\SYNTHETIC_completion.json": "1714fbdd03db4b6957edee2c6b8b2bf3c04ae0dfef54f769e9d03cba18181c90",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-native-transfer-corpus-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY-e41d831a-dab9-4d8a-9a2c-20092fa6fdcb\\SYNTHETIC_config.json": "1714fbdd03db4b6957edee2c6b8b2bf3c04ae0dfef54f769e9d03cba18181c90",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-native-transfer-corpus-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY-e41d831a-dab9-4d8a-9a2c-20092fa6fdcb\\SYNTHETIC_model.json": "1714fbdd03db4b6957edee2c6b8b2bf3c04ae0dfef54f769e9d03cba18181c90",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-native-transfer-corpus-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY-e41d831a-dab9-4d8a-9a2c-20092fa6fdcb\\SYNTHETIC_readout.json": "1714fbdd03db4b6957edee2c6b8b2bf3c04ae0dfef54f769e9d03cba18181c90",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-native-transfer-corpus-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY-e41d831a-dab9-4d8a-9a2c-20092fa6fdcb\\SYNTHETIC_scalers.json": "1714fbdd03db4b6957edee2c6b8b2bf3c04ae0dfef54f769e9d03cba18181c90",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-native-transfer-corpus-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY-e41d831a-dab9-4d8a-9a2c-20092fa6fdcb\\selection.json": "751435fa9889f6ccbbbd0b662c7985ec5ca24d1d7bc08352aad8ff9b9998b8f2"
+  },
+  "implementer_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "reviewed_at": "2026-09-29T01:00:00+00:00",
+  "reviewer_session_id": "SYNTHETIC_DISTINCT_FREEZE_REVIEWER",
+  "scope": "selection_freeze",
+  "status": "APPROVED_SELECTION_FREEZE"
+}

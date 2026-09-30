@@ -1,0 +1,15 @@
+{
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "collection_red": {
+    "command": "../marine-echo-jepa/.venv/Scripts/python.exe -B -m pytest tests/unit/test_native_transfer_corpus.py --import-mode=importlib -p no:cacheprovider -q",
+    "exit_code": 2,
+    "result": "FileNotFoundError: allowed new native_transfer_corpus.py did not yet exist; 1 collection error"
+  },
+  "first_implementation_check": {
+    "session_id": 14782,
+    "command": "../marine-echo-jepa/.venv/Scripts/python.exe -B -m pytest tests/unit/test_native_transfer_corpus.py --import-mode=importlib -p no:cacheprovider -q",
+    "exit_code": 1,
+    "result": "One passing dot observed; interrupted only this owned pytest via write_stdin Ctrl-C because configuration grouping compared every prior slot quadratically. No completed test-count claim."
+  },
+  "scientific_execution": "NOT_RUN"
+}

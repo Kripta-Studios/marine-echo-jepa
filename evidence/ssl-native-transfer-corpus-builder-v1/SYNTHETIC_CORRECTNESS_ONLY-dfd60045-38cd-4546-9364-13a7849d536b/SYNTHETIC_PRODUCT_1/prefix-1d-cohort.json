@@ -1,0 +1,100 @@
+{
+  "complete": true,
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "identities": [
+    {
+      "archive_id": "1",
+      "deployment_id": "SYNTHETIC_1",
+      "site_id": "SYNTHETIC_SITE",
+      "source_ids": [
+        "040b45bf47c4f7b5de211cb732d2c643e867c3d6921935bb448ab2e84e421d9f"
+      ]
+    }
+  ],
+  "input_npz_sha256": "ef3346f3269f97bcf24f3a74479410760152eb918d5628e45576a0b8d6fecc74",
+  "kind": "native_transfer_cohort_v1",
+  "native_bounds_m": [
+    0,
+    230
+  ],
+  "role": "prefix",
+  "rows": [
+    [
+      "SYNTHETIC_1",
+      "eb9ed6641139f87679a54152145655cc8908613700caf7ee45a501c4dd5d8065"
+    ],
+    [
+      "SYNTHETIC_1",
+      "790ef8781408fe6e61966ccdbaa7e7d08a0abdcf4d470d9a1c74f24294033475"
+    ],
+    [
+      "SYNTHETIC_1",
+      "6e3452927ca7939895e2a5434acd5b16ea56b02ea461f2bac9e49836df5d0681"
+    ],
+    [
+      "SYNTHETIC_1",
+      "cb266c3702cd0b0a789af41cc26d89b8bf75300840ac57a94c508ecd0df3f5ad"
+    ],
+    [
+      "SYNTHETIC_1",
+      "17cc535709f9c71d9e4e5f50cb7c32ac762017b3ea97bb216dbfe0c7632094e8"
+    ],
+    [
+      "SYNTHETIC_1",
+      "580bdb03715483416fc5e54d9841b35ae8be84fd090183da831c439c4c049898"
+    ],
+    [
+      "SYNTHETIC_1",
+      "b172e8dbd278defffb9c52b9e912eae0e1d8564575ffe13a008fa95fd57f0c68"
+    ],
+    [
+      "SYNTHETIC_1",
+      "e35e94905052c9c7aa63c3dbb62edf6402464cd18bf496c61ccfaf415f496edc"
+    ],
+    [
+      "SYNTHETIC_1",
+      "991bb4a95eac314e0dd61e94e9edfb7f0ab1d45b4c45826087726a45e36061ca"
+    ],
+    [
+      "SYNTHETIC_1",
+      "e8dd4a99a887963ca111267edd2d89fd050f1599a23df776ab39a0d7d189f2ba"
+    ],
+    [
+      "SYNTHETIC_1",
+      "47482e63e42e658563b81c43557f5335ee39ef6419af89a248fcf0c1fb0fd619"
+    ],
+    [
+      "SYNTHETIC_1",
+      "42d575fd8570ce7284049eee7ff74477c244cbbe2cd91cdd22af6689141c9bea"
+    ],
+    [
+      "SYNTHETIC_1",
+      "9aedc4e2b22fb5c173e89a6ef1f2b9807f16969fa73547130d910be5425549e9"
+    ],
+    [
+      "SYNTHETIC_1",
+      "7684f6aa4fd0b64e4ce519ac8bf2fc15c997019cc0713633e1c4dddf950e7461"
+    ],
+    [
+      "SYNTHETIC_1",
+      "919cac02ae529d646d332ccd46762ea9e6bee85fc082297e51c8afca83b58c78"
+    ],
+    [
+      "SYNTHETIC_1",
+      "c1c6e4b55a92d38757320eaf4c4ccd90abc22c5e81198f1ab48a83d0c35ca8bb"
+    ],
+    [
+      "SYNTHETIC_1",
+      "e0dc564d4196c34121f53f7e02aab59390874098e6a959aa96a4d250fb167f27"
+    ],
+    [
+      "SYNTHETIC_1",
+      "06f3ad6c6bdcfeac13696c4903ccde690a7c59051e3f76e4973008cc1fad22b0"
+    ],
+    [
+      "SYNTHETIC_1",
+      "7814358ce592d88a073f64a3301f09171d0358ef440ce9a38062678d4219b7d4"
+    ]
+  ],
+  "split_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+}

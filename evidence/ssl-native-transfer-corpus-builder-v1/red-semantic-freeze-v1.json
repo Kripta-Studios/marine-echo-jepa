@@ -1,0 +1,9 @@
+{
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "command": "../marine-echo-jepa/.venv/Scripts/python.exe -B -m pytest tests/integration/test_native_transfer_corpus.py -k synthetic_completed --import-mode=importlib -p no:cacheprovider -q",
+  "exit_code": 1,
+  "output": "FAILED test_synthetic_completed_weights_cannot_authorize_real_access: Failed: DID NOT RAISE ValueError; 1 failed, 18 deselected in 7.68s",
+  "behaviour": "A completed SYNTHETIC_CORRECTNESS_ONLY ancestor was accepted with consistent updated bindings. Green requires actual completed REAL endpoint evidence irrespective of hashes.",
+  "numeric_decode": "NOT_RUN",
+  "scientific_execution": "NOT_RUN"
+}

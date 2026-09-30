@@ -1,0 +1,72 @@
+{
+  "approval": "NONE_IMPLEMENTER_CANNOT_SELF_APPROVE",
+  "authored": {
+    "src/marine_echo/data/native_transfer_corpus.py": "758b0615ef7d6fcce7cbd7e7b8d42d0b535a06eab17aafa96c1fb53cfbc0c034",
+    "tests/integration/test_native_transfer_corpus.py": "018ae11e42f7b3004fb91ef61edc46aadb03d21c1fa857ef9e4b6dd917d6ca27",
+    "tests/unit/test_native_transfer_corpus.py": "e9ccad0e4dd0c6c5b7c905cc474df5a0a579405beb57d23172699d8d2786a33e",
+    "tools/materialize_native_transfer_corpus.py": "244065cba9f066339409c5bba94cacf6921c29009595e66b6d0e34b4eb4d4bf6"
+  },
+  "delivery_scope": "ENGINEERING_ONLY_NO_NUMERIC_ACCESS_OR_SCIENTIFIC_RESULT",
+  "evidence": {
+    "NATIVE_TRANSFER_CORPUS_IMPLEMENTATION_V1.md": "bf50dc2ed99f7fa9643e99aa8d1cd198a2d9114deb53348b4d488ac9715fee40",
+    "authored-source-snapshots-final-v1.json": "5fc81576a9563ea497c6c1afe4c653321735ecbe5a49bd63faad0daf63b735fa",
+    "baseline-source-snapshots-v1.json": "638da4f4f7bb39d5c0439754b57a269552ed0cab385b03b80de990677b5acdc2",
+    "close_delivery.py": "f08bd4ced3c534974f32675896cbe0b270e55b9a63e5563114a8d2cf0b84afb6",
+    "current-protected-source-snapshots-v1.json": "4050f1107639f35849776f610fbd6975116aefdde123c7ab739bd4a8fc45f8ac",
+    "current-static-source-closure-v1.json": "b8d776a4bf522faebe11dc6366ccbdd3d459894a61571e3336910a0d01e65bcc",
+    "executed-check-history-final-v1.json": "31c8db1faadba25d4bec056aa56de3b105eb757b577c4e496c95bf39178b73b8",
+    "executed-closeout-checks-v2.json": "a9e58103e6a374b28c44c31aee3f224f9f06a0f3584c834fdf58ae1e24bd729d",
+    "final-lint-witness-v1.json": "625f143e6ae98fe5c45b36a8e0d6f8c42be91cae7e0d1e6fa7cd4566e68d5821",
+    "format-check-final-closed-v6.log": "2ce9758b9f8abd876ec3e76c589e099e8b05377b1e7ea2331e81ee80f07bdff8",
+    "format-check-final-closeout-v3.log": "8e93d18ae56550d4eef2feac77e6630617c7e169246e56e39c75d58b46167985",
+    "format-close-helper-v6.log": "413a709001976657cb743636fd34e48fc41d8d302d665460d3f874b3313da127",
+    "format-closeout-v2.log": "b48c4474063548bd17582eec13a7f507a82fe0a65318719ce5a3fde2487c6f4a",
+    "format-wiring-closeout-v4.log": "10869b88a75066aa23546ef1f95fcd4678c3fb92a56ed46ef91688052b67976a",
+    "four-path-new-files-final-v1.patch": "55f0556410da7f1ba90e9ca303daab6bc32595893960e293dadca33921710dc2",
+    "green-actual-ownership-closeout-v2.log": "1ba5b9a4b3a24358c6be4b70b3e0c165c4caff159141ff152ff398b9583eb484",
+    "green-production-wiring-closeout-v5.log": "98f0c7dacec04566c803ffb1f5f7393df5525f93b365382c01138bcc457d4a20",
+    "green-wiring-closeout-v4.log": "45725620ba69a3bf17e32a7fb1d2a695eff8919074490e2a0de69346e2783e21",
+    "inspect_sources.py": "9d240b9f8eea513b32c68f3dd39134ac289d66e23d0d799d7f8b3d1d55dfb75c",
+    "late-current-metadata-snapshots-v1.json": "7c2108d0603f21dff8697686a058ba4667f28a2501893b1faeae20671caf3bb8",
+    "lint-closeout-v2.log": "0c27d0e902b0ef848f56be449d5062aa6e75e8bd28a8bb04af1b41a1667a7cc0",
+    "lint-final-closed-v6.log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "lint-final-closeout-v3.log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "red-actual-ownership-closeout-v1.json": "301549234b3a5417cb2dfa62d84a44b166e991c0555aa96a33756704f756f6ae",
+    "red-future-approval-v1.json": "f52652d23c8e4e22deacea3b64da422d49b3ed7817a5925e53b8c7eacc300441",
+    "red-initial-v1.json": "bbffb2caabb1e123ab10efe72520b9da5c9d8a5fc4e46687f68c1e7736088f85",
+    "red-production-wiring-closeout-v1.log": "9b7c3c8194ca95f86bc83e5cf64591c8fc16d7f0a888d24635c8ea3cc8d4c77d",
+    "red-semantic-freeze-v1.json": "1f43af4f1e720dc21b5dfa9a6ff4b3be87762ca1192b0759132e0f85b64bfbaf",
+    "root_supervised_fixture.py": "72de4438974cdaf8880da5c4507bc009aa3fd3071c8c4eccafee7e093332af2f",
+    "run_closeout_checks.py": "cfb41743918fbc9ba79ebd5e926009ac0e452008506707687250694d5c9b1e24",
+    "snapshot_sources.py": "1c16f41ce76499ea7ad63d7e8c7a8887f004ce3d7dcefd1b65d73186f0de3ee1",
+    "source-proof-final-v1.json": "7d0d10ebf3c34ecb555acf12a7ee5ed5706666971f1001d4afd1e51e18ab61f1"
+  },
+  "final_test_numeric_access": "NOT_RUN",
+  "git_commit": "NOT_RUN_NO_INDEX_RETRY",
+  "implementer_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "kind": "native_transfer_corpus_builder_handoff_v1",
+  "protected_changed": [],
+  "protected_files": 25,
+  "report": {
+    "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\evidence\\ssl-native-transfer-corpus-builder-v1\\NATIVE_TRANSFER_CORPUS_IMPLEMENTATION_V1.md",
+    "sha256": "bf50dc2ed99f7fa9643e99aa8d1cd198a2d9114deb53348b4d488ac9715fee40"
+  },
+  "root_required_commands": [
+    "python -B -m pytest tests/unit/test_native_transfer_corpus.py tests/integration/test_native_transfer_corpus.py --import-mode=importlib -p no:cacheprovider -q",
+    "python -B evidence/ssl-native-transfer-corpus-builder-v1/root_supervised_fixture.py"
+  ],
+  "root_required_status": "NOT_RUN_ACTUAL_LIFECYCLE_AND_REAL_ACCESS",
+  "source_proof": {
+    "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\evidence\\ssl-native-transfer-corpus-builder-v1\\source-proof-final-v1.json",
+    "sha256": "7d0d10ebf3c34ecb555acf12a7ee5ed5706666971f1001d4afd1e51e18ab61f1"
+  },
+  "status": "CLOSED",
+  "support": {
+    "close_delivery.py": "f08bd4ced3c534974f32675896cbe0b270e55b9a63e5563114a8d2cf0b84afb6",
+    "inspect_sources.py": "9d240b9f8eea513b32c68f3dd39134ac289d66e23d0d799d7f8b3d1d55dfb75c",
+    "root_supervised_fixture.py": "72de4438974cdaf8880da5c4507bc009aa3fd3071c8c4eccafee7e093332af2f",
+    "run_closeout_checks.py": "cfb41743918fbc9ba79ebd5e926009ac0e452008506707687250694d5c9b1e24",
+    "snapshot_sources.py": "1c16f41ce76499ea7ad63d7e8c7a8887f004ce3d7dcefd1b65d73186f0de3ee1"
+  },
+  "synthetic_fixture_tree_note": "Private fixture directories retained intact; no acoustic fixture array dump in handoff. Selected real-codec proof remains SYNTHETIC_CORRECTNESS_ONLY."
+}

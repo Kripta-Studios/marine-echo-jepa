@@ -1,0 +1,20 @@
+{
+  "final_test_numerical_model_selection": false,
+  "frozen_at": "2026-09-29T00:00:00+00:00",
+  "frozen_before_numeric_access": true,
+  "kind": "native_selection_freeze_v1",
+  "methods": {
+    "SYNTHETIC_METHOD": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-native-transfer-corpus-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY-ad95c058-e261-4537-9f92-acdaccf41518\\SYNTHETIC_ancestry.json",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-native-transfer-corpus-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY-ad95c058-e261-4537-9f92-acdaccf41518\\SYNTHETIC_completion.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-native-transfer-corpus-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY-ad95c058-e261-4537-9f92-acdaccf41518\\SYNTHETIC_config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-native-transfer-corpus-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY-ad95c058-e261-4537-9f92-acdaccf41518\\SYNTHETIC_model.json",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-native-transfer-corpus-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY-ad95c058-e261-4537-9f92-acdaccf41518\\SYNTHETIC_readout.json",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-native-transfer-corpus-builder-v1\\SYNTHETIC_CORRECTNESS_ONLY-ad95c058-e261-4537-9f92-acdaccf41518\\SYNTHETIC_scalers.json",
+      "status": "COMPLETED"
+    }
+  },
+  "owner_freeze_confirmed": true,
+  "owner_session_id": "SYNTHETIC_ROOT",
+  "selection_role": "development"
+}
