@@ -1,0 +1,14 @@
+{
+  "status": "DISTINCT_TRANSPORT_REVIEW_AND_ROOT_MATERIALIZATION_CLOSED",
+  "reviewer_session_id": "01a0ef27-876b-7692-917e-3975afc6893d",
+  "transport_v3": {"session_id": 29984, "actual_cli_exit_code": 0, "actual_exit_chunk_id": "b3e143", "verdict": "REQUEST_CHANGES"},
+  "actual_verdict_red": {"actual_exit_code": 1, "actual_exit_chunk_id": "70ea54", "result": "1 failed, 15 passed"},
+  "transport_fixture_failed_v4": {"session_id": 10223, "actual_exit_code": 1, "actual_exit_chunk_id": "a91f2e", "result": "1 failed, 15 passed"},
+  "current_green_v4b": {"session_id": 60809, "actual_exit_code": 0, "actual_exit_chunk_id": "2515b5", "result": "16 passed"},
+  "transport_v4": {"session_id": 94815, "actual_cli_exit_code": 0, "actual_exit_chunk_id": "dc1d79", "verdict": "APPROVED_EXACT_BAND_APPROVAL_TRANSPORT"},
+  "initial_materialization": {"actual_exit_code": 1, "actual_exit_chunk_id": "028163", "result": "Bound task-description snapshot changed; no approvals written"},
+  "task_restoration": {"actual_exit_code": 0, "actual_exit_chunk_id": "81352d", "result": "Exact reviewed task hash restored; later text preserved separately"},
+  "materialization": {"actual_exit_code": 0, "actual_exit_chunk_id": "36e05f", "result": "Six exact independently approved records materialized"},
+  "scientific_queue": {"session_id": 5351, "status": "RUNNING", "actual_exit_code": null},
+  "final_site_numeric_access": "NOT_RUN"
+}

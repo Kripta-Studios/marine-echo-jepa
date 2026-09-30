@@ -1,0 +1,14 @@
+{
+  "status": "PREFIT_REVIEW_TRANSPORT_CAPACITY_FAILURE_BEFORE_FINAL_ARTIFACT",
+  "actual_cli_exit_code": 1,
+  "session_id": 43769,
+  "actual_exit_chunk_id": "e525e4",
+  "reviewer_session_id": "01a0ef27-876b-7692-917e-3975afc6893d",
+  "last_error": "Selected model is at capacity. Please try a different model.",
+  "events_path": "evidence/ssl-research-v1/band-downstream-prefit-review-events-v1.jsonl",
+  "final_artifact_exists": false,
+  "scientific_approval": "NOT_DELIVERED",
+  "reported_progress": "70 distinct bindings and original parents verified; TRAIN identities, selected/inference byte equality, resource cleanup and six absent outputs checked",
+  "model_permission_or_credential_changes": false,
+  "downstream_fitting": "NOT_RUN"
+}

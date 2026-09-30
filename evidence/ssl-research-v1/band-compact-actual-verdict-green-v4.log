@@ -1,0 +1,63 @@
+.F..............                                                         [100%]
+================================== FAILURES ===================================
+_________ test_transport_approval_cannot_expand_scientific_authority __________
+
+    def test_transport_approval_cannot_expand_scientific_authority():
+        review, proposal, path, sha = case()
+        transport = {
+            "status": "APPROVED_EXACT_BAND_APPROVAL_TRANSPORT",
+            "reviewer_session_id": module.REVIEWER,
+            "unresolved_defects": [],
+            "scientific_scope_unchanged": True,
+            "proof_bindings": review.pop("proof_bindings"),
+        }
+>       assert len(module.validate_authority(review, proposal, path, sha, transport)) == 6
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\unit\test_native_band_compact_authority.py:92: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+review = {'status': 'APPROVED_BAND_DOWNSTREAM_PREFIT_REFERENCES', 'reviewer_session_id': '01a0ef27-876b-7692-917e-3975afc6893d'...d': '01a0ef20-7397-7ba1-a98c-f59bc38ddcc1', 'root_coordinator_session_id': '01a0ef1a-b166-7f83-91b7-2a2aff7c1b10', ...}
+proposal = {'jobs': [{'id': 'SYNTHETIC_CORRECTNESS_ONLY_0', 'approval': {'approved_config': {'method': 'masked_ssl', 'mode': 'fro...YNTHETIC_CORRECTNESS_ONLY', 'output': 'NO_EXECUTION'}, 'allowed_seeds': [7], 'allowed_methods': ['shared_ssl'], ...}}]}
+proposal_path = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/orchestration/SYNTHETIC_CORRECTNESS_ONLY_PROPOSAL.json')
+proposal_sha = 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'
+transport = {'status': 'APPROVED_EXACT_BAND_APPROVAL_TRANSPORT', 'reviewer_session_id': '01a0ef27-876b-7692-917e-3975afc6893d', 'unresolved_defects': [], 'scientific_scope_unchanged': True, ...}
+
+    def validate_authority(review, proposal, proposal_path, proposal_sha, transport=None):
+        required_proofs = {
+            str(ROOT / path)
+            for path in (
+                "tools/materialize_native_band_downstream_compact_review_v3.py",
+                "tools/run_reviewed_native_band_downstream_v3.py",
+                "tools/prepare_native_band_downstream_canonical_references_v3.py",
+                "orchestration/native_band_downstream_canonical_references_v3.json",
+            )
+        }
+        authority = transport or review
+        if not required_proofs.issubset(authority.get("proof_bindings", {})):
+            raise ValueError("Exact compact materializer/controller/metadata proofs required")
+        if transport is not None and (
+            transport.get("status") != "APPROVED_EXACT_BAND_APPROVAL_TRANSPORT"
+            or transport.get("reviewer_session_id") != REVIEWER
+            or transport.get("unresolved_defects") != []
+            or transport.get("scientific_scope_unchanged") is not True
+        ):
+            raise ValueError("Distinct transport approval required")
+        if (
+            review.get("status") != "APPROVED_BAND_DOWNSTREAM_PREFIT_REFERENCES"
+            or review.get("reviewer_session_id") != REVIEWER
+            or review.get("implementer_session_id") != AUTHOR
+            or review.get("root_coordinator_session_id") != COORDINATOR
+            or review.get("materialization_policy") != POLICY
+            or review.get("unresolved_defects") != []
+            or review.get("proposal_path") != str(proposal_path)
+            or review.get("proposal_sha256") != proposal_sha
+            or review.get("proof_bindings", {}).get(str(proposal_path)) != proposal_sha
+        ):
+>           raise ValueError("Genuine exact distinct referential approval required")
+E           ValueError: Genuine exact distinct referential approval required
+
+tools\materialize_native_band_downstream_compact_review_v3.py:66: ValueError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_band_compact_authority.py::test_transport_approval_cannot_expand_scientific_authority
+1 failed, 15 passed in 1.87s

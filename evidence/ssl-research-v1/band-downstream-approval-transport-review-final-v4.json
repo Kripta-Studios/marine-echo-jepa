@@ -1,0 +1,54 @@
+{
+  "status": "APPROVED_EXACT_BAND_APPROVAL_TRANSPORT",
+  "reviewer_session_id": "01a0ef27-876b-7692-917e-3975afc6893d",
+  "scientific_review_sha256": "aae2ade149de2b87dd7b203da46eaa06e71df9983cc6b24fa36f5d238fc1fa79",
+  "scientific_scope_unchanged": true,
+  "unresolved_defects": [],
+  "resolved_defects": ["T1"],
+  "proof_bindings": {
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\materialize_native_band_downstream_compact_review_v3.py": "5b678d41308bc523da1968268becc84a0d8edc0d174e2fa3b567a0f3b23779bd",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\run_reviewed_native_band_downstream_v3.py": "f7697dab485eaa9a7046a6dbfb2f24d91607482277199a6c07a34e9b0a9a8bc2",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\prepare_native_band_downstream_canonical_references_v3.py": "5dc6cf0c8061f17dd54cc2bc601ff600f2a12eab0983a1059349a8b64dc2b505",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_band_downstream_canonical_references_v3.json": "776ca3f5f5807a70f4f03439e6293b8f872dbf955e82e8932d6795bc02238936",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_native_band_compact_authority.py": "60787dab9d243f9a65ef316ed86a7dc06dca9e326b6ad28fb0734b1ac2b1806a",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-compact-actual-verdict-green-v4b.log": "039d6ae33d1ec9a61f4394cbd3ecf38ec4e823ae6fb080742169028d730a7d85",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-compact-actual-verdict-green-v4.log": "c6f576c127270d7ab1ba3138f789484b01472b19abd3afb3ab50213095f66843",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-compact-actual-verdict-red-v3.log": "d10aa81b0c6fb98ada6e9310887beab11004a5aa0ff925947664a8486e690723",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-downstream-prefit-compact-review-final-v3.json": "aae2ade149de2b87dd7b203da46eaa06e71df9983cc6b24fa36f5d238fc1fa79",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-downstream-prefit-compact-exit-witness-v3.json": "4dbb71c0cacebc064fd4aed3d495fad28f2fadd7d9a58704408a9821721fe079",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-downstream-approval-transport-review-final-v3.json": "3e1c4d828b29d8f7d847ada8a24e17d8791dda81462161c19f722db6d2114fba"
+  },
+  "findings": [
+    "T1 is resolved. The materializer now checks the proposal digest in the genuine scientific proof_bindings entry, while retaining the top-level proposal path/digest checks, complete scientific binding verification and six exact canonical config/runtime references.",
+    "The closed scientific verdict, controller, canonical helper and canonical packet hashes match the previously inspected bytes. The scientific decision remains unchanged.",
+    "The materializer requires the separately versioned transport-review-final-v4.json, preserving the rejected v3 review. It copies the exact reviewer approval_scope and changes only the authorized status, reviewer identity, scope and referential provenance fields.",
+    "Independent in-memory checks confirmed the actual proposal-proof gate passes, missing or altered proposal proofs fail, and all six transformed records retain every other proposal field. All proposed scientific bindings remain covered by the closed verdict.",
+    "The current regression explicitly reads the actual closed verdict, asserts the proposal is absent from its scientific bindings, checks its genuine proof_bindings entry and rejects missing or altered proposal proofs.",
+    "The first file named green-v4 actually records a fixture failure and is not passing evidence. The preserved corrected green-v4b log records 16 passed in 0.71 seconds. Both records are bound here without overwriting or concealing the failure.",
+    "No recipes, parents, configurations, runtime options, budgets, scientific permissions or source-training behavior are added by this transport."
+  ],
+  "executed_checks": [
+    {
+      "route": "In-process JavaScript standard-library reads and SHA256 hashing",
+      "result": "Verified the listed current source, metadata, scientific verdict and evidence hashes.",
+      "os_process_exit_code": null
+    },
+    {
+      "route": "In-process JavaScript metadata checks",
+      "result": "Actual proposal-proof lookup passed; missing and altered proof cases rejected. Six reference pairs matched the unchanged canonical packet and six in-memory exact-copy transformations preserved scientific fields.",
+      "os_process_exit_code": null
+    }
+  ],
+  "inspected_parent_test_evidence": {
+    "original_actual_verdict_red": "1 failed, 15 passed in 1.39 seconds; reproduced T1.",
+    "initial_v4_log": "1 failed, 15 passed in 1.87 seconds; fixture removed scientific proof_bindings.",
+    "corrected_v4b_green": "16 passed in 0.71 seconds; current fixture preserves scientific proof_bindings.",
+    "reviewer_reran_pytest": false
+  },
+  "approval_scope": "Exact approval transport for the existing six independently approved seed7 Band downstream proposal references only. Root must verify all bound bytes, preserve scientific and rejected-review evidence, use absent protected destinations and retain every original wrapper/trainer admission, ownership and resource gate. Actual materialization and execution remain root responsibilities.",
+  "not_run": [
+    "Python subprocesses, pytest or materializer execution by the reviewer.",
+    "Training, GPU operations, dataset decoding or final-site access."
+  ],
+  "reviewer_files_written": false
+}

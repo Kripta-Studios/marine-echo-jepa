@@ -1,0 +1,75 @@
+{
+  "status": "REQUEST_CHANGES",
+  "reviewer_session_id": "01a0ef27-876b-7692-917e-3975afc6893d",
+  "scientific_review_sha256": "aae2ade149de2b87dd7b203da46eaa06e71df9983cc6b24fa36f5d238fc1fa79",
+  "scientific_scope_unchanged": true,
+  "scientific_approval_preserved": true,
+  "transport_approved": false,
+  "unresolved_defects": [
+    {
+      "id": "T1",
+      "file": "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\materialize_native_band_downstream_compact_review_v3.py",
+      "line": 64,
+      "finding": "validate_authority requires the proposal digest in review.bindings. The actual closed scientific verdict contains the exact 70-path union there; it binds the proposal separately through proposal_path, proposal_sha256 and proof_bindings. Consequently the current guard rejects the genuine verdict before materialization, even with a valid separate transport approval.",
+      "actual_evidence": {
+        "proposal_sha256": "3b3def14ce8793fa9e56571180dec164c7d8475276501b20fdaacd01332616ea",
+        "proposal_lookup_in_scientific_bindings": null,
+        "proposal_lookup_in_scientific_proof_bindings": "3b3def14ce8793fa9e56571180dec164c7d8475276501b20fdaacd01332616ea",
+        "scientific_binding_count": 70,
+        "rejection": "ValueError: Genuine exact distinct referential approval required"
+      },
+      "required_change": "Validate the proposal against its existing top-level path/digest and proof_bindings entry, while retaining verification of the complete source-binding union. Preserve the closed scientific verdict unchanged.",
+      "regression_gap": "tests/unit/test_native_band_compact_authority.py:60 inserts the proposal into the synthetic review.bindings dictionary, unlike the actual approved schema. Add a case matching the real schema, with the proposal in proof_bindings and absent from bindings, and retain rejection of missing or altered proposal proof."
+    }
+  ],
+  "proof_bindings": {
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\materialize_native_band_downstream_compact_review_v3.py": "303faafe089f968f34bbaeb02925b7c03fd0bc7de6852f81a28649166dd6ba6e",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\run_reviewed_native_band_downstream_v3.py": "f7697dab485eaa9a7046a6dbfb2f24d91607482277199a6c07a34e9b0a9a8bc2",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\prepare_native_band_downstream_canonical_references_v3.py": "5dc6cf0c8061f17dd54cc2bc601ff600f2a12eab0983a1059349a8b64dc2b505",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_band_downstream_canonical_references_v3.json": "776ca3f5f5807a70f4f03439e6293b8f872dbf955e82e8932d6795bc02238936",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_native_band_compact_authority.py": "dee63eefa6ad065e856a85d8f76881c30b8e7e1d44b740312bd4b40d2d5be185",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-compact-authority-transport-green-v3.log": "910db695039ed83471dc4f84c6e088aca5c0bc3f4f93f9c269576603f7b08cf6",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-downstream-prefit-compact-review-final-v3.json": "aae2ade149de2b87dd7b203da46eaa06e71df9983cc6b24fa36f5d238fc1fa79",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-downstream-prefit-compact-exit-witness-v3.json": "4dbb71c0cacebc064fd4aed3d495fad28f2fadd7d9a58704408a9821721fe079",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\run_reviewed_native_band_downstream_v1.py": "cb90a157158b66dc6562099fbc64ab3f60085c1381ceceb48d77280ffc393959",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_band_downstream_admission_v1.json": "3b3def14ce8793fa9e56571180dec164c7d8475276501b20fdaacd01332616ea"
+  },
+  "findings": [
+    "Verified the actual closed scientific verdict and inspected its coordinator witness: session63411, chunk24cc5e, actual CLI exit0. This transport rejection does not change or invalidate that scientific decision.",
+    "All six canonical-reference job identities and all twelve config/runtime SHA256 values match the closed scientific verdict. Hashing the saved canonical strings and parsing their metadata reproduced the exact proposed values. The generator labels its packet METADATA_REFERENCES_NOT_APPROVAL.",
+    "The materializer copies each exact proposal and changes only approved status, reviewer identity, the exact reference approval_scope and referential-review provenance. Its preservation and exclusive-output guards do not introduce scientific options. However, T1 currently prevents it from accepting the actual approved input.",
+    "Compared v3 and v1 controllers. Outside the module docstring and parent-review guard, 942 source tokens matched. The guard changes the parent path to the compact verdict and adds an explicit parent_review_path check. Wrapper commands, serial execution, failure stopping and completion/resource checks remain unchanged.",
+    "Inspected the parent green log reporting 14 passed in 0.75 seconds. These are parent executions, not reviewer-executed tests; the synthetic authority fixture misses the actual-schema incompatibility."
+  ],
+  "executed_checks": [
+    {
+      "route": "In-process JavaScript through mcp__node_repl__js",
+      "check": "Read and SHA256-hash the listed source, metadata, scientific verdict, witness and test-evidence files.",
+      "result": "Completed successfully.",
+      "os_process_exit_code": null
+    },
+    {
+      "route": "In-process JavaScript metadata arithmetic",
+      "check": "Verify all twelve canonical-string digests against the six scientific approval references and compare parsed values with the original proposal.",
+      "result": "All six jobs matched.",
+      "os_process_exit_code": null
+    },
+    {
+      "route": "Independent source-token comparison",
+      "check": "Compare v1/v3 controllers outside their documented parent-review guard and docstring changes.",
+      "result": "Remaining 942 tokens identical.",
+      "os_process_exit_code": null
+    },
+    {
+      "route": "Actual JSON metadata lookup plus source predicate inspection",
+      "check": "Evaluate the materializer's required proposal-binding lookup against the closed verdict.",
+      "result": "Required lookup is absent; the current guard necessarily rejects before writing. Python materializer execution was not performed.",
+      "os_process_exit_code": null
+    }
+  ],
+  "not_run": [
+    "Python subprocesses, pytest and materialization.",
+    "Training, GPU operations, dataset decoding and final-site access."
+  ],
+  "scope": "Transport review only. Correct T1 and submit the changed transport bytes for renewed review; preserve the scientific verdict and all original scientific/runtime fields. No files were written and no new scientific or operational permissions are granted."
+}

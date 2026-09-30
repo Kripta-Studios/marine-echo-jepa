@@ -1,0 +1,12 @@
+{
+  "status": "SECOND_PREFIT_REVIEW_CAPACITY_FAILURE_BEFORE_ARTIFACT",
+  "actual_cli_exit_code": 1,
+  "session_id": 37905,
+  "actual_exit_chunk_id": "f7a01f",
+  "reviewer_session_id": "01a0ef27-876b-7692-917e-3975afc6893d",
+  "last_error": "Selected model is at capacity. Please try a different model.",
+  "events_path": "evidence/ssl-research-v1/band-downstream-prefit-review-closeout-events-v2.jsonl",
+  "scientific_approval": "NOT_DELIVERED",
+  "downstream_fitting": "NOT_RUN",
+  "permission_model_or_credential_changes": false
+}

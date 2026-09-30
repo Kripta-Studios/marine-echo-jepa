@@ -1,0 +1,43 @@
+.............F                                                           [100%]
+================================== FAILURES ===================================
+_ test_missing_or_altered_independent_authority_cannot_be_materialized[proof] _
+
+damage = 'proof'
+
+    @pytest.mark.parametrize("damage", ["status", "reviewer", "hash", "config", "runtime", "duplicate", "missing", "binding", "seed", "mode", "policy", "defect", "proof"])
+    def test_missing_or_altered_independent_authority_cannot_be_materialized(damage):
+        review, proposal, path, sha = case()
+        if damage == "status":
+            review["status"] = "PROPOSED_NOT_APPROVAL"
+        elif damage == "reviewer":
+            review["reviewer_session_id"] = module.COORDINATOR
+        elif damage == "hash":
+            review["proposal_sha256"] = "d" * 64
+        elif damage == "config":
+            proposal["jobs"][0]["approval"]["approved_config"]["gradient_clip"] = 2.0
+        elif damage == "runtime":
+            review["approvals"][0]["runtime_arguments_sha256"] = "d" * 64
+        elif damage == "duplicate":
+            review["approvals"][1] = review["approvals"][0]
+        elif damage == "missing":
+            review["approvals"].pop()
+        elif damage == "binding":
+            review["bindings"]["NO_FILE_OPENED"] = "d" * 64
+        elif damage == "seed":
+            review["approvals"][0]["seed"] = True
+        elif damage == "mode":
+            review["approvals"][0]["mode"] = "direct_end_to_end"
+        elif damage == "policy":
+            review["materialization_policy"] = "ROOT_MAY_MODIFY_MODEL"
+        elif damage == "defect":
+            review["unresolved_defects"] = ["NOT_APPROVED"]
+        else:
+            review["proof_bindings"] = {}
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\unit\test_native_band_compact_authority.py:83: Failed
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_band_compact_authority.py::test_missing_or_altered_independent_authority_cannot_be_materialized[proof]
+1 failed, 13 passed in 1.53s
