@@ -1,0 +1,20 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+______ test_snapshot_binding_is_immutable_and_exact43_parented_inventory ______
+
+case = namespace(root=WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/evidence/ssl-inv...NTHETIC_CORRECTNESS_ONLY-Á-Metadata-d4012016-6c9d-40de-b801-e10e62714edd/tools/prepare_native_research_inventory.py')])
+
+    def test_snapshot_binding_is_immutable_and_exact43_parented_inventory(case):
+        paths = destinations(case)
+        original = case.ledger.read_bytes()
+        facts = prepare(case, paths)
+        manifest = prep.document(paths.manifest)
+>       assert str(case.ledger) not in manifest["bindings"]
+E       AssertionError: assert 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\evidence\\ssl-inventory-preparation-b...NTHETIC_CORRECTNESS_ONLY-Á-Metadata-d4012016-6c9d-40de-b801-e10e62714edd\\orchestration\\native_ssl_run_ledger_v1.json' not in {'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\original-source-ar...references_b692368053501ca9.py.manifest.json': '0c9d8e7a9027e9c650faeef21cd57d607995c0dd42113db98a4b5b745cca0348', ...}
+E        +  where 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\evidence\\ssl-inventory-preparation-b...NTHETIC_CORRECTNESS_ONLY-Á-Metadata-d4012016-6c9d-40de-b801-e10e62714edd\\orchestration\\native_ssl_run_ledger_v1.json' = str(WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/evidence/ssl-inventory-preparat...YNTHETIC_CORRECTNESS_ONLY-Á-Metadata-d4012016-6c9d-40de-b801-e10e62714edd/orchestration/native_ssl_run_ledger_v1.json'))
+E        +    where WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/evidence/ssl-inventory-preparat...YNTHETIC_CORRECTNESS_ONLY-Á-Metadata-d4012016-6c9d-40de-b801-e10e62714edd/orchestration/native_ssl_run_ledger_v1.json') = namespace(root=WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/evidence/ssl-inv...NTHETIC_CORRECTNESS_ONLY-Á-Metadata-d4012016-6c9d-40de-b801-e10e62714edd/tools/prepare_native_research_inventory.py')]).ledger
+
+tests\unit\test_completed_native_inventory_v4_preparation.py:156: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_completed_native_inventory_v4_preparation.py::test_snapshot_binding_is_immutable_and_exact43_parented_inventory
+1 failed, 38 deselected in 33.40s

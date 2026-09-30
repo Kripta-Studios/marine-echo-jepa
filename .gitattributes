@@ -32,3 +32,6 @@ orchestration/native_completed_inventory_v3.json -text whitespace=cr-at-eol
 orchestration/native_band_direct13_ownership_retry_admission_v2.json -text whitespace=cr-at-eol
 orchestration/ssl_vnext_band_direct13_ownership_retry_prefit_v2.txt -text whitespace=cr-at-eol
 orchestration/ssl_vnext_completed_inventory_v4_builder.txt -text whitespace=cr-at-eol
+evidence/ssl-inventory-preparation-builder-v4/** -text whitespace=-blank-at-eol,-blank-at-eof,cr-at-eol
+evidence/ssl-research-v1/native-fixed35-reservation-v3a/** -text whitespace=cr-at-eol
+orchestration/native_completed_inventory_v3a.json -text whitespace=cr-at-eol

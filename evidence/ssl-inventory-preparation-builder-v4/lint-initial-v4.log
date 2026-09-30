@@ -1,0 +1,69 @@
+I001 [*] Import block is un-sorted or un-formatted
+  --> tools\execute_completed_native_inventory_owned_v4.py:3:1
+   |
+ 1 |   """Run exactly one bounded CPU artifact audit after immutable V4 reservation."""
+ 2 |
+ 3 | / from __future__ import annotations
+ 4 | |
+ 5 | | import argparse
+ 6 | | import json
+ 7 | | import math
+ 8 | | import subprocess
+ 9 | | import time
+10 | | from pathlib import Path
+11 | |
+12 | | from prepare_completed_native_inventory_v4 import (
+13 | |     digest, document, fresh, idle_ledger, regular, reservation_path,
+14 | | )
+   | |_^
+15 |
+16 |   ROOT = Path(__file__).resolve().parents[1]
+   |
+help: Organize imports
+   |
+12 | from prepare_completed_native_inventory_v4 import (
+   -     digest, document, fresh, idle_ledger, regular, reservation_path,
+13 +     digest,
+14 +     document,
+15 +     fresh,
+16 +     idle_ledger,
+17 +     regular,
+18 +     reservation_path,
+19 | )
+   |
+
+TRY004 Prefer `TypeError` exception for invalid type
+  --> tools\prepare_completed_native_inventory_v4.py:83:9
+   |
+81 |     value = json_bytes(raw)
+82 |     if not isinstance(value, dict) or not isinstance(value.get("runs"), list):
+83 |         raise ValueError("Explicit live scientific ledger required")
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+84 |     if value.get("requires_reconciliation"):
+85 |         raise ValueError("Live ledger requires reconciliation")
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+   --> tools\prepare_completed_native_inventory_v4.py:160:5
+    |
+158 | def prepare(root, matrix_path, manifest_path, snapshot_path, output_path, *, source_paths=None):
+159 |     """Metadata-only helper; production CLI fixes root to its actual checkout."""
+160 |     from marine_echo.evaluation.native_ancestry_inventory import _config, resolve_original_source_binding, validate_parent_graph
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+161 |
+162 |     root = Path(root).absolute()
+    |
+help: Organize imports
+    |
+159 |     """Metadata-only helper; production CLI fixes root to its actual checkout."""
+    -     from marine_echo.evaluation.native_ancestry_inventory import _config, resolve_original_source_binding, validate_parent_graph
+160 +     from marine_echo.evaluation.native_ancestry_inventory import (
+161 +         _config,
+162 +         resolve_original_source_binding,
+163 +         validate_parent_graph,
+164 +     )
+165 |
+    |
+
+Found 3 errors.
+[*] 2 fixable with the `--fix` option.

@@ -1,0 +1,255 @@
+{
+  "kind": "native_completed_inventory_preparation_builder_handoff_v4",
+  "status": "CLOSED_ENGINEERING_DELIVERY",
+  "implementer_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "files": {
+    "tools/prepare_completed_native_inventory_v4.py": "67c032781e3ac6c40e971e06e8d8620ad2111dafa565e7c468489e905c113b97",
+    "tools/execute_completed_native_inventory_owned_v4.py": "e55e0c16e8aa10da695290b30472ff2612c7c2b9f5dab4f23b47e940da360d01",
+    "tests/unit/test_completed_native_inventory_v4_preparation.py": "f3c253275807e14f8b6327c9884a83b94350da7b55e2606d0329a2099d63127b"
+  },
+  "dependencies": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\__init__.py": "3fcc1878588f5a89775363e099fab7d7323acebccae26d10db4a6da627425b68",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\__init__.py": "011583e04b7f119ffcc2ae18712a4af2e613cff87bcbeb5435fbfb10dcd01508",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\native_ssl_corpus.py": "ebda9d460fa14df749b8f774bcb02a6622f0d69402443098a6100670a4c8f7ba",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\native_transfer_corpus.py": "758b0615ef7d6fcce7cbd7e7b8d42d0b535a06eab17aafa96c1fb53cfbc0c034",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\__init__.py": "dddaccd3cb0c952e88796d75e7a15966cfab87f98c2cfe8452a5fff4c3138c68",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_ancestry_inventory.py": "a21fc392f596dbfd7ed8575c8085169c13ccff40916fb4141b406040d5c53787",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_assessment_replication.py": "f8c7e9272c9ecbbb68d60695e9e4e92494f42ca9420989500b7c3f409778c9ef",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_product.py": "fd1c643fde93494a21d560794f886056e58031f1ef6dd41ebe53662750bab314",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_band_acoustic.py": "6181baf22b75be73767f4b76370c65bfc37fdeb189da3deabcabe8a7c2dcd1bf",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_band_replication_acoustic.py": "e689d80077152b4c784966426846bfb154eb4e16a46494f2140129c003288149",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_encoder.py": "6cc07a15ea93427d6628f1b317945f6e38ff3008894a31cab2173c0b666c0f7f",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\__init__.py": "5bdc97a6119b2dd3d519df36406c8bcb9e801be81c8b6c3f44e4a527db1f87a3",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_band_temporal.py": "1550bb3f130e3981f57b46031e39d0d42ce7dac4738aea9280362210dfaca96b",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_temporal.py": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\sigreg.py": "2cf5dc8e6fc610fbe167339a8750f5e2d9ddf9a48f416717b8310500536469a3",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\__init__.py": "c98c60178f566d43dd60641704ccd9c652d406487b4838cbf5a9df49ea5dd735",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\aeon_corpus.py": "398e021a5807ab8068ceef03dd692f3b688c744751cd4e65d3efbee94d9a3efd",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_downstream.py": "95becf2cd01a7ab07c67a4da8d26c8e8bf58297f56513a439b0ab2b2be776619",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_replication_downstream.py": "f5a6747b3a37dcd8856b617a95cd939862ba716a1d7e50fe7ef9090a08d4084d",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_replication_ssl.py": "94c04d2d585c39d49e849f4b86375e201898ae104e8a808341363a2f22518f72",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_ssl.py": "ca33bf3141ea17c5adb3d0a4cd2ed0d186be8efb846a5b581003f2088a105e4f",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_downstream.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_prefix_transfer.py": "844159d11a1d9a410f7cb7f1a83c782360427e04aae965c19cb94a74d5a28d38",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_references.py": "0d6583644ab1fce8d87a4194048f2176237b47deb57f0fa8494df6aa9012d584",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_resources.py": "c9ca3fbd0759ae00824774ed61a08185361234430d5ed63f09fa3885545c7c38",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_ssl.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\prepare_native_research_inventory.py": "cc161a98f239666b28a27b8064b078ba27756c261873311a98a0891369e61137",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\prepare_native_seed7_assessment_metadata.py": "829e6e8307eb8f5e8f66012558a9bcaa8904da84aae93253d43a5da02d9f8f50",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\tools\\prepare_completed_native_inventory_v4.py": "67c032781e3ac6c40e971e06e8d8620ad2111dafa565e7c468489e905c113b97",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\tools\\execute_completed_native_inventory_owned_v4.py": "e55e0c16e8aa10da695290b30472ff2612c7c2b9f5dab4f23b47e940da360d01",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\prepare_completed_native_inventory_v3.py": "f6ca02863e220f451554ea4959f77b7408d532a17d7ad4d97d7ec6cad57363e8",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_completed_native_inventory_owned_v3.py": "619222b38ec1b2f32c104ac8210208e7f754add346c1e7b8741d6ee31e4f1719",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\prepare_native_development_comparison_v4.py": "fa5a90b6eebc103af8973fe87800e8434bc7635b451f3ddcc96975528cff1833",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\native_reference_supervisor.py": "ec5456584ca6f6a805e13f4137365c2c0a785b2dbc52782b191c1528befb30dd",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\original-source-archives-v3\\index.json": "d74dd51e32e4b8c1244f31ad2ac35d38a75b6e3971f51d8e73628451451b96ac",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\original-source-archives-v3\\native_temporal_85c4af6c67acb661.py.manifest.json": "73be103db6be41ad15df880cd00a8624f79697dbdb24c2bb55c1f16aede1d87c",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\original-source-archives-v3\\native_temporal_85c4af6c67acb661.py": "85c4af6c67acb661359cde8bcf22de479e4da6a499cc7843bce0fee6c155e422",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\original-source-archives-v3\\native_references_b692368053501ca9.py.manifest.json": "0c9d8e7a9027e9c650faeef21cd57d607995c0dd42113db98a4b5b745cca0348",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\original-source-archives-v3\\native_references_b692368053501ca9.py": "b692368053501ca946978a3c583d649356584e91c1e020597397e669d8aa1d7b",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\original-source-archives-v3\\execute_native_ssl_job_dd688444fa48b95e.py.manifest.json": "91b2d5a0457e2eebb942fc1743dd72848a6bcb270c4e9e6c653134e6f7269483",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\original-source-archives-v3\\execute_native_ssl_job_dd688444fa48b95e.py": "dd688444fa48b95e40ccb8b29b260550cc998b805273aa196f35909ff0175f9d"
+  },
+  "protected_sources_unchanged": true,
+  "protected_sources_baseline_count": 13,
+  "protected_sources": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\prepare_completed_native_inventory_v3.py": {
+      "before_sha256": "f6ca02863e220f451554ea4959f77b7408d532a17d7ad4d97d7ec6cad57363e8",
+      "current_sha256": "f6ca02863e220f451554ea4959f77b7408d532a17d7ad4d97d7ec6cad57363e8",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_completed_native_inventory_owned_v3.py": {
+      "before_sha256": "619222b38ec1b2f32c104ac8210208e7f754add346c1e7b8741d6ee31e4f1719",
+      "current_sha256": "619222b38ec1b2f32c104ac8210208e7f754add346c1e7b8741d6ee31e4f1719",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\prepare_native_development_comparison_v4.py": {
+      "before_sha256": "fa5a90b6eebc103af8973fe87800e8434bc7635b451f3ddcc96975528cff1833",
+      "current_sha256": "fa5a90b6eebc103af8973fe87800e8434bc7635b451f3ddcc96975528cff1833",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_ancestry_inventory.py": {
+      "before_sha256": "a21fc392f596dbfd7ed8575c8085169c13ccff40916fb4141b406040d5c53787",
+      "current_sha256": "a21fc392f596dbfd7ed8575c8085169c13ccff40916fb4141b406040d5c53787",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\prepare_native_research_inventory.py": {
+      "before_sha256": "cc161a98f239666b28a27b8064b078ba27756c261873311a98a0891369e61137",
+      "current_sha256": "cc161a98f239666b28a27b8064b078ba27756c261873311a98a0891369e61137",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\native_reference_supervisor.py": {
+      "before_sha256": "ec5456584ca6f6a805e13f4137365c2c0a785b2dbc52782b191c1528befb30dd",
+      "current_sha256": "ec5456584ca6f6a805e13f4137365c2c0a785b2dbc52782b191c1528befb30dd",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\original-source-archives-v3\\index.json": {
+      "before_sha256": "d74dd51e32e4b8c1244f31ad2ac35d38a75b6e3971f51d8e73628451451b96ac",
+      "current_sha256": "d74dd51e32e4b8c1244f31ad2ac35d38a75b6e3971f51d8e73628451451b96ac",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\original-source-archives-v3\\native_temporal_85c4af6c67acb661.py.manifest.json": {
+      "before_sha256": "73be103db6be41ad15df880cd00a8624f79697dbdb24c2bb55c1f16aede1d87c",
+      "current_sha256": "73be103db6be41ad15df880cd00a8624f79697dbdb24c2bb55c1f16aede1d87c",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\original-source-archives-v3\\native_temporal_85c4af6c67acb661.py": {
+      "before_sha256": "85c4af6c67acb661359cde8bcf22de479e4da6a499cc7843bce0fee6c155e422",
+      "current_sha256": "85c4af6c67acb661359cde8bcf22de479e4da6a499cc7843bce0fee6c155e422",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\original-source-archives-v3\\native_references_b692368053501ca9.py.manifest.json": {
+      "before_sha256": "0c9d8e7a9027e9c650faeef21cd57d607995c0dd42113db98a4b5b745cca0348",
+      "current_sha256": "0c9d8e7a9027e9c650faeef21cd57d607995c0dd42113db98a4b5b745cca0348",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\original-source-archives-v3\\native_references_b692368053501ca9.py": {
+      "before_sha256": "b692368053501ca946978a3c583d649356584e91c1e020597397e669d8aa1d7b",
+      "current_sha256": "b692368053501ca946978a3c583d649356584e91c1e020597397e669d8aa1d7b",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\original-source-archives-v3\\execute_native_ssl_job_dd688444fa48b95e.py.manifest.json": {
+      "before_sha256": "91b2d5a0457e2eebb942fc1743dd72848a6bcb270c4e9e6c653134e6f7269483",
+      "current_sha256": "91b2d5a0457e2eebb942fc1743dd72848a6bcb270c4e9e6c653134e6f7269483",
+      "unchanged": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\original-source-archives-v3\\execute_native_ssl_job_dd688444fa48b95e.py": {
+      "before_sha256": "dd688444fa48b95e40ccb8b29b260550cc998b805273aa196f35909ff0175f9d",
+      "current_sha256": "dd688444fa48b95e40ccb8b29b260550cc998b805273aa196f35909ff0175f9d",
+      "unchanged": true
+    }
+  },
+  "source_proof": {
+    "path": "evidence\\ssl-inventory-preparation-builder-v4\\source-proof-closed-v4.json",
+    "sha256": "83c187db735ead6c335964e5877977de71918724a41289ce6cd05204dd192ee2"
+  },
+  "report": {
+    "path": "evidence\\ssl-inventory-preparation-builder-v4\\NATIVE_COMPLETED_INVENTORY_PREPARATION_V4.md",
+    "sha256": "c2dee5871fcb77e2b7e63a69f9008d01db905d8a29b8c1e8b7f8061d8aec5500"
+  },
+  "red_green_lint": [
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests\\unit\\test_completed_native_inventory_v4_preparation.py -k snapshot_binding",
+      "exit_code": 1,
+      "log": "red-snapshot-binding-v4.log",
+      "result": "Fixture setup error while extracting nonliteral source default; not behavioral red evidence",
+      "witness": "c40c21",
+      "log_sha256": "6ab9832fec94ea65c5058fb339211c2c92fda61f53d52215693501a76d6fe485"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests\\unit\\test_completed_native_inventory_v4_preparation.py -k snapshot_binding",
+      "exit_code": 1,
+      "log": "red-snapshot-binding-focused-v4.log",
+      "result": "Meaningful red: exact43 fixture still binds mutable live ledger",
+      "witness": "a37b6a",
+      "log_sha256": "23ead93f5f2babd93ef03a4678dd159fed645c485c96fd5f88592567ebab41e7"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests\\unit\\test_completed_native_inventory_v4_preparation.py",
+      "exit_code": 1,
+      "log": "green-first-v4.log",
+      "result": "39 passed, 1 failed in180.29s; Windows test path assertion corrected",
+      "witness": "c5cc6f",
+      "log_sha256": "b9a2fa7fbd40ebc041144c2056a4d88f068a6031c1620adcfd4a38109fbe9bd2"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests\\unit\\test_completed_native_inventory_v4_preparation.py",
+      "exit_code": 0,
+      "log": "green-final-v4.log",
+      "result": "48 passed in191.11s before narrow original direct-scaler compatibility follow-up",
+      "witness": "040ff1",
+      "log_sha256": "5c1c9c9a3db27b22f108aa4a4a1c4dc4f61c83d6da99ff49179e9663d120e03f"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests\\unit\\test_completed_native_inventory_v4_preparation.py -k snapshot_binding",
+      "exit_code": 0,
+      "log": "green-original-downstream-scalers-v4.log",
+      "result": "1 passed, 47 deselected in20.98s on closed bytes; whole43 reservation includes original frozen and direct endpoints without duplicate scaler files",
+      "witness": "be2a28",
+      "log_sha256": "3a7ec633a9586af999db583fb8503ff17b2e638a47f4db8e272fa9b911bb9294"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff check --no-cache tools\\prepare_completed_native_inventory_v4.py tools\\execute_completed_native_inventory_owned_v4.py tests\\unit\\test_completed_native_inventory_v4_preparation.py",
+      "exit_code": 1,
+      "log": "lint-initial-v4.log",
+      "result": "Import order and invalid-type exception lint; corrected",
+      "witness": "e0a550",
+      "log_sha256": "7e00fe6c75670bf42de5b3d9567bce0ecafbe9df99631c61d2847cb755f2d7c5"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff check --no-cache tools\\prepare_completed_native_inventory_v4.py tools\\execute_completed_native_inventory_owned_v4.py tests\\unit\\test_completed_native_inventory_v4_preparation.py",
+      "exit_code": 0,
+      "log": "lint-closed-v4.log",
+      "result": "All checks passed",
+      "witness": "f44d0d",
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff format --check --no-cache tools\\prepare_completed_native_inventory_v4.py tools\\execute_completed_native_inventory_owned_v4.py tests\\unit\\test_completed_native_inventory_v4_preparation.py",
+      "exit_code": 0,
+      "log": "format-check-closed-v4.log",
+      "result": "3 files already formatted",
+      "witness": "f11e26",
+      "log_sha256": "eee76f865de5a9f2456950f710ae5d5f9b5bd0ea02aa54f614c5eed6642a0bfd"
+    }
+  ],
+  "expected_cardinality": {
+    "neural": 43,
+    "references": 4,
+    "comparison": 47
+  },
+  "reference_names": [
+    "persistence",
+    "seasonal24",
+    "lightgbm",
+    "chronos2_zero_shot"
+  ],
+  "limitations": [
+    "Actual completed weights/corpora/forecasts were not decoded in builder.",
+    "Actual ROOT owned process and600s/22GiB resource audit NOT_RUN; policy tests are virtual.",
+    "Final47 public matrix preparation and audit NOT_RUN; every endpoint is mandatory.",
+    "References remain empty in neural audit manifest; four paths/names reserved separately; Chronos ancestry UNKNOWN.",
+    "Actual tensor kinds, embedded scaler equality and TRAIN membership/state ancestry remain existing decoder's ROOT audit obligations.",
+    "Original reviews that themselves hash mutable ledger bytes require an original immutable receipt; no original approval is rewritten.",
+    "Full48 suite passed before final original direct-scaler compatibility extension; focused whole43 case passed afterward. ROOT repeats full closed suite.",
+    "Distinct ancestry/inventory review needed before final freeze or held-out use; no scientific authority granted."
+  ],
+  "root_required_commands": [
+    ".venv\\Scripts\\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests\\unit\\test_completed_native_inventory_v4_preparation.py",
+    ".venv\\Scripts\\python.exe -B tools\\prepare_completed_native_inventory_v4.py --matrix orchestration\\native_development_comparison_v4.json --manifest orchestration\\native_completed_inventory_v4.json --ledger-snapshot evidence\\ssl-research-v1\\native-completed-inventory-ledger-v4.json --output evidence\\native-completed-inventory-v4",
+    ".venv\\Scripts\\python.exe -B tools\\execute_completed_native_inventory_owned_v4.py --manifest orchestration\\native_completed_inventory_v4.json --ledger-snapshot evidence\\ssl-research-v1\\native-completed-inventory-ledger-v4.json --output evidence\\native-completed-inventory-v4 --receipt evidence\\ssl-research-v1\\native-completed-inventory-owned-v4"
+  ],
+  "historical_manifest_changes": false,
+  "root_ledger_or_lock_modifications": false,
+  "public_numeric_decode_or_gpu_or_fitting": false,
+  "scientific_review_authority": false,
+  "git_index_or_commit": false,
+  "top_level_evidence": {
+    "evidence\\ssl-inventory-preparation-builder-v4\\closed-source-execute_completed_native_inventory_owned_v4.py": "e55e0c16e8aa10da695290b30472ff2612c7c2b9f5dab4f23b47e940da360d01",
+    "evidence\\ssl-inventory-preparation-builder-v4\\closed-source-prepare_completed_native_inventory_v4.py": "67c032781e3ac6c40e971e06e8d8620ad2111dafa565e7c468489e905c113b97",
+    "evidence\\ssl-inventory-preparation-builder-v4\\closed-source-test_completed_native_inventory_v4_preparation.py": "f3c253275807e14f8b6327c9884a83b94350da7b55e2606d0329a2099d63127b",
+    "evidence\\ssl-inventory-preparation-builder-v4\\close_delivery_v4.py": "28f308cec5f5af646f9246b257cd88d79236aee569490351ea2c0e1f4d8ac6b3",
+    "evidence\\ssl-inventory-preparation-builder-v4\\dependency-baseline-v4.json": "085f1c7f297b06f2377c25dba89067062c5dd4ad62cca842b626ca1d6f10aa92",
+    "evidence\\ssl-inventory-preparation-builder-v4\\executed-checks-v4.json": "9a3446e9cff7098cc451cc43ead26dea3f30e9aaa830aa208af806bd60bdffba",
+    "evidence\\ssl-inventory-preparation-builder-v4\\format-check-closed-v4.log": "eee76f865de5a9f2456950f710ae5d5f9b5bd0ea02aa54f614c5eed6642a0bfd",
+    "evidence\\ssl-inventory-preparation-builder-v4\\format-check-final-v4.log": "eee76f865de5a9f2456950f710ae5d5f9b5bd0ea02aa54f614c5eed6642a0bfd",
+    "evidence\\ssl-inventory-preparation-builder-v4\\format-scaler-followup-v4.log": "96a977f329ec3c59092d40e041a019b49dcf03ca04055e177aa0ccb8c27234df",
+    "evidence\\ssl-inventory-preparation-builder-v4\\format-v4.log": "878d50bf4ab752ab41ae942ac518b87e744d994b21bb15dca142ed7a470b3b3a",
+    "evidence\\ssl-inventory-preparation-builder-v4\\green-final-v4.log": "5c1c9c9a3db27b22f108aa4a4a1c4dc4f61c83d6da99ff49179e9663d120e03f",
+    "evidence\\ssl-inventory-preparation-builder-v4\\green-first-v4.log": "b9a2fa7fbd40ebc041144c2056a4d88f068a6031c1620adcfd4a38109fbe9bd2",
+    "evidence\\ssl-inventory-preparation-builder-v4\\green-original-downstream-scalers-v4.log": "3a7ec633a9586af999db583fb8503ff17b2e638a47f4db8e272fa9b911bb9294",
+    "evidence\\ssl-inventory-preparation-builder-v4\\lint-closed-v4.log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "evidence\\ssl-inventory-preparation-builder-v4\\lint-final-v4.log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "evidence\\ssl-inventory-preparation-builder-v4\\lint-fix-v4.log": "6f4e3c8cb6a43f32a8b47add0b65207f17bd814c84308623b3720ad789c0d769",
+    "evidence\\ssl-inventory-preparation-builder-v4\\lint-initial-v4.log": "7e00fe6c75670bf42de5b3d9567bce0ecafbe9df99631c61d2847cb755f2d7c5",
+    "evidence\\ssl-inventory-preparation-builder-v4\\NATIVE_COMPLETED_INVENTORY_PREPARATION_V4.md": "c2dee5871fcb77e2b7e63a69f9008d01db905d8a29b8c1e8b7f8061d8aec5500",
+    "evidence\\ssl-inventory-preparation-builder-v4\\read_artifact_declarations.py": "6f6676a57caf0001b1a7570df914710d9707a1c05fc72b2efd54faeb6d42dd10",
+    "evidence\\ssl-inventory-preparation-builder-v4\\read_config_contract.py": "87e1f9001b4206953b0ea3e17a7a419d59ad9883c9c4b65ab61a0503f293dd22",
+    "evidence\\ssl-inventory-preparation-builder-v4\\read_dependencies.py": "af176dfbd21259e70e665040bda162ef2aa38b33b774a20411998c01a64df837",
+    "evidence\\ssl-inventory-preparation-builder-v4\\read_inventory_result.py": "b9602e47e2388a2b03249f94f045f0026b0c3966829a85f99bdaca3602603acb",
+    "evidence\\ssl-inventory-preparation-builder-v4\\red-snapshot-binding-focused-v4.log": "23ead93f5f2babd93ef03a4678dd159fed645c485c96fd5f88592567ebab41e7",
+    "evidence\\ssl-inventory-preparation-builder-v4\\red-snapshot-binding-v4.log": "6ab9832fec94ea65c5058fb339211c2c92fda61f53d52215693501a76d6fe485",
+    "evidence\\ssl-inventory-preparation-builder-v4\\source-proof-closed-v4.json": "83c187db735ead6c335964e5877977de71918724a41289ce6cd05204dd192ee2"
+  },
+  "synthetic_fixture_tree_delivery": "EXCLUDED; private, no actual process/scientific evidence"
+}

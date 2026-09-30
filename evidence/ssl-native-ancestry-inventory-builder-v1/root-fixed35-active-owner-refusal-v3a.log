@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tools\prepare_closed_native_inventory_v3a.py", line 72, in <module>
+    main()
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tools\prepare_closed_native_inventory_v3a.py", line 23, in main
+    raise ValueError("Wait for closed scientific ownership and every journal")
+ValueError: Wait for closed scientific ownership and every journal

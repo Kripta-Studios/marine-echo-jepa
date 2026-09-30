@@ -1,0 +1,23 @@
+{
+  "status": "ROOT_METADATA_TOOLING_CORRECTNESS_PASSED_NOT_SCIENTIFIC_APPROVAL",
+  "actual_cli_session_id": 87149,
+  "actual_exit_code": 0,
+  "actual_exit_chunk": "2c6560",
+  "tests_passed": 48,
+  "elapsed_test_seconds": 193.59,
+  "fitting": false,
+  "numerical_corpus_decoded": false,
+  "complete43_artifact_audit": "NOT_RUN",
+  "reference_inventory": "NOT_AUDITED_SEPARATE_SCHEMA_REQUIRED",
+  "independent_review": "NOT_RUN",
+  "scientific_authority": false,
+  "bindings": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-inventory-preparation-builder-v4\\root-checks-closed-v4.log": "01f2c79d22ec0b19679d888ee299c21003a1d153b1018b4cdbfc84080c4da0ac",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-inventory-preparation-builder-v4\\handoff-v4.json": "f9cb4171ac49ca76714fdb2f66c9e4c28702ef2db6e3d81b39f2c395865c5181",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-inventory-preparation-builder-v4\\root-integration-v4.json": "004e2de5fd386cd765a4c61b99d895d350d62bd65ca47f7eca83bd513d8b8518",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\close_completed_native_inventory_root_checks_v4.py": "cef70bcbd30910e30779c7ebd69780b64e105d866189c0e9d7dfa60777d58400",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\prepare_completed_native_inventory_v4.py": "67c032781e3ac6c40e971e06e8d8620ad2111dafa565e7c468489e905c113b97",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_completed_native_inventory_owned_v4.py": "e55e0c16e8aa10da695290b30472ff2612c7c2b9f5dab4f23b47e940da360d01",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_completed_native_inventory_v4_preparation.py": "f3c253275807e14f8b6327c9884a83b94350da7b55e2606d0329a2099d63127b"
+  }
+}

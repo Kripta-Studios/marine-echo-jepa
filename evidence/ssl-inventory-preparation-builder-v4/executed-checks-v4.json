@@ -1,0 +1,66 @@
+[
+  {
+    "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests\\unit\\test_completed_native_inventory_v4_preparation.py -k snapshot_binding",
+    "exit_code": 1,
+    "log": "red-snapshot-binding-v4.log",
+    "result": "Fixture setup error while extracting nonliteral source default; not behavioral red evidence",
+    "witness": "c40c21",
+    "log_sha256": "6ab9832fec94ea65c5058fb339211c2c92fda61f53d52215693501a76d6fe485"
+  },
+  {
+    "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests\\unit\\test_completed_native_inventory_v4_preparation.py -k snapshot_binding",
+    "exit_code": 1,
+    "log": "red-snapshot-binding-focused-v4.log",
+    "result": "Meaningful red: exact43 fixture still binds mutable live ledger",
+    "witness": "a37b6a",
+    "log_sha256": "23ead93f5f2babd93ef03a4678dd159fed645c485c96fd5f88592567ebab41e7"
+  },
+  {
+    "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests\\unit\\test_completed_native_inventory_v4_preparation.py",
+    "exit_code": 1,
+    "log": "green-first-v4.log",
+    "result": "39 passed, 1 failed in180.29s; Windows test path assertion corrected",
+    "witness": "c5cc6f",
+    "log_sha256": "b9a2fa7fbd40ebc041144c2056a4d88f068a6031c1620adcfd4a38109fbe9bd2"
+  },
+  {
+    "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests\\unit\\test_completed_native_inventory_v4_preparation.py",
+    "exit_code": 0,
+    "log": "green-final-v4.log",
+    "result": "48 passed in191.11s before narrow original direct-scaler compatibility follow-up",
+    "witness": "040ff1",
+    "log_sha256": "5c1c9c9a3db27b22f108aa4a4a1c4dc4f61c83d6da99ff49179e9663d120e03f"
+  },
+  {
+    "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests\\unit\\test_completed_native_inventory_v4_preparation.py -k snapshot_binding",
+    "exit_code": 0,
+    "log": "green-original-downstream-scalers-v4.log",
+    "result": "1 passed, 47 deselected in20.98s on closed bytes; whole43 reservation includes original frozen and direct endpoints without duplicate scaler files",
+    "witness": "be2a28",
+    "log_sha256": "3a7ec633a9586af999db583fb8503ff17b2e638a47f4db8e272fa9b911bb9294"
+  },
+  {
+    "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff check --no-cache tools\\prepare_completed_native_inventory_v4.py tools\\execute_completed_native_inventory_owned_v4.py tests\\unit\\test_completed_native_inventory_v4_preparation.py",
+    "exit_code": 1,
+    "log": "lint-initial-v4.log",
+    "result": "Import order and invalid-type exception lint; corrected",
+    "witness": "e0a550",
+    "log_sha256": "7e00fe6c75670bf42de5b3d9567bce0ecafbe9df99631c61d2847cb755f2d7c5"
+  },
+  {
+    "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff check --no-cache tools\\prepare_completed_native_inventory_v4.py tools\\execute_completed_native_inventory_owned_v4.py tests\\unit\\test_completed_native_inventory_v4_preparation.py",
+    "exit_code": 0,
+    "log": "lint-closed-v4.log",
+    "result": "All checks passed",
+    "witness": "f44d0d",
+    "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+  },
+  {
+    "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff format --check --no-cache tools\\prepare_completed_native_inventory_v4.py tools\\execute_completed_native_inventory_owned_v4.py tests\\unit\\test_completed_native_inventory_v4_preparation.py",
+    "exit_code": 0,
+    "log": "format-check-closed-v4.log",
+    "result": "3 files already formatted",
+    "witness": "f11e26",
+    "log_sha256": "eee76f865de5a9f2456950f710ae5d5f9b5bd0ea02aa54f614c5eed6642a0bfd"
+  }
+]

@@ -1,6 +1,6 @@
 ## Active model-first research — native acoustic SSL
 
-Updated 2026-09-30T20:40:06.748055+00:00.
+Updated 2026-09-30T22:37:04+00:00.
 
 Branch `research/marine-jepa-vnext`; owner-authorized local model research.
 App/release work is frozen; historical protocols, evidence and approved r3 are preserved.
@@ -29,8 +29,12 @@ the full owned artifact audit is NOT_RUN while training owns the scientific tree
 Three changed historical Python source versions were recovered by exact Git-blob
 hash and preserved separately; recovery grants no compatibility or review authority.
 Focused inventory checks passed73 tests, followed by10 archive-scope checks.
-An isolated builder is preparing versioned immutable ledger snapshots for the final
-43-neural/47-method inventory; missing methods remain required, never silently omitted.
+The isolated builder delivered versioned immutable ledger snapshots for the final
+43-neural/47-method inventory; ROOT48 tests passed with actual exit0 (CLI87149,
+chunk2c6560). The four non-neural references need separate ancestry audit metadata.
+The actual complete inventory is NOT_RUN; missing methods remain required.
+SSL23 has saved its6000-update encoder checkpoint; the final fresh readout and
+artifact export are active. Completion requires actual wrapper exit and cleanup.
 Original serial queue: COMPLETED_REVIEWED_SERIAL_QUEUE; 9/9 reports inspected.
 Charged owned GPU-hours at ledger snapshot: 14.953011/96.
 The active wrappers own ledger writes; coordinator does not overwrite live accounting.
