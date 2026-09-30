@@ -1,0 +1,138 @@
+{
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "builder_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "shell": "cmd.exe",
+  "scientific_artifact_access": false,
+  "fitting": false,
+  "gpu_execution": false,
+  "self_approval": false,
+  "checks": [
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q -s -p no:cacheprovider tests\\unit\\test_native_comparison.py",
+      "stage": "red_missing_module",
+      "exit_code": 2,
+      "log": "red-tests.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q -s -p no:cacheprovider tests\\unit\\test_native_comparison.py",
+      "stage": "first_attempt_virtual_missing_review_fixture_failure",
+      "exit_code": 1,
+      "passed": 44,
+      "failed": 1,
+      "log": "green-attempt-1.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q -s -p no:cacheprovider tests\\unit\\test_native_comparison.py",
+      "stage": "red_session_identity_adversaries",
+      "exit_code": 1,
+      "passed": 56,
+      "failed": 2,
+      "log": "red-adversaries.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q -s -p no:cacheprovider tests\\unit\\test_native_comparison.py",
+      "stage": "green",
+      "exit_code": 0,
+      "passed": 59,
+      "log": "green-tests.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q -s -p no:cacheprovider tests\\unit\\test_native_comparison.py",
+      "stage": "green_refactor",
+      "exit_code": 0,
+      "passed": 59,
+      "elapsed_seconds_reported_by_pytest": 24.03,
+      "log": "green-refactor.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff check --no-cache src\\marine_echo\\evaluation\\native_comparison.py tests\\unit\\test_native_comparison.py evidence\\ssl-comparison-builder-v1",
+      "stage": "final_lint",
+      "exit_code": 0,
+      "log": "lint-final.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff format --check --no-cache src\\marine_echo\\evaluation\\native_comparison.py tests\\unit\\test_native_comparison.py evidence\\ssl-comparison-builder-v1",
+      "stage": "final_format",
+      "exit_code": 0,
+      "log": "format-check-final.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B evidence\\ssl-comparison-builder-v1\\inspect_sources.py",
+      "stage": "source_import_hash_and_session_provenance",
+      "exit_code": 0,
+      "output": "source-provenance.json"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q -s -p no:cacheprovider tests\\unit\\test_native_comparison.py -k report_binds_each_method_label",
+      "stage": "red_method_label_artifact_provenance",
+      "exit_code": 1,
+      "failed": 1,
+      "log": "red-method-provenance.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q -s -p no:cacheprovider tests\\unit\\test_native_comparison.py",
+      "stage": "green_method_label_artifact_provenance",
+      "exit_code": 0,
+      "passed": 60,
+      "log": "green-handoff.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q -s -p no:cacheprovider tests\\unit\\test_native_comparison.py -k missing_floor_support",
+      "stage": "red_generated_not_run_replicate_counts",
+      "exit_code": 1,
+      "failed": 1,
+      "log": "red-replicate-counts.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q -s -p no:cacheprovider tests\\unit\\test_native_comparison.py",
+      "stage": "final_delivery_green",
+      "exit_code": 0,
+      "passed": 60,
+      "elapsed_seconds_reported_by_pytest": 25.25,
+      "log": "green-delivery.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff check --no-cache src\\marine_echo\\evaluation\\native_comparison.py tests\\unit\\test_native_comparison.py evidence\\ssl-comparison-builder-v1",
+      "stage": "delivery_lint",
+      "exit_code": 0,
+      "log": "lint-delivery.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff format --check --no-cache src\\marine_echo\\evaluation\\native_comparison.py tests\\unit\\test_native_comparison.py evidence\\ssl-comparison-builder-v1",
+      "stage": "delivery_format",
+      "exit_code": 0,
+      "log": "format-check-delivery.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B evidence\\ssl-comparison-builder-v1\\inspect_sources.py",
+      "stage": "delivery_source_import_provenance",
+      "exit_code": 0,
+      "output": "final-source-provenance.json"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff check --no-cache src\\marine_echo\\evaluation\\native_comparison.py tests\\unit\\test_native_comparison.py evidence\\ssl-comparison-builder-v1",
+      "stage": "whole_handoff_lint",
+      "exit_code": 0,
+      "log": "lint-complete.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff format --check --no-cache src\\marine_echo\\evaluation\\native_comparison.py tests\\unit\\test_native_comparison.py evidence\\ssl-comparison-builder-v1",
+      "stage": "whole_handoff_format",
+      "exit_code": 0,
+      "log": "format-check-complete.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B evidence\\ssl-comparison-builder-v1\\verify_handoff.py",
+      "stage": "handoff_bytes_verification_not_independent_review",
+      "exit_code": 0,
+      "output": "handoff-verification.json"
+    }
+  ],
+  "remaining": {
+    "durable_disk_fixture_verification": "NOT_RUN_ROOT_OWNED",
+    "distinct_scientific_review_and_protocol_adoption": "PENDING_ROOT_OWNED",
+    "actual_development_reconstruction": "NOT_RUN_ROOT_OWNED",
+    "actual_final_assessment": "NOT_RUN_ROOT_OWNED",
+    "commit": "NOT_ATTEMPTED_OWNER_PROHIBITS_GIT_INDEX_RETRY"
+  }
+}

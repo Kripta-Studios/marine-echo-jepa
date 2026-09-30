@@ -1,0 +1,405 @@
+FF.F.F.FFFFFFF
+================================== FAILURES ===================================
+_ test_schema_v3_neural_target_mask_matches_reference_metrics_support_and_bootstrap _
+
+case = (<test_native_comparison.MemoryArtifacts object at 0x000001B721750080>, WindowsPath('C:/Users/Álvaro Schwiedop/Desktop...opment'], 'reviewer_session_id': 'fixture-distinct-reviewer', 'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', ...}, ...)
+
+    def test_schema_v3_neural_target_mask_matches_reference_metrics_support_and_bootstrap(case):
+        baseline = run(case)
+        fs, _, _, output, _, _, paths, a, b, refresh = case
+        del fs.files[output]
+        neural = neural_schema(b)
+        before = {k: v.copy() for k, v in neural.items()}
+        refresh(a, neural)
+        payload = fs.files[paths["candidate"]]
+>       result = run(case)
+                 ^^^^^^^^^
+
+tests\unit\test_native_comparison.py:729: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\unit\test_native_comparison.py:192: in run
+    result = api.compare_saved_predictions(manifest, review, output)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\evaluation\native_comparison.py:497: in compare_saved_predictions
+    name: _load(snapshots[paths[name]], manifest["role"], manifest["evidence_kind"])
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+payload = b'PK\x03\x04-\x00\x00\x00\x08\x00\x00\x00!\x00\x9dr\xf9;\xff\xff\xff\xff\xff\xff\xff\xff\x0f\x00\x14\x00predictions.np...00\x00\x80\x011\x1d\x00\x00horizons.npyPK\x05\x06\x00\x00\x00\x00\x12\x00\x12\x00_\x04\x00\x00\xbc\x1d\x00\x00\x00\x00'
+role = 'development', evidence_kind = 'SYNTHETIC_CORRECTNESS_ONLY'
+
+    def _load(payload, role, evidence_kind):
+        with np.load(io.BytesIO(payload), allow_pickle=False) as saved:
+            if not REQUIRED.issubset(saved.files) or {
+                "x",
+                "future",
+                "future_observed",
+                "encoder",
+                "weights",
+            }.intersection(saved.files):
+>               raise ValueError("Expected saved forecasts/support, never corpus or model inputs.")
+E               ValueError: Expected saved forecasts/support, never corpus or model inputs.
+
+src\marine_echo\evaluation\native_comparison.py:210: ValueError
+_________ test_schema_v3_equal_dual_masks_retain_original_field_trace _________
+
+case = (<test_native_comparison.MemoryArtifacts object at 0x000001B721996A50>, WindowsPath('C:/Users/Álvaro Schwiedop/Desktop...opment'], 'reviewer_session_id': 'fixture-distinct-reviewer', 'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', ...}, ...)
+
+    def test_schema_v3_equal_dual_masks_retain_original_field_trace(case):
+        *_, a, b, refresh = case
+        b = neural_schema(b)
+        b["observed"] = b["target_observed"].copy()
+        refresh(a, b)
+        result = run(case)
+>       assert result["methods"]["candidate"]["forecast_mask_provenance"] == {
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            "original_fields": ["observed", "target_observed"],
+            "canonical_field": "observed",
+            "canonicalized_from": None,
+            "equal_dual_masks": True,
+        }
+E       KeyError: 'forecast_mask_provenance'
+
+tests\unit\test_native_comparison.py:754: KeyError
+_ test_schema_v3_bad_dual_masks_rejected_before_scoring[dtype-target_observed] _
+
+case = (<test_native_comparison.MemoryArtifacts object at 0x000001B721995580>, WindowsPath('C:/Users/Álvaro Schwiedop/Desktop...opment'], 'reviewer_session_id': 'fixture-distinct-reviewer', 'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', ...}, ...)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001B721996030>
+field = 'target_observed', change = 'dtype'
+
+    @pytest.mark.parametrize("field", ["observed", "target_observed"])
+    @pytest.mark.parametrize("change", ["dtype", "shape", "context_shape", "values"])
+    def test_schema_v3_bad_dual_masks_rejected_before_scoring(case, monkeypatch, field, change):
+        *_, a, b, refresh = case
+        b = neural_schema(b)
+        b["observed"] = b["target_observed"].copy()
+        if change == "dtype":
+            b[field] = b[field].astype(np.int8)
+        elif change == "shape":
+            b[field] = b[field][:, :2]
+        elif change == "context_shape":
+            b[field] = b["context_observed"].copy()
+        else:
+            b[field][0, 0] = ~b[field][0, 0]
+        refresh(a, b)
+        monkeypatch.setattr(native_product, "native_scores", lambda *a, **k: pytest.fail("Malformed/conflicting masks reached scoring."))
+        with pytest.raises(ValueError, match="mask"):
+>           run(case)
+
+tests\unit\test_native_comparison.py:780: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\unit\test_native_comparison.py:192: in run
+    result = api.compare_saved_predictions(manifest, review, output)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\evaluation\native_comparison.py:506: in compare_saved_predictions
+    metrics = native_product.native_scores(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+a = (array([[[-82. , -80. , -78. , -76. , -74. ],
+        [-79.5, -77.5, -75.5, -73.5, -71.5],
+        [-76. , -74. , -72....
+       'site-B', 'site-B', 'site-B', 'site-B', 'site-B', 'site-B',
+       'site-B', 'site-B', 'site-B'], dtype='<U6'))
+k = {'minimum_daily_rows': 18}
+
+>   monkeypatch.setattr(native_product, "native_scores", lambda *a, **k: pytest.fail("Malformed/conflicting masks reached scoring."))
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: Malformed/conflicting masks reached scoring.
+
+tests\unit\test_native_comparison.py:778: Failed
+_ test_schema_v3_bad_dual_masks_rejected_before_scoring[shape-target_observed] _
+
+case = (<test_native_comparison.MemoryArtifacts object at 0x000001B721A7CF20>, WindowsPath('C:/Users/Álvaro Schwiedop/Desktop...opment'], 'reviewer_session_id': 'fixture-distinct-reviewer', 'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', ...}, ...)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001B721A7CB60>
+field = 'target_observed', change = 'shape'
+
+    @pytest.mark.parametrize("field", ["observed", "target_observed"])
+    @pytest.mark.parametrize("change", ["dtype", "shape", "context_shape", "values"])
+    def test_schema_v3_bad_dual_masks_rejected_before_scoring(case, monkeypatch, field, change):
+        *_, a, b, refresh = case
+        b = neural_schema(b)
+        b["observed"] = b["target_observed"].copy()
+        if change == "dtype":
+            b[field] = b[field].astype(np.int8)
+        elif change == "shape":
+            b[field] = b[field][:, :2]
+        elif change == "context_shape":
+            b[field] = b["context_observed"].copy()
+        else:
+            b[field][0, 0] = ~b[field][0, 0]
+        refresh(a, b)
+        monkeypatch.setattr(native_product, "native_scores", lambda *a, **k: pytest.fail("Malformed/conflicting masks reached scoring."))
+        with pytest.raises(ValueError, match="mask"):
+>           run(case)
+
+tests\unit\test_native_comparison.py:780: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\unit\test_native_comparison.py:192: in run
+    result = api.compare_saved_predictions(manifest, review, output)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\evaluation\native_comparison.py:506: in compare_saved_predictions
+    metrics = native_product.native_scores(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+a = (array([[[-82. , -80. , -78. , -76. , -74. ],
+        [-79.5, -77.5, -75.5, -73.5, -71.5],
+        [-76. , -74. , -72....
+       'site-B', 'site-B', 'site-B', 'site-B', 'site-B', 'site-B',
+       'site-B', 'site-B', 'site-B'], dtype='<U6'))
+k = {'minimum_daily_rows': 18}
+
+>   monkeypatch.setattr(native_product, "native_scores", lambda *a, **k: pytest.fail("Malformed/conflicting masks reached scoring."))
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: Malformed/conflicting masks reached scoring.
+
+tests\unit\test_native_comparison.py:778: Failed
+_ test_schema_v3_bad_dual_masks_rejected_before_scoring[context_shape-target_observed] _
+
+case = (<test_native_comparison.MemoryArtifacts object at 0x000001B750C71730>, WindowsPath('C:/Users/Álvaro Schwiedop/Desktop...opment'], 'reviewer_session_id': 'fixture-distinct-reviewer', 'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', ...}, ...)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001B750C70FB0>
+field = 'target_observed', change = 'context_shape'
+
+    @pytest.mark.parametrize("field", ["observed", "target_observed"])
+    @pytest.mark.parametrize("change", ["dtype", "shape", "context_shape", "values"])
+    def test_schema_v3_bad_dual_masks_rejected_before_scoring(case, monkeypatch, field, change):
+        *_, a, b, refresh = case
+        b = neural_schema(b)
+        b["observed"] = b["target_observed"].copy()
+        if change == "dtype":
+            b[field] = b[field].astype(np.int8)
+        elif change == "shape":
+            b[field] = b[field][:, :2]
+        elif change == "context_shape":
+            b[field] = b["context_observed"].copy()
+        else:
+            b[field][0, 0] = ~b[field][0, 0]
+        refresh(a, b)
+        monkeypatch.setattr(native_product, "native_scores", lambda *a, **k: pytest.fail("Malformed/conflicting masks reached scoring."))
+        with pytest.raises(ValueError, match="mask"):
+>           run(case)
+
+tests\unit\test_native_comparison.py:780: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\unit\test_native_comparison.py:192: in run
+    result = api.compare_saved_predictions(manifest, review, output)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\evaluation\native_comparison.py:506: in compare_saved_predictions
+    metrics = native_product.native_scores(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+a = (array([[[-82. , -80. , -78. , -76. , -74. ],
+        [-79.5, -77.5, -75.5, -73.5, -71.5],
+        [-76. , -74. , -72....
+       'site-B', 'site-B', 'site-B', 'site-B', 'site-B', 'site-B',
+       'site-B', 'site-B', 'site-B'], dtype='<U6'))
+k = {'minimum_daily_rows': 18}
+
+>   monkeypatch.setattr(native_product, "native_scores", lambda *a, **k: pytest.fail("Malformed/conflicting masks reached scoring."))
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: Malformed/conflicting masks reached scoring.
+
+tests\unit\test_native_comparison.py:778: Failed
+___ test_schema_v3_bad_dual_masks_rejected_before_scoring[values-observed] ____
+
+case = (<test_native_comparison.MemoryArtifacts object at 0x000001B721994DD0>, WindowsPath('C:/Users/Álvaro Schwiedop/Desktop...opment'], 'reviewer_session_id': 'fixture-distinct-reviewer', 'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', ...}, ...)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001B72166F380>
+field = 'observed', change = 'values'
+
+    @pytest.mark.parametrize("field", ["observed", "target_observed"])
+    @pytest.mark.parametrize("change", ["dtype", "shape", "context_shape", "values"])
+    def test_schema_v3_bad_dual_masks_rejected_before_scoring(case, monkeypatch, field, change):
+        *_, a, b, refresh = case
+        b = neural_schema(b)
+        b["observed"] = b["target_observed"].copy()
+        if change == "dtype":
+            b[field] = b[field].astype(np.int8)
+        elif change == "shape":
+            b[field] = b[field][:, :2]
+        elif change == "context_shape":
+            b[field] = b["context_observed"].copy()
+        else:
+            b[field][0, 0] = ~b[field][0, 0]
+        refresh(a, b)
+        monkeypatch.setattr(native_product, "native_scores", lambda *a, **k: pytest.fail("Malformed/conflicting masks reached scoring."))
+>       with pytest.raises(ValueError, match="mask"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'mask'
+E         Actual message: 'Common support differs: observed; intersections are forbidden.'
+
+tests\unit\test_native_comparison.py:779: AssertionError
+_ test_schema_v3_bad_dual_masks_rejected_before_scoring[values-target_observed] _
+
+case = (<test_native_comparison.MemoryArtifacts object at 0x000001B721994830>, WindowsPath('C:/Users/Álvaro Schwiedop/Desktop...opment'], 'reviewer_session_id': 'fixture-distinct-reviewer', 'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', ...}, ...)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001B721995850>
+field = 'target_observed', change = 'values'
+
+    @pytest.mark.parametrize("field", ["observed", "target_observed"])
+    @pytest.mark.parametrize("change", ["dtype", "shape", "context_shape", "values"])
+    def test_schema_v3_bad_dual_masks_rejected_before_scoring(case, monkeypatch, field, change):
+        *_, a, b, refresh = case
+        b = neural_schema(b)
+        b["observed"] = b["target_observed"].copy()
+        if change == "dtype":
+            b[field] = b[field].astype(np.int8)
+        elif change == "shape":
+            b[field] = b[field][:, :2]
+        elif change == "context_shape":
+            b[field] = b["context_observed"].copy()
+        else:
+            b[field][0, 0] = ~b[field][0, 0]
+        refresh(a, b)
+        monkeypatch.setattr(native_product, "native_scores", lambda *a, **k: pytest.fail("Malformed/conflicting masks reached scoring."))
+        with pytest.raises(ValueError, match="mask"):
+>           run(case)
+
+tests\unit\test_native_comparison.py:780: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\unit\test_native_comparison.py:192: in run
+    result = api.compare_saved_predictions(manifest, review, output)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\evaluation\native_comparison.py:506: in compare_saved_predictions
+    metrics = native_product.native_scores(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+a = (array([[[-82. , -80. , -78. , -76. , -74. ],
+        [-79.5, -77.5, -75.5, -73.5, -71.5],
+        [-76. , -74. , -72....
+       'site-B', 'site-B', 'site-B', 'site-B', 'site-B', 'site-B',
+       'site-B', 'site-B', 'site-B'], dtype='<U6'))
+k = {'minimum_daily_rows': 18}
+
+>   monkeypatch.setattr(native_product, "native_scores", lambda *a, **k: pytest.fail("Malformed/conflicting masks reached scoring."))
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: Malformed/conflicting masks reached scoring.
+
+tests\unit\test_native_comparison.py:778: Failed
+_ test_schema_v3_context_mask_never_substitutes_for_forecast_labels[missing] __
+
+case = (<test_native_comparison.MemoryArtifacts object at 0x000001B7215BDC40>, WindowsPath('C:/Users/Álvaro Schwiedop/Desktop...opment'], 'reviewer_session_id': 'fixture-distinct-reviewer', 'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', ...}, ...)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001B721994AA0>
+change = 'missing'
+
+    @pytest.mark.parametrize("change", ["missing", "dtype", "shape"])
+    def test_schema_v3_context_mask_never_substitutes_for_forecast_labels(case, monkeypatch, change):
+        *_, a, b, refresh = case
+        b = neural_schema(b)
+        if change == "missing":
+            del b["target_observed"]
+        elif change == "dtype":
+            b["target_observed"] = b["target_observed"].astype(np.int8)
+        else:
+            b["target_observed"] = b["context_observed"].copy()
+        refresh(a, b)
+        monkeypatch.setattr(native_product, "native_scores", lambda *a, **k: pytest.fail("Context mask reached forecast scoring."))
+>       with pytest.raises(ValueError, match="mask"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'mask'
+E         Actual message: 'Expected saved forecasts/support, never corpus or model inputs.'
+
+tests\unit\test_native_comparison.py:795: AssertionError
+__ test_schema_v3_context_mask_never_substitutes_for_forecast_labels[dtype] ___
+
+case = (<test_native_comparison.MemoryArtifacts object at 0x000001B7217518B0>, WindowsPath('C:/Users/Álvaro Schwiedop/Desktop...opment'], 'reviewer_session_id': 'fixture-distinct-reviewer', 'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', ...}, ...)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001B7217538F0>
+change = 'dtype'
+
+    @pytest.mark.parametrize("change", ["missing", "dtype", "shape"])
+    def test_schema_v3_context_mask_never_substitutes_for_forecast_labels(case, monkeypatch, change):
+        *_, a, b, refresh = case
+        b = neural_schema(b)
+        if change == "missing":
+            del b["target_observed"]
+        elif change == "dtype":
+            b["target_observed"] = b["target_observed"].astype(np.int8)
+        else:
+            b["target_observed"] = b["context_observed"].copy()
+        refresh(a, b)
+        monkeypatch.setattr(native_product, "native_scores", lambda *a, **k: pytest.fail("Context mask reached forecast scoring."))
+>       with pytest.raises(ValueError, match="mask"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'mask'
+E         Actual message: 'Expected saved forecasts/support, never corpus or model inputs.'
+
+tests\unit\test_native_comparison.py:795: AssertionError
+__ test_schema_v3_context_mask_never_substitutes_for_forecast_labels[shape] ___
+
+case = (<test_native_comparison.MemoryArtifacts object at 0x000001B7215BDF10>, WindowsPath('C:/Users/Álvaro Schwiedop/Desktop...opment'], 'reviewer_session_id': 'fixture-distinct-reviewer', 'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', ...}, ...)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001B750C73FB0>
+change = 'shape'
+
+    @pytest.mark.parametrize("change", ["missing", "dtype", "shape"])
+    def test_schema_v3_context_mask_never_substitutes_for_forecast_labels(case, monkeypatch, change):
+        *_, a, b, refresh = case
+        b = neural_schema(b)
+        if change == "missing":
+            del b["target_observed"]
+        elif change == "dtype":
+            b["target_observed"] = b["target_observed"].astype(np.int8)
+        else:
+            b["target_observed"] = b["context_observed"].copy()
+        refresh(a, b)
+        monkeypatch.setattr(native_product, "native_scores", lambda *a, **k: pytest.fail("Context mask reached forecast scoring."))
+>       with pytest.raises(ValueError, match="mask"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'mask'
+E         Actual message: 'Expected saved forecasts/support, never corpus or model inputs.'
+
+tests\unit\test_native_comparison.py:795: AssertionError
+_ test_schema_v3_optional_array_descriptors_are_bounded_exact_and_not_metric_compression _
+
+case = (<test_native_comparison.MemoryArtifacts object at 0x000001B750C736E0>, WindowsPath('C:/Users/Álvaro Schwiedop/Desktop...opment'], 'reviewer_session_id': 'fixture-distinct-reviewer', 'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', ...}, ...)
+
+    def test_schema_v3_optional_array_descriptors_are_bounded_exact_and_not_metric_compression(case):
+        baseline = run(case)
+        fs, _, _, output, _, _, _, a, b, refresh = case
+        del fs.files[output]
+        b = neural_schema(b)
+        # Over a million Boolean cells; unrelated optional provenance cannot affect support.
+        b["optional_synthetic_mask_archive"] = np.ones((4096, 96, 4), dtype=bool)
+        refresh(a, b)
+>       result = run(case)
+                 ^^^^^^^^^
+
+tests\unit\test_native_comparison.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\unit\test_native_comparison.py:192: in run
+    result = api.compare_saved_predictions(manifest, review, output)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\evaluation\native_comparison.py:497: in compare_saved_predictions
+    name: _load(snapshots[paths[name]], manifest["role"], manifest["evidence_kind"])
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+payload = b'PK\x03\x04-\x00\x00\x00\x08\x00\x00\x00!\x00\x9dr\xf9;\xff\xff\xff\xff\xff\xff\xff\xff\x0f\x00\x14\x00predictions.np...x00\x00optional_synthetic_mask_archive.npyPK\x05\x06\x00\x00\x00\x00\x13\x00\x13\x00\xb0\x04\x00\x00m$\x00\x00\x00\x00'
+role = 'development', evidence_kind = 'SYNTHETIC_CORRECTNESS_ONLY'
+
+    def _load(payload, role, evidence_kind):
+        with np.load(io.BytesIO(payload), allow_pickle=False) as saved:
+            if not REQUIRED.issubset(saved.files) or {
+                "x",
+                "future",
+                "future_observed",
+                "encoder",
+                "weights",
+            }.intersection(saved.files):
+>               raise ValueError("Expected saved forecasts/support, never corpus or model inputs.")
+E               ValueError: Expected saved forecasts/support, never corpus or model inputs.
+
+src\marine_echo\evaluation\native_comparison.py:210: ValueError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_comparison.py::test_schema_v3_neural_target_mask_matches_reference_metrics_support_and_bootstrap
+FAILED tests/unit/test_native_comparison.py::test_schema_v3_equal_dual_masks_retain_original_field_trace
+FAILED tests/unit/test_native_comparison.py::test_schema_v3_bad_dual_masks_rejected_before_scoring[dtype-target_observed]
+FAILED tests/unit/test_native_comparison.py::test_schema_v3_bad_dual_masks_rejected_before_scoring[shape-target_observed]
+FAILED tests/unit/test_native_comparison.py::test_schema_v3_bad_dual_masks_rejected_before_scoring[context_shape-target_observed]
+FAILED tests/unit/test_native_comparison.py::test_schema_v3_bad_dual_masks_rejected_before_scoring[values-observed]
+FAILED tests/unit/test_native_comparison.py::test_schema_v3_bad_dual_masks_rejected_before_scoring[values-target_observed]
+FAILED tests/unit/test_native_comparison.py::test_schema_v3_context_mask_never_substitutes_for_forecast_labels[missing]
+FAILED tests/unit/test_native_comparison.py::test_schema_v3_context_mask_never_substitutes_for_forecast_labels[dtype]
+FAILED tests/unit/test_native_comparison.py::test_schema_v3_context_mask_never_substitutes_for_forecast_labels[shape]
+FAILED tests/unit/test_native_comparison.py::test_schema_v3_optional_array_descriptors_are_bounded_exact_and_not_metric_compression
+11 failed, 3 passed, 68 deselected in 10.64s

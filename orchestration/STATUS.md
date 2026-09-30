@@ -1,86 +1,48 @@
-## Active model-first research — native acoustic SSL, 30 September 2026
+## Active model-first research — native acoustic SSL
 
-The owner activated the new model-first mission on `research/marine-jepa-vnext`.
-App/release work is frozen. Historical protocols, evidence and approved r3 remain
-preserved. The current research authorization supersedes historical meeting-only
-and diagnostic-only priorities for this separately versioned study.
+Updated 2026-09-30T04:23:27.892838+00:00.
 
-Seven exact local archives are reserved before new model scores: AEON2 whole-site
-final assessment; the latest AEON4 deployment for development; earlier AEON4 and
-declared AEON3 TRAIN dates for fitting. Distinct numerical-access review approved
-the repaired native-geometry contract. Real materialization completed with18,593
-TRAIN windows (18,312 SSL eligible) and7,593 development windows, peak RSS4.04GiB.
-Final-test values remain unopened. New weights/scalers start without fitted
-ancestors. Native products retain their actual200/220/225/230m bounds.
+Branch `research/marine-jepa-vnext`; owner-authorized local model research.
+App/release work is frozen; historical protocols, evidence and approved r3 are preserved.
+AEON2 whole-site final-test values remain unopened. Native geometry is retained.
+TRAIN18,593 issued/18,312 SSL eligible; DEV7,593 issued at native0–225m.
+Three distinct verified GPT-6.1 Sol/high sessions perform coordination, implementation and review.
+Builder scratch/Git and junction restrictions have not been bypassed.
 
-Shared temporal SSL, source-grounded author-zone CF-JEPA, matched direct and
-masked SSL, random and pairing-permuted controls are implemented. The shared
-model has2,457,621 parameters. Parent verification passed34 durable model/runner
-tests and22 data/metric/reference tests; the subsequent operational repair suite
-passed49 checks including native inference and process ownership. Exact first-screen schedules/configs
-are frozen under ADR0016 with four matched checkpoint opportunities and bounded
-readout updates. The distinct model-prefit review approved the six bound screens
-and deterministic references; all73 exact bindings passed. A fixed Windows desktop
-allowlist repairs the WDDM guard; strict baseline scoring now rejects nonfinite
-outputs instead of reducing assessment support. These renewed bindings are now
-approved. The first CUDA attempt exited1 before optimizer updates because its
-device needed an explicit index. The preserved retry uses unchanged approved
-code/configuration with `cuda:0`. This real job completed exit0:6000 SSL updates
-and2000 total frozen-probe updates. Final selected encoder step4500, daily
-development pinball0.8246468454704822, peak reserved0.2305GiB and RSS4.821GiB,
-synchronized device-owned elapsed3371.063seconds. Real pretrained weights,
-resumable checkpoints and reusable inference exist. Controls and strong readouts
-are needed before any JEPA-value claim. Completed
-deterministic development references: persistence0.989176 and seasonal24
-1.031738dB pinball. These are development values, not final-test results.
-The bounded downstream builder delivered37 CPU checks; coordinator reproduced
-and repaired4 contract issues, then passed41 durable CPU checks. The downstream
-CLI device index fix separately passed its focused check. Strong downstream
-fitting remains NOT_RUN. CF first backward failed before optimizer updates on
-deterministic CUDA adaptive pooling. LightGBM failed saving its first booster
-under the Unicode checkout. Both failures are preserved. The supervisor's former
-launcher-only RAM observation missed the Windows interpreter child; a real tree
-test reproduced the defect and five checks now pass with descendant monitoring
-and owned-tree termination. The bounded platform builder delivered equivalent
-pooling and Python UTF-8 booster serialization. Parent127 CPU checks and34 core
-regression checks passed; actual deterministic CUDA backward replay passed with
-zero optimizer updates. Distinct neural reviewV3 approved the remaining five
-screens and all104 exact bindings passed. The CF retry completed exit0 through
-the bound indexed-device wrapper and owned-tree supervisor:6000 SSL updates and
-2000 frozen-probe updates, selected encoder step1500 at0.745726589903934 daily
-development pinball. Device-owned elapsed4727.313seconds; full attempt4743.094
-seconds charged. Peak allocated1,075,154,432/reserved1,235,222,528bytes; conservative
-owned-tree peak RSS5,275,938,816bytes. Actual128-dimensional encoder features replay
-bit-identically on64 DEV prefixes through the encoder-only CPU API; forecast
-replay maximum absolute CPU/CUDA difference0.000106812dB passes the fixed tolerances.
-Comparator renewalV3 approved LightGBM and local Chronos2, with130 exact bindings
-verified. Separate downstream prefit approved the actual shared encoder's fresh
-2000-update frozen readout and3000-update full fine-tuning, plus a matched
-3000-update supervised trajectory from scratch; all83 bindings passed. These
-strong endpoint fits remain NOT_RUN while CF owns the scientific process.
-The new encoder-only API passed81 parent CPU checks and reproduced the actual
-shared pretrained features bit-identically on64 real development prefixes using
-only context values, masks and native metadata. Separate inference review passed
-all81 synthetic CPU checks and approved this interface; all57 exact bindings
-were verified. Nine already reviewed comparisons/endpoints are frozen in the
-serial queue; required wrappers recheck every approval/ownership/resource binding
-at launch and stop the queue on failure. Additional control/CF downstream configs
-are frozen before their fits but still require exact completed-parent reviews.
-The unexecuted comparison draft is preserved; its coordinator recipe error is
-being corrected to ADR0015's48-hour nominal source-calendar blocks/seed20260929.
-Actual primary, builder
-and reviewer runtime is GPT-6.1 Sol/high in three distinct sessions. Builder
-scratch/Git denials are retained; no restricted path or denied junction action
-was bypassed. Coordinator integration used new paths in its own checkout.
+Completed real SSL: shared6000+2000 probes, CF6000+2000, masked6000+2000.
+Shared selected4500; CF/masked selected1500. Real safe weights and context-only inference exist.
+Strong shared frozen2000/full3000 and matched scratch supervised3000 completed.
+LightGBM15 quantile boosters and deterministic persistence/seasonal references completed.
+Shared/CF encoder CPU replay and LightGBM all15-booster CPU replay passed.
+Independent learning-path audit found no defect within inspected scope.
 
-Next: complete the reviewed CF-JEPA trajectory and matched real
-comparisons, stronger frozen readouts, held-out transfer and scientific package.
-This is an active research programme, not another app or meeting deliverable.
-Ledger: `orchestration/native_ssl_run_ledger_v1.json`; evidence:
-`evidence/ssl-research-v1/`. Real SSL checkpoints exist; a completed comparative
-model package, held-out result and SOTA claim remain unestablished.
+Active scientific job: permuted_ssl_seed7_h96_reviewed.
+Original serial queue: RUNNING; 5/9 reports inspected.
+Charged owned GPU-hours at ledger snapshot: 3.274596/96.
+The active wrappers own ledger writes; coordinator does not overwrite live accounting.
+CF strong frozen/full endpoints have separate completed-parent89-binding prefit approval, pending serial execution.
+Other strong control endpoints require their completed-parent review before fitting.
 
-Current scientific process: none; all prior attempts journalled.
+Exact eight-method DEV reconstruction passed all58 bindings and actual execution exit0.
+Common support:7,593 issued;7,581/7,557/7,521 targets;316 eligible dates per horizon.
+Recomputed daily pinball: LightGBM0.505274; CF short probe0.745727; direct0.765185;
+shared full0.772594; shared frozen0.785715; shared short0.824647;
+persistence0.989176; seasonal1.031738dB. Short probes are not strong matched endpoints.
+All forecasts vary across issuance. Paired2000-draw48-nominal-hour DEV intervals favour LightGBM.
+These conditional single-deployment development results do not establish JEPA-value or SOTA.
+A distinct actual numerical reconstruction is in progress; final-test evidence is NOT_RUN.
+
+One parameter-free per-channel GELU revision is proposed under ADR0020 after a synthetic
+frequency-cancellation proof. Its code, budget interpretation and source-prefit remain pending.
+The proof does not identify the cause of the real score gap. No revision fit is authorized yet.
+The proposal explicitly lists11 total seed7 recipes versus three A/B configurations;
+the reviewer must resolve the finite-screen interpretation before any revised training.
+No history24/latent128/extra architecture or final numerical access is approved.
+
+Next: finish serial controls/Chronos, execute separately approved CF endpoints, review strong
+controls/revision, freeze bounded finalists and evaluation before held-out AEON2 assessment.
+Complete the model-only package, provenance, independent result review and scientific report.
+Cloud disabled; local paid spend0; software/experiment/JEPA-value/business gates remain separate.
 
 All historical status content follows intact.
 

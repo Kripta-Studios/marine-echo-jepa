@@ -1,0 +1,21 @@
+TRY004 Prefer `TypeError` exception for invalid type
+  --> src\marine_echo\evaluation\native_comparison.py:62:9
+   |
+60 |     value = json.loads(raw.decode("utf-8"), object_pairs_hook=_pairs)
+61 |     if not isinstance(value, dict):
+62 |         raise ValueError("Manifest/review must be JSON objects.")
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+63 |     return value, raw
+   |
+
+B023 Function definition does not bind loop variable `anchor`
+   --> src\marine_echo\evaluation\native_comparison.py:336:68
+    |
+335 |         def block(value):
+336 |             return (date.fromisoformat(value) - date.fromisoformat(anchor)).days // 7
+    |                                                                    ^^^^^^
+337 |
+338 |         ids = sorted({block(v) for v in observed_dates})
+    |
+
+Found 2 errors.

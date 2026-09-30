@@ -1,0 +1,89 @@
+....................F........................
+================================== FAILURES ===================================
+_ test_review_and_prespecification_gates_precede_numeric_loading[missing_review] _
+
+case = (<test_native_comparison.MemoryArtifacts object at 0x000002028C9D8B60>, WindowsPath('C:/Users/Álvaro Schwiedop/Desktop...opment'], 'reviewer_session_id': 'fixture-distinct-reviewer', 'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', ...}, ...)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002028C9D8B30>
+change = 'missing_review'
+
+    @pytest.mark.parametrize("change", ["missing_review", "status", "self", "root", "declared", "role", "final_role", "final_status", "missing_source", "stale_source", "stale_manifest", "stale_npz", "stale_protocol", "seed", "replicates", "block", "floor", "reference", "evidence_kind", "output_exists"])
+    def test_review_and_prespecification_gates_precede_numeric_loading(case, monkeypatch, change):
+        fs, manifest_path, review_path, output, manifest, review, paths, a, b, refresh = case
+        if change == "missing_review":
+            del fs.files[review_path]
+        elif change == "status":
+            review["status"] = "APPROVED_PREFIT"
+        elif change in ("self", "root", "declared"):
+            review["reviewer_session_id"] = {"self": api.IMPLEMENTER_SESSION_ID, "root": manifest["root_coordinator_session_id"], "declared": manifest["implementer_session_id"]}[change]
+        elif change in ("role", "final_role", "final_status"):
+            if change == "role":
+                review["allowed_roles"] = []
+            else:
+                manifest["role"] = "final_test"
+                refresh(a, b)
+                if change == "final_role":
+                    review["status"] = "APPROVED_FINAL_ASSESSMENT"
+        elif change in ("missing_source", "stale_source"):
+            key = str(Path(native_product.__file__).resolve())
+            if change == "missing_source":
+                del review["bindings"][key]
+            else:
+                review["bindings"][key] = "0" * 64
+        elif change == "stale_manifest":
+            fs.files[manifest_path] += b" "
+        elif change == "stale_npz":
+            fs.files[paths["candidate"]] += b" "
+        elif change == "stale_protocol":
+            protocol = EVIDENCE / "SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL/protocol.json"
+            fs.put_json(protocol, {"fixture": "SYNTHETIC_CORRECTNESS_ONLY"})
+            manifest["scientific_protocol_path"] = str(protocol)
+            refresh(a, b)
+            fs.files[protocol] += b" "
+        elif change in ("seed", "replicates", "block", "floor", "reference"):
+            key, value = {"seed": ("bootstrap_seed", 7), "replicates": ("bootstrap_replicates", 1), "block": ("block_days", 8), "floor": ("floor", 1), "reference": ("reference", "absent")}[change]
+            manifest[key] = value
+            refresh(a, b)
+        elif change == "evidence_kind":
+            review["evidence_kind"] = "REVIEWED_SAVED_PREDICTIONS"
+        else:
+            fs.files[output] = b"do not overwrite"
+        if change != "missing_review":
+            fs.put_json(review_path, review)
+        monkeypatch.setattr(np, "load", lambda *a, **k: pytest.fail("Numeric loading occurred before a rejected gate."))
+        with pytest.raises((ValueError, FileNotFoundError, FileExistsError)):
+>           api.compare_saved_predictions(manifest_path, review_path, output)
+
+tests\unit\test_native_comparison.py:284: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\marine_echo\evaluation\native_comparison.py:325: in compare_saved_predictions
+    manifest, paths, snapshots, provenance = _admit(manifest_path, review_path, output_path)
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\evaluation\native_comparison.py:73: in _admit
+    review, review_bytes = _read_json(review_path)
+                           ^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\evaluation\native_comparison.py:50: in _read_json
+    raw = path.read_bytes()
+          ^^^^^^^^^^^^^^^^^
+tests\unit\test_native_comparison.py:43: in read
+    return original_read(path)
+           ^^^^^^^^^^^^^^^^^^^
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:1019: in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/evidence/ssl-comparison-builder-v1/SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL/review.json')
+mode = 'rb', args = (), kwargs = {}
+
+    def opened(path, mode="r", *args, **kwargs):
+        if path.is_relative_to(EVIDENCE):
+>           assert mode == "x" and path not in self.files
+E           AssertionError: assert ('rb' == 'x'
+E             
+E             - x
+E             + rb)
+
+tests\unit\test_native_comparison.py:55: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_comparison.py::test_review_and_prespecification_gates_precede_numeric_loading[missing_review]
+1 failed, 44 passed in 77.80s (0:01:17)

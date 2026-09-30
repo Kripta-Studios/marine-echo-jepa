@@ -1,0 +1,13 @@
+RUF059 Unpacked variable `fs` is never used
+   --> tests\unit\test_native_comparison.py:693:5
+    |
+692 | def test_protocol_v2_rejects_legacy_seven_day_1729_before_numeric_loading(case, monkeypatch):
+693 |     fs, manifest_path, review_path, output, manifest, _, _, a, b, refresh = case
+    |     ^^
+694 |     manifest.update(bootstrap_seed=1729, block_days=7, block_hours=168)
+695 |     refresh(a, b)
+    |
+help: Prefix it with an underscore or any other dummy variable pattern
+
+Found 1 error.
+No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).

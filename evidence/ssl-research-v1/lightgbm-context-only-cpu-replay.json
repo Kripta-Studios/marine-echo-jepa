@@ -1,0 +1,28 @@
+{
+  "status": "PASSED_ACTUAL_PERSISTED_LIGHTGBM_CPU_REPLAY",
+  "result_sha256": "22db397302933318633d255a7d544edca4d5c43e294646eb1e339a8199e38ca3",
+  "boosters_verified": 15,
+  "input_keys": [
+    "metadata",
+    "observed",
+    "query",
+    "x"
+  ],
+  "target_or_future_acoustic_inputs": [],
+  "development_prefixes": 64,
+  "prediction_shape": [
+    64,
+    3,
+    5
+  ],
+  "maximum_absolute_replay_error_db": 0.0,
+  "model_transport": "reviewed_UTF8_text_to_model_str",
+  "native_bounds_m": [
+    [
+      0.0,
+      225.0
+    ]
+  ],
+  "fitted_weights_or_optimizer_updates": 0,
+  "test_access": "NOT_RUN"
+}

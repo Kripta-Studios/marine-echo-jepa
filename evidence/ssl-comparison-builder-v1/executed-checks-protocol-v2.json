@@ -1,0 +1,94 @@
+{
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "builder_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "correction": "ADR0015_PRECEDENCE_NOT_OUTCOME_TUNING",
+  "scientific_assessment_occurred": false,
+  "real_numeric_access": false,
+  "gpu_execution": false,
+  "self_approval": false,
+  "before": {"seed": 1729, "replicates": 2000, "block_days": 7},
+  "after": {"seed": 20260929, "replicates": 2000, "block_hours": 48, "block_days": 2},
+  "checks": [
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B evidence\\ssl-comparison-builder-v1\\snapshot_before_protocol_v2.py",
+      "stage": "snapshot_closed_delivery_before_edits",
+      "exit_code": 0,
+      "output": "before-protocol-v2.json"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q -s -p no:cacheprovider tests\\unit\\test_native_comparison.py -k protocol_v2",
+      "stage": "red_against_legacy_recipe",
+      "exit_code": 1,
+      "failed": 3,
+      "deselected": 60,
+      "log": "red-protocol-v2.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q -s -p no:cacheprovider tests\\unit\\test_native_comparison.py",
+      "stage": "first_green",
+      "exit_code": 0,
+      "passed": 68,
+      "log": "green-attempt-protocol-v2.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q -s -p no:cacheprovider tests\\unit\\test_native_comparison.py",
+      "stage": "green_refactor",
+      "exit_code": 0,
+      "passed": 68,
+      "log": "green-refactor-protocol-v2.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q -s -p no:cacheprovider tests\\unit\\test_native_comparison.py",
+      "stage": "final_green",
+      "exit_code": 0,
+      "passed": 68,
+      "elapsed_seconds_reported_by_pytest": 27.90,
+      "log": "green-final-protocol-v2.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff check --no-cache src\\marine_echo\\evaluation\\native_comparison.py tests\\unit\\test_native_comparison.py evidence\\ssl-comparison-builder-v1\\snapshot_before_protocol_v2.py",
+      "stage": "initial_lint_unused_test_variable",
+      "exit_code": 1,
+      "log": "lint-protocol-v2.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff check --no-cache src\\marine_echo\\evaluation\\native_comparison.py tests\\unit\\test_native_comparison.py evidence\\ssl-comparison-builder-v1\\snapshot_before_protocol_v2.py",
+      "stage": "lint_fixed",
+      "exit_code": 0,
+      "log": "lint-fixed-protocol-v2.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff format --check --no-cache src\\marine_echo\\evaluation\\native_comparison.py tests\\unit\\test_native_comparison.py evidence\\ssl-comparison-builder-v1\\snapshot_before_protocol_v2.py",
+      "stage": "format_final",
+      "exit_code": 0,
+      "log": "format-check-final-protocol-v2.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B evidence\\ssl-comparison-builder-v1\\inspect_sources.py",
+      "stage": "current_source_import_hash_provenance",
+      "exit_code": 0,
+      "output": "final-source-provenance-protocol-v2.json"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff check --no-cache src\\marine_echo\\evaluation\\native_comparison.py tests\\unit\\test_native_comparison.py evidence\\ssl-comparison-builder-v1\\snapshot_before_protocol_v2.py evidence\\ssl-comparison-builder-v1\\verify_handoff_protocol_v2.py",
+      "stage": "whole_corrected_handoff_lint",
+      "exit_code": 0,
+      "log": "lint-handoff-protocol-v2.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff format --check --no-cache src\\marine_echo\\evaluation\\native_comparison.py tests\\unit\\test_native_comparison.py evidence\\ssl-comparison-builder-v1\\snapshot_before_protocol_v2.py evidence\\ssl-comparison-builder-v1\\verify_handoff_protocol_v2.py",
+      "stage": "whole_corrected_handoff_format",
+      "exit_code": 0,
+      "log": "format-check-handoff-protocol-v2.txt"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B evidence\\ssl-comparison-builder-v1\\verify_handoff_protocol_v2.py",
+      "stage": "current_bytes_and_closed_history_preservation_not_independent_review",
+      "exit_code": 0,
+      "preserved_closed_v1_evidence_files": 33,
+      "output": "handoff-verification-protocol-v2.json"
+    }
+  ],
+  "remaining": {"integration": "NOT_RUN_ROOT_OWNED", "durable_disk_checks": "NOT_RUN_ROOT_OWNED",
+                "distinct_reconstruction_review": "PENDING_ROOT_OWNED", "actual_assessment": "NOT_RUN_ROOT_OWNED"}
+}

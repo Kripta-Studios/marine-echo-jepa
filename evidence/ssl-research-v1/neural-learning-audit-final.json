@@ -1,0 +1,291 @@
+{
+  "status": "NO_IMPLEMENTATION_DEFECT_FOUND_IN_INSPECTED_SCOPE",
+  "reviewer_session_id": "01a0ef27-876b-7692-917e-3975afc6893d",
+  "implementer_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "builder_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "coordinator_session_id": "01a0ef1a-b166-7f83-91b7-2a2aff7c1b10",
+  "reviewer_runtime": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "sandbox_mode": "read-only",
+    "approval_policy": "never",
+    "identity_verified": true
+  },
+  "audit_scope": {
+    "kind": "Correctness audit; no fitting or selection authorization",
+    "completed_runs": [
+      "shared_ssl_seed7_h96_cuda0",
+      "shared_ssl_frozen_readout_seed7_h96",
+      "shared_ssl_full_finetune_seed7_h96"
+    ],
+    "direct_run_coverage": {
+      "status": "INTERIM",
+      "named_checkpoints": [750, 2250],
+      "final_completion_or_selection_audited": false
+    },
+    "acoustic_arrays_opened": false,
+    "prediction_arrays_opened": false,
+    "live_latest_checkpoint_opened": false,
+    "model_construction_or_inference_executed": false,
+    "backward_or_optimizer_executed": false,
+    "GPU_operations_executed": false,
+    "files_modified": false,
+    "new_authorizations": []
+  },
+  "findings": [
+    {
+      "id": "FULL_FINETUNE_ACTUAL_ENCODER_OPTIMIZATION",
+      "result": "PASS",
+      "detail": "Actual model changes and AdamW gradient moments establish encoder optimization; this conclusion does not rely on parameter enumeration.",
+      "final_step": 3000,
+      "encoder_vs_selected_parent": {
+        "parameter_tensors": 58,
+        "changed_parameter_tensors": 58,
+        "changed_elements": 2424448,
+        "l2_delta": 16.72877188704517,
+        "max_absolute_delta": 0.36897075548768044
+      },
+      "exported_selected_encoder_vs_parent": {
+        "selected_step": 1500,
+        "changed_parameter_tensors": 58,
+        "changed_elements": 2424448,
+        "l2_delta": 14.323408141725393,
+        "max_absolute_delta": 0.3008384704589844
+      },
+      "optimizer_evidence": {
+        "encoder_parameter_tensors": 58,
+        "encoder_step_distribution": {"3000": 58},
+        "encoder_tensors_with_positive_gradient_second_moment": 58,
+        "encoder_second_moment_sum": 0.09324269186708989,
+        "head_parameter_tensors": 4,
+        "head_step_distribution": {"3000": 4},
+        "head_tensors_with_positive_gradient_second_moment": 4,
+        "head_second_moment_sum": 0.017358423188852612
+      }
+    },
+    {
+      "id": "FRESH_DIRECT_ACTUAL_ENCODER_OPTIMIZATION",
+      "result": "PASS_INTERIM",
+      "detail": "Stable named checkpoints show continuing encoder and head optimization across intervening development evaluations. No live latest.pt or final direct result was opened.",
+      "encoder_750_to_2250": {
+        "parameter_tensors": 58,
+        "changed_parameter_tensors": 58,
+        "changed_elements": 2423103,
+        "l2_delta": 12.392518495125188,
+        "max_absolute_delta": 0.3170177638530731
+      },
+      "head_750_to_2250": {
+        "parameter_tensors": 4,
+        "changed_parameter_tensors": 4,
+        "changed_elements": 4933,
+        "l2_delta": 0.4498896991832537,
+        "max_absolute_delta": 0.07085316302254796
+      },
+      "optimizer_evidence": {
+        "encoder_step_distribution_at_750": {"750": 58},
+        "encoder_step_distribution_at_2250": {"2250": 58},
+        "head_step_distribution_at_750": {"750": 4},
+        "head_step_distribution_at_2250": {"2250": 4},
+        "encoder_tensors_with_positive_gradient_second_moment_at_2250": 58,
+        "head_tensors_with_positive_gradient_second_moment_at_2250": 4,
+        "encoder_second_moment_sum_at_2250": 0.06698881238298782,
+        "head_second_moment_sum_at_2250": 0.01929516834570677
+      }
+    },
+    {
+      "id": "FROZEN_ENCODER_IDENTITY",
+      "result": "PASS",
+      "detail": "All58 shared encoder state tensors in both final and selected frozen artifacts equal the selected parent exactly. The copied selected_encoder.pt is byte-identical to the parent. No encoder optimizer state is present; all four head parameter tensors have positive gradient second moments and step2000.",
+      "changed_encoder_tensors": 0,
+      "changed_encoder_elements": 0,
+      "encoder_l2_delta": 0,
+      "selected_encoder_sha256": "a9f332f080201dccd99bccc25ba658b4136ba760df08a3b29f6c4f1bdc164141",
+      "shared_encoder_registered_BN_buffers": 0
+    },
+    {
+      "id": "EVALUATION_AND_GRADIENT_FLAGS",
+      "result": "PASS_SOURCE_AND_ARTIFACT_EVIDENCE",
+      "detail": "core.predict uses scoped no_grad and model.eval without changing requires_grad. Every downstream training call restores readout.train and, for full/direct modes, encoder.train with an attached encoding path. Frozen mode alone uses no_grad around encoding. Permanent requires_grad(False) occurs after training, during export. Actual full/direct optimizer advancement confirms that evaluation did not permanently stop supervised encoder optimization. CF source likewise restores selected-encoder training mode for full fine-tuning; frozen CF keeps its encoder and BN buffers in eval mode. No CF numerical execution was performed."
+    },
+    {
+      "id": "TRAIN_SAMPLING_AND_INITIALIZATION",
+      "result": "PASS",
+      "detail": "Every inspected supervised batch contains64 distinct indices from the admitted TRAIN supervised pool, with matching row IDs and sequence hashes. Full and direct records match for2250 steps; frozen matches their first2000 steps. All2000 historical short-probe batches match the corresponding strong-readout prefix. Source fixes the fresh head initializer at seed100007 independently of pretraining RNG and loads only ancestor encoder tensors. Downstream initial head tensors were not reconstructed with a model constructor.",
+      "sample_presentations_checked": {
+        "frozen": 128000,
+        "full": 192000,
+        "direct_interim": 144000
+      }
+    },
+    {
+      "id": "SCALING_MASKS_QUANTILES_AND_HORIZONS",
+      "result": "PASS_SOURCE_AND_METADATA",
+      "detail": "Completed inference and continuation artifacts retain exactly the parent TRAIN scalers, with finite means and positive standard deviations of the expected dimensions. Source requires TRAIN role and split membership before scaler fitting, scales only observed values, trains masked five-quantile pinball and inversely scales predictions before native-dB development scoring. Sorting precedes pinball and inference. Reader targets are primary-channel observations at later intervals1/3/6, while SSL crops start at those horizons. Inference batching excludes targets and future acoustic inputs. Numeric target values, masks and saved prediction scores were not reconstructed."
+    },
+    {
+      "id": "SCHEDULE_SELECTION_AND_EXPORT",
+      "result": "PASS",
+      "detail": "Saved optimizer/scheduler counters agree with completed updates and the declared10% warmup/cosine schedule. Frozen opportunities are500/1000/1500/2000, selecting1000; full opportunities are750/1500/2250/3000, selecting1500. Saved best states, reports and earliest minimum selection agree. Exported model/head tensors exactly match the corresponding named selected checkpoints, not the final training weights.",
+      "final_frozen_learning_rate": 0.000029999999999999997,
+      "final_full_learning_rate": 0.000029999999999999997,
+      "direct_interim_learning_rate_at_2250": 0.00007822367269231717
+    },
+    {
+      "id": "SHARED_SCREEN_CONTINUATION_AND_ANCESTRY",
+      "result": "PASS",
+      "detail": "The shared screen has6000 pretraining updates and2000 total probe updates. All62 pretraining optimizer parameter tensors have step6000 and positive gradient second moments; SIGReg global_step is6000. Its exported model/head exactly matches readout-004500-000500.pt and the saved selected best state. SharedTemporalEncoder, QueryHead and NativeTemporalModel ASTs are identical between the original85c4 source snapshot and currentb7d6 source. Historical parent bindings remain unchanged."
+    },
+    {
+      "id": "STRUCTURAL_LIMITATIONS",
+      "result": "OBSERVATION_ONLY",
+      "detail": "The shared encoder mixes channels within patch4 tokens and mean-pools contextualized valid temporal tokens into latent64. The latest observed values enter their patch, but the readout has no separate raw last-observation path. This is an inspected architecture property, not evidence that pooling caused the reported performance or an implementation defect."
+    }
+  ],
+  "concrete_defects": [],
+  "executed_checks": [
+    {
+      "name": "SAFE_CHECKPOINT_SCHEMA_INVENTORY",
+      "executor": "Independent reviewer",
+      "shell": "cmd.exe",
+      "command_prefix": "call .venv\\Scripts\\python.exe -B -c exec(bytes.fromhex(",
+      "command_sha256": "cf1fff2c3401e84cdd306b9aeb38a1e7cf53aabb5f17c959f2110962e8a8a8cf",
+      "python_source_sha256": "d3ae5cc52fdec967eb7d3f133c053e9628250357f758126d96abdee5e15e438f",
+      "exit_code": 0,
+      "result": "PASS: weights_only CPU inspection of completed shared/frozen/full checkpoints and named direct2250 checkpoint schemas, optimizer state and scheduler metadata."
+    },
+    {
+      "name": "ACTUAL_ENCODER_AND_OPTIMIZER_TENSOR_AUDIT",
+      "executor": "Independent reviewer",
+      "shell": "cmd.exe",
+      "command_prefix": "call .venv\\Scripts\\python.exe -B -c exec(bytes.fromhex(",
+      "command_sha256": "dd5cd2cec4feefeb0a951b25afecbd97f17b4ae8a9cd6c02a5c46d974176a856",
+      "python_source_sha256": "6008e3667b93e9c74d83ef02433ec5ea3037729032129925e8c8f1bc962516b9",
+      "exit_code": 0,
+      "result": "PASS: exact frozen identity; full and direct parameter differences and norms; optimizer parameter/state shape mapping, finite moments, scalar steps and positive gradient second moments; selected/inference/best-state tensor provenance."
+    },
+    {
+      "name": "SAMPLER_SCHEDULER_SELECTION_AND_SHARED_AST_AUDIT",
+      "executor": "Independent reviewer",
+      "shell": "cmd.exe",
+      "command_prefix": "call .venv\\Scripts\\python.exe -B -c exec(bytes.fromhex(",
+      "command_sha256": "d23dbef0436387b79db9bf727355ad2399e02596fb3f8f5b5078d0cacae3587b",
+      "python_source_sha256": "99d9c44f04846d3cf2a6e25ad7faf2b8b0f41b86b7cee8c78ea0027c9ede1579",
+      "exit_code": 0,
+      "result": "PASS: all inspected sequence entries checked against admitted TRAIN membership; matching schedules checked; saved scheduler steps/LRs and selection opportunities checked; historical/current shared class AST equality verified. No RNG or model initialization."
+    },
+    {
+      "name": "NAMED_SELECTED_EXPORT_AND_REPORT_AUDIT",
+      "executor": "Independent reviewer",
+      "shell": "cmd.exe",
+      "command_prefix": "call .venv\\Scripts\\python.exe -B -c exec(bytes.fromhex(",
+      "command_sha256": "e3b4c64700d5d2dd7ce8257419cd99c9945ec69cb56235b0425324fd9e2a8e1c",
+      "python_source_sha256": "f51ac91ebb5b4bcbdaa1c63d692a350597406f8faebe1f9ceee19a945a5bbc76",
+      "exit_code": 0,
+      "result": "PASS: selected named checkpoint tensors equal exports; completed state/report records, counters, membership sequence and sample presentations agree; scalers finite with positive scales; shared pretraining moments and SIGReg counter verified."
+    },
+    {
+      "name": "SOURCE_AND_IMMUTABLE_PROOF_HASHES",
+      "executor": "Independent reviewer",
+      "tool": "node_repl",
+      "exit_code": null,
+      "result": "PASS:47 exact source/config/review/report/named-artifact bindings recorded. Closing recheck found no changed binding.",
+      "command_representation_note": "The Python checks used inline ASCII-hex source. Full commands are retained in the tool transcript; invocation and decoded-source digests identify them without reproducing long hex payloads."
+    },
+    {
+      "name": "NUMERICAL_METRIC_RECONSTRUCTION_AND_NEW_EXECUTION",
+      "exit_code": null,
+      "result": "NOT_RUN: no acoustic or prediction arrays, model constructor, inference, backward, optimizer, GPU check or live latest.pt was accessed. No previously denied path was retried."
+    }
+  ],
+  "inspected_evidence": [
+    {
+      "path": "outputs/native_acoustic_ssl_v1/shared_ssl_seed7_h96_cuda0/run.json",
+      "result": "Runner-produced completed6000-SSL/2000-probe report, selected4500. Its development number was inspected as metadata, not independently reconstructed."
+    },
+    {
+      "path": "outputs/native_acoustic_ssl_v1/shared_ssl_frozen_readout_seed7_h96/run.json",
+      "result": "Runner-produced completed2000-update endpoint, selected1000. Report and selected artifact provenance independently checked."
+    },
+    {
+      "path": "outputs/native_acoustic_ssl_v1/shared_ssl_full_finetune_seed7_h96/run.json",
+      "result": "Runner-produced completed3000-update endpoint, selected1500. Report and selected artifact provenance independently checked."
+    },
+    {
+      "path": "evidence/ssl-research-v1/platform-downstream-durable-green.log",
+      "executor": "Parent/root execution; inspected, not rerun",
+      "result": "127 passed in21.71 seconds. Retained regression tests cover gradient routes, CF BN semantics, frozen state, resume, selection and metric reconstruction."
+    },
+    {
+      "path": "evidence/ssl-research-v1/downstream-prefit-review-final.json",
+      "result": "Retained exact downstream approval and shared-only historical source compatibility inspected; no approval or historical evidence changed."
+    }
+  ],
+  "bindings": {
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\AGENTS.md": "0646ce8483a027f694842e25c2e0f6de3af83526028a518807357672a374ed57",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\CODEX_SSL_RESEARCH_MISSION.md": "5bf3fbca35ebe2f803f6c61aff965ae3059e3f3142a85809ecde9bead1c130bd",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_downstream.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_ssl.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_temporal.py": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\sigreg.py": "2cf5dc8e6fc610fbe167339a8750f5e2d9ddf9a48f416717b8310500536469a3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_resources.py": "c9ca3fbd0759ae00824774ed61a08185361234430d5ed63f09fa3885545c7c38",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\aeon_corpus.py": "398e021a5807ab8068ceef03dd692f3b688c744751cd4e65d3efbee94d9a3efd",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\native_ssl_corpus.py": "ebda9d460fa14df749b8f774bcb02a6622f0d69402443098a6100670a4c8f7ba",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_product.py": "fd1c643fde93494a21d560794f886056e58031f1ef6dd41ebe53662750bab314",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0016-native-ssl-selection-and-source-baseline.md": "1e42b3aec76e6673e014ddc4894667ff7bcd786be0f59c84d33fa9d4b4ae7b1d",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0018-native-acoustic-downstream-transfer.md": "124e3a5834b45e52d1e70e7aff3fe5a6500b55b49abd5fac6df35a0f35ede91d",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_ssl_split_v1.json": "3b4728e16da3c09c58d9316560283e19ecf79885bbf38a7c7025ce4b83e8993b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_ssl_shared_ssl_seed7_h96_v1.json": "c9a37a3ac2948e6703dd1f15b18e13f713b91ec02845e9a3b9a1304503371be3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_downstream_shared_ssl_frozen_readout_seed7_h96_v1.json": "5304bb469ee4c2c5e2ebeb7bdbe200c3883ced5ce0f58d19f802e5db7425db56",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_downstream_shared_ssl_full_finetune_seed7_h96_v1.json": "61b9b59eeceea4881b82509a34e5cdee5bc7d7df7b6315944ba4271ee8b93e6d",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_downstream_direct_direct_end_to_end_seed7_h96_v1.json": "c192cf57e53957d9f0168071de79419a3cd327eeb4fddf7eafaf704edcdc41fd",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\data\\processed\\native_ssl_v1\\train.json": "0f9958a9048fe988a3577dc3d6063d1c0968d4b010faae9e177b49d9027ec180",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\data\\processed\\native_ssl_v1\\development.json": "f72c18d1d9cf8fc4a0b84c026e019b5a5a71db1f4a000437fc0f33f04d2d90c3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\ancestor-source\\native_temporal_shared_screen_v1.py": "85c4af6c67acb661359cde8bcf22de479e4da6a499cc7843bce0fee6c155e422",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\prefit-review-final-02.json": "4115ff2a2a2cb0fcafbd5273288c762efdaa15e106f7361f9352917a69ee85a3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\downstream-prefit-review-final.json": "22a0bddaa457e574361134db5cb6c750ce68060de65633709854d98fe32acdef",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\platform-downstream-durable-green.log": "347206b3fb8bdbcea06e0d9137e75c6a5f31215920a235c73668ffedb3122f56",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\reused-ssl-regression-tests.log": "2b9b33804bda7438e3a93fe250587bbc2a3bce19b66a210bc95f82f67076ab02",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\integration\\test_native_downstream.py": "086074134b3d893d103e551a07dcb1aed978c74c937876ebe16e6dfbb252fb84",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\integration\\test_native_ssl.py": "4b68d49b20f713cff6025f41b659305747fc2f967b4ca12e5812af2cdedf48c3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_native_temporal.py": "f8015277837ad141817f7b77f8c52f5d5d4bc4fffe6c6ab94c82933cd7328529",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\run.json": "c4a5453e187b69356acf6d37c44878639dde4d99dc4b82822f356c493a9525b0",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\membership.json": "bdfe9115b3904356f43d78069561e048cd740a718c69eef97c42ce08613a948d",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\selected_encoder.pt": "a9f332f080201dccd99bccc25ba658b4136ba760df08a3b29f6c4f1bdc164141",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\inference.pt": "b085583862f9b69e153bc041d9a07277bea70cac8e891ccaa859facc3fddd4d8",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\complete.pt": "9f11967c6260b9301c03214c8231d023d206638cbd820a20e9910375eeb15f39",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\readout-004500-000500.pt": "9ff9f35b22252a629208d2354adf7a2966f7e71ac749b204fe8b7ba09270ca3a",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_frozen_readout_seed7_h96\\run.json": "5f6f69bb6954fbf4f298c521e3544d1ead1a2496e9b2411e5dde24add825cf6c",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_frozen_readout_seed7_h96\\membership.json": "61eac39f7b8e8303d9214cef2554cbb78849be78ff5d00e701ed3373ada8ab45",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_frozen_readout_seed7_h96\\selected_encoder.pt": "a9f332f080201dccd99bccc25ba658b4136ba760df08a3b29f6c4f1bdc164141",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_frozen_readout_seed7_h96\\inference.pt": "56393249f18c042fa0c6eaa5680921097b7a8ada88869d510ebea978be3884ef",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_frozen_readout_seed7_h96\\complete.pt": "37fed05949825e0ef25509edddc87bd7bf29afe2fb8ed78e486b4bc44f7567ce",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_frozen_readout_seed7_h96\\supervised-001000.pt": "1ee6f1addd4d01bd53e1ea610fe5bef89d31c1640206420436cc046aca4ee9f5",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_full_finetune_seed7_h96\\run.json": "6320c8304e7d01624234ab6f5e3cdad0f5fc0322c5d07dac40dbd30d1b2bc62b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_full_finetune_seed7_h96\\membership.json": "a4c8695f6cec1f30cae5fea5f8cbbb79e55151a0da4c0c4b052b74a48a9a47e9",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_full_finetune_seed7_h96\\selected_encoder.pt": "0f055c6ed35373d98214988183796b3b4bd6c16081af784919483c8289099265",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_full_finetune_seed7_h96\\inference.pt": "d0fcbdaf5f0c43c4c9a5b4f5bc763302344afd6a3b159d7720b221da1180edc2",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_full_finetune_seed7_h96\\complete.pt": "22347e9e23f50df23fdcdede5dbb262d1d92ad876820b7270950af9aad5a3640",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_full_finetune_seed7_h96\\supervised-001500.pt": "05c1fda83cb39177d516531e2b6710454aa1e111dc07675f2c7aea59c0813133",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_direct_end_to_end_seed7_h96\\supervised-000750.pt": "3646cf7cfdfe54df9387aada3f147429b5a50da2312f2f8c544c907edeb8da2c",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_direct_end_to_end_seed7_h96\\supervised-002250.pt": "89711b917c64532973034c7b1ca9fed1ef98580abc041bdbc4cfd8d8960d655a"
+  },
+  "residual_uncertainty": [
+    "This correctness audit cannot establish representation quality or competitiveness, nor distinguish genuine representation weakness from every possible uninspected defect.",
+    "Development scores remain runner-produced metadata. Saved prediction arrays, numerical support masks and independent score reconstruction were deliberately not accessed.",
+    "Exact reported label-observation counts were not reconstructed from numerical masks. TRAIN index membership, batch identity and sample presentations were checked independently.",
+    "Initial downstream head tensors were not retained as separate initial artifacts or reconstructed here. Matched initialization is established from unchanged source, seed and architecture, with retained test evidence.",
+    "Direct evidence is explicitly interim through named checkpoint2250; final direct completion, selection and exports are outside this audit.",
+    "CF train/eval and BN behavior was inspected as source and retained test coverage only; no CF model execution or new tensor audit was performed.",
+    "LightGBM fitting correctness and the stated LightGBM development score were not independently audited in this neural correctness task.",
+    "Native clock, absolute censoring, calibration and deployment limitations remain unchanged."
+  ],
+  "interpretation_limits": {
+    "learning_path_conclusion": "The inspected full/direct paths actually optimized their encoders; the inspected frozen path preserved its encoder. No inspected selection or export mismatch was found.",
+    "scientific_quality_conclusion": "Not established",
+    "hypothesis_revision_selected": false,
+    "additional_fitting_or_recipe_approved": false,
+    "final_test_access_approved": false,
+    "comparative_JEPA_or_SOTA_claim_approved": false,
+    "package_app_release_cloud_payment_install_permission_operations_approved": false
+  }
+}

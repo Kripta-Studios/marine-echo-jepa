@@ -1,0 +1,8 @@
+Operation: verify_handoff_schema_v3.py, initial executed verifier
+Exit code: 1
+Actual failure while reading red-schema-v3.txt with encoding='utf-8':
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xc1 in position 287: invalid start byte
+The cmd.exe redirected pytest traceback contains Windows-encoded path bytes.
+No filesystem denial occurred. Original log bytes and first empty stdout artifact
+handoff-verification-schema-v3.json remain unchanged. The verifier now checks
+the ASCII pytest summary directly in raw bytes, without decoding traceback paths.

@@ -1,0 +1,247 @@
+{
+  "status": "APPROVED_COMPARISON_RECONSTRUCTION",
+  "allowed_roles": ["development"],
+  "evidence_kind": "REVIEWED_SAVED_PREDICTIONS",
+  "reviewer_session_id": "01a0ef27-876b-7692-917e-3975afc6893d",
+  "implementer_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "builder_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "root_coordinator_session_id": "01a0ef1a-b166-7f83-91b7-2a2aff7c1b10",
+  "coordinator_session_id": "01a0ef1a-b166-7f83-91b7-2a2aff7c1b10",
+  "reviewer_runtime": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "sandbox_mode": "read-only",
+    "approval_policy": "never",
+    "identity_verified": true
+  },
+  "manifest_sha256": "cfc737ccede4d9d6fb65817b427d207b8127378440856a8c7fd60a1ec2b8f605",
+  "protocol_sha256": "82deb36e88df2a6660a2389a653d077a186e5072fbb4ede11d9fbc06c9816148",
+  "findings": [
+    {
+      "id": "EXACT_DEVELOPMENT_ADMISSION",
+      "result": "PASS",
+      "detail": "The exact eight-artifact manifest passed admission using an unwritten prospective review. Source, manifest, protocol and prediction bytes were checked before parsing. Numerical loading was explicitly guarded against invocation; Torch was not imported. Completed run/result metadata identifies the same admitted development corpus and original review lineage."
+    },
+    {
+      "id": "COMMON_SUPPORT_AND_MASK_SCHEMA",
+      "result": "PASS_SOURCE_AND_SYNTHETIC_TESTS",
+      "detail": "Neural target_observed and reference observed masks are canonicalized with field provenance. Each present mask must independently be Boolean[N,3]; conflicting dual masks are rejected. context_observed cannot substitute for target support. Canonical alignment requires exact unique row/deployment identities, masks, dates, queries and observed target values. No intersection or finite-forecast filtering occurs."
+    },
+    {
+      "id": "METRIC_AND_GEOMETRY",
+      "result": "PASS_SOURCE_AND_SYNTHETIC_TESTS",
+      "detail": "The imported scorer uses all five fixed quantiles and horizons1/3/6, floor18, and equal target-source-date→horizon→deployment weighting. Every forecast and observed target must be finite. Daily support is independently reconstructed and compared with scorer support. Native query fields and original bounds are retained without dB depth rescaling. Actual eight-artifact support and225m development geometry remain runtime checks after this approval, not reviewer-reconstructed results."
+    },
+    {
+      "id": "FROZEN_BOOTSTRAP_RECIPE",
+      "result": "PASS",
+      "detail": "ADR0015's seed20260929,2000 draws and48 nominal source-calendar hours take precedence over the preserved seven-day/1729 draft. Fixed two-day calendar block identities preserve missing-date gaps. The same sampled deployment/block weights apply jointly to every method and horizon; duplicate multiplicity is retained. Any unsupported replicate or zero calendar span prevents an interval. Incomplete required floor support returns NOT_ASSESSABLE with null intervals. Source timing is expressly a calendar proxy, not verified UTC."
+    },
+    {
+      "id": "PROVENANCE_AND_CONSTANT_FORECAST_DIAGNOSTICS",
+      "result": "PASS",
+      "detail": "Optional arrays receive bounded dtype/shape/content-hash descriptors in original artifact order; required common scoring support remains explicit. Forecast ranges and standard deviations, including per-deployment constant-across-issuance flags, expose constant forecasts. Inputs are preserved and output must be a new path."
+    },
+    {
+      "id": "ENDPOINT_INTERPRETATION",
+      "result": "PASS_WITH_SCOPE_LIMIT",
+      "detail": "The manifest separately names shared/CF short probes, strong frozen/full endpoints, fresh direct supervision and conventional references. Their fitting and selection budgets differ. Reconstructing their development losses does not make them matched final comparative evidence or authorize a selection decision."
+    }
+  ],
+  "band_pooling_mechanism": {
+    "status": "SUPPORTED_STRUCTURAL_LIMITATION",
+    "verification_kind": "Independent source and algebra inspection; retained synthetic execution inspected",
+    "algebra": "For a patch with fixed masks and metadata, the shared channel projection is W[v_c,m_c]+b. Count averaging produces W times the count-weighted channel-value sum, plus fixed mask and metadata terms. With equal observed counts, opposite changes delta and minus-delta to two normalized channels cancel before temporal nonlinear processing. Subsequent attention and pooling receive the same tokens and cannot recover the lost frequency-value association.",
+    "applicability": "The exact cancellation is a fixed-mask/fixed-metadata counterexample. It does not assert invariance under arbitrary mask, count or metadata changes.",
+    "retained_root_synthetic_proof": {
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "public_observations": "NONE",
+      "primary_change_db": 3.1991189479827877,
+      "secondary_change_db": -3.2388645172119137,
+      "maximum_absolute_embedding_difference": 0.0000005960464477539062,
+      "weights_sha256": "a9f332f080201dccd99bccc25ba658b4136ba760df08a3b29f6c4f1bdc164141",
+      "geometry": "Generated0–200m contexts; no real225/230m product was relabelled",
+      "interpretation": "Floating-point agreement corroborates the exact-arithmetic cancellation."
+    },
+    "reviewer_constructor_or_replay_executed": false,
+    "actual_development_score_gap_cause_established": false,
+    "proposed_band_code_approved": false,
+    "revision_or_fit_budget_approved": false
+  },
+  "executed_checks": [
+    {
+      "executor": "Independent reviewer",
+      "command": "call .venv\\Scripts\\python.exe -B -m pytest tests\\unit\\test_native_comparison.py -q -s -p no:cacheprovider",
+      "shell": "cmd.exe",
+      "exit_code": 0,
+      "result": "82 passed in33.93 seconds. Synthetic in-memory NPZ codecs only; no real predictions, acoustic corpora, models, optimizers or GPU operations."
+    },
+    {
+      "executor": "Independent reviewer",
+      "check": "ACTUAL_MANIFEST_ADMISSION_ONLY",
+      "shell": "cmd.exe",
+      "command_prefix": "call .venv\\Scripts\\python.exe -B -c exec(bytes.fromhex(",
+      "command_sha256": "6daed27ab7256c673660f8bc4a52abc265fa928ac4e64318269fc0e123d08e23",
+      "python_source_sha256": "4873a1a55763bd16b0a40a179abbc4bac593dc6173b0323ebfe919519de3bdc9",
+      "exit_code": 0,
+      "result": "PASS: exact eight-artifact admission and immutable byte snapshots, using an unwritten in-memory review fixture. np.load was guarded; numeric parsing was NOT_RUN, Torch was not imported and no output was written.",
+      "command_representation": "Full inline hex invocation is retained in the tool transcript and identified by the command/source digests."
+    },
+    {
+      "executor": "Independent reviewer",
+      "tool": "node_repl",
+      "check": "SOURCE_METADATA_AND_BYTE_HASH_INSPECTION",
+      "exit_code": null,
+      "result": "PASS: completed metadata, historical review/config lineage, source algebra and58 actual file bindings inspected. Closing hash checks found no changed binding."
+    },
+    {
+      "check": "REAL_PREDICTION_RECONSTRUCTION_AND_BAND_PROOF_REPLAY",
+      "exit_code": null,
+      "result": "NOT_RUN by reviewer: no actual prediction/target arrays were decoded and the model-construction proof script was not executed. No denied operation or permission escalation occurred."
+    }
+  ],
+  "inspected_evidence": [
+    {
+      "path": "evidence/ssl-research-v1/comparison-parent-cpu-tests.log",
+      "executor": "Parent/root; inspected, not attributed to reviewer",
+      "result": "82 passed in34.59 seconds."
+    },
+    {
+      "path": "evidence/ssl-research-v1/comparison-integration.json",
+      "result": "Corrected comparison integrated; scientific scoring NOT_RUN and active-fit sources unchanged."
+    },
+    {
+      "path": "evidence/ssl-comparison-builder-v1/handoff-verification-delivery-schema-v3.json",
+      "result": "Closed delivered-byte inventory, protocol/schema corrections and preserved preceding evidence inspected. This engineering record is not treated as independent scientific review."
+    },
+    {
+      "paths": [
+        "outputs/native_acoustic_ssl_v1/shared_ssl_seed7_h96_cuda0/run.json",
+        "outputs/native_acoustic_ssl_v1/cf_jepa_seed7_h96_deterministic/run.json",
+        "outputs/native_acoustic_ssl_v1/shared_ssl_frozen_readout_seed7_h96/run.json",
+        "outputs/native_acoustic_ssl_v1/shared_ssl_full_finetune_seed7_h96/run.json",
+        "outputs/native_acoustic_ssl_v1/direct_direct_end_to_end_seed7_h96/run.json",
+        "outputs/native_acoustic_ssl_v1/lightgbm_seed7_h96_text/result.json",
+        "outputs/native_acoustic_ssl_v1/persistence_h96/result.json",
+        "outputs/native_acoustic_ssl_v1/seasonal24_h96/result.json"
+      ],
+      "executor": "Root scientific runs; completed metadata inspected",
+      "result": "All eight are completed and identify development corpus4ca59c6b3539e6e214ac949a3294408f59a28386b9731461f2f03881198f2023. Their runner-produced scores are not independently reconstructed by this review."
+    },
+    {
+      "path": "evidence/ssl-research-v1/band-pooling-invariance.json",
+      "executor": "Root synthetic CPU proof; inspected, not rerun",
+      "result": "Generated sine contexts under retained selected weights; opposite normalized channel changes, unchanged masks/metadata, no public observations, backward, optimizer or GPU operations reported. The mechanism is independently supported by source algebra."
+    }
+  ],
+  "bindings": {
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\AGENTS.md": "0646ce8483a027f694842e25c2e0f6de3af83526028a518807357672a374ed57",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\__init__.py": "3fcc1878588f5a89775363e099fab7d7323acebccae26d10db4a6da627425b68",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\__init__.py": "dddaccd3cb0c952e88796d75e7a15966cfab87f98c2cfe8452a5fff4c3138c68",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_comparison.py": "51c5374e188bd3c7f2b00d5f1b5887f33b456c291cb0290e8b8e020ff28df020",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_product.py": "fd1c643fde93494a21d560794f886056e58031f1ef6dd41ebe53662750bab314",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_native_comparison.py": "b81927eb163364dfd89472eb95ccb4550d03eb9d0917f6179eafabf32ebec4e8",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_development_comparison_v1.json": "cfc737ccede4d9d6fb65817b427d207b8127378440856a8c7fd60a1ec2b8f605",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0015-native-acoustic-ssl-research.md": "82deb36e88df2a6660a2389a653d077a186e5072fbb4ede11d9fbc06c9816148",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0016-native-ssl-selection-and-source-baseline.md": "1e42b3aec76e6673e014ddc4894667ff7bcd786be0f59c84d33fa9d4b4ae7b1d",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0018-native-acoustic-downstream-transfer.md": "124e3a5834b45e52d1e70e7aff3fe5a6500b55b49abd5fac6df35a0f35ede91d",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_ssl_split_v1.json": "3b4728e16da3c09c58d9316560283e19ecf79885bbf38a7c7025ce4b83e8993b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\data\\processed\\native_ssl_v1\\development.json": "f72c18d1d9cf8fc4a0b84c026e019b5a5a71db1f4a000437fc0f33f04d2d90c3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_ssl.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_downstream.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_references.py": "0d6583644ab1fce8d87a4194048f2176237b47deb57f0fa8494df6aa9012d584",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\__init__.py": "c98c60178f566d43dd60641704ccd9c652d406487b4838cbf5a9df49ea5dd735",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\__init__.py": "5bdc97a6119b2dd3d519df36406c8bcb9e801be81c8b6c3f44e4a527db1f87a3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_temporal.py": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\sigreg.py": "2cf5dc8e6fc610fbe167339a8750f5e2d9ddf9a48f416717b8310500536469a3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_encoder.py": "6cc07a15ea93427d6628f1b317945f6e38ff3008894a31cab2173c0b666c0f7f",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_ssl_shared_ssl_seed7_h96_v1.json": "c9a37a3ac2948e6703dd1f15b18e13f713b91ec02845e9a3b9a1304503371be3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_ssl_cf_jepa_seed7_h96_v1.json": "435a64b2b509cbb86e5d3e2224b349bd6baaa884e52f9b121bd3a91422211612",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_downstream_shared_ssl_frozen_readout_seed7_h96_v1.json": "5304bb469ee4c2c5e2ebeb7bdbe200c3883ced5ce0f58d19f802e5db7425db56",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_downstream_shared_ssl_full_finetune_seed7_h96_v1.json": "61b9b59eeceea4881b82509a34e5cdee5bc7d7df7b6315944ba4271ee8b93e6d",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_downstream_direct_direct_end_to_end_seed7_h96_v1.json": "c192cf57e53957d9f0168071de79419a3cd327eeb4fddf7eafaf704edcdc41fd",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\predictions.npz": "5d203587d07da9009c4539fda509ee3ce315b715b5a7f3b8beb501a0bebcf2fd",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed7_h96_deterministic\\predictions.npz": "8023943165bc9ddd798a510d07eee72b85ba7d10a64b028b0dcdd69b8b82475d",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_frozen_readout_seed7_h96\\predictions.npz": "7259f4b0e0c0f7e09ccb4de7afc397dae90595ef5edc0a0b259b81de525a58f1",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_full_finetune_seed7_h96\\predictions.npz": "508695a681e7155f3c2e1bbba23486ddb741feb3f8206a15f025e454264e83da",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_direct_end_to_end_seed7_h96\\predictions.npz": "0bd5fa9e617dac6d5a90e1cc66d9e59beb8ed9342cb9745f292f4dda83eb882e",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\lightgbm_seed7_h96_text\\predictions.npz": "da01b65ffc5baba0b6e41170c44a9a21910d3216b86070bc84b8e0080044a016",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\persistence_h96\\predictions.npz": "3ad9c7cbc42317cdc8e71d35ad691913d704e97cf88acf320abcce1d8d98d3d4",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\seasonal24_h96\\predictions.npz": "0b9eff8fc5c8cb79d3cf8f8f15e4eb616e427c0a4f24656e134c89b887377ab9",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\run.json": "c4a5453e187b69356acf6d37c44878639dde4d99dc4b82822f356c493a9525b0",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed7_h96_deterministic\\run.json": "0c0865b9c8d605a6a5e8e57870d9e32168a3ac22152acd200a06fc88550fab62",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_frozen_readout_seed7_h96\\run.json": "5f6f69bb6954fbf4f298c521e3544d1ead1a2496e9b2411e5dde24add825cf6c",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_full_finetune_seed7_h96\\run.json": "6320c8304e7d01624234ab6f5e3cdad0f5fc0322c5d07dac40dbd30d1b2bc62b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_direct_end_to_end_seed7_h96\\run.json": "d549a5606ecfc7aee9f2ecdbee9a1904563019873f589097aa59fc318a839a95",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\lightgbm_seed7_h96_text\\result.json": "22db397302933318633d255a7d544edca4d5c43e294646eb1e339a8199e38ca3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\persistence_h96\\result.json": "ec012d7a3d995930cbf4e7cb6e4c5a7843e3ac340d721d75ad078a8f4d52f32a",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\seasonal24_h96\\result.json": "bb177e5dc3d761c948b7286ecd8702bd79d620f5c8c81e00c29f4d6caac0a499",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\prefit-review-final-02.json": "4115ff2a2a2cb0fcafbd5273288c762efdaa15e106f7361f9352917a69ee85a3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\prefit-review-final-03.json": "21252c65d292f491124dee03de256fb2cf242a17468db1b29d4faf2d2454e462",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\downstream-prefit-review-final.json": "22a0bddaa457e574361134db5cb6c750ce68060de65633709854d98fe32acdef",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\baseline-prefit-review-final-03.json": "4a7230f421ceb9a71cd73f3d47e827fb5a3017b0f6cc7617dbf893426e447a3f",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\ancestor-source\\native_temporal_shared_screen_v1.py": "85c4af6c67acb661359cde8bcf22de479e4da6a499cc7843bce0fee6c155e422",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\comparison-integration.json": "8963756bc596798240d0eef54ec37c852f30fbbcc559cbb8a9f15d32b9e46f8f",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\comparison-parent-cpu-tests.log": "11f0c40a243058c86f375c36baf44ad9af425a09a8c02f91f486586c265153ae",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-comparison-builder-v1\\green-final-schema-v3.txt": "83f18e06c20e5625ed4a2b8cb0b308586335d6dd37b20ea2add36f47af8a72b1",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-comparison-builder-v1\\red-schema-v3.txt": "a7da2948bcb9bda8e15101ece578ff864b97207af0bed25fb26e238e79c645fc",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-comparison-builder-v1\\red-protocol-v2.txt": "52890ec4bdb6161d9f6f084198d070752f1b1af922830e3d7b7b19be67080b41",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-comparison-builder-v1\\handoff-verification-delivery-schema-v3.json": "9cb33e965c0033aa7b0e5aed8d541d97ef7b169b76e004a7ca1ef74942fc0d2b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-comparison-builder-v1\\final-source-provenance-schema-v3.json": "1732d4d6d5bccae8e09997d4fce620bae86b095ff8306d4e148a97b014c45fff",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-comparison-builder-v1\\NATIVE_COMPARISON_SCHEMA_CORRECTION_V3.md": "57633989cfa14275b7bcb682d2dbc9da04b0f08418c4256a81b1d2741c729372",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\prove_native_band_pooling_invariance.py": "61e2f1f9a39b30a9540dbb3736eb99f745f72cd0f928f15cb6bd60e0cffb077d",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-pooling-invariance.json": "95c1efcc8f3f40505b4757a189c5c5a9eb635de13700b044febfbce190276700",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-pooling-invariance.log": "616f70f3837b7be2317c01509e1b5897cc9d941d4e6beceb28ec80ef001be46f",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\selected_encoder.pt": "a9f332f080201dccd99bccc25ba658b4136ba760df08a3b29f6c4f1bdc164141"
+  },
+  "residual_risks": [
+    "Actual common rows, masks, observed targets, dates, queries and reconstructed metrics have not been decoded or verified numerically by this reviewer. Approval admits the exact bounded reconstruction so those checks can run; any mismatch must stop it.",
+    "Intervals are conditional development summaries for the observed deployment and nominal source-calendar blocks. They do not establish independent sites, verified48-hour absolute durations, seed variance or final-test uncertainty.",
+    "Short probes and stronger endpoints have unequal supervision, selection and compute budgets. This reconstruction is not matched final evidence or a model-selection authorization.",
+    "The synthetic pooling proof establishes non-identifiability for constructed fixed-mask inputs, not the cause or magnitude of the real development score gap.",
+    "Source-clock, calibration, absolute censoring and limited deployment interpretation remain unknown or qualified as previously documented.",
+    "Historical review identities and source hashes are provenance records, not cryptographic authentication of an externally supplied review document."
+  ],
+  "approval_scope": {
+    "entrypoint": "python -B -m marine_echo.evaluation.native_comparison",
+    "manifest": "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_development_comparison_v1.json",
+    "methods": [
+      "shared_short_probe",
+      "cf_short_probe",
+      "shared_frozen_readout",
+      "shared_full_finetune",
+      "direct_end_to_end",
+      "lightgbm",
+      "persistence",
+      "seasonal24"
+    ],
+    "reference": "lightgbm",
+    "recipe": {
+      "bootstrap_seed": 20260929,
+      "bootstrap_replicates": 2000,
+      "block_hours": 48,
+      "block_days": 2,
+      "floor": 18,
+      "quantiles": [0.05, 0.25, 0.5, 0.75, 0.95],
+      "horizons": [1, 3, 6]
+    },
+    "requirements": [
+      "Root verifies every current binding before execution and preserves all historical inputs, weights, source snapshots and evidence.",
+      "Decode only the eight bound saved development prediction artifacts; no inference, corpus materialization or fitting.",
+      "Require exact common support and original native development query geometry; no intersections, target filling, finite prediction filtering or depth relabelling.",
+      "Use a new protected JSON output path distinct from all inputs and existing evidence.",
+      "Inspect the completed output, support, provenance, variation diagnostics and bootstrap status. Unsupported intervals remain null and NOT_ASSESSABLE.",
+      "Keep short-probe, frozen, fine-tuned, direct and conventional-reference categories explicit; do not present this as matched final comparative evidence.",
+      "Existing serial scientific queue, fitting approvals and resource budgets remain unchanged."
+    ],
+    "excluded": [
+      "Final-test numerical access, materialization, inference or assessment",
+      "New fitting, recipes, seeds, histories, tuning, revision selection or budget expansion",
+      "Execution or approval of proposed band-conditioned model code",
+      "Scientific JEPA-value, SOTA, causal or score-gap-cause claims",
+      "Model selection, finalist refits, package/app/release or deployment work",
+      "Cloud, payments, installs, credentials or permission changes",
+      "Junction operations, foreign-process actions or additional agents"
+    ]
+  }
+}

@@ -1,0 +1,915 @@
+"""SYNTHETIC_CORRECTNESS_ONLY, CPU NumPy codecs; no scientific artifacts."""
+
+import copy
+import hashlib
+import importlib.util
+import io
+import json
+import sys
+from pathlib import Path
+
+import numpy as np
+import pytest
+
+BUILDER = Path(__file__).resolve().parents[2]
+MAIN = BUILDER.parent / "marine-echo-jepa"
+EVIDENCE = BUILDER / "evidence/ssl-comparison-builder-v1"
+sys.path.insert(0, str(MAIN / "src"))
+import marine_echo
+import marine_echo.evaluation
+from marine_echo.evaluation import native_product
+
+spec = importlib.util.spec_from_file_location(
+    "native_comparison_candidate", BUILDER / "src/marine_echo/evaluation/native_comparison.py"
+)
+api = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(api)
+
+
+def digest(value):
+    return hashlib.sha256(value).hexdigest()
+
+
+class MemoryArtifacts:
+    """Real NPZ codecs, virtual files only under the new allowed evidence path."""
+
+    def __init__(self, monkeypatch):
+        self.files = {}
+        original_read, original_exists, original_open = Path.read_bytes, Path.exists, Path.open
+
+        def read(path):
+            if path in self.files:
+                return self.files[path]
+            if path.is_relative_to(EVIDENCE):
+                raise FileNotFoundError(path)
+            return original_read(path)
+
+        def exists(path):
+            return path in self.files if path.is_relative_to(EVIDENCE) else original_exists(path)
+
+        class Output(io.StringIO):
+            def close(stream):
+                self.files[stream.path] = stream.getvalue().encode("utf-8")
+                super().close()
+
+        def opened(path, mode="r", *args, **kwargs):
+            if path.is_relative_to(EVIDENCE):
+                assert mode == "x" and path not in self.files
+                stream = Output()
+                stream.path = path
+                return stream
+            return original_open(path, mode, *args, **kwargs)
+
+        monkeypatch.setattr(Path, "read_bytes", read)
+        monkeypatch.setattr(Path, "exists", exists)
+        monkeypatch.setattr(Path, "open", opened)
+
+    def put_json(self, path, value):
+        self.files[path] = json.dumps(value, sort_keys=True).encode()
+
+    def put_npz(self, path, arrays):
+        stream = io.BytesIO()
+        np.savez_compressed(stream, **arrays)
+        self.files[path] = stream.getvalue()
+
+
+def arrays(constant=False, insufficient=False):
+    records = []
+    # Unequal deployment/day/horizon support, all supported days at floor18.
+    for deployment, offsets in (("site-A", [0, 1, 7, 8, 14, 15]), ("site-B", [0, 7, 14])):
+        for offset in offsets:
+            for row in range(18 if insufficient else 20 + offset % 3):
+                records.append((deployment, offset, row))
+    n = len(records)
+    dep = np.array([v[0] for v in records])
+    date = np.array([str(np.datetime64("2024-01-01") + np.timedelta64(v[1], "D")) for v in records])
+    target = np.array(
+        [[-79 + v[1] / 7 + v[2] / 10 + h for h in (1, 3, 6)] for v in records], np.float64
+    )
+    observed = np.ones((n, 3), bool)
+    for i, (_, offset, row) in enumerate(records):
+        if row >= 18 and offset % 2:
+            observed[i, 1] = False
+        if row >= 18:
+            observed[i, 2] = False
+    if insufficient:
+        observed[dep == "site-B", 2] = False
+    prediction = target[..., None] + np.array([-4, -2, 0, 2, 4])
+    if constant:
+        prediction[:] = np.array([-83, -81, -79, -77, -75])
+    query = np.zeros((n, 3, 10), np.float64)
+    query[..., 0] = 38000 / 455000
+    query[..., 1:3] = 1
+    query[..., 4] = 230 / 250
+    query[..., 9] = [1, 3, 6]
+    return {
+        "predictions": prediction,
+        "targets": target,
+        "observed": observed,
+        "target_dates": np.repeat(date[:, None], 3, 1),
+        "deployment": dep,
+        "row_id": np.array([f"issue-{v[1]:02d}-{v[2]:02d}" for v in records]),
+        "query": query,
+        "cutoff": np.arange(n),
+        "source_archive": np.repeat("SYNTHETIC_CORRECTNESS_ONLY.zip", n),
+        "evidence_kind": np.array("SYNTHETIC_CORRECTNESS_ONLY"),
+    }
+
+
+@pytest.fixture
+def case(monkeypatch):
+    assert (
+        Path(native_product.__file__).resolve()
+        == MAIN / "src/marine_echo/evaluation/native_product.py"
+    )
+    fs = MemoryArtifacts(monkeypatch)
+    base = EVIDENCE / "SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL"
+    manifest_path, review_path, output_path = (
+        base / name for name in ("manifest.json", "review.json", "output.json")
+    )
+    paths = {"reference": base / "reference.npz", "candidate": base / "candidate.npz"}
+    manifest = {
+        "role": "development",
+        "methods": {k: str(v) for k, v in paths.items()},
+        "reference": "reference",
+        "bootstrap_seed": 20260929,
+        "bootstrap_replicates": 2000,
+        "block_hours": 48,
+        "block_days": 2,
+        "floor": 18,
+        "implementer_session_id": "fixture-declared-implementer",
+        "root_coordinator_session_id": "fixture-root-coordinator",
+        "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+    }
+    review = {
+        "status": "APPROVED_COMPARISON_RECONSTRUCTION",
+        "allowed_roles": ["development"],
+        "reviewer_session_id": "fixture-distinct-reviewer",
+        "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+        "bindings": {},
+    }
+    original = arrays()
+    other = copy.deepcopy(original)
+    offset = (
+        other["target_dates"][:, 0].astype("datetime64[D]") - np.datetime64("2024-01-01")
+    ).astype(int)
+    other["predictions"] += (offset[:, None] / 7 * 0.3 + np.array([0, 0.5, 1.0]))[..., None]
+    other["targets"][~other["observed"]] = np.nan
+
+    def refresh(a=original, b=other):
+        fs.put_npz(paths["reference"], a)
+        fs.put_npz(paths["candidate"], b)
+        fs.put_json(manifest_path, manifest)
+        sources = [
+            Path(api.__file__),
+            Path(native_product.__file__),
+            Path(marine_echo.__file__),
+            Path(marine_echo.evaluation.__file__),
+        ]
+        bound = sources + [manifest_path, *paths.values()]
+        if "scientific_protocol_path" in manifest:
+            bound.append(Path(manifest["scientific_protocol_path"]))
+        review["bindings"] = {str(p.resolve()): digest(p.read_bytes()) for p in bound}
+        fs.put_json(review_path, review)
+
+    refresh()
+    return (
+        fs,
+        manifest_path,
+        review_path,
+        output_path,
+        manifest,
+        review,
+        paths,
+        original,
+        other,
+        refresh,
+    )
+
+
+def run(case):
+    fs, manifest, review, output, *_ = case
+    result = api.compare_saved_predictions(manifest, review, output)
+    assert result == json.loads(fs.files[output])
+    return result
+
+
+def independent_score(a):
+    result = []
+    for dep in sorted(set(a["deployment"])):
+        horizons = []
+        for h in range(3):
+            days = []
+            for date in sorted(set(a["target_dates"][:, h])):
+                indices = [
+                    i
+                    for i in range(len(a["targets"]))
+                    if a["deployment"][i] == dep
+                    and a["observed"][i, h]
+                    and a["target_dates"][i, h] == date
+                ]
+                if len(indices) >= 18:
+                    errors = [
+                        a["targets"][i, h] - a["predictions"][i, h, q]
+                        for i in indices
+                        for q in range(5)
+                    ]
+                    losses = [
+                        max(tau * e, (tau - 1) * e)
+                        for e, tau in zip(
+                            errors, [0.05, 0.25, 0.5, 0.75, 0.95] * len(indices), strict=True
+                        )
+                    ]
+                    days.append(sum(losses) / len(losses))
+            if not days:
+                return None
+            horizons.append(sum(days) / len(days))
+        result.append(sum(horizons) / 3)
+    return sum(result) / len(result)
+
+
+def test_native_daily_scores_direction_geometry_provenance_and_unequal_counts(case):
+    result = run(case)
+    a, b = case[7:9]
+    assert result["methods"]["reference"]["metrics"]["primary_pinball_db"] == pytest.approx(
+        independent_score(a)
+    )
+    assert result["methods"]["candidate"]["metrics"]["primary_pinball_db"] == pytest.approx(
+        independent_score(b)
+    )
+    comparison = result["comparisons"][0]
+    assert comparison["method"] == "candidate" and comparison["reference"] == "reference"
+    assert comparison["direction"] == "method_minus_reference"
+    assert comparison["point_difference_db"] == pytest.approx(
+        independent_score(b) - independent_score(a)
+    )
+    assert result["native_geometry"]["unique_products"][0]["lower_m"] == 230
+    assert result["native_geometry"]["unique_products"][0]["frequency_hz"] == 38000
+    assert result["native_geometry"]["horizon_intervals"] == [1, 3, 6]
+    assert result["methods"]["reference"]["provenance"]["source_archive"][
+        "content_sha256"
+    ] == digest(a["source_archive"].tobytes(order="C"))
+    assert result["bootstrap"]["deployment_count"] == 2
+    assert result["bootstrap"]["replicates"] == 2000
+    assert result["bootstrap"]["valid_replicates"] == 2000
+    assert result["bootstrap"]["blocks"][0]["observed_source_date_count"] == 6
+    assert result["bootstrap"]["blocks"][0]["observed_calendar_block_ids"] == [0, 3, 4, 7]
+    assert (
+        result["bootstrap"]["eligible_day_count_ranges_per_horizon"][0][0]
+        < result["bootstrap"]["eligible_day_count_ranges_per_horizon"][0][1]
+    )
+    assert result["evidence_kind"] == "SYNTHETIC_CORRECTNESS_ONLY"
+
+
+def test_row_reordering_and_masked_fill_invariance(case):
+    first = run(case)
+    fs, _, _, output, _, _, _, a, b, refresh = case
+    del fs.files[output]
+    rng = np.random.default_rng(91)
+    order = rng.permutation(len(b["row_id"]))
+    b = {k: v[order].copy() if v.ndim and len(v) == len(order) else v.copy() for k, v in b.items()}
+    b["targets"][~b["observed"]] = 1e20
+    refresh(a, b)
+    second = run(case)
+    for name in first["methods"]:
+        for key in (
+            "metrics",
+            "forecast_variation",
+            "forecast_mask_provenance",
+            "summarized_optional_arrays",
+        ):
+            assert first["methods"][name][key] == second["methods"][name][key]
+    # Optional array descriptors identify original artifact order, while scores
+    # and common support use canonical issuance order. Reordering changes cutoff bytes.
+    assert (
+        first["methods"]["candidate"]["provenance"]["cutoff"]["content_sha256"]
+        != second["methods"]["candidate"]["provenance"]["cutoff"]["content_sha256"]
+    )
+    assert first["common_support"] == second["common_support"]
+    assert first["comparisons"] == second["comparisons"]
+    assert first["bootstrap"] == second["bootstrap"]
+    np.testing.assert_array_equal(a["predictions"], case[7]["predictions"])
+
+
+@pytest.mark.parametrize(
+    "change",
+    [
+        "row_set",
+        "duplicate",
+        "mask",
+        "observed_target",
+        "date",
+        "query",
+        "missing",
+        "prediction_nan",
+        "prediction_inf",
+        "observed_target_nan",
+        "observed_target_inf",
+        "unordered",
+        "mask_dtype",
+        "shape",
+        "query_geometry",
+        "query_frequency",
+        "query_interval",
+        "query_horizon",
+    ],
+)
+def test_artifact_mismatch_or_missing_nonfinite_forecast_is_rejected(case, change):
+    *_, a, b, refresh = case
+    b = copy.deepcopy(b)
+    if change == "row_set":
+        b["row_id"][0] = "different-issue"
+    elif change == "duplicate":
+        b["row_id"][1] = b["row_id"][0]
+    elif change == "mask":
+        b["observed"][0, 0] = False
+    elif change == "observed_target":
+        b["targets"][0, 0] += 0.01
+    elif change == "date":
+        b["target_dates"][0, 0] = "2024-02-01"
+    elif change == "query":
+        b["query"][0, 0, 4] = 200 / 250
+    elif change == "missing":
+        del b["predictions"]
+    elif change.startswith("prediction_"):
+        b["predictions"][0, 0, 0] = np.nan if change.endswith("nan") else np.inf
+    elif change.startswith("observed_target_"):
+        b["targets"][0, 0] = np.nan if change.endswith("nan") else np.inf
+    elif change == "unordered":
+        b["predictions"][0, 0] = b["predictions"][0, 0, ::-1]
+    elif change == "mask_dtype":
+        b["observed"] = b["observed"].astype(int)
+    elif change == "shape":
+        b["predictions"] = b["predictions"][:, :2]
+    else:
+        index, value = {
+            "query_geometry": (4, 0),
+            "query_frequency": (0, 1),
+            "query_interval": (1, 0.5),
+            "query_horizon": (9, 9),
+        }[change]
+        b["query"][0, 0, index] = value
+    refresh(a, b)
+    with pytest.raises(ValueError):
+        run(case)
+
+
+@pytest.mark.parametrize(
+    "change",
+    [
+        "missing_review",
+        "status",
+        "self",
+        "root",
+        "declared",
+        "role",
+        "final_role",
+        "final_status",
+        "missing_source",
+        "stale_source",
+        "stale_manifest",
+        "stale_npz",
+        "stale_protocol",
+        "seed",
+        "replicates",
+        "block",
+        "floor",
+        "reference",
+        "evidence_kind",
+        "output_exists",
+    ],
+)
+def test_review_and_prespecification_gates_precede_numeric_loading(case, monkeypatch, change):
+    fs, manifest_path, review_path, output, manifest, review, paths, a, b, refresh = case
+    if change == "missing_review":
+        del fs.files[review_path]
+    elif change == "status":
+        review["status"] = "APPROVED_PREFIT"
+    elif change in ("self", "root", "declared"):
+        review["reviewer_session_id"] = {
+            "self": api.IMPLEMENTER_SESSION_ID,
+            "root": manifest["root_coordinator_session_id"],
+            "declared": manifest["implementer_session_id"],
+        }[change]
+    elif change in ("role", "final_role", "final_status"):
+        if change == "role":
+            review["allowed_roles"] = []
+        else:
+            manifest["role"] = "final_test"
+            refresh(a, b)
+            if change == "final_role":
+                review["status"] = "APPROVED_FINAL_ASSESSMENT"
+    elif change in ("missing_source", "stale_source"):
+        key = str(Path(native_product.__file__).resolve())
+        if change == "missing_source":
+            del review["bindings"][key]
+        else:
+            review["bindings"][key] = "0" * 64
+    elif change == "stale_manifest":
+        fs.files[manifest_path] += b" "
+    elif change == "stale_npz":
+        fs.files[paths["candidate"]] += b" "
+    elif change == "stale_protocol":
+        protocol = EVIDENCE / "SYNTHETIC_CORRECTNESS_ONLY_VIRTUAL/protocol.json"
+        fs.put_json(protocol, {"fixture": "SYNTHETIC_CORRECTNESS_ONLY"})
+        manifest["scientific_protocol_path"] = str(protocol)
+        refresh(a, b)
+        fs.files[protocol] += b" "
+    elif change in ("seed", "replicates", "block", "floor", "reference"):
+        key, value = {
+            "seed": ("bootstrap_seed", 7),
+            "replicates": ("bootstrap_replicates", 1),
+            "block": ("block_days", 8),
+            "floor": ("floor", 1),
+            "reference": ("reference", "absent"),
+        }[change]
+        manifest[key] = value
+        refresh(a, b)
+    elif change == "evidence_kind":
+        review["evidence_kind"] = "REVIEWED_SAVED_PREDICTIONS"
+    else:
+        fs.files[output] = b"do not overwrite"
+    if change != "missing_review":
+        fs.put_json(review_path, review)
+    monkeypatch.setattr(
+        np, "load", lambda *a, **k: pytest.fail("Numeric loading occurred before a rejected gate.")
+    )
+    with pytest.raises((ValueError, FileNotFoundError, FileExistsError)):
+        api.compare_saved_predictions(manifest_path, review_path, output)
+
+
+def test_final_role_requires_its_distinct_explicit_assessment_review(case):
+    fs, _, review_path, _, manifest, review, _, a, b, refresh = case
+    manifest["role"] = "final_test"
+    review["status"] = "APPROVED_FINAL_ASSESSMENT"
+    review["allowed_roles"] = ["final_test"]
+    refresh(a, b)
+    fs.put_json(review_path, review)
+    assert run(case)["role"] == "final_test"
+
+
+def test_identical_methods_zero_interval_and_repeatable_paired_sequence(case):
+    fs, _, _, output, _, _, _, a, _, refresh = case
+    refresh(a, copy.deepcopy(a))
+    first = run(case)
+    pair = first["comparisons"][0]
+    assert pair["point_difference_db"] == 0 and pair["ci95_db"] == [0, 0]
+    del fs.files[output]
+    second = run(case)
+    assert first == second
+
+
+def test_constant_predictions_are_explicit_diagnostics(case):
+    *_, a, _, refresh = case
+    refresh(a, arrays(constant=True))
+    summary = run(case)["methods"]["candidate"]["forecast_variation"]
+    assert summary["constant_across_issuance"] is True
+    assert summary["median_range_db_per_horizon"] == [0, 0, 0]
+    assert summary["diagnostic_only"] is True
+
+
+def test_missing_floor_support_is_not_assessable_not_partial_deployment_score(case):
+    *_, refresh = case
+    a = arrays(insufficient=True)
+    refresh(a, copy.deepcopy(a))
+    result = run(case)
+    assert result["methods"]["reference"]["metrics"]["primary_pinball_db"] is None
+    assert result["comparisons"][0]["status"] == "NOT_ASSESSABLE"
+    assert result["comparisons"][0]["ci95_db"] is None
+    assert result["comparisons"][0]["point_difference_db"] is None
+    assert result["bootstrap"]["generated_replicates"] == 0
+    assert result["bootstrap"]["not_run_replicates"] == 2000
+    assert result["bootstrap"]["unsupported_replicates"] == 0
+
+
+def test_paired_bootstrap_matches_independent_calendar_block_reconstruction(case):
+    result = run(case)
+    daily = {name: info["metrics"]["daily_rows"] for name, info in result["methods"].items()}
+    rng = np.random.default_rng(20260929)
+    draws = []
+    deployments = ["site-A", "site-B"]
+    grouped = {}
+    ids = {dep: set() for dep in deployments}
+    sequence = hashlib.sha256()
+    for name, rows in daily.items():
+        for row in rows:
+            offset = int(
+                (np.datetime64(row["target_source_date"]) - np.datetime64("2024-01-01"))
+                / np.timedelta64(1, "D")
+            )
+            key = (name, row["deployment"], row["horizon_intervals"], offset // 2)
+            ids[row["deployment"]].add(offset // 2)
+            grouped.setdefault(key, []).append(row["pinball_db"])
+    ids = {dep: sorted(values) for dep, values in ids.items()}
+    repeated_draws = 0
+    for _ in range(2000):
+        scores = {name: [] for name in daily}
+        sampled = rng.integers(0, 2, size=2)
+        sequence.update(sampled.astype("<i8").tobytes())
+        for index in sampled:
+            dep = deployments[index]
+            positions = rng.integers(0, len(ids[dep]), size=len(ids[dep]))
+            sequence.update(positions.astype("<i8").tobytes())
+            blocks = [ids[dep][p] for p in positions]
+            repeated_draws += len(blocks) != len(set(blocks))
+            for name in daily:
+                h_scores = []
+                for h in (1, 3, 6):
+                    values = []
+                    for block in blocks:
+                        values.extend(grouped[(name, dep, h, block)])
+                    h_scores.append(sum(values) / len(values))
+                scores[name].append(sum(h_scores) / 3)
+        draws.append(sum(scores["candidate"]) / 2 - sum(scores["reference"]) / 2)
+    np.testing.assert_allclose(
+        result["comparisons"][0]["ci95_db"],
+        np.percentile(draws, [2.5, 97.5]),
+        rtol=1e-12,
+        atol=1e-12,
+    )
+    assert repeated_draws > 0  # concatenation above retains every repeated day.
+    assert result["bootstrap"]["sequence_sha256"] == sequence.hexdigest()
+
+
+def test_optional_reference_provenance_not_required_and_input_bytes_unchanged(case):
+    fs, _, _, _, _, _, paths, a, b, refresh = case
+    a = {k: v for k, v in a.items() if k in api.REQUIRED}
+    b = {k: v for k, v in b.items() if k in api.REQUIRED}
+    refresh(a, b)
+    before = {path: fs.files[path] for path in paths.values()}
+    result = run(case)
+    assert all(fs.files[path] == raw for path, raw in before.items())
+    assert result["methods"]["reference"]["provenance"] == {}
+
+
+def test_unsupported_resampled_horizons_do_not_produce_conditional_intervals(case):
+    *_, a, _, refresh = case
+    a = copy.deepcopy(a)
+    a["observed"][(a["deployment"] == "site-B") & (a["target_dates"][:, 2] != "2024-01-15"), 2] = (
+        False
+    )
+    refresh(a, copy.deepcopy(a))
+    result = run(case)
+    assert result["methods"]["reference"]["metrics"]["primary_pinball_db"] is not None
+    assert 0 < result["bootstrap"]["unsupported_replicates"] < 2000
+    assert result["bootstrap"]["generated_replicates"] == 2000
+    assert result["bootstrap"]["not_run_replicates"] == 0
+    assert (
+        result["bootstrap"]["valid_replicates"] + result["bootstrap"]["unsupported_replicates"]
+        == 2000
+    )
+    assert result["comparisons"][0]["ci95_db"] is None
+    assert result["comparisons"][0]["status"] == "NOT_ASSESSABLE"
+
+
+def test_zero_calendar_span_is_disclosed_without_an_uncertainty_claim(case):
+    *_, a, _, refresh = case
+    keep = (a["deployment"] == "site-A") & (a["target_dates"][:, 0] == "2024-01-01")
+    n = len(a["row_id"])
+    a = {k: v[keep] if v.ndim and len(v) == n else v.copy() for k, v in a.items()}
+    refresh(a, copy.deepcopy(a))
+    result = run(case)
+    assert result["bootstrap"]["blocks"][0]["zero_span"] is True
+    assert result["bootstrap"]["blocks"][0]["single_observed_block"] is True
+    assert result["comparisons"][0]["point_difference_db"] == 0
+    assert result["comparisons"][0]["ci95_db"] is None
+
+
+def test_calendar_anchor_uses_earliest_target_date_across_horizons(case):
+    *_, a, _, refresh = case
+    a = copy.deepcopy(a)
+    a["observed"][0, 0] = False
+    a["target_dates"][0, 0] = "2023-12-25"
+    refresh(a, copy.deepcopy(a))
+    result = run(case)
+    record = result["bootstrap"]["blocks"][0]
+    assert record["anchor_source_date"] == "2023-12-25"
+    assert record["observed_calendar_block_ids"] == [3, 4, 7, 10, 11]
+
+
+def test_numeric_codecs_use_reviewed_snapshots_even_if_files_change_after_admission(
+    case, monkeypatch
+):
+    fs, _, _, _, _, _, paths, _, _, _ = case
+    original_load = np.load
+    calls = []
+
+    def load(snapshot, **kwargs):
+        assert isinstance(snapshot, io.BytesIO)
+        calls.append(kwargs)
+        for path in paths.values():
+            fs.files[path] = b"tampered after complete review admission"
+        return original_load(snapshot, **kwargs)
+
+    monkeypatch.setattr(np, "load", load)
+    assert run(case)["bootstrap"]["valid_replicates"] == 2000
+    assert calls == [{"allow_pickle": False}, {"allow_pickle": False}]
+
+
+@pytest.mark.parametrize(
+    "change",
+    [
+        "case_self",
+        "padded_self",
+        "missing_coordinator",
+        "missing_builder_source",
+        "empty_bindings",
+        "unknown_role",
+    ],
+)
+def test_identity_and_source_gate_adversaries_before_numeric_load(case, monkeypatch, change):
+    fs, _, review_path, _, manifest, review, _, a, b, refresh = case
+    if change == "case_self":
+        review["reviewer_session_id"] = api.IMPLEMENTER_SESSION_ID.upper()
+    elif change == "padded_self":
+        review["reviewer_session_id"] = " " + api.IMPLEMENTER_SESSION_ID + " "
+    elif change == "missing_coordinator":
+        del manifest["root_coordinator_session_id"]
+        refresh(a, b)
+    elif change == "missing_builder_source":
+        del review["bindings"][str(Path(api.__file__).resolve())]
+    elif change == "empty_bindings":
+        review["bindings"] = {}
+    else:
+        manifest["role"] = "test"
+        refresh(a, b)
+    fs.put_json(review_path, review)
+    monkeypatch.setattr(
+        np, "load", lambda *a, **k: pytest.fail("Rejected identity/source reached numeric loading.")
+    )
+    with pytest.raises(ValueError):
+        run(case)
+
+
+def test_nonfinite_forecasts_remain_forbidden_on_unobserved_targets(case):
+    *_, a, b, refresh = case
+    b = copy.deepcopy(b)
+    i, h = np.argwhere(~b["observed"])[0]
+    b["predictions"][i, h, 0] = np.nan
+    refresh(a, b)
+    with pytest.raises(ValueError, match="forecasts"):
+        run(case)
+
+
+def test_query_float32_native_230_depth_is_not_relabelled(case):
+    *_, a, b, refresh = case
+    a, b = copy.deepcopy(a), copy.deepcopy(b)
+    a["query"] = a["query"].astype(np.float32)
+    b["query"] = b["query"].astype(np.float32)
+    refresh(a, b)
+    product = run(case)["native_geometry"]["unique_products"][0]
+    assert product["lower_m"] == 230
+    assert product["frequency_hz"] == 38000
+
+
+def test_independent_daily_support_check_rejects_scorer_support_shrink(case, monkeypatch):
+    original = native_product.native_scores
+
+    def shrunk(*args, **kwargs):
+        result = original(*args, **kwargs)
+        result["daily_rows"] = result["daily_rows"][1:]
+        return result
+
+    monkeypatch.setattr(native_product, "native_scores", shrunk)
+    with pytest.raises(ValueError, match="independently reconstructed"):
+        run(case)
+
+
+def test_report_binds_each_method_label_to_its_actual_prediction_bytes(case):
+    fs, _, _, _, _, _, paths, *_ = case
+    result = run(case)
+    for name, path in paths.items():
+        assert result["provenance"]["prediction_artifacts"][name] == {
+            "path": str(path),
+            "sha256": digest(fs.files[path]),
+        }
+
+
+def test_protocol_v2_requires_frozen_48_hour_recipe_and_reports_clock_uncertainty(case):
+    assert api.RECIPE == {
+        "bootstrap_seed": 20260929,
+        "bootstrap_replicates": 2000,
+        "block_hours": 48,
+        "block_days": 2,
+        "floor": 18,
+    }
+    result = run(case)
+    assert result["recipe"]["block_hours"] == result["bootstrap"]["block_hours"] == 48
+    assert result["recipe"]["block_days"] == result["bootstrap"]["block_days"] == 2
+    assert result["bootstrap"]["seed"] == 20260929
+    assert result["bootstrap"]["replicates"] == result["bootstrap"]["generated_replicates"] == 2000
+    assert result["bootstrap"]["verified_absolute_time"] is False
+    assert "source-clock" in result["bootstrap"]["source_clock_uncertainty"]
+
+
+def test_protocol_v2_rejects_legacy_seven_day_1729_before_numeric_loading(case, monkeypatch):
+    _, manifest_path, review_path, output, manifest, _, _, a, b, refresh = case
+    manifest.update(bootstrap_seed=1729, block_days=7, block_hours=168)
+    refresh(a, b)
+    monkeypatch.setattr(
+        np, "load", lambda *a, **k: pytest.fail("Legacy protocol reached numeric loading.")
+    )
+    with pytest.raises(ValueError, match="Prespecified comparison recipe"):
+        api.compare_saved_predictions(manifest_path, review_path, output)
+
+
+def neural_schema(a):
+    """Synthetic fields/shapes emitted by native_ssl/native_downstream, no inference."""
+    a = copy.deepcopy(a)
+    a["target_observed"] = a.pop("observed")
+    n = len(a["row_id"])
+    a["context_observed"] = np.ones((n, 96, 4), dtype=bool)
+    a["context_observed"][:, ::3, 1:] = False
+    a["metadata"] = np.repeat(a["query"][:, :1], 4, axis=1)
+    a["metadata"][..., 9] = 0
+    a["assessment_support"] = np.ones((n, 3), dtype=bool)
+    a["query_native_bounds_m"] = a["query"][..., 3:5] * 250
+    a["query_frequency_hz"] = a["query"][..., 0] * 455000
+    a["query_interval_seconds"] = a["query"][..., 1] * 3600
+    a["quantiles"] = np.array([0.05, 0.25, 0.5, 0.75, 0.95])
+    a["horizons"] = np.array([1, 3, 6])
+    return a
+
+
+def test_schema_v3_neural_target_mask_matches_reference_metrics_support_and_bootstrap(case):
+    baseline = run(case)
+    fs, _, _, output, _, _, paths, a, b, refresh = case
+    del fs.files[output]
+    neural = neural_schema(b)
+    before = {k: v.copy() for k, v in neural.items()}
+    refresh(a, neural)
+    payload = fs.files[paths["candidate"]]
+    result = run(case)
+    for name in result["methods"]:
+        assert result["methods"][name]["metrics"] == baseline["methods"][name]["metrics"]
+        assert (
+            result["methods"][name]["forecast_variation"]
+            == baseline["methods"][name]["forecast_variation"]
+        )
+    for key in ("common_support", "bootstrap", "comparisons", "native_geometry", "recipe"):
+        assert result[key] == baseline[key]
+    assert result["methods"]["candidate"]["forecast_mask_provenance"] == {
+        "original_fields": ["target_observed"],
+        "canonical_field": "observed",
+        "canonicalized_from": "target_observed",
+        "equal_dual_masks": False,
+    }
+    assert result["methods"]["reference"]["forecast_mask_provenance"]["original_fields"] == [
+        "observed"
+    ]
+    assert result["provenance"]["prediction_artifacts"]["candidate"]["sha256"] == digest(payload)
+    assert fs.files[paths["candidate"]] == payload
+    for key in neural:
+        np.testing.assert_array_equal(neural[key], before[key])
+
+
+def test_schema_v3_equal_dual_masks_retain_original_field_trace(case):
+    *_, a, b, refresh = case
+    b = neural_schema(b)
+    b["observed"] = b["target_observed"].copy()
+    refresh(a, b)
+    result = run(case)
+    assert result["methods"]["candidate"]["forecast_mask_provenance"] == {
+        "original_fields": ["observed", "target_observed"],
+        "canonical_field": "observed",
+        "canonicalized_from": None,
+        "equal_dual_masks": True,
+    }
+    assert result["methods"]["candidate"]["metrics"]["primary_pinball_db"] == pytest.approx(
+        independent_score(b)
+    )
+
+
+@pytest.mark.parametrize("field", ["observed", "target_observed"])
+@pytest.mark.parametrize("change", ["dtype", "shape", "context_shape", "values"])
+def test_schema_v3_bad_dual_masks_rejected_before_scoring(case, monkeypatch, field, change):
+    *_, a, b, refresh = case
+    b = neural_schema(b)
+    b["observed"] = b["target_observed"].copy()
+    if change == "dtype":
+        b[field] = b[field].astype(np.int8)
+    elif change == "shape":
+        b[field] = b[field][:, :2]
+    elif change == "context_shape":
+        b[field] = b["context_observed"].copy()
+    else:
+        b[field][0, 0] = ~b[field][0, 0]
+    refresh(a, b)
+    monkeypatch.setattr(
+        native_product,
+        "native_scores",
+        lambda *a, **k: pytest.fail("Malformed/conflicting masks reached scoring."),
+    )
+    with pytest.raises(ValueError, match="mask"):
+        run(case)
+
+
+@pytest.mark.parametrize("change", ["missing", "dtype", "shape"])
+def test_schema_v3_context_mask_never_substitutes_for_forecast_labels(case, monkeypatch, change):
+    *_, a, b, refresh = case
+    b = neural_schema(b)
+    if change == "missing":
+        del b["target_observed"]
+    elif change == "dtype":
+        b["target_observed"] = b["target_observed"].astype(np.int8)
+    else:
+        b["target_observed"] = b["context_observed"].copy()
+    refresh(a, b)
+    monkeypatch.setattr(
+        native_product,
+        "native_scores",
+        lambda *a, **k: pytest.fail("Context mask reached forecast scoring."),
+    )
+    with pytest.raises(ValueError, match="mask"):
+        run(case)
+
+
+def test_schema_v3_optional_array_descriptors_are_bounded_exact_and_not_metric_compression(case):
+    baseline = run(case)
+    fs, _, _, output, _, _, _, a, b, refresh = case
+    del fs.files[output]
+    b = neural_schema(b)
+    # Over a million Boolean cells; unrelated optional provenance cannot affect support.
+    b["optional_synthetic_mask_archive"] = np.ones((4096, 96, 4), dtype=bool)
+    refresh(a, b)
+    result = run(case)
+    info = result["methods"]["candidate"]
+    expected = sorted(set(b) - api.REQUIRED)
+    assert info["summarized_optional_arrays"] == expected
+    assert set(info["provenance"]) == set(expected)
+    assert len(json.dumps(info["provenance"])) < 8000
+    for key in expected:
+        value = b[key]
+        descriptor = info["provenance"][key]
+        assert descriptor == {
+            "dtype": value.dtype.str,
+            "shape": list(value.shape),
+            "content_sha256": digest(np.ascontiguousarray(value).tobytes(order="C")),
+            "content_encoding": "numpy_C_order_bytes",
+            "array_order": "original_artifact_order",
+        }
+        assert "values" not in descriptor
+    assert result["common_support"] == baseline["common_support"]
+    assert result["bootstrap"] == baseline["bootstrap"]
+    assert result["comparisons"] == baseline["comparisons"]
+    assert info["metrics"] == baseline["methods"]["candidate"]["metrics"]
+    assert "values" in result["common_support"]["query"]
+    del fs.files[output]
+    b["context_observed"][0, 0, 0] = ~b["context_observed"][0, 0, 0]
+    refresh(a, b)
+    altered = run(case)
+    assert (
+        altered["methods"]["candidate"]["provenance"]["context_observed"]["content_sha256"]
+        != info["provenance"]["context_observed"]["content_sha256"]
+    )
+    for key in ("common_support", "bootstrap", "comparisons"):
+        assert altered[key] == result[key]
+
+
+def test_protocol_v2_two_day_calendar_boundaries_preserve_gap_and_horizon_pairing(case):
+    result = run(case)
+    first, second = result["bootstrap"]["blocks"]
+    assert first["anchor_source_date"] == second["anchor_source_date"] == "2024-01-01"
+    assert first["observed_calendar_block_ids"] == [0, 3, 4, 7]
+    assert second["observed_calendar_block_ids"] == [0, 3, 7]
+    assert first["eligible_day_counts_per_block_horizon"] == [
+        [2, 2, 2],
+        [1, 1, 1],
+        [1, 1, 1],
+        [2, 2, 2],
+    ]
+    assert first["calendar_blocks"][1] == {
+        "block_id": 3,
+        "start_source_date_inclusive": "2024-01-07",
+        "end_source_date_exclusive": "2024-01-09",
+        "nominal_hourly_intervals": 48,
+    }
+    assert first["calendar_blocks"][2]["start_source_date_inclusive"] == "2024-01-09"
+    assert first["calendar_blocks"][3]["start_source_date_inclusive"] == "2024-01-15"
+
+
+@pytest.mark.parametrize(
+    "wrong", ["legacy_seed", "legacy_days", "wrong_hours", "missing_hours", "float_hours"]
+)
+def test_protocol_v2_each_recipe_dimension_is_admitted_before_numeric_loading(
+    case, monkeypatch, wrong
+):
+    _, manifest_path, review_path, output, manifest, _, _, a, b, refresh = case
+    if wrong == "legacy_seed":
+        manifest["bootstrap_seed"] = 1729
+    elif wrong == "legacy_days":
+        manifest["block_days"] = 7
+    elif wrong == "wrong_hours":
+        manifest["block_hours"] = 168
+    elif wrong == "missing_hours":
+        del manifest["block_hours"]
+    else:
+        manifest["block_hours"] = 48.0
+    refresh(a, b)
+    monkeypatch.setattr(
+        np,
+        "load",
+        lambda *a, **k: pytest.fail("Wrong nominal-hour recipe reached numeric loading."),
+    )
+    with pytest.raises(ValueError, match="Prespecified comparison recipe"):
+        api.compare_saved_predictions(manifest_path, review_path, output)

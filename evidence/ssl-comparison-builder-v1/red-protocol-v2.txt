@@ -1,0 +1,71 @@
+FFF
+================================== FAILURES ===================================
+_ test_protocol_v2_requires_frozen_48_hour_recipe_and_reports_clock_uncertainty _
+
+case = (<test_native_comparison.MemoryArtifacts object at 0x000002A1D59E1370>, WindowsPath('C:/Users/Álvaro Schwiedop/Desktop...opment'], 'reviewer_session_id': 'fixture-distinct-reviewer', 'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', ...}, ...)
+
+    def test_protocol_v2_requires_frozen_48_hour_recipe_and_reports_clock_uncertainty(case):
+>       assert api.RECIPE == {"bootstrap_seed": 20260929, "bootstrap_replicates": 2000,
+                              "block_hours": 48, "block_days": 2, "floor": 18}
+E       AssertionError: assert {'bootstrap_s..., 'floor': 18} == {'bootstrap_s...days': 2, ...}
+E         
+E         Omitting 2 identical items, use -vv to show
+E         Differing items:
+E         {'block_days': 7} != {'block_days': 2}
+E         {'bootstrap_seed': 1729} != {'bootstrap_seed': 20260929}
+E         Right contains 1 more item:
+E         {'block_hours': 48}
+E         Use -v to get more diff
+
+tests\unit\test_native_comparison.py:663: AssertionError
+____ test_protocol_v2_rejects_legacy_seven_day_1729_before_numeric_loading ____
+
+case = (<test_native_comparison.MemoryArtifacts object at 0x000002A1D59E1490>, WindowsPath('C:/Users/Álvaro Schwiedop/Desktop...opment'], 'reviewer_session_id': 'fixture-distinct-reviewer', 'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', ...}, ...)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002A1D59E1340>
+
+    def test_protocol_v2_rejects_legacy_seven_day_1729_before_numeric_loading(case, monkeypatch):
+        fs, manifest_path, review_path, output, manifest, _, _, a, b, refresh = case
+        manifest.update(bootstrap_seed=1729, block_days=7, block_hours=168)
+        refresh(a, b)
+        monkeypatch.setattr(np, "load", lambda *a, **k: pytest.fail("Legacy protocol reached numeric loading."))
+        with pytest.raises(ValueError, match="Prespecified comparison recipe"):
+>           api.compare_saved_predictions(manifest_path, review_path, output)
+
+tests\unit\test_native_comparison.py:680: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\marine_echo\evaluation\native_comparison.py:466: in compare_saved_predictions
+    name: _load(snapshots[paths[name]], manifest["role"], manifest["evidence_kind"])
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\evaluation\native_comparison.py:194: in _load
+    with np.load(io.BytesIO(payload), allow_pickle=False) as saved:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+a = (<_io.BytesIO object at 0x000002A1D5A57A10>,), k = {'allow_pickle': False}
+
+>   monkeypatch.setattr(np, "load", lambda *a, **k: pytest.fail("Legacy protocol reached numeric loading."))
+                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: Legacy protocol reached numeric loading.
+
+tests\unit\test_native_comparison.py:678: Failed
+_ test_protocol_v2_two_day_calendar_boundaries_preserve_gap_and_horizon_pairing _
+
+case = (<test_native_comparison.MemoryArtifacts object at 0x000002A1A7618860>, WindowsPath('C:/Users/Álvaro Schwiedop/Desktop...opment'], 'reviewer_session_id': 'fixture-distinct-reviewer', 'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', ...}, ...)
+
+    def test_protocol_v2_two_day_calendar_boundaries_preserve_gap_and_horizon_pairing(case):
+        result = run(case)
+        first, second = result["bootstrap"]["blocks"]
+        assert first["anchor_source_date"] == second["anchor_source_date"] == "2024-01-01"
+>       assert first["observed_calendar_block_ids"] == [0, 3, 4, 7]
+E       assert [0, 1, 2] == [0, 3, 4, 7]
+E         
+E         At index 1 diff: 1 != 3
+E         Right contains one more item: 7
+E         Use -v to get more diff
+
+tests\unit\test_native_comparison.py:687: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_comparison.py::test_protocol_v2_requires_frozen_48_hour_recipe_and_reports_clock_uncertainty
+FAILED tests/unit/test_native_comparison.py::test_protocol_v2_rejects_legacy_seven_day_1729_before_numeric_loading
+FAILED tests/unit/test_native_comparison.py::test_protocol_v2_two_day_calendar_boundaries_preserve_gap_and_horizon_pairing
+3 failed, 60 deselected in 3.43s

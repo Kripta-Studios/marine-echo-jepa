@@ -1,0 +1,23 @@
+F
+================================== FAILURES ===================================
+__ test_missing_floor_support_is_not_assessable_not_partial_deployment_score __
+
+case = (<test_native_comparison.MemoryArtifacts object at 0x00000209364708C0>, WindowsPath('C:/Users/Álvaro Schwiedop/Desktop...opment'], 'reviewer_session_id': 'fixture-distinct-reviewer', 'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', ...}, ...)
+
+    def test_missing_floor_support_is_not_assessable_not_partial_deployment_score(case):
+        *_, refresh = case
+        a = arrays(insufficient=True)
+        refresh(a, copy.deepcopy(a))
+        result = run(case)
+        assert result["methods"]["reference"]["metrics"]["primary_pinball_db"] is None
+        assert result["comparisons"][0]["status"] == "NOT_ASSESSABLE"
+        assert result["comparisons"][0]["ci95_db"] is None
+        assert result["comparisons"][0]["point_difference_db"] is None
+>       assert result["bootstrap"]["generated_replicates"] == 0
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'generated_replicates'
+
+tests\unit\test_native_comparison.py:466: KeyError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_comparison.py::test_missing_floor_support_is_not_assessable_not_partial_deployment_score
+1 failed, 59 deselected in 2.74s

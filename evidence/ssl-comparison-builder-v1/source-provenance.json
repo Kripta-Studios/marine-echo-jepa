@@ -1,0 +1,27 @@
+{
+  "operation": "SOURCE_HASHES_ONLY_NO_SCIENTIFIC_ARTIFACT_ACCESS",
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "imports": {
+    "marine_echo": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\__init__.py",
+    "marine_echo.evaluation": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\__init__.py",
+    "marine_echo.evaluation.native_product": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_product.py"
+  },
+  "required_review_source_bindings": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\evaluation\\native_comparison.py": "b7696b615f29eb2765ee07bfb326d3847f5f371c23656a35d6b3c3b6d6d53361",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_product.py": "fd1c643fde93494a21d560794f886056e58031f1ef6dd41ebe53662750bab314",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\__init__.py": "3fcc1878588f5a89775363e099fab7d7323acebccae26d10db4a6da627425b68",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\__init__.py": "dddaccd3cb0c952e88796d75e7a15966cfab87f98c2cfe8452a5fff4c3138c68"
+  },
+  "authored_sha256": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\evaluation\\native_comparison.py": "b7696b615f29eb2765ee07bfb326d3847f5f371c23656a35d6b3c3b6d6d53361",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\tests\\unit\\test_native_comparison.py": "db7d125f3d5cfa0bf68058ee54c3d2c3b5abee6f391a0c22ab8837e6e28c0921",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\evidence\\ssl-comparison-builder-v1\\inspect_sources.py": "c5836b350a162c4e7fad80810b425ffafa5a62f6cff585a618574086c3dbbb70"
+  },
+  "runtime": {
+    "python": "3.12.13 (main, Mar 10 2026, 18:15:39) [MSC v.1944 64 bit (AMD64)]",
+    "numpy": "2.5.3",
+    "torch_imported": false,
+    "executing_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+    "authored_builder_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1"
+  }
+}

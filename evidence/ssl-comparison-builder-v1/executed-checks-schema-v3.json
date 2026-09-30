@@ -1,0 +1,28 @@
+{
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "scientific_assessment_occurred": false,
+  "shell": "cmd.exe",
+  "python": "../marine-echo-jepa/.venv/Scripts/python.exe",
+  "full_commands_report": "NATIVE_COMPARISON_SCHEMA_CORRECTION_V3.md",
+  "checks": [
+    {"stage": "snapshot_before_edit", "script": "snapshot_before_schema_v3.py", "exit_code": 0, "preserved_preceding_evidence_files": 56},
+    {"stage": "red", "pytest_selection": "schema_v3", "log": "red-schema-v3.txt", "exit_code": 1, "failed": 11, "passed": 3, "deselected": 68, "elapsed_seconds": 10.64},
+    {"stage": "first_green", "log": "green-attempt-schema-v3.txt", "exit_code": 0, "passed": 82, "elapsed_seconds": 34.47},
+    {"stage": "format", "log": "format-schema-v3.txt", "exit_code": 0},
+    {"stage": "lint", "log": "lint-schema-v3.txt", "exit_code": 0},
+    {"stage": "final_green", "log": "green-final-schema-v3.txt", "exit_code": 0, "passed": 82, "elapsed_seconds": 34.17},
+    {"stage": "source_import_provenance", "output": "final-source-provenance-schema-v3.json", "exit_code": 0},
+    {"stage": "format_check", "log": "format-check-schema-v3.txt", "exit_code": 0},
+    {"stage": "handoff_format_initial", "log": "format-handoff-schema-v3.txt", "exit_code": 0},
+    {"stage": "handoff_lint_initial", "log": "lint-handoff-schema-v3.txt", "exit_code": 0},
+    {"stage": "handoff_format_check_initial", "log": "format-check-handoff-schema-v3.txt", "exit_code": 0},
+    {"stage": "handoff_verify_initial", "output": "handoff-verification-schema-v3.json", "exit_code": 1, "failure_record": "handoff-attempt-failure-schema-v3.txt", "reason": "Red log contains Windows-encoded traceback paths; UTF-8 decode failed. No filesystem denial."},
+    {"stage": "handoff_lint_fixed", "log": "lint-handoff-fixed-schema-v3.txt", "exit_code": 0},
+    {"stage": "handoff_format_check_fixed", "log": "format-check-handoff-fixed-schema-v3.txt", "exit_code": 1, "reason": "New verifier-only edit needed Ruff formatting."},
+    {"stage": "handoff_verify_fixed", "output": "handoff-verification-final-schema-v3.json", "exit_code": 0},
+    {"stage": "handoff_format_delivery", "log": "format-handoff-delivery-schema-v3.txt", "exit_code": 0},
+    {"stage": "handoff_lint_delivery", "log": "lint-handoff-delivery-schema-v3.txt", "exit_code": 0},
+    {"stage": "handoff_format_check_delivery", "log": "format-check-handoff-delivery-schema-v3.txt", "exit_code": 0},
+    {"stage": "handoff_verify_delivery", "output": "handoff-verification-delivery-schema-v3.json", "exit_code": 0}
+  ]
+}

@@ -1,0 +1,20 @@
+F
+================================== FAILURES ===================================
+_____ test_report_binds_each_method_label_to_its_actual_prediction_bytes ______
+
+case = (<test_native_comparison.MemoryArtifacts object at 0x000001E3A2530140>, WindowsPath('C:/Users/Álvaro Schwiedop/Desktop...opment'], 'reviewer_session_id': 'fixture-distinct-reviewer', 'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', ...}, ...)
+
+    def test_report_binds_each_method_label_to_its_actual_prediction_bytes(case):
+        fs, _, _, _, _, _, paths, *_ = case
+        result = run(case)
+        for name, path in paths.items():
+>           assert result["provenance"]["prediction_artifacts"][name] == {
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                "path": str(path), "sha256": digest(fs.files[path])
+            }
+E           KeyError: 'prediction_artifacts'
+
+tests\unit\test_native_comparison.py:651: KeyError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_comparison.py::test_report_binds_each_method_label_to_its_actual_prediction_bytes
+1 failed, 59 deselected in 2.89s
