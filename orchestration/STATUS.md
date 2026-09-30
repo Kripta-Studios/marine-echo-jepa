@@ -1,6 +1,6 @@
 ## Active model-first research — native acoustic SSL
 
-Updated 2026-09-30T11:09:07.940457+00:00.
+Updated 2026-09-30T11:44:05.740318+00:00.
 
 Branch `research/marine-jepa-vnext`; owner-authorized local model research.
 App/release work is frozen; historical protocols, evidence and approved r3 are preserved.
@@ -16,9 +16,9 @@ LightGBM15 quantile boosters and deterministic persistence/seasonal references c
 Shared/CF encoder CPU replay and LightGBM all15-booster CPU replay passed.
 Independent learning-path audit found no defect within inspected scope.
 
-Active scientific job: band-shared-ssl-attempt-01.
+Active scientific job: band-masked-ssl-attempt-01.
 Original serial queue: COMPLETED_REVIEWED_SERIAL_QUEUE; 9/9 reports inspected.
-Charged owned GPU-hours at ledger snapshot: 9.483519/96.
+Charged owned GPU-hours at ledger snapshot: 10.726562/96.
 The active wrappers own ledger writes; coordinator does not overwrite live accounting.
 All20 seed7 endpoints and controls completed; each serial queue exited0 with owned cleanup.
 CF strong frozen/full DEV0.614422/0.541814; masked frozen/full0.786842/0.691806dB.
@@ -57,6 +57,8 @@ The proof does not identify the cause of the real score gap. Exact source-prefit
 Band executor integrated;96 root policy checks passed163.70s and exclusive config generation exited0.
 Five exact per-job band prefits approved:195 approval bindings plus16 engineering-proof bindings verified.
 Approved five-job serial band queue launched, shared SSL first, within12/96 full-owned GPU hours.
+Band shared SSL completed6000+2000 real updates, selected4500, DEV0.789188dB.
+Its wrapper exited0 with owned cleanup;1.243043 full-owned GPU-hours charged, real weights preserved.
 Reusable latent inference source approved by distinct reviewer;40 exact bindings verified.
 Root89 synthetic CPU checks and actual Unicode disk replay passed for shared/CF/band.
 Real64-context CPU replay admission is under independent review; no test access.

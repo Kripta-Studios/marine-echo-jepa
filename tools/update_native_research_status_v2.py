@@ -77,6 +77,8 @@ def main():
              "Band executor integrated;96 root policy checks passed163.70s and exclusive config generation exited0.",
              "Five exact per-job band prefits approved:195 approval bindings plus16 engineering-proof bindings verified.",
              "Approved five-job serial band queue launched, shared SSL first, within12/96 full-owned GPU hours.",
+             "Band shared SSL completed6000+2000 real updates, selected4500, DEV0.789188dB.",
+             "Its wrapper exited0 with owned cleanup;1.243043 full-owned GPU-hours charged, real weights preserved.",
              "Reusable latent inference source approved by distinct reviewer;40 exact bindings verified.",
              "Root89 synthetic CPU checks and actual Unicode disk replay passed for shared/CF/band.",
              "Real64-context CPU replay admission is under independent review; no test access.",

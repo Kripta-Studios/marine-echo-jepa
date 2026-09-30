@@ -1,0 +1,23 @@
+{
+  "kind": "native_prefix_execution_scope_v1",
+  "status": "ROOT_RESERVED_EXECUTION_SCOPE_NOT_PREFIT_APPROVAL",
+  "role": "prefix_transfer",
+  "fit_deployments_per_cell": 1,
+  "fit_site": "AEON2_ECS",
+  "eligible_deployments": ["AEON2_ECS:61937278", "AEON2_ECS:61937269"],
+  "label_prefix_days": [1, 7, 30],
+  "source_start_label_delay_days": 4,
+  "gap_days": 7,
+  "common_suffix_start_days_after_source_start": 41,
+  "pool_prefix_labels_across_reserved_deployments": false,
+  "reuse_prefix_fitted_model_for_other_reserved_deployment": false,
+  "selection_role": "original_AEON4_development_only",
+  "scalers": "original_TRAIN_fitted_ancestors",
+  "comparison_support": "identical_later_suffix_issuance_and_target_masks_within_each_deployment",
+  "zero_shot": false,
+  "native_primary_bounds_m": [0, 230],
+  "quarantined_ping_counts": [165],
+  "source_clock": "SOURCE_TIMEZONE_UNKNOWN",
+  "rationale": "Each prefix-fitted ancestor must have its own declared deployment label prefix and later suffix. Do not pool labels from a later reserved deployment into an earlier deployment suffix evaluation. Original whole-site transfer is retrospective domain generalization, not a globally chronological online forecast trial.",
+  "numeric_access": "NOT_RUN_REQUIRES_FINAL_FREEZE_AND_DISTINCT_ADMISSION"
+}

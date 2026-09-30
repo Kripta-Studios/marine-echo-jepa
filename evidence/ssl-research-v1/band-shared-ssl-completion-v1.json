@@ -1,0 +1,83 @@
+{
+  "status": "VERIFIED_REAL_BAND_SHARED_SSL_COMPLETION",
+  "directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed7_h96_reviewed",
+  "evidence_kind": "REAL_TRAIN_DEVELOPMENT_FIT",
+  "architecture": "nonlinear_frequency_conditioned_v1",
+  "config": {
+    "architecture": "nonlinear_frequency_conditioned_v1",
+    "method": "shared_ssl",
+    "seed": 7,
+    "history": 96,
+    "pretrain_updates": 6000,
+    "readout_updates": 500,
+    "batch_size": 64,
+    "width": 192,
+    "latent": 64,
+    "blocks": 4,
+    "heads": 4,
+    "lr": 0.0003,
+    "weight_decay": 0.0001,
+    "sigreg_weight": 0.03,
+    "pretrain_cadence": 1500,
+    "readout_cadence": 250,
+    "patience": 4,
+    "min_daily_anchors": 18,
+    "cf_source": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\external\\cf-jepa-vnext",
+    "cf_width": 256,
+    "cf_latent": 128,
+    "cf_blocks": 5,
+    "cf_lr": 0.00034,
+    "cf_weight_decay": 0.05,
+    "selection_policy": "train_only_frozen_probe_per_candidate_daily_dev_patience4",
+    "inference_replay_atol_db": 2e-05,
+    "inference_replay_rtol": 1e-05
+  },
+  "selected_pretrain_step": 4500,
+  "pretrain_steps": 6000,
+  "readout_steps_all_probes": 2000,
+  "development_pinball_db": 0.7891878442101499,
+  "artifact_sha256": {
+    "run.json": "3c54abcf1732386110167d95b1aa8eaf4de7ec768e4c8dc81bbfaad24df10dcc",
+    "inference.pt": "57fbb4ea652484dc9a63b895d116badaf8039dd51972633f7a345fcd56618bc7",
+    "selected_encoder.pt": "fbe4736dcb65a597392f7b307f21e3785b9320c07cd82bd73d2ecba9b5becdf1",
+    "membership.json": "80c10115e5816c2000f4156ccee1da42db2c3e3f706b65192476948c24c97997",
+    "predictions.npz": "186bb05949c4327880a93ca83360c587f95c92c9c23e56041c23000eac932e63",
+    "scalers.json": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed"
+  },
+  "attempt_sha256": "e33382ce2054b3f3e0860c3a2960b08a2e2f0b4db4e900387b669a6b33af0d52",
+  "resources_full_attempt": {
+    "exit_code": 0,
+    "stopped_for": null,
+    "peak_process_rss_bytes": 5168132096,
+    "elapsed_full_attempt_seconds": 4474.953000000009,
+    "poll_seconds": 0.1,
+    "rss_limit_bytes": 23622320128,
+    "deadline_seconds": 43200.0,
+    "owned_process_pids": [
+      28932,
+      48180,
+      50384
+    ],
+    "peak_each_process_rss_bytes": {
+      "50384": 5451776,
+      "28932": 5129871360,
+      "48180": 32808960
+    },
+    "peak_definition": "Conservative sum of each owned process OS peak working set; sampled RSS fallback",
+    "owned_tree_cleanup_verified": true
+  },
+  "core_resources": {
+    "peak_rss_bytes": 5129871360,
+    "peak_allocated_bytes": 203886080,
+    "peak_reserved_bytes": 247463936,
+    "elapsed_seconds": 4395.093999999997,
+    "elapsed_gpu_seconds": 4395.093999999997,
+    "gpu_time_definition": "synchronized elapsed device-owned runtime, including probes and evaluation"
+  },
+  "actual_wrapper_exit_witness": "Root queue session82615 chunk0d92bf child exit0",
+  "queue_overall_status": "ACTIVE_OTHER_APPROVED_JOBS",
+  "ledger_written_by_this_recorder": false,
+  "metric_scope": "Runner DEV selection report; independent expanded numerical comparison pending",
+  "representation_transfer_value": "NOT_ESTABLISHED",
+  "test_access": "NOT_RUN"
+}
