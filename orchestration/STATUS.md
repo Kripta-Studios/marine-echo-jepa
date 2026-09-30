@@ -1,6 +1,6 @@
 ## Active model-first research — native acoustic SSL
 
-Updated 2026-09-30T15:41:59.271593+00:00.
+Updated 2026-09-30T16:42:59.754253+00:00.
 
 Branch `research/marine-jepa-vnext`; owner-authorized local model research.
 App/release work is frozen; historical protocols, evidence and approved r3 are preserved.
@@ -16,10 +16,12 @@ LightGBM15 quantile boosters and deterministic persistence/seasonal references c
 Shared/CF encoder CPU replay and LightGBM all15-booster CPU replay passed.
 Independent learning-path audit found no defect within inspected scope.
 
-Active scientific job: band_shared_ssl_frozen_readout_seed7_h96-attempt-01.
+Active scientific job: none recorded.
 Original serial queue: COMPLETED_REVIEWED_SERIAL_QUEUE; 9/9 reports inspected.
-Charged owned GPU-hours at ledger snapshot: 12.654609/96.
+Charged owned GPU-hours at ledger snapshot: 13.692942/96.
 The active wrappers own ledger writes; coordinator does not overwrite live accounting.
+Band charged full-owned GPU-hours at snapshot: 4.209423/12 (inside96).
+Band strong queue: STOPPED_AFTER_FAILURE; 6/6 completions.
 All20 seed7 endpoints and controls completed; each serial queue exited0 with owned cleanup.
 CF strong frozen/full DEV0.614422/0.541814; masked frozen/full0.786842/0.691806dB.
 Permuted/random/supervised frozen DEV0.854690/0.812868/0.776118dB.
@@ -96,8 +98,15 @@ Separately versioned Band7/13/23 replication delivery integrated after a capacit
 Root220 checks passed with six loader failures: emitted review_sha256 was omitted from strict schema.
 Unfitted metadata-only repair admits lowercase64hex hashes; seven red/green guard checks preserved.
 Repaired233 root CPU checks passed with all12 optimizer/resume cases; fresh Unicode replay passed.
-Four fixed shared/direct13/23 replication configs/proposals generated; distinct scientific prefit pending.
-Builder is adding typed v2 prefix/assessment compatibility and12/96 Band assessment accounting.
+Four fixed shared/direct13/23 replication proposals approved by the distinct reviewer after source-closure repair.
+Exact canonical references and all58 scientific bindings verified; materialized leaf approvals preserve all scientific fields.
+Their serial queue waits for current scientific ownership to close; no additional screening recipes.
+Typed v2 prefix/assessment compatibility integrated;391 root CPU checks passed674.98s, no skips.
+Physical Unicode synthetic four-update prefix fit and saved-artifact replay passed; no public transfer results.
+New Band-aware assessment supervisor retains12/96 full-owned accounting for mixed-model operations.
+Prospective strict-status prefix supervisor passed29 policy checks; distinct software/prefit still required.
+Original prefix accounting already includes completed prefix histories; all Band training precedes prefix operations.
+Builder is implementing an additive native transfer-corpus/registry adapter with synthetic fixtures only.
 Actual assessment resource-worker synthetic CPU smoke exited0 and removed its exclusive lock.
 CF backbone extra controls remain proposed/unfitted and deferred outside authorized11 recipes.
 Finalist and matched-direct seeds13/23 remain required; no extra architecture search is approved.

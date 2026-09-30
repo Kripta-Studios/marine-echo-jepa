@@ -1,0 +1,30 @@
+{
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "command": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+    "-B",
+    "-u",
+    "-c",
+    "import time; print('SYNTHETIC_CORRECTNESS_ONLY', flush=True); time.sleep(0.15)"
+  ],
+  "resources": {
+    "exit_code": 0,
+    "stopped_for": null,
+    "peak_process_rss_bytes": 16187392,
+    "elapsed_full_attempt_seconds": 0.5470000000059372,
+    "poll_seconds": 0.1,
+    "rss_limit_bytes": 23622320128,
+    "deadline_seconds": 10,
+    "owned_process_pids": [
+      3704,
+      31144
+    ],
+    "peak_each_process_rss_bytes": {
+      "31144": 5414912,
+      "3704": 10772480
+    },
+    "peak_definition": "Conservative sum of each owned process OS peak working set; sampled RSS fallback",
+    "owned_tree_cleanup_verified": true
+  },
+  "not_worker_or_scientific_evidence": true
+}

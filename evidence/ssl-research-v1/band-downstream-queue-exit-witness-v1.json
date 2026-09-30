@@ -1,0 +1,1 @@
+{"status":"ACTUAL_SCIENTIFIC_QUEUE_STOPPED_AFTER_FINAL_CONTROL_FAILURE","session_id":5351,"actual_cli_exit_code":1,"actual_exit_chunk_id":"958cf7","completed_jobs":5,"failed_job":"random_frozen/frozen_readout","actual_child_exit_code":3221227274,"actual_child_exit_hex":"0xc000070a","failure_cause":"UNKNOWN_NATIVE_PROCESS_EXIT","fitting_complete":false}

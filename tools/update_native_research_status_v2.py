@@ -24,6 +24,10 @@ def main():
     queue = json.loads(queue_path.read_text(encoding="utf-8"))
     active = [run["id"] for run in ledger["runs"]
               if run.get("status") in ("RUNNING_CUDA", "RUNNING_CPU_FIT")]
+    band_queue_path = ROOT / "evidence/ssl-research-v1/band-downstream-serial-attempt-01/queue.json"
+    band_queue = json.loads(band_queue_path.read_bytes()) if band_queue_path.exists() else None
+    band_hours = sum(run.get("elapsed_owned_seconds", run.get("resources_full_attempt", {}).get("elapsed_full_attempt_seconds", 0))
+                     for run in ledger["runs"] if run.get("budget_family") == "native_band_v1") / 3600
     lines = ["## Active model-first research — native acoustic SSL",
              "", f"Updated {datetime.datetime.now(datetime.UTC).isoformat()}.", "",
              "Branch `research/marine-jepa-vnext`; owner-authorized local model research.",
@@ -42,6 +46,8 @@ def main():
              f"Original serial queue: {queue['status']}; {len(queue['jobs'])}/9 reports inspected.",
              f"Charged owned GPU-hours at ledger snapshot: {ledger.get('gpu_hours_spent_owned_scientific_jobs', 0):.6f}/96.",
              "The active wrappers own ledger writes; coordinator does not overwrite live accounting.",
+             f"Band charged full-owned GPU-hours at snapshot: {band_hours:.6f}/12 (inside96).",
+             f"Band strong queue: {band_queue['status'] if band_queue else 'NOT_RUN'}; {len(band_queue['jobs']) if band_queue else 0}/6 completions.",
              "All20 seed7 endpoints and controls completed; each serial queue exited0 with owned cleanup.",
              "CF strong frozen/full DEV0.614422/0.541814; masked frozen/full0.786842/0.691806dB.",
              "Permuted/random/supervised frozen DEV0.854690/0.812868/0.776118dB.",
@@ -115,8 +121,15 @@ def main():
              "Root220 checks passed with six loader failures: emitted review_sha256 was omitted from strict schema.",
              "Unfitted metadata-only repair admits lowercase64hex hashes; seven red/green guard checks preserved.",
              "Repaired233 root CPU checks passed with all12 optimizer/resume cases; fresh Unicode replay passed.",
-             "Four fixed shared/direct13/23 replication configs/proposals generated; distinct scientific prefit pending.",
-             "Builder is adding typed v2 prefix/assessment compatibility and12/96 Band assessment accounting.",
+             "Four fixed shared/direct13/23 replication proposals approved by the distinct reviewer after source-closure repair.",
+             "Exact canonical references and all58 scientific bindings verified; materialized leaf approvals preserve all scientific fields.",
+             "Their serial queue waits for current scientific ownership to close; no additional screening recipes.",
+             "Typed v2 prefix/assessment compatibility integrated;391 root CPU checks passed674.98s, no skips.",
+             "Physical Unicode synthetic four-update prefix fit and saved-artifact replay passed; no public transfer results.",
+             "New Band-aware assessment supervisor retains12/96 full-owned accounting for mixed-model operations.",
+             "Prospective strict-status prefix supervisor passed29 policy checks; distinct software/prefit still required.",
+             "Original prefix accounting already includes completed prefix histories; all Band training precedes prefix operations.",
+             "Builder is implementing an additive native transfer-corpus/registry adapter with synthetic fixtures only.",
              "Actual assessment resource-worker synthetic CPU smoke exited0 and removed its exclusive lock.",
              "CF backbone extra controls remain proposed/unfitted and deferred outside authorized11 recipes.",
              "Finalist and matched-direct seeds13/23 remain required; no extra architecture search is approved.",

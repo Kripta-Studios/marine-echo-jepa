@@ -1,0 +1,16 @@
+{
+  "status": "READ_ONLY_EVENT_CORRELATION_NO_CAUSE_ESTABLISHED",
+  "owned_pid": 61568,
+  "owned_pid_hex": "0xF080",
+  "event_id": 1000,
+  "record_id": 119133,
+  "time_created": "2026-09-30T18:41:26.1847995+02:00",
+  "application": "python.exe",
+  "module": "ntdll.dll",
+  "module_version": "10.0.26100.9444",
+  "exception_code": "0xc000070a",
+  "fault_offset": "0x00000000000c87a4",
+  "report_id": "0b619eda-479b-401a-8841-f7780e8f3f2e",
+  "root_cause": "UNKNOWN",
+  "os_or_process_configuration_changes": false
+}
