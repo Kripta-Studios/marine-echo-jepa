@@ -1,0 +1,12 @@
+{
+  "status": "FIXED_REPLICATION_R1_REVIEW_AND_REPAIR_CLOSED",
+  "reviewer_session_id": "01a0ef27-876b-7692-917e-3975afc6893d",
+  "v2_review": {"session_id":48564,"actual_cli_exit_code":0,"actual_exit_chunk_id":"227756","verdict":"REQUEST_CHANGES"},
+  "actual_source_red": {"session_id":77769,"actual_exit_code":1,"actual_exit_chunk_id":"d1d269","result":"4 failed in 22.55s"},
+  "actual_source_green": {"session_id":31040,"actual_exit_code":0,"actual_exit_chunk_id":"2cf1dd","result":"4 passed in 20.62s"},
+  "v3_transport_tests": {"session_id":51175,"actual_exit_code":0,"actual_exit_chunk_id":"aa104a","result":"12 passed"},
+  "v3_review": {"session_id":22658,"actual_cli_exit_code":0,"actual_exit_chunk_id":"52d277","verdict":"APPROVED_BAND_FIXED_REPLICATION_REFERENCES"},
+  "materialization": {"actual_exit_code":0,"actual_exit_chunk_id":"ff95fa","result":"Four exact independently approved records materialized"},
+  "replication_training": "NOT_RUN_PENDING_PRIOR_QUEUE_CLOSURE",
+  "final_site_numeric_access": "NOT_RUN"
+}

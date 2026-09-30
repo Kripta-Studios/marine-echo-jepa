@@ -1,0 +1,24 @@
+{
+  "status": "SOURCE_TRANSPORT_VERSIONED_NOT_APPROVAL",
+  "changes": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\prepare_native_band_replication_references_v2.py": {
+      "original_sha256": "77bf01ed8513e730878a0e4787abf75f799f87ee24e700761bf2c5846d59d3cc",
+      "new_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\prepare_native_band_replication_references_v3.py",
+      "new_sha256": "614a4238c59f60b8cbcfbfeb239022ffdf36c2ee3e55df0c19b236d8f5c49387",
+      "only_literal_metadata_paths_changed": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\materialize_native_band_replication_reviews_v2.py": {
+      "original_sha256": "bd6822e664d956c5d9952220b03d852518fae7aaf6501ef09d4c4010b2d932d4",
+      "new_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\materialize_native_band_replication_reviews_v3.py",
+      "new_sha256": "ff7d4c25e9564bc364dc8e5d5689b97637469e2e7ea2698cf257439d9a2a17e5",
+      "only_literal_metadata_paths_changed": true
+    },
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\run_reviewed_native_band_replications_v2.py": {
+      "original_sha256": "90f8e249479e6203f61a70dce775ed282b9498f6ba6a3a3e424c93122bfb2a4e",
+      "new_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\run_reviewed_native_band_replications_v3.py",
+      "new_sha256": "5fefa9b333c65faf602b5260b4ba80e95d1a125b72bdc098841df4be1698d9a5",
+      "only_literal_metadata_paths_changed": true
+    }
+  },
+  "scientific_source_and_arguments_changed": false
+}

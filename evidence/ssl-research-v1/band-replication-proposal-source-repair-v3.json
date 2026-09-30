@@ -1,0 +1,33 @@
+{
+  "status": "FOUR_PROPOSALS_SOURCE_BINDING_REPAIRED_NOT_APPROVAL",
+  "original_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_band_replication_admission_v2.json",
+  "original_sha256": "0f965a4ed5cc25f0dccc37757bce0f20163555dd194cc76f8ed701c258eff12b",
+  "revised_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_band_replication_admission_v3.json",
+  "revised_sha256": "e9d7ca4dac5e32d40d0041c5b7fbc4c1010576821ee204b854162d787aee6889",
+  "only_added_binding": [
+    {
+      "job_id": "band_shared_ssl_seed13_h96_replication_v2",
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_latent.py",
+      "sha256": "cfdbc430d9e9a57c6b815492254119fe0682d728b1e89d2c5e5ec97ed7c14822"
+    },
+    {
+      "job_id": "band_direct_end_to_end_seed13_h96_replication_v2",
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_latent.py",
+      "sha256": "cfdbc430d9e9a57c6b815492254119fe0682d728b1e89d2c5e5ec97ed7c14822"
+    },
+    {
+      "job_id": "band_shared_ssl_seed23_h96_replication_v2",
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_latent.py",
+      "sha256": "cfdbc430d9e9a57c6b815492254119fe0682d728b1e89d2c5e5ec97ed7c14822"
+    },
+    {
+      "job_id": "band_direct_end_to_end_seed23_h96_replication_v2",
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_latent.py",
+      "sha256": "cfdbc430d9e9a57c6b815492254119fe0682d728b1e89d2c5e5ec97ed7c14822"
+    }
+  ],
+  "config_runtime_science_identical": true,
+  "source_closure_checked_by_actual_trainer_function": true,
+  "fitting": "NOT_RUN",
+  "numerical_data_decoding": "NOT_RUN"
+}

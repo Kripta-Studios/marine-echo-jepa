@@ -1,0 +1,38 @@
+{
+  "status": "FOUR_EXACT_FIXED_REPLICATION_APPROVALS_MATERIALIZED",
+  "derived": [
+    {
+      "id": "band_shared_ssl_seed13_h96_replication_v2",
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band_shared_ssl_seed13_h96_replication_v2-prefit-review-final.json",
+      "sha256": "b3961ead4bed2fb89f663af5d393d35af4eb6d4e44fc75e44307d4e56ed566db"
+    },
+    {
+      "id": "band_direct_end_to_end_seed13_h96_replication_v2",
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band_direct_end_to_end_seed13_h96_replication_v2-prefit-review-final.json",
+      "sha256": "4ad7cd5f31dab043db7312415caa4c5f0b76cbcda9052749f6511f8c3a5c6721"
+    },
+    {
+      "id": "band_shared_ssl_seed23_h96_replication_v2",
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band_shared_ssl_seed23_h96_replication_v2-prefit-review-final.json",
+      "sha256": "1df899f541ef3507afa83ad8f236679fdb62b8c5865f070c9bd6c9c62d3b57f2"
+    },
+    {
+      "id": "band_direct_end_to_end_seed23_h96_replication_v2",
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band_direct_end_to_end_seed23_h96_replication_v2-prefit-review-final.json",
+      "sha256": "1911b79e675a97bd334ebb884198740ba8ea34f9b5cce3ace72c221488d46e8f"
+    }
+  ],
+  "parent_review_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-fixed-replication-prefit-compact-final-v3.json",
+  "parent_review_sha256": "529d7272e6593c5693e67d4d4248587200aadb51f999ce6eef5410f32959e5ab",
+  "scientific_fields_unchanged": true,
+  "actual_exit_witness": {
+    "status": "DISTINCT_FIXED_REPLICATION_PREFIT_CLOSED",
+    "session_id": 22658,
+    "actual_cli_exit_code": 0,
+    "actual_exit_chunk_id": "52d277",
+    "reviewer_session_id": "01a0ef27-876b-7692-917e-3975afc6893d",
+    "review_sha256": "529d7272e6593c5693e67d4d4248587200aadb51f999ce6eef5410f32959e5ab",
+    "verdict": "APPROVED_BAND_FIXED_REPLICATION_REFERENCES",
+    "training": "NOT_RUN_PENDING_PRIOR_SCIENTIFIC_QUEUE_CLOSURE"
+  }
+}

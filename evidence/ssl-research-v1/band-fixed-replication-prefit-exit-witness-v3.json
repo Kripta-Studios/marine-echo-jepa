@@ -1,0 +1,10 @@
+{
+  "status": "DISTINCT_FIXED_REPLICATION_PREFIT_CLOSED",
+  "session_id": 22658,
+  "actual_cli_exit_code": 0,
+  "actual_exit_chunk_id": "52d277",
+  "reviewer_session_id": "01a0ef27-876b-7692-917e-3975afc6893d",
+  "review_sha256": "529d7272e6593c5693e67d4d4248587200aadb51f999ce6eef5410f32959e5ab",
+  "verdict": "APPROVED_BAND_FIXED_REPLICATION_REFERENCES",
+  "training": "NOT_RUN_PENDING_PRIOR_SCIENTIFIC_QUEUE_CLOSURE"
+}
