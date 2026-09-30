@@ -1,0 +1,15 @@
+{
+  "status": "ACTUAL_EXPANDED_DEVELOPMENT_RECONSTRUCTION_CLOSED",
+  "actual_cli_exit_code": 0,
+  "exit_witness": "Root session8029 chunkb8e349 exit0",
+  "result": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\development-comparison-v3.json",
+  "result_sha256": "41e6fefa03b33004028cf845d6a12bedcb2653f300be4a9f28a311ccaf038caa",
+  "manifest_sha256": "a8cfde48ad9cbf47741477d67a3fc5c059618403d0ecfd521fd4e5cbaa895782",
+  "review_sha256": "3dcdf278c937c4cc9c39b90dd709033d82246dd212b038f03f8615bdbb38c534",
+  "methods": 28,
+  "role": "development",
+  "fitting": false,
+  "final_numeric_access": false,
+  "independent_numerical_review": "NOT_RUN",
+  "console_note": "Empty log is not independent proof of process exit; witness is coordinator tool observation"
+}

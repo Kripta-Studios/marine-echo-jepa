@@ -1,0 +1,96 @@
+FFFFFFFF                                                                 [100%]
+================================== FAILURES ===================================
+______ test_band_failed_time_limits_prefix_to_lesser_remaining_allowance ______
+
+    def test_band_failed_time_limits_prefix_to_lesser_remaining_allowance():
+>       deadline, aggregate, band = wrapper.resource_budget(ledger(), "band")
+                                    ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module '_prefix_execution' has no attribute 'resource_budget'
+
+tests\unit\test_native_prefix_execution.py:83: AttributeError
+___________ test_cf_prefix_uses_aggregate_instead_of_band_subbudget ___________
+
+    def test_cf_prefix_uses_aggregate_instead_of_band_subbudget():
+>       deadline, aggregate, band = wrapper.resource_budget(ledger(), "cf")
+                                    ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module '_prefix_execution' has no attribute 'resource_budget'
+
+tests\unit\test_native_prefix_execution.py:89: AttributeError
+____________ test_invalid_or_exhausted_aggregate_blocks_launch[96] ____________
+
+bad = 96
+
+    @pytest.mark.parametrize("bad", [96, float("nan"), -1, True])
+    def test_invalid_or_exhausted_aggregate_blocks_launch(bad):
+        with pytest.raises(ValueError):
+>           wrapper.resource_budget(ledger(aggregate=bad), "core")
+            ^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module '_prefix_execution' has no attribute 'resource_budget'
+
+tests\unit\test_native_prefix_execution.py:97: AttributeError
+___________ test_invalid_or_exhausted_aggregate_blocks_launch[nan] ____________
+
+bad = nan
+
+    @pytest.mark.parametrize("bad", [96, float("nan"), -1, True])
+    def test_invalid_or_exhausted_aggregate_blocks_launch(bad):
+        with pytest.raises(ValueError):
+>           wrapper.resource_budget(ledger(aggregate=bad), "core")
+            ^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module '_prefix_execution' has no attribute 'resource_budget'
+
+tests\unit\test_native_prefix_execution.py:97: AttributeError
+____________ test_invalid_or_exhausted_aggregate_blocks_launch[-1] ____________
+
+bad = -1
+
+    @pytest.mark.parametrize("bad", [96, float("nan"), -1, True])
+    def test_invalid_or_exhausted_aggregate_blocks_launch(bad):
+        with pytest.raises(ValueError):
+>           wrapper.resource_budget(ledger(aggregate=bad), "core")
+            ^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module '_prefix_execution' has no attribute 'resource_budget'
+
+tests\unit\test_native_prefix_execution.py:97: AttributeError
+___________ test_invalid_or_exhausted_aggregate_blocks_launch[True] ___________
+
+bad = True
+
+    @pytest.mark.parametrize("bad", [96, float("nan"), -1, True])
+    def test_invalid_or_exhausted_aggregate_blocks_launch(bad):
+        with pytest.raises(ValueError):
+>           wrapper.resource_budget(ledger(aggregate=bad), "core")
+            ^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module '_prefix_execution' has no attribute 'resource_budget'
+
+tests\unit\test_native_prefix_execution.py:97: AttributeError
+______ test_band_budget_exhaustion_blocks_even_with_remaining_aggregate _______
+
+    def test_band_budget_exhaustion_blocks_even_with_remaining_aggregate():
+        with pytest.raises(ValueError):
+>           wrapper.resource_budget(ledger(aggregate=30, band=12), "band")
+            ^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module '_prefix_execution' has no attribute 'resource_budget'
+
+tests\unit\test_native_prefix_execution.py:102: AttributeError
+__________ test_active_owned_job_blocks_prefix_accounting_admission ___________
+
+    def test_active_owned_job_blocks_prefix_accounting_admission():
+        data = ledger()
+        data["runs"].append({"status": "RUNNING_CUDA"})
+        with pytest.raises(ValueError):
+>           wrapper.resource_budget(data, "cf")
+            ^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module '_prefix_execution' has no attribute 'resource_budget'
+
+tests\unit\test_native_prefix_execution.py:109: AttributeError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_prefix_execution.py::test_band_failed_time_limits_prefix_to_lesser_remaining_allowance
+FAILED tests/unit/test_native_prefix_execution.py::test_cf_prefix_uses_aggregate_instead_of_band_subbudget
+FAILED tests/unit/test_native_prefix_execution.py::test_invalid_or_exhausted_aggregate_blocks_launch[96]
+FAILED tests/unit/test_native_prefix_execution.py::test_invalid_or_exhausted_aggregate_blocks_launch[nan]
+FAILED tests/unit/test_native_prefix_execution.py::test_invalid_or_exhausted_aggregate_blocks_launch[-1]
+FAILED tests/unit/test_native_prefix_execution.py::test_invalid_or_exhausted_aggregate_blocks_launch[True]
+FAILED tests/unit/test_native_prefix_execution.py::test_band_budget_exhaustion_blocks_even_with_remaining_aggregate
+FAILED tests/unit/test_native_prefix_execution.py::test_active_owned_job_blocks_prefix_accounting_admission
+8 failed, 10 deselected in 1.62s

@@ -1,0 +1,9 @@
+{
+  "status": "ALL_EXPANDED_COMPARISON_BINDINGS_VERIFIED",
+  "bindings": 216,
+  "review_sha256": "3dcdf278c937c4cc9c39b90dd709033d82246dd212b038f03f8615bdbb38c534",
+  "actual_reviewer_cli_exit_code": 0,
+  "exit_witness": "Root session90856 chunke1199b exit0",
+  "fitting": false,
+  "final_numeric_access": false
+}
