@@ -1,0 +1,13 @@
+{
+  "status": "BUILDER_TRANSPORT_CAPACITY_FAILURE_BEFORE_FINAL_HANDOFF",
+  "actual_cli_exit_code": 1,
+  "session_id": 71708,
+  "actual_exit_chunk_id": "cb0639",
+  "builder_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "last_error": "Selected model is at capacity. Please try a different model.",
+  "events_path": "evidence/ssl-research-v1/band-replication-builder-events-v2.jsonl",
+  "reported_synthetic_checks": "214 passed, 12 root-only skipped; source snapshots and proof preserved",
+  "root_integration": "NOT_RUN",
+  "scientific_prefit": "NOT_RUN",
+  "model_or_credential_changes": false
+}

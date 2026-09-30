@@ -1,0 +1,22 @@
+Closeout delivered. All 13 authored files match frozen snapshots; protected main sources are unchanged. Final lint passed. Retained tests: **214 passed, 12 root-only skipped**, exit 0; pytest was not repeated.
+
+Files:
+
+- [Report](evidence/ssl-band-replication-builder-v2/NATIVE_BAND_REPLICATION_IMPLEMENTATION_V2.md)
+- [Handoff with exact file hashes and root commands](evidence/ssl-band-replication-builder-v2/handoff-v2.json)
+- [Staged final closeout](evidence/ssl-band-replication-builder-v2/band-replication-builder-final-closeout-v2.json)
+
+Main remains read-only; root must publish the staged JSON to its requested destination and verify the actual CLI exit. Twelve optimizer/resume cases and distinct prefit remain outstanding. No scientific execution occurred.
+
+SHA256:
+
+```text
+Report
+08c6b72d560ae727466213aea43229de6deacb6f3f2c844a665a6ca49f8fce8e
+
+Handoff
+3c8da48da7dcc31d6091d3b73e756a2ef18c29dc029764ab67416a4bd3f6838e
+
+Closeout
+073484bf61cefdb5b927da94fa45bcead98619fb9e62db6f480584f8ff263ce7
+```

@@ -1,0 +1,43 @@
+{
+  "src/marine_echo/training/native_band_ssl.py": {
+    "sha256": "ca33bf3141ea17c5adb3d0a4cd2ed0d186be8efb846a5b581003f2088a105e4f",
+    "utf8_text_snapshot_byte_exact": true
+  },
+  "src/marine_echo/training/native_band_downstream.py": {
+    "sha256": "95becf2cd01a7ab07c67a4da8d26c8e8bf58297f56513a439b0ab2b2be776619",
+    "utf8_text_snapshot_byte_exact": true
+  },
+  "src/marine_echo/inference/native_band_acoustic.py": {
+    "sha256": "6181baf22b75be73767f4b76370c65bfc37fdeb189da3deabcabe8a7c2dcd1bf",
+    "utf8_text_snapshot_byte_exact": true
+  },
+  "src/marine_echo/inference/native_latent.py": {
+    "sha256": "cfdbc430d9e9a57c6b815492254119fe0682d728b1e89d2c5e5ec97ed7c14822",
+    "utf8_text_snapshot_byte_exact": true
+  },
+  "tools/execute_native_band_job.py": {
+    "sha256": "d66e2fb990ecff500e8927e52aad69afce4937bbeb5fdc6a198efc3493e4e816",
+    "utf8_text_snapshot_byte_exact": true
+  },
+  "tools/prepare_native_band_configs.py": {
+    "sha256": "52e3e9c7a8e0fd483f76fe25d0103895de3e9fb28b3b8510bf775851fe7cc9a1",
+    "utf8_text_snapshot_byte_exact": true
+  },
+  "tools/native_reference_supervisor.py": {
+    "sha256": "ec5456584ca6f6a805e13f4137365c2c0a785b2dbc52782b191c1528befb30dd",
+    "utf8_text_snapshot_byte_exact": true
+  },
+  "src/marine_echo/models/native_band_temporal.py": {
+    "sha256": "1550bb3f130e3981f57b46031e39d0d42ce7dac4738aea9280362210dfaca96b",
+    "utf8_text_snapshot_byte_exact": true
+  },
+  "orchestration/native_band_budget_owner_resolution_v1.json": {
+    "sha256": "d13cc7875bba5400cfe0761a371dcf69bb743e4914f9449d288ecaee9b5d15db",
+    "utf8_text_snapshot_byte_exact": false,
+    "original_bytes_base64": "ew0KICAiYWRkaXRpb25hbF9jZl9jb250cm9sX3N0YXR1cyI6ICJQUk9QT1NFRF9VTkZJVFRFRF9ERUZFUlJFRF9OT1RfSU5fQVVUSE9SSVpFRF9FTEVWRU4iLA0KICAiYWdncmVnYXRlX2dwdV9ob3Vyc19saW1pdF9mdWxsX293bmVkIjogOTYsDQogICJhcHBfcmVsZWFzZV93b3JrIjogIkZST1pFTiIsDQogICJjbG91ZF9vcl9wYWlkX3Jlc291cmNlX2FwcHJvdmFsIjogZmFsc2UsDQogICJoaXN0b3JpY2FsX2V2aWRlbmNlX3Jld3JpdHRlbiI6IGZhbHNlLA0KICAia2luZCI6ICJuYXRpdmVfYmFuZF9vd25lcl9idWRnZXRfcmVzb2x1dGlvbl92MSIsDQogICJsb2NhbF9yZXNvdXJjZV9saW1pdHNfdW5jaGFuZ2VkIjogdHJ1ZSwNCiAgIm5ld19hcmNoaXRlY3R1cmVfb3JfbHJfc2VhcmNoIjogIk5PVF9BVVRIT1JJWkVEIiwNCiAgIm9yaWdpbmFsX3JlY2lwZXMiOiBbDQogICAgInNoYXJlZF9zc2wiLA0KICAgICJjZl9qZXBhIiwNCiAgICAibWFza2VkX3NzbCIsDQogICAgInBlcm11dGVkX3NzbCIsDQogICAgImRpcmVjdCIsDQogICAgInJhbmRvbV9mcm96ZW4iDQogIF0sDQogICJvd25lcl9hdXRob3JpemF0aW9uIjogew0KICAgICJxdWVzdGlvbl9pdGVtX2lkIjogIltcInJlcXVlc3RfdXNlcl9pbnB1dF9hc3luY1wiLFwiY2FsbF9SdjdnSjN6NDdUbWhHTDU1MHZPaGJjcVpcIiwwXSIsDQogICAgInNvdXJjZSI6ICJleHBsaWNpdCB1c2VyIHF1ZXN0aW9uIHJlcGx5IGluIHRoaXMgc2Vzc2lvbiIsDQogICAgInZlcmJhdGltX2Fuc3dlciI6ICJBbGxvdyB1cCB0byAxMSByZWNpcGVzLCBpbmNsdWRpbmcgY29udHJvbHMiLA0KICAgICJ2ZXJiYXRpbV9xdWVzdGlvbiI6ICJGb3IgdGhlIHNpbmdsZSBiYW5kLWNvbmRpdGlvbmluZyByZXZpc2lvbiBpbiBBRFIwMDIwLCBzaG91bGQgdGhlIHByb2dyYW1tZSBhbGxvdyB1cCB0byAxMSB0b3RhbCBzZWVkLTcgc2NyZWVuaW5nIHJlY2lwZXMsIGluY2x1ZGluZyBtYXRjaGVkIGNvbnRyb2xzLCB3aXRoIGF0IG1vc3QgMTIgYWRkaXRpb25hbCBHUFUtaG91cnMgaW5zaWRlIHRoZSBleGlzdGluZyA5Ni1ob3VyIGJ1ZGdldD8iDQogIH0sDQogICJwcmVmaXRfc291cmNlX3JldmlldyI6ICJSRVFVSVJFRF9OT1RfR1JBTlRFRF9CWV9PV05FUl9SRVBMWSIsDQogICJyZWNvcmRlZF91dGMiOiAiMjAyNi0wOS0zMFQwODoyMDo0NS4xMzc2MTkrMDA6MDAiLA0KICAicmV2aXNpb25fY29zdF9zY29wZSI6ICJBbGwgYmFuZC1mYW1pbHkgc2NpZW50aWZpYyBHUFUgb3BlcmF0aW9ucywgaW5jbHVkaW5nIHNjcmVlbmluZywgY29udHJvbHMsIGxhdGVyIGFsbG93ZWQgcmVwbGljYXRpb24vcmVhZG91dHMsIGluZmVyZW5jZS9hc3Nlc3NtZW50LCBmYWlsdXJlcyBhbmQgcmVzdW1lczsgbm8gZnJlZSBzdGFydHVwL2V2YWx1YXRpb24vc2F2ZSB0aW1lIiwNCiAgInJldmlzaW9uX2dwdV9ob3Vyc19saW1pdF9mdWxsX293bmVkIjogMTIsDQogICJzZWVkN19yZWNpcGVfbGltaXRfaW5jbHVkaW5nX2NvbnRyb2xzIjogMTEsDQogICJzaW5nbGVfcmV2aXNpb25fcmVjaXBlcyI6IFsNCiAgICAiYmFuZF9zaGFyZWRfc3NsIiwNCiAgICAiYmFuZF9tYXNrZWRfc3NsIiwNCiAgICAiYmFuZF9wZXJtdXRlZF9zc2wiLA0KICAgICJiYW5kX3JhbmRvbV9mcm96ZW4iLA0KICAgICJiYW5kX2RpcmVjdF9lbmRfdG9fZW5kIg0KICBdLA0KICAic3RhdHVzIjogIlJPT1RfUkVTT0xWRUQiLA0KICAid2hvbGVfc2l0ZV9maW5hbF9udW1lcmljX2FjY2VzcyI6ICJOT1RfQVVUSE9SSVpFRF9CWV9USElTX1JFUExZIg0KfQ0K"
+  },
+  "docs/adr/0023-owner-resolved-band-budget.md": {
+    "sha256": "e7dffe900a969f03ceb13254116997041536ab818ab32fe67ff4d6c437b4b67d",
+    "utf8_text_snapshot_byte_exact": true
+  }
+}

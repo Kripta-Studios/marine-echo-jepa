@@ -1,0 +1,150 @@
+FFFFFFF                                                                  [100%]
+================================== FAILURES ===================================
+___ test_known_trainer_review_hash_is_accepted_without_rng_or_provenance_io ___
+
+    def test_known_trainer_review_hash_is_accepted_without_rng_or_provenance_io():
+        saved, _ = artifact()
+        saved["review_sha256"] = "b" * 64
+        rng = torch.get_rng_state().clone()
+>       predictor = NativeBandAcousticPredictor(codec(saved))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\unit\test_native_band_replication_review_metadata.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\marine_echo\inference\native_band_replication_acoustic.py:240: in __init__
+    self._initialize(torch.load(weights, map_location="cpu", weights_only=True), device)
+src\marine_echo\inference\native_band_replication_acoustic.py:245: in _initialize
+    _base(self, artifact, device)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+instance = <marine_echo.inference.native_band_replication_acoustic.NativeBandAcousticPredictor object at 0x000001F242D2F620>
+artifact = {'kind': 'native_band_replication_ssl_weights_only_inference_v2', 'architecture': 'nonlinear_frequency_conditioned_v1', 'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', 'correctness_smoke': True, ...}
+device = 'cpu'
+
+    def _base(instance, artifact, device):
+        if not isinstance(artifact, Mapping):
+            raise TypeError("Expected a safe band artifact mapping.")
+        allowed = {
+            "kind",
+            "architecture",
+            "config",
+            "scalers",
+            "bindings",
+            "encoder",
+            "model",
+            "evidence_kind",
+            "correctness_smoke",
+            "selected_pretrain_step",
+            "downstream_config",
+            "supervised_ancestry",
+        }
+        if not set(artifact).issubset(allowed):
+>           raise ValueError("Unknown or unsafe fields in replication inference artifact.")
+E           ValueError: Unknown or unsafe fields in replication inference artifact.
+
+src\marine_echo\inference\native_band_replication_acoustic.py:124: ValueError
+_________ test_invalid_review_hash_rejected_before_model_setup[None] __________
+
+bad = None
+
+    @pytest.mark.parametrize("bad", [None, True, 3, "b" * 63, "G" * 64, {"execute": "unsafe"}])
+    def test_invalid_review_hash_rejected_before_model_setup(bad):
+        saved, _ = artifact()
+        saved["review_sha256"] = bad
+        rng = torch.get_rng_state().clone()
+>       with pytest.raises(ValueError, match="review hash"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'review hash'
+E         Actual message: 'Unknown or unsafe fields in replication inference artifact.'
+
+tests\unit\test_native_band_replication_review_metadata.py:28: AssertionError
+_________ test_invalid_review_hash_rejected_before_model_setup[True] __________
+
+bad = True
+
+    @pytest.mark.parametrize("bad", [None, True, 3, "b" * 63, "G" * 64, {"execute": "unsafe"}])
+    def test_invalid_review_hash_rejected_before_model_setup(bad):
+        saved, _ = artifact()
+        saved["review_sha256"] = bad
+        rng = torch.get_rng_state().clone()
+>       with pytest.raises(ValueError, match="review hash"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'review hash'
+E         Actual message: 'Unknown or unsafe fields in replication inference artifact.'
+
+tests\unit\test_native_band_replication_review_metadata.py:28: AssertionError
+___________ test_invalid_review_hash_rejected_before_model_setup[3] ___________
+
+bad = 3
+
+    @pytest.mark.parametrize("bad", [None, True, 3, "b" * 63, "G" * 64, {"execute": "unsafe"}])
+    def test_invalid_review_hash_rejected_before_model_setup(bad):
+        saved, _ = artifact()
+        saved["review_sha256"] = bad
+        rng = torch.get_rng_state().clone()
+>       with pytest.raises(ValueError, match="review hash"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'review hash'
+E         Actual message: 'Unknown or unsafe fields in replication inference artifact.'
+
+tests\unit\test_native_band_replication_review_metadata.py:28: AssertionError
+_ test_invalid_review_hash_rejected_before_model_setup[bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb] _
+
+bad = 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'
+
+    @pytest.mark.parametrize("bad", [None, True, 3, "b" * 63, "G" * 64, {"execute": "unsafe"}])
+    def test_invalid_review_hash_rejected_before_model_setup(bad):
+        saved, _ = artifact()
+        saved["review_sha256"] = bad
+        rng = torch.get_rng_state().clone()
+>       with pytest.raises(ValueError, match="review hash"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'review hash'
+E         Actual message: 'Unknown or unsafe fields in replication inference artifact.'
+
+tests\unit\test_native_band_replication_review_metadata.py:28: AssertionError
+_ test_invalid_review_hash_rejected_before_model_setup[GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG] _
+
+bad = 'GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG'
+
+    @pytest.mark.parametrize("bad", [None, True, 3, "b" * 63, "G" * 64, {"execute": "unsafe"}])
+    def test_invalid_review_hash_rejected_before_model_setup(bad):
+        saved, _ = artifact()
+        saved["review_sha256"] = bad
+        rng = torch.get_rng_state().clone()
+>       with pytest.raises(ValueError, match="review hash"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'review hash'
+E         Actual message: 'Unknown or unsafe fields in replication inference artifact.'
+
+tests\unit\test_native_band_replication_review_metadata.py:28: AssertionError
+_________ test_invalid_review_hash_rejected_before_model_setup[bad5] __________
+
+bad = {'execute': 'unsafe'}
+
+    @pytest.mark.parametrize("bad", [None, True, 3, "b" * 63, "G" * 64, {"execute": "unsafe"}])
+    def test_invalid_review_hash_rejected_before_model_setup(bad):
+        saved, _ = artifact()
+        saved["review_sha256"] = bad
+        rng = torch.get_rng_state().clone()
+>       with pytest.raises(ValueError, match="review hash"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'review hash'
+E         Actual message: 'Unknown or unsafe fields in replication inference artifact.'
+
+tests\unit\test_native_band_replication_review_metadata.py:28: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_band_replication_review_metadata.py::test_known_trainer_review_hash_is_accepted_without_rng_or_provenance_io
+FAILED tests/unit/test_native_band_replication_review_metadata.py::test_invalid_review_hash_rejected_before_model_setup[None]
+FAILED tests/unit/test_native_band_replication_review_metadata.py::test_invalid_review_hash_rejected_before_model_setup[True]
+FAILED tests/unit/test_native_band_replication_review_metadata.py::test_invalid_review_hash_rejected_before_model_setup[3]
+FAILED tests/unit/test_native_band_replication_review_metadata.py::test_invalid_review_hash_rejected_before_model_setup[bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb]
+FAILED tests/unit/test_native_band_replication_review_metadata.py::test_invalid_review_hash_rejected_before_model_setup[GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG]
+FAILED tests/unit/test_native_band_replication_review_metadata.py::test_invalid_review_hash_rejected_before_model_setup[bad5]
+7 failed in 2.39s

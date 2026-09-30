@@ -1,0 +1,71 @@
+{
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "checks": [
+    {
+      "name": "initial_fixed_seed_green",
+      "exit_code": 0,
+      "passed": 2,
+      "seconds": 15.54
+    },
+    {
+      "name": "first_forward_gate_suite",
+      "exit_code": 1,
+      "passed": 53,
+      "failed": 35,
+      "skipped": 6,
+      "seconds": 54.81,
+      "output_limit": "Long trace was truncated; counts and causes inspected.",
+      "causes": [
+        "Three schedule-factory test calls incorrectly passed integer in place of optimizer; corrected to exact AST comparison without optimizer construction.",
+        "Absent namespace-package inference/__init__.py incorrectly required by closure; removed."
+      ]
+    },
+    {
+      "name": "regression_maxfail1",
+      "exit_code": 1,
+      "passed": 34,
+      "skipped": 6,
+      "errors": 1,
+      "seconds": 44.07,
+      "cause": "Private source fixture tried relative_to(main) on an already-builder path; corrected private fixture."
+    },
+    {
+      "name": "policy_latent_maxfail1",
+      "exit_code": 1,
+      "passed": 75,
+      "failed": 1,
+      "seconds": 161.88,
+      "cause": "Report seed mutation wrote existing seed13; changed mutation to unadmitted17."
+    },
+    {
+      "name": "forward_gate_green_before_expanded_root_skip_matrix",
+      "exit_code": 0,
+      "passed": 115,
+      "skipped": 6,
+      "seconds": 54.09
+    },
+    {
+      "name": "policy_before_final",
+      "exit_code": 1,
+      "passed": 95,
+      "failed": 1,
+      "seconds": 51.39,
+      "cause": "Assertion retained original downstream command name instead of separately versioned entrypoint."
+    }
+  ],
+  "lint_initial": {
+    "chunk_id": "23e0f3",
+    "wall_time_seconds": 4.6842817,
+    "exit_code": 1,
+    "original_token_count": 647,
+    "output": "TRY004 Prefer `TypeError` exception for invalid type\n  --> src\\marine_echo\\inference\\native_band_replication_encoder.py:21:13\n   |\n19 |         artifact = torch.load(weights, weights_only=True, map_location=\"cpu\")\n20 |         if not isinstance(artifact, Mapping):\n21 |             raise ValueError(\"Safe selected artifact mapping required.\")\n   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n22 |         kind = artifact.get(\"kind\")\n23 |         if kind == original.SELECTED_KIND:\n   |\n\nI001 [*] Import block is un-sorted or un-formatted\n  --> src\\marine_echo\\training\\native_band_replication_downstream.py:8:1\n   |\n 6 |   \"\"\"\n 7 |\n 8 | / from __future__ import annotations\n 9 | |\n10 | | import argparse\n11 | | import copy\n12 | | import hashlib\n13 | | import json\n14 | | import random\n15 | | from dataclasses import asdict, dataclass, replace\n16 | | from pathlib import Path\n17 | |\n18 | | import numpy as np\n19 | | import torch\n20 | |\n21 | | from marine_echo.inference.native_band_replication_acoustic import (\n22 | |     NativeBandAcousticPredictor,\n23 | |     _check_state,\n24 | |     _configuration,\n25 | | )\n26 | | from marine_echo.training import native_band_replication_ssl as core\n27 | | from marine_echo.training import native_band_ssl as original_core\n28 | | from marine_echo.inference import native_band_acoustic as original_inference\n   | |____________________________________________________________________________^\n29 |\n30 |   ARCHITECTURE = core.ARCHITECTURE\n   |\nhelp: Organize imports\n   |\n20 |\n21 + from marine_echo.inference import native_band_acoustic as original_inference\n22 | from marine_echo.inference.native_band_replication_acoustic import (\n--------------------------------------------------------------------------------\n28 | from marine_echo.training import native_band_ssl as original_core\n   - from marine_echo.inference import native_band_acoustic as original_inference\n29 |\n   |\n\nI001 [*] Import block is un-sorted or un-formatted\n  --> tests\\unit\\test_native_band_replication.py:10:1\n   |\n 8 |   BUILDER = Path(__file__).resolve().parents[2]\n 9 |   sys.path.insert(0, str(BUILDER / \"evidence/ssl-band-builder-v1\"))\n10 | / import band_test_support  # noqa: F401\n11 | | from marine_echo.training.native_band_replication_ssl import Config\n   | |___________________________________________________________________^\nhelp: Organize imports\n   |\n10 | import band_test_support  # noqa: F401\n11 +\n12 | from marine_echo.training.native_band_replication_ssl import Config\n   |\n\nFound 3 errors.\n[*] 2 fixable with the `--fix` option.\n"
+  },
+  "lint_intermediate": {
+    "chunk_id": "61b999",
+    "wall_time_seconds": 0.7806577,
+    "exit_code": 1,
+    "original_token_count": 2133,
+    "output": "I001 [*] Import block is un-sorted or un-formatted\n   --> evidence\\ssl-band-replication-builder-v2\\replication_policy_support.py:112:5\n    |\n110 |   def policy_case(job, gen, monkeypatch, builder, main, *, kind=\"ssl\", mode=None, method=None):\n111 |       # Actual immutable Config classes, no model construction/array loading.\n112 | /     from marine_echo.training import native_band_replication_ssl as ssl\n113 | |     from marine_echo.training import native_band_replication_downstream as downstream\n    | |_____________________________________________________________________________________^\n114 |       definitions = (ssl.Config, downstream.DownstreamConfig)\n115 |       screens, prospective, unsupported = gen._catalog(*definitions)\n    |\nhelp: Organize imports\n    |\n111 |     # Actual immutable Config classes, no model construction/array loading.\n112 +     from marine_echo.training import native_band_replication_downstream as downstream\n113 |     from marine_echo.training import native_band_replication_ssl as ssl\n    -     from marine_echo.training import native_band_replication_downstream as downstream\n114 |     definitions = (ssl.Config, downstream.DownstreamConfig)\n    |\n\nB023 Function definition does not bind loop variable `anchor`\n  --> evidence\\ssl-band-replication-builder-v2\\source_proof.py:69:136\n   |\n67 | …\n68 | …\n69 | …(item, ast.Assign) and any(isinstance(t, ast.Name) and t.id == anchor for t in item.targets))\n   |                                                                 ^^^^^^\n70 | …\n71 | …\n   |\n\nI001 [*] Import block is un-sorted or un-formatted\n  --> tests\\unit\\test_native_band_replication.py:10:1\n   |\n 8 |   BUILDER = Path(__file__).resolve().parents[2]\n 9 |   sys.path.insert(0, str(BUILDER / \"evidence/ssl-band-builder-v1\"))\n10 | / import band_test_support  # noqa: F401\n11 | |\n12 | | import copy\n13 | | import ast\n14 | | import inspect\n15 | | from dataclasses import replace\n16 | |\n17 | | import numpy as np\n18 | | import torch\n19 | |\n20 | | from marine_echo.training import native_band_replication_downstream as downstream\n21 | | from marine_echo.training import native_band_replication_ssl as replication\n22 | | from marine_echo.training import native_band_ssl as original\n23 | | from marine_echo.training.native_band_replication_ssl import Config\n   | |___________________________________________________________________^\nhelp: Organize imports\n   |\n9  | sys.path.insert(0, str(BUILDER / \"evidence/ssl-band-builder-v1\"))\n   - import band_test_support  # noqa: F401\n   -\n   - import copy\n10 | import ast\n11 + import copy\n12 | import inspect\n13 | from dataclasses import replace\n14 |\n15 + import band_test_support  # noqa: F401\n16 | import numpy as np\n   |\n\nF401 [*] `copy` imported but unused\n  --> tests\\unit\\test_native_band_replication.py:12:8\n   |\n10 | import band_test_support  # noqa: F401\n11 |\n12 | import copy\n   |        ^^^^\n13 | import ast\n14 | import inspect\n   |\nhelp: Remove unused import: `copy`\n   |\n11 |\n   - import copy\n12 | import ast\n   |\n\nC408 Unnecessary `dict()` call (rewrite as a literal)\n  --> tests\\unit\\test_native_band_replication.py:41:12\n   |\n39 | @pytest.mark.parametrize(\"seed\", [7, 13, 23])\n40 | def test_actual_tensor_initialization_head_sampler_and_schedule_equal_original(seed):\n41 |     dims = dict(width=16, latent=8, blocks=2, heads=4)\n   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n42 |     a = original.initialize_model(seed, **dims)\n43 |     b = replication.initialize_model(seed, **dims)\n   |\nhelp: Rewrite as a literal\n\nI001 [*] Import block is un-sorted or un-formatted\n --> tests\\unit\\test_native_band_replication_execution.py:1:1\n  |\n1 | / import sys\n2 | | from pathlib import Path\n  | |________________________^\n3 |   sys.path.insert(0, str(Path(__file__).resolve().parents[2] / \"evidence/ssl-band-replication-builder-v2\"))\n4 |   import replication_test_support  # noqa: F401\n  |\nhelp: Organize imports\n  |\n2 | from pathlib import Path\n3 +\n4 | sys.path.insert(0, str(Path(__file__).resolve().parents[2] / \"evidence/ssl-band-replication-builder-v2\"))\n  |\n\nI001 [*] Import block is un-sorted or un-formatted\n   --> tests\\unit\\test_native_band_replication_execution.py:102:5\n    |\n101 |   def test_actual_catalog_exact_three_seeds_fixed_shared_and_direct():\n102 | /     from marine_echo.training import native_band_replication_ssl as ssl\n103 | |     from marine_echo.training import native_band_replication_downstream as downstream\n    | |_____________________________________________________________________________________^\n104 |       screens, prospective, unsupported = generator._catalog(ssl.Config, downstream.DownstreamConfig)\n105 |       assert len(screens) == 6 and len(prospective) == 6 and unsupported == []\n    |\nhelp: Organize imports\n    |\n101 | def test_actual_catalog_exact_three_seeds_fixed_shared_and_direct():\n102 +     from marine_echo.training import native_band_replication_downstream as downstream\n103 |     from marine_echo.training import native_band_replication_ssl as ssl\n    -     from marine_echo.training import native_band_replication_downstream as downstream\n104 |     screens, prospective, unsupported = generator._catalog(ssl.Config, downstream.DownstreamConfig)\n    |\n\nI001 [*] Import block is un-sorted or un-formatted\n  --> tests\\unit\\test_native_band_replication_inference.py:13:1\n   |\n12 |   sys.path.insert(0, str(Path(__file__).resolve().parents[2] / \"evidence/ssl-band-replication-builder-v2\"))\n13 | / from replication_test_support import artifact, codec, synthetic_inputs\n14 | | from marine_echo.inference.native_acoustic import NativeAcousticPredictor\n15 | |\n16 | | from marine_echo.inference.native_band_replication_acoustic import (\n17 | |     TRAINING_KINDS,\n18 | |     NativeBandAcousticEncoder,\n19 | |     NativeBandAcousticPredictor,\n20 | | )\n21 | | from marine_echo.inference.native_encoder import NativeAcousticEncoder\n   | |______________________________________________________________________^\nhelp: Organize imports\n   |\n12 | sys.path.insert(0, str(Path(__file__).resolve().parents[2] / \"evidence/ssl-band-replication-builder-v2\"))\n13 + from marine_echo.inference.native_acoustic import NativeAcousticPredictor\n14 | from replication_test_support import artifact, codec, synthetic_inputs\n   - from marine_echo.inference.native_acoustic import NativeAcousticPredictor\n15 |\n   |\n\nI001 [*] Import block is un-sorted or un-formatted\n   --> tests\\unit\\test_native_band_replication_inference.py:206:5\n    |\n205 | def test_supervised_downstream_forecast_label_and_ancestry_rejection():\n206 |     from marine_echo.training.native_band_replication_downstream import DownstreamConfig, load_inference\n    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n207 |\n208 |     saved, _ = artifact(method=\"direct\")\n    |\nhelp: Organize imports\n    |\n205 | def test_supervised_downstream_forecast_label_and_ancestry_rejection():\n    -     from marine_echo.training.native_band_replication_downstream import DownstreamConfig, load_inference\n206 +     from marine_echo.training.native_band_replication_downstream import (\n207 +         DownstreamConfig,\n208 +         load_inference,\n209 +     )\n210 |\n    |\n\nI001 [*] Import block is un-sorted or un-formatted\n  --> tests\\unit\\test_native_band_replication_latent.py:12:1\n   |\n11 |   sys.path.insert(0, str(Path(__file__).resolve().parents[2] / \"evidence/ssl-band-replication-builder-v2\"))\n12 | / from replication_test_support import artifact, codec, synthetic_inputs\n13 | |\n14 | | from marine_echo.inference.native_band_acoustic import NativeBandAcousticPredictor as OriginalForecast\n15 | | from marine_echo.inference.native_band_replication_acoustic import NativeBandAcousticPredictor\n16 | | from marine_echo.inference.native_band_replication_encoder import NativeBandReplicationEncoder\n17 | | from marine_echo.inference.native_band_replication_latent import NativeLatentPredictor\n   | |______________________________________________________________________________________^\nhelp: Organize imports\n   |\n13 |\n   - from marine_echo.inference.native_band_acoustic import NativeBandAcousticPredictor as OriginalForecast\n14 + from marine_echo.inference.native_band_acoustic import (\n15 +     NativeBandAcousticPredictor as OriginalForecast,\n16 + )\n17 | from marine_echo.inference.native_band_replication_acoustic import NativeBandAcousticPredictor\n   |\n\nFound 10 errors.\n[*] 8 fixable with the `--fix` option (1 hidden fix can be enabled with the `--unsafe-fixes` option).\n"
+  },
+  "optimizer_constructed_in_builder": false
+}

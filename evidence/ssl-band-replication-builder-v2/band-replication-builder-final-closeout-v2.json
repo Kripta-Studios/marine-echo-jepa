@@ -1,0 +1,82 @@
+{
+  "kind": "native_band_replication_builder_final_closeout_v2",
+  "status": "DELIVERY_FILES_COMPLETE_CLI_EXIT_REQUIRES_ROOT_OBSERVATION",
+  "implementer_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "report_path": "evidence/ssl-band-replication-builder-v2/NATIVE_BAND_REPLICATION_IMPLEMENTATION_V2.md",
+  "report_sha256": "08c6b72d560ae727466213aea43229de6deacb6f3f2c844a665a6ca49f8fce8e",
+  "handoff_path": "evidence/ssl-band-replication-builder-v2/handoff-v2.json",
+  "handoff_sha256": "3c8da48da7dcc31d6091d3b73e756a2ef18c29dc029764ab67416a4bd3f6838e",
+  "authored_sha256": {
+    "src/marine_echo/training/native_band_replication_ssl.py": "94c04d2d585c39d49e849f4b86375e201898ae104e8a808341363a2f22518f72",
+    "src/marine_echo/training/native_band_replication_downstream.py": "f5a6747b3a37dcd8856b617a95cd939862ba716a1d7e50fe7ef9090a08d4084d",
+    "src/marine_echo/inference/native_band_replication_acoustic.py": "3cb348dab3c9235a9cede09cf86082f25faecb0ab1e83c4103135ff2d6ef6224",
+    "src/marine_echo/inference/native_band_replication_encoder.py": "e21bfc7f724ab4c86296a6b377b478cff017f4de74eaa736a75770b8df16fb07",
+    "src/marine_echo/inference/native_band_replication_latent.py": "7cb0e2b76f77659d19e1b3f42bdf1afc36811772a29cb56ee5ae5d165f23ac07",
+    "tools/execute_native_band_replication_job.py": "ffbfe9310ee9a1c17e4f784cfcf9d7e221be4658408080621eaff6c8b2104eea",
+    "tools/prepare_native_band_replication_configs.py": "09c66cb2446c2e242ce81b612a27baf5edcb042b00c64716ea7adc0a6ce7462b",
+    "tests/unit/test_native_band_replication.py": "746c7e1d6dddfed8fa255b302441f18a30a8eb0dfd48d2b77cf5a31762e27aae",
+    "tests/unit/test_native_band_replication_execution.py": "e0f785cce065d588ace7c6de99c8f007cd442ac28c8846165b3c0d85b5235fd1",
+    "tests/unit/test_native_band_replication_inference.py": "b3182aa18640ba1aa84b8d96fc0a8fc10f096d9e66d0a1dd2f9c84dbad6febd8",
+    "tests/unit/test_native_band_replication_latent.py": "5845faa29a17cf22a170773ff54f15a2227ee7c5728b8c5ba9d7729c385d5cb3",
+    "tests/integration/test_native_band_replication_downstream.py": "6d022366346dd8a09219d156040b1c2956d75ef167331b81e2f47940748043dd",
+    "tests/integration/test_native_band_replication_ssl.py": "b9da185d7430199baaf3923d6ba755439f11321a6a6075dd7237c236dc88e2c8"
+  },
+  "support_sha256": {
+    "close_sources.py": "a59ae64fa249e04814f186eacdf55385c1f1a030f48036d451d0f3bea29c7500",
+    "inspect_sources.py": "ab2c6a684563ee40b3ad3b58d0eef64c4116c76bfa4b4d91a3d105cdbf46ae37",
+    "model_counts.py": "763621336455bf50719e283e121d414af09c56186dc9f9a73cfc0d9390cd6399",
+    "recovery_verification.py": "97a04f5445fcdcba891b4d456826a9970a7142c84561e211e64e838e9867946c",
+    "replication_policy_support.py": "68daeea194952659b04f34a63256fa60d0bcfbcb591be854403d1cce7d24dc32",
+    "replication_test_support.py": "9108d7ab0b479c5e1a0092142f11ab9e06b11b5012ae24fda84bebb168cb5bb9",
+    "source_proof.py": "6e9efc1ef62f2546aaf8f7930089a53f41b80d5e1e1fe1fdb42f4c2375892c2c"
+  },
+  "proof_sha256": "1734e8cbdece3887b660b5ab3687a7ed6db0c1dd8bdf7e6be60caa1a0533fa59",
+  "recovery_verification_sha256": "261ae2651041cedd0eee19e567f6e5b844acc8954c79fa17d5c7cc33667db040",
+  "final_code_snapshot_sha256": "c93417d2d0e6731e172ab2481c308f9b07ebc87048fb72c3b61e532fa0c248bb",
+  "final_tests_snapshot_sha256": "17cc8430a3a42fcae2f8a28a128da731622990721f35cff23c4c55a370b60dfd",
+  "checks": {
+    "passed": 214,
+    "root_only_skipped": 12,
+    "pytest_exit": 0,
+    "lint_exit": 0,
+    "format_exit": 0,
+    "closed_snapshot_equality": true,
+    "protected_main_sources_unchanged": true
+  },
+  "scientific_approval": false,
+  "scientific_fitting_or_public_numeric_access": false,
+  "actual_scientific_process_launched": false,
+  "root_required_checks": [
+    {
+      "working_directory": "../marine-echo-jepa",
+      "environment": {
+        "NATIVE_BAND_ROOT_RUNNER_CHECKS": "1"
+      },
+      "command": ".venv\\Scripts\\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/integration/test_native_band_replication_ssl.py tests/integration/test_native_band_replication_downstream.py -k root_only",
+      "expected_fixture_cases": 12,
+      "status": "NOT_RUN_BUILDER"
+    },
+    {
+      "working_directory": "../marine-echo-jepa",
+      "command": ".venv\\Scripts\\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_band_replication.py tests/unit/test_native_band_replication_inference.py tests/unit/test_native_band_replication_latent.py tests/unit/test_native_band_replication_execution.py tests/integration/test_native_band_replication_ssl.py tests/integration/test_native_band_replication_downstream.py",
+      "environment": {
+        "NATIVE_BAND_ROOT_RUNNER_CHECKS": "1"
+      },
+      "status": "NOT_RUN_ROOT"
+    },
+    {
+      "action": "Byte-check integration, durable/relocated owned artifact replay, actual completed version2 parent checks, distinct exact per-job source/data/config/protocol/budget/prefit review.",
+      "status": "ROOT_OWNED_OUTSTANDING"
+    }
+  ],
+  "prior_cli_capacity_failure": {
+    "prior_cli": "71708",
+    "prior_exit_code": 1,
+    "reason": "Selected model is at capacity",
+    "authority": "Owner-reported; root preserves failure events/stderr/witness. No credentials/model/permissions/cache changed.",
+    "current_cli_exit": "PENDING_ROOT_OBSERVATION_AFTER_FINAL"
+  },
+  "publish_target": "../marine-echo-jepa/evidence/ssl-research-v1/band-replication-builder-final-closeout-v2.json",
+  "publication": "STAGED_IN_ALLOWED_BUILDER_EVIDENCE_ROOT_MUST_PUBLISH",
+  "main_written_by_builder": false
+}

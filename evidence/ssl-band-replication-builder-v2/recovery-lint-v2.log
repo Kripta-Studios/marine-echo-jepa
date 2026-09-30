@@ -1,0 +1,9 @@
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B -m ruff check --no-cache src\marine_echo\training\native_band_replication_ssl.py src\marine_echo\training\native_band_replication_downstream.py src\marine_echo\inference\native_band_replication_acoustic.py src\marine_echo\inference\native_band_replication_encoder.py src\marine_echo\inference\native_band_replication_latent.py tools\execute_native_band_replication_job.py tools\prepare_native_band_replication_configs.py tests\unit\test_native_band_replication.py tests\unit\test_native_band_replication_inference.py tests\unit\test_native_band_replication_latent.py tests\unit\test_native_band_replication_execution.py tests\integration\test_native_band_replication_ssl.py tests\integration\test_native_band_replication_downstream.py evidence\ssl-band-replication-builder-v2
+All checks passed!
+Exit code: 0
+Initial format-check: exit1, new recovery_verification.py needed formatting; nineteen retained files already formatted. Only that new helper was formatted via apply_patch.
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B -m ruff format --check --no-cache src\marine_echo\training\native_band_replication_ssl.py src\marine_echo\training\native_band_replication_downstream.py src\marine_echo\inference\native_band_replication_acoustic.py src\marine_echo\inference\native_band_replication_encoder.py src\marine_echo\inference\native_band_replication_latent.py tools\execute_native_band_replication_job.py tools\prepare_native_band_replication_configs.py tests\unit\test_native_band_replication.py tests\unit\test_native_band_replication_inference.py tests\unit\test_native_band_replication_latent.py tests\unit\test_native_band_replication_execution.py tests\integration\test_native_band_replication_ssl.py tests\integration\test_native_band_replication_downstream.py evidence\ssl-band-replication-builder-v2
+20 files already formatted
+Exit code: 0
+No pytest or model execution repeated.
+

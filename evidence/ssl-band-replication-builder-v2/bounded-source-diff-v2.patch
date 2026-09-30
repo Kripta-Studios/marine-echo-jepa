@@ -1,0 +1,602 @@
+--- src/marine_echo/training/native_band_ssl.py
++++ src/marine_echo/training/native_band_replication_ssl.py
+@@ -82,7 +82,7 @@
+         return asdict(self)
+ 
+     def validate(self, *, correctness_smoke=False):
+-        if self.seed != 7 or (self.lr, self.weight_decay, self.sigreg_weight) != (
++        if self.seed not in (7, 13, 23) or (self.lr, self.weight_decay, self.sigreg_weight) != (
+             0.0003,
+             0.0001,
+             0.03,
+@@ -137,7 +137,7 @@
+                 self.pretrain_cadence,
+                 self.readout_cadence,
+             )
+-            if fixed != (7, 192, 64, 4, 4, 0.0003, 0.0001, 0.03, 64, 500, 1500, 250):
++            if fixed != (self.seed, 192, 64, 4, 4, 0.0003, 0.0001, 0.03, 64, 500, 1500, 250):
+                 raise ValueError(
+                     "Band scientific recipe is frozen; no dimension/objective/schedule tuning."
+                 )
+@@ -201,8 +201,16 @@
+         Path(legacy_encoder.__file__),
+         Path(sigreg.__file__),
+         Path(native_resources.__file__),
+-        Path(__file__).resolve().parents[1] / "inference/native_band_acoustic.py",
+-        Path(__file__).with_name("native_band_downstream.py"),
++        Path(__file__).resolve().parents[1] / "inference/native_band_replication_acoustic.py",
++        Path(__file__).with_name("native_band_replication_downstream.py"),
++    ]
++    paths += [
++        Path(__file__).resolve().parents[1] / "inference/native_band_replication_encoder.py",
++        Path(__file__).resolve().parents[1] / "inference/native_band_replication_latent.py",
++        HELPER_ROOT / "training/native_band_ssl.py",
++        HELPER_ROOT / "training/native_band_downstream.py",
++        HELPER_ROOT / "inference/native_band_acoustic.py",
++        HELPER_ROOT / "inference/native_latent.py",
+     ]
+     paths += [
+         HELPER_ROOT / name
+@@ -216,6 +224,32 @@
+         )
+     ]
+     return list(dict.fromkeys(p.resolve() for p in paths))
++
++
++def _check_budget(review):
++    """Admission only; no owner receipt is a scientific prefit approval."""
++    path = Path(review.get("budget_resolution_path", "")).resolve()
++    expected = (
++        Path(__file__).resolve().parents[3]
++        / "orchestration/native_band_budget_owner_resolution_v1.json"
++    )
++    if path != expected or review.get("band_budget_status") != "ROOT_RESOLVED":
++        raise ValueError("Exact integrated root budget receipt is required.")
++    if review.get("bindings", {}).get(str(path)) != sha256(path):
++        raise ValueError("Budget receipt source binding differs.")
++    receipt = json.loads(path.read_bytes())
++    if (
++        receipt.get("kind") != "native_band_owner_budget_resolution_v1"
++        or receipt.get("status") != "ROOT_RESOLVED"
++    ):
++        raise ValueError("Owner resolution is missing or pending.")
++    for key, value in {
++        "seed7_recipe_limit_including_controls": 11,
++        "revision_gpu_hours_limit_full_owned": 12,
++        "aggregate_gpu_hours_limit_full_owned": 96,
++    }.items():
++        if type(receipt.get(key)) is not int or receipt[key] != value:
++            raise ValueError("Replication budgets remain exactly11/12/96.")
+ 
+ 
+ def check_prefit(
+@@ -242,8 +276,11 @@
+         budget_path = Path(budget).resolve()
+         if review.get("bindings", {}).get(str(budget_path)) != sha256(budget_path):
+             raise ValueError("Exact root budget resolution binding is required.")
++        _check_budget(review)
+     reviewer = review.get("reviewer_session_id")
+     implementer = review.get("implementer_session_id", IMPLEMENTER_SESSION_ID)
++    if implementer != IMPLEMENTER_SESSION_ID or not review.get("root_coordinator_session_id"):
++        raise ValueError("Exact implementer and distinct root identities are required.")
+     excluded = (implementer, IMPLEMENTER_SESSION_ID, review.get("root_coordinator_session_id"))
+     if (
+         not isinstance(reviewer, str)
+@@ -252,6 +289,8 @@
+         or reviewer.casefold() in {str(v).casefold() for v in excluded}
+     ):
+         raise ValueError("Reviewer must be a distinct session from the implementer.")
++    if config.seed not in review.get("allowed_seeds", []):
++        raise ValueError("Seed is outside the exact independent replication review.")
+     if config.method not in review.get("allowed_methods", []):
+         raise ValueError("Method is not approved.")
+     paths = [
+@@ -648,7 +687,7 @@
+ 
+ 
+ def predict_from_checkpoint(path, data, *, device="cpu"):
+-    from marine_echo.inference.native_band_acoustic import NativeBandAcousticPredictor
++    from marine_echo.inference.native_band_replication_acoustic import NativeBandAcousticPredictor
+ 
+     return NativeBandAcousticPredictor(path, device=device).forecast(
+         data["x"], data["observed"], data["metadata"], data["query"]
+@@ -749,9 +788,11 @@
+     stop_after=None,
+ ):
+     config.validate(correctness_smoke=correctness_smoke)
++    if not correctness_smoke and str(device) != "cuda:0":
++        raise ValueError("Scientific replication requires explicitly indexed cuda:0.")
+     if not correctness_smoke and config.method == "direct":
+         raise ValueError(
+-            "Scientific direct comparisons require the separate fixed native_band_downstream endpoint."
++            "Scientific direct comparisons require the separate fixed native_band_replication_downstream endpoint."
+         )
+     if str(device).startswith("cuda"):
+         os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")
+@@ -822,7 +863,7 @@
+     if resume is not None:
+         saved = torch.load(resume, map_location="cpu", weights_only=True)
+         if (
+-            saved.get("kind") != "native_band_ssl_resume_v1"
++            saved.get("kind") != "native_band_replication_ssl_resume_v2"
+             or saved.get("architecture") != ARCHITECTURE
+             or saved.get("device") != str(device)
+             or saved["state"].get("review_sha256") != sha256(Path(review_path))
+@@ -888,7 +929,7 @@
+     }
+     if resume is not None:
+         state = saved["state"]
+-        from marine_echo.inference.native_band_acoustic import _check_state
++        from marine_echo.inference.native_band_replication_acoustic import _check_state
+ 
+         _check_state(saved["model"], model.state_dict())
+         model.load_state_dict(saved["model"], strict=True)
+@@ -923,7 +964,7 @@
+ 
+         def save(name="latest.pt"):
+             payload = {
+-                "kind": "native_band_ssl_resume_v1",
++                "kind": "native_band_replication_ssl_resume_v2",
+                 "architecture": ARCHITECTURE,
+                 "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY"
+                 if correctness_smoke
+@@ -1145,7 +1186,7 @@
+         model.load_state_dict(state["best_model"])
+         model.freeze_encoder()
+         inference = {
+-            "kind": "native_band_ssl_weights_only_inference_v1",
++            "kind": "native_band_replication_ssl_weights_only_inference_v2",
+             "architecture": ARCHITECTURE,
+             "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY"
+             if correctness_smoke
+@@ -1161,7 +1202,7 @@
+         atomic_checkpoint(
+             output / "selected_encoder.pt",
+             {
+-                "kind": "native_band_ssl_selected_encoder_v1",
++                "kind": "native_band_replication_ssl_selected_encoder_v2",
+                 "architecture": ARCHITECTURE,
+                 "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY"
+                 if correctness_smoke
+--- src/marine_echo/training/native_band_downstream.py
++++ src/marine_echo/training/native_band_replication_downstream.py
+@@ -18,12 +18,14 @@
+ import numpy as np
+ import torch
+ 
+-from marine_echo.inference.native_band_acoustic import (
++from marine_echo.inference import native_band_acoustic as original_inference
++from marine_echo.inference.native_band_replication_acoustic import (
+     NativeBandAcousticPredictor,
+     _check_state,
+     _configuration,
+ )
+-from marine_echo.training import native_band_ssl as core
++from marine_echo.training import native_band_replication_ssl as core
++from marine_echo.training import native_band_ssl as original_core
+ 
+ ARCHITECTURE = core.ARCHITECTURE
+ 
+@@ -88,8 +90,8 @@
+             raise ValueError("Unsupported downstream mode/method.")
+         if self.mode == "direct_end_to_end" and self.method != "direct":
+             raise ValueError("direct_end_to_end requires the direct method and no ancestor.")
+-        if self.seed != 7 or self.history != 96:
+-            raise ValueError("Band downstream requires seed7 and H96.")
++        if self.seed not in (7, 13, 23) or self.history != 96:
++            raise ValueError("Band downstream requires admitted seed7/13/23 and H96.")
+         if not isinstance(self.updates, int) or not 1 <= self.updates <= 5000:
+             raise ValueError("Hard supervised trajectory limit is5000 updates.")
+         if not isinstance(self.cadence, int) or not 1 <= self.cadence <= self.updates:
+@@ -268,11 +270,14 @@
+         if review.get("band_budget_status") != "ROOT_RESOLVED" or not budget_path:
+             raise ValueError("Root must resolve the screen/endpoint budget before new prefit.")
+         _bindings(review, [Path(budget_path)])
++        core._check_budget(review)
+     _distinct_review(
+         review, status="APPROVED_DOWNSTREAM_PREFIT", implementer=IMPLEMENTER_SESSION_ID
+     )
+     if review.get("implementer_session_id") != IMPLEMENTER_SESSION_ID:
+         raise ValueError("Downstream review does not identify this implementation session.")
++    if config.seed not in review.get("allowed_seeds", []):
++        raise ValueError("Seed is outside the exact independent replication review.")
+     if config.mode not in review.get("allowed_modes", []) or config.method not in review.get(
+         "allowed_methods", []
+     ):
+@@ -295,6 +300,10 @@
+     if inputs.encoder is not None:
+         paths = _ancestor_paths(inputs)
+         parent = _json(paths[1])
++        if _parent_core(inputs) is original_core and core_config.seed != 7:
++            raise ValueError(
++                "Original version1 parent cannot supply seed13/23 replication features."
++            )
+         parent_review = _json(paths[5])
+         _distinct_review(
+             parent_review, status="APPROVED_PREFIT", implementer=core.IMPLEMENTER_SESSION_ID
+@@ -307,7 +316,7 @@
+             inputs.split,
+             inputs.adr0016,
+             paths[4],
+-            *core.required_sources(core_config),
++            *_parent_core(inputs).required_sources(core_config),
+         ]
+         for path in required:
+             path = Path(path).resolve()
+@@ -397,7 +406,7 @@
+         value = (
+             smoke_core_config
+             if correctness_smoke and smoke_core_config
+-            else core.Config(method="direct", pretrain_updates=3000)
++            else core.Config(method="direct", seed=config.seed, pretrain_updates=3000)
+         )
+     else:
+         if inputs.encoder is None or Path(inputs.encoder).name != "selected_encoder.pt":
+@@ -410,6 +419,8 @@
+             raise ValueError("Smoke architecture differs from selected ancestor.")
+         if value.method != config.method or value.history != config.history:
+             raise ValueError("Selected ancestor method/history differs from downstream.")
++    if value.seed != config.seed:
++        raise ValueError("Selected ancestor and downstream seed must match.")
+     if not correctness_smoke:
+         if smoke_core_config is not None:
+             raise ValueError("Small architectures require explicit correctness_smoke.")
+@@ -421,6 +432,17 @@
+     return value
+ 
+ 
++def _parent_core(inputs):
++    """Typed source identity is checked before decoding selected parent tensors."""
++    parent = _json(Path(inputs.encoder).parent / "run.json")
++    bound = parent.get("bindings", {})
++    if str(Path(core.__file__).resolve()) in bound:
++        return core
++    if str(Path(original_core.__file__).resolve()) in bound:
++        return original_core
++    raise ValueError("Parent must bind its original or replication SSL runner.")
++
++
+ def _load_ancestor(inputs, core_config):
+     if inputs.encoder is None:
+         return None
+@@ -429,10 +451,18 @@
+         Path(inputs.encoder).parent / "inference.pt", map_location="cpu", weights_only=True
+     )
+     parent = _json(Path(inputs.encoder).parent / "run.json")
+-    if (
+-        selected.get("kind") != "native_band_ssl_selected_encoder_v1"
+-        or inference.get("kind") != "native_band_ssl_weights_only_inference_v1"
+-    ):
++    original = _parent_core(inputs) is original_core
++    selected_kind = (
++        "native_band_ssl_selected_encoder_v1"
++        if original
++        else "native_band_replication_ssl_selected_encoder_v2"
++    )
++    inference_kind = (
++        "native_band_ssl_weights_only_inference_v1"
++        if original
++        else "native_band_replication_ssl_weights_only_inference_v2"
++    )
++    if selected.get("kind") != selected_kind or inference.get("kind") != inference_kind:
+         raise ValueError("Unsupported selected ancestor artifact kind.")
+     for record in (selected, inference):
+         if (
+@@ -446,9 +476,13 @@
+     ) != parent.get("selected_pretrain_step"):
+         raise ValueError("Selected artifact scaler/checkpoint lineage mismatch.")
+     # Safe portable loading also validates every full-model tensor and scaler.
+-    checked = NativeBandAcousticPredictor.__new__(NativeBandAcousticPredictor)
++    predictor_class = (
++        original_inference.NativeBandAcousticPredictor if original else NativeBandAcousticPredictor
++    )
++    validate_configuration = original_inference._configuration if original else _configuration
++    checked = predictor_class.__new__(predictor_class)
+     checked._initialize(inference, "cpu")
+-    _configuration(selected, torch.device("cpu"))
++    validate_configuration(selected, torch.device("cpu"))
+     core.Scalers.from_dict(selected.get("scalers"))
+     _check_state(selected.get("encoder"), checked.model.encoder.state_dict())
+     encoder = {
+@@ -605,6 +639,8 @@
+ ):
+     config.validate(correctness_smoke=correctness_smoke)
+     device = torch.device(device)
++    if not correctness_smoke and str(device) != "cuda:0":
++        raise ValueError("Scientific replication requires explicitly indexed cuda:0.")
+     if device.type not in ("cpu", "cuda") or (correctness_smoke and device.type != "cpu"):
+         raise ValueError("Correctness smoke is CPU only; endpoints support local CPU/CUDA only.")
+     if stop_after is not None and (not correctness_smoke or stop_after < 1):
+@@ -627,7 +663,7 @@
+     if resume is not None:
+         saved = torch.load(resume, map_location="cpu", weights_only=True)
+         if (
+-            saved.get("kind") != "native_band_downstream_resume_v1"
++            saved.get("kind") != "native_band_replication_downstream_resume_v2"
+             or saved.get("architecture") != ARCHITECTURE
+             or saved.get("identities") != identities
+         ):
+@@ -727,7 +763,7 @@
+ 
+         def save(name="latest.pt"):
+             payload = {
+-                "kind": "native_band_downstream_resume_v1",
++                "kind": "native_band_replication_downstream_resume_v2",
+                 "architecture": ARCHITECTURE,
+                 "correctness_smoke": correctness_smoke,
+                 "identities": identities,
+@@ -825,7 +861,7 @@
+             else None,
+         }
+         inference = {
+-            "kind": "native_band_ssl_weights_only_inference_v1",
++            "kind": "native_band_replication_ssl_weights_only_inference_v2",
+             "architecture": ARCHITECTURE,
+             "correctness_smoke": correctness_smoke,
+             "model": core.cpu_state(model),
+@@ -846,7 +882,7 @@
+             core.atomic_checkpoint(
+                 output / "selected_encoder.pt",
+                 {
+-                    "kind": "native_band_downstream_supervised_encoder_v1",
++                    "kind": "native_band_replication_downstream_supervised_encoder_v2",
+                     "architecture": ARCHITECTURE,
+                     "correctness_smoke": correctness_smoke,
+                     "encoder": core.cpu_state(model.encoder),
+--- src/marine_echo/inference/native_band_acoustic.py
++++ src/marine_echo/inference/native_band_replication_acoustic.py
+@@ -8,7 +8,9 @@
+ from __future__ import annotations
+ 
+ import copy
++import math
+ from collections.abc import Mapping
++from dataclasses import fields
+ 
+ import numpy as np
+ import torch
+@@ -19,11 +21,11 @@
+     NativeBandEncoder,
+     NativeBandTemporalModel,
+ )
+-from marine_echo.training.native_band_ssl import METHODS, Config
++from marine_echo.training.native_band_replication_ssl import METHODS, Config
+ 
+ TRAINING_KINDS = {key: value for key, value in legacy.TRAINING_KINDS.items() if key in METHODS}
+-SELECTED_KIND = "native_band_ssl_selected_encoder_v1"
+-INFERENCE_KIND = "native_band_ssl_weights_only_inference_v1"
++SELECTED_KIND = "native_band_replication_ssl_selected_encoder_v2"
++INFERENCE_KIND = "native_band_replication_ssl_weights_only_inference_v2"
+ 
+ 
+ def _configuration(artifact, device):
+@@ -35,6 +37,29 @@
+         or raw.get("method") not in METHODS
+     ):
+         raise ValueError("Exact band architecture/config required; legacy and CF are unsupported.")
++    expected = {field.name: field.default for field in fields(Config)}
++    if set(raw) != set(expected):
++        raise ValueError("Complete exact saved replication Config required.")
++    for key, default in expected.items():
++        value = raw[key]
++        if type(default) is int:
++            if type(value) is not int or value < 0:
++                raise ValueError("Invalid saved integer configuration.")
++        elif type(default) is float:
++            if (
++                isinstance(value, bool)
++                or not isinstance(value, (int, float))
++                or not math.isfinite(value)
++            ):
++                raise ValueError("Nonfinite or incompatible saved configuration.")
++        elif not isinstance(value, str) or not value:
++            raise ValueError("Invalid saved string configuration.")
++    if (
++        not 1 <= raw["batch_size"] <= 256
++        or max(raw["width"], raw["latent"]) > 512
++        or max(raw["blocks"], raw["heads"]) > 16
++    ):
++        raise ValueError("Saved inference dimensions must remain bounded.")
+     for key in ("seed", "history", "batch_size", "width", "latent", "blocks", "heads"):
+         if type(raw.get(key)) is not int or raw[key] < (0 if key == "seed" else 1):
+             raise ValueError(f"Explicit compatible saved dimension/config required: {key}")
+@@ -49,8 +74,9 @@
+         raise ValueError("Tiny correctness artifacts require explicit synthetic CPU identity.")
+     if not smoke and artifact.get("evidence_kind") != "REAL_TRAIN_DEVELOPMENT_FIT":
+         raise ValueError("Saved band evidence kind is missing or incompatible.")
+-    if not smoke and (config.seed, config.width, config.latent, config.blocks, config.heads) != (
+-        7,
++    if config.seed not in (7, 13, 23):
++        raise ValueError("Band replication seed must be exactly7/13/23.")
++    if not smoke and (config.width, config.latent, config.blocks, config.heads) != (
+         192,
+         64,
+         4,
+@@ -80,6 +106,33 @@
+ def _base(instance, artifact, device):
+     if not isinstance(artifact, Mapping):
+         raise TypeError("Expected a safe band artifact mapping.")
++    allowed = {
++        "kind",
++        "architecture",
++        "config",
++        "scalers",
++        "bindings",
++        "encoder",
++        "model",
++        "evidence_kind",
++        "correctness_smoke",
++        "selected_pretrain_step",
++        "downstream_config",
++        "supervised_ancestry",
++    }
++    if not set(artifact).issubset(allowed):
++        raise ValueError("Unknown or unsafe fields in replication inference artifact.")
++    if (artifact.get("kind") == INFERENCE_KIND and "encoder" in artifact) or (
++        artifact.get("kind") == SELECTED_KIND
++        and (
++            "model" in artifact
++            or "supervised_ancestry" in artifact
++            or "downstream_config" in artifact
++        )
++    ):
++        raise ValueError("Artifact contains incompatible branch or supervised state.")
++    if str(device) not in ("cpu", "cuda:0"):
++        raise ValueError("Device must be explicitly cpu or cuda:0.")
+     instance.device = torch.device(device)
+     if instance.device.type not in ("cpu", "cuda"):
+         raise ValueError("Only local CPU/CUDA devices are supported.")
+@@ -104,7 +157,7 @@
+     def __init__(self, weights, device="cpu"):
+         artifact = torch.load(weights, map_location="cpu", weights_only=True)
+         if not isinstance(artifact, Mapping) or artifact.get("kind") != SELECTED_KIND:
+-            raise ValueError("Expected native_band_ssl_selected_encoder_v1 only.")
++            raise ValueError("Expected native_band_replication_ssl_selected_encoder_v2 only.")
+         _base(self, artifact, device)
+         self.feature_branch = "shared_band_encoder"
+         self.selected_pretrain_step = artifact.get("selected_pretrain_step")
+@@ -144,7 +197,7 @@
+         if "downstream_config" in artifact:
+             raise ValueError("Downstream forecast requires explicit supervised ancestry.")
+         return None
+-    from marine_echo.training.native_band_downstream import DownstreamConfig
++    from marine_echo.training.native_band_replication_downstream import DownstreamConfig
+ 
+     if not isinstance(ancestry, dict) or not isinstance(artifact.get("downstream_config"), dict):
+         raise TypeError("Complete supervised ancestry/config is required.")
+@@ -188,7 +241,7 @@
+ 
+     def _initialize(self, artifact, device):
+         if not isinstance(artifact, Mapping) or artifact.get("kind") != INFERENCE_KIND:
+-            raise ValueError("Expected native_band_ssl_weights_only_inference_v1 only.")
++            raise ValueError("Expected native_band_replication_ssl_weights_only_inference_v2 only.")
+         _base(self, artifact, device)
+         self.feature_training_kind = self.training_kind
+         self.supervised_ancestry = _ancestry(artifact, self.config)
+--- src/marine_echo/inference/native_latent.py
++++ src/marine_echo/inference/native_band_replication_latent.py
+@@ -19,18 +19,18 @@
+ from torch import nn
+ 
+ from marine_echo.inference import native_encoder as legacy
+-from marine_echo.inference.native_band_acoustic import _check_state, _query
++from marine_echo.inference.native_band_replication_acoustic import _check_state, _query
+ from marine_echo.models.native_band_temporal import ARCHITECTURE, NativeBandTemporalModel
+ from marine_echo.models.native_temporal import (
+     CFTemporalEncoder,
+     NativeTemporalModel,
+     QueryHead,
+ )
+-from marine_echo.training.native_band_ssl import Config as BandConfig
++from marine_echo.training.native_band_replication_ssl import Config as BandConfig
+ from marine_echo.training.native_ssl import Config
+ 
+ LEGACY_KIND = "native_ssl_weights_only_inference_v1"
+-BAND_KIND = "native_band_ssl_weights_only_inference_v1"
++BAND_KIND = "native_band_replication_ssl_weights_only_inference_v2"
+ LATENT_METHODS = {"shared_ssl", "permuted_ssl", "cf_jepa"}
+ 
+ 
+@@ -111,14 +111,14 @@
+             (192, 128, 4, 4),
+         ):
+             raise ValueError("Tiny dimensions require SYNTHETIC_CORRECTNESS_ONLY.")
+-        if band and (raw["seed"], raw["latent"]) != (7, 64):
++        if band and (raw["seed"] not in (7, 13, 23) or raw["latent"] != 64):
+             raise ValueError("Band scientific architecture is separate and frozen.")
+     # Structural inference validation only, never Config.validate/fit policy.
+     return cls(**raw) if band else legacy._config(raw)
+ 
+ 
+ def _artifact(artifact, device):
+-    if not isinstance(artifact, Mapping) or artifact.get("kind") not in (LEGACY_KIND, BAND_KIND):
++    if not isinstance(artifact, Mapping) or artifact.get("kind") != BAND_KIND:
+         raise ValueError("Only original/band SSL weights-only inference artifacts are supported.")
+     allowed = {
+         "kind",
+@@ -136,6 +136,8 @@
+     if not set(artifact).issubset(allowed):
+         raise ValueError("Unsafe/unknown fields or downstream supervised ancestry are unsupported.")
+     config = _configuration(artifact, device, band)
++    if config.seed not in (7, 13, 23):
++        raise ValueError("Band replication seed must be exactly7/13/23.")
+     step = artifact.get("selected_pretrain_step")
+     if type(step) is not int or step < 0 or step > config.pretrain_updates:
+         raise ValueError("Exact selected pretrain step is missing or incompatible.")
+--- tools/execute_native_band_job.py
++++ tools/execute_native_band_replication_job.py
+@@ -120,6 +120,13 @@
+             raise ValueError("Unaccounted historical band record; root reconciliation required.")
+         if record.get("budget_family") != FAMILY:
+             continue
++        if record.get("status") not in {
++            "COMPLETED_REAL_BAND_CUDA",
++            "FAILED_REAL_BAND_CUDA_ATTEMPT",
++            "COMPLETED_REAL_CUDA",
++            "FAILED_REAL_CUDA_ATTEMPT",
++        }:
++            raise ValueError("Unknown band job status; root reconciliation required.")
+         if record.get("requires_reconciliation"):
+             raise ValueError("Unreconciled band attempt; no second process.")
+         full = record.get("resources_full_attempt", {}).get("elapsed_full_attempt_seconds")
+@@ -146,11 +153,14 @@
+     """Fixed local static import closure; no review-controlled imports."""
+     package = root / "src/marine_echo"
+     pending = [
+-        root / "tools/execute_native_band_job.py",
+-        root / "tools/prepare_native_band_configs.py",
++        root / "tools/execute_native_band_replication_job.py",
++        root / "tools/prepare_native_band_replication_configs.py",
+         root / "tools/native_reference_supervisor.py",
+-        package / "training/native_band_ssl.py",
+-        package / "training/native_band_downstream.py",
++        package / "training/native_band_replication_ssl.py",
++        package / "training/native_band_replication_downstream.py",
++        package / "inference/native_band_replication_acoustic.py",
++        package / "inference/native_band_replication_encoder.py",
++        package / "inference/native_band_replication_latent.py",
+     ]
+     found = set()
+     while pending:
+@@ -283,7 +293,7 @@
+ 
+ def _check_config(config, kind, root):
+     # Import the fixed config generator only after every source binding verified.
+-    path = root / "tools/prepare_native_band_configs.py"
++    path = root / "tools/prepare_native_band_replication_configs.py"
+     spec = importlib.util.spec_from_file_location("_native_band_fixed_configs", path)
+     module = importlib.util.module_from_spec(spec)
+     spec.loader.exec_module(module)
+@@ -338,11 +348,11 @@
+     if (
+         config.get("architecture") != ARCHITECTURE
+         or type(seed) is not int
+-        or seed != 7
++        or seed not in (7, 13, 23)
+         or method not in METHODS
+         or config.get("history") != 96
+     ):
+-        raise ValueError("Exact band architecture/method/seed7/H96 required.")
++        raise ValueError("Exact band architecture/method/seed7/13/23/H96 required.")
+     if (
+         method not in review.get("allowed_methods", [])
+         or seed not in review.get("allowed_seeds", [])
+@@ -477,7 +487,7 @@
+         str(root / ".venv/Scripts/python.exe"),
+         "-u",
+         "-m",
+-        f"marine_echo.training.native_band_{job.kind}",
++        f"marine_echo.training.native_band_replication_{job.kind}",
+     ]
+     for name, value in {
+         **inputs,
+@@ -795,7 +805,7 @@
+ def _execute_for_test(job, root, *, popen, supervisor, config_validator, clock, writer):
+     caller = inspect.stack()[1]
+     if (
+-        Path(caller.filename).name != "test_native_band_execution.py"
++        Path(caller.filename).name != "test_native_band_replication_execution.py"
+         or not caller.function.startswith("test_")
+         or "SYNTHETIC_CORRECTNESS_ONLY" not in str(root)
+     ):
+

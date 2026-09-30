@@ -1,6 +1,6 @@
 ## Active model-first research — native acoustic SSL
 
-Updated 2026-09-30T13:44:57.084863+00:00.
+Updated 2026-09-30T15:01:38.370717+00:00.
 
 Branch `research/marine-jepa-vnext`; owner-authorized local model research.
 App/release work is frozen; historical protocols, evidence and approved r3 are preserved.
@@ -63,7 +63,9 @@ Band masked/permuted/random screens completed with owned cleanup: DEV0.701138/0.
 Band scratch supervised completed at DEV0.550881dB; all five-job commands actually exited0.
 All five immutable reports/weights/resources verified;3.171089 full-owned Band GPU-hours charged.
 These are runner selection scores; matched strong endpoints and numerical verification remain required.
-Six actual-parent frozen/full comparison proposals exist; proposal status is not fitting approval.
+Six actual-parent frozen/full proposals exist; two prefit CLI attempts failed on model capacity
+before delivering approval. Same distinct reviewer is completing an exact compact referential verdict.
+No strong Band job has started; proposals and retained inspection progress are not approval.
 Reusable latent inference source approved by distinct reviewer;40 exact bindings verified.
 Root89 synthetic CPU checks and actual Unicode disk replay passed for shared/CF/band.
 Real64-context CPU replay approved after metadata transport recovery;96 bindings verified.
@@ -90,7 +92,12 @@ Builder211 CPU checks passed; eight optimizer cases require root. Root attempt e
 after WMI import exception and partial test progress; failed log/Event1000 retained, cause unknown.
 One unchanged root retry passed237 checks in195.70s after the scientific queue closed, no skips.
 Physical Unicode four-update saved-artifact CPU replay passed; prefix software review/prefit remain pending.
-Separately versioned Band7/13/23 replication engineering is active in the isolated builder checkout.
+Separately versioned Band7/13/23 replication delivery integrated after a capacity-failure recovery.
+Root220 checks passed with six loader failures: emitted review_sha256 was omitted from strict schema.
+Unfitted metadata-only repair admits lowercase64hex hashes; seven red/green guard checks preserved.
+Repaired233 root CPU checks passed with all12 optimizer/resume cases; fresh Unicode replay passed.
+Four fixed shared/direct13/23 replication configs/proposals generated; distinct scientific prefit pending.
+Builder is adding typed v2 prefix/assessment compatibility and12/96 Band assessment accounting.
 Actual assessment resource-worker synthetic CPU smoke exited0 and removed its exclusive lock.
 CF backbone extra controls remain proposed/unfitted and deferred outside authorized11 recipes.
 Finalist and matched-direct seeds13/23 remain required; no extra architecture search is approved.

@@ -1,0 +1,10 @@
+SYNTHETIC_CORRECTNESS_ONLY
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_band_replication.py
+Baseline: actual immutable main native_band_ssl.Config
+FAILED test_fixed_replication_seeds_admitted[13]
+FAILED test_fixed_replication_seeds_admitted[23]
+ValueError: Band seed/optimizer/encoded SIGReg coefficient are frozen.
+2 failed in 15.54s
+Exit code: 1
+The red test initially imported version1; green imports the separately authored version2 runner. Version1 was never changed.
+

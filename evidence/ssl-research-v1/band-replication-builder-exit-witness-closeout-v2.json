@@ -1,0 +1,13 @@
+{
+  "status": "ACTUAL_RECOVERED_BUILDER_DELIVERY_CLI_CLOSED",
+  "actual_cli_exit_code": 0,
+  "session_id": 20337,
+  "actual_exit_chunk_id": "9ab71f",
+  "builder_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "events_path": "evidence/ssl-research-v1/band-replication-builder-closeout-events-v2.jsonl",
+  "handoff_path": "../marine-jepa-vnext-builder/evidence/ssl-band-replication-builder-v2/handoff-v2.json",
+  "earlier_capacity_failure_preserved": true,
+  "root_checks": "PENDING",
+  "scientific_fitting": "NOT_RUN",
+  "independent_prefit": "NOT_RUN"
+}

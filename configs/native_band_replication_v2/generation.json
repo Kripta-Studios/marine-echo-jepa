@@ -1,0 +1,30 @@
+{
+  "admitted_seeds": [
+    7,
+    13,
+    23
+  ],
+  "architecture": "nonlinear_frequency_conditioned_v1",
+  "budget": {
+    "aggregate_full_owned_gpu_hours": 96,
+    "band_full_owned_gpu_hours": 12,
+    "total_seed7_recipes": 11
+  },
+  "budget_family": "native_band_v1",
+  "generated_replication_seeds": [
+    13,
+    23
+  ],
+  "kind": "native_band_replication_config_generation_v2",
+  "later_endpoints": "Require completed version2 parents and separate exact review.",
+  "model_or_data_loaded": false,
+  "prospective_downstream": [],
+  "scientific_approval": false,
+  "screens": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_band_replication_v2\\native_band_shared_ssl_seed13_v2.json",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_band_replication_v2\\native_band_direct_end_to_end_seed13_v2.json",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_band_replication_v2\\native_band_shared_ssl_seed23_v2.json",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_band_replication_v2\\native_band_direct_end_to_end_seed23_v2.json"
+  ],
+  "status": "CONFIGS_READY_FOR_DISTINCT_REVIEW_NO_FITTING"
+}

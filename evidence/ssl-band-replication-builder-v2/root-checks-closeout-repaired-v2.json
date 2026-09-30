@@ -1,0 +1,95 @@
+{
+  "status": "REPAIRED_REPLICATION_ROOT_233_CHECKS_AND_DURABLE_CPU_REPLAY_PASSED",
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "checks": {
+    "initial_root": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-band-replication-builder-v2\\root-all-checks-v2.log",
+      "sha256": "1d264b09769c7cbc525bf14ca3243dab217410a7d3ab6dae662b0260432b6846",
+      "actual_exit_code": 1,
+      "actual_exit_witness": "25245/f78925"
+    },
+    "metadata_red": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-band-replication-builder-v2\\root-review-metadata-red-v2.log",
+      "sha256": "df37adc40516f85c5a5b20ce16b29c8d76deec7bb800621f75891eb169a01107",
+      "actual_exit_code": 1,
+      "actual_exit_witness": "bd2466"
+    },
+    "metadata_green": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-band-replication-builder-v2\\root-review-metadata-green-v2.log",
+      "sha256": "cc8e87e78fc9efecde3a9eb38ea182a510ccfea76d7e5962e900b7a638cbe326",
+      "actual_exit_code": 0,
+      "actual_exit_witness": "55487/0b8cde"
+    },
+    "repaired_full": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-band-replication-builder-v2\\root-all-checks-repaired-v2.log",
+      "sha256": "239b0fb32cb057865f71dfb503f6d00d4c34252eac110cf46617c10e2b40ad80",
+      "actual_exit_code": 0,
+      "actual_exit_witness": "75738/8c7eae"
+    },
+    "repaired_durable": {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-band-replication-builder-v2\\root-durable-repaired-v2.log",
+      "sha256": "0cc47e0bf05f9590570d216e8d7de3fdc72ecb568caedb88c531a992dbe6d80a",
+      "actual_exit_code": 0,
+      "actual_exit_witness": "b2ed7e"
+    }
+  },
+  "passed_checks_total": 233,
+  "root_only_cases_executed": 12,
+  "skipped": 0,
+  "repair": {
+    "path": "src/marine_echo/inference/native_band_replication_acoustic.py",
+    "before_sha256": "3cb348dab3c9235a9cede09cf86082f25faecb0ab1e83c4103135ff2d6ef6224",
+    "after_sha256": "e689d80077152b4c784966426846bfb154eb4e16a46494f2140129c003288149",
+    "changed_function": "_base",
+    "scope": "Known opaque review_sha256 metadata with lowercase64hex validation",
+    "all_other_function_asts_identical": true,
+    "original_snapshot_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-band-replication-builder-v2\\final-code-snapshot-v2.json"
+  },
+  "current_authored_sha256": {
+    "src/marine_echo/training/native_band_replication_ssl.py": "94c04d2d585c39d49e849f4b86375e201898ae104e8a808341363a2f22518f72",
+    "src/marine_echo/training/native_band_replication_downstream.py": "f5a6747b3a37dcd8856b617a95cd939862ba716a1d7e50fe7ef9090a08d4084d",
+    "src/marine_echo/inference/native_band_replication_acoustic.py": "e689d80077152b4c784966426846bfb154eb4e16a46494f2140129c003288149",
+    "src/marine_echo/inference/native_band_replication_encoder.py": "e21bfc7f724ab4c86296a6b377b478cff017f4de74eaa736a75770b8df16fb07",
+    "src/marine_echo/inference/native_band_replication_latent.py": "7cb0e2b76f77659d19e1b3f42bdf1afc36811772a29cb56ee5ae5d165f23ac07",
+    "tools/execute_native_band_replication_job.py": "ffbfe9310ee9a1c17e4f784cfcf9d7e221be4658408080621eaff6c8b2104eea",
+    "tools/prepare_native_band_replication_configs.py": "09c66cb2446c2e242ce81b612a27baf5edcb042b00c64716ea7adc0a6ce7462b",
+    "tests/unit/test_native_band_replication.py": "746c7e1d6dddfed8fa255b302441f18a30a8eb0dfd48d2b77cf5a31762e27aae",
+    "tests/unit/test_native_band_replication_execution.py": "e0f785cce065d588ace7c6de99c8f007cd442ac28c8846165b3c0d85b5235fd1",
+    "tests/unit/test_native_band_replication_inference.py": "b3182aa18640ba1aa84b8d96fc0a8fc10f096d9e66d0a1dd2f9c84dbad6febd8",
+    "tests/unit/test_native_band_replication_latent.py": "5845faa29a17cf22a170773ff54f15a2227ee7c5728b8c5ba9d7729c385d5cb3",
+    "tests/integration/test_native_band_replication_downstream.py": "6d022366346dd8a09219d156040b1c2956d75ef167331b81e2f47940748043dd",
+    "tests/integration/test_native_band_replication_ssl.py": "b9da185d7430199baaf3923d6ba755439f11321a6a6075dd7237c236dc88e2c8"
+  },
+  "protected_original_dependencies_sha256": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_band_temporal.py": "1550bb3f130e3981f57b46031e39d0d42ce7dac4738aea9280362210dfaca96b",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\sigreg.py": "2cf5dc8e6fc610fbe167339a8750f5e2d9ddf9a48f416717b8310500536469a3",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_temporal.py": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_encoder.py": "6cc07a15ea93427d6628f1b317945f6e38ff3008894a31cab2173c0b666c0f7f",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_ssl.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_resources.py": "c9ca3fbd0759ae00824774ed61a08185361234430d5ed63f09fa3885545c7c38",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_ssl.py": "ca33bf3141ea17c5adb3d0a4cd2ed0d186be8efb846a5b581003f2088a105e4f",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_band_acoustic.py": "6181baf22b75be73767f4b76370c65bfc37fdeb189da3deabcabe8a7c2dcd1bf",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_downstream.py": "95becf2cd01a7ab07c67a4da8d26c8e8bf58297f56513a439b0ab2b2be776619",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_product.py": "fd1c643fde93494a21d560794f886056e58031f1ef6dd41ebe53662750bab314",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\aeon_corpus.py": "398e021a5807ab8068ceef03dd692f3b688c744751cd4e65d3efbee94d9a3efd",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\native_ssl_corpus.py": "ebda9d460fa14df749b8f774bcb02a6622f0d69402443098a6100670a4c8f7ba",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\__init__.py": "011583e04b7f119ffcc2ae18712a4af2e613cff87bcbeb5435fbfb10dcd01508",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\__init__.py": "c98c60178f566d43dd60641704ccd9c652d406487b4838cbf5a9df49ea5dd735",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\__init__.py": "5bdc97a6119b2dd3d519df36406c8bcb9e801be81c8b6c3f44e4a527db1f87a3",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\__init__.py": "3fcc1878588f5a89775363e099fab7d7323acebccae26d10db4a6da627425b68",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\uv.lock": "980c87913ed3dd0c28692a0c9e6d4b297d7994092fce6a1763d833f80699aa9a",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\pyproject.toml": "2fd75de20d002f718bd1c621e0692671f7b3e59314f6890a15c5b6d8d4d5d64b",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0023-owner-resolved-band-budget.md": "e7dffe900a969f03ceb13254116997041536ab818ab32fe67ff4d6c437b4b67d",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_band_budget_owner_resolution_v1.json": "d13cc7875bba5400cfe0761a371dcf69bb743e4914f9449d288ecaee9b5d15db",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\native_reference_supervisor.py": "ec5456584ca6f6a805e13f4137365c2c0a785b2dbc52782b191c1528befb30dd",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\prepare_native_band_configs.py": "52e3e9c7a8e0fd483f76fe25d0103895de3e9fb28b3b8510bf775851fe7cc9a1",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_native_band_job.py": "d66e2fb990ecff500e8927e52aad69afce4937bbeb5fdc6a198efc3493e4e816",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_latent.py": "cfdbc430d9e9a57c6b815492254119fe0682d728b1e89d2c5e5ec97ed7c14822"
+  },
+  "original_capacity_and_root_failures_preserved": true,
+  "scientific_models_or_training_changed": false,
+  "fitted_sources_changed": false,
+  "independent_prefit": "NOT_RUN",
+  "public_numeric_access": "NOT_RUN",
+  "scientific_replication_fitting": "NOT_RUN"
+}

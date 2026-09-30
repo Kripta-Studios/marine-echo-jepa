@@ -1,0 +1,7 @@
+SYNTHETIC_CORRECTNESS_ONLY
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_band_replication.py tests/unit/test_native_band_replication_inference.py tests/unit/test_native_band_replication_latent.py tests/unit/test_native_band_replication_execution.py tests/integration/test_native_band_replication_ssl.py tests/integration/test_native_band_replication_downstream.py
+214 passed, 12 skipped in 50.53s
+Exit code: 0
+Skipped: twelve ROOT-only optimizer/resume fixtures across seeds13/23, no denied operation retried.
+No real scientific process, data or weight access.
+

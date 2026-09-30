@@ -1,0 +1,19 @@
+{
+  "status": "ROOT_REPLICATION_CHECKS_REQUEST_CHANGES",
+  "actual_cli_exit_code": 1,
+  "session_id": 25245,
+  "actual_exit_chunk_id": "f78925",
+  "log_path": "evidence/ssl-band-replication-builder-v2/root-all-checks-v2.log",
+  "observed_result": "6 failed, 220 passed in 39.80s",
+  "issue_id": "R1_DOWNSTREAM_ARTIFACT_METADATA_SCHEMA",
+  "issue": "native_band_replication_downstream.run emits review_sha256 in inference.pt; native_band_replication_acoustic._base does not admit this known metadata field, so the actual downstream load_inference call fails for frozen/full/direct at both seeds13/23.",
+  "failing_paths": [
+    "src/marine_echo/training/native_band_replication_downstream.py",
+    "src/marine_echo/inference/native_band_replication_acoustic.py"
+  ],
+  "passed_before_failure": "Actual optimizer/resume checkpoint equality, frozen versus updated encoder identity, typed supervised ancestry, update/sample/label counts",
+  "repair_scope": "Explicitly admit and validate the trainer's known metadata without weakening unknown-field, source, kind, ancestry or tensor guards; preserve original snapshots and rerun affected checks.",
+  "scientific_fitting": "NOT_RUN",
+  "replication_prefit": "WITHHELD_UNTIL_REPAIRED_AND_VERIFIED",
+  "current_builder_task": "Separate assessment/prefix engineering continues; do not mutate protected shared sources concurrently"
+}

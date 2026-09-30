@@ -1,0 +1,11 @@
+{
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "architecture": "nonlinear_frequency_conditioned_v1",
+  "total_trainable_parameters": 2457621,
+  "encoder_parameters": 2424448,
+  "readout_parameters": 5189,
+  "predictor_parameters": 26944,
+  "dtype": "torch.float32",
+  "cpu_rng_unchanged": true
+}
+

@@ -1,0 +1,7 @@
+SYNTHETIC_CORRECTNESS_ONLY
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B -m ruff format --no-cache evidence\ssl-band-replication-builder-v2\close_sources.py
+Exit code: 0
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B -m ruff check --no-cache evidence\ssl-band-replication-builder-v2\close_sources.py
+All checks passed!
+Exit code: 0
+

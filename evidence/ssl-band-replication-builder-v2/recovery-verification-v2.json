@@ -1,0 +1,22 @@
+{
+  "kind": "native_band_replication_recovery_verification_v2",
+  "authored_sha256": {
+    "src/marine_echo/training/native_band_replication_ssl.py": "94c04d2d585c39d49e849f4b86375e201898ae104e8a808341363a2f22518f72",
+    "src/marine_echo/training/native_band_replication_downstream.py": "f5a6747b3a37dcd8856b617a95cd939862ba716a1d7e50fe7ef9090a08d4084d",
+    "src/marine_echo/inference/native_band_replication_acoustic.py": "3cb348dab3c9235a9cede09cf86082f25faecb0ab1e83c4103135ff2d6ef6224",
+    "src/marine_echo/inference/native_band_replication_encoder.py": "e21bfc7f724ab4c86296a6b377b478cff017f4de74eaa736a75770b8df16fb07",
+    "src/marine_echo/inference/native_band_replication_latent.py": "7cb0e2b76f77659d19e1b3f42bdf1afc36811772a29cb56ee5ae5d165f23ac07",
+    "tools/execute_native_band_replication_job.py": "ffbfe9310ee9a1c17e4f784cfcf9d7e221be4658408080621eaff6c8b2104eea",
+    "tools/prepare_native_band_replication_configs.py": "09c66cb2446c2e242ce81b612a27baf5edcb042b00c64716ea7adc0a6ce7462b",
+    "tests/unit/test_native_band_replication.py": "746c7e1d6dddfed8fa255b302441f18a30a8eb0dfd48d2b77cf5a31762e27aae",
+    "tests/unit/test_native_band_replication_execution.py": "e0f785cce065d588ace7c6de99c8f007cd442ac28c8846165b3c0d85b5235fd1",
+    "tests/unit/test_native_band_replication_inference.py": "b3182aa18640ba1aa84b8d96fc0a8fc10f096d9e66d0a1dd2f9c84dbad6febd8",
+    "tests/unit/test_native_band_replication_latent.py": "5845faa29a17cf22a170773ff54f15a2227ee7c5728b8c5ba9d7729c385d5cb3",
+    "tests/integration/test_native_band_replication_downstream.py": "6d022366346dd8a09219d156040b1c2956d75ef167331b81e2f47940748043dd",
+    "tests/integration/test_native_band_replication_ssl.py": "b9da185d7430199baaf3923d6ba755439f11321a6a6075dd7237c236dc88e2c8"
+  },
+  "snapshot_byte_equality": true,
+  "protected_source_closure_unchanged": true,
+  "pytest_repeated": false,
+  "scientific_approval": false
+}
