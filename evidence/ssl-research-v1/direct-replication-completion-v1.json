@@ -1,0 +1,71 @@
+{
+  "status": "VERIFIED_TWO_REAL_SUPERVISED_REPLICATIONS",
+  "runs": [
+    {
+      "seed": 13,
+      "id": "direct_direct_end_to_end_seed13_h96_replication",
+      "run_sha256": "9220be166ff48ee083d1e3495f4026dd280b55cc8f7eed713a55594c323642be",
+      "development_pinball_db": 0.741446217750941,
+      "selected_supervised_step": 750,
+      "resources_full_attempt": {
+        "exit_code": 0,
+        "stopped_for": null,
+        "peak_process_rss_bytes": 5242683392,
+        "elapsed_full_attempt_seconds": 570.4059999999881,
+        "poll_seconds": 0.1,
+        "rss_limit_bytes": 23622320128,
+        "deadline_seconds": 315236.6100898709,
+        "owned_process_pids": [
+          52980,
+          60208,
+          60344
+        ],
+        "peak_each_process_rss_bytes": {
+          "60344": 5464064,
+          "60208": 5204987904,
+          "52980": 32231424
+        },
+        "peak_definition": "Conservative sum of each owned process OS peak working set; sampled RSS fallback",
+        "owned_tree_cleanup_verified": true
+      },
+      "initialization": "FRESH_NO_FITTED_PARENT",
+      "test_access": "NOT_RUN"
+    },
+    {
+      "seed": 23,
+      "id": "direct_direct_end_to_end_seed23_h96_replication",
+      "run_sha256": "00c25ca5979aa77a0638e2871ec8d8e5e16bc69665903baea1481de237847bf9",
+      "development_pinball_db": 0.7658691172222211,
+      "selected_supervised_step": 750,
+      "resources_full_attempt": {
+        "exit_code": 0,
+        "stopped_for": null,
+        "peak_process_rss_bytes": 5222080512,
+        "elapsed_full_attempt_seconds": 637.8910000000033,
+        "poll_seconds": 0.1,
+        "rss_limit_bytes": 23622320128,
+        "deadline_seconds": 314666.2040898709,
+        "owned_process_pids": [
+          1744,
+          44200,
+          46236
+        ],
+        "peak_each_process_rss_bytes": {
+          "1744": 5582848,
+          "46236": 5183766528,
+          "44200": 32731136
+        },
+        "peak_definition": "Conservative sum of each owned process OS peak working set; sampled RSS fallback",
+        "owned_tree_cleanup_verified": true
+      },
+      "initialization": "FRESH_NO_FITTED_PARENT",
+      "test_access": "NOT_RUN"
+    }
+  ],
+  "coordinator_exit_code": 0,
+  "exit_witness": "Root write_stdin session19737 chunk5a9408 exit0",
+  "queue_sha256": "e231c3b2b1692685d865c068dbda9a5cdf1f2b60c361372ac0bb4b766c902ed5",
+  "seed_selection": "NONE",
+  "scientific_claim": "NOT_ESTABLISHED",
+  "cross_architecture_parameter_matching": false
+}

@@ -1,0 +1,13 @@
+{
+  "queue_sha256": "01145663ed19cfd52188708018039ca314214513c4f4450b685a8c4264cc7027",
+  "status": "STOPPED_AFTER_FAILURE",
+  "jobs": [
+    {
+      "id": "cf_jepa_frozen_readout_seed13_h96",
+      "exit_code": 1,
+      "report": "outputs/native_acoustic_ssl_v1/cf_jepa_frozen_readout_seed13_h96/run.json",
+      "status": "FAILED_QUEUE_STOPPED"
+    }
+  ],
+  "app_release_work": "FROZEN"
+}

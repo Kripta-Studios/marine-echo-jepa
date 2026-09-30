@@ -1,0 +1,59 @@
+{
+  "checked_at": "2026-09-30T09:27:32.968169+00:00",
+  "python": "3.12.13",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "free_disk_gib": 113.12,
+  "git": {
+    "status": "OK",
+    "returncode": 0,
+    "stdout": "git version 2.52.0.windows.1\n",
+    "stderr": ""
+  },
+  "node": {
+    "status": "OK",
+    "returncode": 0,
+    "stdout": "v25.8.1\n",
+    "stderr": ""
+  },
+  "uv": {
+    "status": "OK",
+    "returncode": 0,
+    "stdout": "uv 0.10.10 (8c730aaad 2026-03-13)\n",
+    "stderr": ""
+  },
+  "codex": {
+    "status": "OK",
+    "returncode": 0,
+    "stdout": "codex-cli 0.159.0\n",
+    "stderr": ""
+  },
+  "nvidia_smi": {
+    "status": "OK",
+    "returncode": 0,
+    "stdout": "NVIDIA GeForce RTX 5070 Ti Laptop GPU, 12227 MiB, 591.86\n",
+    "stderr": ""
+  },
+  "torch": {
+    "torch_version": "2.11.0+cu128",
+    "build_cuda": "12.8",
+    "cuda_training_verified": true,
+    "device": "NVIDIA GeForce RTX 5070 Ti Laptop GPU",
+    "capability": [
+      12,
+      0
+    ],
+    "compiled_arches": [
+      "sm_75",
+      "sm_80",
+      "sm_86",
+      "sm_90",
+      "sm_100",
+      "sm_120"
+    ],
+    "status": "CUDA_KERNEL_SMOKE_PASSED",
+    "elapsed_seconds": 12.656,
+    "peak_allocated_gib": 0.017052173614501953,
+    "note": "Small FP32 kernel smoke only; full model/BF16/resume remain to test."
+  },
+  "model_account_access": "NOT_VERIFIED_BY_THIS_SCRIPT"
+}

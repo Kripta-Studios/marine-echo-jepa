@@ -1,0 +1,46 @@
+{
+  "id": "cf-native-runtime-recovery-probe-01",
+  "status": "COMPLETED_SYNTHETIC_GPU_PREFLIGHT",
+  "command": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+    "-u",
+    "tools/runtime_preflight.py",
+    "--torch",
+    "--output",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\cf-native-runtime-recovery-probe-01\\runtime.json"
+  ],
+  "operation": "EXISTING_TINY_SYNTHETIC_CUDA_KERNEL_PREFLIGHT",
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "public_data": false,
+  "gpu_owner": "root",
+  "resources": "full-owned120sec/22GiB",
+  "pid": 55312,
+  "resources_full_attempt": {
+    "exit_code": 0,
+    "stopped_for": null,
+    "peak_process_rss_bytes": 1455259648,
+    "elapsed_full_attempt_seconds": 34.171999999991385,
+    "poll_seconds": 0.1,
+    "rss_limit_bytes": 23622320128,
+    "deadline_seconds": 120,
+    "owned_process_pids": [
+      7912,
+      8004,
+      17728,
+      51908,
+      55312,
+      62208
+    ],
+    "peak_each_process_rss_bytes": {
+      "55312": 5414912,
+      "7912": 1294827520,
+      "51908": 6717440,
+      "62208": 42418176,
+      "17728": 97464320,
+      "8004": 8417280
+    },
+    "peak_definition": "Conservative sum of each owned process OS peak working set; sampled RSS fallback",
+    "owned_tree_cleanup_verified": true
+  },
+  "native_failure_cause": "UNKNOWN; probe only checks current tiny kernels"
+}

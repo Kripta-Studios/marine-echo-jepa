@@ -1,0 +1,27 @@
+{
+  "queue_sha256": "0371a0114c096d8173fe2f6c791828603ae28ca11339e28f3cfa6580a3a78b56",
+  "status": "COMPLETED_REVIEWED_SERIAL_QUEUE",
+  "jobs": [
+    {
+      "id": "direct_direct_end_to_end_seed13_h96_replication",
+      "exit_code": 0,
+      "report": "outputs/native_acoustic_ssl_v1/direct_direct_end_to_end_seed13_h96_replication/run.json",
+      "report_sha256": "9220be166ff48ee083d1e3495f4026dd280b55cc8f7eed713a55594c323642be",
+      "report_status": "COMPLETED",
+      "development_pinball_db": 0.741446217750941,
+      "scientific_claim": "NOT_ESTABLISHED",
+      "status": "VERIFIED_COMPLETED"
+    },
+    {
+      "id": "direct_direct_end_to_end_seed23_h96_replication",
+      "exit_code": 0,
+      "report": "outputs/native_acoustic_ssl_v1/direct_direct_end_to_end_seed23_h96_replication/run.json",
+      "report_sha256": "00c25ca5979aa77a0638e2871ec8d8e5e16bc69665903baea1481de237847bf9",
+      "report_status": "COMPLETED",
+      "development_pinball_db": 0.7658691172222211,
+      "scientific_claim": "NOT_ESTABLISHED",
+      "status": "VERIFIED_COMPLETED"
+    }
+  ],
+  "app_release_work": "FROZEN"
+}

@@ -1,0 +1,10 @@
+{
+  "status": "ALL_CF_SEED23_DOWNSTREAM_BINDINGS_VERIFIED",
+  "bindings": 96,
+  "review_sha256": "9382b7e5cab2211927836593872953e3732644acfeb14d24ca49429ae34e41c5",
+  "reviewer_cli_exit_code": 0,
+  "reviewer_exit_witness": "Root write_stdin session67643 chunkdde38c exit0",
+  "prompt_correction": "Initial seed23 task retained stale seed13 inline hashes/score; independent reviewer identified conflict and verified actual seed23 files. Corrected task_v2 retained; no incorrect scientific bytes were changed.",
+  "execution": "NOT_RUN",
+  "final_numeric_access": "NOT_RUN"
+}

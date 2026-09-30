@@ -1,0 +1,55 @@
+{
+  "kind": "reviewed_native_serial_queue_v1",
+  "jobs": [
+    {
+      "id": "cf_jepa_frozen_readout_seed23_h96",
+      "entrypoint": "tools/execute_native_downstream_job.py",
+      "args": [
+        "--config",
+        "configs/native_downstream_cf_jepa_frozen_readout_seed23_h96_v1.json",
+        "--review",
+        "evidence/ssl-research-v1/cf-seed23-downstream-prefit-review-final.json",
+        "--output",
+        "outputs/native_acoustic_ssl_v1/cf_jepa_frozen_readout_seed23_h96",
+        "--receipt",
+        "evidence/ssl-research-v1/cf_jepa_frozen_readout_seed23_h96-attempt-01",
+        "--encoder",
+        "outputs/native_acoustic_ssl_v1/cf_jepa_seed23_h96_replication/selected_encoder.pt",
+        "--ancestor-review",
+        "evidence/ssl-research-v1/cf-replication-prefit-review-final.json",
+        "--ancestor-config",
+        "configs/native_ssl_cf_jepa_seed23_h96_v1.json"
+      ],
+      "method": "cf_jepa",
+      "mode": "frozen_readout",
+      "report": "outputs/native_acoustic_ssl_v1/cf_jepa_frozen_readout_seed23_h96/run.json"
+    },
+    {
+      "id": "cf_jepa_full_finetune_seed23_h96",
+      "entrypoint": "tools/execute_native_downstream_job.py",
+      "args": [
+        "--config",
+        "configs/native_downstream_cf_jepa_full_finetune_seed23_h96_v1.json",
+        "--review",
+        "evidence/ssl-research-v1/cf-seed23-downstream-prefit-review-final.json",
+        "--output",
+        "outputs/native_acoustic_ssl_v1/cf_jepa_full_finetune_seed23_h96",
+        "--receipt",
+        "evidence/ssl-research-v1/cf_jepa_full_finetune_seed23_h96-attempt-01",
+        "--encoder",
+        "outputs/native_acoustic_ssl_v1/cf_jepa_seed23_h96_replication/selected_encoder.pt",
+        "--ancestor-review",
+        "evidence/ssl-research-v1/cf-replication-prefit-review-final.json",
+        "--ancestor-config",
+        "configs/native_ssl_cf_jepa_seed23_h96_v1.json"
+      ],
+      "method": "cf_jepa",
+      "mode": "full_finetune",
+      "report": "outputs/native_acoustic_ssl_v1/cf_jepa_full_finetune_seed23_h96/run.json"
+    }
+  ],
+  "authorization": "Exact distinct completed-parent CF seed23 approval",
+  "execution": "Only after active scientific queue exits; mandatory owned wrappers",
+  "final_test_access": "NOT_AUTHORIZED",
+  "app_release_work": "FROZEN"
+}

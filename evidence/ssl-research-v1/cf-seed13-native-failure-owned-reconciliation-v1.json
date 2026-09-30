@@ -1,0 +1,22 @@
+{
+  "status": "EXACT_CLOSED_FAILED_OWNER_LOCK_RECONCILED",
+  "id": "cf_jepa_frozen_readout_seed13_h96",
+  "preserved_lock_bytes": "{\"pid\": 23160, \"output\": \"C:\\\\Users\\\\\\u00c1lvaro Schwiedop\\\\Desktop\\\\KriptaStudios\\\\marine-echo-jepa\\\\outputs\\\\native_acoustic_ssl_v1\\\\cf_jepa_frozen_readout_seed13_h96\"}",
+  "lock_sha256": "35f710572c20c12118ec0465b1a72ba768e902b08ed077bbe00682b0acaba051",
+  "captured_owned_pids_all_gone": [
+    20332,
+    23160,
+    33016,
+    37348,
+    53924,
+    59656
+  ],
+  "actual_child_exit_code": 3221227274,
+  "actual_child_exit_hex": "0xc000070a",
+  "charged_owned_seconds": 164.13999999999942,
+  "failure_cause": "UNKNOWN_NATIVE_PROCESS_EXIT_NO_TRACEBACK",
+  "failure_artifacts_preserved": true,
+  "scientific_result": "NOT_RUN",
+  "ledger_modified": false,
+  "junction_operations": false
+}

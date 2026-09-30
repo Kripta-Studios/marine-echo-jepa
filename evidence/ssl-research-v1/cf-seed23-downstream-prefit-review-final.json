@@ -1,0 +1,350 @@
+{
+  "status": "APPROVED_DOWNSTREAM_PREFIT",
+  "reviewer_session_id": "01a0ef27-876b-7692-917e-3975afc6893d",
+  "implementer_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "builder_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "coordinator_session_id": "01a0ef1a-b166-7f83-91b7-2a2aff7c1b10",
+  "reviewer_runtime": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "sandbox_mode": "read-only",
+    "identity_verified_from": "Actual nodeRepl.requestMeta sessionId/threadId and turn metadata"
+  },
+  "allowed_methods": ["cf_jepa"],
+  "allowed_modes": ["frozen_readout", "full_finetune"],
+  "allowed_seeds": [23],
+  "allowed_roles": ["train", "development"],
+  "roles": ["train", "development"],
+  "evidence_kind": "real",
+  "runtime_evidence_kind": "REAL_TRAIN_DEVELOPMENT_FIT",
+  "allowed_config_paths": [
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_downstream_cf_jepa_frozen_readout_seed23_h96_v1.json",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_downstream_cf_jepa_full_finetune_seed23_h96_v1.json"
+  ],
+  "train_npz_sha256": "c2a529b6180b427ee7259a77ea0926919350cc42eb03f2067d0956138aa6461a",
+  "dev_npz_sha256": "4ca59c6b3539e6e214ac949a3294408f59a28386b9731461f2f03881198f2023",
+  "train_cohort_sha256": "0f9958a9048fe988a3577dc3d6063d1c0968d4b010faae9e177b49d9027ec180",
+  "dev_cohort_sha256": "f72c18d1d9cf8fc4a0b84c026e019b5a5a71db1f4a000437fc0f33f04d2d90c3",
+  "split_sha256": "3b4728e16da3c09c58d9316560283e19ecf79885bbf38a7c7025ce4b83e8993b",
+  "protocol_sha256": "124e3a5834b45e52d1e70e7aff3fe5a6500b55b49abd5fac6df35a0f35ede91d",
+  "ancestor_protocol_sha256": "1e42b3aec76e6673e014ddc4894667ff7bcd786be0f59c84d33fa9d4b4ae7b1d",
+  "approved_parent": {
+    "directory": "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed23_h96_replication",
+    "method": "cf_jepa",
+    "seed": 23,
+    "history": 96,
+    "status": "COMPLETED",
+    "evidence_kind": "REAL_TRAIN_DEVELOPMENT_FIT",
+    "run_sha256": "a1a78900b5e9eb6a02284686900a73282290b4d7717cd703bbb8d8ec001e77c2",
+    "selected_encoder_sha256": "2f9320a45c8a9e00082a07c63347f9b85581ef3d5e8ab1664063000b1a26014a",
+    "inference_sha256": "556c69fe366713d11e64023fe1a4460ec235a7381e4065d263edc7fed3b2b113",
+    "membership_sha256": "aac52281ca3fbba7b3bc795d9ea64d93fb73484d7a8961ce3910392efd38881a",
+    "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+    "ancestor_review_sha256": "7544ab2a7b3dad5382307085decba4ee046a82aaca28784f1fa3af960067ac26",
+    "selected_pretrain_step": 1500,
+    "short_probe_development_pinball_from_source_report": 0.7145854497680474,
+    "pretrain_steps": 6000,
+    "readout_steps_all_probes": 2000,
+    "encoder_parameters": 412800,
+    "encoder_tensors": 74,
+    "batchnorm_buffers": 30,
+    "latent_dimension": 128,
+    "fresh_downstream_head_parameters": 18565,
+    "closed_wrapper_exit_code": 0,
+    "full_owned_attempt_seconds": 4927.937000000005,
+    "peak_owned_tree_rss_bytes": 5164027904,
+    "owned_tree_cleanup_verified": true,
+    "historical_model_source_exception": null
+  },
+  "binding_verification": {
+    "binding_count": 96,
+    "all_bindings_recomputed_from_current_bytes": true,
+    "unchanged_retained_runtime_source_mismatches": 0,
+    "actual_parent_run_bindings_match_ancestor_review": true,
+    "actual_parent_config_matches_both_artifacts": true,
+    "actual_parent_scalers_match_both_artifacts": true,
+    "exact_selected_vs_inference_encoder_tensors": 74,
+    "unresolved_metadata_or_identity_mismatches": 0,
+    "numerical_corpus_or_prediction_decoding": false
+  },
+  "findings": [
+    {
+      "id": "P1",
+      "result": "PASS_WITH_PROMPT_IDENTITY_CORRECTION",
+      "finding": "The opening parent hashes and0.9251928324563993 score in the request belong to seed13. Actual seed23 files and the closed queue agree on run a1a78900…, inference556c69fe…, selected1500 and short-probe DEV0.7145854497680474. Approval binds those actual seed23 identities. All seeds remain preserved; no best-seed selection is made."
+    },
+    {
+      "id": "P2",
+      "result": "PASS",
+      "finding": "Both exact downstream configurations are semantically identical to the approved CFseed7 versions except seed23. Generic DownstreamConfig explicitly supports7/13/23. Exact config-path/hash admission restricts this approval to the two seed23 recipes; seed7/13 downstream config files are not directly bound."
+    },
+    {
+      "id": "P3",
+      "result": "PASS",
+      "finding": "Actual parent completion, review, source, config, scaler and artifact hashes agree. The selected encoder matches all74 inference encoder tensors and all30 BatchNorm buffers. This is the selected CF EMA inference encoder, with128-dimensional features. No historical85-source compatibility exception applies."
+    },
+    {
+      "id": "P4",
+      "result": "PASS",
+      "finding": "Actual membership contains18593 unique TRAIN rows across the four admitted deployments, matching issuance counts3197/3574/7436/4386. Both whole AEON2 final deployments and site are excluded. Checked6000 pretraining and2000 readout batches, including896000 recorded index references, against TRAIN eligibility pools18312 SSL and18562 supervised rows."
+    },
+    {
+      "id": "P5",
+      "result": "PASS_SOURCE_INSPECTION",
+      "finding": "Prefit admission precedes safe checkpoint loading, numerical corpus loading, RNG initialization, model construction and optimizer setup. The parent report must be completed REAL_TRAIN_DEVELOPMENT_FIT with matching original review/data/source identities. Runtime membership and TRAIN statistics verification retain the bound ancestor scalers."
+    },
+    {
+      "id": "P6",
+      "result": "PASS_SOURCE_INSPECTION",
+      "finding": "The fresh head is initialized independently with seed+100000; the parent's short-probe head is discarded. Frozen mode optimizes only the fresh18565-parameter head, uses encoder eval/no_grad, checks every encoder parameter/buffer and copies selected_encoder.pt bytes unchanged. Full fine-tuning enables selected encoder gradients and explicitly records supervised ancestry."
+    },
+    {
+      "id": "P7",
+      "result": "PASS_SOURCE_INSPECTION",
+      "finding": "The two trajectories retain2000/cadence500 and3000/cadence750 budgets, four scheduled DEV opportunities, earliest strict improvement, patience4, batch64, AdamW0.0003/0.0001, clip1,10% warmup/cosine floor0.1, five quantiles, horizons1/3/6 and daily floor18. TRAIN supplies gradients and labels; DEV supplies scheduled selection only."
+    },
+    {
+      "id": "P8",
+      "result": "PASS",
+      "finding": "Closed child log, queue receipt and replication completion proof agree on actual exit0,4927.937 full-owned seconds,5164027904-byte conservative owned-tree peak and verified cleanup. Current live ownership/allowance was not inspected; root must reconcile it at launch."
+    }
+  ],
+  "executed_checks": [
+    {
+      "command": "mcp__node_repl__js: read-only fs/crypto SHA256 reads for the complete96-path binding map",
+      "execution_route": "Independent JavaScript standard-library metadata checks",
+      "exit_code": 0,
+      "process_exit_code": null,
+      "result": "All96 current hashes computed; no retained runtime source mismatch. TRAIN/DEV NPZ bytes were hashed without decoding arrays."
+    },
+    {
+      "command": "mcp__node_repl__js: restricted ZIP/pickle metadata inspection of actual seed23 selected_encoder.pt and inference.pt",
+      "execution_route": "Literal non-executing parser; pickle globals represented symbolically",
+      "exit_code": 0,
+      "process_exit_code": null,
+      "result": "Kinds/config/scalers/source bindings/selected step agree;74 selected/inference encoder storage comparisons match, including30 BatchNorm buffers.412800 encoder and18565 head parameters established from tensor shapes. No Torch import or constructor."
+    },
+    {
+      "command": "mcp__node_repl__js: JSON membership/config/review/closed-receipt assertions and in-memory config/source mutation hashes",
+      "execution_route": "Independent CPU metadata assertions",
+      "exit_code": 0,
+      "process_exit_code": null,
+      "result": "No unresolved assertion failure. Seed-only recipe equivalence, exact parent/source identities, whole-site exclusion,8000 recorded batches and closed-resource equality verified. Eight changed seed/method/history/update config cases and a changed source case fail exact-hash identity. These are independent metadata checks, not execution of Python check_prefit."
+    },
+    {
+      "command": "Source inspection of native_downstream.py, native_ssl.py, native_temporal.py, safe inference, exact downstream executor and owned-tree supervisor",
+      "exit_code": 0,
+      "process_exit_code": null,
+      "result": "Actual seed23 support, admission ordering, fresh-head initialization, frozen/full gradient paths, selection schedule and exact indexed CUDA executor verified."
+    },
+    {
+      "command": "Initial in-memory restricted metadata-parser preparation",
+      "exit_code": null,
+      "result": "Reviewer helper encountered an append-handling TypeError and a subsequent declaration-name error. Corrected only the in-memory helper; successful inspection is recorded above. Neither error was a filesystem/process permission denial, and no repository file was changed."
+    }
+  ],
+  "inspected_evidence": [
+    {
+      "path": "evidence/ssl-research-v1/cf-replication-queue-attempt-01/cf_jepa_seed23_h96_replication.log",
+      "executed_by": "coordinator",
+      "result": "Actual scientific wrapper records COMPLETED_REAL_CUDA, exit0, exact run/config/review hashes, full-owned resources and verified cleanup. Reviewer did not execute the job."
+    },
+    {
+      "path": "evidence/ssl-research-v1/cf-replication-queue-attempt-01/queue.json",
+      "executed_by": "coordinator",
+      "result": "Closed serial queue records both seed13 and seed23 VERIFIED_COMPLETED with exit0 and matching report hashes."
+    },
+    {
+      "path": "evidence/ssl-research-v1/cf-replication-completion-v1.json",
+      "executed_by": "coordinator",
+      "result": "Exact queue-file hash verified. Both seeds preserved, seed_selection NONE, strong endpoints NOT_RUN and final numerical access NOT_RUN."
+    },
+    {
+      "path": "evidence/ssl-research-v1/platform-downstream-durable-green.log",
+      "executed_by": "coordinator",
+      "result": "Retained127 passed in21.71s. Inspected and rehashed; not rerun."
+    },
+    {
+      "path": "evidence/ssl-research-v1/reused-ssl-regression-tests.log",
+      "executed_by": "coordinator",
+      "result": "Retained6 passed in2.06s. Inspected and rehashed; not rerun."
+    },
+    {
+      "path": "evidence/ssl-research-v1/reference-tree-final-green.log",
+      "executed_by": "coordinator",
+      "result": "Retained5 non-fitting process tests passed in0.95s. Inspected and rehashed; no reviewer process operation."
+    },
+    {
+      "path": "evidence/ssl-research-v1/cf-downstream-prefit-review-final.json",
+      "result": "Original CF downstream approval preserved; used as the unchanged recipe/source contract."
+    },
+    {
+      "path": "evidence/ssl-research-v1/cf-seed13-downstream-prefit-review-final.json",
+      "result": "Prior seed13 approval preserved and rehashed for schema/provenance continuity. It is not a substitute parent for this approval."
+    }
+  ],
+  "not_run": [
+    "Python subprocess/pytest/check_prefit execution: prior EPERM restriction preserved; no denied process mechanism retried.",
+    "Model construction, RNG/determinism/cache initialization, inference, backward, optimization or GPU operation.",
+    "Numerical acoustic corpus or saved-prediction decoding.",
+    "Live ledger/lock inspection or modification and process-tree operations.",
+    "Any new seed23 downstream fit or final-test access."
+  ],
+  "residual_risks": [
+    "The short-probe score is source-report metadata, not an independently reconstructed strong-transfer result.",
+    "CF128/head18565 differs from shared64/head5189. Cross-architecture performance does not isolate the CF objective or establish causal SSL benefit.",
+    "Native source clock edges, calibration, processing and absolute censoring uncertainty remain disclosed.",
+    "WDDM hardware exclusivity remains UNVERIFIABLE_WDDM; the exclusive scientific lock and reviewed process policy do not prove hardware exclusivity.",
+    "Actual launch readiness and remaining aggregate allowance must be checked by root after all active approved queues exit and reconcile.",
+    "Python gates were inspected with unchanged executed correctness evidence; no new Python gate execution is claimed."
+  ],
+  "approval_scope": {
+    "jobs": [
+      {
+        "method": "cf_jepa",
+        "mode": "frozen_readout",
+        "seed": 23,
+        "history": 96,
+        "updates": 2000,
+        "cadence": 500,
+        "fresh_head": true,
+        "optimized_parameters": 18565,
+        "encoder": "Only the exact bound completed seed23 selected EMA encoder; all parameters and buffers unchanged; selected artifact copied byte-identically."
+      },
+      {
+        "method": "cf_jepa",
+        "mode": "full_finetune",
+        "seed": 23,
+        "history": 96,
+        "updates": 3000,
+        "cadence": 750,
+        "fresh_head": true,
+        "optimized_parameters": 431365,
+        "encoder": "Only the exact bound completed seed23 selected EMA encoder; supervised encoder/head updates and supervised ancestry explicitly recorded."
+      }
+    ],
+    "maximum_development_selection_opportunities_per_job": 4,
+    "required_entrypoint": "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_native_downstream_job.py",
+    "required_supervisor": "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\native_reference_supervisor.py",
+    "device": "cuda:0",
+    "launch_conditions": [
+      "Root verifies EVERY binding, the two exact configs and actual seed23 ancestor identities.",
+      "The CF replication queue and approved direct-replication queue have exited; root reconciles all completed, failed and resumed resource receipts.",
+      "No active scientific RUNNING_CUDA/RUNNING_CPU_FIT job and no existing GPU-owner lock.",
+      "One root-owned scientific process tree only; direct underlying CLI execution is not authorized.",
+      "Protected fresh outputs and separate new receipt folders; no overwrite or extension of completed runs.",
+      "All startup, admission, fitting, evaluation, saving, failures and authorized unfinished-run resumes count inside the then-current remaining aggregate96 full-owned GPU hours.",
+      "Allocated and reserved CUDA memory stay strictly below10GiB; conservative owned-tree RAM stays below22GiB.",
+      "Monitor denial or unknown ownership blocks execution; no foreign process is terminated.",
+      "Completion requires actual exit0, no resource stop, verified cleanup and completed REAL_TRAIN_DEVELOPMENT_FIT artifacts with exact method/mode/config/ancestor identities."
+    ],
+    "excluded": [
+      "Other CF seeds or parents, completed seed7 reuse/refitting and prospective ancestors.",
+      "Best-seed selection, additional screens, histories, recipes, probes or selection opportunities.",
+      "Band revision or programme-budget expansion.",
+      "Changed data/source/scaler contracts, scaler replacement or preprocessing adaptation.",
+      "Final-test numerical access, materialization, inference, assessment, fitting or final refits.",
+      "Prefix fitting and newly authored assessment/prefix implementation.",
+      "Scientific-quality, causal SSL-benefit, JEPA-value, transfer or SOTA claims.",
+      "Model-package publication, app/release, cloud, paid resources, installs, credentials, permissions, junction operations or foreign-process actions."
+    ]
+  },
+  "bindings": {
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\psutil-7.2.2.dist-info\\METADATA": "a263a40220d921d9cb963fc636d34f817aa2eb72c2696e3e3465d088cdb1976b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\psutil-7.2.2.dist-info\\RECORD": "0d4c336a396000d4cae7c9225ae020e4ec471be9873d2e3b92fb516fc9d6fff4",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\psutil\\__init__.py": "7b6a0675824eb1fa2ff0cb1eb36e358dc454703e51dfa4e9a0e6ccd26a159f0c",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\psutil\\_common.py": "6fc6bf5f86491ba962521374472570238929003cebea8e9b6c55224084b52bb0",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\psutil\\_ntuples.py": "96f42bc24549636b5707a949b7cc92e89c87f7cea7d343a6d17821ac670dfcd2",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\psutil\\_psutil_windows.pyd": "0035450801bd7d938e9e146c5ec28e619cb5a5f4a18cdc53ac7e9734c7f94f78",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Lib\\site-packages\\psutil\\_pswindows.py": "0bbd52dcb214735be4168d11a2ae192d5bc7265c8cf72c611179476479687f54",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\AGENTS.md": "0646ce8483a027f694842e25c2e0f6de3af83526028a518807357672a374ed57",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\CODEX_SSL_RESEARCH_MISSION.md": "5bf3fbca35ebe2f803f6c61aff965ae3059e3f3142a85809ecde9bead1c130bd",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_downstream_cf_jepa_frozen_readout_seed23_h96_v1.json": "f9fb9117d068728910adde70fce5894d7dc8be3c87ab82bfa847384ece3ade7b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_downstream_cf_jepa_full_finetune_seed23_h96_v1.json": "45504ea71fb7a6b0c2821b42b30b6cba0da35f00e3495f382aa313ce839a6087",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_ssl_cf_jepa_seed23_h96_v1.json": "fcd3cefb66e4c097255a302dca7f1077009433f06459f7082f0fccbd4b48a987",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_ssl_split_v1.json": "3b4728e16da3c09c58d9316560283e19ecf79885bbf38a7c7025ce4b83e8993b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\data\\processed\\native_ssl_v1\\development.json": "f72c18d1d9cf8fc4a0b84c026e019b5a5a71db1f4a000437fc0f33f04d2d90c3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\data\\processed\\native_ssl_v1\\development.npz": "4ca59c6b3539e6e214ac949a3294408f59a28386b9731461f2f03881198f2023",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\data\\processed\\native_ssl_v1\\train.json": "0f9958a9048fe988a3577dc3d6063d1c0968d4b010faae9e177b49d9027ec180",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\data\\processed\\native_ssl_v1\\train.npz": "c2a529b6180b427ee7259a77ea0926919350cc42eb03f2067d0956138aa6461a",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0015-native-acoustic-ssl-research.md": "82deb36e88df2a6660a2389a653d077a186e5072fbb4ede11d9fbc06c9816148",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0016-native-ssl-selection-and-source-baseline.md": "1e42b3aec76e6673e014ddc4894667ff7bcd786be0f59c84d33fa9d4b4ae7b1d",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0017-windows-native-training-ownership.md": "f748b1fe4ae7bc6c2f79d91706b014a79b679717b41878df34f93ff79bee86aa",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0018-native-acoustic-downstream-transfer.md": "124e3a5834b45e52d1e70e7aff3fe5a6500b55b49abd5fac6df35a0f35ede91d",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0019-native-windows-platform-operations.md": "39e07675cc91b558ee544bf576b037f0535be3a5f47c6a15f61b8e57f9fca1ba",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-downstream-builder-v1\\executed-checks.json": "cc1bd48b7cf82a460898f22649e3d6d87d6bcb5adf4ae792b36aed3512b01bfe",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-downstream-builder-v1\\focused-pytest-final.txt": "d4de771c09295fa618c7bb89992aa7a4c575a1a526caf6daa8d1a1c1b553a2a1",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-downstream-builder-v1\\source-inspection-final.json": "fc4279cf5da3d62b507665bd9a808046f351030d8da1b008500ff2cc44f1c457",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\cf-context-only-cpu-replay.json": "4e4cf4f926d8a77f4372d4c68c92bd51cd7d4c71702b88b3007a54c66be123a9",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\cf-context-only-cpu-replay.log": "bc651ec5a123d1842b7c08b7622152f379df5445dad267937370544d58b5545a",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\cf-downstream-prefit-review-final.json": "ffbc93ddd7b5e253ade99e98c12a40158adefd6f77fbaf54ce5ec3953b0bdf26",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\cf-jepa-reviewed-retry.log": "4dacefc5b9e2978e950f983ff77fa0ceecee2fffacb262afb343945364375f34",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\cf-replication-completion-v1.json": "74737119285b727ab108f915764b81314feeb604e928227338dbc9a0a27fb81c",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\cf-replication-prefit-review-final.json": "7544ab2a7b3dad5382307085decba4ee046a82aaca28784f1fa3af960067ac26",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\cf-replication-queue-attempt-01\\cf_jepa_seed23_h96_replication.log": "9c708df300c6fca39dd9692555cc7c8b579df40e7c0119ea876be4de0b36661e",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\cf-replication-queue-attempt-01\\queue.json": "9cebf71ad6845867c9d04c4bc09a673e7ae9ca2321bd4a9cb6750cd8b8affdf3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\cf-seed13-downstream-prefit-review-final.json": "10ca33c3d7207318d6242769575d577b62c136da734a44f0bc85580ad98ed75c",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\downstream-ancestor-snapshot-green.log": "4d953e7f7ceaa9a90565ba190ceb81f1a67b7c3a9ed868e85b232b83340e7cf2",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\downstream-ancestor-snapshot-red.log": "a8469ee43658991b11edf6e79bf4d26bc6d39d641dfdd2c3e7d1f214ec591c99",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\downstream-builder-final.txt": "3f0b963a8c541e21a4382bf4b18cb6d02563684bcf3791beb2259fc7f6193171",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\downstream-contract-green.log": "2d381001ce1d61812006839601d2d0244444871b7fe8bd961f4a24034682f735",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\downstream-contract-red.log": "2c93ab56dc65c1ffdf3b05fa8a61a6e5651aaf809379b2973099194de566e2d7",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\downstream-device-green.log": "b0ea05ed33b01c8752b32da4318450c8913860c3bdb75c7304cff5556d85165c",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\downstream-device-red.log": "0d4d629e5e7f44d15cfda9fbb89de73cd66b08ffff4993e53340cd2ed36604b5",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\downstream-durable-tests.log": "b42f544b2b0ddb5bc22d2342dadc38593fadb739bbfe8c2fe7184094334b7c6c",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\downstream-integration.json": "08e62b2a8b26aa1cacded5b46938702e641a076959bb4953f73a4cc55d548f8b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\downstream-prefit-review-final.json": "22a0bddaa457e574361134db5cb6c750ce68060de65633709854d98fe32acdef",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\numeric-review-final-03.json": "241e079660d88731bce28dbc9b8380d3bba6933a60cc7a5ab600f5a92a618a9a",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\parent-durable-tests.log": "3c06977619164d1f6c9752ac3727b0c479929b33f9a60c05014dfe0ba674107f",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\platform-downstream-durable-green.log": "347206b3fb8bdbcea06e0d9137e75c6a5f31215920a235c73668ffedb3122f56",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\prefit-review-final-02.json": "4115ff2a2a2cb0fcafbd5273288c762efdaa15e106f7361f9352917a69ee85a3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\prefit-review-final-03.json": "21252c65d292f491124dee03de256fb2cf242a17468db1b29d4faf2d2454e462",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\reference-tree-final-green.log": "3204d4fe4464c6088d3879ad5191d0ca3610af7e949bbb9f4302d2619f74c877",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\reference-tree-red.log": "7b5eca79bfd2c1d47f87ebc422544d4816bb4bed5eec886a699527bbaf52432d",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\reused-ssl-regression-tests.log": "2b9b33804bda7438e3a93fe250587bbc2a3bce19b66a210bc95f82f67076ab02",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\routing.json": "f09371cc56e48f6bbe60657722173d6e19a7ed1ddc6fbb5aefd9f4524e123057",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\source-pins.json": "e07cad3e7cd8d6df68ea4e84a1e3ac905dfbcc08997e5e5e9037605327622d8b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\external\\cf-jepa-vnext\\baselines\\cf_jepa\\cf_jepa.py": "3f344b53a210f778d367d733cadff1eb08bd8409e6ed97f43d90a1027771a220",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\external\\cf-jepa-vnext\\baselines\\cf_jepa\\encoder.py": "d91301710147ff1c47158675b1c487ea7e2fa8782150a6a58cc7e25e5047df0f",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\external\\cf-jepa-vnext\\baselines\\cf_jepa\\losses.py": "f5220761a0b4ea2bab60dea4d889062e06a9e501260f9ed48c4e918a9625b8ee",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\external\\cf-jepa-vnext\\baselines\\cf_jepa\\trainer.py": "0c9b8f51208681a384274edd8117a0a179f0f79c63b8cd1019c4f816d6e2fc01",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\external\\cf-jepa-vnext\\LICENSE": "b58978a4e2f6c5c3cfe0e8755cc08775ba4d57a79364398aa6bc3bc969b8ea2c",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\reports\\NATIVE_DOWNSTREAM_IMPLEMENTATION_V1.md": "332f8c5ce1607d684b38819d9cf0437cf02e24e47fe209e9323953c2c881f3e7",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed23_h96_replication\\gpu-ownership.json": "0e3e6f1837fa64c3c2a6c652ab0b145f2d7909843b4ddd8f5b357a2cf6c62b4f",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed23_h96_replication\\inference.pt": "556c69fe366713d11e64023fe1a4460ec235a7381e4065d263edc7fed3b2b113",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed23_h96_replication\\membership.json": "aac52281ca3fbba7b3bc795d9ea64d93fb73484d7a8961ce3910392efd38881a",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed23_h96_replication\\run.json": "a1a78900b5e9eb6a02284686900a73282290b4d7717cd703bbb8d8ec001e77c2",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed23_h96_replication\\scalers.json": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed23_h96_replication\\selected_encoder.pt": "2f9320a45c8a9e00082a07c63347f9b85581ef3d5e8ab1664063000b1a26014a",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed7_h96_deterministic\\membership.json": "ea9febde21e81364044d4c2d4f624fa91b70c60e5d5d206e4bc84f3f8cd9e7c9",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed7_h96_deterministic\\scalers.json": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\pyproject.toml": "2fd75de20d002f718bd1c621e0692671f7b3e59314f6890a15c5b6d8d4d5d64b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\__init__.py": "3fcc1878588f5a89775363e099fab7d7323acebccae26d10db4a6da627425b68",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\__init__.py": "011583e04b7f119ffcc2ae18712a4af2e613cff87bcbeb5435fbfb10dcd01508",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\native_ssl_corpus.py": "ebda9d460fa14df749b8f774bcb02a6622f0d69402443098a6100670a4c8f7ba",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\__init__.py": "dddaccd3cb0c952e88796d75e7a15966cfab87f98c2cfe8452a5fff4c3138c68",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_product.py": "fd1c643fde93494a21d560794f886056e58031f1ef6dd41ebe53662750bab314",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_acoustic.py": "ed7f50ebebcb630ce484a6eeeefdc3e51343ba42d0ea79c04fa733cbbc59a213",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\__init__.py": "5bdc97a6119b2dd3d519df36406c8bcb9e801be81c8b6c3f44e4a527db1f87a3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_temporal.py": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\sigreg.py": "2cf5dc8e6fc610fbe167339a8750f5e2d9ddf9a48f416717b8310500536469a3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\__init__.py": "c98c60178f566d43dd60641704ccd9c652d406487b4838cbf5a9df49ea5dd735",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\aeon_corpus.py": "398e021a5807ab8068ceef03dd692f3b688c744751cd4e65d3efbee94d9a3efd",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_downstream.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_references.py": "0d6583644ab1fce8d87a4194048f2176237b47deb57f0fa8494df6aa9012d584",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_resources.py": "c9ca3fbd0759ae00824774ed61a08185361234430d5ed63f09fa3885545c7c38",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_ssl.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\integration\\test_native_downstream.py": "086074134b3d893d103e551a07dcb1aed978c74c937876ebe16e6dfbb252fb84",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\integration\\test_native_ssl.py": "4b68d49b20f713cff6025f41b659305747fc2f967b4ca12e5812af2cdedf48c3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_native_corpus_boundaries.py": "1a35a46427c4ec164f0554ed31624dfd4b9446d4cfc94f75413bbb6edf201997",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_native_corpus.py": "36ca8dafd76b46fc7083cb1a92b21218f828357e4c2379a08e133f2ee28ec6e4",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_native_inference.py": "271dc16ca599d44a3ac2a48c8ccae8d67c76aeca18f627e082b3f455b16f4df9",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_native_product.py": "9fa090f9b4d0a4e7f1e56485865dc97615c39c491f1dae57dad33a37c2530b12",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_native_reference_supervisor.py": "7e0481f517d65ba0c526d934e93c0d103bca1696a09c64b306b22d35baed29b9",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_native_resources.py": "cf37c0137aa66a5f8c020832d1f1f53ba6f2444beba19dce48f6ec34f5a71bf2",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_native_temporal.py": "f8015277837ad141817f7b77f8c52f5d5d4bc4fffe6c6ab94c82933cd7328529",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_native_downstream_job.py": "94453f9fcf4cb6e62bdb2e6befa2ae845dc65b74fdeefb5464c6761df422490e",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\native_reference_supervisor.py": "ec5456584ca6f6a805e13f4137365c2c0a785b2dbc52782b191c1528befb30dd",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\uv.lock": "980c87913ed3dd0c28692a0c9e6d4b297d7994092fce6a1763d833f80699aa9a"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "queue_sha256": "807b471a7e61f5added9554c8bbb8ef8c4044275a7e8be952397751c61882a2b",
+  "status": "COMPLETED_REVIEWED_SERIAL_QUEUE",
+  "jobs": [
+    {
+      "id": "cf_jepa_frozen_readout_seed13_h96_runtime_retry01",
+      "exit_code": 0,
+      "report": "outputs/native_acoustic_ssl_v1/cf_jepa_frozen_readout_seed13_h96_runtime_retry01/run.json",
+      "report_sha256": "038800e406151924cae3f2c505962eed8384440ce151634d12344e350aa516fb",
+      "report_status": "COMPLETED",
+      "development_pinball_db": 0.668064372774757,
+      "scientific_claim": "NOT_ESTABLISHED",
+      "status": "VERIFIED_COMPLETED"
+    },
+    {
+      "id": "cf_jepa_full_finetune_seed13_h96",
+      "exit_code": 0,
+      "report": "outputs/native_acoustic_ssl_v1/cf_jepa_full_finetune_seed13_h96/run.json",
+      "report_sha256": "ace9de5947a02a9cc75ae191e8767771f56d95a9de642b8b6f5efd27520029f4",
+      "report_status": "COMPLETED",
+      "development_pinball_db": 0.5580568543902262,
+      "scientific_claim": "NOT_ESTABLISHED",
+      "status": "VERIFIED_COMPLETED"
+    }
+  ],
+  "app_release_work": "FROZEN"
+}
