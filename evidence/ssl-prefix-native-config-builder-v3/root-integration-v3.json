@@ -1,0 +1,54 @@
+{
+  "status": "CLOSED_NATIVE_CONFIG_V3_INTEGRATED_ROOT_CHECKS_PENDING",
+  "actual_cli_exit_witness": {
+    "status": "ACTUAL_BUILDER_CLI_CLOSED",
+    "actual_cli_exit_code": 0,
+    "session_id": 79981,
+    "actual_exit_chunk_id": "a82349",
+    "builder_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+    "events_path": "evidence/ssl-research-v1/prefix-native-config-builder-events-v3.jsonl",
+    "final_delivery_path": "evidence/ssl-research-v1/prefix-native-config-builder-final-v3.json",
+    "scientific_execution": "NOT_RUN",
+    "root_checks": "PENDING",
+    "independent_prefit": "NOT_RUN"
+  },
+  "before_source_sha256": {
+    "src/marine_echo/training/native_prefix_transfer.py": "7a3fd9ff22909e7b77e1b74758587bd940cca00898894522c3b8eaa1e5b1a8f6",
+    "tests/unit/test_native_prefix_transfer.py": "8b706e5410e6dd6b881ec96971c81edb4e6f2d2cbf7baa516f6e8eb36b48fb26",
+    "tests/integration/test_native_prefix_transfer.py": "5291bbd93103b4ffb2ab36cf0c6c23e4c44f6cf8c10ab4f47351292f031ef945"
+  },
+  "authored_sha256": {
+    "src/marine_echo/training/native_prefix_transfer.py": "448e6a0e3044d457ed9f8d04fb6d07948eceb2240d6e0ed6f96ab5bfc8466181",
+    "tests/unit/test_native_prefix_transfer.py": "9751a823476d6a6d170b0d9705ada3b8c03c3d804f374f7cdddb10e26c56a485",
+    "tests/integration/test_native_prefix_transfer.py": "b6166fc71a8e75de2cece68e1269a521ff7ad49e9de6520df7d71508bfcd0b80"
+  },
+  "copied_sha256": {
+    "tests/integration/test_native_prefix_transfer.py": "b6166fc71a8e75de2cece68e1269a521ff7ad49e9de6520df7d71508bfcd0b80",
+    "src/marine_echo/training/native_prefix_transfer.py": "448e6a0e3044d457ed9f8d04fb6d07948eceb2240d6e0ed6f96ab5bfc8466181",
+    "tests/unit/test_native_prefix_transfer.py": "9751a823476d6a6d170b0d9705ada3b8c03c3d804f374f7cdddb10e26c56a485",
+    "evidence\\ssl-prefix-native-config-builder-v3\\before-source-snapshot-v3.json": "9e0a9774aff98408ee1b868135e195698524b6f7cf1069bc8a40263d48e376b8",
+    "evidence\\ssl-prefix-native-config-builder-v3\\bounded-final-v3.patch": "27bacb7e17a4036db7e4326620b11e150bd297614dc7a97615d27293a999fe63",
+    "evidence\\ssl-prefix-native-config-builder-v3\\closeout-handoff-v3.json": "2daec45e88adea5c68927b3779b73f56439bd1d6fb3474eb8b1a1976a57a6397",
+    "evidence\\ssl-prefix-native-config-builder-v3\\closeout_hashes.py": "cd4df7f1773cb1c9bb7593b6bc5a269e39f2fc67f207809f163741278a4dd6d0",
+    "evidence\\ssl-prefix-native-config-builder-v3\\executed-checks-v3.json": "5c74c91dfbd03920ab312bc3a7cc2f0ce07aa8eace9db68310220e9dac80f5ac",
+    "evidence\\ssl-prefix-native-config-builder-v3\\final-source-snapshot-v3.json": "f7a31c8025af106cfffa05de932e3870eb4f07bb6f55b8eb52e2db85f1538e05",
+    "evidence\\ssl-prefix-native-config-builder-v3\\green-final-v3.log": "010c1eadf5ae61b7903922b5821d46c4aeeb0be60f0155b56cc379e687c14301",
+    "evidence\\ssl-prefix-native-config-builder-v3\\green-focused-native-contract-v3.log": "580421a87b5d7d4a7370cc6a57c2b8928e32126ee16ae041b58298422b98911b",
+    "evidence\\ssl-prefix-native-config-builder-v3\\lint-final-v3.log": "d9fcc23e4f5d1aadcf37593656fec40755b91e0b26d623d21858f0cdce348278",
+    "evidence\\ssl-prefix-native-config-builder-v3\\NATIVE_PREFIX_NATIVE_CONFIGURATION_V3.md": "12d0a5dda972f45a917a84cedaeaa7e72b62a6152901a500e8c2f5945ab66632",
+    "evidence\\ssl-prefix-native-config-builder-v3\\prefix_test_support.py": "34b4b114ffa27a406aa256893dc309ffae6dadd3605dca4566cc44413a7f6782",
+    "evidence\\ssl-prefix-native-config-builder-v3\\protected-main-baseline-v3.json": "e31ff3bb611ece238286d1c1fe5f308d78d4ded638e9f2869b9a2d007cc95092",
+    "evidence\\ssl-prefix-native-config-builder-v3\\red-configuration-map-v3.log": "e909abb75a0d5d2a3f7035b14511fe321db9fcc1364451f1fb3ae0e533df1d6a",
+    "evidence\\ssl-prefix-native-config-builder-v3\\red-source-provenance-launch-v3.log": "540af53eeec21c35f85ac291ba998269e7e714a67778c299765735d6663dc6a1",
+    "evidence\\ssl-prefix-native-config-builder-v3\\red-source-provenance-v3.log": "bebfadd5393b89abd8c38bac464bd9e54066d281292e714ef79b42c6d6fce648",
+    "evidence\\ssl-prefix-native-config-builder-v3\\source-evidence-fixture-alias-v3.log": "0016465279d01f76a9f26108ff0bd4599461a2f4ec51ff6a71ab6a89c472aa13",
+    "evidence\\ssl-prefix-native-config-builder-v3\\source-proof-final-v3.json": "e885730e1398431bd654306775c80e523330afcce2bfbbf4aa04896e1a916b2b",
+    "evidence\\ssl-prefix-native-config-builder-v3\\source_inspection.py": "a7f9c6c3ea45e895d1de9ef3843c50255a7b09305c50accc2d40fba6770aa120",
+    "evidence\\ssl-prefix-native-config-builder-v3\\source_proof.py": "120c73caa0315fc47ed824e9822752687738213e32719b9a0ffb44adbcbe2bdb"
+  },
+  "proof_sha256": "e885730e1398431bd654306775c80e523330afcce2bfbbf4aa04896e1a916b2b",
+  "public_numeric_access": "NOT_RUN",
+  "scientific_execution": "NOT_RUN",
+  "independent_review": "NOT_RUN",
+  "active_fitting_sources_changed": false
+}

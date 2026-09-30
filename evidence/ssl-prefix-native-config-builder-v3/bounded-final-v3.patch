@@ -1,0 +1,981 @@
+--- main/src/marine_echo/training/native_prefix_transfer.py
++++ builder/src/marine_echo/training/native_prefix_transfer.py
+@@ -156,34 +156,283 @@
+         return asdict(self)
+ 
+ 
++def _configuration_map(metadata):
++    """Versioned metadata authority; no numerical arrays or provenance execution."""
++    if metadata.get("kind") == "native_prefix_raw_intervals_v1":
++        if (
++            metadata.get("configuration_mode") != "legacy_single_configuration_v1"
++            or metadata.get("evidence_kind") != EVIDENCE
++        ):
++            raise ValueError(
++                "Legacy single-configuration fixtures require explicit synthetic compatibility."
++            )
++        return None
++    catalog = metadata.get("configuration_map", {})
++    sources = metadata["sources"]
++    if (
++        metadata.get("kind") != "native_prefix_raw_intervals_v2"
++        or metadata.get("configuration_mode") != "per_source_configuration_map_v1"
++        or catalog.get("kind") != "native_prefix_source_configuration_map_v1"
++        or catalog.get("complete") is not True
++        or catalog.get("quarantined_pings") != [165]
++        or set(catalog.get("sources", {})) != set(sources)
++        or set(catalog.get("source_metadata", {})) != set(sources)
++    ):
++        raise ValueError("Complete versioned native configuration map required.")
++    for dep, source in sources.items():
++        entry = catalog["sources"][dep]
++        if (
++            any(
++                entry.get(k) != source.get(k)
++                for k in ("deployment", "site", "archive", "start", "end", "native_bounds_m")
++            )
++            or "configuration" in source
++            or "channel_bounds_m" in source
++            or not isinstance(entry.get("source_metadata_sha256"), str)
++            or len(entry["source_metadata_sha256"]) != 64
++            or any(c not in "0123456789abcdef" for c in entry["source_metadata_sha256"])
++            or not isinstance(catalog["source_metadata"][dep], str)
++            or not catalog["source_metadata"][dep]
++        ):
++            raise ValueError("Native configuration source identity/lifetime/provenance differs.")
++        configs = entry.get("configurations", {})
++        if not configs:
++            raise ValueError("Empty native configuration catalog.")
++        for name, cfg in configs.items():
++            bounds = cfg.get("channel_bounds_m", [])
++            pings, processing = cfg.get("ping_counts", []), cfg.get("processing_id_or_unknown", [])
++            if (
++                not isinstance(name, str)
++                or not name
++                or len(bounds) != 4
++                or any(
++                    not isinstance(b, list)
++                    or len(b) != 2
++                    or any(type(v) not in (int, float) or not np.isfinite(v) for v in b)
++                    or not 0 <= b[0] < b[1]
++                    for b in bounds
++                )
++                or bounds[0] != [0, 230]
++                or len(pings) != 4
++                or any(type(v) is not int or v not in (0, 150, 165, 180) for v in pings)
++                or len(processing) != 4
++                or any(not isinstance(v, str) or not v.strip() for v in processing)
++                or cfg.get("frequency_hz") != [38000, 125000, 200000, 455000]
++                or cfg.get("interval_seconds") != 3600
++            ):
++                raise ValueError("Native configuration bounds/processing/pings/frequencies differ.")
++        first, last = (
++            entry.get("first_source_interval_index"),
++            entry.get("last_source_interval_index"),
++        )
++        segments = entry.get("segments", [])
++        if (
++            type(first) is not int
++            or type(last) is not int
++            or not 0 <= first <= last
++            or not segments
++        ):
++            raise ValueError("Exact source configuration index extent required.")
++        expected = first
++        for segment in segments:
++            lo, hi, name = (
++                segment.get(k)
++                for k in (
++                    "first_source_interval_index",
++                    "last_source_interval_index",
++                    "configuration",
++                )
++            )
++            if (
++                type(lo) is not int
++                or type(hi) is not int
++                or lo != expected
++                or not lo <= hi <= last
++                or (
++                    name not in configs
++                    if name is not None
++                    else segment.get("reason")
++                    not in {
++                        "SOURCE_GAP",
++                        "MISSING_SOURCE_INTERVAL",
++                        "DUPLICATE_ROW",
++                        "MISSING_CHANNEL",
++                    }
++                )
++            ):
++                raise ValueError(
++                    "Native configuration segments must preserve exact indices and gaps."
++                )
++            expected = hi + 1
++        if expected != last + 1:
++            raise ValueError("Incomplete native configuration index extent.")
++    return catalog
++
++
++def _configuration_at(catalog, deployment, index):
++    for segment in catalog["sources"][deployment]["segments"]:
++        if segment["first_source_interval_index"] <= index <= segment["last_source_interval_index"]:
++            return segment["configuration"]
++    raise ValueError("Requested source index lies outside configuration provenance.")
++
++
++def _native_gap(metadata, catalog, row, ref, index, *, channel=0, break_index=None):
++    gap = metadata.get("source_gaps", {}).get(ref, {}) if isinstance(ref, str) else {}
++    lo, hi = gap.get("first_source_interval_index"), gap.get("last_source_interval_index")
++    if (
++        gap.get("complete") is not True
++        or any(gap.get(k) != row[k] for k in ("deployment", "site", "archive", "configuration"))
++        or type(lo) is not int
++        or type(hi) is not int
++        or not 0 <= lo <= index <= hi
++        or gap.get("source_metadata_sha256")
++        != catalog["sources"][row["deployment"]]["source_metadata_sha256"]
++    ):
++        raise ValueError("Actual structural absence requires exact bound source-gap provenance.")
++    if channel:
++        if gap.get("channel") != channel or gap.get("reason") not in {
++            "MISSING_CHANNEL",
++            "DUPLICATE_ROW",
++        }:
++            raise ValueError("Missing secondary raw identity requires explicit channel absence.")
++        return
++    if (
++        type(break_index) is not int
++        or gap.get("break_source_interval_index") != break_index
++        or not lo <= break_index <= index
++    ):
++        raise ValueError("Exact first unavailable future source index required.")
++    name = _configuration_at(catalog, row["deployment"], break_index)
++    if gap.get("reason") == "PING_QUARANTINE":
++        if (
++            name is None
++            or catalog["sources"][row["deployment"]]["configurations"][name]["ping_counts"][0]
++            != 165
++            or gap.get("quarantined_pings") != [165]
++        ):
++            raise ValueError("Actual 165-ping boundary remains quarantined.")
++    elif gap.get("reason") == "CONFIGURATION_BOUNDARY":
++        if name is None or name == row["configuration"] or gap.get("next_configuration") != name:
++            raise ValueError("Actual future configuration transition proof differs.")
++    elif gap.get("reason") in {
++        "SOURCE_GAP",
++        "MISSING_SOURCE_INTERVAL",
++        "DUPLICATE_ROW",
++        "MISSING_CHANNEL",
++    }:
++        if name is not None:
++            previous, current = gap.get("previous_timestamp"), gap.get("break_timestamp")
++            if (
++                gap["reason"] != "SOURCE_GAP"
++                or previous is None
++                or current is None
++                or timedelta(minutes=55)
++                <= _timestamp(current) - _timestamp(previous)
++                <= timedelta(minutes=65)
++            ):
++                raise ValueError("Unavailable source interval needs actual gap/clock metadata.")
++            # Known observed identities cannot be hidden by a fabricated clock
++            # break. Receipt timestamps must agree with all existing metadata.
++            by_index = {
++                record["source_interval_index"]: record
++                for record in metadata["intervals"].values()
++                if record["deployment"] == row["deployment"] and record["channel"] == 0
++            }
++            before, after = by_index.get(break_index - 1), by_index.get(break_index)
++            if (before is not None and _timestamp(before["timestamp"]) != _timestamp(previous)) or (
++                after is not None and _timestamp(after["timestamp"]) != _timestamp(current)
++            ):
++                raise ValueError(
++                    "Structural clock absence contradicts actual raw timestamp metadata."
++                )
++    else:
++        raise ValueError("Unknown native structural absence reason.")
++
++
++def _target_view(row, cfg):
++    meta = np.asarray(row.get("target_slot_metadata"), dtype=np.float64)
++    masks = np.asarray(row.get("target_slot_observed"))
++    pings, processes = (
++        row.get("target_slot_ping_counts"),
++        row.get("target_slot_processing_id_or_unknown"),
++    )
++    if (
++        meta.shape != (3, 4, 10)
++        or not np.isfinite(meta).all()
++        or masks.shape != (3, 4)
++        or masks.dtype != np.bool_
++        or not isinstance(pings, list)
++        or len(pings) != 3
++        or any(len(v) != 4 or any(type(p) is not int for p in v) for v in pings)
++        or not isinstance(processes, list)
++        or len(processes) != 3
++        or any(len(v) != 4 or any(not isinstance(p, str) or not p for p in v) for v in processes)
++        or masks[:, 0].tolist() != row["target_observed"]
++    ):
++        raise ValueError("Exact native future slot metadata/pings/processing/masks required.")
++    available = []
++    for j, horizon in enumerate(HORIZONS):
++        present = bool(np.any(meta[j]))
++        if not present:
++            if masks[j].any() or pings[j] != [0] * 4 or processes[j] != ["UNKNOWN"] * 4:
++                raise ValueError("Unavailable nominal future slot has observed metadata or labels.")
++        else:
++            if (
++                not np.allclose(
++                    meta[j, :, 0], np.asarray(cfg["frequency_hz"]) / 455000, atol=1e-7, rtol=0
++                )
++                or not np.allclose(meta[j, :, 1:3], 1, atol=0, rtol=0)
++                or not np.allclose(meta[j, :, 9], horizon, atol=0, rtol=0)
++            ):
++                raise ValueError("Future native frequency/interval/horizon metadata differs.")
++            for c in range(4):
++                if (c == 0 or masks[j, c]) and (
++                    pings[j][c] != cfg["ping_counts"][c]
++                    or processes[j][c] != cfg["processing_id_or_unknown"][c]
++                    or not np.allclose(
++                        meta[j, c, 3:5] * 250, cfg["channel_bounds_m"][c], atol=1e-5, rtol=0
++                    )
++                    or meta[j, c, 6] != (processes[j][c] != "UNKNOWN")
++                ):
++                    raise ValueError("Available native future configuration differs from issuance.")
++        available.append(present)
++    return available
++
++
+ def partitions(metadata, days):
+     """Metadata-only reservation, independent of values, target masks and holes.
+ 
+     Registry entries identify actual source intervals, including missing values.
+-    Every context slot and available target has a stable actual raw ID. Structural
+-    target absence is -1/False with a separately admitted source-gap explanation,
+-    not an inferred timestamp. IDs/timestamps are checked across channel aliases.
++    Available observations have actual raw IDs; nominal requested future indices
++    remain distinct. Structural absence may retain a positive request or -1,
++    with unavailable native metadata/masks and a separately admitted source-gap
++    explanation. No missing timestamp or observation ID is invented.
+     """
+-    if (
+-        metadata.get("kind") != "native_prefix_raw_intervals_v1"
+-        or metadata.get("complete") is not True
+-    ):
++    if metadata.get("complete") is not True:
+         raise ValueError("Complete root-bound raw interval provenance required.")
+     sources, intervals, rows = metadata["sources"], metadata["intervals"], metadata["rows"]
+     if not sources or not intervals or not rows:
+         raise ValueError("Empty interval/source/issuance provenance.")
++    catalog = _configuration_map(metadata)
+     starts = {}
+     for dep, source in sources.items():
+         if (
+             source["deployment"] != dep
+             or source["native_bounds_m"] != [0, 230]
+-            or source.get("channel_bounds_m", [None])[0] != [0, 230]
+-            or len(source.get("channel_bounds_m", [])) != 4
++            or (
++                catalog is None
++                and (
++                    source.get("channel_bounds_m", [None])[0] != [0, 230]
++                    or len(source.get("channel_bounds_m", [])) != 4
++                )
++            )
+         ):
+             raise ValueError("Conflicting deployment or native230 geometry.")
+         if not all(
+             isinstance(source.get(k), str) and source[k]
+-            for k in ("site", "archive", "configuration")
++            for k in (
++                ("site", "archive", "configuration") if catalog is None else ("site", "archive")
++            )
+         ):
+             raise ValueError("Stable source/site/archive/configuration required.")
+         starts[dep] = (
+@@ -200,20 +449,48 @@
+         if dep not in sources or not identity:
+             raise ValueError("Unknown raw source interval.")
+         source = sources[dep]
+-        for k in ("site", "archive", "configuration"):
++        for k in ("site", "archive", "configuration") if catalog is None else ("site", "archive"):
+             if record.get(k) != source[k]:
+                 raise ValueError("Raw interval crosses deployment/site/configuration.")
+-        if record.get("pings") not in (150, 180):
++        if catalog is None and record.get("pings") not in (150, 180):
+             raise ValueError("165-ping and unknown eligibility remain quarantined.")
+         c = record["channel"]
+         if type(c) is not int or c not in range(4):
+             raise ValueError("Raw interval channel invalid.")
+-        if record.get("native_bounds_m") != source["channel_bounds_m"][c]:
++        if catalog is None and record.get("native_bounds_m") != source["channel_bounds_m"][c]:
+             raise ValueError("Raw interval native geometry mismatch.")
+         stamp = (dep, _timestamp(record["timestamp"]), c)
+         interval_index = record.get("source_interval_index")
+         if type(interval_index) is not int or interval_index < 0:
+             raise ValueError("Exact nonnegative native source interval index required.")
++        if catalog is not None:
++            name = _configuration_at(catalog, dep, interval_index)
++            if (
++                name is None
++                or record.get("configuration") != name
++                or type(record.get("observed")) is not bool
++            ):
++                raise ValueError(
++                    "Actual source interval configuration/observation identity differs."
++                )
++            cfg = catalog["sources"][dep]["configurations"][name]
++            if record["observed"]:
++                if (
++                    record.get("pings") not in (150, 180)
++                    or record["pings"] != cfg["ping_counts"][c]
++                    or record.get("processing_id_or_unknown") != cfg["processing_id_or_unknown"][c]
++                    or record.get("native_bounds_m") != cfg["channel_bounds_m"][c]
++                ):
++                    raise ValueError("Observed source interval native configuration differs.")
++            elif record.get("qc") not in {
++                "MISSING_CHANNEL",
++                "PARTIAL_SOURCE_INTERVAL",
++                "DUPLICATE_ROW",
++                "INVALID_OR_SENTINEL",
++                "CLOCK_MISMATCH",
++                "INVALID_NATIVE_GEOMETRY",
++            }:
++                raise ValueError("Unobserved source interval lacks actual QC provenance.")
+         index_key = (dep, interval_index, c)
+         if index_key in index_to_stamp and index_to_stamp[index_key] != stamp:
+             raise ValueError("Native source interval index aliases different timestamps.")
+@@ -236,7 +513,7 @@
+         dep = row["deployment"]
+         if dep not in sources:
+             raise ValueError("Unknown issuance deployment.")
+-        for k in ("site", "archive", "configuration"):
++        for k in ("site", "archive", "configuration") if catalog is None else ("site", "archive"):
+             if row.get(k) != sources[dep][k]:
+                 raise ValueError("Issuance configuration/source conflict.")
+         cutoff = _timestamp(row["cutoff"])
+@@ -251,6 +528,22 @@
+         if last != (dep, cutoff, 0):
+             raise ValueError("Cutoff must equal its actual last native source timestamp.")
+         cutoff_index = identity_to_index[context[-1][0]]
++        cfg, context_mask = None, None
++        if catalog is not None:
++            name = _configuration_at(catalog, dep, cutoff_index)
++            if name != row.get("configuration") or name is None:
++                raise ValueError("Issued native configuration differs from exact source index.")
++            cfg = catalog["sources"][dep]["configurations"][name]
++            context_mask = np.asarray(row.get("context_observed"))
++            if (
++                context_mask.shape != (96, 4)
++                or context_mask.dtype != np.bool_
++                or not context_mask[:, 0].all()
++                or cfg["ping_counts"][0] not in (150, 180)
++            ):
++                raise ValueError(
++                    "Primary issuance must be complete eligible native150/180 context."
++                )
+         previous = None
+         for t, slots in enumerate(context):
+             primary = identity_to_stamp.get(slots[0])
+@@ -262,15 +555,99 @@
+                 raise ValueError("Native context adjacency must be 55�65 source minutes.")
+             previous = primary[1]
+             for c, identity in enumerate(slots):
++                if catalog is not None and identity is None and c and not context_mask[t, c]:
++                    ref = row.get("context_absence_refs", [[None] * 4 for _ in range(96)])[t][c]
++                    _native_gap(metadata, catalog, row, ref, cutoff_index + t - 95, channel=c)
++                    gap_refs.add(ref)
++                    continue
+                 if (
+                     identity_to_stamp.get(identity) != (dep, primary[1], c)
+                     or identity_to_index.get(identity) != cutoff_index + t - 95
+                 ):
+                     raise ValueError("Context discontinuity, alias or raw-ID overlap.")
++                if catalog is not None:
++                    record = intervals[identity]
++                    if record["observed"] != bool(context_mask[t, c]) or (
++                        record["observed"] and record["configuration"] != row["configuration"]
++                    ):
++                        raise ValueError(
++                            "Observed native context must match issued configuration/mask."
++                        )
++        available, future_chain, break_index = None, [], None
++        if catalog is not None:
++            available = _target_view(row, cfg)
++            requested = row.get("target_requested_indices")
++            if requested != [cutoff_index + h for h in HORIZONS] or any(
++                type(v) is not int for v in requested
++            ):
++                raise ValueError("Native nominal future requests must retain exact source offsets.")
++            future_chain = row.get("future_chain_ids", [])
++            if len(future_chain) != 9:
++                raise ValueError("Actual contiguous future metadata identities required.")
++            previous = cutoff
++            for step, identity in enumerate(future_chain, 1):
++                if identity is None:
++                    break_index = cutoff_index + step if break_index is None else break_index
++                    continue
++                if break_index is not None or not isinstance(identity, str):
++                    raise ValueError(
++                        "Contiguous native future cannot resume after structural absence."
++                    )
++                record = intervals.get(identity, {})
++                target = identity_to_stamp.get(identity)
++                if (
++                    target is None
++                    or target[0] != dep
++                    or target[2] != 0
++                    or identity_to_index.get(identity) != cutoff_index + step
++                    or record.get("configuration") != row["configuration"]
++                    or record.get("pings") != cfg["ping_counts"][0]
++                    or record.get("processing_id_or_unknown") != cfg["processing_id_or_unknown"][0]
++                    or record.get("native_bounds_m") != cfg["channel_bounds_m"][0]
++                    or not timedelta(minutes=55) <= target[1] - previous <= timedelta(minutes=65)
++                ):
++                    raise ValueError("Actual future index/clock/configuration continuity differs.")
++                previous = target[1]
++            if break_index is not None:
++                ref = row.get("future_absence_ref")
++                _native_gap(metadata, catalog, row, ref, cutoff_index + 9, break_index=break_index)
++                gap_refs.add(ref)
++            elif row.get("future_absence_ref") is not None:
++                raise ValueError("Complete future chain cannot claim structural absence.")
+         absence_refs = row.get("target_absence_refs", [None] * 3)
+         if not isinstance(absence_refs, list) or len(absence_refs) != 3:
+             raise ValueError("Exact three-horizon structural absence references required.")
+         for j, (h, identity) in enumerate(zip(HORIZONS, targets, strict=True)):
++            if catalog is not None:
++                if available[j]:
++                    if (
++                        identity != future_chain[h - 1]
++                        or not isinstance(identity, str)
++                        or intervals[identity]["observed"] != row["target_observed"][j]
++                    ):
++                        raise ValueError(
++                            "Available target must retain actual identity and label mask."
++                        )
++                else:
++                    if (
++                        type(identity) is not int
++                        or identity not in (-1, cutoff_index + h)
++                        or future_chain[h - 1] is not None
++                        or row["target_observed"][j]
++                    ):
++                        raise ValueError(
++                            "Nominal unavailable index cannot masquerade as observed label/ID."
++                        )
++                    _native_gap(
++                        metadata,
++                        catalog,
++                        row,
++                        absence_refs[j],
++                        cutoff_index + h,
++                        break_index=break_index,
++                    )
++                    gap_refs.add(absence_refs[j])
++                    continue
+             if type(identity) is int and identity == -1:
+                 ref = absence_refs[j]
+                 gap = gaps.get(ref, {}) if isinstance(ref, str) else {}
+@@ -327,8 +704,11 @@
+                 raise ValueError(
+                     "Future target raw identity/timestamp differs from issued horizon."
+                 )
+-        used = set(chain.from_iterable(context)) | {v for v in targets if isinstance(v, str)}
++        used = {v for slots in context for v in slots if isinstance(v, str)} | {
++            v for v in targets if isinstance(v, str)
++        }
+         all_used |= used
++        all_used |= {v for v in future_chain if isinstance(v, str)}
+         _source_start, source_end, label, end, suffix_start = starts[dep]
+         # Bounds for unknown cells are conservative adjacency envelopes, not
+         # fabricated exact-hour raw timestamps. Known targets remain mandatory
+@@ -384,6 +764,15 @@
+                 "target_timestamps": stamps,
+                 "observed": row["target_observed"],
+                 "target_absence_refs": row.get("target_absence_refs", [None] * 3),
++                **(
++                    {
++                        "issued_configuration": row["configuration"],
++                        "target_requested_indices": row["target_requested_indices"],
++                        "target_available": [isinstance(v, str) for v in row["target_ids"]],
++                    }
++                    if catalog is not None
++                    else {}
++                ),
+             }
+         )
+         for h, stamp, observed in zip(HORIZONS, stamps, row["target_observed"], strict=True):
+@@ -416,6 +805,9 @@
+         "source_gaps": copy.deepcopy(gaps),
+         "prefix_absence_boundary_unproven_rows": uncertain_prefix,
+         "absence_boundary_policy": "conservative_55_65min_envelope_not_actual_missing_timestamps",
++        "configuration_mode": metadata["configuration_mode"],
++        "configuration_map": copy.deepcopy(catalog),
++        "metadata_only_interval_ids": sorted(all_used - fitted - held),
+     }
+ 
+ 
+@@ -685,7 +1077,29 @@
+     if config.family == "band" and manifest.get("architecture") != ARCHITECTURES["band"]:
+         raise ValueError("Explicit band architecture required.")
+     _, metadata = doc(manifest["raw_intervals"])
++    if not config.correctness_smoke and metadata.get("kind") != "native_prefix_raw_intervals_v2":
++        raise ValueError("Real native prefix fitting requires the versioned configuration map.")
+     partition = partitions(metadata, config.prefix_days)
++    if metadata.get("configuration_map") is not None:
++        _, configuration_receipt = doc(manifest["configuration_map"])
++        if configuration_receipt != metadata["configuration_map"]:
++            raise ValueError("Separately bound native configuration map differs.")
++        for dep, path in configuration_receipt["source_metadata"].items():
++            actual_metadata = bound(_path(path, base))
++            entry = configuration_receipt["sources"][dep]
++            if sha(actual_metadata) != entry["source_metadata_sha256"]:
++                raise ValueError("Actual native source configuration metadata identity differs.")
++            source_evidence = _json(actual_metadata)
++            if (
++                source_evidence.get("kind") != "native_prefix_source_configuration_metadata_v1"
++                or source_evidence.get("complete") is not True
++                or source_evidence.get("source") != metadata["sources"][dep]
++                or source_evidence.get("configurations") != entry["configurations"]
++                or source_evidence.get("segments") != entry["segments"]
++            ):
++                raise ValueError(
++                    "Derived configuration metadata differs from actual bound source metadata."
++                )
+     if metadata.get("source_gaps"):
+         _, gap_receipt = doc(manifest["source_gaps"])
+         if (
+@@ -1187,7 +1601,22 @@
+             declared = declarations[row]
+             if data["target_observed"][i].tolist() != declared["target_observed"]:
+                 raise ValueError("Numeric target masks differ from root-bound raw support.")
+-            expected_bounds = metadata["sources"][row[0]]["channel_bounds_m"]
++            if metadata.get("configuration_map") is not None:
++                cfg = metadata["configuration_map"]["sources"][row[0]]["configurations"][
++                    declared["configuration"]
++                ]
++                expected_bounds = cfg["channel_bounds_m"]
++                if not np.array_equal(
++                    data["context_observed"][i], np.asarray(declared["context_observed"], bool)
++                ) or not np.array_equal(
++                    data["metadata"][i, :, 6],
++                    [p != "UNKNOWN" for p in cfg["processing_id_or_unknown"]],
++                ):
++                    raise ValueError(
++                        "Numerical observed context/processing conflicts with native configuration metadata."
++                    )
++            else:
++                expected_bounds = metadata["sources"][row[0]]["channel_bounds_m"]
+             if not np.allclose(
+                 data["metadata"][i, :, 3:5] * 250, expected_bounds, atol=1e-5, rtol=0
+             ):
+--- main/tests/unit/test_native_prefix_transfer.py
++++ builder/tests/unit/test_native_prefix_transfer.py
+@@ -147,7 +147,7 @@
+ 
+ SUPPORT_SPEC = importlib.util.spec_from_file_location(
+     "native_prefix_test_support",
+-    BUILDER / "evidence/ssl-prefix-completion-builder-v2/prefix_test_support.py",
++    BUILDER / "evidence/ssl-prefix-native-config-builder-v3/prefix_test_support.py",
+ )
+ support = importlib.util.module_from_spec(SUPPORT_SPEC)
+ sys.modules[SUPPORT_SPEC.name] = support
+@@ -1052,3 +1052,305 @@
+     )
+     with pytest.raises(ValueError):
+         prefix.admit(c.manifest_path, c.review_path, c.output)
++
++
++def test_native_configuration_map_preserves_150_and_180_in_one_deployment():
++    raw, _ = support.native_configuration_metadata()
++    result = prefix.partitions(raw, 7)
++    assert len(raw["sources"]) == 1
++    assert {
++        r["configuration"]
++        for r in raw["rows"]
++        if (r["deployment"], r["row_id"]) in result["fit_rows"]
++    } == {"native-150", "native-180"}
++    assert len(result["suffix_rows"]) == 2
++    assert result["boundaries"]["synthetic-site"][2:] == [
++        "2026-01-05T00:00:00",
++        "2026-01-12T00:00:00",
++        "2026-02-11T00:00:00",
++    ]
++
++
++def test_positive_nominal_absence_is_not_an_observed_interval_identity():
++    raw, _ = support.native_configuration_metadata(cutoffs=(21, 140, 888))
++    row = raw["rows"][0]
++    assert row["target_ids"][1] > 0 and row["target_observed"][1] is False
++    result = prefix.partitions(raw, 7)
++    assert (row["deployment"], row["row_id"]) in result["fit_rows"]
++    assert all(isinstance(identity, str) for identity in result["fit_interval_ids"])
++    assert row["target_ids"][1] not in result["fit_interval_ids"]
++
++
++@pytest.mark.parametrize("days", [1, 7, 30])
++def test_native_configurations_keep_common_suffix_and_actual_native_bounds(days):
++    raw, _ = support.native_configuration_metadata()
++    result = prefix.partitions(raw, days)
++    support_rows = result["reserved_suffix_support"]
++    assert len(support_rows) == 2
++    assert {r["deployment"] for r in support_rows} == {"synthetic-site"}
++    assert {r["issued_configuration"] for r in support_rows} == {"native-180"}
++    assert all(all(r["target_available"]) for r in support_rows)
++    assert raw["configuration_map"]["sources"]["synthetic-site"]["configurations"]["native-180"][
++        "channel_bounds_m"
++    ] == [[0, 230], [0, 225], [0, 230], [0, 230]]
++    assert result["boundaries"]["synthetic-site"][-1] == "2026-02-11T00:00:00"
++
++
++@pytest.mark.parametrize(
++    "damage",
++    [
++        "configuration",
++        "geometry",
++        "processing",
++        "pings",
++        "segment",
++        "lifetime",
++        "site",
++        "archive",
++        "source_hash",
++        "quarantine",
++        "row",
++        "context_mask",
++        "unknown_mode",
++        "future_clock",
++        "future_after_break",
++    ],
++)
++def test_native_configuration_proof_rejects_conflicting_actual_metadata(damage):
++    raw, _ = support.native_configuration_metadata(cutoffs=(21, 140, 888))
++    row = raw["rows"][1]
++    record = raw["intervals"][row["context_ids"][10][1]]
++    entry = raw["configuration_map"]["sources"][row["deployment"]]
++    if damage == "configuration":
++        record["configuration"] = "native-150"
++    elif damage == "geometry":
++        record["native_bounds_m"] = [0, 200]
++    elif damage == "processing":
++        record["processing_id_or_unknown"] = "different-native-processing"
++    elif damage == "pings":
++        record["pings"] = 150
++    elif damage == "segment":
++        entry["segments"][2]["first_source_interval_index"] += 1
++    elif damage == "lifetime":
++        entry["end"] = "2026-02-28T00:00:00"
++    elif damage == "site":
++        entry["site"] = "fake-site"
++    elif damage == "archive":
++        record["archive"] = "fake-archive"
++    elif damage == "source_hash":
++        entry["source_metadata_sha256"] = "unbound"
++    elif damage == "quarantine":
++        record["pings"] = 165
++    elif damage == "row":
++        row["configuration"] = "native-150"
++    elif damage == "context_mask":
++        row["context_observed"][10][1] = False
++    elif damage == "unknown_mode":
++        raw["configuration_mode"] = "single_deployment_guess"
++    elif damage == "future_clock":
++        from datetime import datetime, timedelta
++
++        future = raw["intervals"][row["future_chain_ids"][1]]
++        future["timestamp"] = (
++            datetime.fromisoformat(future["timestamp"]) + timedelta(minutes=10)
++        ).isoformat()
++    else:
++        raw["rows"][0]["future_chain_ids"][-1] = row["future_chain_ids"][0]
++    with pytest.raises((ValueError, KeyError)):
++        prefix.partitions(raw, 7)
++
++
++@pytest.mark.parametrize(
++    "damage",
++    [
++        "observed_label",
++        "metadata",
++        "ping",
++        "processing",
++        "mask",
++        "wrong_request",
++        "raw_id",
++        "no_receipt",
++        "wrong_break",
++        "future_available",
++    ],
++)
++def test_nominal_unavailable_ids_cannot_hide_observed_labels_or_source_flags(damage):
++    raw, _ = support.native_configuration_metadata(cutoffs=(21, 140, 888))
++    row = raw["rows"][0]
++    if damage == "observed_label":
++        row["target_observed"][1] = row["target_slot_observed"][1][0] = True
++    elif damage == "metadata":
++        row["target_slot_metadata"][1][0][0] = 38000 / 455000
++    elif damage == "ping":
++        row["target_slot_ping_counts"][1][0] = 165
++    elif damage == "processing":
++        row["target_slot_processing_id_or_unknown"][1][0] = "actual-transition-processing"
++    elif damage == "mask":
++        row["target_slot_observed"][1][1] = True
++    elif damage == "wrong_request":
++        row["target_ids"][1] += 1
++    elif damage == "raw_id":
++        row["target_ids"][1] = row["context_ids"][-1][0]
++    elif damage == "no_receipt":
++        raw["source_gaps"] = {}
++    elif damage == "wrong_break":
++        raw["source_gaps"][row["future_absence_ref"]]["break_source_interval_index"] += 1
++    else:
++        row["target_slot_metadata"][2] = copy.deepcopy(raw["rows"][1]["target_slot_metadata"][2])
++        row["target_slot_processing_id_or_unknown"][2] = ["native-process-150"] * 4
++        row["target_slot_ping_counts"][2] = [150] * 4
++    with pytest.raises(ValueError):
++        prefix.partitions(raw, 7)
++
++
++def test_minus_one_and_nominal_requests_preserve_same_support_without_fake_timestamp():
++    raw, _ = support.native_configuration_metadata(cutoffs=(21, 140, 888))
++    initial = prefix.partitions(raw, 7)
++    for row in raw["rows"]:
++        row["target_ids"] = [-1 if type(v) is int else v for v in row["target_ids"]]
++    explicit = prefix.partitions(raw, 7)
++    assert initial["fit_rows"] == explicit["fit_rows"]
++    assert initial["fit_interval_ids"] == explicit["fit_interval_ids"]
++    assert initial["reserved_suffix_support"] == explicit["reserved_suffix_support"]
++
++
++def test_available_masked_target_retains_actual_timestamp_not_structural_absence():
++    raw, _ = support.native_configuration_metadata(cutoffs=(0, 888))
++    row = raw["rows"][0]
++    row["target_observed"][0] = row["target_slot_observed"][0][0] = False
++    record = raw["intervals"][row["target_ids"][0]]
++    record["observed"], record["qc"] = False, "INVALID_OR_SENTINEL"
++    result = prefix.partitions(raw, 1)
++    assert row["target_ids"][0] in result["fit_interval_ids"]
++    assert row["future_chain_ids"][0] == row["target_ids"][0]
++
++
++def test_legacy_single_configuration_requires_explicit_synthetic_compatibility():
++    raw = support.metadata()
++    prefix.partitions(raw, 1)
++    raw.pop("configuration_mode")
++    with pytest.raises(ValueError, match="explicit synthetic"):
++        prefix.partitions(raw, 1)
++
++
++def test_native_configuration_clock_jitter_keeps_actual_source_centres():
++    from datetime import datetime, timedelta
++
++    raw, _ = support.native_configuration_metadata()
++    for record in raw["intervals"].values():
++        record["timestamp"] = (
++            datetime.fromisoformat(record["timestamp"])
++            + timedelta(minutes=record["source_interval_index"] % 2)
++        ).isoformat()
++    for row in raw["rows"]:
++        row["cutoff"] = raw["intervals"][row["context_ids"][-1][0]]["timestamp"]
++    result = prefix.partitions(raw, 7)
++    assert result["fit_rows"] and result["suffix_rows"]
++    assert result["boundaries"]["synthetic-site"][-1] == "2026-02-11T00:00:00"
++
++
++def test_reader_actual_nominal_ids_and_constant_context_configuration_semantics():
++    # SYNTHETIC_CORRECTNESS_ONLY; inspect only generated metadata/IDs/masks.
++    from marine_echo.data.native_ssl_corpus import NativeSlot, issue_windows
++
++    slots = []
++    for index in range(330):
++        pings = 150 if index < 150 else 165 if index <= 160 else 180
++        slots.append(
++            NativeSlot(
++                index,
++                np.datetime64("2026-01-01T00:00") + np.timedelta64(index, "h"),
++                np.zeros(4, np.float32),
++                np.full(4, pings != 165, bool),
++                np.asarray(
++                    [[0, 230], [0, 225 if pings == 180 else 230], [0, 230], [0, 230]], float
++                ),
++                (f"processing-{pings}",) * 4,
++                (pings,) * 4,
++                "SYNTHETIC_CORRECTNESS_ONLY-one-deployment",
++                "synthetic-archive",
++                ("PARTIAL_SOURCE_INTERVAL" if pings == 165 else "OBSERVED_CENSORING_UNKNOWN",) * 4,
++            )
++        )
++    issued = issue_windows(slots, history=96)
++    before = int(np.flatnonzero(issued["cutoff"] == 149)[0])
++    assert issued["future_ids"][before].min() == 150
++    assert not issued["future_observed"][before].any()
++    assert not issued["future_metadata"][before].any()
++    assert np.all(issued["future_ping_counts"][before] == 0)
++    assert np.all(issued["future_processing_id_or_unknown"][before] == "UNKNOWN")
++    assert {int(p[0, 0]) for p in issued["ping_counts"]} == {150, 180}
++    assert len(set(issued["deployment"].tolist())) == 1
++    assert not any(150 <= int(c) < 256 for c in issued["cutoff"])
++    assert np.allclose(issued["metadata"][:, 0, 4] * 250, 230)
++
++
++def test_unobserved_secondary_165_values_are_quarantined_without_dropping_primary():
++    raw, _ = support.native_configuration_metadata(cutoffs=(0, 888))
++    row = raw["rows"][0]
++    record = raw["intervals"][row["context_ids"][10][2]]
++    record.update(observed=False, pings=165, qc="PARTIAL_SOURCE_INTERVAL")
++    row["context_observed"][10][2] = False
++    result = prefix.partitions(raw, 1)
++    assert (row["deployment"], row["row_id"]) in result["fit_rows"]
++    row["context_observed"][10][2] = True
++    with pytest.raises(ValueError):
++        prefix.partitions(raw, 1)
++
++
++def test_missing_secondary_channel_has_no_invented_identity_or_timestamp():
++    raw, _ = support.native_configuration_metadata(cutoffs=(0, 888))
++    row = raw["rows"][0]
++    identity = row["context_ids"][10][2]
++    record = raw["intervals"].pop(identity)
++    row["context_ids"][10][2], row["context_observed"][10][2] = None, False
++    row["context_absence_refs"] = [[None] * 4 for _ in range(96)]
++    row["context_absence_refs"][10][2] = "actual-missing-secondary"
++    entry = raw["configuration_map"]["sources"][row["deployment"]]
++    raw.setdefault("source_gaps", {})["actual-missing-secondary"] = {
++        "complete": True,
++        **{k: row[k] for k in ("deployment", "site", "archive", "configuration")},
++        "channel": 2,
++        "reason": "MISSING_CHANNEL",
++        "first_source_interval_index": record["source_interval_index"],
++        "last_source_interval_index": record["source_interval_index"],
++        "source_metadata_sha256": entry["source_metadata_sha256"],
++    }
++    result = prefix.partitions(raw, 1)
++    assert identity not in result["fit_interval_ids"]
++    assert (row["deployment"], row["row_id"]) in result["fit_rows"]
++
++
++def test_bound_clock_claim_cannot_mask_a_known_observed_native_interval():
++    from datetime import datetime, timedelta
++
++    raw, _ = support.native_configuration_metadata(cutoffs=(0, 17, 888))
++    row = raw["rows"][0]
++    cutoff = raw["intervals"][row["context_ids"][-1][0]]["source_interval_index"]
++    ref = "fake-clock-break"
++    row["future_chain_ids"] = [None] * 9
++    row["future_absence_ref"] = ref
++    row["target_ids"] = [cutoff + h for h in (1, 3, 6)]
++    row["target_observed"] = [False] * 3
++    row["target_absence_refs"] = [ref] * 3
++    row["target_slot_metadata"] = np.zeros((3, 4, 10)).tolist()
++    row["target_slot_observed"] = np.zeros((3, 4), bool).tolist()
++    row["target_slot_processing_id_or_unknown"] = [["UNKNOWN"] * 4 for _ in range(3)]
++    row["target_slot_ping_counts"] = [[0] * 4 for _ in range(3)]
++    entry = raw["configuration_map"]["sources"][row["deployment"]]
++    raw.setdefault("source_gaps", {})[ref] = {
++        "complete": True,
++        **{k: row[k] for k in ("deployment", "site", "archive", "configuration")},
++        "first_source_interval_index": cutoff + 1,
++        "last_source_interval_index": cutoff + 9,
++        "break_source_interval_index": cutoff + 1,
++        "reason": "SOURCE_GAP",
++        "previous_timestamp": row["cutoff"],
++        "break_timestamp": (
++            datetime.fromisoformat(row["cutoff"]) + timedelta(minutes=68)
++        ).isoformat(),
++        "source_metadata_sha256": entry["source_metadata_sha256"],
++    }
++    with pytest.raises(ValueError, match="actual raw timestamp"):
++        prefix.partitions(raw, 7)
+--- main/tests/integration/test_native_prefix_transfer.py
++++ builder/tests/integration/test_native_prefix_transfer.py
+@@ -433,3 +433,87 @@
+     assert artifact["feature_ancestor"]["selected_kind"] == prefix.SUPERVISED_KINDS[family]
+     assert artifact["feature_ancestor"]["supervised_ancestry"]["ssl_only"] is False
+     assert artifact["feature_ancestor"]["parent_head_reused"] is False
++
++
++def test_configuration_map_cannot_relabel_unchanged_bound_native_source_metadata(monkeypatch):
++    c = support.native_case(prefix, monkeypatch, BUILDER)
++    catalog = c.registry["configuration_map"]
++    catalog["sources"]["synthetic-site"]["configurations"]["native-180"]["channel_bounds_m"][1] = [
++        0,
++        200,
++    ]
++    for record in c.registry["intervals"].values():
++        if record["configuration"] == "native-180" and record["channel"] == 1:
++            record["native_bounds_m"] = [0, 200]
++    for row in c.registry["rows"]:
++        if row["configuration"] == "native-180":
++            for meta in row["target_slot_metadata"]:
++                meta[1][4] = 200 / 250
++    c.seal()  # Rebind only private derived artifacts; actual source metadata stays225.
++    monkeypatch.setattr(
++        prefix.np,
++        "load",
++        lambda *a, **k: pytest.fail("Configuration mismatch decoded numerical data"),
++    )
++    with pytest.raises(ValueError, match="configuration metadata"):
++        prefix.admit(c.manifest_path, c.review_path, c.output)
++
++
++def test_native_map_admission_is_metadata_only_before_decode_rng_or_model(monkeypatch):
++    c = support.native_case(prefix, monkeypatch, BUILDER)
++    monkeypatch.setattr(
++        prefix.np, "load", lambda *a, **k: pytest.fail("Native metadata admission decoded NPZ")
++    )
++    monkeypatch.setattr(
++        torch, "load", lambda *a, **k: pytest.fail("Native metadata admission decoded tensors")
++    )
++    monkeypatch.setattr(
++        torch, "manual_seed", lambda *a, **k: pytest.fail("Native metadata admission reset RNG")
++    )
++    a = prefix.admit(c.manifest_path, c.review_path, c.output)
++    assert len(a.partition["fit_rows"]) == len(a.partition["suffix_rows"]) == 18
++    assert set(a.partition["configuration_map"]["sources"]) == {"synthetic-site"}
++
++
++@pytest.mark.parametrize(
++    "key",
++    ["native-configurations.json", "native-source-metadata.json", "raw.json", "source-gaps.json"],
++)
++def test_stale_native_metadata_bindings_block_before_all_numeric_parsing(monkeypatch, key):
++    c = support.native_case(prefix, monkeypatch, BUILDER)
++    c.fs.files[c.base / key] += b"tampered-source-metadata"
++    monkeypatch.setattr(
++        prefix.np, "load", lambda *a, **k: pytest.fail("Stale native metadata decoded NPZ")
++    )
++    monkeypatch.setattr(
++        torch, "load", lambda *a, **k: pytest.fail("Stale native metadata decoded tensors")
++    )
++    with pytest.raises(ValueError, match="binding"):
++        prefix.admit(c.manifest_path, c.review_path, c.output)
++
++
++def test_exact_bound_context_mask_and_issued_processing_survive_private_codec(monkeypatch):
++    c = support.native_case(prefix, monkeypatch, BUILDER)
++    a = prefix.admit(c.manifest_path, c.review_path, c.output)
++    a.manifest["_base"] = str(c.base)
++    data = prefix._decode(a, "prefix_npz", "prefix")
++    assert len(data["x"]) == 18
++    assert data["context_observed"].all()
++    np.testing.assert_allclose(data["query"][..., 4] * 250, 230)
++    assert np.all(data["metadata"][..., 6] == 1)
++
++
++@pytest.mark.parametrize("damage", ["mask", "processing", "geometry"])
++def test_numeric_context_cannot_override_bound_configuration_provenance(monkeypatch, damage):
++    c = support.native_case(prefix, monkeypatch, BUILDER)
++    if damage == "mask":
++        c.prefix_arrays["context_observed"][0, 10, 1] = False
++    elif damage == "processing":
++        c.prefix_arrays["metadata"][0, 1, 6] = 0
++    else:
++        c.prefix_arrays["metadata"][0, 1, 4] = 200 / 250
++    c.seal()
++    a = prefix.admit(c.manifest_path, c.review_path, c.output)
++    a.manifest["_base"] = str(c.base)
++    with pytest.raises(ValueError, match="conflicts"):
++        prefix._decode(a, "prefix_npz", "prefix")
+

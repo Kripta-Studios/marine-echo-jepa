@@ -147,7 +147,7 @@ import numpy as np
 
 SUPPORT_SPEC = importlib.util.spec_from_file_location(
     "native_prefix_test_support",
-    BUILDER / "evidence/ssl-prefix-completion-builder-v2/prefix_test_support.py",
+    BUILDER / "evidence/ssl-prefix-native-config-builder-v3/prefix_test_support.py",
 )
 support = importlib.util.module_from_spec(SUPPORT_SPEC)
 sys.modules[SUPPORT_SPEC.name] = support
@@ -1052,3 +1052,305 @@ def test_actual_split_conflicting_or_fitted_final_roles_denied(memory_case, monk
     )
     with pytest.raises(ValueError):
         prefix.admit(c.manifest_path, c.review_path, c.output)
+
+
+def test_native_configuration_map_preserves_150_and_180_in_one_deployment():
+    raw, _ = support.native_configuration_metadata()
+    result = prefix.partitions(raw, 7)
+    assert len(raw["sources"]) == 1
+    assert {
+        r["configuration"]
+        for r in raw["rows"]
+        if (r["deployment"], r["row_id"]) in result["fit_rows"]
+    } == {"native-150", "native-180"}
+    assert len(result["suffix_rows"]) == 2
+    assert result["boundaries"]["synthetic-site"][2:] == [
+        "2026-01-05T00:00:00",
+        "2026-01-12T00:00:00",
+        "2026-02-11T00:00:00",
+    ]
+
+
+def test_positive_nominal_absence_is_not_an_observed_interval_identity():
+    raw, _ = support.native_configuration_metadata(cutoffs=(21, 140, 888))
+    row = raw["rows"][0]
+    assert row["target_ids"][1] > 0 and row["target_observed"][1] is False
+    result = prefix.partitions(raw, 7)
+    assert (row["deployment"], row["row_id"]) in result["fit_rows"]
+    assert all(isinstance(identity, str) for identity in result["fit_interval_ids"])
+    assert row["target_ids"][1] not in result["fit_interval_ids"]
+
+
+@pytest.mark.parametrize("days", [1, 7, 30])
+def test_native_configurations_keep_common_suffix_and_actual_native_bounds(days):
+    raw, _ = support.native_configuration_metadata()
+    result = prefix.partitions(raw, days)
+    support_rows = result["reserved_suffix_support"]
+    assert len(support_rows) == 2
+    assert {r["deployment"] for r in support_rows} == {"synthetic-site"}
+    assert {r["issued_configuration"] for r in support_rows} == {"native-180"}
+    assert all(all(r["target_available"]) for r in support_rows)
+    assert raw["configuration_map"]["sources"]["synthetic-site"]["configurations"]["native-180"][
+        "channel_bounds_m"
+    ] == [[0, 230], [0, 225], [0, 230], [0, 230]]
+    assert result["boundaries"]["synthetic-site"][-1] == "2026-02-11T00:00:00"
+
+
+@pytest.mark.parametrize(
+    "damage",
+    [
+        "configuration",
+        "geometry",
+        "processing",
+        "pings",
+        "segment",
+        "lifetime",
+        "site",
+        "archive",
+        "source_hash",
+        "quarantine",
+        "row",
+        "context_mask",
+        "unknown_mode",
+        "future_clock",
+        "future_after_break",
+    ],
+)
+def test_native_configuration_proof_rejects_conflicting_actual_metadata(damage):
+    raw, _ = support.native_configuration_metadata(cutoffs=(21, 140, 888))
+    row = raw["rows"][1]
+    record = raw["intervals"][row["context_ids"][10][1]]
+    entry = raw["configuration_map"]["sources"][row["deployment"]]
+    if damage == "configuration":
+        record["configuration"] = "native-150"
+    elif damage == "geometry":
+        record["native_bounds_m"] = [0, 200]
+    elif damage == "processing":
+        record["processing_id_or_unknown"] = "different-native-processing"
+    elif damage == "pings":
+        record["pings"] = 150
+    elif damage == "segment":
+        entry["segments"][2]["first_source_interval_index"] += 1
+    elif damage == "lifetime":
+        entry["end"] = "2026-02-28T00:00:00"
+    elif damage == "site":
+        entry["site"] = "fake-site"
+    elif damage == "archive":
+        record["archive"] = "fake-archive"
+    elif damage == "source_hash":
+        entry["source_metadata_sha256"] = "unbound"
+    elif damage == "quarantine":
+        record["pings"] = 165
+    elif damage == "row":
+        row["configuration"] = "native-150"
+    elif damage == "context_mask":
+        row["context_observed"][10][1] = False
+    elif damage == "unknown_mode":
+        raw["configuration_mode"] = "single_deployment_guess"
+    elif damage == "future_clock":
+        from datetime import datetime, timedelta
+
+        future = raw["intervals"][row["future_chain_ids"][1]]
+        future["timestamp"] = (
+            datetime.fromisoformat(future["timestamp"]) + timedelta(minutes=10)
+        ).isoformat()
+    else:
+        raw["rows"][0]["future_chain_ids"][-1] = row["future_chain_ids"][0]
+    with pytest.raises((ValueError, KeyError)):
+        prefix.partitions(raw, 7)
+
+
+@pytest.mark.parametrize(
+    "damage",
+    [
+        "observed_label",
+        "metadata",
+        "ping",
+        "processing",
+        "mask",
+        "wrong_request",
+        "raw_id",
+        "no_receipt",
+        "wrong_break",
+        "future_available",
+    ],
+)
+def test_nominal_unavailable_ids_cannot_hide_observed_labels_or_source_flags(damage):
+    raw, _ = support.native_configuration_metadata(cutoffs=(21, 140, 888))
+    row = raw["rows"][0]
+    if damage == "observed_label":
+        row["target_observed"][1] = row["target_slot_observed"][1][0] = True
+    elif damage == "metadata":
+        row["target_slot_metadata"][1][0][0] = 38000 / 455000
+    elif damage == "ping":
+        row["target_slot_ping_counts"][1][0] = 165
+    elif damage == "processing":
+        row["target_slot_processing_id_or_unknown"][1][0] = "actual-transition-processing"
+    elif damage == "mask":
+        row["target_slot_observed"][1][1] = True
+    elif damage == "wrong_request":
+        row["target_ids"][1] += 1
+    elif damage == "raw_id":
+        row["target_ids"][1] = row["context_ids"][-1][0]
+    elif damage == "no_receipt":
+        raw["source_gaps"] = {}
+    elif damage == "wrong_break":
+        raw["source_gaps"][row["future_absence_ref"]]["break_source_interval_index"] += 1
+    else:
+        row["target_slot_metadata"][2] = copy.deepcopy(raw["rows"][1]["target_slot_metadata"][2])
+        row["target_slot_processing_id_or_unknown"][2] = ["native-process-150"] * 4
+        row["target_slot_ping_counts"][2] = [150] * 4
+    with pytest.raises(ValueError):
+        prefix.partitions(raw, 7)
+
+
+def test_minus_one_and_nominal_requests_preserve_same_support_without_fake_timestamp():
+    raw, _ = support.native_configuration_metadata(cutoffs=(21, 140, 888))
+    initial = prefix.partitions(raw, 7)
+    for row in raw["rows"]:
+        row["target_ids"] = [-1 if type(v) is int else v for v in row["target_ids"]]
+    explicit = prefix.partitions(raw, 7)
+    assert initial["fit_rows"] == explicit["fit_rows"]
+    assert initial["fit_interval_ids"] == explicit["fit_interval_ids"]
+    assert initial["reserved_suffix_support"] == explicit["reserved_suffix_support"]
+
+
+def test_available_masked_target_retains_actual_timestamp_not_structural_absence():
+    raw, _ = support.native_configuration_metadata(cutoffs=(0, 888))
+    row = raw["rows"][0]
+    row["target_observed"][0] = row["target_slot_observed"][0][0] = False
+    record = raw["intervals"][row["target_ids"][0]]
+    record["observed"], record["qc"] = False, "INVALID_OR_SENTINEL"
+    result = prefix.partitions(raw, 1)
+    assert row["target_ids"][0] in result["fit_interval_ids"]
+    assert row["future_chain_ids"][0] == row["target_ids"][0]
+
+
+def test_legacy_single_configuration_requires_explicit_synthetic_compatibility():
+    raw = support.metadata()
+    prefix.partitions(raw, 1)
+    raw.pop("configuration_mode")
+    with pytest.raises(ValueError, match="explicit synthetic"):
+        prefix.partitions(raw, 1)
+
+
+def test_native_configuration_clock_jitter_keeps_actual_source_centres():
+    from datetime import datetime, timedelta
+
+    raw, _ = support.native_configuration_metadata()
+    for record in raw["intervals"].values():
+        record["timestamp"] = (
+            datetime.fromisoformat(record["timestamp"])
+            + timedelta(minutes=record["source_interval_index"] % 2)
+        ).isoformat()
+    for row in raw["rows"]:
+        row["cutoff"] = raw["intervals"][row["context_ids"][-1][0]]["timestamp"]
+    result = prefix.partitions(raw, 7)
+    assert result["fit_rows"] and result["suffix_rows"]
+    assert result["boundaries"]["synthetic-site"][-1] == "2026-02-11T00:00:00"
+
+
+def test_reader_actual_nominal_ids_and_constant_context_configuration_semantics():
+    # SYNTHETIC_CORRECTNESS_ONLY; inspect only generated metadata/IDs/masks.
+    from marine_echo.data.native_ssl_corpus import NativeSlot, issue_windows
+
+    slots = []
+    for index in range(330):
+        pings = 150 if index < 150 else 165 if index <= 160 else 180
+        slots.append(
+            NativeSlot(
+                index,
+                np.datetime64("2026-01-01T00:00") + np.timedelta64(index, "h"),
+                np.zeros(4, np.float32),
+                np.full(4, pings != 165, bool),
+                np.asarray(
+                    [[0, 230], [0, 225 if pings == 180 else 230], [0, 230], [0, 230]], float
+                ),
+                (f"processing-{pings}",) * 4,
+                (pings,) * 4,
+                "SYNTHETIC_CORRECTNESS_ONLY-one-deployment",
+                "synthetic-archive",
+                ("PARTIAL_SOURCE_INTERVAL" if pings == 165 else "OBSERVED_CENSORING_UNKNOWN",) * 4,
+            )
+        )
+    issued = issue_windows(slots, history=96)
+    before = int(np.flatnonzero(issued["cutoff"] == 149)[0])
+    assert issued["future_ids"][before].min() == 150
+    assert not issued["future_observed"][before].any()
+    assert not issued["future_metadata"][before].any()
+    assert np.all(issued["future_ping_counts"][before] == 0)
+    assert np.all(issued["future_processing_id_or_unknown"][before] == "UNKNOWN")
+    assert {int(p[0, 0]) for p in issued["ping_counts"]} == {150, 180}
+    assert len(set(issued["deployment"].tolist())) == 1
+    assert not any(150 <= int(c) < 256 for c in issued["cutoff"])
+    assert np.allclose(issued["metadata"][:, 0, 4] * 250, 230)
+
+
+def test_unobserved_secondary_165_values_are_quarantined_without_dropping_primary():
+    raw, _ = support.native_configuration_metadata(cutoffs=(0, 888))
+    row = raw["rows"][0]
+    record = raw["intervals"][row["context_ids"][10][2]]
+    record.update(observed=False, pings=165, qc="PARTIAL_SOURCE_INTERVAL")
+    row["context_observed"][10][2] = False
+    result = prefix.partitions(raw, 1)
+    assert (row["deployment"], row["row_id"]) in result["fit_rows"]
+    row["context_observed"][10][2] = True
+    with pytest.raises(ValueError):
+        prefix.partitions(raw, 1)
+
+
+def test_missing_secondary_channel_has_no_invented_identity_or_timestamp():
+    raw, _ = support.native_configuration_metadata(cutoffs=(0, 888))
+    row = raw["rows"][0]
+    identity = row["context_ids"][10][2]
+    record = raw["intervals"].pop(identity)
+    row["context_ids"][10][2], row["context_observed"][10][2] = None, False
+    row["context_absence_refs"] = [[None] * 4 for _ in range(96)]
+    row["context_absence_refs"][10][2] = "actual-missing-secondary"
+    entry = raw["configuration_map"]["sources"][row["deployment"]]
+    raw.setdefault("source_gaps", {})["actual-missing-secondary"] = {
+        "complete": True,
+        **{k: row[k] for k in ("deployment", "site", "archive", "configuration")},
+        "channel": 2,
+        "reason": "MISSING_CHANNEL",
+        "first_source_interval_index": record["source_interval_index"],
+        "last_source_interval_index": record["source_interval_index"],
+        "source_metadata_sha256": entry["source_metadata_sha256"],
+    }
+    result = prefix.partitions(raw, 1)
+    assert identity not in result["fit_interval_ids"]
+    assert (row["deployment"], row["row_id"]) in result["fit_rows"]
+
+
+def test_bound_clock_claim_cannot_mask_a_known_observed_native_interval():
+    from datetime import datetime, timedelta
+
+    raw, _ = support.native_configuration_metadata(cutoffs=(0, 17, 888))
+    row = raw["rows"][0]
+    cutoff = raw["intervals"][row["context_ids"][-1][0]]["source_interval_index"]
+    ref = "fake-clock-break"
+    row["future_chain_ids"] = [None] * 9
+    row["future_absence_ref"] = ref
+    row["target_ids"] = [cutoff + h for h in (1, 3, 6)]
+    row["target_observed"] = [False] * 3
+    row["target_absence_refs"] = [ref] * 3
+    row["target_slot_metadata"] = np.zeros((3, 4, 10)).tolist()
+    row["target_slot_observed"] = np.zeros((3, 4), bool).tolist()
+    row["target_slot_processing_id_or_unknown"] = [["UNKNOWN"] * 4 for _ in range(3)]
+    row["target_slot_ping_counts"] = [[0] * 4 for _ in range(3)]
+    entry = raw["configuration_map"]["sources"][row["deployment"]]
+    raw.setdefault("source_gaps", {})[ref] = {
+        "complete": True,
+        **{k: row[k] for k in ("deployment", "site", "archive", "configuration")},
+        "first_source_interval_index": cutoff + 1,
+        "last_source_interval_index": cutoff + 9,
+        "break_source_interval_index": cutoff + 1,
+        "reason": "SOURCE_GAP",
+        "previous_timestamp": row["cutoff"],
+        "break_timestamp": (
+            datetime.fromisoformat(row["cutoff"]) + timedelta(minutes=68)
+        ).isoformat(),
+        "source_metadata_sha256": entry["source_metadata_sha256"],
+    }
+    with pytest.raises(ValueError, match="actual raw timestamp"):
+        prefix.partitions(raw, 7)

@@ -1,0 +1,16 @@
+{
+  "status": "ROOT_CPU_CHECKS_NATIVE_PROCESS_FAILURE",
+  "actual_cli_exit_code": -1073740022,
+  "actual_exit_hex_unsigned": "0xc000070a",
+  "session_id": 77392,
+  "actual_exit_chunk_id": "86fb32",
+  "log_path": "evidence/ssl-prefix-native-config-builder-v3/root-all-checks-v3.log",
+  "observed_import_exception": "Windows fatal exception code 0x8007000e in platform._wmi_query during Torch DLL import",
+  "subsequent_progress": "37 pytest progress dots before process terminated; no final test result",
+  "root_checks": "NOT_COMPLETED",
+  "cause": "UNKNOWN_NATIVE_RUNTIME_FAILURE",
+  "scientific_fitting": false,
+  "public_numeric_access": "NOT_RUN",
+  "source_or_permission_changes": false,
+  "retry_policy": "At most one identical synthetic CPU-check retry after current scientific queue closes; preserve all failure evidence. No cache, permission, installed package or OS changes."
+}

@@ -1,0 +1,8 @@
+SYNTHETIC_CORRECTNESS_ONLY
+{
+  "chunk_id": "5dc4b4",
+  "wall_time_seconds": 0.0000137,
+  "exit_code": 0,
+  "original_token_count": 26,
+  "output": ".                                                                        [100%]\r\n1 passed in 19.33s\r\n"
+}

@@ -1,0 +1,8 @@
+SYNTHETIC_CORRECTNESS_ONLY
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B -m ruff check --no-cache src\marine_echo\training\native_prefix_transfer.py tests\unit\test_native_prefix_transfer.py tests\integration\test_native_prefix_transfer.py evidence\ssl-prefix-native-config-builder-v3\prefix_test_support.py evidence\ssl-prefix-native-config-builder-v3\source_inspection.py evidence\ssl-prefix-native-config-builder-v3\source_proof.py
+All checks passed!
+Exit code: 0
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B -m ruff format --check --no-cache src\marine_echo\training\native_prefix_transfer.py tests\unit\test_native_prefix_transfer.py tests\integration\test_native_prefix_transfer.py evidence\ssl-prefix-native-config-builder-v3\prefix_test_support.py evidence\ssl-prefix-native-config-builder-v3\source_inspection.py evidence\ssl-prefix-native-config-builder-v3\source_proof.py
+6 files already formatted
+Exit code: 0
+

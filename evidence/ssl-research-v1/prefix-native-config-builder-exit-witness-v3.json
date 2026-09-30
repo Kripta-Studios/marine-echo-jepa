@@ -1,0 +1,12 @@
+{
+  "status": "ACTUAL_BUILDER_CLI_CLOSED",
+  "actual_cli_exit_code": 0,
+  "session_id": 79981,
+  "actual_exit_chunk_id": "a82349",
+  "builder_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "events_path": "evidence/ssl-research-v1/prefix-native-config-builder-events-v3.jsonl",
+  "final_delivery_path": "evidence/ssl-research-v1/prefix-native-config-builder-final-v3.json",
+  "scientific_execution": "NOT_RUN",
+  "root_checks": "PENDING",
+  "independent_prefit": "NOT_RUN"
+}

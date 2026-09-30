@@ -433,3 +433,87 @@ def test_root_only_typed_direct_frozen_receipt_and_exact_resume(family):
     assert artifact["feature_ancestor"]["selected_kind"] == prefix.SUPERVISED_KINDS[family]
     assert artifact["feature_ancestor"]["supervised_ancestry"]["ssl_only"] is False
     assert artifact["feature_ancestor"]["parent_head_reused"] is False
+
+
+def test_configuration_map_cannot_relabel_unchanged_bound_native_source_metadata(monkeypatch):
+    c = support.native_case(prefix, monkeypatch, BUILDER)
+    catalog = c.registry["configuration_map"]
+    catalog["sources"]["synthetic-site"]["configurations"]["native-180"]["channel_bounds_m"][1] = [
+        0,
+        200,
+    ]
+    for record in c.registry["intervals"].values():
+        if record["configuration"] == "native-180" and record["channel"] == 1:
+            record["native_bounds_m"] = [0, 200]
+    for row in c.registry["rows"]:
+        if row["configuration"] == "native-180":
+            for meta in row["target_slot_metadata"]:
+                meta[1][4] = 200 / 250
+    c.seal()  # Rebind only private derived artifacts; actual source metadata stays225.
+    monkeypatch.setattr(
+        prefix.np,
+        "load",
+        lambda *a, **k: pytest.fail("Configuration mismatch decoded numerical data"),
+    )
+    with pytest.raises(ValueError, match="configuration metadata"):
+        prefix.admit(c.manifest_path, c.review_path, c.output)
+
+
+def test_native_map_admission_is_metadata_only_before_decode_rng_or_model(monkeypatch):
+    c = support.native_case(prefix, monkeypatch, BUILDER)
+    monkeypatch.setattr(
+        prefix.np, "load", lambda *a, **k: pytest.fail("Native metadata admission decoded NPZ")
+    )
+    monkeypatch.setattr(
+        torch, "load", lambda *a, **k: pytest.fail("Native metadata admission decoded tensors")
+    )
+    monkeypatch.setattr(
+        torch, "manual_seed", lambda *a, **k: pytest.fail("Native metadata admission reset RNG")
+    )
+    a = prefix.admit(c.manifest_path, c.review_path, c.output)
+    assert len(a.partition["fit_rows"]) == len(a.partition["suffix_rows"]) == 18
+    assert set(a.partition["configuration_map"]["sources"]) == {"synthetic-site"}
+
+
+@pytest.mark.parametrize(
+    "key",
+    ["native-configurations.json", "native-source-metadata.json", "raw.json", "source-gaps.json"],
+)
+def test_stale_native_metadata_bindings_block_before_all_numeric_parsing(monkeypatch, key):
+    c = support.native_case(prefix, monkeypatch, BUILDER)
+    c.fs.files[c.base / key] += b"tampered-source-metadata"
+    monkeypatch.setattr(
+        prefix.np, "load", lambda *a, **k: pytest.fail("Stale native metadata decoded NPZ")
+    )
+    monkeypatch.setattr(
+        torch, "load", lambda *a, **k: pytest.fail("Stale native metadata decoded tensors")
+    )
+    with pytest.raises(ValueError, match="binding"):
+        prefix.admit(c.manifest_path, c.review_path, c.output)
+
+
+def test_exact_bound_context_mask_and_issued_processing_survive_private_codec(monkeypatch):
+    c = support.native_case(prefix, monkeypatch, BUILDER)
+    a = prefix.admit(c.manifest_path, c.review_path, c.output)
+    a.manifest["_base"] = str(c.base)
+    data = prefix._decode(a, "prefix_npz", "prefix")
+    assert len(data["x"]) == 18
+    assert data["context_observed"].all()
+    np.testing.assert_allclose(data["query"][..., 4] * 250, 230)
+    assert np.all(data["metadata"][..., 6] == 1)
+
+
+@pytest.mark.parametrize("damage", ["mask", "processing", "geometry"])
+def test_numeric_context_cannot_override_bound_configuration_provenance(monkeypatch, damage):
+    c = support.native_case(prefix, monkeypatch, BUILDER)
+    if damage == "mask":
+        c.prefix_arrays["context_observed"][0, 10, 1] = False
+    elif damage == "processing":
+        c.prefix_arrays["metadata"][0, 1, 6] = 0
+    else:
+        c.prefix_arrays["metadata"][0, 1, 4] = 200 / 250
+    c.seal()
+    a = prefix.admit(c.manifest_path, c.review_path, c.output)
+    a.manifest["_base"] = str(c.base)
+    with pytest.raises(ValueError, match="conflicts"):
+        prefix._decode(a, "prefix_npz", "prefix")

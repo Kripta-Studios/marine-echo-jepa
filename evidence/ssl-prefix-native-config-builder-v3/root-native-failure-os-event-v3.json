@@ -1,0 +1,18 @@
+{
+  "status": "READ_ONLY_WINDOWS_APPLICATION_EVENT_OBSERVED",
+  "actual_tool_exit_code": 0,
+  "actual_tool_chunk_id": "bdd066",
+  "time_created": "2026-09-30T15:15:54.6742207+02:00",
+  "log": "Application",
+  "event_id": 1000,
+  "process_id_hex": "0xB2B0",
+  "process_id_decimal": 45744,
+  "exception_code": "0xc000070a",
+  "fault_module": "ntdll.dll",
+  "module_version": "10.0.26100.9444",
+  "fault_offset": "0x00000000000c87a4",
+  "report_id": "1c4b421b-0a9f-40b9-8f42-bffd98787fb7",
+  "cause": "UNKNOWN",
+  "process_manipulation": false,
+  "permission_or_os_changes": false
+}
