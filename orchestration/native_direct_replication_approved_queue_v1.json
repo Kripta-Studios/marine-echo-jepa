@@ -1,0 +1,43 @@
+{
+  "kind": "reviewed_native_serial_queue_v1",
+  "jobs": [
+    {
+      "id": "direct_direct_end_to_end_seed13_h96_replication",
+      "entrypoint": "tools/execute_native_downstream_job.py",
+      "method": "direct",
+      "mode": "direct_end_to_end",
+      "report": "outputs/native_acoustic_ssl_v1/direct_direct_end_to_end_seed13_h96_replication/run.json",
+      "args": [
+        "--config",
+        "configs/native_downstream_direct_direct_end_to_end_seed13_h96_v1.json",
+        "--review",
+        "evidence/ssl-research-v1/direct-replication-prefit-review-final.json",
+        "--output",
+        "outputs/native_acoustic_ssl_v1/direct_direct_end_to_end_seed13_h96_replication",
+        "--receipt",
+        "evidence/ssl-research-v1/direct_direct_end_to_end_seed13_h96_replication-attempt-01"
+      ]
+    },
+    {
+      "id": "direct_direct_end_to_end_seed23_h96_replication",
+      "entrypoint": "tools/execute_native_downstream_job.py",
+      "method": "direct",
+      "mode": "direct_end_to_end",
+      "report": "outputs/native_acoustic_ssl_v1/direct_direct_end_to_end_seed23_h96_replication/run.json",
+      "args": [
+        "--config",
+        "configs/native_downstream_direct_direct_end_to_end_seed23_h96_v1.json",
+        "--review",
+        "evidence/ssl-research-v1/direct-replication-prefit-review-final.json",
+        "--output",
+        "outputs/native_acoustic_ssl_v1/direct_direct_end_to_end_seed23_h96_replication",
+        "--receipt",
+        "evidence/ssl-research-v1/direct_direct_end_to_end_seed23_h96_replication-attempt-01"
+      ]
+    }
+  ],
+  "authorization": "Distinct76-binding fresh-direct seed13/23 prefit review",
+  "execution": "After CF replication queue exits and current allowance is reconciled; required wrappers only",
+  "final_test_access": "NOT_AUTHORIZED",
+  "app_release_work": "FROZEN"
+}
