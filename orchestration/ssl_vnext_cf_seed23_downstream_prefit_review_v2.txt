@@ -1,0 +1,46 @@
+Continue SAME verified distinct reviewer GPT6.1Sol/high read-only/never only after its current task exits and root resumes. CF seeds13/23 serial queue closed exit0; both actual parents exist. Inspect metadata/hashes and safe tensor metadata only; no public input/prediction numerical decoding, fitting/GPU, source edits, installation, permission changes, credentials, denied-operation retries, process-tree operations or live ledger/lock writes. Approve only actual seed23 strong endpoints. Preserve all three seeds; no best-seed selection.
+
+Task: approve only two strong CFseed23 downstream endpoints using the ACTUAL completed parent outputs/native_acoustic_ssl_v1/cf_jepa_seed23_h96_replication. Parent runSHAa1a78900b5e9eb6a02284686900a73282290b4d7717cd703bbb8d8ec001e77c2, inferenceSHA556c69fe366713d11e64023fe1a4460ec235a7381e4065d263edc7fed3b2b113, selected1500, short-probe DEV0.7145854497680474. Preserve the completed seed7/13/23 comparison; preserve seed variability and do not cherry-pick seed7. The short probe is not the strong matched endpoint. Source review cf-replication-prefit-review-final.json approved exact seed13/23configs and original CF model/core sources; verify actual selected_encoder and full parent hashes/membership/scalers/config/source/split before approving transfer. No prospective parent approval or parent7 reuse.
+
+New configs: configs/native_downstream_cf_jepa_frozen_readout_seed23_h96_v1.json (2000/cadence500) and full_finetune_seed23 (3000/cadence750), semantically identical to reviewed CFseed7 versions except seed. Exact generic original native_downstream/core/source gates must support23 and bind its actual parent. Pure frozen preserves selected EMAencoder128 and all buffers byte-identically; only fresh18565-parameter head receives gradients. Fullfine-tune encoder+samefreshhead updates on TRAIN only; not reported as pureSSL encoder. Fresh seed-controlled head/sample sequence, same supervision/scaling/masks/daily-pinball/floor18/fivequants/fourselectionopportunities/10%warmup/cosfloor10%/batch64/AdamW0.0003+0.0001/clip1. No changed schedule, extra checkpoints, data, history or objective, no re-fit of completed7, no test outcomes. CFvsShared architecture/head-size confound remains, no causalSSL-benefit claim.
+
+Inspect original cf-downstream-prefit-review-final.json, core native_ssl.py, native_downstream.py, native_temporal.py, safe inference, native reader/train_statistics, TRAIN/DEV cohort/split/ADR0016/0018/sourcepins, required tools/execute_native_downstream_job.py and native_reference_supervisor.py. Verify all fitted ancestor/scaler data exclude both AEON2 final deployments/site; new models inherit only this actual fresh TRAIN-only parent. Source metadata hashing allowed, public arrays not. Optional duplicate CPU checks that are inaccessible remain NOT_RUN; do not retry a denied process mechanism. Existing source-level and executed earlier correctness evidence must be cited without claiming new checks ran.
+
+Final strict JSON APPROVED_DOWNSTREAM_PREFIT or REQUEST_CHANGES, exact required fields/protocol/source/ancestor/scaler/data/runtime bindings from original CFdownstream review, allowed_methods=[cf_jepa], allowed_modes=[frozen_readout,full_finetune], allowed_seeds=[23], roles=[train,development], evidence_kind real, actualreviewer01a0ef27-876b-7692-917e-3975afc6893d distinct from builder01a0ef20-7397-7ba1-a98c-f59bc38ddcc1/coordinator01a0ef1a-b166-7f83-91b7-2a2aff7c1b10. Original b7 model/a5core/e75downstream/0d65references sources remain unchanged; newly authored assessment/prefix code is unrelated and outside this fit approval. Required exact executor only/indexedcuda:0/one scientific owner/protectedoutputs/fullowned96h/allocated-reserved<10GiB/ownedtreeRAM<22GiB. Root checks EVERYbinding and current ledger allowance after activeCFqueue and approveddirectreplicationqueue exit before these two fits. No other CF seeds, band, additional screens, final access, prefix fits, model-package publication, app/release/paid resources or SOTA/scientificquality approval.
+
+
+Actual parent completion metadata:
+{
+  "status": "COMPLETED",
+  "config": {
+    "method": "cf_jepa",
+    "seed": 23,
+    "history": 96,
+    "pretrain_updates": 6000,
+    "readout_updates": 500,
+    "batch_size": 64,
+    "width": 192,
+    "latent": 64,
+    "blocks": 4,
+    "heads": 4,
+    "lr": 0.0003,
+    "weight_decay": 0.0001,
+    "sigreg_weight": 0.03,
+    "pretrain_cadence": 1500,
+    "readout_cadence": 250,
+    "patience": 4,
+    "min_daily_anchors": 18,
+    "cf_source": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\external\\cf-jepa-vnext",
+    "cf_width": 256,
+    "cf_latent": 128,
+    "cf_blocks": 5,
+    "cf_lr": 0.00034,
+    "cf_weight_decay": 0.05,
+    "selection_policy": "train_only_frozen_probe_per_candidate_daily_dev_patience4",
+    "inference_replay_atol_db": 2e-05,
+    "inference_replay_rtol": 1e-05
+  },
+  "selected_pretrain_step": 1500,
+  "selected_daily_dev_pinball": 0.7145854497680474,
+  "inference_sha256": "556c69fe366713d11e64023fe1a4460ec235a7381e4065d263edc7fed3b2b113"
+}

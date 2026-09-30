@@ -1,0 +1,24 @@
+{
+  "status": "COORDINATOR_OBSERVED_EXECUTION_COMPLETION",
+  "coordinator_session_id": "01a0ef1a-b166-7f83-91b7-2a2aff7c1b10",
+  "command": ".venv/Scripts/python.exe -B -m marine_echo.evaluation.native_comparison --manifest orchestration/native_development_comparison_v2.json --review evidence/ssl-research-v1/development-comparison-v2-review-final.json --output evidence/ssl-research-v1/development-comparison-result-v2.json",
+  "all_admission_bindings_verified_before_execution": 150,
+  "execution_observation": {
+    "source": "coordinator write_stdin completion tool response",
+    "exec_session_id": 55183,
+    "completion_chunk_id": "b63338",
+    "exit_code": 0
+  },
+  "empty_log_is_independent_exit_proof": false,
+  "independent_process_exit_observation": "NOT_RUN",
+  "independent_numerical_reconstruction": "SEPARATE_REVIEW",
+  "bindings": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_development_comparison_v2.json": "63f87058bcabe9f9ab65f1676fd3c3a470a87ecd09ac9b5b47e7422742a508b2",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\development-comparison-v2-review-final.json": "346e69704236a61efd54cacf2000dd58793f822b03127a4ef62de729c86e5559",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\development-comparison-result-v2.json": "7a22604fb183c84c93ec4479ea57e703cdacf4fececa9c3e346170515c4384b7",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\development-comparison-execution-v2.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "methods": 20,
+  "final_numeric_access": "NOT_RUN",
+  "fitting": false
+}

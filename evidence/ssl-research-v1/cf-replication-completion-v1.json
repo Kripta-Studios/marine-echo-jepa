@@ -1,0 +1,74 @@
+{
+  "status": "VERIFIED_TWO_REAL_CF_REPLICATIONS",
+  "queue_sha256": "9cebf71ad6845867c9d04c4bc09a673e7ae9ca2321bd4a9cb6750cd8b8affdf3",
+  "actual_coordinator_exit_code": 0,
+  "coordinator_exit_witness": "Root write_stdin session41887 completion chunk5c9c79; queue ledger independently confirms both child exits/cleanup",
+  "runs": [
+    {
+      "seed": 13,
+      "id": "cf_jepa_seed13_h96_replication",
+      "run_sha256": "6f1d512ad39bfa33abb24eaabeb10044b8ff17318b219bef495e0ba5ad75b171",
+      "selected_pretrain_step": 1500,
+      "short_probe_development_pinball_db": 0.9251928324563993,
+      "inference_sha256": "fa7250e1c7f988431b9032ed65eceea8021b8de96d037f5d935203f1c4bb8df3",
+      "resources_full_attempt": {
+        "exit_code": 0,
+        "stopped_for": null,
+        "peak_process_rss_bytes": 5275492352,
+        "elapsed_full_attempt_seconds": 4816.141000000003,
+        "poll_seconds": 0.1,
+        "rss_limit_bytes": 23622320128,
+        "deadline_seconds": 324980.68808987096,
+        "owned_process_pids": [
+          33696,
+          50956,
+          59440
+        ],
+        "peak_each_process_rss_bytes": {
+          "59440": 5562368,
+          "33696": 5237133312,
+          "50956": 32796672
+        },
+        "peak_definition": "Conservative sum of each owned process OS peak working set; sampled RSS fallback",
+        "owned_tree_cleanup_verified": true
+      },
+      "strong_endpoints": "NOT_RUN",
+      "test_values_opened": false
+    },
+    {
+      "seed": 23,
+      "id": "cf_jepa_seed23_h96_replication",
+      "run_sha256": "a1a78900b5e9eb6a02284686900a73282290b4d7717cd703bbb8d8ec001e77c2",
+      "selected_pretrain_step": 1500,
+      "short_probe_development_pinball_db": 0.7145854497680474,
+      "inference_sha256": "556c69fe366713d11e64023fe1a4460ec235a7381e4065d263edc7fed3b2b113",
+      "resources_full_attempt": {
+        "exit_code": 0,
+        "stopped_for": null,
+        "peak_process_rss_bytes": 5164027904,
+        "elapsed_full_attempt_seconds": 4927.937000000005,
+        "poll_seconds": 0.1,
+        "rss_limit_bytes": 23622320128,
+        "deadline_seconds": 320164.54708987096,
+        "owned_process_pids": [
+          30884,
+          51684,
+          60776
+        ],
+        "peak_each_process_rss_bytes": {
+          "30884": 5443584,
+          "60776": 5125787648,
+          "51684": 32796672
+        },
+        "peak_definition": "Conservative sum of each owned process OS peak working set; sampled RSS fallback",
+        "owned_tree_cleanup_verified": true
+      },
+      "strong_endpoints": "NOT_RUN",
+      "test_values_opened": false
+    }
+  ],
+  "all_seeds_preserved": true,
+  "seed_selection": "NONE",
+  "scientific_claim": "NOT_ESTABLISHED",
+  "public_final_numeric_access": "NOT_RUN"
+}

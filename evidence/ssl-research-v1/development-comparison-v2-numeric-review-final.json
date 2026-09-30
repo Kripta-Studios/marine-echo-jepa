@@ -1,0 +1,513 @@
+{
+  "status": "VERIFIED_SAVED_DEVELOPMENT_RECONSTRUCTION",
+  "reviewer_session_id": "01a0ef27-876b-7692-917e-3975afc6893d",
+  "implementer_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "builder_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "coordinator_session_id": "01a0ef1a-b166-7f83-91b7-2a2aff7c1b10",
+  "runtime": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "sandbox_mode": "read-only"
+  },
+  "allowed_roles": ["development"],
+  "evidence_kind": "REVIEWED_SAVED_PREDICTIONS",
+  "binding_verification": {
+    "approval_path": "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/evidence/ssl-research-v1/development-comparison-v2-review-final.json",
+    "approval_sha256": "346e69704236a61efd54cacf2000dd58793f822b03127a4ef62de729c86e5559",
+    "original_bindings": 150,
+    "verified_before_successful_decoding": 150,
+    "verified_again_after_reconstruction": 150,
+    "mismatches": [],
+    "original_binding_map_sha256": "ae82494da79fc4e2da150829428bbc74f799a7efc63fd87f32178281cd441fb0",
+    "map_canonicalization": "UTF8 JSON.stringify of the original mapping sorted by path using JavaScript localeCompare.",
+    "inheritance": "All 150 exact original bindings, including configurations, membership and ancestry evidence, remain incorporated through the immutable hash-bound admission review. None were replaced.",
+    "result_sha256": "7a22604fb183c84c93ec4479ea57e703cdacf4fececa9c3e346170515c4384b7",
+    "result_provenance_bindings_verified_against_admission": 26,
+    "reviewer_identity_matches_admission_and_result": true
+  },
+  "independent_numerical_method": {
+    "execution_route": "Persistent node_repl JavaScript; node:fs/promises read-only access, node:zlib in-memory ZIP decompression and node:crypto hashing.",
+    "artifact_decoder": "Independent ZIP central-directory and C-order NPY parser. Only the twenty explicitly admitted prediction files were decoded; no pickle or model execution.",
+    "metric_implementation": "Independent JavaScript Number arithmetic using max(q*(target-prediction),(q-1)*(target-prediction)), averaged across five quantiles.",
+    "aggregation": "Observed rows averaged within each eligible source date and horizon; equal eligible-date weighting, then equal horizon weighting, then equal deployment weighting.",
+    "quantiles": [0.05, 0.25, 0.5, 0.75, 0.95],
+    "minimum_daily_observed_rows": 18,
+    "bootstrap_rng": "Independent JavaScript SeedSequence, BigInt PCG64 and bounded-integer implementation; checked against installed NumPy known-answer fixtures.",
+    "implementation_modules_invoked": [],
+    "python_or_numpy_executed": false,
+    "torch_imported": false,
+    "corpus_decoding": false,
+    "inference_or_fitting": false,
+    "independent_decoder_rng_percentile_function_source_sha256": "f3deafa21c7e5ff11c6bab1c1e085b03078a64438880b877f5f0d20071638b27",
+    "function_hash_scope": "unzipNPZ, npy, seedSequence, PCG, raw, uint32, bounded and percentile function strings; the hash does not include the inline metric loops.",
+    "prior_execution_correction": "The inspected earlier eight-method review records actual Python/NumPy execution. This expanded review independently used JavaScript; it does not relabel the earlier execution route."
+  },
+  "common_support": {
+    "methods": 20,
+    "issued_rows_per_method": 7593,
+    "unique_row_ids_per_method": 7593,
+    "deployments": ["AEON4_JOB:61937266"],
+    "horizons_source_intervals": [1, 3, 6],
+    "observed_targets_per_horizon": [7581, 7557, 7521],
+    "rows_contributing_after_daily_floor_per_horizon": [7572, 7548, 7512],
+    "eligible_source_dates_per_horizon": [316, 316, 316],
+    "daily_records_per_method": 948,
+    "daily_records_independently_compared": 18960,
+    "observed_source_dates": 318,
+    "source_date_range": ["2022-12-16", "2023-12-16"],
+    "native_query": {
+      "nominal_frequency_hz": 38000,
+      "nominal_interval_seconds": 3600,
+      "integrated_upper_m": 0,
+      "integrated_lower_m": 225,
+      "source_clock_verified": false,
+      "float_encoding": "Queries exactly match across artifacts; normalized float32 fields match the declared native product within encoding tolerance."
+    },
+    "independently_verified": [
+      "Exact common unique deployment/row identities after canonical ordering.",
+      "Every target-observation mask and target source date.",
+      "Every observed target value.",
+      "Every query field and its agreement with the output support.",
+      "All forecasts finite, including forecasts whose targets are unobserved.",
+      "All observed targets finite.",
+      "All five forecast quantiles ordered.",
+      "Output observed-target values and null representation for unobserved targets.",
+      "No support intersection, forecast filtering, target filling or depth rescaling."
+    ],
+    "coverage_caveat": "scored_per_horizon in the machine-readable metric reports all observed targets. Nine observed rows per horizon fall below the daily floor and do not contribute to the primary score. The Markdown report correctly distinguishes these counts."
+  },
+  "independently_reconstructed_metrics_db": {
+    "cf_jepa_frozen_readout": {
+      "primary": 0.6144220773212318,
+      "horizons": [0.6104111579973049, 0.6140894333018538, 0.6187656406645363],
+      "endpoint": "Fresh 2000-update frozen readout"
+    },
+    "cf_jepa_full_finetune": {
+      "primary": 0.5418137443976551,
+      "horizons": [0.5036217788756822, 0.5399203236610364, 0.5818991306562464],
+      "endpoint": "3000-update full fine-tuning"
+    },
+    "cf_short_probe": {
+      "primary": 0.7457265899039339,
+      "horizons": [0.7464925133178176, 0.743133757920636, 0.7475534984733482],
+      "endpoint": "Historical selected 500-update probe"
+    },
+    "chronos2_zero_shot": {
+      "primary": 0.5069155334881197,
+      "horizons": [0.45118555423776463, 0.5204591800514087, 0.5491018661751859],
+      "endpoint": "Local zero-shot development inference"
+    },
+    "direct_end_to_end": {
+      "primary": 0.7651851961000803,
+      "horizons": [0.7391457424752544, 0.7679996490377918, 0.7884101967871945],
+      "endpoint": "Fresh 3000-update supervised endpoint"
+    },
+    "direct_frozen_readout": {
+      "primary": 0.7761180717069437,
+      "horizons": [0.7561483144563313, 0.7765401076480095, 0.79566579301649],
+      "endpoint": "Fresh 2000-update readout of supervised features"
+    },
+    "direct_short_probe": {
+      "primary": 0.7892788713183306,
+      "horizons": [0.7697584969130072, 0.7857835297242505, 0.8122945873177341],
+      "endpoint": "Historical selected 500-update probe of supervised features"
+    },
+    "lightgbm": {
+      "primary": 0.505273550093668,
+      "horizons": [0.455477379574593, 0.5179512223748178, 0.5423920483315933],
+      "endpoint": "Original fixed 15-booster recipe"
+    },
+    "masked_ssl_frozen_readout": {
+      "primary": 0.7868420374014639,
+      "horizons": [0.7721943992287755, 0.7842252925377858, 0.8041064204378305],
+      "endpoint": "Fresh 2000-update frozen readout; non-JEPA masked SSL"
+    },
+    "masked_ssl_full_finetune": {
+      "primary": 0.691806105257831,
+      "horizons": [0.6465445224649641, 0.6931646307654378, 0.7357091625430915],
+      "endpoint": "3000-update full fine-tuning"
+    },
+    "masked_ssl_short_probe": {
+      "primary": 0.8066704058455189,
+      "horizons": [0.7789567456427372, 0.8034751319784655, 0.8375793399153539],
+      "endpoint": "Historical selected 500-update probe"
+    },
+    "permuted_ssl_frozen_readout": {
+      "primary": 0.8546904550593766,
+      "horizons": [0.8434373934280768, 0.8550039744262169, 0.8656299973238364],
+      "endpoint": "Fresh 2000-update frozen readout; permuted pairing control"
+    },
+    "permuted_ssl_short_probe": {
+      "primary": 0.8954741911757145,
+      "horizons": [0.8894512399531922, 0.8940497375411252, 0.9029215960328261],
+      "endpoint": "Historical selected 500-update pairing-control probe"
+    },
+    "persistence": {
+      "primary": 0.9891759561557132,
+      "horizons": [0.7976108060541822, 1.0106497648036796, 1.1592672976092775]
+    },
+    "random_frozen_frozen_readout": {
+      "primary": 0.8128680383925366,
+      "horizons": [0.8134026274744948, 0.8096228004550992, 0.815578687248016],
+      "endpoint": "Fresh 2000-update readout; zero encoder updates"
+    },
+    "random_frozen_short_probe": {
+      "primary": 0.8826586601474803,
+      "horizons": [0.8926701568879241, 0.8795310446639746, 0.8757747788905422],
+      "endpoint": "Single 500-update readout; zero encoder updates"
+    },
+    "seasonal24": {
+      "primary": 1.0317384665658718,
+      "horizons": [1.031733084109875, 1.0318264597650757, 1.0316558558226645]
+    },
+    "shared_frozen_readout": {
+      "primary": 0.7857153104554978,
+      "horizons": [0.7705425206592731, 0.781955662776793, 0.8046477479304275],
+      "endpoint": "Fresh 2000-update frozen readout"
+    },
+    "shared_full_finetune": {
+      "primary": 0.7725943368134388,
+      "horizons": [0.7384341127875531, 0.7748189541832234, 0.8045299434695397],
+      "endpoint": "3000-update full fine-tuning"
+    },
+    "shared_short_probe": {
+      "primary": 0.8246468454704815,
+      "horizons": [0.8030128647064722, 0.8172910151228696, 0.8536366565821029],
+      "endpoint": "Historical selected 500-update probe"
+    }
+  },
+  "reconstruction_discrepancies": {
+    "maximum_primary_score_error_db": 6.661338147750939e-16,
+    "maximum_daily_loss_error_db": 8.881784197001252e-16,
+    "maximum_completed_source_report_point_error_db": 6.661338147750939e-16,
+    "maximum_bounded_summary_point_error_db": 6.661338147750939e-16,
+    "maximum_paired_interval_endpoint_error_db": 4.163336342344337e-16,
+    "maximum_markdown_six_decimal_rounding_error_db": 4.89435676431782e-7,
+    "support_or_identity_mismatches": 0,
+    "interpretation": "Score and interval discrepancies are floating-point summation rounding; Markdown discrepancies are within six-decimal rounding."
+  },
+  "bootstrap": {
+    "verification": "Independently regenerated draws and recomputed intervals from artifact-derived daily losses.",
+    "seed": 20260929,
+    "generated_replicates": 2000,
+    "supported_replicates": 2000,
+    "unsupported_replicates": 0,
+    "status": "ASSESSABLE",
+    "block_source_calendar_days": 2,
+    "nominal_block_hours": 48,
+    "deployment_count": 1,
+    "independent_site_count": null,
+    "anchor_source_date": "2022-12-16",
+    "observed_calendar_blocks": 165,
+    "calendar_block_id_range": [0, 182],
+    "unsampled_empty_calendar_block_ids": [8, 9, 24, 38, 53, 54, 68, 69, 84, 99, 114, 115, 130, 145, 160, 161, 175, 176],
+    "eligible_day_count_ranges_per_horizon": [[299, 328], [299, 328], [299, 328]],
+    "sequence_sha256": "f40aa16237c3842ed32053289479ad4a5101bec33919e639d59b42c649283026",
+    "sequence_matches_v2_and_prior_verified_v1": true,
+    "per_block_horizon_day_counts_match_output": true,
+    "rng_checks": {
+      "SeedSequence_known_answers": 2,
+      "PCG64_initial_state_known_answer": true,
+      "PCG64_raw_known_answer_values": 1000
+    },
+    "pairing": "Identical deployment/block draws applied to all twenty methods and horizons. Repeated blocks retain multiplicity; missing calendar gaps are preserved.",
+    "percentiles": [2.5, 97.5],
+    "percentile_method": "linear",
+    "difference_direction": "method_minus_lightgbm",
+    "independently_reconstructed_ci95_db": {
+      "cf_jepa_frozen_readout": [0.09459767319914726, 0.12681620296345833],
+      "cf_jepa_full_finetune": [0.02814473051363667, 0.04447568581758208],
+      "cf_short_probe": [0.2085548482941873, 0.2791036293704758],
+      "chronos2_zero_shot": [-0.008968180356078399, 0.011137769517752315],
+      "direct_end_to_end": [0.23131253858438144, 0.2922709959777743],
+      "direct_frozen_readout": [0.23860087204192268, 0.30793346059743165],
+      "direct_short_probe": [0.2505404894356764, 0.32294067166152307],
+      "masked_ssl_frozen_readout": [0.261033307398831, 0.30269000634832927],
+      "masked_ssl_full_finetune": [0.16703584933542662, 0.20728391697185725],
+      "masked_ssl_short_probe": [0.27101913803684824, 0.3330792358936189],
+      "permuted_ssl_frozen_readout": [0.32578016941433663, 0.37379573744992023],
+      "permuted_ssl_short_probe": [0.36206199981836074, 0.41985814402068794],
+      "persistence": [0.46248703733068336, 0.5041576629911011],
+      "random_frozen_frozen_readout": [0.28110103541912346, 0.33826453002257323],
+      "random_frozen_short_probe": [0.3450479071984297, 0.4147476575215573],
+      "seasonal24": [0.49963420107620654, 0.5543650601625816],
+      "shared_frozen_readout": [0.2565263174206865, 0.30447878329190725],
+      "shared_full_finetune": [0.2387174495695159, 0.29920891631130797],
+      "shared_short_probe": [0.297392839784984, 0.34223147153876315]
+    },
+    "individual_method_intervals": "Independently computed for all twenty methods. The comparison output contains no individual-method interval fields to compare; its nineteen paired difference intervals were all checked."
+  },
+  "matched_endpoint_differences": {
+    "direction": "first_endpoint_minus_second_endpoint; negative favours the first",
+    "shared_frozen_minus_random_frozen": {
+      "difference_db": -0.027152727937038823,
+      "ci95_db": [-0.062203440674144926, 0.0013345918796090982]
+    },
+    "shared_frozen_minus_permuted_frozen": {
+      "difference_db": -0.06897514460387877,
+      "ci95_db": [-0.09258893129825772, -0.04919001607847065]
+    },
+    "shared_frozen_minus_masked_frozen": {
+      "difference_db": -0.00112672694596605,
+      "ci95_db": [-0.03218142828463976, 0.02979748627034124]
+    },
+    "shared_frozen_minus_supervised_direct_frozen": {
+      "difference_db": 0.009597238748554116,
+      "ci95_db": [-0.017781533864567683, 0.0342725237796038]
+    },
+    "shared_full_minus_scratch_direct": {
+      "difference_db": 0.00740914071335852,
+      "ci95_db": [-0.014872849580635745, 0.03069310593316188]
+    },
+    "shared_full_minus_masked_full": {
+      "difference_db": 0.08078823155560777,
+      "ci95_db": [0.05336744812685457, 0.10814993396889253]
+    },
+    "shared_short_minus_random_short": {
+      "difference_db": -0.058011814676998785,
+      "ci95_db": [-0.09091281120932462, -0.03053857108778963]
+    },
+    "shared_short_minus_permuted_short": {
+      "difference_db": -0.07082734570523297,
+      "ci95_db": [-0.09372129667806096, -0.051144051997335946]
+    },
+    "shared_short_minus_masked_short": {
+      "difference_db": 0.017976439624962648,
+      "ci95_db": [-0.020762288483040865, 0.05512430607275636]
+    },
+    "shared_short_minus_direct_short": {
+      "difference_db": 0.03536797415215087,
+      "ci95_db": [0.004437338856753928, 0.06330191275264958]
+    },
+    "interpretation": "Conditional descriptive comparisons, without multiplicity adjustment or correction for checkpoint selection. These are not causal objective-isolation estimates."
+  },
+  "constant_forecast_checks": {
+    "methods_checked": 20,
+    "quantile_horizon_series_checked": 300,
+    "all_series_have_positive_issuance_range": true,
+    "constant_methods": [],
+    "maximum_reported_range_error_db": 0,
+    "standard_deviation_check": "Independent float64 standard deviations were also computed. Their maximum difference from dtype-preserving reported diagnostics is 0.000005856590917563409 dB; this does not affect ranges, constant flags, scores or intervals.",
+    "interpretation": "Forecast variation establishes nonconstant outputs, not useful latent geometry."
+  },
+  "executed_checks": [
+    {
+      "command": "mcp__node_repl__js: read-only SHA256 streaming verification of every admission binding",
+      "status": "COMPLETED",
+      "exit_code": null,
+      "result": "150/150 matched before decoding and 150/150 matched after reconstruction; actual reviewer identity verified."
+    },
+    {
+      "command": "mcp__node_repl__js: initial independent ZIP/NPY decoder with timeout_ms=10000",
+      "status": "TIMED_OUT",
+      "exit_code": null,
+      "result": "Tool timeout reset the in-memory kernel. No filesystem permission denial or subprocess operation occurred."
+    },
+    {
+      "command": "mcp__node_repl__js: restored state, reverified all150 bindings, independently decoded twenty admitted NPZ artifacts with timeout_ms=60000",
+      "status": "COMPLETED",
+      "exit_code": null,
+      "result": "Twenty saved development artifacts decoded in memory; no corpus arrays, inference or fitting."
+    },
+    {
+      "command": "mcp__node_repl__js: Independent twenty-method pinball and exact common-support reconstruction",
+      "status": "COMPLETED",
+      "exit_code": null,
+      "result": "All twenty point scores, 18960 daily records, masks, observed targets, dates, row identities and queries independently checked."
+    },
+    {
+      "command": "mcp__node_repl__js: Independent standard SeedSequence and PCG64 known-answer checks",
+      "status": "COMPLETED",
+      "exit_code": null,
+      "result": "Two SeedSequence answers, one PCG64 initial-state answer and1000 raw PCG64 values matched installed fixtures."
+    },
+    {
+      "command": "mcp__node_repl__js: Reproduce exact paired calendar-block draws independently",
+      "status": "COMPLETED",
+      "exit_code": null,
+      "result": "Exact f40aa162 draw-sequence hash;165 blocks,18 calendar gaps,2000 supported draws and299–328 eligible-day ranges reproduced."
+    },
+    {
+      "command": "mcp__node_repl__js: Independently recompute all nineteen paired intervals",
+      "status": "COMPLETED",
+      "exit_code": null,
+      "result": "All nineteen reported interval pairs reproduced; maximum endpoint discrepancy4.163336342344337e-16 dB."
+    },
+    {
+      "command": "mcp__node_repl__js: Independent nonconstant forecast checks and completed source reports",
+      "status": "COMPLETED",
+      "exit_code": null,
+      "result": "Every quantile/horizon series varies; all twenty completed report scores and rounded Markdown numerical statements checked."
+    },
+    {
+      "command": "mcp__node_repl__js: Verify complete output support and matched endpoint differences",
+      "status": "COMPLETED",
+      "exit_code": null,
+      "result": "Full output support matches artifact-derived support; additional within-budget endpoint differences computed from the same paired draws."
+    }
+  ],
+  "inspected_evidence": {
+    "root_reconstruction": "Completed v2 result, summary and Markdown inspected; numerical contents independently reconstructed.",
+    "root_exit_status": "Coordinator reports actual exit0. The bound execution log is empty and independently supplies no exit-status evidence.",
+    "source_reports": "All twenty completed run/result reports inspected; primary scores agree within floating-point rounding.",
+    "synthetic_suite": "Retained parent log reports82 passed in34.59s. Inspected only, not rerun.",
+    "previous_reconstruction": "Immutable eight-method numerical review inspected; its exact sequence hash agrees with this independent regeneration.",
+    "historical_approvals": "All admission-bound historical reviews and ancestry evidence preserved and byte-verified."
+  },
+  "not_run": [
+    {
+      "check": "Optional Python subprocess admission or numerical checks",
+      "reason": "Prior direct spawning returned EPERM. No subprocess was launched or denied route retried during this task."
+    },
+    {
+      "check": "Durable reviewer evidence-file creation",
+      "reason": "Read-only scope; no write attempted. Checked computations are returned in this JSON."
+    },
+    {
+      "check": "Training, model inference, corpus decoding, final-test access or newly unbound controls",
+      "reason": "Outside this review's authorization."
+    }
+  ],
+  "findings": [
+    {
+      "severity": "information",
+      "finding": "All twenty saved development point metrics, daily losses, exact common support and nineteen paired difference intervals are independently verified."
+    },
+    {
+      "severity": "interpretation_limit",
+      "finding": "Shared frozen's3.340361% lower point loss than random frozen is correctly reported as a development observation. Its conditional paired interval includes zero; it is not proof of representation benefit."
+    },
+    {
+      "severity": "interpretation_limit",
+      "finding": "Shared frozen and masked frozen have closely spaced points and an interval spanning zero. Supervised frozen features have a lower point loss than shared frozen, also with a conditional interval spanning zero."
+    },
+    {
+      "severity": "interpretation_limit",
+      "finding": "Shared full fine-tuning does not improve the point score over matched scratch direct. Masked full has a lower point score than shared full in this matrix."
+    },
+    {
+      "severity": "interpretation_limit",
+      "finding": "Original fixed LightGBM is the lowest development point. Chronos's difference interval against LightGBM spans zero. All other reported method-minus-LightGBM intervals are positive in this conditional reconstruction."
+    },
+    {
+      "severity": "interpretation_limit",
+      "finding": "CF128-dimensional features and18565 head parameters differ from shared64-dimensional features and5189 head parameters. Cross-architecture controls do not isolate the CF SSL objective."
+    },
+    {
+      "severity": "information",
+      "finding": "The inspected report correctly separates500-step selected probes,2000-step fresh frozen readouts and3000-step full/scratch endpoints; its six-decimal table and coverage prose agree with independent calculations."
+    },
+    {
+      "severity": "evidence_limit",
+      "finding": "The empty reconstruction execution log cannot corroborate the reported root exit code. This does not prevent independent verification of the bound completed result."
+    }
+  ],
+  "bindings": {
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/orchestration/native_development_comparison_v2.json": "63f87058bcabe9f9ab65f1676fd3c3a470a87ecd09ac9b5b47e7422742a508b2",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/evidence/ssl-research-v1/development-comparison-v2-review-final.json": "346e69704236a61efd54cacf2000dd58793f822b03127a4ef62de729c86e5559",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/evidence/ssl-research-v1/development-comparison-result-v2.json": "7a22604fb183c84c93ec4479ea57e703cdacf4fececa9c3e346170515c4384b7",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/evidence/ssl-research-v1/development-comparison-summary-v2.json": "dcd0ba877bb40b5a057a9c82f303a8b5c16a14c0345c137d5cc93e15c1125096",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/evidence/ssl-research-v1/development-comparison-execution-v2.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/evidence/ssl-research-v1/NATIVE_SSL_DEVELOPMENT_COMPARISON_V2.md": "b3b38e24ebe58139fd5242ba0bfcbfc416a450667856690adc2e4fa87bdf4332",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/evidence/ssl-research-v1/development-numeric-and-budget-review-final.json": "f3b0fe5bc94e966d6365bb12434f01000efa20d3c6f9e6f451f24c1ebbc48cc7",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/evidence/ssl-research-v1/development-numeric-and-budget-review-events.jsonl": "dbe47fff6c65195658957fb1020911cdaaf38c5a50c2bc2699091264e2918cbf",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/evidence/ssl-research-v1/comparison-parent-cpu-tests.log": "11f0c40a243058c86f375c36baf44ad9af425a09a8c02f91f486586c265153ae",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/docs/adr/0015-native-acoustic-ssl-research.md": "82deb36e88df2a6660a2389a653d077a186e5072fbb4ede11d9fbc06c9816148",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/docs/adr/0016-native-ssl-selection-and-source-baseline.md": "1e42b3aec76e6673e014ddc4894667ff7bcd786be0f59c84d33fa9d4b4ae7b1d",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/docs/adr/0018-native-acoustic-downstream-transfer.md": "124e3a5834b45e52d1e70e7aff3fe5a6500b55b49abd5fac6df35a0f35ede91d",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/src/marine_echo/__init__.py": "3fcc1878588f5a89775363e099fab7d7323acebccae26d10db4a6da627425b68",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/src/marine_echo/evaluation/__init__.py": "dddaccd3cb0c952e88796d75e7a15966cfab87f98c2cfe8452a5fff4c3138c68",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/src/marine_echo/evaluation/native_comparison.py": "51c5374e188bd3c7f2b00d5f1b5887f33b456c291cb0290e8b8e020ff28df020",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/src/marine_echo/evaluation/native_product.py": "fd1c643fde93494a21d560794f886056e58031f1ef6dd41ebe53662750bab314",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/tests/unit/test_native_comparison.py": "b81927eb163364dfd89472eb95ccb4550d03eb9d0917f6179eafabf32ebec4e8",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/tools/prepare_native_development_comparison_v2.py": "836aaceb5573c67ee6c076575dc59ebc06e4a397ef2221d86f4efa4c1366b6e1",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/src/marine_echo/training/__init__.py": "c98c60178f566d43dd60641704ccd9c652d406487b4838cbf5a9df49ea5dd735",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/src/marine_echo/training/native_ssl.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/src/marine_echo/training/native_downstream.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/src/marine_echo/training/native_references.py": "0d6583644ab1fce8d87a4194048f2176237b47deb57f0fa8494df6aa9012d584",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/src/marine_echo/training/native_chronos.py": "22bea6321b68e7a71158225171b380c3816de98f3dfbce9604d2da43b00f1aec",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/src/marine_echo/training/native_resources.py": "c9ca3fbd0759ae00824774ed61a08185361234430d5ed63f09fa3885545c7c38",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/src/marine_echo/models/__init__.py": "5bdc97a6119b2dd3d519df36406c8bcb9e801be81c8b6c3f44e4a527db1f87a3",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/src/marine_echo/models/native_temporal.py": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/src/marine_echo/models/sigreg.py": "2cf5dc8e6fc610fbe167339a8750f5e2d9ddf9a48f416717b8310500536469a3",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/src/marine_echo/data/native_ssl_corpus.py": "ebda9d460fa14df749b8f774bcb02a6622f0d69402443098a6100670a4c8f7ba",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/src/marine_echo/training/aeon_corpus.py": "398e021a5807ab8068ceef03dd692f3b688c744751cd4e65d3efbee94d9a3efd",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/src/marine_echo/inference/native_encoder.py": "6cc07a15ea93427d6628f1b317945f6e38ff3008894a31cab2173c0b666c0f7f",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/evidence/ssl-research-v1/ancestor-source/native_temporal_shared_screen_v1.py": "85c4af6c67acb661359cde8bcf22de479e4da6a499cc7843bce0fee6c155e422",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/evidence/ssl-research-v1/source-pins.json": "e07cad3e7cd8d6df68ea4e84a1e3ac905dfbcc08997e5e5e9037605327622d8b",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/.venv/Lib/site-packages/numpy/random/tests/test_seed_sequence.py": "e1557c7e0a1399f0ab05d164a61ca7a5a579bbd89d534160d230729486ea809a",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/.venv/Lib/site-packages/numpy/random/tests/test_direct.py": "901e266f2c4e3b7e6310a9b9d10b77687039cb77b311d32e5f93ee33944f8bff",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/.venv/Lib/site-packages/numpy/random/tests/data/pcg64-testset-1.csv": "c07a12edf211de130476d6bb32d27c1292165fe070d727d2695c620b5e6fc55b",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/cf_jepa_frozen_readout_seed7_h96/predictions.npz": "1e0e8e0d26a9152302330893c4314fd6580808bf6208a378d1e0748c46e6ca27",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/cf_jepa_frozen_readout_seed7_h96/run.json": "1401d1fde10bf2fa444eea9d96c7849057508abe60e5a30d8ec69576dd3a17f8",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/cf_jepa_full_finetune_seed7_h96/predictions.npz": "46a6f95aa68deb98e14e99fdd1e6970409fd80f4dfa5567f6d489f2342aab01c",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/cf_jepa_full_finetune_seed7_h96/run.json": "ffabc985cc66871b131f4d04296313583bcc53a358c1fd6b588deea721aece0c",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/cf_jepa_seed7_h96_deterministic/predictions.npz": "8023943165bc9ddd798a510d07eee72b85ba7d10a64b028b0dcdd69b8b82475d",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/cf_jepa_seed7_h96_deterministic/run.json": "0c0865b9c8d605a6a5e8e57870d9e32168a3ac22152acd200a06fc88550fab62",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/chronos2_h96_local/predictions.npz": "09885400b11480bf54ce058297d5c4d6ace7bd7870d7d45be9570dbe136fb91f",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/chronos2_h96_local/result.json": "dcfc446639865cf416aae1f7cdb493cc7e58e5e57bf617eae9cc3e1f863f08ab",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/direct_direct_end_to_end_seed7_h96/predictions.npz": "0bd5fa9e617dac6d5a90e1cc66d9e59beb8ed9342cb9745f292f4dda83eb882e",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/direct_direct_end_to_end_seed7_h96/run.json": "d549a5606ecfc7aee9f2ecdbee9a1904563019873f589097aa59fc318a839a95",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/direct_frozen_readout_seed7_h96/predictions.npz": "49f66fef650a5795819688c8ab6248d90b60f03e90b9bc1466078241ed49d85a",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/direct_frozen_readout_seed7_h96/run.json": "bfc33d9cfcb7c760cc84b9d3371a3da5360750c4d9b7f8f514670b1693856762",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/direct_seed7_h96_reviewed/predictions.npz": "56d1f44a40742af7921246a8a5566fa01c220fe1cd6c58693f803b8a1a20ab12",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/direct_seed7_h96_reviewed/run.json": "fe0a25d8204f3472f541d218a0e3d1bc66dc9a2feee59379e24772f8ea3a2d39",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/lightgbm_seed7_h96_text/predictions.npz": "da01b65ffc5baba0b6e41170c44a9a21910d3216b86070bc84b8e0080044a016",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/lightgbm_seed7_h96_text/result.json": "22db397302933318633d255a7d544edca4d5c43e294646eb1e339a8199e38ca3",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/masked_ssl_frozen_readout_seed7_h96/predictions.npz": "d063ec20ddbccb402c5920f7275e284390b2c6c654c6094beba3c2af225aa4b9",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/masked_ssl_frozen_readout_seed7_h96/run.json": "6949de4a1224b98f53b4ed8a6b9063adcba39d6d4e75577bf355d7d1d9caa466",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/masked_ssl_full_finetune_seed7_h96/predictions.npz": "2771b27e5995da47e91d9d16335269809b100e3e4fa759ec6fc74726994ada3d",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/masked_ssl_full_finetune_seed7_h96/run.json": "6ee16b9829a73fe79b4c704380675e13c5ba4b7833e122848b3d1bf8b0f70a9c",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/masked_ssl_seed7_h96_reviewed/predictions.npz": "d60f41bc64cd3844a53c6027b49227eb92cea3f6f6998331636a77a5f26f173d",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/masked_ssl_seed7_h96_reviewed/run.json": "4e20b2f964a3a124ca003677b6451379efd71815ae983a152ce0fdd3ac573c88",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/permuted_ssl_frozen_readout_seed7_h96/predictions.npz": "353a81488ddbbd38814851e178e04d0c5c4e9d6b8ecd61298a55e2afaac6efc5",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/permuted_ssl_frozen_readout_seed7_h96/run.json": "dbbd48a7f4d95fc240b437cda70d66647e61141ca5dea3a276210d05cf85f717",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/permuted_ssl_seed7_h96_reviewed/predictions.npz": "19dcb9f9295a1a93b208eb13cc0ba3a5a24221baee107ea7b9fc134f51ba8b2d",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/permuted_ssl_seed7_h96_reviewed/run.json": "c41df963dae1caca50e969b11f12abb9eb7797637bd4518c5305b776dd7f9349",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/persistence_h96/predictions.npz": "3ad9c7cbc42317cdc8e71d35ad691913d704e97cf88acf320abcce1d8d98d3d4",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/persistence_h96/result.json": "ec012d7a3d995930cbf4e7cb6e4c5a7843e3ac340d721d75ad078a8f4d52f32a",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/random_frozen_frozen_readout_seed7_h96/predictions.npz": "41ce17371cd87915f53f8e2c5351d6c8cd955a11510132153c8c14622fa9530b",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/random_frozen_frozen_readout_seed7_h96/run.json": "42fb8f5586f6bdbbdd5be0d1bca7e5f488b8fa9d64ba5ffd2263d4351724ab8f",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/random_frozen_seed7_h96_reviewed/predictions.npz": "8f8132ee8a423b2967cbd90fb3a1b14240dd4fd9205d53877246c1c1b65f1895",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/random_frozen_seed7_h96_reviewed/run.json": "e9cee48a757c80ecdc8745b74df1c605ddf89b4514103f7679ab941e316457b1",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/seasonal24_h96/predictions.npz": "0b9eff8fc5c8cb79d3cf8f8f15e4eb616e427c0a4f24656e134c89b887377ab9",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/seasonal24_h96/result.json": "bb177e5dc3d761c948b7286ecd8702bd79d620f5c8c81e00c29f4d6caac0a499",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/shared_ssl_frozen_readout_seed7_h96/predictions.npz": "7259f4b0e0c0f7e09ccb4de7afc397dae90595ef5edc0a0b259b81de525a58f1",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/shared_ssl_frozen_readout_seed7_h96/run.json": "5f6f69bb6954fbf4f298c521e3544d1ead1a2496e9b2411e5dde24add825cf6c",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/shared_ssl_full_finetune_seed7_h96/predictions.npz": "508695a681e7155f3c2e1bbba23486ddb741feb3f8206a15f025e454264e83da",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/shared_ssl_full_finetune_seed7_h96/run.json": "6320c8304e7d01624234ab6f5e3cdad0f5fc0322c5d07dac40dbd30d1b2bc62b",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/shared_ssl_seed7_h96_cuda0/predictions.npz": "5d203587d07da9009c4539fda509ee3ce315b715b5a7f3b8beb501a0bebcf2fd",
+    "C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/outputs/native_acoustic_ssl_v1/shared_ssl_seed7_h96_cuda0/run.json": "c4a5453e187b69356acf6d37c44878639dde4d99dc4b82822f356c493a9525b0"
+  },
+  "claim_assessment": {
+    "numerical_report": "VERIFIED within the stated development-only descriptive scope.",
+    "lowest_development_point": "Original fixed LightGBM.",
+    "control_labels": "Masked is genuine non-JEPA SSL; permuted is a pairing control with retained matched initialization/sample provenance; random has zero encoder updates; direct is supervised.",
+    "chronos": "Exact completed local zero-shot development artifact; external pretraining acoustic ancestry remains UNKNOWN. No clean final-site ancestry guarantee.",
+    "fairness": "500-update probes are not matched strong-transfer endpoints. Matching supervised updates does not match total computation, pretraining ancestry or cross-architecture capacity.",
+    "representation_quality": "Not established by correct arithmetic or nonconstant forecasts.",
+    "scientific_claims_not_supported": [
+      "Held-out or cross-site generalization.",
+      "SSL objective causal benefit.",
+      "JEPA value or SOTA.",
+      "Annotation-saving benefit.",
+      "Biological or intervention effects."
+    ],
+    "remaining_work": [
+      "Completed three-seed uncertainty evidence and strong endpoints.",
+      "Frozen pretest selection and separately authorized final assessment.",
+      "Robustness and supported adaptation evidence.",
+      "Independent package and scientific claim review."
+    ],
+    "optional_band_budget": "Unresolved owner clarification remains unchanged."
+  },
+  "residual_risks": [
+    "Intervals condition on a single development deployment and previously selected artifacts; they do not repeat checkpoint selection or correct its optimism.",
+    "The paired intervals are not simultaneously adjusted across the expanded set of comparisons.",
+    "Two-source-calendar-day blocks preserve nominal calendar gaps but do not verify UTC timing or dependence beyond the block assumption.",
+    "Absolute clock, calibration and censoring uncertainties remain unresolved.",
+    "This verifies saved-artifact arithmetic, not the entire scientific pipeline through independently repeated fitting.",
+    "The report correctly remains unverified at its bound historical bytes; the coordinator may record this actual success in new closed evidence without rewriting historical approvals."
+  ],
+  "review_scope": "Verification of exactly the twenty bound seed7 saved DEVELOPMENT artifacts and their v2 reconstruction/report. No new fitting, recipe tuning, finalist selection, band revision, owner-budget interpretation, final-test numerical access, package publication, app/release, cloud/payment, installation, credential, permission, junction or foreign-process action is authorized."
+}
