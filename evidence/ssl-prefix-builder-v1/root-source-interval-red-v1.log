@@ -1,0 +1,156 @@
+FFF.                                                                     [100%]
+================================== FAILURES ===================================
+________ test_native_consecutive_source_intervals_accept_clock_jitter _________
+
+    def test_native_consecutive_source_intervals_accept_clock_jitter():
+        from datetime import datetime, timedelta
+    
+        m = support.metadata()
+        for record in m["intervals"].values():
+            stamp = datetime.fromisoformat(record["timestamp"])
+            record["timestamp"] = (stamp + timedelta(minutes=record["source_interval_index"] % 2)).isoformat()
+        for row in m["rows"]:
+            row["cutoff"] = m["intervals"][row["context_ids"][-1][0]]["timestamp"]
+>       result = prefix.partitions(m, 7)
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\unit\test_native_prefix_transfer.py:19: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+metadata = {'kind': 'native_prefix_raw_intervals_v1', 'complete': True, 'sources': {'synthetic-site': {'deployment': 'synthetic-s... 'synthetic-site-site', 'archive': 'synthetic-site-archive', 'configuration': 'synthetic-site-config', ...}, ...}, ...}
+days = 7
+
+    def partitions(metadata, days):
+        """Metadata-only reservation, independent of values, target masks and holes.
+    
+        Registry entries identify actual source intervals, including missing values.
+        Every 96x4 context slot and each forecast target has a stable raw ID. Both IDs
+        and source-centred timestamps are checked, including cross-channel aliasing.
+        """
+        if (
+            metadata.get("kind") != "native_prefix_raw_intervals_v1"
+            or metadata.get("complete") is not True
+        ):
+            raise ValueError("Complete root-bound raw interval provenance required.")
+        sources, intervals, rows = metadata["sources"], metadata["intervals"], metadata["rows"]
+        if not sources or not intervals or not rows:
+            raise ValueError("Empty interval/source/issuance provenance.")
+        starts = {}
+        for dep, source in sources.items():
+            if (
+                source["deployment"] != dep
+                or source["native_bounds_m"] != [0, 230]
+                or source.get("channel_bounds_m", [None])[0] != [0, 230]
+                or len(source.get("channel_bounds_m", [])) != 4
+            ):
+                raise ValueError("Conflicting deployment or native230 geometry.")
+            if not all(
+                isinstance(source.get(k), str) and source[k]
+                for k in ("site", "archive", "configuration")
+            ):
+                raise ValueError("Stable source/site/archive/configuration required.")
+            starts[dep] = (
+                _timestamp(source["start"]),
+                _timestamp(source["end"]),
+                *boundaries(source["start"], days),
+            )
+            if starts[dep][1] <= starts[dep][-1]:
+                raise ValueError("Frozen source has no declared suffix period.")
+        identity_to_stamp, stamp_to_identity = {}, {}
+        for identity, record in intervals.items():
+            dep = record["deployment"]
+            if dep not in sources or not identity:
+                raise ValueError("Unknown raw source interval.")
+            source = sources[dep]
+            for k in ("site", "archive", "configuration"):
+                if record.get(k) != source[k]:
+                    raise ValueError("Raw interval crosses deployment/site/configuration.")
+            if record.get("pings") not in (150, 180):
+                raise ValueError("165-ping and unknown eligibility remain quarantined.")
+            c = record["channel"]
+            if type(c) is not int or c not in range(4):
+                raise ValueError("Raw interval channel invalid.")
+            if record.get("native_bounds_m") != source["channel_bounds_m"][c]:
+                raise ValueError("Raw interval native geometry mismatch.")
+            stamp = (dep, _timestamp(record["timestamp"]), c)
+            if not starts[dep][0] <= stamp[1] < starts[dep][1]:
+                raise ValueError("Raw interval outside frozen source lifetime.")
+            if stamp in stamp_to_identity and stamp_to_identity[stamp] != identity:
+                raise ValueError("Different IDs alias the same actual raw interval timestamp.")
+            identity_to_stamp[identity], stamp_to_identity[stamp] = stamp, identity
+        fit, suffix, seen, all_used = [], [], set(), set()
+        for row in rows:
+            key = (row["deployment"], row["row_id"])
+            if key in seen:
+                raise ValueError("Duplicate issuance identity.")
+            seen.add(key)
+            dep = row["deployment"]
+            if dep not in sources:
+                raise ValueError("Unknown issuance deployment.")
+            for k in ("site", "archive", "configuration"):
+                if row.get(k) != sources[dep][k]:
+                    raise ValueError("Issuance configuration/source conflict.")
+            cutoff = _timestamp(row["cutoff"])
+            context, targets = row["context_ids"], row["target_ids"]
+            if len(row.get("target_observed", [])) != 3 or any(
+                type(v) is not bool for v in row["target_observed"]
+            ):
+                raise ValueError("Root-bound Boolean three-horizon label support required.")
+            if len(context) != 96 or any(len(v) != 4 for v in context) or len(targets) != 3:
+                raise ValueError("Complete 96x4 context and three raw target IDs required.")
+            for t, slots in enumerate(context):
+                for c, identity in enumerate(slots):
+                    if identity_to_stamp.get(identity) != (dep, cutoff + timedelta(hours=t - 95), c):
+>                       raise ValueError("Context discontinuity, alias or raw-ID overlap.")
+E                       ValueError: Context discontinuity, alias or raw-ID overlap.
+
+src\marine_echo\training\native_prefix_transfer.py:232: ValueError
+_ test_native_interval_proof_rejects_missing_wrong_indices_and_gaps[missing_index] _
+
+damage = 'missing_index'
+
+    @pytest.mark.parametrize("damage", ["missing_index", "wrong_target_index", "large_gap"])
+    def test_native_interval_proof_rejects_missing_wrong_indices_and_gaps(damage):
+        from datetime import datetime, timedelta
+    
+        m = support.metadata()
+        row = m["rows"][0]
+        if damage == "missing_index":
+            del m["intervals"][row["context_ids"][0][0]]["source_interval_index"]
+        elif damage == "wrong_target_index":
+            m["intervals"][row["target_ids"][-1]]["source_interval_index"] += 1
+        else:
+            record = m["intervals"][row["context_ids"][10][0]]
+            record["timestamp"] = (datetime.fromisoformat(record["timestamp"]) + timedelta(minutes=6)).isoformat()
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\unit\test_native_prefix_transfer.py:36: Failed
+_ test_native_interval_proof_rejects_missing_wrong_indices_and_gaps[wrong_target_index] _
+
+damage = 'wrong_target_index'
+
+    @pytest.mark.parametrize("damage", ["missing_index", "wrong_target_index", "large_gap"])
+    def test_native_interval_proof_rejects_missing_wrong_indices_and_gaps(damage):
+        from datetime import datetime, timedelta
+    
+        m = support.metadata()
+        row = m["rows"][0]
+        if damage == "missing_index":
+            del m["intervals"][row["context_ids"][0][0]]["source_interval_index"]
+        elif damage == "wrong_target_index":
+            m["intervals"][row["target_ids"][-1]]["source_interval_index"] += 1
+        else:
+            record = m["intervals"][row["context_ids"][10][0]]
+            record["timestamp"] = (datetime.fromisoformat(record["timestamp"]) + timedelta(minutes=6)).isoformat()
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\unit\test_native_prefix_transfer.py:36: Failed
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_prefix_transfer.py::test_native_consecutive_source_intervals_accept_clock_jitter
+FAILED tests/unit/test_native_prefix_transfer.py::test_native_interval_proof_rejects_missing_wrong_indices_and_gaps[missing_index]
+FAILED tests/unit/test_native_prefix_transfer.py::test_native_interval_proof_rejects_missing_wrong_indices_and_gaps[wrong_target_index]
+3 failed, 1 passed, 87 deselected in 17.59s

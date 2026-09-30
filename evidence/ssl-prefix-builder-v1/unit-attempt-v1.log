@@ -1,0 +1,6 @@
+SYNTHETIC_CORRECTNESS_ONLY; CPU metadata, synthetic gradients and safe codecs.
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_prefix_transfer.py
+Exit code: 1. 1 failed, 69 passed in75.26s.
+The fixture incorrectly excluded issuance hour696 from a30-day prefix.
+Its +6-hour target remains before exclusive hour720. Corrected the assertion.
+This was a synthetic test expectation error, not a scientific boundary change.

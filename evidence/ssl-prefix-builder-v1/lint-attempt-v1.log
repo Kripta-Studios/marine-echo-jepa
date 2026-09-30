@@ -1,0 +1,5 @@
+Source-only Ruff check --no-cache over module/unit/integration/private support.
+Exit code:1. Eleven findings: unused imports/variable, import ordering,
+explicit invalid-type exceptions, unzoned datetime construction and quadratic
+list flattening. Corrected within new allowed paths; source-clock semantics
+remain deliberately unzoned rather than assigning UTC.

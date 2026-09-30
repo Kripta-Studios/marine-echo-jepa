@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\evidence\ssl-prefix-builder-v1\root_durable_fixture_check.py", line 54, in <module>
+    main()
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\evidence\ssl-prefix-builder-v1\root_durable_fixture_check.py", line 37, in main
+    assert result["evidence_kind"] == "SYNTHETIC_CORRECTNESS_ONLY"
+           ~~~~~~^^^^^^^^^^^^^^^^^
+KeyError: 'evidence_kind'

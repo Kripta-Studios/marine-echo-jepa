@@ -1,0 +1,7 @@
+SYNTHETIC_CORRECTNESS_ONLY; CPU metadata-only check.
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_prefix_transfer.py
+Exit code: 1
+3 failed in 0.73s.
+All 1/7/30 cases expected label start 2026-01-05T00:00:00.
+Initial three-day warmup returned 2026-01-04T00:00:00.
+This focused failure preceded the four-day boundary implementation.

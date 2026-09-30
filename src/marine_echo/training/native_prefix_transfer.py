@@ -1,0 +1,1301 @@
+"""Hash-gated prefix adaptation, separately versioned from zero-shot assessment.
+
+ADR0021 is a proposed protocol, not permission. Root supplies complete source-clock
+interval metadata and genuine distinct numeric/prefit reviews. Fitting receives
+a prefix-only NPZ; no suffix numerical archive is accepted or decoded. All local
+ancestry must be explicit. Source-clock timestamps are not claimed verified UTC.
+"""
+
+from __future__ import annotations
+
+import argparse
+import ast
+import copy
+import hashlib
+import io
+import json
+import time
+from dataclasses import asdict, dataclass
+from datetime import date, datetime, timedelta
+from functools import lru_cache
+from itertools import chain
+from pathlib import Path
+
+import numpy as np
+import torch
+from torch import nn
+
+from marine_echo.evaluation.native_product import native_scores
+from marine_echo.inference.native_encoder import TRAINING_KINDS, _inputs, _scalers
+from marine_echo.models.native_band_temporal import NativeBandEncoder
+from marine_echo.models.native_temporal import CFTemporalEncoder, QueryHead, SharedTemporalEncoder
+from marine_echo.training import native_ssl as core
+
+IMPLEMENTER_SESSION_ID = "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1"
+EVIDENCE = "SYNTHETIC_CORRECTNESS_ONLY"
+KINDS = {
+    "core": "native_ssl_selected_encoder_v1",
+    "band": "native_band_ssl_selected_encoder_v1",
+}
+ARCHITECTURES = {
+    "core": "shared_temporal_v1",
+    "band": "nonlinear_frequency_conditioned_v1",
+    "cf": "cf_jepa_multiscale_v1",
+}
+HORIZONS = (1, 3, 6)
+
+
+def sha(raw):
+    return hashlib.sha256(raw).hexdigest()
+
+
+def _pairs(items):
+    result = {}
+    for k, v in items:
+        if k in result:
+            raise ValueError("Duplicate JSON key/identity.")
+        result[k] = v
+    return result
+
+
+def _json(raw):
+    def invalid(value):
+        raise ValueError("Nonfinite JSON policy constant.")
+
+    result = json.loads(raw, object_pairs_hook=_pairs, parse_constant=invalid)
+    if not isinstance(result, dict):
+        raise TypeError("Explicit JSON object required.")
+    return result
+
+
+def _timestamp(value):
+    if not isinstance(value, str):
+        raise TypeError("Explicit source-centred timestamp required.")
+    result = datetime.fromisoformat(value)
+    if result.tzinfo is not None:
+        raise ValueError("Explicit source-clock timestamps; no invented UTC.")
+    return result
+
+
+def boundaries(source_start, prefix_days):
+    if type(prefix_days) is not int or prefix_days not in (1, 7, 30):
+        raise ValueError("Only prespecified 1/7/30-day prefixes.")
+    start = _timestamp(source_start)
+    if start.hour or start.minute or start.second or start.microsecond:
+        raise ValueError("Frozen source start date must be midnight.")
+    label = start + timedelta(days=4)
+    return label, label + timedelta(days=prefix_days), label + timedelta(days=37)
+
+
+@dataclass(frozen=True)
+class PrefixConfig:
+    method: str = "shared_ssl"
+    family: str = "core"
+    mode: str = "frozen_readout"
+    seed: int = 7
+    prefix_days: int = 1
+    history: int = 96
+    updates: int = 2000
+    cadence: int = 500
+    batch_size: int = 64
+    lr: float = 0.0003
+    weight_decay: float = 0.0001
+    clip: float = 1.0
+    floor: int = 18
+    device: str = "cpu"
+    correctness_smoke: bool = False
+
+    def validate(self, evidence_kind):
+        if (
+            any(
+                type(getattr(self, k)) is not int
+                for k in (
+                    "seed",
+                    "prefix_days",
+                    "history",
+                    "updates",
+                    "cadence",
+                    "batch_size",
+                    "floor",
+                )
+            )
+            or type(self.correctness_smoke) is not bool
+        ):
+            raise ValueError("Exact integer budgets and Boolean smoke guard required.")
+        if self.method not in TRAINING_KINDS or self.family not in ARCHITECTURES:
+            raise ValueError("Unknown native method/family.")
+        if (self.method == "cf_jepa") != (self.family == "cf"):
+            raise ValueError("CF family/method identity differs.")
+        if self.mode not in ("frozen_readout", "scratch_direct"):
+            raise ValueError("No SSL full fine-tuning or future-crop adaptation.")
+        if self.mode == "scratch_direct" and (self.method != "direct" or self.family == "cf"):
+            raise ValueError("Scratch is a fresh directly supervised shared backbone.")
+        if self.seed not in (7, 13, 23) or self.history != 96 or self.prefix_days not in (1, 7, 30):
+            raise ValueError("Frozen seed/history/prefix recipe differs.")
+        if (self.lr, self.weight_decay, self.clip, self.floor) != (0.0003, 0.0001, 1.0, 18):
+            raise ValueError("Frozen optimizer and daily floor differ.")
+        if self.device not in ("cpu", "cuda:0"):
+            raise ValueError("One declared local device only.")
+        if self.correctness_smoke:
+            if evidence_kind != EVIDENCE or self.device != "cpu":
+                raise ValueError("Small trajectories require explicit synthetic CPU evidence.")
+            if not 1 <= self.updates <= 2000 or self.cadence < 1 or self.batch_size < 1:
+                raise ValueError("Invalid synthetic trajectory.")
+        elif (self.updates, self.cadence, self.batch_size) != (2000, 500, 64):
+            raise ValueError("Real recipe is 2000/500/64 with exactly four DEV choices.")
+
+    def to_dict(self):
+        return asdict(self)
+
+
+def partitions(metadata, days):
+    """Metadata-only reservation, independent of values, target masks and holes.
+
+    Registry entries identify actual source intervals, including missing values.
+    Every 96x4 context slot and each forecast target has a stable raw ID. Both IDs
+    and source-centred timestamps are checked, including cross-channel aliasing.
+    """
+    if (
+        metadata.get("kind") != "native_prefix_raw_intervals_v1"
+        or metadata.get("complete") is not True
+    ):
+        raise ValueError("Complete root-bound raw interval provenance required.")
+    sources, intervals, rows = metadata["sources"], metadata["intervals"], metadata["rows"]
+    if not sources or not intervals or not rows:
+        raise ValueError("Empty interval/source/issuance provenance.")
+    starts = {}
+    for dep, source in sources.items():
+        if (
+            source["deployment"] != dep
+            or source["native_bounds_m"] != [0, 230]
+            or source.get("channel_bounds_m", [None])[0] != [0, 230]
+            or len(source.get("channel_bounds_m", [])) != 4
+        ):
+            raise ValueError("Conflicting deployment or native230 geometry.")
+        if not all(
+            isinstance(source.get(k), str) and source[k]
+            for k in ("site", "archive", "configuration")
+        ):
+            raise ValueError("Stable source/site/archive/configuration required.")
+        starts[dep] = (
+            _timestamp(source["start"]),
+            _timestamp(source["end"]),
+            *boundaries(source["start"], days),
+        )
+        if starts[dep][1] <= starts[dep][-1]:
+            raise ValueError("Frozen source has no declared suffix period.")
+    identity_to_stamp, stamp_to_identity = {}, {}
+    identity_to_index, index_to_stamp = {}, {}
+    for identity, record in intervals.items():
+        dep = record["deployment"]
+        if dep not in sources or not identity:
+            raise ValueError("Unknown raw source interval.")
+        source = sources[dep]
+        for k in ("site", "archive", "configuration"):
+            if record.get(k) != source[k]:
+                raise ValueError("Raw interval crosses deployment/site/configuration.")
+        if record.get("pings") not in (150, 180):
+            raise ValueError("165-ping and unknown eligibility remain quarantined.")
+        c = record["channel"]
+        if type(c) is not int or c not in range(4):
+            raise ValueError("Raw interval channel invalid.")
+        if record.get("native_bounds_m") != source["channel_bounds_m"][c]:
+            raise ValueError("Raw interval native geometry mismatch.")
+        stamp = (dep, _timestamp(record["timestamp"]), c)
+        interval_index = record.get("source_interval_index")
+        if type(interval_index) is not int or interval_index < 0:
+            raise ValueError("Exact nonnegative native source interval index required.")
+        index_key = (dep, interval_index, c)
+        if index_key in index_to_stamp and index_to_stamp[index_key] != stamp:
+            raise ValueError("Native source interval index aliases different timestamps.")
+        identity_to_index[identity], index_to_stamp[index_key] = interval_index, stamp
+        if not starts[dep][0] <= stamp[1] < starts[dep][1]:
+            raise ValueError("Raw interval outside frozen source lifetime.")
+        if stamp in stamp_to_identity and stamp_to_identity[stamp] != identity:
+            raise ValueError("Different IDs alias the same actual raw interval timestamp.")
+        identity_to_stamp[identity], stamp_to_identity[stamp] = stamp, identity
+    fit, suffix, seen, all_used = [], [], set(), set()
+    for row in rows:
+        key = (row["deployment"], row["row_id"])
+        if key in seen:
+            raise ValueError("Duplicate issuance identity.")
+        seen.add(key)
+        dep = row["deployment"]
+        if dep not in sources:
+            raise ValueError("Unknown issuance deployment.")
+        for k in ("site", "archive", "configuration"):
+            if row.get(k) != sources[dep][k]:
+                raise ValueError("Issuance configuration/source conflict.")
+        cutoff = _timestamp(row["cutoff"])
+        context, targets = row["context_ids"], row["target_ids"]
+        if len(row.get("target_observed", [])) != 3 or any(
+            type(v) is not bool for v in row["target_observed"]
+        ):
+            raise ValueError("Root-bound Boolean three-horizon label support required.")
+        if len(context) != 96 or any(len(v) != 4 for v in context) or len(targets) != 3:
+            raise ValueError("Complete 96x4 context and three raw target IDs required.")
+        last = identity_to_stamp.get(context[-1][0])
+        if last != (dep, cutoff, 0):
+            raise ValueError("Cutoff must equal its actual last native source timestamp.")
+        cutoff_index = identity_to_index[context[-1][0]]
+        previous = None
+        for t, slots in enumerate(context):
+            primary = identity_to_stamp.get(slots[0])
+            if primary is None or primary[0] != dep:
+                raise ValueError("Missing native context identity.")
+            if previous is not None and not timedelta(minutes=55) <= primary[
+                1
+            ] - previous <= timedelta(minutes=65):
+                raise ValueError("Native context adjacency must be 55–65 source minutes.")
+            previous = primary[1]
+            for c, identity in enumerate(slots):
+                if (
+                    identity_to_stamp.get(identity) != (dep, primary[1], c)
+                    or identity_to_index.get(identity) != cutoff_index + t - 95
+                ):
+                    raise ValueError("Context discontinuity, alias or raw-ID overlap.")
+        for h, identity in zip(HORIZONS, targets, strict=True):
+            target = identity_to_stamp.get(identity)
+            if (
+                target is None
+                or target[0] != dep
+                or target[2] != 0
+                or identity_to_index.get(identity) != cutoff_index + h
+                or not timedelta(minutes=55 * h) <= target[1] - cutoff <= timedelta(minutes=65 * h)
+            ):
+                raise ValueError(
+                    "Future target raw identity/timestamp differs from issued horizon."
+                )
+        used = set(chain.from_iterable(context)) | set(targets)
+        all_used |= used
+        _source_start, source_end, label, end, suffix_start = starts[dep]
+        times = [identity_to_stamp[v][1] for v in targets]
+        if all(label <= t < end for t in times) and cutoff < end:
+            fit.append(key)
+        if cutoff >= suffix_start and all(t < source_end for t in times):
+            suffix.append(key)
+    if all_used != set(intervals):
+        raise ValueError("Registry must exactly identify its declared issuance union.")
+    by_key = {(r["deployment"], r["row_id"]): r for r in rows}
+
+    def used_ids(keys):
+        return {
+            v
+            for key in keys
+            for v in chain(
+                chain.from_iterable(by_key[key]["context_ids"]), by_key[key]["target_ids"]
+            )
+        }
+
+    fitted, held = used_ids(fit), used_ids(suffix)
+    if fitted & held or {identity_to_stamp[v] for v in fitted} & {
+        identity_to_stamp[v] for v in held
+    }:
+        raise ValueError("Fit context/targets overlap suffix context/targets.")
+    support = []
+    counts = {}
+    for key in sorted(suffix):
+        row = by_key[key]
+        stamps = [identity_to_stamp[v][1].isoformat() for v in row["target_ids"]]
+        support.append(
+            {
+                "deployment": key[0],
+                "row_id": key[1],
+                "target_ids": row["target_ids"],
+                "target_timestamps": stamps,
+                "observed": row["target_observed"],
+            }
+        )
+        for h, stamp, observed in zip(HORIZONS, stamps, row["target_observed"], strict=True):
+            if observed:
+                count_key = (key[0], h, stamp[:10])
+                counts[count_key] = counts.get(count_key, 0) + 1
+    eligible = [
+        {"deployment": d, "horizon": h, "target_source_date": day, "rows": n}
+        for (d, h, day), n in sorted(counts.items())
+        if n >= 18
+    ]
+    complete_suffix = all(
+        any(r["deployment"] == d and r["horizon"] == h for r in eligible)
+        for d in sources
+        for h in HORIZONS
+    )
+    return {
+        "fit_rows": fit,
+        "suffix_rows": suffix,
+        "fit_interval_ids": sorted(fitted),
+        "suffix_interval_ids": sorted(held),
+        "boundaries": {d: [t.isoformat() for t in v] for d, v in starts.items()},
+        "reserved_suffix_support": support,
+        "suffix_support_sha256": sha(json.dumps(support, sort_keys=True).encode()),
+        "suffix_eligible_daily_support": eligible,
+        "suffix_support_status": "ASSESSABLE_METADATA_SUPPORT"
+        if complete_suffix
+        else "NOT_ASSESSABLE",
+        "source_clock": "nominal_source_calendar_not_verified_UTC",
+    }
+
+
+@lru_cache(maxsize=1)
+def required_sources():
+    """Static local source closure, including lazy factories; no manifest imports."""
+    root = Path(core.__file__).resolve().parents[1]
+    pending = [Path(__file__).resolve()]
+    found = set()
+    while pending:
+        path = pending.pop()
+        if path in found:
+            continue
+        found.add(path)
+        for node in ast.walk(ast.parse(path.read_bytes())):
+            names = []
+            if isinstance(node, ast.Import):
+                names = [a.name for a in node.names]
+            elif isinstance(node, ast.ImportFrom):
+                name = node.module or ""
+                names = [name, *(name + "." + a.name for a in node.names)]
+            for name in names:
+                if name.startswith("marine_echo."):
+                    candidate = root.joinpath(*name.split(".")[1:]).with_suffix(".py")
+                    if candidate.is_file():
+                        pending.append(candidate)
+    return sorted(found)
+
+
+def _backbone(raw, family):
+    """Preserve original config bytes; adapt only the band Config field wrapper."""
+    fields = dict(raw)
+    if family == "band":
+        if fields.pop("architecture", None) != ARCHITECTURES["band"]:
+            raise ValueError("Original band config architecture required.")
+    elif "architecture" in fields:
+        raise ValueError("Legacy/CF config cannot be reinterpreted as band.")
+    return core.Config(**fields)
+
+
+def _validate_backbone(config, backbone):
+    c = _backbone(backbone, config.family)
+    if c.method != config.method or c.history != 96:
+        raise ValueError("Exact saved backbone method/history differs.")
+    d = core.model_dimensions(c)
+    expected = (
+        {"width": 256, "latent": 128, "blocks": 5, "heads": 4}
+        if config.family == "cf"
+        else {"width": 192, "latent": 64, "blocks": 4, "heads": 4}
+    )
+    if (
+        any(type(v) is not int or v < 1 for v in d.values())
+        or d["width"] % d["heads"]
+        or (not config.correctness_smoke and d != expected)
+    ):
+        raise ValueError("Exact declared backbone dimensions required.")
+    return c
+
+
+LOADED_SOURCE_HASHES = {str(p): sha(p.read_bytes()) for p in required_sources()}
+
+
+def _path(value, base):
+    if not isinstance(value, str) or not value:
+        raise ValueError("Explicit immutable path required.")
+    p = Path(value)
+    return (p if p.is_absolute() else base / p).resolve()
+
+
+def _distinct(record, manifest, status, scope):
+    excluded = {
+        IMPLEMENTER_SESSION_ID,
+        manifest["implementer_session_id"],
+        manifest["coordinator_session_id"],
+    }
+    reviewer = record.get("reviewer_session_id")
+    if (
+        not isinstance(reviewer, str)
+        or not reviewer.strip()
+        or reviewer.casefold() in {v.casefold() for v in excluded}
+    ):
+        raise ValueError("Distinct reviewer required.")
+    if any(
+        record.get(k) != v
+        for k, v in {
+            "status": status,
+            "scope": scope,
+            "role": "prefix_transfer",
+            "evidence_kind": manifest["evidence_kind"],
+            "implementer_session_id": manifest["implementer_session_id"],
+            "coordinator_session_id": manifest["coordinator_session_id"],
+        }.items()
+    ):
+        raise ValueError("Review role/status/evidence/scope/identity differs.")
+    if not isinstance(record.get("bindings"), dict) or not record["bindings"]:
+        raise ValueError("Nonempty exact bindings required.")
+    return record["bindings"]
+
+
+@dataclass
+class Admission:
+    manifest: dict
+    config: PrefixConfig
+    snapshots: dict
+    documents: dict
+    partition: dict
+    identities: dict
+
+
+def admit(manifest_path, review_path, output_path, *, resume=None):
+    """All bindings and ancestry checked BEFORE NPZ/tensor decode or RNG/model setup."""
+    manifest_path, review_path = Path(manifest_path).resolve(), Path(review_path).resolve()
+    base = manifest_path.parent
+    output = Path(output_path).resolve()
+    if (output.exists() and resume is None) or (resume is not None and not output.is_dir()):
+        raise FileExistsError("New output required; existing run needs explicit resume.")
+    if (output / "completion.json").exists() or (output / "inference.pt").exists():
+        raise FileExistsError("Completed output is protected; no silent replay overwrite.")
+    manifest = _json(manifest_path.read_bytes())
+    review = _json(review_path.read_bytes())
+    if (
+        manifest.get("kind") != "native_prefix_transfer_manifest_v1"
+        or manifest.get("role") != "prefix_transfer"
+    ):
+        raise ValueError("Explicit separately versioned prefix-transfer role required.")
+    config = PrefixConfig(**manifest["config"])
+    config.validate(manifest["evidence_kind"])
+    if manifest["evidence_kind"] not in (EVIDENCE, "REVIEWED_PREFIX_TRANSFER"):
+        raise ValueError("Unsupported evidence identity.")
+    if manifest.get("suffix_numeric_path") is not None:
+        raise ValueError("Suffix numerical loading is a later separately reviewed inference.")
+    if config.correctness_smoke and manifest.get("fixture_identity") != EVIDENCE:
+        raise ValueError("Private synthetic fixture identity required.")
+    if review.get("config") != config.to_dict() or review.get("allowed_cells") != [
+        {
+            "method": config.method,
+            "mode": config.mode,
+            "seed": config.seed,
+            "prefix_days": config.prefix_days,
+            "family": config.family,
+        }
+    ]:
+        raise ValueError("Exact runtime config/method/seed/prefix/mode admission differs.")
+    bindings = _distinct(
+        review, manifest, "APPROVED_PREFIX_TRANSFER_PREFIT", "native_prefix_transfer_fit"
+    )
+    snapshots, documents = {}, {}
+
+    def bound(path):
+        path = Path(path).resolve()
+        raw = path.read_bytes()
+        if bindings.get(str(path)) != sha(raw):
+            raise ValueError(f"Missing/stale exact binding: {path}")
+        snapshots[path] = raw
+        return raw
+
+    def doc(value, relative=base):
+        path = _path(value, relative)
+        if path not in documents:
+            documents[path] = _json(bound(path))
+        return path, documents[path]
+
+    bound(manifest_path)
+    for path in required_sources():
+        bound(path)
+        if sha(snapshots[path]) != LOADED_SOURCE_HASHES[str(path)]:
+            raise ValueError("Loaded source differs from its exact admitted bytes.")
+    for key in (
+        "protocol",
+        "split",
+        "selection",
+        "dependency_lock",
+        "supervisor",
+        "source_manifest",
+    ):
+        bound(_path(manifest[key], base))
+    _, cfg_doc = doc(manifest["config_path"])
+    if cfg_doc != config.to_dict():
+        raise ValueError("Frozen config file/runtime mismatch.")
+    _, architecture = doc(manifest["backbone_config"])
+    method_cfg = _validate_backbone(config, architecture)
+    if method_cfg.method != config.method or method_cfg.history != 96:
+        raise ValueError("Original selected architecture/method identity differs.")
+    dims = core.model_dimensions(method_cfg)
+    expected = (
+        {"width": 256, "latent": 128, "blocks": 5, "heads": 4}
+        if config.family == "cf"
+        else {
+            "width": 192,
+            "latent": 64,
+            "blocks": 4,
+            "heads": 4,
+        }
+    )
+    if not config.correctness_smoke and dims != expected:
+        raise ValueError("Frozen actual backbone dimensions differ.")
+    if config.family == "cf":
+        for p in core.required_sources(method_cfg):
+            bound(p)
+    if config.family == "band" and manifest.get("architecture") != ARCHITECTURES["band"]:
+        raise ValueError("Explicit band architecture required.")
+    _, metadata = doc(manifest["raw_intervals"])
+    partition = partitions(metadata, config.prefix_days)
+    _, source_record = doc(manifest["source_manifest"])
+    if source_record.get("sources") != metadata["sources"] or source_record.get(
+        "quarantined_pings"
+    ) != [165]:
+        raise ValueError("Frozen source dates/configuration/165 quarantine differ.")
+    split_path, split = doc(manifest["split"])
+    split_members = {r["deployment"]: r for r in split["sources"]}
+    if len(split_members) != len(split["sources"]):
+        raise ValueError("Duplicate split deployment identity.")
+    for dep, source in metadata["sources"].items():
+        record = split_members.get(dep, {})
+        if (
+            record.get("role") not in ("test", "final_test")
+            or record.get("archive_sha256") != source["archive"]
+        ):
+            raise ValueError("Frozen reserved deployment/archive split membership differs.")
+    for key, role, rows in (
+        ("prefix_cohort", "prefix", partition["fit_rows"]),
+        ("dev_cohort", "development", None),
+    ):
+        _, cohort = doc(manifest[key])
+        if cohort.get("role") != role or cohort.get("complete") is not True:
+            raise ValueError("Exact complete cohort role required.")
+        keys = [tuple(v) for v in cohort["rows"]]
+        if config.correctness_smoke and any(EVIDENCE not in v[1] for v in keys):
+            raise ValueError("Private synthetic issuance identities required; no science shortcut.")
+        if len(keys) != len(set(keys)) or (rows is not None and set(keys) != set(rows)):
+            raise ValueError("Cohort exact reserved row set differs.")
+        if role == "development" and (
+            cohort.get("native_bounds_m") != [0, 225]
+            or any(v[0] in metadata["sources"] for v in keys)
+        ):
+            raise ValueError("Selection is original DEV0–225, never adapted-site outcomes.")
+        if role == "development" and any(
+            split_members.get(v[0], {}).get("role") != "development" for v in keys
+        ):
+            raise ValueError("Original development split membership differs.")
+    _, selection = doc(manifest["selection"])
+    if (
+        selection.get("role") != "original_development"
+        or selection.get("cohort_sha256") != sha(snapshots[_path(manifest["dev_cohort"], base)])
+        or selection.get("opportunities")
+        != list(range(config.cadence, config.updates + 1, config.cadence))
+        or selection.get("floor") != 18
+        or selection.get("aggregation") != "equal_target_source_date_then_horizon_then_deployment"
+    ):
+        raise ValueError("Frozen original-development selection recipe differs.")
+    _, statistics = doc(manifest["scalers"])
+    _scalers(statistics)
+    reserved = metadata["sources"]
+    forbidden = {k: {s[k] for s in reserved.values()} for k in ("site", "deployment", "archive")}
+    artifacts, visiting, complete = set(), set(), set()
+
+    def ancestry(value, relative=base):
+        path, node = doc(value, relative)
+        if path in visiting:
+            raise ValueError("Recursive ancestry cycle.")
+        if path in complete:
+            return
+        visiting.add(path)
+        if (
+            node.get("kind") != "native_prefix_train_ancestry_v1"
+            or node.get("complete") is not True
+            or node.get("historical_initial_weights") is not False
+        ):
+            raise ValueError("Unknown/incomplete/historical initial fitted ancestry.")
+        if node.get("role") != "train" or not node.get("inputs"):
+            raise ValueError("Original TRAIN-only fitted ancestry required.")
+        for inp in node["inputs"]:
+            _, cohort = doc(inp["cohort"], path.parent)
+            if (
+                cohort.get("role") != "train"
+                or cohort.get("complete") is not True
+                or cohort.get("members") != inp.get("members")
+                or not inp.get("members")
+            ):
+                raise ValueError("Exact ancestor input/cohort membership required.")
+            input_raw = bound(_path(inp["npz"], path.parent))
+            for member in inp["members"]:
+                if any(not member.get(k) or member[k] in forbidden[k] for k in forbidden):
+                    raise ValueError("Local ancestor overlaps reserved deployment/site/archive.")
+                split_member = split_members.get(member["deployment"], {})
+                if (
+                    split_member.get("role") != "train"
+                    or split_member.get("archive_sha256") != member["archive"]
+                ):
+                    raise ValueError("Ancestor exact TRAIN split membership differs.")
+            _, raw_receipt = doc(inp["raw_intervals"], path.parent)
+            if (
+                raw_receipt.get("kind") != "native_prefix_train_interval_receipt_v1"
+                or raw_receipt.get("complete") is not True
+                or raw_receipt.get("role") != "train"
+                or raw_receipt.get("members") != inp["members"]
+                or raw_receipt.get("source_npz_sha256") != sha(input_raw)
+                or raw_receipt.get("cohort_sha256")
+                != sha(snapshots[_path(inp["cohort"], path.parent)])
+                or raw_receipt.get("split_sha256") != sha(snapshots[split_path])
+            ):
+                raise ValueError(
+                    "Complete TRAIN raw-interval/source/scaler ancestry receipt required."
+                )
+        if not node.get("artifacts"):
+            raise ValueError("Ancestry artifact identities missing.")
+        for item in node["artifacts"]:
+            if sha(bound(_path(item["path"], path.parent))) != item["sha256"]:
+                raise ValueError("Ancestor artifact identity differs.")
+            artifacts.add(item["sha256"])
+        for parent in node["parents"]:
+            ancestry(parent, path.parent)
+        visiting.remove(path)
+        complete.add(path)
+
+    ancestry(manifest["scaler_ancestry"])
+    if sha(snapshots[_path(manifest["scalers"], base)]) not in artifacts:
+        raise ValueError("Scalers lack exact original TRAIN fitted ancestry.")
+    if config.mode == "frozen_readout":
+        ancestry(manifest["encoder_ancestry"])
+        raw = bound(_path(manifest["encoder"], base))
+        if sha(raw) not in artifacts:
+            raise ValueError("Selected encoder absent from recursive TRAIN ancestry.")
+        _, parent_run = doc(manifest["parent_run"])
+        parent_inference = bound(_path(manifest["parent_inference"], base))
+        parent_membership = bound(_path(manifest["parent_membership"], base))
+        if (
+            parent_run.get("config") != architecture
+            or parent_run.get("inference_sha256") != sha(parent_inference)
+            or parent_run.get("membership_sha256") != sha(parent_membership)
+            or sha(parent_inference) not in artifacts
+            or sha(parent_membership) not in artifacts
+        ):
+            raise ValueError("Selected parent run configuration/scalers differ.")
+    elif manifest.get("encoder") is not None:
+        raise ValueError("Scratch must have no inherited encoder.")
+    for key in ("prefix_npz", "dev_npz"):
+        bound(_path(manifest[key], base))
+    _, numeric = doc(manifest["numeric_access_review"])
+    numeric_bindings = _distinct(
+        numeric, manifest, "APPROVED_PREFIX_TRANSFER_NUMERIC_ACCESS", "prefix_only_numeric_fit"
+    )
+    if numeric.get("allowed_uses") != [
+        "prefix_fit",
+        "original_development_selection",
+        "suffix_metadata_only",
+    ]:
+        raise ValueError("Separate frozen prefix/suffix numeric-access scope required.")
+    if numeric.get("config") != config.to_dict():
+        raise ValueError("Numeric review exact cell/config differs.")
+    for p, raw in snapshots.items():
+        if p != _path(manifest["numeric_access_review"], base) and numeric_bindings.get(
+            str(p)
+        ) != sha(raw):
+            raise ValueError("Numeric provenance missing/stale source/model/partition binding.")
+    identities = {str(p): sha(raw) for p, raw in snapshots.items()}
+    if resume is not None:
+        bound(Path(resume).resolve())
+    return Admission(manifest, config, snapshots, documents, partition, identities)
+
+
+def _strict_state(module, state, *, assign=True):
+    expected = module.state_dict()
+    if not isinstance(state, dict) or set(state) != set(expected):
+        raise ValueError("Exact encoder/head parameters and buffers required.")
+    for k, t in expected.items():
+        v = state[k]
+        if (
+            not isinstance(v, torch.Tensor)
+            or v.device.type != "cpu"
+            or v.layout != torch.strided
+            or v.shape != t.shape
+            or v.dtype != t.dtype
+            or not torch.isfinite(v).all()
+        ):
+            raise ValueError("Unsafe/incompatible/nonfinite tensor state.")
+    module.load_state_dict(state, strict=True, assign=assign)
+
+
+class PrefixModel(nn.Module):
+    def __init__(self, backbone_config, family):
+        super().__init__()
+        c = _backbone(backbone_config, family)
+        d = core.model_dimensions(c)
+        self.encoder = (
+            CFTemporalEncoder(d["width"], d["latent"], d["blocks"])
+            if family == "cf"
+            else (NativeBandEncoder if family == "band" else SharedTemporalEncoder)(
+                d["width"], d["latent"], d["blocks"], d["heads"]
+            )
+        )
+        self.head = QueryHead(d["latent"], 5, d["latent"])
+
+    def forecast(self, x, observed, metadata, query, *, frozen=True):
+        if frozen:
+            self.encoder.eval()
+            with torch.no_grad():
+                z = self.encoder.encode(x, observed, metadata)
+        else:
+            z = self.encoder.encode(x, observed, metadata)
+        return self.head(z, query).sort(-1).values
+
+
+def prepare_model(config, backbone, selected, scalers, *, parent_bindings=None):
+    """Fresh head; only scratch constructs random encoder. No legacy fit initializer."""
+    _validate_backbone(config, backbone)
+    if config.mode == "frozen_readout":
+        expected_kind = KINDS["band" if config.family == "band" else "core"]
+        if (
+            selected is None
+            or selected.get("kind") != expected_kind
+            or selected.get("config") != backbone
+            or selected.get("scalers") != scalers
+        ):
+            raise ValueError("Exact selected kind/config/TRAIN scalers required.")
+        if parent_bindings is not None and selected.get("bindings") != parent_bindings:
+            raise ValueError("Selected original source ancestry differs from parent run.")
+        if config.family == "band" and selected.get("architecture") != ARCHITECTURES["band"]:
+            raise ValueError("Band selected architecture mismatch.")
+        with torch.device("meta"):
+            model = PrefixModel(backbone, config.family).float()
+        _strict_state(model.encoder, selected.get("encoder"))
+        with torch.random.fork_rng(devices=[]):
+            torch.manual_seed(config.seed + 100000)
+            d = core.model_dimensions(_backbone(backbone, config.family))["latent"]
+            model.head = QueryHead(d, 5, d)
+    else:
+        if selected is not None:
+            raise ValueError("Scratch may not load selected weights.")
+        with torch.random.fork_rng(devices=[]):
+            torch.manual_seed(config.seed)
+            model = PrefixModel(backbone, config.family).float()
+            torch.manual_seed(config.seed + 100000)
+            d = core.model_dimensions(_backbone(backbone, config.family))["latent"]
+            model.head = QueryHead(d, 5, d)
+    model.to(config.device)
+    model.encoder.requires_grad_(config.mode == "scratch_direct")
+    model.encoder.eval()
+    return model
+
+
+def _decode(admission, key, role):
+    m, base = admission.manifest, Path(admission.manifest["_base"])
+    with np.load(io.BytesIO(admission.snapshots[_path(m[key], base)]), allow_pickle=False) as z:
+        keys = (
+            "x",
+            "context_observed",
+            "metadata",
+            "query",
+            "targets",
+            "target_observed",
+            "row_id",
+            "deployment",
+            "target_dates",
+            "corpus_role",
+            "evidence_kind",
+        )
+        data = {k: z[k].copy() for k in keys}
+        if admission.config.correctness_smoke and str(z["fixture_identity"].item()) != EVIDENCE:
+            raise ValueError("Synthetic numerical fixture marker missing.")
+    if (
+        str(data.pop("corpus_role").item()) != role
+        or str(data.pop("evidence_kind").item()) != m["evidence_kind"]
+    ):
+        raise ValueError("Numeric corpus role/evidence mismatch.")
+    n = len(data["x"])
+    _inputs(data["x"], data["context_observed"], data["metadata"], 96)
+    expected_lower = 230 if role == "prefix" else 225
+    if not np.allclose(data["metadata"][:, 0, 3:5] * 250, [0, expected_lower], atol=1e-5, rtol=0):
+        raise ValueError("Primary native prefix230/original DEV225 geometry differs.")
+    query = data["query"]
+    if (
+        query.shape != (n, 3, 10)
+        or not np.isfinite(query).all()
+        or not np.allclose(query[..., :9], data["metadata"][:, :1, :9])
+        or not np.array_equal(query[..., 9], np.broadcast_to(HORIZONS, (n, 3)))
+    ):
+        raise ValueError("Only native issued1/3/6 query supported.")
+    y, mask = data["targets"], data["target_observed"]
+    if (
+        y.shape != (n, 3)
+        or y.dtype.kind != "f"
+        or mask.shape != y.shape
+        or mask.dtype != np.bool_
+        or not np.isfinite(y[mask]).all()
+    ):
+        raise ValueError("Finite observed targets and Boolean[N,3] support required.")
+    if data["target_dates"].shape != y.shape or data["target_dates"].dtype.kind != "U":
+        raise ValueError("Source-calendar target dates required.")
+    for value in set(data["target_dates"][mask].tolist()):
+        if date.fromisoformat(value).isoformat() != value:
+            raise ValueError("Observed labels require exact source-calendar dates.")
+    cohort = admission.documents[
+        _path(m["prefix_cohort" if role == "prefix" else "dev_cohort"], base)
+    ]
+    rows = list(zip(data["deployment"].tolist(), data["row_id"].tolist(), strict=True))
+    expected = [tuple(v) for v in cohort["rows"]]
+    if len(set(rows)) != n or set(rows) != set(expected):
+        raise ValueError("Exact numeric row/cohort identities required; no intersection.")
+    if role == "prefix":
+        metadata = admission.documents[_path(m["raw_intervals"], base)]
+        declarations = {(r["deployment"], r["row_id"]): r for r in metadata["rows"]}
+        for i, row in enumerate(rows):
+            declared = declarations[row]
+            if data["target_observed"][i].tolist() != declared["target_observed"]:
+                raise ValueError("Numeric target masks differ from root-bound raw support.")
+            expected_bounds = metadata["sources"][row[0]]["channel_bounds_m"]
+            if not np.allclose(
+                data["metadata"][i, :, 3:5] * 250, expected_bounds, atol=1e-5, rtol=0
+            ):
+                raise ValueError(
+                    "Numerical native geometry conflicts with raw interval provenance."
+                )
+            dates = [metadata["intervals"][v]["timestamp"][:10] for v in declared["target_ids"]]
+            if data["target_dates"][i].tolist() != dates:
+                raise ValueError("Native date proxies conflict with actual raw timestamps.")
+    # Canonical issuance order yields identical sample sequence across archives/methods.
+    order = np.asarray(sorted(range(n), key=lambda i: rows[i]))
+    return {k: v[order] for k, v in data.items()}
+
+
+def sample_indices(size, config, step):
+    return core.batch_indices(np.arange(size), config.batch_size, config.seed, "readout", step)
+
+
+def _batch(data, indices, scalers, device, *, labels):
+    x, observed = data["x"][indices], data["context_observed"][indices]
+    arrays = {
+        "x": scalers.channels(x, observed),
+        "observed": observed,
+        "metadata": data["metadata"][indices],
+        "query": data["query"][indices],
+    }
+    if labels:
+        arrays.update(
+            y=scalers.targets(data["targets"][indices], data["target_observed"][indices]),
+            y_observed=data["target_observed"][indices],
+        )
+    return {k: torch.as_tensor(v, device=device) for k, v in arrays.items()}
+
+
+def encode_checkpoint(value):
+    stream = io.BytesIO()
+    torch.save(_safe_cpu(value), stream)
+    return stream.getvalue()
+
+
+def _safe_cpu(value):
+    if isinstance(value, torch.Tensor):
+        return value.detach().cpu().clone()
+    if isinstance(value, dict):
+        return {k: _safe_cpu(v) for k, v in value.items()}
+    if isinstance(value, (list, tuple)):
+        return type(value)(_safe_cpu(v) for v in value)
+    return copy.deepcopy(value)
+
+
+def decode_checkpoint(raw):
+    return torch.load(io.BytesIO(raw), map_location="cpu", weights_only=True)
+
+
+def predict(model, data, scalers, config):
+    model.eval()
+    result = []
+    with torch.inference_mode():
+        for start in range(0, len(data["x"]), config.batch_size):
+            b = _batch(
+                data,
+                np.arange(start, min(start + config.batch_size, len(data["x"]))),
+                scalers,
+                config.device,
+                labels=False,
+            )
+            p = model.forecast(**b).cpu().numpy()
+            result.append(
+                p * scalers.target_std[None, :, None] + scalers.target_mean[None, :, None]
+            )
+    return np.concatenate(result)
+
+
+class _Trajectory:
+    """Private trajectory: real construction requires a verified admission.
+
+    Synthetic constructor is CPU-only and visibly guarded; no public data loader
+    has a synthetic shortcut. Full RNG, samples, optimizer and DEV state resume.
+    """
+
+    def __init__(
+        self,
+        config,
+        backbone,
+        selected,
+        statistics,
+        prefix,
+        dev,
+        identities,
+        *,
+        admission=None,
+        parent_bindings=None,
+    ):
+        config.validate(EVIDENCE if config.correctness_smoke else "REVIEWED_PREFIX_TRANSFER")
+        if not config.correctness_smoke and (
+            not isinstance(admission, Admission)
+            or admission.config != config
+            or admission.identities != identities
+        ):
+            raise ValueError("Real trajectory requires exact admitted fit.")
+        self.config, self.backbone, self.statistics = config, backbone, copy.deepcopy(statistics)
+        self.prefix, self.dev, self.identities = prefix, dev, identities
+        self.scalers = _scalers(statistics)
+        self.model = prepare_model(
+            config, backbone, selected, statistics, parent_bindings=parent_bindings
+        )
+        self.initial_encoder = core.cpu_state(self.model.encoder)
+        self.optimizer = torch.optim.AdamW(
+            (p for p in self.model.parameters() if p.requires_grad),
+            lr=config.lr,
+            weight_decay=config.weight_decay,
+        )
+        self.scheduler = core.schedule(self.optimizer, config.updates)
+        self.step, self.samples, self.candidates = 0, [], []
+        self.best_score, self.selected_step, self.selected_state = None, None, None
+        self.elapsed = 0.0
+
+    def advance(self, stop=None):
+        stop = self.config.updates if stop is None else stop
+        if not self.step <= stop <= self.config.updates:
+            raise ValueError("Invalid continuation limit.")
+        start = time.perf_counter()
+        for step in range(self.step, stop):
+            self.model.head.train()
+            self.model.encoder.train(self.config.mode == "scratch_direct")
+            indices = sample_indices(len(self.prefix["x"]), self.config, step)
+            self.samples.append(indices.tolist())
+            b = _batch(self.prefix, indices, self.scalers, self.config.device, labels=True)
+            self.optimizer.zero_grad(set_to_none=True)
+            p = self.model.forecast(
+                b["x"],
+                b["observed"],
+                b["metadata"],
+                b["query"],
+                frozen=self.config.mode == "frozen_readout",
+            )
+            # Targets absent/masked do not enter residuals or gradients.
+            loss = core.pinball(p, b["y"], b["y_observed"])
+            if not torch.isfinite(loss):
+                raise ValueError("Nonfinite supervised objective.")
+            loss.backward()
+            torch.nn.utils.clip_grad_norm_(
+                (p for p in self.model.parameters() if p.requires_grad), self.config.clip
+            )
+            self.optimizer.step()
+            self.scheduler.step()
+            self.step = step + 1
+            if self.step % self.config.cadence == 0:
+                predictions = predict(self.model, self.dev, self.scalers, self.config)
+                metrics = native_scores(
+                    predictions,
+                    self.dev["targets"],
+                    self.dev["target_observed"],
+                    self.dev["target_dates"],
+                    self.dev["deployment"],
+                    minimum_daily_rows=18,
+                )
+                score = metrics["primary_pinball_db"]
+                self.candidates.append(
+                    {"step": self.step, "role": "original_development", "metrics": metrics}
+                )
+                if score is not None and (self.best_score is None or score < self.best_score):
+                    self.best_score, self.selected_step = score, self.step
+                    self.selected_state = core.cpu_state(self.model)
+            if self.config.mode == "frozen_readout" and any(
+                not torch.equal(v, self.model.encoder.state_dict()[k].cpu())
+                for k, v in self.initial_encoder.items()
+            ):
+                raise RuntimeError("Frozen encoder parameters/buffers changed.")
+        self.elapsed += time.perf_counter() - start
+
+    def checkpoint(self):
+        return {
+            "kind": "native_prefix_transfer_resume_v1",
+            "config": self.config.to_dict(),
+            "backbone_config": self.backbone,
+            "architecture": ARCHITECTURES[self.config.family],
+            "scalers": self.statistics,
+            "identities": self.identities,
+            "model": core.cpu_state(self.model),
+            "optimizer": self.optimizer.state_dict(),
+            "scheduler": self.scheduler.state_dict(),
+            "rng": core.rng_state(),
+            "initial_encoder": self.initial_encoder,
+            "step": self.step,
+            "samples": self.samples,
+            "candidates": self.candidates,
+            "selected_step": self.selected_step,
+            "selected_state": self.selected_state,
+            "best_score": self.best_score,
+            "elapsed_seconds": self.elapsed,
+        }
+
+    def restore(self, checkpoint):
+        if checkpoint.get("kind") != "native_prefix_transfer_resume_v1" or any(
+            checkpoint.get(k) != v
+            for k, v in {
+                "config": self.config.to_dict(),
+                "backbone_config": self.backbone,
+                "architecture": ARCHITECTURES[self.config.family],
+                "scalers": self.statistics,
+                "identities": self.identities,
+            }.items()
+        ):
+            raise ValueError("Exact safe resume identities/config/device/scalers required.")
+        step = checkpoint["step"]
+        if (
+            type(step) is not int
+            or not 0 <= step <= self.config.updates
+            or checkpoint["samples"]
+            != [sample_indices(len(self.prefix["x"]), self.config, s).tolist() for s in range(step)]
+        ):
+            raise ValueError("Resume step/sample sequence differs.")
+        if set(checkpoint["initial_encoder"]) != set(self.initial_encoder) or any(
+            not torch.equal(v, checkpoint["initial_encoder"][k])
+            for k, v in self.initial_encoder.items()
+        ):
+            raise ValueError("Original frozen/random initializer ancestry differs on resume.")
+        if [v["step"] for v in checkpoint["candidates"]] != list(
+            range(self.config.cadence, step + 1, self.config.cadence)
+        ) or any(v["role"] != "original_development" for v in checkpoint["candidates"]):
+            raise ValueError("Resume DEV opportunity sequence differs.")
+        _strict_state(self.model, checkpoint["model"], assign=False)
+        self.optimizer.load_state_dict(checkpoint["optimizer"])
+        self.scheduler.load_state_dict(checkpoint["scheduler"])
+        for k in ("samples", "candidates", "selected_step", "selected_state", "best_score"):
+            setattr(self, k, copy.deepcopy(checkpoint[k]))
+        self.initial_encoder, self.step, self.elapsed = (
+            checkpoint["initial_encoder"],
+            step,
+            checkpoint["elapsed_seconds"],
+        )
+        core.restore_rng(checkpoint["rng"])
+
+    def inference_artifact(self):
+        if self.selected_state is None:
+            raise ValueError("NOT_ASSESSABLE: no eligible original-DEV selected checkpoint.")
+        return {
+            "kind": "native_prefix_transfer_inference_v1",
+            "config": self.config.to_dict(),
+            "backbone_config": self.backbone,
+            "architecture": ARCHITECTURES[self.config.family],
+            "scalers": self.statistics,
+            "model": self.selected_state,
+            "selected_step": self.selected_step,
+            "identities": self.identities,
+            "training_kind": "supervised_prefix_readout_on_" + TRAINING_KINDS[self.config.method]
+            if self.config.mode == "frozen_readout"
+            else "scratch_supervised_prefix_encoder",
+            "zero_shot": False,
+        }
+
+
+class PrefixPredictor:
+    """Safe portable context-only forecast; loading never resets RNG or fits."""
+
+    def __init__(self, weights, *, device="cpu"):
+        artifact = torch.load(weights, weights_only=True, map_location="cpu")
+        if artifact.get("kind") != "native_prefix_transfer_inference_v1":
+            raise ValueError("Distinct owned prefix inference kind required.")
+        self.config = PrefixConfig(**artifact["config"])
+        self.config.validate(
+            EVIDENCE if self.config.correctness_smoke else "REVIEWED_PREFIX_TRANSFER"
+        )
+        if (
+            artifact.get("architecture") != ARCHITECTURES[self.config.family]
+            or artifact.get("zero_shot") is not False
+            or not artifact.get("identities")
+        ):
+            raise ValueError("Explicit prefix ancestry/architecture required.")
+        if artifact.get("selected_step") not in range(
+            self.config.cadence, self.config.updates + 1, self.config.cadence
+        ):
+            raise ValueError("Selected endpoint not a scheduled DEV opportunity.")
+        self.scalers = _scalers(artifact["scalers"])
+        _validate_backbone(self.config, artifact["backbone_config"])
+        if device not in ("cpu", "cuda:0") or (self.config.correctness_smoke and device != "cpu"):
+            raise ValueError("Synthetic replay CPU only; one declared local device.")
+        self.device = device
+        with torch.device("meta"):
+            self.model = PrefixModel(artifact["backbone_config"], self.config.family).float()
+        _strict_state(self.model, artifact["model"])
+        self.model.to(device).eval().requires_grad_(False)
+
+    def forecast(self, x, observed, metadata, query):
+        x, observed, metadata = _inputs(x, observed, metadata, 96)
+        if not np.allclose(metadata[:, 0, 3:5] * 250, [0, 230], atol=1e-5, rtol=0):
+            raise ValueError("Prefix-transfer suffix forecasting preserves native0–230m.")
+        if (
+            query.shape != (len(x), 3, 10)
+            or not np.isfinite(query).all()
+            or not np.allclose(query[..., :9], metadata[:, :1, :9])
+            or not np.array_equal(query[..., 9], np.broadcast_to(HORIZONS, (len(x), 3)))
+        ):
+            raise ValueError("Exact issued native query required.")
+        data = {"x": x, "context_observed": observed, "metadata": metadata, "query": query}
+        config = PrefixConfig(**{**self.config.to_dict(), "device": self.device})
+        prediction = predict(self.model, data, self.scalers, config)
+        if not np.isfinite(prediction).all():
+            raise ValueError("Finite forecasts required for every unchanged issuance.")
+        return prediction
+
+
+def fit(manifest_path, review_path, output_path, *, resume=None):
+    """Owner-only approved execution. No suffix prediction, calibration or selection."""
+    admission = admit(manifest_path, review_path, output_path, resume=resume)
+    admission.manifest["_base"] = str(Path(manifest_path).resolve().parent)
+    m, config, base = admission.manifest, admission.config, Path(admission.manifest["_base"])
+    if (
+        not admission.partition["fit_rows"]
+        or admission.partition["suffix_support_status"] == "NOT_ASSESSABLE"
+    ):
+        return {
+            "status": "NOT_ASSESSABLE",
+            "reason": "fixed metadata prefix/suffix support insufficient",
+            "partition": admission.partition,
+        }
+    output = Path(output_path).resolve()
+    backbone = admission.documents[_path(m["backbone_config"], base)]
+    statistics = admission.documents[_path(m["scalers"], base)]
+    selected = (
+        decode_checkpoint(admission.snapshots[_path(m["encoder"], base)])
+        if config.mode == "frozen_readout"
+        else None
+    )
+    parent = admission.documents[_path(m["parent_run"], base)] if selected is not None else None
+    if selected is not None:
+        selected_kind = KINDS["band" if config.family == "band" else "core"]
+        if (
+            selected.get("kind") != selected_kind
+            or selected.get("config") != backbone
+            or selected.get("scalers") != statistics
+            or selected.get("bindings") != parent["bindings"]
+        ):
+            raise ValueError("Selected safe encoder kind/config/scalers/source lineage differs.")
+        with torch.device("meta"):
+            template = PrefixModel(backbone, config.family).float()
+        _strict_state(template.encoder, selected.get("encoder"))
+        parent_artifact = decode_checkpoint(admission.snapshots[_path(m["parent_inference"], base)])
+        inference_kind = (
+            "native_band_ssl_weights_only_inference_v1"
+            if config.family == "band"
+            else "native_ssl_weights_only_inference_v1"
+        )
+        if (
+            parent_artifact.get("kind") != inference_kind
+            or parent_artifact.get("config") != backbone
+            or parent_artifact.get("scalers") != statistics
+            or parent_artifact.get("bindings") != parent["bindings"]
+        ):
+            raise ValueError("Safe selected parent inference lineage mismatch.")
+        parent_state = {
+            k.removeprefix("encoder."): v
+            for k, v in parent_artifact["model"].items()
+            if k.startswith("encoder.")
+        }
+        if set(parent_state) != set(selected["encoder"]) or any(
+            not torch.equal(v, selected["encoder"][k]) for k, v in parent_state.items()
+        ):
+            raise ValueError("Selected encoder differs from parent inference features.")
+    prefix, dev = (
+        _decode(admission, "prefix_npz", "prefix"),
+        _decode(admission, "dev_npz", "development"),
+    )
+    if set(prefix["deployment"]) & set(dev["deployment"]):
+        raise ValueError("Original DEV must be outside the adapted deployment.")
+    if not len(prefix["x"]) or not prefix["target_observed"].any(0).all():
+        return {
+            "kind": "native_prefix_transfer_completion_v1",
+            "evidence_kind": admission.manifest["evidence_kind"],
+            "status": "NOT_ASSESSABLE",
+            "reason": "no admissible prefix row per horizon",
+            "partition": admission.partition,
+        }
+    if resume is None:
+        output.mkdir(parents=False, exist_ok=False)
+    with core.Resources(config.device, output) as resources:
+        trajectory = _Trajectory(
+            config,
+            backbone,
+            selected,
+            statistics,
+            prefix,
+            dev,
+            admission.identities,
+            admission=admission,
+            parent_bindings=parent["bindings"] if parent else None,
+        )
+        if resume is not None:
+            trajectory.restore(decode_checkpoint(admission.snapshots[Path(resume).resolve()]))
+        while trajectory.step < config.updates:
+            trajectory.advance(
+                min(config.updates, ((trajectory.step // config.cadence) + 1) * config.cadence)
+            )
+            resources.check()
+            core.atomic_checkpoint(output / "latest.pt", trajectory.checkpoint())
+        receipt = {
+            "kind": "native_prefix_transfer_completion_v1",
+            "evidence_kind": admission.manifest["evidence_kind"],
+            "status": "COMPLETED" if trajectory.selected_state is not None else "NOT_ASSESSABLE",
+            "config": config.to_dict(),
+            "architecture": ARCHITECTURES[config.family],
+            "bindings": admission.identities,
+            "partition": admission.partition,
+            "prefit_review_sha256": sha(Path(review_path).read_bytes()),
+            "prefix_ancestors_explicit": True,
+            "zero_shot": False,
+            "suffix_numerical_access": False,
+            "original_train_scalers": statistics,
+            "external_dev_exposure": "original_DEV0–225_selection_only",
+            "label_counts": prefix["target_observed"].sum(0).tolist(),
+            "unique_prefix_rows": len(prefix["x"]),
+            "support_sha256": sha(prefix["target_observed"].tobytes()),
+            "observed_prefix_target_values_sha256": sha(
+                np.where(prefix["target_observed"], prefix["targets"], 0)
+                .astype(np.float32)
+                .tobytes()
+            ),
+            "sample_sequence_sha256": sha(json.dumps(trajectory.samples).encode()),
+            "updates": trajectory.step,
+            "candidates": trajectory.candidates,
+            "selected_step": trajectory.selected_step,
+            "encoder_parameters": sum(p.numel() for p in trajectory.model.encoder.parameters()),
+            "head_parameters": sum(p.numel() for p in trajectory.model.head.parameters()),
+            "parameter_matching": "CF128/head18565 versus shared64/head5189; not cross-architecture matched",
+            "encoder_unchanged": all(
+                torch.equal(v, trajectory.model.encoder.state_dict()[k].cpu())
+                for k, v in trajectory.initial_encoder.items()
+            ),
+            "resources": resources.snapshot(),
+            "elapsed_trajectory_seconds": trajectory.elapsed,
+            "suffix_status": "NOT_RUN_requires_separate_reviewed_inference_and_floor18_support",
+            "scientific_claim": None,
+        }
+        if config.mode == "scratch_direct" and receipt["encoder_unchanged"]:
+            raise RuntimeError("Scratch supervised trajectory made no encoder changes.")
+        if trajectory.selected_state is not None:
+            with (output / "inference.pt").open("xb") as stream:
+                stream.write(encode_checkpoint(trajectory.inference_artifact()))
+        with (output / "completion.json").open("x", encoding="utf-8") as stream:
+            json.dump(receipt, stream, indent=2, allow_nan=False)
+    return receipt
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    for name in ("manifest", "review", "output"):
+        parser.add_argument("--" + name, required=True, type=Path)
+    parser.add_argument("--resume", type=Path)
+    args = parser.parse_args()
+    print(
+        json.dumps(
+            {"status": fit(args.manifest, args.review, args.output, resume=args.resume)["status"]}
+        )
+    )
+
+
+if __name__ == "__main__":
+    main()

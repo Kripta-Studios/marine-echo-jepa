@@ -1,0 +1,1 @@
+{"quarantined_pings": [165], "sources": {"synthetic-site": {"archive": "synthetic-site-archive", "channel_bounds_m": [[0, 230], [0, 230], [0, 230], [0, 230]], "configuration": "synthetic-site-config", "deployment": "synthetic-site", "end": "2026-02-20T00:00:00", "native_bounds_m": [0, 230], "site": "synthetic-site-site", "start": "2026-01-01T00:00:00"}}}

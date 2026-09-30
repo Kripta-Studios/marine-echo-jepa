@@ -1,0 +1,87 @@
+{
+  "kind": "native_prefix_transfer_builder_handoff_v1",
+  "status": "IMPLEMENTED_BUILDER_CPU_CHECKED_ROOT_OPTIMIZERS_NOT_RUN",
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "implementer_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "authored_sha256": {
+    "src/marine_echo/training/native_prefix_transfer.py": "8d91d34ad1efe9ef9867587cf41eaa6448898ce1edf0b0719242b2a463ef8ddd",
+    "tests/unit/test_native_prefix_transfer.py": "94ef28270fff35ba859770157dfbac49c96280868202abc8ea42013da14fb61c",
+    "tests/integration/test_native_prefix_transfer.py": "f45c34bb5553413191b5894673f40cab416be0f05dac4195d1834c1a3f71ff43"
+  },
+  "source_proof": "evidence/ssl-prefix-builder-v1/source-proof-final-v1.json",
+  "protocol": {
+    "path": "../marine-echo-jepa/docs/adr/0021-native-prefix-transfer-assessment.md",
+    "sha256": "aee2aa04b9ac40e335df8a274801122a1d3b763a6e709c02e7baea4ea2650d34",
+    "status": "PROPOSED_NOT_APPROVAL"
+  },
+  "checks": {
+    "pytest": {
+      "exit_code": 0,
+      "passed": 92,
+      "skipped": 6,
+      "elapsed_seconds": 68.25,
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_prefix_transfer.py tests/integration/test_native_prefix_transfer.py"
+    },
+    "lint": {
+      "exit_code": 0,
+      "no_cache": true
+    },
+    "format": {
+      "exit_code": 0,
+      "already_formatted_files": 5,
+      "no_cache": true
+    },
+    "source_proof": {
+      "exit_code": 0
+    }
+  },
+  "meaningful_red": [
+    "red-boundaries-v1.log",
+    "red-selection-v1.log",
+    "red-suffix-support-v1.log",
+    "red-source-centres-v1.log"
+  ],
+  "required_root_fixture_helpers": [
+    "evidence/ssl-prefix-builder-v1/prefix_test_support.py",
+    "evidence/ssl-prefix-builder-v1/verify_delivery.py"
+  ],
+  "root_test_instructions": "evidence/ssl-prefix-builder-v1/ROOT_DURABLE_CHECKS_V1.md",
+  "report": "evidence/ssl-prefix-builder-v1/NATIVE_PREFIX_TRANSFER_IMPLEMENTATION_V1.md",
+  "runtime_kinds": [
+    "native_prefix_transfer_resume_v1",
+    "native_prefix_transfer_inference_v1",
+    "native_prefix_transfer_completion_v1"
+  ],
+  "public_api": [
+    "admit(manifest_path,review_path,output_path,resume=None)",
+    "partitions(metadata,prefix_days)",
+    "fit(manifest_path,review_path,output_path,resume=None)",
+    "PrefixPredictor(weights,device='cpu').forecast(x,observed,metadata,query)"
+  ],
+  "not_run": [
+    "Six actual optimizer/update/resume/virtual-fit fixtures (root-only)",
+    "Fresh Unicode durable synthetic output fixture",
+    "Real scientific fitting",
+    "Public acoustic/prediction numerical parsing",
+    "Final-site numeric access",
+    "Real selected weights replay",
+    "GPU",
+    "Git index changes",
+    "Denied cache/scratch retries"
+  ],
+  "ancestry": "Original TRAIN recursive ancestry mandatory; transfer receipts explicitly identify prefix ancestors; zero-shot unchanged.",
+  "assessment": "Later suffix inference requires separate reviewed transfer assessment; existing native_assessment does not automatically admit this new kind.",
+  "protected_main_unchanged": true,
+  "closed_assessment_three_sources_unchanged": true,
+  "approved_prefit": false,
+  "scientific_approval": false,
+  "quality_approval": false,
+  "self_review": false,
+  "commit": "NOT_RUN_no_Git_index_retry",
+  "allowed_write_scope": [
+    "src/marine_echo/training/native_prefix_transfer.py",
+    "tests/unit/test_native_prefix_transfer.py",
+    "tests/integration/test_native_prefix_transfer.py",
+    "evidence/ssl-prefix-builder-v1/**"
+  ]
+}

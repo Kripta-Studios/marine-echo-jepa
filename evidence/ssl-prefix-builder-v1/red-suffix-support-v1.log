@@ -1,0 +1,6 @@
+SYNTHETIC_CORRECTNESS_ONLY; metadata-only support proof.
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_prefix_transfer.py -k missing_root_declared_suffix_masks
+Exit code:1. 1 failed, 85 deselected in14.54s.
+Raw timestamps alone admitted a suffix with no immutable declared label masks.
+The assertion failed DID NOT RAISE ValueError. Root-bound masks are now required;
+partitions still use only timestamps, while masks prove unchanged coverage.

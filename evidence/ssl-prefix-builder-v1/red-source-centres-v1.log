@@ -1,0 +1,6 @@
+SYNTHETIC_CORRECTNESS_ONLY; actual source-centred metadata semantics.
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_prefix_transfer.py -k actual_source_centres
+Exit code:1. 1 failed, 86 deselected in14.67s.
+Consistently hourly intervals centred at :30 were incorrectly rejected by a
+clock-hour timestamp validator. It now accepts actual unzoned source centres,
+still verifies exact60-min continuity, and retains midnight partition boundaries.

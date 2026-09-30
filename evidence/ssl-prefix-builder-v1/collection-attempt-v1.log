@@ -1,0 +1,5 @@
+SYNTHETIC_CORRECTNESS_ONLY; CPU collection.
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_prefix_transfer.py
+Exit code: 2. One collection error in 1.90s.
+PrefixModel constructor expression had an unclosed parenthesis at line450.
+Corrected before behaviour checks; not scientific evidence.

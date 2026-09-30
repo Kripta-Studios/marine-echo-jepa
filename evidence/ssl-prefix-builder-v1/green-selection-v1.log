@@ -1,0 +1,4 @@
+SYNTHETIC_CORRECTNESS_ONLY; metadata-only admission.
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_prefix_transfer.py -k selection_cannot_name
+Exit code:0. 1 passed, 71 deselected in16.16s.
+Hash-admitted target-site selection is now semantically rejected.

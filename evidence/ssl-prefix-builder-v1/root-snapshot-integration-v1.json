@@ -1,0 +1,38 @@
+{
+  "status": "CLOSED_SNAPSHOT_INTEGRATED_ROOT_CHECKS_PENDING",
+  "authored_sha256": {
+    "src/marine_echo/training/native_prefix_transfer.py": "8d91d34ad1efe9ef9867587cf41eaa6448898ce1edf0b0719242b2a463ef8ddd",
+    "tests/unit/test_native_prefix_transfer.py": "94ef28270fff35ba859770157dfbac49c96280868202abc8ea42013da14fb61c",
+    "tests/integration/test_native_prefix_transfer.py": "f45c34bb5553413191b5894673f40cab416be0f05dac4195d1834c1a3f71ff43"
+  },
+  "copied_sha256": {
+    "src/marine_echo/training/native_prefix_transfer.py": "8d91d34ad1efe9ef9867587cf41eaa6448898ce1edf0b0719242b2a463ef8ddd",
+    "tests/unit/test_native_prefix_transfer.py": "94ef28270fff35ba859770157dfbac49c96280868202abc8ea42013da14fb61c",
+    "tests/integration/test_native_prefix_transfer.py": "f45c34bb5553413191b5894673f40cab416be0f05dac4195d1834c1a3f71ff43",
+    "evidence\\ssl-prefix-builder-v1\\collection-attempt-v1.log": "074c9a78c521d424b7cd36543e75665fcde6c7461582ce9aa3dbf6437447d3b6",
+    "evidence\\ssl-prefix-builder-v1\\green-admission-refactor-v1.log": "c066fcf34dab58d3a19fc67d1a1b25ba62539a5f15b99fcb8458c0f277ad537b",
+    "evidence\\ssl-prefix-builder-v1\\green-before-admission-refactor-v1.log": "c915d02ad1d2f95bd82564b911a9a8ed5746221ddd9d918e287666f8d7ea8243",
+    "evidence\\ssl-prefix-builder-v1\\green-before-source-centres-v1.log": "5194ff75898f39bd65ff6d79eb88b9c8665114a861a932b889e9df9f1c76031d",
+    "evidence\\ssl-prefix-builder-v1\\green-expanded-v1.log": "3fc95b30d0fe417615f14ff26d30aa0ea74dfd08fe825c68314e7963af9fc3d1",
+    "evidence\\ssl-prefix-builder-v1\\green-final-v1.log": "d63bb4f23b01cc328dc7b7d97e063ce2ee2e209e0f707842fe40b3bb68dbe6e1",
+    "evidence\\ssl-prefix-builder-v1\\green-selection-v1.log": "168e1dec2ad94a71fc55b721e9d8dee431a79c078a323b98abf970397871736c",
+    "evidence\\ssl-prefix-builder-v1\\handoff-v1.json": "2a019a13181a3141441f56f729a2615a0c3f95272eab3942dfb01c6f87b9f85b",
+    "evidence\\ssl-prefix-builder-v1\\lint-attempt-v1.log": "f512348bfa18586832790dd092a9a81f0a25b32c10d0fd32115553966475771d",
+    "evidence\\ssl-prefix-builder-v1\\lint-format-proof-final-v1.log": "b0cc5a0b776b84471180e91c79b254b653b9dc1e97714087ccc0bc98b42e1f03",
+    "evidence\\ssl-prefix-builder-v1\\NATIVE_PREFIX_TRANSFER_IMPLEMENTATION_V1.md": "c73f8a47b50656fa86c0279d7b134ffb2dff14360e58a9e5f0acda8d9e5bca83",
+    "evidence\\ssl-prefix-builder-v1\\prefix_test_support.py": "6792d5cc01dce87705683eaf78fd061c5ffbf7cf9ff2d8d1c2a84a56d42eaf8c",
+    "evidence\\ssl-prefix-builder-v1\\red-boundaries-v1.log": "701842678140ecc4e31ab1cff45a275c0cf9afad86d455334f8a272fbf4aa747",
+    "evidence\\ssl-prefix-builder-v1\\red-selection-v1.log": "d8913bcb8617b23c068e6890fbc9bcbacc514dcd7e6607dbbc43121eaf77da5f",
+    "evidence\\ssl-prefix-builder-v1\\red-source-centres-v1.log": "1761bc03aa677b0b9cd1aba4eeb99d8bcc2b653352c07e0b7ab3bc900ebd317b",
+    "evidence\\ssl-prefix-builder-v1\\red-suffix-support-v1.log": "bca3258f25b62df5e4c59400e5716f25badf53e0815a1a0e5d5718681c2dd9bc",
+    "evidence\\ssl-prefix-builder-v1\\ROOT_DURABLE_CHECKS_V1.md": "ed4ecd0e72b12de0a829ae01acc00646f0409dead61ad520f9ed02b1c451ccdd",
+    "evidence\\ssl-prefix-builder-v1\\source-proof-final-v1.json": "34dd71ec5c535d18d1873e2f6c3c2a80625538d27c832f56af50569368ec02b0",
+    "evidence\\ssl-prefix-builder-v1\\unit-attempt-v1.log": "fc663259156cf8f819504c3c1a11bc6970cff837f6815957662e7a87a6b0a5c2",
+    "evidence\\ssl-prefix-builder-v1\\verify_delivery.py": "4be011cf0991683af76bf2689a95228d62a672de4009d671e3afbd89972649a7"
+  },
+  "source_bytes_identical": true,
+  "builder_checkout_modified": false,
+  "scientific_execution": "NOT_RUN",
+  "independent_review": "NOT_RUN",
+  "final_numeric_access": "NOT_RUN"
+}

@@ -1,0 +1,48 @@
+{
+  "evidence_kind": "SOURCE_ONLY_PROOF_NOT_SCIENTIFIC_APPROVAL",
+  "authored_sha256": {
+    "src/marine_echo/training/native_prefix_transfer.py": "8d91d34ad1efe9ef9867587cf41eaa6448898ce1edf0b0719242b2a463ef8ddd",
+    "tests/unit/test_native_prefix_transfer.py": "94ef28270fff35ba859770157dfbac49c96280868202abc8ea42013da14fb61c",
+    "tests/integration/test_native_prefix_transfer.py": "f45c34bb5553413191b5894673f40cab416be0f05dac4195d1834c1a3f71ff43"
+  },
+  "source_bindings": {
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\training\\native_prefix_transfer.py": "8d91d34ad1efe9ef9867587cf41eaa6448898ce1edf0b0719242b2a463ef8ddd",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_ssl.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_resources.py": "c9ca3fbd0759ae00824774ed61a08185361234430d5ed63f09fa3885545c7c38",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_temporal.py": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\sigreg.py": "2cf5dc8e6fc610fbe167339a8750f5e2d9ddf9a48f416717b8310500536469a3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_band_temporal.py": "1550bb3f130e3981f57b46031e39d0d42ce7dac4738aea9280362210dfaca96b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_encoder.py": "6cc07a15ea93427d6628f1b317945f6e38ff3008894a31cab2173c0b666c0f7f",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_product.py": "fd1c643fde93494a21d560794f886056e58031f1ef6dd41ebe53662750bab314"
+  },
+  "protected_main_sha256": {
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_product.py": "fd1c643fde93494a21d560794f886056e58031f1ef6dd41ebe53662750bab314",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_comparison.py": "51c5374e188bd3c7f2b00d5f1b5887f33b456c291cb0290e8b8e020ff28df020",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_acoustic.py": "ed7f50ebebcb630ce484a6eeeefdc3e51343ba42d0ea79c04fa733cbbc59a213",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_encoder.py": "6cc07a15ea93427d6628f1b317945f6e38ff3008894a31cab2173c0b666c0f7f",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_band_acoustic.py": "6181baf22b75be73767f4b76370c65bfc37fdeb189da3deabcabe8a7c2dcd1bf",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_temporal.py": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_band_temporal.py": "1550bb3f130e3981f57b46031e39d0d42ce7dac4738aea9280362210dfaca96b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_ssl.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_downstream.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_ssl.py": "ca33bf3141ea17c5adb3d0a4cd2ed0d186be8efb846a5b581003f2088a105e4f",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_downstream.py": "95becf2cd01a7ab07c67a4da8d26c8e8bf58297f56513a439b0ab2b2be776619",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_references.py": "0d6583644ab1fce8d87a4194048f2176237b47deb57f0fa8494df6aa9012d584"
+  },
+  "protected_main_unchanged": true,
+  "closed_assessment_three_sources_unchanged": true,
+  "previous_proof_sha256": "4cf602165a3d67da2898d4c4fc4e5b68ce462fd941bbcc560f452d9fd9b5d9b0",
+  "protocol_sha256": "aee2aa04b9ac40e335df8a274801122a1d3b763a6e709c02e7baea4ea2650d34",
+  "source_only_no_initialization_or_fit_executed": true,
+  "static_forbidden_call_check": true,
+  "safe_numeric_and_tensor_codec_flags": true,
+  "write_scope": [
+    "src/marine_echo/training/native_prefix_transfer.py",
+    "tests/unit/test_native_prefix_transfer.py",
+    "tests/integration/test_native_prefix_transfer.py",
+    "evidence/ssl-prefix-builder-v1/**"
+  ],
+  "public_data_access": false,
+  "gpu_execution": false,
+  "git_index": "NOT_RUN"
+}

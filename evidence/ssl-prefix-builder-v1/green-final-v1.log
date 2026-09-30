@@ -1,0 +1,5 @@
+SYNTHETIC_CORRECTNESS_ONLY; CPU synthetic checks. No scientific fits/GPU.
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_prefix_transfer.py tests/integration/test_native_prefix_transfer.py
+Exit code:0.
+92 passed,6 skipped in68.25s (0:01:08).
+Six actual optimizer/update/full-resume/virtual-fit fixtures are NOT_RUN builder.

@@ -1,0 +1,6 @@
+SYNTHETIC_CORRECTNESS_ONLY; metadata-only admission.
+Command: ..\marine-echo-jepa\.venv\Scripts\python.exe -B -m pytest -q --import-mode=importlib -p no:cacheprovider tests/unit/test_native_prefix_transfer.py -k selection_cannot_name
+Exit code: 1. 1 failed, 71 deselected in16.68s.
+An explicitly hash-admitted target-site selection document was not semantically
+rejected. The new assertion failed DID NOT RAISE ValueError.
+Refactor requires original-development selection/cohort and fixed metric recipe.

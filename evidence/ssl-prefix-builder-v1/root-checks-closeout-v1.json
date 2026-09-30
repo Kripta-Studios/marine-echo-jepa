@@ -1,0 +1,47 @@
+{
+  "status": "ROOT_SYNTHETIC_CHECKS_COMPLETED_PENDING_INDEPENDENT_REVIEW",
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "original_sources": {
+    "src/marine_echo/training/native_prefix_transfer.py": {
+      "snapshot": "evidence\\ssl-prefix-builder-v1\\original-delivery-sources-v2\\src__marine_echo__training__native_prefix_transfer.py.txt",
+      "sha256": "8d91d34ad1efe9ef9867587cf41eaa6448898ce1edf0b0719242b2a463ef8ddd"
+    },
+    "tests/unit/test_native_prefix_transfer.py": {
+      "snapshot": "evidence\\ssl-prefix-builder-v1\\original-delivery-sources-v2\\tests__unit__test_native_prefix_transfer.py.txt",
+      "sha256": "94ef28270fff35ba859770157dfbac49c96280868202abc8ea42013da14fb61c"
+    },
+    "tests/integration/test_native_prefix_transfer.py": {
+      "snapshot": "evidence\\ssl-prefix-builder-v1\\original-delivery-sources-v2\\tests__integration__test_native_prefix_transfer.py.txt",
+      "sha256": "f45c34bb5553413191b5894673f40cab416be0f05dac4195d1834c1a3f71ff43"
+    }
+  },
+  "bindings": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_prefix_transfer.py": "c4741d4d5a52329dacf063355e2754fc35204e054cc1fe79cd9ea9fdc63f5a85",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_native_prefix_transfer.py": "6bba30acac10c0248960767cd03dd1cbe9e6af8332f2ed963a6b7ac6dfd7101d",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\integration\\test_native_prefix_transfer.py": "c9306c1a20b452c0cf89af8f08b0807a287abb6c5c8615f3a97bffd77fcfc192",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-prefix-builder-v1\\root-cpu-checks-v1.log": "c1b0cafcbfbce1c5592b711c195f59f790423ef59c417c381d16455492c2161a",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-prefix-builder-v1\\root-cpu-checks-v2.log": "eef043a8f019413a466a3def1fd01c4ed8e9b8b5dbc742177a7cf36bf64afacf",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-prefix-builder-v1\\root-source-interval-red-v1.log": "872e4ff187f79eedd0730406dff01128e3cd19608887a1b05e32bfce81828367",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-prefix-builder-v1\\root-source-interval-green-v1.log": "9da849451fb05e04cb19abf814ebbb5ea7acc345ee03a13d546592823179fc75",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-prefix-builder-v1\\root-completion-kind-green-v1.log": "53b94280766bc8758f67713c926e692acfa3bb1b5473b2015ebd073d8844ce96",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-prefix-builder-v1\\root-durable-fixture-v1.log": "f137f12d2d6257117bf995614eee349f2ca1434cb5deb9054db5f658fd53ad87",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-prefix-builder-v1\\root-durable-fixture-v2.log": "b2292b41e52b614dce86bd5252855ab2d26c16133ba0e0c6ea7d4b1815c43b00",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-prefix-builder-v1\\prefix_test_support.py": "6c152ce22712f15279aa1a12e83e1fc329b684040f2a91ce7d92b1ba2adbeca6",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-prefix-builder-v1\\root_durable_fixture_check.py": "ae5e3da2bf0fa452e371dbc406b74eff902055e4354271536e63cd60f5ef3acf",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0024-prefix-native-interval-proof.md": "8480bc4cd200a614ee1dde7b6fdb91e7e78602d7702e095a5eabc95a24c47ea0"
+  },
+  "root_changes": [
+    "Native source interval indices plus 55\u201365-minute clock adjacency",
+    "Explicit evidence kind in completed and unsupported receipts",
+    "Synthetic registry fixtures and focused regression checks"
+  ],
+  "cpu_checks_before_receipt_label_change": "102 passed95.86s",
+  "receipt_label_regression": "1 actual optimizer check and durable Unicode fit/replay passed",
+  "root_original_optimizer_checks": "98 passed97.23s including six actual optimizer/resume cases",
+  "failed_fixture_preserved": true,
+  "public_fit": false,
+  "gpu_execution": false,
+  "first_snapshot_attempt": "Partial v1 snapshot preserved; same unit/integration basenames collided (root tool chunk9f9c23 exit1). V2 includes full relative names; no permissions denial occurred.",
+  "final_site_numeric_access": "NOT_RUN",
+  "independent_review": "NOT_RUN"
+}
