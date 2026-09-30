@@ -1,0 +1,27 @@
+I001 [*] Import block is un-sorted or un-formatted
+  --> tools\prepare_native_band_replication_downstream_v3.py:3:1
+   |
+ 1 |   """Propose two matched endpoints only after a fixed replication parent actually completes."""
+ 2 |
+ 3 | / import argparse
+ 4 | | import copy
+ 5 | | import hashlib
+ 6 | | import json
+ 7 | | from pathlib import Path
+ 8 | |
+ 9 | | from execute_native_band_replication_job import source_paths
+10 | | from marine_echo.training import native_band_replication_ssl as core
+11 | | from marine_echo.training.native_band_replication_downstream import DownstreamConfig
+   | |____________________________________________________________________________________^
+12 |
+13 |   ROOT = Path(__file__).resolve().parents[1]
+   |
+help: Organize imports
+   |
+9  | from execute_native_band_replication_job import source_paths
+10 +
+11 | from marine_echo.training import native_band_replication_ssl as core
+   |
+
+Found 1 error.
+[*] 1 fixable with the `--fix` option.

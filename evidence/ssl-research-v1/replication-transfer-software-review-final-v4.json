@@ -1,0 +1,179 @@
+{
+  "status": "REQUEST_CHANGES",
+  "reviewer_session_id": "01a0ef27-876b-7692-917e-3975afc6893d",
+  "implementer_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "root_coordinator_session_id": "01a0ef1a-b166-7f83-91b7-2a2aff7c1b10",
+  "scope": "ENGINEERING_SOURCE_AND_ANCESTRY_SOFTWARE_REVIEW_ONLY",
+  "scientific_prefit": "NOT_GRANTED",
+  "final_data": "NOT_OPENED",
+  "unresolved_defects": [
+    {
+      "id": "R1",
+      "severity": "BLOCKING_OWNERSHIP_ADMISSION",
+      "path": "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_native_prefix_job_v2.py",
+      "line": 150,
+      "finding": "The prefix supervisor rejects .pending, .prefix-pending and .band-pending journals but omits .assessment-pending, written by the new replication assessment supervisor.",
+      "concrete_failure_path": "execute_bounded_native_replication_assessment._write_ledger creates .assessment-pending and then replaces the main ledger. If the initial replacement fails, its journal() call occurs before the child-launch try block: the main ledger can remain idle, no child or owner lock exists, and .assessment-pending remains. The prefix supervisor's inspected guard does not reject that state, so it can continue toward receipt creation and Popen before root reconciles the pending assessment journal.",
+      "related_source": {
+        "path": "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_bounded_native_replication_assessment.py",
+        "journal_creation_line": 862,
+        "journal_replacement_line": 866,
+        "initial_journal_call_line": 1036
+      },
+      "required_change": "Add rejection of .assessment-pending to the prospective unfitted prefix supervisor before launch or destination mutation. Preserve existing fitted sources and historical evidence. Add a metadata-only regression with an otherwise idle ledger, no owner lock and an assessment-pending journal; verify rejection before Popen, receipt/output creation or numerical/model initialization.",
+      "verification_basis": "Independent source inspection; this failure path was not executed or simulated through filesystem/process operations."
+    }
+  ],
+  "bindings": {
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_prefix_transfer.py": "844159d11a1d9a410f7cb7f1a83c782360427e04aae965c19cb94a74d5a28d38",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_native_prefix_transfer.py": "676009597d42123d501c439c56f90aa7ebc95e548060a60ed8fc5471dfdca495",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\integration\\test_native_prefix_transfer.py": "765ae56494a56f8da0a738b748f3106e123d5d7ea31041e5b7cb1642cb9d2886",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_assessment_replication.py": "f8c7e9272c9ecbbb68d60695e9e4e92494f42ca9420989500b7c3f409778c9ef",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_bounded_native_replication_assessment.py": "d431c5ec642821c8906a2b8c09d45ffb6ce9d4a52d8e4fdb5138b7778b5161da",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_native_replication_assessment_worker.py": "802168ec645a82ec322cefbea430e2bffcf3707b254e038efca19c5b037379e4",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_native_replication_assessment.py": "c1003e232c99fb8da99b66418594e5786bf31608ea5f20469b039c0d3a874fdd",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\integration\\test_native_replication_assessment.py": "482cbc1b76a9eec9f4527b9b7c0ec11f73184480e99503210f470c7c89e867d4",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\__init__.py": "3fcc1878588f5a89775363e099fab7d7323acebccae26d10db4a6da627425b68",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\__init__.py": "dddaccd3cb0c952e88796d75e7a15966cfab87f98c2cfe8452a5fff4c3138c68",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_assessment.py": "8dfc5830209153a2079a2158d4f041d01b769e41432082069971650dabd9a42b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_product.py": "fd1c643fde93494a21d560794f886056e58031f1ef6dd41ebe53662750bab314",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_band_acoustic.py": "6181baf22b75be73767f4b76370c65bfc37fdeb189da3deabcabe8a7c2dcd1bf",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_band_replication_acoustic.py": "e689d80077152b4c784966426846bfb154eb4e16a46494f2140129c003288149",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_band_replication_encoder.py": "e21bfc7f724ab4c86296a6b377b478cff017f4de74eaa736a75770b8df16fb07",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_band_replication_latent.py": "7cb0e2b76f77659d19e1b3f42bdf1afc36811772a29cb56ee5ae5d165f23ac07",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_encoder.py": "6cc07a15ea93427d6628f1b317945f6e38ff3008894a31cab2173c0b666c0f7f",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_latent.py": "cfdbc430d9e9a57c6b815492254119fe0682d728b1e89d2c5e5ec97ed7c14822",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\__init__.py": "5bdc97a6119b2dd3d519df36406c8bcb9e801be81c8b6c3f44e4a527db1f87a3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_band_temporal.py": "1550bb3f130e3981f57b46031e39d0d42ce7dac4738aea9280362210dfaca96b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_temporal.py": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\sigreg.py": "2cf5dc8e6fc610fbe167339a8750f5e2d9ddf9a48f416717b8310500536469a3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\__init__.py": "c98c60178f566d43dd60641704ccd9c652d406487b4838cbf5a9df49ea5dd735",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_downstream.py": "95becf2cd01a7ab07c67a4da8d26c8e8bf58297f56513a439b0ab2b2be776619",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_replication_downstream.py": "f5a6747b3a37dcd8856b617a95cd939862ba716a1d7e50fe7ef9090a08d4084d",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_replication_ssl.py": "94c04d2d585c39d49e849f4b86375e201898ae104e8a808341363a2f22518f72",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_ssl.py": "ca33bf3141ea17c5adb3d0a4cd2ed0d186be8efb846a5b581003f2088a105e4f",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_downstream.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_references.py": "0d6583644ab1fce8d87a4194048f2176237b47deb57f0fa8494df6aa9012d584",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_resources.py": "c9ca3fbd0759ae00824774ed61a08185361234430d5ed63f09fa3885545c7c38",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_ssl.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_bounded_native_assessment.py": "5fb5ed948c23eca057473ca57ec4acd61754b1a1fcebec4a09ea601f7fa41b9b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_native_assessment_worker.py": "1e0d7cab6d218c7aa88337be874b312568bae095a20475a9b11ed8bf4a5dfbc0",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_native_band_replication_job.py": "ffbfe9310ee9a1c17e4f784cfcf9d7e221be4658408080621eaff6c8b2104eea",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_native_prefix_job.py": "c663aa8bb88f71fb9ddf79be1c105039195f2cee6eb1ba906232f7bdf76b4e01",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\native_reference_supervisor.py": "ec5456584ca6f6a805e13f4137365c2c0a785b2dbc52782b191c1528befb30dd",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_acoustic.py": "ed7f50ebebcb630ce484a6eeeefdc3e51343ba42d0ea79c04fa733cbbc59a213",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\__init__.py": "011583e04b7f119ffcc2ae18712a4af2e613cff87bcbeb5435fbfb10dcd01508",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\native_ssl_corpus.py": "ebda9d460fa14df749b8f774bcb02a6622f0d69402443098a6100670a4c8f7ba",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\aeon_corpus.py": "398e021a5807ab8068ceef03dd692f3b688c744751cd4e65d3efbee94d9a3efd",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_native_prefix_worker.py": "39ab2ecdd8cc8d6843289c384f05bd61436d4bf1c3a4ecbe4033653d47c04ca6",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_native_prefix_job_v2.py": "d0880866ed67a512f9d67f8d7dd6967665996951865a1e0596e3d190ff24a9ac",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\native_band_budget_history_v2.py": "ac05992bfb21126d1f27eff1122ee198522346c23e45c47225287b55243c9e13",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\version_native_prefix_budget_wrapper_v2.py": "5ab4898e41484f2c3b2e90d282d7358796ddee1e6cef365d148e2ab6a7dcfb8a",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_native_prefix_budget_history_v2.py": "470b8cddf035304c94fb7729d15679e73b6d81936ac48201a2d29e6bdd70d1b3",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tests\\unit\\test_native_prefix_execution_v2.py": "b02763c02df2ae699c4fe101002e5d55e7321b9f6d25ced5a76b428e59339db6",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_prefix_execution_scope_v1.json": "98c388019c842a9486caff58ec9f3acf5fe67d319fec173ae6a72aba8533c2a7",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_band_budget_owner_resolution_v1.json": "d13cc7875bba5400cfe0761a371dcf69bb743e4914f9449d288ecaee9b5d15db",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0023-owner-resolved-band-budget.md": "e7dffe900a969f03ceb13254116997041536ab818ab32fe67ff4d6c437b4b67d",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\NATIVE_SSL_TRANSFER_ENGINEERING_ROOT_V4.md": "e39daea47d49a4f2839947ba8c584856143e2c54c6d934c7e428087f009ac192",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\ssl_vnext_replication_transfer_software_review_v4.txt": "1129ccb9de9c631dd9646000d297aab0943630927fc87c17b046438671bd32d5",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\prefix-budget-wrapper-versioning-v2.json": "99174693c8b941de34230cc0af674e1a9e7702630acc9c5236748cf98f925b30",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\prefix-budget-history-red-v1.log": "dfb3a952a02d3b51978369d29ad58498b65cd39dfec695d77ce8d0b52cb642d1",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\prefix-budget-history-green-v2.log": "4b2b922bf6f8b30422bfe5b3a5de251dc89161e0e8ade4c6dae8841ed726683d",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\prefix-wrapper-v2-policy-green.log": "fb89e362730999a8aaf72251348a4bb6609dd8fab0745d52257638a347ccd4c0",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\prefix-wrapper-v2-policy-green-v2.log": "37395c04826ae6576c0cbbd201a9c71f7e205a937f13d7ec4c9bf6be5822ec9a",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-replication-assessment-prefix-builder-v4\\handoff-v4.json": "34aaf9138ae4b39014c3d35961d0d0a14e605d232deb642ba728b42ea063ab2e",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-replication-assessment-prefix-builder-v4\\baseline-prefix-v4.json": "f7a31c8025af106cfffa05de932e3870eb4f07bb6f55b8eb52e2db85f1538e05",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-replication-assessment-prefix-builder-v4\\baseline-dependencies-v4.json": "918f6c61ca15e87337092c30d9d73bad13e639943f8826c964fd151a1d53ed34",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-replication-assessment-prefix-builder-v4\\authored-closed-snapshots-v4.json": "d2ade7cc2975a8e63b050308e75c1a250bef5aecbcc8e7a762ae231459b580bf",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-replication-assessment-prefix-builder-v4\\integration-closed-v4.patch": "6466e4627b037956a6e04c5b86cecea47871fb48e0cea1fb8df3e54e4994623d",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-replication-assessment-prefix-builder-v4\\source-proof-closed-v4.json": "a65cb326f9b5e3f0ed6293178b420f11e6fa761e49bb7601847b995900849e88",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-replication-assessment-prefix-builder-v4\\verify_delivery.py": "9ed98229b7457bb5c0ab0625f26b34708643080193c9468f586e9864a422c923",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-replication-assessment-prefix-builder-v4\\root-integration-v4.json": "f0c98eaf696b1be3861a02c1dccd793e9226ca59bb04eccf2ee1aae5a375a286",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-replication-assessment-prefix-builder-v4\\root-checks-closeout-v4.json": "fd2d5f742cc6f65151dc25fb78eaa0efa3f7d8d69c441d8e87763c73f4ba5305",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-replication-assessment-prefix-builder-v4\\root-all-checks-v4.log": "827597ff2edd070160e709c3707b63deae34cc4b5dc333a2d59d2e8a8bc7f8f5",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-replication-assessment-prefix-builder-v4\\root-durable-prefix-v4.log": "ae8be96a724aea74d68e39d5190880b15bd8eb98c434fd144cf6011f4bd7748b",
+    "C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-replication-assessment-prefix-builder-v4\\root_owned_lifecycle_check.py": "dad9eb6d85896802b5e004df4392573291d266b483d5085b4e4209b2fe7fb423"
+  },
+  "executed_checks": [
+    {
+      "route": "In-process JavaScript standard-library source/JSON reads and streaming SHA256",
+      "result": "All8 current authored files match the handoff and closed source snapshots. All28 main-checkout closure entries declared by the handoff match. All24 declared handoff evidence hashes match. Final reverification of all68 reported bindings found no changes.",
+      "tool_success": true,
+      "os_process_exit_code": null
+    },
+    {
+      "route": "In-process JavaScript source-text comparison",
+      "result": "All26 prefix definitions reported exact by the AST proof also match baseline source text after newline normalization.17 of18 assessment definitions match text directly; the remaining _split_members difference inspected is formatting. Inspected, but did not execute, the Python AST proof and its typed-only normalization rules.",
+      "tool_success": true,
+      "os_process_exit_code": null
+    },
+    {
+      "route": "In-process JavaScript bounded source comparison",
+      "result": "The V2 prefix wrapper equals V1 after exactly the documented budget-helper import replacement and addition of its required binding, allowing newline translation. This confirms the pending-journal omission is retained in V2.",
+      "tool_success": true,
+      "os_process_exit_code": null
+    },
+    {
+      "route": "In-process JavaScript baseline hash and evidence-directory metadata checks",
+      "result": "Of13 protected baseline dependencies, only the documented unfitted V2 acoustic loader differs: historical3cb348… versus currente689d8…. No owned-lifecycle receipt directory was present.",
+      "tool_success": true,
+      "os_process_exit_code": null
+    }
+  ],
+  "inspected_findings": [
+    "Typed selected Band V2 SSL/control and direct-supervised artifacts remain separate from V1. Seed/config/kind guards support7/13/23; supervised ancestry is retained, and full-finetuned features are not classified as pure SSL.",
+    "Prefix admission binds actual parent run, original review/runtime/config, source snapshots, selected/inference identities, scalers, recursive TRAIN ancestry and per-step membership before numerical decoding. Safe selected encoder identity is compared with parent inference features before prefix arrays load.",
+    "The original partition rules retain1/7/30-day labels beginning source-start+4days, common suffix at source-start+41days, native230 geometry, configuration maps,165 quarantine and explicit structural-gap provenance. The wrapper enforces one deployment per scientific cell. Prefix and suffix raw contexts/labels must be disjoint.",
+    "Frozen trajectories preserve encoder parameters and buffers, use fresh heads seeded seed+100000, retain original TRAIN scalers and select only on original DEV225. Optimizer/scheduler/RNG/sample/selection state is represented in resume artifacts. Suffix numerical inputs are denied.",
+    "Assessment admission retains recursive fitted/scaler ancestry, source/config/model/freeze/numeric-review identities and strict whole-site geometry. Forecast arguments remain x/context mask/metadata/query; targets and future arrays are excluded. Nonfinite forecasts or observed targets fail without support reduction.",
+    "The fixed secondary-past25% dropout retains primary inputs and scoring gold/support. It is a robustness diagnostic, not an intervention. Paired intervals remain explicitly NOT_RUN pending separate exact saved-prediction comparison admission.",
+    "The new assessment supervisor binds its worker before Popen, charges mixed Band V1/V2 CUDA lifetime under native_band_v1, preserves CPU assessment identity, checks actual exit/artifacts/owned-tree cleanup and preserves unknown locks. Parent exceptions require reconciliation.",
+    "The new closed-history helper rejects unknown Band terminal states and retains completed/failed/unassessable prefix charges. These checks do not repair R1.",
+    "Historical approvals and the active approved scientific queue are unchanged by this software rejection."
+  ],
+  "inspected_root_checks": {
+    "full_suite": {
+      "passed": 391,
+      "skipped": 0,
+      "duration_seconds": 674.98,
+      "actual_exit_code_from_receipt": 0,
+      "coordinator_session": 3982,
+      "coordinator_chunk": "7969c2",
+      "includes_root_optimizer_resume_cases": 11,
+      "reviewer_executed": false
+    },
+    "physical_synthetic_prefix_replay": {
+      "synthetic_updates": 4,
+      "status": "PASSED",
+      "actual_exit_code_from_receipt": 0,
+      "coordinator_session": 52146,
+      "coordinator_chunk": "893d80",
+      "public_scientific_result": false,
+      "reviewer_executed": false
+    },
+    "history_policy": {
+      "preserved_v1_red": "1 failed/10 passed: unknown terminal was accepted.",
+      "v2_green": "11 passed in0.59s.",
+      "reviewer_executed": false
+    },
+    "copied_wrapper_policy": {
+      "preserved_initial_result": "1 failed/28 passed because generic FAILED fixture was rejected.",
+      "corrected_result": "29 passed in1.31s.",
+      "coordinator_exit_report": "CLI39059 exit0/chunke5181f",
+      "reviewer_executed": false
+    }
+  },
+  "not_run": [
+    "Reviewer subprocess/Python tests, GPU operations, model or RNG construction, tensor decoding, dataset/prediction decoding, fitting and filesystem writes. No denied mechanism was retried.",
+    "Actual owned-process lifecycle check: NOT_RUN_PENDING_GPU_IDLE; receipt absent and closeout explicitly records it pending.",
+    "Actual assessment worker execution, real prefix fitting, final numeric access and scientific comparison."
+  ],
+  "remaining_prerequisites": [
+    "Resolve R1 with preserved failure evidence and focused before-launch rejection coverage, then renew exact software bindings.",
+    "After the scientific queue closes, execute the protected ROOT-only synthetic owned-lifecycle check and independently verify its actual receipt. This is not a substitute for actual worker/runtime admission.",
+    "Before any real prefix or assessment operation, obtain separate exact scientific/source/model/ancestry/config/runtime and numeric-access/materialization/provenance approvals, including freeze-before-unseal proofs.",
+    "Complete all Band training before prefix operations because the immutable training wrapper rejects later prefix terminal histories. Reconcile ownership and every pending journal before launching.",
+    "At launch, recompute remaining Band12h inside aggregate96h, charging all owned startup/decode/evaluation/save/failure/resume time; enforce one scientific tree, allocated/reserved<10GiB and owned-tree RAM<22GiB."
+  ],
+  "claim_boundaries": "This source audit neither authorizes scientific execution nor establishes transfer quality, causal SSL/JEPA benefit, SOTA, biological effects or final-site performance. Source-calendar timestamps remain proxy/unknown-UTC; clock/calibration/censoring limitations remain. No additional architecture, recipe, seed/history, tuning, package/app/release, cloud/payment or permission/credential work is admitted."
+}

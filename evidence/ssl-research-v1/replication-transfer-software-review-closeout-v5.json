@@ -1,0 +1,10 @@
+{
+  "status": "DISTINCT_REPLICATION_TRANSFER_SOFTWARE_BINDINGS_VERIFIED",
+  "actual_cli_exit_code": 0,
+  "session_id": 88487,
+  "actual_exit_chunk_id": "27d274",
+  "review_sha256": "65e5654e0a9eddd3ed9d27e4cda72ea072634575444f89c427d2365774513dc0",
+  "binding_count": 79,
+  "scientific_prefit_or_final_numeric_access": "NOT_GRANTED",
+  "actual_root_check_scope": "391 CPU checks, physical synthetic prefix replay, 31 pending/policy checks and actual tiny CPUowned supervisor"
+}

@@ -147,7 +147,8 @@ def main():
         any(str(r.get("status", "")).startswith("RUNNING_") for r in ledger["runs"])
         or lock.exists()
         or any(
-            LEDGER.with_suffix(s).exists() for s in (".pending", ".prefix-pending", ".band-pending")
+            LEDGER.with_suffix(s).exists()
+            for s in (".pending", ".prefix-pending", ".band-pending", ".assessment-pending", ".reconciliation-pending")
         )
     ):
         raise ValueError("Wait for prior scientific completion; preserve pending owner/journal")

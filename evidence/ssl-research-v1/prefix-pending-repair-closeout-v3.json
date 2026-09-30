@@ -1,0 +1,17 @@
+{
+  "status": "UNFITTED_PREFIX_PENDING_REPAIR_31_CHECKS_PASSED",
+  "actual_exit_code": 0,
+  "actual_exit_chunk_id": "5ba404",
+  "before_sha256": "d0880866ed67a512f9d67f8d7dd6967665996951865a1e0596e3d190ff24a9ac",
+  "current_sha256": "38bb28c1580a09805bcba56f2180a9b8e55001229b1974451ba16a51fafe8b21",
+  "changed_functions": [
+    "main"
+  ],
+  "only_added_pending_guards": [
+    ".assessment-pending",
+    ".reconciliation-pending"
+  ],
+  "log_sha256": "55c0ef59e16320556dbef15511fec33311a25276f3d2fdc92af7eeaeeb37e139",
+  "original_fitted_sources_or_scientific_recipe_changes": false,
+  "scientific_admission": "NOT_GRANTED"
+}
