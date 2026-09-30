@@ -1,0 +1,40 @@
+F.                                                                       [100%]
+================================== FAILURES ===================================
+___ test_exact_recovered_original_executor_bytes_can_be_bound_as_provenance ___
+
+    def test_exact_recovered_original_executor_bytes_can_be_bound_as_provenance():
+        record = json.loads((ROOT / "evidence/ssl-research-v1/ancestor-source/execute_native_ssl_job_shared_screen_v1.manifest.json").read_bytes())
+>       assert inventory.resolve_original_source_binding(record["original_path"], record["sha256"], "shared_ssl", [record]) == Path(record["path"])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\unit\test_native_inventory_archived_executor.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/tools/execute_native_ssl_job.py')
+expected = 'dd688444fa48b95e40ccb8b29b260550cc998b805273aa196f35909ff0175f9d'
+method = 'shared_ssl'
+archives = [{'original_path': 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_native_ssl_j..._v1.py', 'sha256': 'dd688444fa48b95e40ccb8b29b260550cc998b805273aa196f35909ff0175f9d', 'methods': ['shared_ssl'], ...}]
+
+    def resolve_original_source_binding(path, expected, method, archives):
+        """Find exact historical bytes; this grants no runtime or compatibility approval."""
+        path = _regular(path)
+        if sha256(path) == expected:
+            return path
+        matches = []
+        for record in archives:
+            if (not isinstance(record, dict)
+                    or set(record) != {"original_path", "path", "sha256", "methods", "status"}
+                    or record.get("status") != "ORIGINAL_SOURCE_PRESERVED_NOT_COMPATIBILITY_APPROVAL"
+                    or not isinstance(record.get("methods"), list)
+                    or not record["methods"] or any(value not in METHODS for value in record["methods"])
+                    or not _digest(record.get("sha256"))):
+                raise ValueError("Exact historical source receipt required; no compatibility promotion.")
+            original, archived = _regular(record["original_path"]), _regular(record["path"])
+            if original.suffix != ".py" or not original.is_relative_to(source_root() / "src/marine_echo"):
+>               raise ValueError("Historical resolution is restricted to local Python source.")
+E               ValueError: Historical resolution is restricted to local Python source.
+
+src\marine_echo\evaluation\native_ancestry_inventory.py:524: ValueError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_inventory_archived_executor.py::test_exact_recovered_original_executor_bytes_can_be_bound_as_provenance
+1 failed, 1 passed in 1.62s

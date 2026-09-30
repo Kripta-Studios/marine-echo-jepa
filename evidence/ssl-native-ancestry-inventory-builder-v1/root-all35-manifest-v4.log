@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tools\prepare_completed_native_inventory_v3.py", line 111, in <module>
+    main()
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tools\prepare_completed_native_inventory_v3.py", line 68, in main
+    raise ValueError(f"Conflicting or changed original fit binding for {name}: {path}; historical={sha}, current={digest(path)}, inventory={bindings.get(path)}")
+ValueError: Conflicting or changed original fit binding for shared_short_probe: C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\src\marine_echo\models\native_temporal.py; historical=85c4af6c67acb661359cde8bcf22de479e4da6a499cc7843bce0fee6c155e422, current=b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32, inventory=b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32

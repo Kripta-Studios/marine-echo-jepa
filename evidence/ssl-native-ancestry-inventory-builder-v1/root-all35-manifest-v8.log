@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tools\prepare_completed_native_inventory_v3.py", line 128, in <module>
+    main()
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tools\prepare_completed_native_inventory_v3.py", line 107, in main
+    raise ValueError("Every actual fitted parent must be explicitly present")
+ValueError: Every actual fitted parent must be explicitly present

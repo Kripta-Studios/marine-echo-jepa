@@ -1,0 +1,10 @@
+{
+  "status": "EXACT_RECORDED_SOURCE_SHA256_RECOVERED_FROM_LOCAL_GIT",
+  "revision": "62f652778195a7ea81594877694c877ae376caea",
+  "git_path": "tools/execute_native_ssl_job.py",
+  "transformation": "EXACT_GIT_BLOB",
+  "sha256": "dd688444fa48b95e40ccb8b29b260550cc998b805273aa196f35909ff0175f9d",
+  "source_executed": false,
+  "historical_current_file_modified": false,
+  "compatibility_or_scientific_approval": false
+}

@@ -1,0 +1,19 @@
+{
+  "status": "AUTOMATIC_PREFIT_REVIEW_REJECTED_NO_AUTHORITY",
+  "reviewer_session_id": "01a0ef27-876b-7692-917e-3975afc6893d",
+  "actual_cli_session_id": 77167,
+  "actual_exit_code": 1,
+  "exit_evidence_chunk": "c37b6d",
+  "reason": "This request was blocked by our safety systems. Reason: Potentially unintended activity.",
+  "scientific_prefit": false,
+  "fitting_authorized": false,
+  "ledger_modified": false,
+  "previous_approvals_changed": false,
+  "bindings": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-direct13-original-guard-prefit-events-v2.jsonl": "800fd98f406b9b2b1a49578ea54e4278617a0eddface36ee9fc2fafea3b2b349",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_band_direct13_ownership_retry_admission_v2.json": "4698b3a7fe1e14dffb5cd5ce8a87d5e7b24d8b74e66dfd9ac7c847e23c3e4698",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\ssl_vnext_band_direct13_ownership_retry_prefit_v2.txt": "9d6ea873927b9440026c5af2e00b846cf9f7aa71c6624548fb9f5a3840821ccd",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-direct13-original-guard-prefit-stderr-v2.log": "915b5d27e0afee8cdd5c7441089d75fda654d2ff4b4d629f2fd81601b67d9518",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\close_native_direct13_prefit_rejection_v2.py": "9a1188baddc907007f1629a4423916d3bf72bf352426cdf0b0c2bb40b2e99986"
+  }
+}

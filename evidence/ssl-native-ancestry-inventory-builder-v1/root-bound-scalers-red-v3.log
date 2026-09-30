@@ -1,0 +1,151 @@
+F...                                                                     [100%]
+================================== FAILURES ===================================
+_ test_missing_standalone_child_scalers_use_exact_bound_existing_train_scalers _
+
+    def test_missing_standalone_child_scalers_use_exact_bound_existing_train_scalers():
+        fixture = prepared()
+>       result = fixture.candidate.derive_inventory(fixture.manifest, fixture.output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\integration\test_native_inventory_bound_scalers.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\marine_echo\evaluation\native_ancestry_inventory.py:991: in derive_inventory
+    admitted = _admit(manifest_path, output_path)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+manifest_path = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/evidence/ssl-native-ancestry-inventory-builder-v1/SYNTHETIC_CORRECTNESS_ONLY-�rbol-59596358-ce2c-4d00-a7cb-5d2343ffe6ac/manifest.json')
+output_path = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/evidence/ssl-native-ancestry-inventory-builder-v1/SYNTHETIC_CORRECTNESS_ONLY-�rbol-59596358-ce2c-4d00-a7cb-5d2343ffe6ac/Inventario-230m')
+
+    def _admit(manifest_path, output_path):
+        manifest_path = _regular(manifest_path)
+        manifest = json_document(manifest_path)
+        fields = {
+            "kind",
+            "purpose",
+            "execution",
+            "evidence_kind",
+            "device",
+            "output_path",
+            "bindings",
+            "split_path",
+            "train",
+            "endpoints",
+            "references",
+            "owner_session_id",
+        }
+        if (
+            set(manifest) - fields
+            or manifest.get("kind") != "native_research_inventory_manifest_v1"
+            or manifest.get("purpose") != "LOCAL_METADATA_DERIVATION_ONLY"
+            or manifest.get("execution") != "ROOT_LOCAL_COMPLETED_METADATA_AUDIT"
+            or manifest.get("device") != "cpu"
+            or not manifest.get("owner_session_id")
+        ):
+            raise ValueError("Explicit versioned CPU metadata manifest required.")
+        evidence = manifest.get("evidence_kind")
+        if evidence not in (REAL, SYNTHETIC):
+            raise ValueError("Unknown inventory evidence kind.")
+        if evidence == REAL and Path(__file__).resolve().parents[3].name == "marine-jepa-vnext-builder":
+            raise ValueError("Actual completed weights are ROOT-only; builder cannot decode them.")
+        output = Path(os.path.abspath(output_path))
+        if (
+            str(output) != manifest.get("output_path")
+            or output.exists()
+            or output.is_symlink()
+            or not output.parent.is_dir()
+        ):
+            raise FileExistsError("Explicit fresh protected output required.")
+        for parent in output.parents:
+            info = parent.lstat()
+            if stat.S_ISLNK(info.st_mode) or getattr(info, "st_file_attributes", 0) & 0x400:
+                raise ValueError("Unsafe output parent identity.")
+        if evidence == SYNTHETIC and (
+            "SYNTHETIC_CORRECTNESS_ONLY" not in str(manifest_path.parent)
+            or output.parent != manifest_path.parent
+        ):
+            raise ValueError("Private visibly synthetic fixture identity required.")
+        bindings = manifest.get("bindings")
+        if not isinstance(bindings, dict) or not bindings:
+            raise ValueError("Exact source/input/endpoint bindings required before safe decode.")
+        for name, digest in bindings.items():
+            p = _regular(name)
+            if str(p) != name or not _digest(digest) or sha256(p) != digest:
+                raise ValueError("Stale/unsafe immutable binding.")
+            if output == p or output in p.parents:
+                raise ValueError("Output overlaps immutable inputs.")
+    
+        def bound(path):
+            p = _regular(path)
+            if bindings.get(str(p)) != sha256(p):
+                raise ValueError("Missing required source/artifact binding.")
+            if evidence == SYNTHETIC and p not in sources and manifest_path.parent not in p.parents:
+                raise ValueError("Synthetic fixtures cannot decode actual trained artifacts.")
+            return p
+    
+        sources = set(required_sources())
+        for source in sources:
+            bound(source)
+        split_path = bound(manifest["split_path"])
+        if evidence == REAL and split_path != source_root() / "configs/native_ssl_split_v1.json":
+            raise ValueError("Actual immutable native split path required.")
+        split = json_document(split_path)
+        groups = reserved_groups(split, evidence=evidence)
+        train = manifest["train"]
+        if set(train) != {"input_path", "report_path", "identity_cohort_path"}:
+            raise ValueError("Exact original TRAIN input/report/identity-cohort paths required.")
+        train = {key: bound(value) for key, value in train.items()}
+        report, cohort = (
+            json_document(train["report_path"]),
+            json_document(train["identity_cohort_path"]),
+        )
+        train_sha, split_sha = sha256(train["input_path"]), sha256(split_path)
+        if (
+            report.get("role") != "train"
+            or report.get("npz_sha256") != train_sha
+            or report.get("split_sha256") != split_sha
+            or type(report.get("issued")) is not int
+            or report["issued"] <= 0
+            or report.get("status")
+            != ("MATERIALIZED_REAL_NATIVE_PRODUCTS" if evidence == REAL else SYNTHETIC)
+        ):
+            raise ValueError("Original TRAIN byte/report identity or evidence differs.")
+        rows = _rows(cohort.get("rows"))
+        if (
+            cohort.get("role") != "train"
+            or cohort.get("input_npz_sha256") != train_sha
+            or cohort.get("split_sha256") != split_sha
+            or len(rows) != report["issued"]
+            or cohort.get("complete", True) is not True
+            or _identity_set(cohort.get("identities")) != _identity_set(_identities(groups["train"]))
+        ):
+            raise ValueError("Complete independently bound TRAIN identity cohort differs.")
+        if evidence == SYNTHETIC and cohort.get("evidence_kind") != SYNTHETIC:
+            raise ValueError("Synthetic cohort must retain synthetic identity.")
+        counts = {s["deployment"]: s["issued"] for s in report.get("source_reports", [])}
+        if counts != {
+            s["deployment"]: sum(d == s["deployment"] for d, _ in rows) for s in groups["train"]
+        }:
+            raise ValueError("Whole original TRAIN source-count identity is incomplete.")
+        entries = manifest.get("endpoints")
+        if not isinstance(entries, dict) or not entries:
+            raise ValueError("Explicit completed endpoint inventory required; no enumeration.")
+        order = validate_parent_graph(entries)
+        records, seen_runs = {}, set()
+        for name in order:
+            entry = entries[name]
+            if (
+                not re.fullmatch("[A-Za-z0-9][A-Za-z0-9_.-]*", name)
+                or set(entry) != ENDPOINT_FIELDS
+                or entry["kind"] not in KINDS
+                or entry["method"] not in METHODS
+                or entry["mode"]
+                not in {"core_frozen_readout", "frozen_readout", "full_finetune", "direct_end_to_end"}
+            ):
+>               raise ValueError("Unknown endpoint kind/method/mode/metadata.")
+E               ValueError: Unknown endpoint kind/method/mode/metadata.
+
+src\marine_echo\evaluation\native_ancestry_inventory.py:668: ValueError
+=========================== short test summary info ===========================
+FAILED tests/integration/test_native_inventory_bound_scalers.py::test_missing_standalone_child_scalers_use_exact_bound_existing_train_scalers
+1 failed, 3 passed in 70.53s (0:01:10)

@@ -505,6 +505,33 @@ def _check_membership(member, cohort_rows, train_sources, report):
     return rows
 
 
+def resolve_original_source_binding(path, expected, method, archives):
+    """Find exact historical bytes; this grants no runtime or compatibility approval."""
+    path = _regular(path)
+    if sha256(path) == expected:
+        return path
+    matches = []
+    for record in archives:
+        if (not isinstance(record, dict)
+                or set(record) != {"original_path", "path", "sha256", "methods", "status"}
+                or record.get("status") != "ORIGINAL_SOURCE_PRESERVED_NOT_COMPATIBILITY_APPROVAL"
+                or not isinstance(record.get("methods"), list)
+                or not record["methods"] or any(value not in METHODS for value in record["methods"])
+                or not _digest(record.get("sha256"))):
+            raise ValueError("Exact historical source receipt required; no compatibility promotion.")
+        original, archived = _regular(record["original_path"]), _regular(record["path"])
+        allowed_source = original.is_relative_to(source_root() / "src/marine_echo") or original.is_relative_to(source_root() / "tools")
+        if original.suffix != ".py" or not allowed_source:
+            raise ValueError("Historical resolution is restricted to local Python source.")
+        if sha256(archived) != record["sha256"]:
+            raise ValueError("Preserved source bytes differ.")
+        if original == path and record["sha256"] == expected and method in record["methods"]:
+            matches.append(archived)
+    if len(matches) != 1:
+        raise ValueError("One exact method-scoped historical source archive required.")
+    return matches[0]
+
+
 def reserved_groups(split, *, evidence):
     """Validate original identities; development may share a site, final test may not."""
     if evidence not in (REAL, SYNTHETIC):
@@ -556,6 +583,7 @@ def _admit(manifest_path, output_path):
         "endpoints",
         "references",
         "owner_session_id",
+        "source_archives",
     }
     if (
         set(manifest) - fields
@@ -609,6 +637,12 @@ def _admit(manifest_path, output_path):
     sources = set(required_sources())
     for source in sources:
         bound(source)
+    source_archives = []
+    for catalog in manifest.get("source_archives", []):
+        record = json_document(bound(catalog))
+        bound(record["path"])
+        bound(record["original_path"])
+        source_archives.append(record)
     split_path = bound(manifest["split_path"])
     if evidence == REAL and split_path != source_root() / "configs/native_ssl_split_v1.json":
         raise ValueError("Actual immutable native split path required.")
@@ -659,7 +693,8 @@ def _admit(manifest_path, output_path):
         entry = entries[name]
         if (
             not re.fullmatch("[A-Za-z0-9][A-Za-z0-9_.-]*", name)
-            or set(entry) != ENDPOINT_FIELDS
+            or not ENDPOINT_FIELDS <= set(entry)
+            or set(entry) - ENDPOINT_FIELDS - {"scalers_path"}
             or entry["kind"] not in KINDS
             or entry["method"] not in METHODS
             or entry["mode"]
@@ -674,9 +709,9 @@ def _admit(manifest_path, output_path):
                 ("membership", "membership.json"),
                 ("model", "inference.pt"),
                 ("selected", "selected_encoder.pt"),
-                ("scalers", "scalers.json"),
             )
         }
+        paths["scalers"] = bound(entry.get("scalers_path", directory / "scalers.json"))
         paths.update(config=bound(entry["config_path"]), review=bound(entry["review_path"]))
         run, member, review = (json_document(paths[k]) for k in ("run", "membership", "review"))
         if sha256(paths["run"]) in seen_runs:
@@ -716,10 +751,12 @@ def _admit(manifest_path, output_path):
         ):
             raise ValueError("Original review/run source bindings differ or are absent.")
         for path, expected in original_bindings.items():
-            if bindings.get(path) != expected or sha256(bound(path)) != expected:
+            resolved = resolve_original_source_binding(path, expected, entry["method"], source_archives)
+            if sha256(bound(resolved)) != expected:
                 raise ValueError("Original fit source/config/parent binding changed.")
         for path, expected in review_bindings.items():
-            if sha256(bound(path)) != expected:
+            resolved = resolve_original_source_binding(path, expected, entry["method"], source_archives)
+            if sha256(bound(resolved)) != expected:
                 raise ValueError("Original independent review binding changed.")
         if (
             original_bindings.get(str(train["input_path"])) != train_sha
@@ -750,6 +787,8 @@ def _admit(manifest_path, output_path):
             "run": run,
             "config": config,
             "member": member,
+            "source_archives": [record for record in source_archives
+                                if original_bindings.get(record["original_path"]) == record["sha256"]],
         }
     for name in order:
         item = records[name]
@@ -1104,6 +1143,8 @@ def derive_inventory(manifest_path, output_path):
                 "feature_training_kind": item["feature_label"],
                 "encoder_parent_relation": item["tensor_parent_relation"],
                 "scientific_quality": "NOT_ESTABLISHED",
+                "preserved_original_source_versions": item["source_archives"],
+                "historical_source_resolution_is_compatibility_approval": False,
             },
         )
         _write(

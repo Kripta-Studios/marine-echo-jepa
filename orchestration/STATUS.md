@@ -16,7 +16,21 @@ LightGBM15 quantile boosters and deterministic persistence/seasonal references c
 Shared/CF encoder CPU replay and LightGBM all15-booster CPU replay passed.
 Independent learning-path audit found no defect within inspected scope.
 
-Active scientific job: none recorded.
+Active scientific job: original reviewed Band shared SSL seed23, H96, 6000 updates
+and four fresh 500-update development readouts; wrapper PID11412, trainer PID57172.
+The remaining original queue next runs matched scratch supervised seed23 only after
+successful SSL closure. The unchanged original GPU classifier passed after VLC ceased
+appearing in its process inventory; no foreign process was terminated. The proposed
+VLC policy remains unapproved. Live accounting belongs exclusively to the active wrapper.
+The corrected direct13 retry prefit was automatically rejected before review on the
+new continuation (CLI77167 exit1, chunkc37b6d): no approval or launch authority.
+The 35-completed-neural manifest reserves 394 exact bindings and 18 parent links;
+the full owned artifact audit is NOT_RUN while training owns the scientific tree.
+Three changed historical Python source versions were recovered by exact Git-blob
+hash and preserved separately; recovery grants no compatibility or review authority.
+Focused inventory checks passed73 tests, followed by10 archive-scope checks.
+An isolated builder is preparing versioned immutable ledger snapshots for the final
+43-neural/47-method inventory; missing methods remain required, never silently omitted.
 Original serial queue: COMPLETED_REVIEWED_SERIAL_QUEUE; 9/9 reports inspected.
 Charged owned GPU-hours at ledger snapshot: 14.953011/96.
 The active wrappers own ledger writes; coordinator does not overwrite live accounting.

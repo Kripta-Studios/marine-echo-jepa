@@ -1,0 +1,21 @@
+{
+  "status": "ORIGINAL_SHARED_DEFINITIONS_AST_IDENTICAL_NOT_INDEPENDENT_COMPATIBILITY_APPROVAL",
+  "archive_manifest_sha256": "322a88dd42e4e8ecef7b1ebdd7e19757766031c1da192fcc0bc7a43b248e4c09",
+  "archived_source_sha256": "85c4af6c67acb661359cde8bcf22de479e4da6a499cc7843bce0fee6c155e422",
+  "current_source_sha256": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32",
+  "verified_shared_definitions": [
+    "SharedTemporalEncoder",
+    "QueryHead",
+    "NativeTemporalModel"
+  ],
+  "changed_old_definitions": [
+    "CFNativeModel"
+  ],
+  "new_definitions": [
+    "deterministic_adaptive_avg_pool1d"
+  ],
+  "historical_scope": [
+    "shared_ssl"
+  ],
+  "compatibility_approval": false
+}

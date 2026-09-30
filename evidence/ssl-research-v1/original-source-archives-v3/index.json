@@ -1,0 +1,44 @@
+{
+  "status": "ALL_CHANGED_ORIGINAL_PYTHON_SOURCE_BYTES_RECOVERED_NOT_COMPATIBILITY_APPROVAL",
+  "runs_inspected": 35,
+  "catalogs": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\original-source-archives-v3\\native_temporal_85c4af6c67acb661.py.manifest.json",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\original-source-archives-v3\\native_references_b692368053501ca9.py.manifest.json",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\original-source-archives-v3\\execute_native_ssl_job_dd688444fa48b95e.py.manifest.json"
+  ],
+  "recovery": [
+    {
+      "original_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_temporal.py",
+      "sha256": "85c4af6c67acb661359cde8bcf22de479e4da6a499cc7843bce0fee6c155e422",
+      "revision": "62f652778195a7ea81594877694c877ae376caea",
+      "transformation": "EXACT_GIT_BLOB",
+      "methods": [
+        "shared_ssl"
+      ],
+      "source_executed": false
+    },
+    {
+      "original_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_references.py",
+      "sha256": "b692368053501ca946978a3c583d649356584e91c1e020597397e669d8aa1d7b",
+      "revision": "62f652778195a7ea81594877694c877ae376caea",
+      "transformation": "EXACT_GIT_BLOB",
+      "methods": [
+        "shared_ssl"
+      ],
+      "source_executed": false
+    },
+    {
+      "original_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_native_ssl_job.py",
+      "sha256": "dd688444fa48b95e40ccb8b29b260550cc998b805273aa196f35909ff0175f9d",
+      "revision": "62f652778195a7ea81594877694c877ae376caea",
+      "transformation": "EXACT_GIT_BLOB",
+      "methods": [
+        "shared_ssl"
+      ],
+      "source_executed": false
+    }
+  ],
+  "source_executed": false,
+  "historical_current_files_modified": false,
+  "scientific_approval": false
+}

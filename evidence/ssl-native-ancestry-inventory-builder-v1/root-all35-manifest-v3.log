@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tools\prepare_completed_native_inventory_v3.py", line 111, in <module>
+    main()
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tools\prepare_completed_native_inventory_v3.py", line 68, in main
+    raise ValueError("Conflicting or changed original fit binding")
+ValueError: Conflicting or changed original fit binding

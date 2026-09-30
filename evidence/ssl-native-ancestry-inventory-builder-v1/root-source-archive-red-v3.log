@@ -1,0 +1,194 @@
+FFFFFFFF                                                                 [100%]
+================================== FAILURES ===================================
+_______ test_original_shared_source_resolves_to_existing_exact_archive ________
+
+    def test_original_shared_source_resolves_to_existing_exact_archive():
+        record = receipt()
+        before = copy.deepcopy(record)
+>       resolved = inventory.resolve_original_source_binding(record["original_path"], record["sha256"], "shared_ssl", [record])
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'marine_echo.evaluation.native_ancestry_inventory' has no attribute 'resolve_original_source_binding'
+
+tests\unit\test_native_inventory_archived_source.py:21: AttributeError
+_______________ test_current_source_binding_requires_no_archive _______________
+
+    def test_current_source_binding_requires_no_archive():
+        record = receipt()
+        path = Path(record["original_path"])
+>       assert inventory.resolve_original_source_binding(path, inventory.sha256(path), "shared_ssl", []) == path
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'marine_echo.evaluation.native_ancestry_inventory' has no attribute 'resolve_original_source_binding'
+
+tests\unit\test_native_inventory_archived_source.py:30: AttributeError
+_____ test_archive_cannot_relabel_bytes_scope_or_authority[wrong_method] ______
+
+defect = 'wrong_method'
+
+    @pytest.mark.parametrize("defect", ["wrong_method", "wrong_digest", "approval_promotion", "wrong_original", "snapshot_substitution", "missing_archive"])
+    def test_archive_cannot_relabel_bytes_scope_or_authority(defect):
+        record = receipt()
+        original, digest, method = record["original_path"], record["sha256"], "shared_ssl"
+        records = [record]
+        if defect == "wrong_method":
+            method = "cf_jepa"
+        elif defect == "wrong_digest":
+            record["sha256"] = "0" * 64
+        elif defect == "approval_promotion":
+            record["status"] = "APPROVED_COMPATIBILITY"
+        elif defect == "wrong_original":
+            record["original_path"] = str(ROOT / "src/marine_echo/training/native_ssl.py")
+        elif defect == "snapshot_substitution":
+            record["path"] = record["original_path"]
+        else:
+            records = []
+        with pytest.raises(ValueError):
+>           inventory.resolve_original_source_binding(original, digest, method, records)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module 'marine_echo.evaluation.native_ancestry_inventory' has no attribute 'resolve_original_source_binding'
+
+tests\unit\test_native_inventory_archived_source.py:51: AttributeError
+_____ test_archive_cannot_relabel_bytes_scope_or_authority[wrong_digest] ______
+
+defect = 'wrong_digest'
+
+    @pytest.mark.parametrize("defect", ["wrong_method", "wrong_digest", "approval_promotion", "wrong_original", "snapshot_substitution", "missing_archive"])
+    def test_archive_cannot_relabel_bytes_scope_or_authority(defect):
+        record = receipt()
+        original, digest, method = record["original_path"], record["sha256"], "shared_ssl"
+        records = [record]
+        if defect == "wrong_method":
+            method = "cf_jepa"
+        elif defect == "wrong_digest":
+            record["sha256"] = "0" * 64
+        elif defect == "approval_promotion":
+            record["status"] = "APPROVED_COMPATIBILITY"
+        elif defect == "wrong_original":
+            record["original_path"] = str(ROOT / "src/marine_echo/training/native_ssl.py")
+        elif defect == "snapshot_substitution":
+            record["path"] = record["original_path"]
+        else:
+            records = []
+        with pytest.raises(ValueError):
+>           inventory.resolve_original_source_binding(original, digest, method, records)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module 'marine_echo.evaluation.native_ancestry_inventory' has no attribute 'resolve_original_source_binding'
+
+tests\unit\test_native_inventory_archived_source.py:51: AttributeError
+__ test_archive_cannot_relabel_bytes_scope_or_authority[approval_promotion] ___
+
+defect = 'approval_promotion'
+
+    @pytest.mark.parametrize("defect", ["wrong_method", "wrong_digest", "approval_promotion", "wrong_original", "snapshot_substitution", "missing_archive"])
+    def test_archive_cannot_relabel_bytes_scope_or_authority(defect):
+        record = receipt()
+        original, digest, method = record["original_path"], record["sha256"], "shared_ssl"
+        records = [record]
+        if defect == "wrong_method":
+            method = "cf_jepa"
+        elif defect == "wrong_digest":
+            record["sha256"] = "0" * 64
+        elif defect == "approval_promotion":
+            record["status"] = "APPROVED_COMPATIBILITY"
+        elif defect == "wrong_original":
+            record["original_path"] = str(ROOT / "src/marine_echo/training/native_ssl.py")
+        elif defect == "snapshot_substitution":
+            record["path"] = record["original_path"]
+        else:
+            records = []
+        with pytest.raises(ValueError):
+>           inventory.resolve_original_source_binding(original, digest, method, records)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module 'marine_echo.evaluation.native_ancestry_inventory' has no attribute 'resolve_original_source_binding'
+
+tests\unit\test_native_inventory_archived_source.py:51: AttributeError
+____ test_archive_cannot_relabel_bytes_scope_or_authority[wrong_original] _____
+
+defect = 'wrong_original'
+
+    @pytest.mark.parametrize("defect", ["wrong_method", "wrong_digest", "approval_promotion", "wrong_original", "snapshot_substitution", "missing_archive"])
+    def test_archive_cannot_relabel_bytes_scope_or_authority(defect):
+        record = receipt()
+        original, digest, method = record["original_path"], record["sha256"], "shared_ssl"
+        records = [record]
+        if defect == "wrong_method":
+            method = "cf_jepa"
+        elif defect == "wrong_digest":
+            record["sha256"] = "0" * 64
+        elif defect == "approval_promotion":
+            record["status"] = "APPROVED_COMPATIBILITY"
+        elif defect == "wrong_original":
+            record["original_path"] = str(ROOT / "src/marine_echo/training/native_ssl.py")
+        elif defect == "snapshot_substitution":
+            record["path"] = record["original_path"]
+        else:
+            records = []
+        with pytest.raises(ValueError):
+>           inventory.resolve_original_source_binding(original, digest, method, records)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module 'marine_echo.evaluation.native_ancestry_inventory' has no attribute 'resolve_original_source_binding'
+
+tests\unit\test_native_inventory_archived_source.py:51: AttributeError
+_ test_archive_cannot_relabel_bytes_scope_or_authority[snapshot_substitution] _
+
+defect = 'snapshot_substitution'
+
+    @pytest.mark.parametrize("defect", ["wrong_method", "wrong_digest", "approval_promotion", "wrong_original", "snapshot_substitution", "missing_archive"])
+    def test_archive_cannot_relabel_bytes_scope_or_authority(defect):
+        record = receipt()
+        original, digest, method = record["original_path"], record["sha256"], "shared_ssl"
+        records = [record]
+        if defect == "wrong_method":
+            method = "cf_jepa"
+        elif defect == "wrong_digest":
+            record["sha256"] = "0" * 64
+        elif defect == "approval_promotion":
+            record["status"] = "APPROVED_COMPATIBILITY"
+        elif defect == "wrong_original":
+            record["original_path"] = str(ROOT / "src/marine_echo/training/native_ssl.py")
+        elif defect == "snapshot_substitution":
+            record["path"] = record["original_path"]
+        else:
+            records = []
+        with pytest.raises(ValueError):
+>           inventory.resolve_original_source_binding(original, digest, method, records)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module 'marine_echo.evaluation.native_ancestry_inventory' has no attribute 'resolve_original_source_binding'
+
+tests\unit\test_native_inventory_archived_source.py:51: AttributeError
+____ test_archive_cannot_relabel_bytes_scope_or_authority[missing_archive] ____
+
+defect = 'missing_archive'
+
+    @pytest.mark.parametrize("defect", ["wrong_method", "wrong_digest", "approval_promotion", "wrong_original", "snapshot_substitution", "missing_archive"])
+    def test_archive_cannot_relabel_bytes_scope_or_authority(defect):
+        record = receipt()
+        original, digest, method = record["original_path"], record["sha256"], "shared_ssl"
+        records = [record]
+        if defect == "wrong_method":
+            method = "cf_jepa"
+        elif defect == "wrong_digest":
+            record["sha256"] = "0" * 64
+        elif defect == "approval_promotion":
+            record["status"] = "APPROVED_COMPATIBILITY"
+        elif defect == "wrong_original":
+            record["original_path"] = str(ROOT / "src/marine_echo/training/native_ssl.py")
+        elif defect == "snapshot_substitution":
+            record["path"] = record["original_path"]
+        else:
+            records = []
+        with pytest.raises(ValueError):
+>           inventory.resolve_original_source_binding(original, digest, method, records)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module 'marine_echo.evaluation.native_ancestry_inventory' has no attribute 'resolve_original_source_binding'
+
+tests\unit\test_native_inventory_archived_source.py:51: AttributeError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_inventory_archived_source.py::test_original_shared_source_resolves_to_existing_exact_archive
+FAILED tests/unit/test_native_inventory_archived_source.py::test_current_source_binding_requires_no_archive
+FAILED tests/unit/test_native_inventory_archived_source.py::test_archive_cannot_relabel_bytes_scope_or_authority[wrong_method]
+FAILED tests/unit/test_native_inventory_archived_source.py::test_archive_cannot_relabel_bytes_scope_or_authority[wrong_digest]
+FAILED tests/unit/test_native_inventory_archived_source.py::test_archive_cannot_relabel_bytes_scope_or_authority[approval_promotion]
+FAILED tests/unit/test_native_inventory_archived_source.py::test_archive_cannot_relabel_bytes_scope_or_authority[wrong_original]
+FAILED tests/unit/test_native_inventory_archived_source.py::test_archive_cannot_relabel_bytes_scope_or_authority[snapshot_substitution]
+FAILED tests/unit/test_native_inventory_archived_source.py::test_archive_cannot_relabel_bytes_scope_or_authority[missing_archive]
+8 failed in 1.06s

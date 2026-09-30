@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tools\prepare_completed_native_inventory_v3.py", line 116, in <module>
+    main()
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tools\prepare_completed_native_inventory_v3.py", line 71, in main
+    resolved = resolve_original_source_binding(path, sha, method, [archive_record])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\src\marine_echo\evaluation\native_ancestry_inventory.py", line 530, in resolve_original_source_binding
+    raise ValueError("One exact method-scoped historical source archive required.")
+ValueError: One exact method-scoped historical source archive required.

@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tools\prepare_completed_native_inventory_v3.py", line 75, in main
+    resolved = resolve_original_source_binding(path, sha, method, [archive_record])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\src\marine_echo\evaluation\native_ancestry_inventory.py", line 530, in resolve_original_source_binding
+    raise ValueError("One exact method-scoped historical source archive required.")
+ValueError: One exact method-scoped historical source archive required.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tools\prepare_completed_native_inventory_v3.py", line 122, in <module>
+    main()
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tools\prepare_completed_native_inventory_v3.py", line 77, in main
+    raise ValueError(f"Historical source resolution failed for {name}: {path}, recorded SHA256 {sha}") from error
+ValueError: Historical source resolution failed for shared_short_probe: C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tools\execute_native_ssl_job.py, recorded SHA256 dd688444fa48b95e40ccb8b29b260550cc998b805273aa196f35909ff0175f9d
