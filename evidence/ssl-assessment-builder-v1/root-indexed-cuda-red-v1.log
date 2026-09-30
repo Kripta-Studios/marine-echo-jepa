@@ -1,0 +1,25 @@
+F.                                                                       [100%]
+================================== FAILURES ===================================
+_ test_real_execution_policy_rejects_unindexed_or_other_cuda_before_decode[cuda] _
+
+memory_case = <tests.unit.test_native_assessment.Case object at 0x0000020CFFC34D70>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000020CFDC04DA0>
+device = 'cuda'
+
+    @pytest.mark.parametrize("device", ["cuda", "cuda:1"])
+    def test_real_execution_policy_rejects_unindexed_or_other_cuda_before_decode(memory_case, monkeypatch, device):
+        """Synthetic policy bytes cover the real admission branch; no GPU is initialized."""
+        case = memory_case
+        case.manifest.update(device=device, evidence_kind="REVIEWED_FROZEN_ASSESSMENT", input_evidence_kind=None)
+        case.documents["cohort.json"]["evidence_kind"] = "REVIEWED_FROZEN_ASSESSMENT"
+        case.review_overrides["device"] = device
+        case.seal()
+        monkeypatch.setattr(assessment.np, "load", lambda *a, **k: pytest.fail("Numeric decode"))
+>       with pytest.raises(ValueError, match="device"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\unit\test_native_assessment.py:859: Failed
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_assessment.py::test_real_execution_policy_rejects_unindexed_or_other_cuda_before_decode[cuda]
+1 failed, 1 passed, 75 deselected in 4.65s

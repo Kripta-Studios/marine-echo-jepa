@@ -1,0 +1,12 @@
+{
+  "actual_run_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\random_frozen_frozen_readout_seed7_h96\\run.json",
+  "actual_run_sha256": "42fb8f5586f6bdbbdd5be0d1bca7e5f488b8fa9d64ba5ffd2263d4351724ab8f",
+  "config_sha256": "549efd50bb4cc43bdd29a39369fa1b442a51c2a9d3697fc7103859a57c276d9e",
+  "frozen_before_numeric_access": true,
+  "is_finalist_selection": false,
+  "model_sha256": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\random_frozen_frozen_readout_seed7_h96\\inference.pt": "8493f4bcc24191c302b617b0d749ae422644cb155ca8661d193b34e84bfe3cb9"
+  },
+  "selection_role": "development",
+  "statistics_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed"
+}

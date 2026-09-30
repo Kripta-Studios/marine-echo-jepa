@@ -1,0 +1,9 @@
+{
+  "status": "ALL_ASSESSMENT_SOFTWARE_BINDINGS_VERIFIED",
+  "review_sha256": "767ebdfabb4010addbfe6743fb95607cb05f2f31dfc7f324fc667de7cc0c6c2d",
+  "binding_count": 244,
+  "reviewer_actual_cli_exit_code": 0,
+  "reviewer_exit_witness": "Root write_stdin session70518 chunkb19d2f exit0",
+  "scientific_execution_authorized": false,
+  "final_numeric_access_authorized": false
+}

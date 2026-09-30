@@ -203,6 +203,38 @@ def _members(document):
     return result
 
 
+def _split_members(split):
+    """Use original native-reader split bytes; never rewrite its NPZ digest."""
+    if split.get("schema_version") != "native_acoustic_ssl_v1":
+        if "sources" in split:
+            raise ValueError("Unknown native source split schema.")
+        return (_members({"identities": split.get("train")}),
+                _members({"identities": split.get("reserved_test")}))
+    if "train" in split or "reserved_test" in split:
+        raise ValueError("Ambiguous native source and derived split memberships.")
+    sources = split.get("sources")
+    if not isinstance(sources, list) or not sources:
+        raise ValueError("Original native source split requires complete source identities.")
+    by_role = {"train": [], "development": [], "final_test": []}
+    archive_ids, deployments, digests = set(), set(), set()
+    for source in sources:
+        if not isinstance(source, dict) or source.get("role") not in by_role:
+            raise ValueError("Unknown native source role.")
+        file_id, digest = source.get("file_id"), source.get("archive_sha256")
+        deployment, site = _identity(source.get("deployment")), _identity(source.get("site"))
+        if (type(file_id) is not int or file_id <= 0 or not isinstance(digest, str)
+                or not re.fullmatch("[0-9a-f]{64}", digest)
+                or file_id in archive_ids or deployment in deployments or digest in digests):
+            raise ValueError("Missing, duplicate or invalid native archive/deployment identity.")
+        archive_ids.add(file_id)
+        deployments.add(deployment)
+        digests.add(digest)
+        by_role[source["role"]].append({"archive_id": str(file_id), "deployment_id": deployment,
+                                        "site_id": site, "source_ids": [digest]})
+    return (_members({"identities": by_role["train"]}),
+            _members({"identities": by_role["final_test"]}))
+
+
 @dataclass(frozen=True)
 class Admission:
     manifest: dict
@@ -235,7 +267,7 @@ def admit(manifest_path, review_path, output_path, *, loaders=None):
         or m["floor"] != 18
         or type(m.get("batch_size")) is not int
         or m["batch_size"] < 1
-        or m.get("device") not in {"cpu", "cuda"}
+        or m.get("device") not in {"cpu", "cuda:0"}
         or m.get("resource_limits") != LIMITS
         or review.get("device") != m["device"]
         or review.get("output_path") != str(output_path)
@@ -347,8 +379,7 @@ def admit(manifest_path, review_path, output_path, *, loaders=None):
     ):
         raise ValueError("Corpus role/identity/cohort/split provenance differs.")
     members = _members(cohort)
-    reserved = _members({"identities": split.get("reserved_test")})
-    allowed_train = _members({"identities": split.get("train")})
+    allowed_train, reserved = _split_members(split)
     if any(allowed_train[k] & reserved[k] for k in reserved):
         raise ValueError("Split TRAIN and whole test reservations overlap.")
     if m["role"] == "final_test" and any(not members[k] <= reserved[k] for k in members):
@@ -890,12 +921,12 @@ def execute_assessment(manifest_path, review_path, output_path, *, loaders=None)
     def resources():
         nonlocal peak_rss, allocated, reserved
         peak_rss = max(peak_rss, process.memory_info().rss)
-        if m["device"] == "cuda":
+        if m["device"] == "cuda:0":
             import torch
 
-            torch.cuda.synchronize()
-            allocated = max(allocated, torch.cuda.max_memory_allocated())
-            reserved = max(reserved, torch.cuda.max_memory_reserved())
+            torch.cuda.synchronize("cuda:0")
+            allocated = max(allocated, torch.cuda.max_memory_allocated("cuda:0"))
+            reserved = max(reserved, torch.cuda.max_memory_reserved("cuda:0"))
         if peak_rss >= 22 * 1024**3 or max(allocated, reserved) >= 10 * 1024**3:
             raise RuntimeError("Resource ceiling exceeded; no unsafe foreign termination.")
 

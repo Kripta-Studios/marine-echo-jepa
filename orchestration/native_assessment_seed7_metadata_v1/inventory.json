@@ -1,0 +1,266 @@
+{
+  "final_numeric_access": "NOT_RUN",
+  "independent_ancestry_review": "NOT_RUN",
+  "models": {
+    "cf_jepa_frozen_readout": {
+      "ancestry_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\cf_jepa_frozen_readout.ancestry.json",
+      "config_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\cf_jepa_frozen_readout.config.json",
+      "kind": "native_ssl_weights_only_inference_v1",
+      "loader": "builtin",
+      "method": "cf_jepa",
+      "mode": "frozen_readout",
+      "model_paths": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_frozen_readout_seed7_h96\\inference.pt"
+      ],
+      "parent_names": [
+        "cf_short_probe"
+      ],
+      "seed": 7,
+      "selection_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\cf_jepa_frozen_readout.selection.json",
+      "statistics_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\cf_jepa_frozen_readout.statistics.json"
+    },
+    "cf_jepa_full_finetune": {
+      "ancestry_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\cf_jepa_full_finetune.ancestry.json",
+      "config_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\cf_jepa_full_finetune.config.json",
+      "kind": "native_ssl_weights_only_inference_v1",
+      "loader": "builtin",
+      "method": "cf_jepa",
+      "mode": "full_finetune",
+      "model_paths": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_full_finetune_seed7_h96\\inference.pt"
+      ],
+      "parent_names": [
+        "cf_short_probe"
+      ],
+      "seed": 7,
+      "selection_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\cf_jepa_full_finetune.selection.json",
+      "statistics_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\cf_jepa_full_finetune.statistics.json"
+    },
+    "cf_short_probe": {
+      "ancestry_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\cf_short_probe.ancestry.json",
+      "config_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\cf_short_probe.config.json",
+      "kind": "native_ssl_weights_only_inference_v1",
+      "loader": "builtin",
+      "method": "cf_jepa",
+      "mode": "core_frozen_readout",
+      "model_paths": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed7_h96_deterministic\\inference.pt"
+      ],
+      "parent_names": [],
+      "seed": 7,
+      "selection_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\cf_short_probe.selection.json",
+      "statistics_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\cf_short_probe.statistics.json"
+    },
+    "direct_end_to_end": {
+      "ancestry_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\direct_end_to_end.ancestry.json",
+      "config_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\direct_end_to_end.config.json",
+      "kind": "native_ssl_weights_only_inference_v1",
+      "loader": "builtin",
+      "method": "direct",
+      "mode": "direct_end_to_end",
+      "model_paths": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_direct_end_to_end_seed7_h96\\inference.pt"
+      ],
+      "parent_names": [],
+      "seed": 7,
+      "selection_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\direct_end_to_end.selection.json",
+      "statistics_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\direct_end_to_end.statistics.json"
+    },
+    "direct_frozen_readout": {
+      "ancestry_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\direct_frozen_readout.ancestry.json",
+      "config_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\direct_frozen_readout.config.json",
+      "kind": "native_ssl_weights_only_inference_v1",
+      "loader": "builtin",
+      "method": "direct",
+      "mode": "frozen_readout",
+      "model_paths": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_frozen_readout_seed7_h96\\inference.pt"
+      ],
+      "parent_names": [
+        "direct_short_probe"
+      ],
+      "seed": 7,
+      "selection_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\direct_frozen_readout.selection.json",
+      "statistics_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\direct_frozen_readout.statistics.json"
+    },
+    "direct_short_probe": {
+      "ancestry_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\direct_short_probe.ancestry.json",
+      "config_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\direct_short_probe.config.json",
+      "kind": "native_ssl_weights_only_inference_v1",
+      "loader": "builtin",
+      "method": "direct",
+      "mode": "core_frozen_readout",
+      "model_paths": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_seed7_h96_reviewed\\inference.pt"
+      ],
+      "parent_names": [],
+      "seed": 7,
+      "selection_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\direct_short_probe.selection.json",
+      "statistics_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\direct_short_probe.statistics.json"
+    },
+    "masked_ssl_frozen_readout": {
+      "ancestry_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\masked_ssl_frozen_readout.ancestry.json",
+      "config_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\masked_ssl_frozen_readout.config.json",
+      "kind": "native_ssl_weights_only_inference_v1",
+      "loader": "builtin",
+      "method": "masked_ssl",
+      "mode": "frozen_readout",
+      "model_paths": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\masked_ssl_frozen_readout_seed7_h96\\inference.pt"
+      ],
+      "parent_names": [
+        "masked_ssl_short_probe"
+      ],
+      "seed": 7,
+      "selection_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\masked_ssl_frozen_readout.selection.json",
+      "statistics_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\masked_ssl_frozen_readout.statistics.json"
+    },
+    "masked_ssl_full_finetune": {
+      "ancestry_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\masked_ssl_full_finetune.ancestry.json",
+      "config_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\masked_ssl_full_finetune.config.json",
+      "kind": "native_ssl_weights_only_inference_v1",
+      "loader": "builtin",
+      "method": "masked_ssl",
+      "mode": "full_finetune",
+      "model_paths": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\masked_ssl_full_finetune_seed7_h96\\inference.pt"
+      ],
+      "parent_names": [
+        "masked_ssl_short_probe"
+      ],
+      "seed": 7,
+      "selection_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\masked_ssl_full_finetune.selection.json",
+      "statistics_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\masked_ssl_full_finetune.statistics.json"
+    },
+    "masked_ssl_short_probe": {
+      "ancestry_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\masked_ssl_short_probe.ancestry.json",
+      "config_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\masked_ssl_short_probe.config.json",
+      "kind": "native_ssl_weights_only_inference_v1",
+      "loader": "builtin",
+      "method": "masked_ssl",
+      "mode": "core_frozen_readout",
+      "model_paths": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\masked_ssl_seed7_h96_reviewed\\inference.pt"
+      ],
+      "parent_names": [],
+      "seed": 7,
+      "selection_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\masked_ssl_short_probe.selection.json",
+      "statistics_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\masked_ssl_short_probe.statistics.json"
+    },
+    "permuted_ssl_frozen_readout": {
+      "ancestry_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\permuted_ssl_frozen_readout.ancestry.json",
+      "config_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\permuted_ssl_frozen_readout.config.json",
+      "kind": "native_ssl_weights_only_inference_v1",
+      "loader": "builtin",
+      "method": "permuted_ssl",
+      "mode": "frozen_readout",
+      "model_paths": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\permuted_ssl_frozen_readout_seed7_h96\\inference.pt"
+      ],
+      "parent_names": [
+        "permuted_ssl_short_probe"
+      ],
+      "seed": 7,
+      "selection_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\permuted_ssl_frozen_readout.selection.json",
+      "statistics_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\permuted_ssl_frozen_readout.statistics.json"
+    },
+    "permuted_ssl_short_probe": {
+      "ancestry_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\permuted_ssl_short_probe.ancestry.json",
+      "config_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\permuted_ssl_short_probe.config.json",
+      "kind": "native_ssl_weights_only_inference_v1",
+      "loader": "builtin",
+      "method": "permuted_ssl",
+      "mode": "core_frozen_readout",
+      "model_paths": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\permuted_ssl_seed7_h96_reviewed\\inference.pt"
+      ],
+      "parent_names": [],
+      "seed": 7,
+      "selection_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\permuted_ssl_short_probe.selection.json",
+      "statistics_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\permuted_ssl_short_probe.statistics.json"
+    },
+    "random_frozen_frozen_readout": {
+      "ancestry_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\random_frozen_frozen_readout.ancestry.json",
+      "config_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\random_frozen_frozen_readout.config.json",
+      "kind": "native_ssl_weights_only_inference_v1",
+      "loader": "builtin",
+      "method": "random_frozen",
+      "mode": "frozen_readout",
+      "model_paths": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\random_frozen_frozen_readout_seed7_h96\\inference.pt"
+      ],
+      "parent_names": [
+        "random_frozen_short_probe"
+      ],
+      "seed": 7,
+      "selection_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\random_frozen_frozen_readout.selection.json",
+      "statistics_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\random_frozen_frozen_readout.statistics.json"
+    },
+    "random_frozen_short_probe": {
+      "ancestry_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\random_frozen_short_probe.ancestry.json",
+      "config_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\random_frozen_short_probe.config.json",
+      "kind": "native_ssl_weights_only_inference_v1",
+      "loader": "builtin",
+      "method": "random_frozen",
+      "mode": "core_frozen_readout",
+      "model_paths": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\random_frozen_seed7_h96_reviewed\\inference.pt"
+      ],
+      "parent_names": [],
+      "seed": 7,
+      "selection_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\random_frozen_short_probe.selection.json",
+      "statistics_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\random_frozen_short_probe.statistics.json"
+    },
+    "shared_frozen_readout": {
+      "ancestry_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\shared_frozen_readout.ancestry.json",
+      "config_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\shared_frozen_readout.config.json",
+      "kind": "native_ssl_weights_only_inference_v1",
+      "loader": "builtin",
+      "method": "shared_ssl",
+      "mode": "frozen_readout",
+      "model_paths": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_frozen_readout_seed7_h96\\inference.pt"
+      ],
+      "parent_names": [
+        "shared_short_probe"
+      ],
+      "seed": 7,
+      "selection_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\shared_frozen_readout.selection.json",
+      "statistics_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\shared_frozen_readout.statistics.json"
+    },
+    "shared_full_finetune": {
+      "ancestry_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\shared_full_finetune.ancestry.json",
+      "config_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\shared_full_finetune.config.json",
+      "kind": "native_ssl_weights_only_inference_v1",
+      "loader": "builtin",
+      "method": "shared_ssl",
+      "mode": "full_finetune",
+      "model_paths": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_full_finetune_seed7_h96\\inference.pt"
+      ],
+      "parent_names": [
+        "shared_short_probe"
+      ],
+      "seed": 7,
+      "selection_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\shared_full_finetune.selection.json",
+      "statistics_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\shared_full_finetune.statistics.json"
+    },
+    "shared_short_probe": {
+      "ancestry_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\shared_short_probe.ancestry.json",
+      "config_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\shared_short_probe.config.json",
+      "kind": "native_ssl_weights_only_inference_v1",
+      "loader": "builtin",
+      "method": "shared_ssl",
+      "mode": "core_frozen_readout",
+      "model_paths": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\inference.pt"
+      ],
+      "parent_names": [],
+      "seed": 7,
+      "selection_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\shared_short_probe.selection.json",
+      "statistics_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_assessment_seed7_metadata_v1\\shared_short_probe.statistics.json"
+    }
+  },
+  "numeric_corpus_decoded": false,
+  "status": "DERIVED_CLOSED_SEED7_ANCESTRY_NOT_FINAL_SELECTION"
+}

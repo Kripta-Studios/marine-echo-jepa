@@ -793,3 +793,78 @@ def test_native_corpus_split_header_must_match_exact_frozen_split(memory_case):
     case.seal()
     with pytest.raises(ValueError, match="role/evidence"):
         assessment.load_input(case.admit())
+
+
+def native_source_split_case(case):
+    """The original reader schema, with synthetic source identities and no payloads."""
+    test_identity = {"archive_id": "1", "deployment_id": "synthetic-test",
+                     "site_id": "test-site", "source_ids": ["f" * 64]}
+    case.documents["cohort.json"]["identities"] = [test_identity]
+    case.documents["split.json"] = {
+        "schema_version": "native_acoustic_ssl_v1",
+        "sources": [
+            {"file_id": 1, "deployment": "synthetic-test", "site": "test-site",
+             "archive_sha256": "f" * 64, "role": "final_test"},
+            {"file_id": 2, "deployment": "synthetic-train", "site": "train-site",
+             "archive_sha256": "a" * 64, "role": "train"},
+        ],
+    }
+    case.arrays = synthetic_arrays(schema="native_corpus_v1")
+    case.arrays["split_sha256"] = np.asarray(assessment.sha(_encoded(case.documents["split.json"])))
+    case.manifest["input_schema"] = "native_corpus_v1"
+
+
+def test_original_native_source_split_is_admitted_without_rewriting_its_digest(memory_case):
+    case = memory_case
+    native_source_split_case(case)
+    case.seal()
+    admitted = case.admit()
+    data, _ = assessment.load_input(admitted)
+    np.testing.assert_array_equal(data["targets"], case.arrays["y"])
+    assert admitted.provenance["bindings"][str(case.base / "split.json")] == case.arrays["split_sha256"].item()
+
+
+@pytest.mark.parametrize("case_kind", ["mixed", "duplicate", "bad_role", "bad_digest", "unknown_schema", "overlap_site"])
+def test_original_native_split_rejects_conflicting_membership_before_decode(memory_case, monkeypatch, case_kind):
+    case = memory_case
+    native_source_split_case(case)
+    split = case.documents["split.json"]
+    if case_kind == "mixed":
+        split["reserved_test"] = [identity("test")]
+    elif case_kind == "duplicate":
+        split["sources"].append(copy.deepcopy(split["sources"][0]))
+    elif case_kind == "bad_role":
+        split["sources"][0]["role"] = "legacy_test"
+    elif case_kind == "bad_digest":
+        split["sources"][0]["archive_sha256"] = "unknown"
+    elif case_kind == "unknown_schema":
+        split["schema_version"] = "unreviewed_native_v2"
+    else:
+        split["sources"][1]["site"] = "test-site"
+    case.seal()
+    monkeypatch.setattr(assessment.np, "load", lambda *a, **k: pytest.fail("Numeric decode"))
+    with pytest.raises(ValueError):
+        case.admit()
+
+
+@pytest.mark.parametrize("device", ["cuda", "cuda:1"])
+def test_real_execution_policy_rejects_unindexed_or_other_cuda_before_decode(memory_case, monkeypatch, device):
+    """Synthetic policy bytes cover the real admission branch; no GPU is initialized."""
+    case = memory_case
+    case.manifest.update(device=device, evidence_kind="REVIEWED_FROZEN_ASSESSMENT", input_evidence_kind=None)
+    case.documents["cohort.json"]["evidence_kind"] = "REVIEWED_FROZEN_ASSESSMENT"
+    case.review_overrides["device"] = device
+    case.seal()
+    monkeypatch.setattr(assessment.np, "load", lambda *a, **k: pytest.fail("Numeric decode"))
+    with pytest.raises(ValueError, match="device"):
+        case.admit()
+
+
+def test_indexed_cuda_admission_checks_policy_without_loading_values_or_gpu(memory_case, monkeypatch):
+    case = memory_case
+    case.manifest.update(device="cuda:0", evidence_kind="REVIEWED_FROZEN_ASSESSMENT", input_evidence_kind=None)
+    case.documents["cohort.json"]["evidence_kind"] = "REVIEWED_FROZEN_ASSESSMENT"
+    case.review_overrides["device"] = "cuda:0"
+    case.seal()
+    monkeypatch.setattr(assessment.np, "load", lambda *a, **k: pytest.fail("Numeric decode"))
+    assert case.admit().manifest["device"] == "cuda:0"

@@ -1,0 +1,12 @@
+{
+  "actual_run_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\masked_ssl_full_finetune_seed7_h96\\run.json",
+  "actual_run_sha256": "6ee16b9829a73fe79b4c704380675e13c5ba4b7833e122848b3d1bf8b0f70a9c",
+  "config_sha256": "9540b5beee6a735b4565de0cae5d9055dffbc1c5b0ff0c5921e74ae179f791e6",
+  "frozen_before_numeric_access": true,
+  "is_finalist_selection": false,
+  "model_sha256": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\masked_ssl_full_finetune_seed7_h96\\inference.pt": "5fbf3375913361a135279dc1f009f6fb8552636c3cb571d2bb081f8003741a5b"
+  },
+  "selection_role": "development",
+  "statistics_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed"
+}

@@ -1,0 +1,57 @@
+{
+  "original_split_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_ssl_split_v1.json",
+  "original_split_sha256": "3b4728e16da3c09c58d9316560283e19ecf79885bbf38a7c7025ce4b83e8993b",
+  "reserved_test": [
+    {
+      "archive_id": "61937278",
+      "deployment_id": "AEON2_ECS:61937278",
+      "site_id": "AEON2_ECS",
+      "source_ids": [
+        "e1236d7509f0d0846008c9ceeb2caeb303edb5e153a5b6b597cb2720397e63a2"
+      ]
+    },
+    {
+      "archive_id": "61937269",
+      "deployment_id": "AEON2_ECS:61937269",
+      "site_id": "AEON2_ECS",
+      "source_ids": [
+        "d0c57bcf73a09ad3fad1f6be3704d25263ce2a1842080dfe1ba680b57527364b"
+      ]
+    }
+  ],
+  "status": "DERIVED_IDENTITY_RECEIPT_NOT_A_NEW_PARTITION",
+  "train": [
+    {
+      "archive_id": "61937263",
+      "deployment_id": "AEON4_JOB:61937263",
+      "site_id": "AEON4_JOB",
+      "source_ids": [
+        "ebe8debdf1a231b2a76f79b3a8b1b601476e66373b00cbedf2d0262d0b4b3cd0"
+      ]
+    },
+    {
+      "archive_id": "61937272",
+      "deployment_id": "AEON4_JOB:61937272",
+      "site_id": "AEON4_JOB",
+      "source_ids": [
+        "2f952fb2d99b34cf0f7ba24e4b9061448a9a062657437187b251bc0f284c0d2c"
+      ]
+    },
+    {
+      "archive_id": "61937275",
+      "deployment_id": "AEON3_GEB:61937275",
+      "site_id": "AEON3_GEB",
+      "source_ids": [
+        "b6d8380ed986c91d565ea7d669761ff8f66da8f2b5cd3e794fbf71c040bf1d37"
+      ]
+    },
+    {
+      "archive_id": "61937281",
+      "deployment_id": "AEON3_GEB:61937281",
+      "site_id": "AEON3_GEB",
+      "source_ids": [
+        "4e72dd4dbec707b6bf15168e51f380cbe9145a78b595ef886d78cc3806c0ecde"
+      ]
+    }
+  ]
+}

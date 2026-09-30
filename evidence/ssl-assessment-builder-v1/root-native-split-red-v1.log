@@ -1,0 +1,34 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_ test_original_native_source_split_is_admitted_without_rewriting_its_digest __
+
+memory_case = <tests.unit.test_native_assessment.Case object at 0x000001C15FCCE300>
+
+    def test_original_native_source_split_is_admitted_without_rewriting_its_digest(memory_case):
+        case = memory_case
+        native_source_split_case(case)
+        case.seal()
+>       admitted = case.admit()
+                   ^^^^^^^^^^^^
+
+tests\unit\test_native_assessment.py:821: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\unit\test_native_assessment.py:418: in admit
+    return assessment.admit(
+src\marine_echo\evaluation\native_assessment.py:350: in admit
+    reserved = _members({"identities": split.get("reserved_test")})
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+document = {'identities': None}
+
+    def _members(document):
+        identities = document.get("identities")
+        if not isinstance(identities, list) or not identities:
+>           raise ValueError("Complete archive/deployment/site/source membership required.")
+E           ValueError: Complete archive/deployment/site/source membership required.
+
+src\marine_echo\evaluation\native_assessment.py:187: ValueError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_assessment.py::test_original_native_source_split_is_admitted_without_rewriting_its_digest
+1 failed, 68 deselected in 4.90s
