@@ -1,0 +1,879 @@
+"""CF backbone controls with zero SSL; distinct prefit and owned execution gates.
+
+Source TRAIN pinball and scheduled daily-balanced DEV selection match original
+strong CF endpoints. There are no future-crop, SSL, online-predictor or EMA calls.
+"""
+
+from __future__ import annotations
+
+import argparse
+import ast
+import hashlib
+import json
+import math
+import os
+import random
+import stat
+from dataclasses import asdict, dataclass, replace
+from pathlib import Path
+
+import numpy as np
+import torch
+from torch import nn
+
+from marine_echo.training import native_downstream as downstream
+from marine_echo.training import native_ssl as core
+
+IMPLEMENTER_SESSION_ID = "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1"
+METHODS = ("cf_random_frozen", "cf_direct_supervised")
+REAL = "REAL_TRAIN_DEVELOPMENT_FIT"
+SYNTHETIC = "SYNTHETIC_CORRECTNESS_ONLY"
+RESUME_KIND = "native_cf_control_resume_v1"
+INFERENCE_KIND = "native_cf_control_weights_only_inference_v1"
+ENCODER_KINDS = {
+    "cf_random_frozen": "native_cf_random_control_encoder_v1",
+    "cf_direct_supervised": "native_cf_supervised_control_encoder_v1",
+}
+TRAINING_KINDS = {
+    "cf_random_frozen": "untrained_cf_encoder_with_supervised_readout",
+    "cf_direct_supervised": "direct_supervised_cf_encoder_with_supervised_readout",
+}
+ROOT = Path(core.__file__).resolve().parents[3]
+
+
+@dataclass(frozen=True)
+class Config:
+    method: str = "cf_random_frozen"
+    seed: int = 7
+    history: int = 96
+    updates: int | None = None
+    cadence: int | None = None
+    batch_size: int = 64
+    width: int = 256
+    latent: int = 128
+    blocks: int = 5
+    heads: int = 4
+    lr: float = 0.0003
+    weight_decay: float = 0.0001
+    gradient_clip: float = 1.0
+    patience: int = 4
+    min_daily_anchors: int = 18
+    selection_policy: str = "scheduled_native_daily_pinball_earliest_strict_improvement_v1"
+
+    def __post_init__(self):
+        if self.updates is None:
+            object.__setattr__(self, "updates", 2000 if self.method == "cf_random_frozen" else 3000)
+        if self.cadence is None:
+            object.__setattr__(self, "cadence", 500 if self.method == "cf_random_frozen" else 750)
+
+    @property
+    def mode(self):
+        return "frozen_readout" if self.method == "cf_random_frozen" else "direct_end_to_end"
+
+    def to_dict(self):
+        return asdict(self)
+
+    def validate(self, *, correctness_smoke=False):
+        raw = self.to_dict()
+        for key, value in raw.items():
+            if key in ("lr", "weight_decay", "gradient_clip"):
+                if type(value) not in (int, float) or not math.isfinite(value):
+                    raise ValueError("Finite exact optimizer configuration required")
+            elif key in ("method", "selection_policy"):
+                if not isinstance(value, str):
+                    raise ValueError("String method/selection identity required")
+            elif type(value) is not int:
+                raise ValueError("Exact integer dimensions/counters required")
+        if self.method not in METHODS or self.seed not in (7, 13, 23) or self.history != 96:
+            raise ValueError("Only CF controls, fixed7/13/23 seeds and H96 supported")
+        if not 1 <= self.updates <= 5000 or not 1 <= self.cadence <= self.updates:
+            raise ValueError("Bounded supervised updates/cadence required")
+        if (
+            self.heads,
+            self.lr,
+            self.weight_decay,
+            self.gradient_clip,
+            self.patience,
+            self.min_daily_anchors,
+            self.selection_policy,
+        ) != (
+            4,
+            0.0003,
+            0.0001,
+            1.0,
+            4,
+            18,
+            Config.__dataclass_fields__["selection_policy"].default,
+        ):
+            raise ValueError("Original fixed optimization/selection recipe required")
+        if (
+            not 2 <= self.batch_size <= 256
+            or not 1 <= self.blocks <= 5
+            or not 1 <= self.latent <= 128
+            or not 1 <= self.width <= 256
+        ):
+            raise ValueError("Bounded positive CF dimensions/batch required")
+        if not correctness_smoke and (
+            (self.width, self.latent, self.blocks, self.batch_size) != (256, 128, 5, 64)
+            or (self.updates, self.cadence)
+            != ((2000, 500) if self.method == "cf_random_frozen" else (3000, 750))
+        ):
+            raise ValueError("Real CF controls use only fixed strong endpoint recipes")
+
+
+@dataclass(frozen=True)
+class RunInputs:
+    train: Path
+    dev: Path
+    train_cohort: Path
+    dev_cohort: Path
+    split: Path
+    adr0016: Path
+    protocol: Path
+    config: Path
+    review: Path
+    executor: Path
+    budget: Path
+    execution: Path | None = None
+
+
+def regular(path):
+    path = Path(os.path.abspath(path))
+    for item in (path, *path.parents):
+        info = item.lstat()
+        if stat.S_ISLNK(info.st_mode) or getattr(info, "st_file_attributes", 0) & 0x400:
+            raise ValueError("Unsafe symlink/reparse source/input identity")
+    if not stat.S_ISREG(path.stat().st_mode):
+        raise ValueError("Regular immutable source/input required")
+    return path
+
+
+def sha256(path):
+    return core.sha256(regular(path))
+
+
+def _json(path):
+    def pairs(items):
+        value = {}
+        for key, item in items:
+            if key in value:
+                raise ValueError("Duplicate metadata key")
+            value[key] = item
+        return value
+
+    def invalid(value):
+        raise ValueError("Nonfinite metadata")
+
+    value = json.loads(regular(path).read_bytes(), object_pairs_hook=pairs, parse_constant=invalid)
+    if not isinstance(value, dict):
+        raise ValueError("Metadata object required")  # noqa: TRY004
+    return value
+
+
+def _write_json(path, value):
+    with Path(path).open("x", encoding="utf-8") as stream:
+        json.dump(value, stream, indent=2, sort_keys=True, allow_nan=False)
+        stream.write("\n")
+
+
+def _write_weights(path, value):
+    # Final inference artifacts are immutable even when an interrupted attempt
+    # left a partial artifact; root must reconcile it rather than overwrite it.
+    with Path(path).open("xb") as stream:
+        torch.save(value, stream)
+
+
+def core_config(config):
+    # Source factory construction only, no CF pretraining or CF optimizer recipe.
+    return core.Config(
+        method="cf_jepa",
+        seed=config.seed,
+        history=96,
+        cf_width=config.width,
+        cf_latent=config.latent,
+        cf_blocks=config.blocks,
+        batch_size=config.batch_size,
+        pretrain_updates=0,
+    )
+
+
+def source_paths(config):
+    """Exact static local closure and pinned author source; no dynamic imports."""
+    package = Path(core.__file__).resolve().parents[1]
+    own = Path(__file__).resolve().parents[1]
+    pending = [
+        Path(__file__),
+        own / "inference/native_cf_controls.py",
+        Path(downstream.__file__),
+        package / "inference/native_acoustic.py",
+        package / "data/native_ssl_corpus.py",
+        package / "training/aeon_corpus.py",
+        package / "evaluation/native_product.py",
+    ]
+    found = set()
+    while pending:
+        path = regular(pending.pop())
+        if path in found:
+            continue
+        found.add(path)
+        for node in ast.walk(ast.parse(path.read_bytes())):
+            names = (
+                [a.name for a in node.names]
+                if isinstance(node, ast.Import)
+                else (
+                    [node.module] + [node.module + "." + a.name for a in node.names]
+                    if isinstance(node, ast.ImportFrom) and node.module
+                    else []
+                )
+            )
+            for name in names:
+                if name.startswith("marine_echo.") or name == "marine_echo":
+                    parts = name.split(".")[1:]
+                    for count in range(len(parts) + 1):
+                        base = package / Path(*parts[:count])
+                        if name in (
+                            "marine_echo.training.native_cf_controls",
+                            "marine_echo.inference.native_cf_controls",
+                        ):
+                            base = own / Path(*parts[:count])
+                        for file in (base.with_suffix(".py"), base / "__init__.py"):
+                            if file.is_file():
+                                pending.append(file)
+    return sorted(found | set(core.required_sources(core_config(config))))
+
+
+def required_paths(inputs, config):
+    paths = [
+        *source_paths(config),
+        *(
+            getattr(inputs, key)
+            for key in (
+                "train",
+                "dev",
+                "train_cohort",
+                "dev_cohort",
+                "split",
+                "adr0016",
+                "protocol",
+                "config",
+                "executor",
+                "budget",
+            )
+        ),
+        ROOT / "docs/adr/0022-cf-backbone-matched-controls.md",
+        ROOT / "docs/adr/0025-cf-matched-controls-continuation.md",
+        ROOT / "orchestration/ssl_vnext_cf_matched_controls_builder_contract.txt",
+        ROOT / "tools/native_reference_supervisor.py",
+    ]
+    return list(dict.fromkeys(regular(p) for p in paths))
+
+
+def _synthetic_identity(inputs):
+    allowed = Path(__file__).resolve().parents[3] / "evidence/ssl-cf-controls-builder-v1"
+    parents = {
+        regular(getattr(inputs, key)).parent
+        for key in (
+            "train",
+            "dev",
+            "train_cohort",
+            "dev_cohort",
+            "split",
+            "config",
+            "review",
+            "executor",
+            "budget",
+        )
+    }
+    if (
+        len(parents) != 1
+        or not next(iter(parents)).is_relative_to(allowed)
+        or not next(iter(parents)).name.startswith(SYNTHETIC + "-")
+    ):
+        raise ValueError("Correctness smoke requires private explicitly labeled fixtures")
+    return next(iter(parents))
+
+
+def check_prefit(inputs, config, *, output, device="cuda:0", correctness_smoke=False):
+    """All roles, hashes, recipe and owner runtime verified BEFORE any decoding."""
+    config.validate(correctness_smoke=correctness_smoke)
+    if device not in ("cpu", "cuda:0") or (correctness_smoke and device != "cpu"):
+        raise ValueError("Explicit CPU correctness or indexed cuda:0 required")
+    review = _json(inputs.review)
+    evidence = SYNTHETIC if correctness_smoke else REAL
+    if review.get("evidence_kind") != evidence:
+        raise ValueError("Explicit matching review evidence kind required")
+    if correctness_smoke:
+        folder = _synthetic_identity(inputs)
+        if (
+            not Path(os.path.abspath(output)).is_relative_to(folder)
+            or review.get("status") != SYNTHETIC
+            or review.get("fixture_identity") != folder.name
+        ):
+            raise ValueError("Synthetic correctness is not a real prefit approval")
+    else:
+        if review.get("status") != "APPROVED_CF_CONTROL_PREFIT" or device != "cuda:0":
+            raise ValueError("Distinct APPROVED_CF_CONTROL_PREFIT and guarded cuda:0 required")
+        identities = [
+            review.get(key)
+            for key in (
+                "reviewer_session_id",
+                "implementer_session_id",
+                "root_coordinator_session_id",
+            )
+        ]
+        if (
+            any(not isinstance(value, str) or not value.strip() for value in identities)
+            or len({value.casefold() for value in identities}) != 3
+            or identities[1] != IMPLEMENTER_SESSION_ID
+            or identities[0].casefold() == IMPLEMENTER_SESSION_ID.casefold()
+        ):
+            raise ValueError("Actual distinct reviewer/root/implementer identities required")
+    if (
+        review.get("allowed_roles") != ["train", "development"]
+        or config.method not in review.get("allowed_methods", [])
+        or config.mode not in review.get("allowed_modes", [])
+        or config.seed not in review.get("allowed_seeds", [])
+        or any(type(v) is not int or v not in (7, 13, 23) for v in review.get("allowed_seeds", []))
+    ):
+        raise ValueError("Explicit control/mode/seed/train-development admission required")
+    bindings = review.get("bindings")
+    if not isinstance(bindings, dict) or not bindings:
+        raise ValueError("Nonempty exact source/data/config/budget/executor bindings required")
+    for path, expected in bindings.items():
+        if (
+            not isinstance(path, str)
+            or not Path(path).is_absolute()
+            or not isinstance(expected, str)
+            or len(expected) != 64
+            or any(c not in "0123456789abcdef" for c in expected)
+            or sha256(path) != expected
+        ):
+            raise ValueError("Changed or unsafe immutable review binding")
+    if any(bindings.get(str(path)) != sha256(path) for path in required_paths(inputs, config)):
+        raise ValueError("Missing current required source/data/config/runtime binding")
+    if _json(inputs.config) != config.to_dict():
+        raise ValueError("Runtime config differs from reviewed fixed recipe")
+    for key, path in (
+        ("train_npz_sha256", inputs.train),
+        ("dev_npz_sha256", inputs.dev),
+        ("split_sha256", inputs.split),
+    ):
+        if review.get(key) != sha256(path):
+            raise ValueError("Review data/split identity mismatch")
+    if _json(inputs.split).get("schema_version") != "native_acoustic_ssl_v1":
+        raise ValueError("Exact native split schema required")
+    downstream._split_roles(inputs)
+    downstream._cohort(inputs, "train")
+    downstream._cohort(inputs, "development")
+    if review.get("runtime") != {
+        "output": str(Path(os.path.abspath(output))),
+        "device": device,
+        "executor": str(regular(inputs.executor)),
+        "budget": str(regular(inputs.budget)),
+    }:
+        raise ValueError("Exact reviewed output/device/executor/budget required")
+    budget = _json(inputs.budget)
+    if correctness_smoke:
+        if (
+            budget.get("evidence_kind") != SYNTHETIC
+            or budget.get("fixture_identity") != folder.name
+        ):
+            raise ValueError("Synthetic budget fixture identity required")
+    else:
+        fixed = {
+            "status": "ROOT_RESOLVED",
+            "study": "CF_MATCHED_CONTROLS",
+            "fits": 6,
+            "cf_gpu_hours": 12,
+            "aggregate_gpu_hours": 96,
+            "evaluation_reserve_hours": 12,
+            "seeds": [7, 13, 23],
+        }
+        if any(
+            budget.get(key) != value or (type(value) is int and type(budget.get(key)) is not int)
+            for key, value in fixed.items()
+        ):
+            raise ValueError("ADR0025 six-fit/12-in96/evaluation-reserve owner resolution required")
+        if inputs.execution is None:
+            raise ValueError("No unmanaged real run; guarded owned execution receipt required")
+        execution = _json(inputs.execution)
+        expected = {
+            "kind": "native_cf_control_owned_execution_v1",
+            "status": "RUNNING_CUDA",
+            "child_pid": os.getpid(),
+            "review_sha256": sha256(inputs.review),
+            "executor_sha256": sha256(inputs.executor),
+            "budget_sha256": sha256(inputs.budget),
+            "config_sha256": sha256(inputs.config),
+            "output": str(Path(os.path.abspath(output))),
+            "device": device,
+            "method": config.method,
+            "seed": config.seed,
+        }
+        if any(execution.get(key) != value for key, value in expected.items()):
+            raise ValueError("Owned executor/attempt identities differ")
+        remaining_cf, remaining_aggregate, deadline = [
+            execution.get(key)
+            for key in ("remaining_cf_hours", "remaining_aggregate_hours", "deadline_seconds")
+        ]
+        if (
+            any(
+                type(value) not in (int, float) or not math.isfinite(value)
+                for value in (remaining_cf, remaining_aggregate, deadline)
+            )
+            or not 0 < remaining_cf <= 12
+            or not 12 < remaining_aggregate <= 96
+            or not 0 < deadline <= min(remaining_cf, remaining_aggregate - 12) * 3600
+        ):
+            raise ValueError("Full-owned CF allowance and12h evaluation reserve required")
+    return review
+
+
+class CFControlModel(nn.Module):
+    """Only the corresponding CF encoder branch and matched fresh query head."""
+
+    def __init__(self, encoder, readout):
+        super().__init__()
+        self.encoder, self.readout = encoder, readout
+
+    def forecast(self, x, observed, metadata, query):
+        self.encoder.eval()
+        return self.readout(self.encoder.encode(x, observed, metadata), query).sort(-1).values
+
+
+def prepare_model(config):
+    original = core.initialize_model(
+        config.seed, **core.model_dimensions(core_config(config)), method="cf_jepa"
+    )
+    model = CFControlModel(original.encoder, original.readout)
+    model.requires_grad_(False)
+    model.readout.requires_grad_(True)
+    if config.method == "cf_direct_supervised":
+        model.encoder.requires_grad_(True)
+    model.encoder.eval()
+    return model
+
+
+def supervised_indices(pool, config, step):
+    return downstream.supervised_indices(pool, config, step)
+
+
+def forecast_train(model, batch, config):
+    return downstream._forecast_train(model, batch, config.mode)
+
+
+def _safe_cpu(value):
+    return downstream._safe_cpu(value)
+
+
+def _safe_output(output):
+    for path in (output, *output.parents):
+        if path.exists() or path.is_symlink():
+            info = path.lstat()
+            if stat.S_ISLNK(info.st_mode) or getattr(info, "st_file_attributes", 0) & 0x400:
+                raise ValueError("Unsafe output parent or reparse identity")
+
+
+def _validate_fit_arrays(train, dev):
+    from marine_echo.inference.native_band_acoustic import _query
+    from marine_echo.inference.native_encoder import _inputs
+
+    for data in (train, dev):
+        _, _, metadata = _inputs(data["x"], data["observed"], data["metadata"], 96)
+        _query(data["query"], metadata)
+        if not np.isfinite(data["y"][data["y_observed"]]).all():
+            raise ValueError("Every observed TRAIN/DEV target must be finite")
+
+
+def run(
+    inputs,
+    config,
+    *,
+    output,
+    device="cpu",
+    resume=None,
+    correctness_smoke=False,
+    stop_after=None,
+):
+    config.validate(correctness_smoke=correctness_smoke)
+    device = torch.device(device)
+    if device.type not in ("cpu", "cuda") or (correctness_smoke and device.type != "cpu"):
+        raise ValueError("Correctness smoke is CPU only; endpoints support local CPU/CUDA only.")
+    if stop_after is not None and (not correctness_smoke or stop_after < 1):
+        raise ValueError("Artificial interruption is reserved for CPU correctness checks.")
+    ancestor_config = core_config(config)
+    review = check_prefit(
+        inputs, config, output=output, device=str(device), correctness_smoke=correctness_smoke
+    )
+    identities = {
+        "bindings": {str(p): sha256(p) for p in required_paths(inputs, config)},
+        "review_sha256": sha256(inputs.review),
+        "config": config.to_dict(),
+        "core_config": ancestor_config.to_dict(),
+        "device_kind": device.type,
+        "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY"
+        if correctness_smoke
+        else "REAL_TRAIN_DEVELOPMENT_FIT",
+    }
+    saved = None
+    if resume is not None:
+        saved = torch.load(resume, map_location="cpu", weights_only=True)
+        if saved.get("kind") != RESUME_KIND or saved.get("identities") != identities:
+            raise ValueError("Resume source/config/review/ancestor/device identities differ.")
+    output = Path(os.path.abspath(output))
+    _safe_output(output)
+    if output.exists():
+        if (
+            resume is None
+            or Path(resume).resolve().parent != output
+            or Path(resume).name != "latest.pt"
+        ):
+            raise ValueError("Existing outputs require explicit same-run latest.pt resume.")
+        if (output / "run.json").exists():
+            raise ValueError("Completed outputs cannot be overwritten or silently extended.")
+    # Refuse a nonempty directory even with filesystem transports that do not
+    # represent directories separately; normal output directories are created below.
+    try:
+        nonempty = bool(list(output.iterdir()))
+    except FileNotFoundError:
+        nonempty = False
+    if nonempty and (resume is None or Path(resume).resolve().parent != output):
+        raise ValueError("New output path must be empty; no silent overwrite.")
+    train = core.load_corpus(
+        inputs.train,
+        role="train",
+        split_hash=sha256(inputs.split),
+        correctness_smoke=correctness_smoke,
+    )
+    dev = core.load_corpus(
+        inputs.dev,
+        role="development",
+        split_hash=sha256(inputs.split),
+        correctness_smoke=correctness_smoke,
+    )
+    _validate_fit_arrays(train, dev)
+    scalers = downstream._verify_data(inputs, train, dev, None)
+    pool = np.flatnonzero(train["y_observed"].any(1))
+    if not len(pool):
+        raise ValueError("No observed TRAIN supervised rows.")
+    if saved is not None:
+        downstream._verify_continuation(saved, config, pool, train, scalers)
+    inference_config = replace(
+        ancestor_config,
+        method="cf_jepa",
+        seed=config.seed,
+        history=config.history,
+        batch_size=config.batch_size,
+        lr=config.lr,
+        weight_decay=config.weight_decay,
+    )
+    random.seed(config.seed)
+    np.random.seed(config.seed)
+    torch.manual_seed(config.seed)
+    model = prepare_model(config)
+    frozen_state = core.cpu_state(model.encoder) if config.mode == "frozen_readout" else None
+    if saved is not None:
+        model.load_state_dict(saved["model"], strict=True)
+        if frozen_state is not None:
+            for candidate in (saved["model"], saved["state"]["best_model"]):
+                if candidate is not None and any(
+                    not torch.equal(v, candidate["encoder." + k]) for k, v in frozen_state.items()
+                ):
+                    raise ValueError("Frozen resume encoder differs from fresh initialization.")
+    parameters = [p for p in model.parameters() if p.requires_grad]
+    state = {
+        "step": 0,
+        "best_step": None,
+        "best_score": None,
+        "best_model": None,
+        "bad_checks": 0,
+        "sequence": [],
+        "records": [],
+        "scalers": scalers.to_dict(),
+        "stopped": False,
+    }
+    output.mkdir(parents=True, exist_ok=True)
+    with core.Resources(device, output) as resources:
+        model.to(device)
+        if device.type == "cuda":
+            torch.cuda.manual_seed_all(config.seed)
+        optimizer = torch.optim.AdamW(parameters, lr=config.lr, weight_decay=config.weight_decay)
+        scheduler = core.schedule(optimizer, config.updates)
+        if saved is not None:
+            state = saved["state"]
+            optimizer.load_state_dict(saved["optimizer"])
+            scheduler.load_state_dict(saved["scheduler"])
+            for item in optimizer.state.values():
+                for key, value in item.items():
+                    if isinstance(value, torch.Tensor):
+                        item[key] = value.to(device)
+            core.restore_rng(saved["rng"])
+            resources.elapsed = saved["resources"]["elapsed_seconds"]
+            resources.peak_rss = saved["resources"]["peak_rss_bytes"]
+            resources.peak_allocated = saved["resources"]["peak_allocated_bytes"]
+            resources.peak_reserved = saved["resources"]["peak_reserved_bytes"]
+
+        def save(name="latest.pt"):
+            payload = {
+                "kind": RESUME_KIND,
+                "identities": identities,
+                "state": _safe_cpu(state),
+                "model": core.cpu_state(model),
+                "optimizer": _safe_cpu(optimizer.state_dict()),
+                "scheduler": scheduler.state_dict(),
+                "rng": core.rng_state(),
+                "resources": resources.snapshot(),
+            }
+            core.atomic_checkpoint(output / name, payload)
+            if name != "latest.pt":
+                core.atomic_checkpoint(output / "latest.pt", payload)
+
+        while state["step"] < config.updates and not state["stopped"]:
+            ids = supervised_indices(pool, config, state["step"])
+            batch = core.tensor_batch(train, ids, scalers, config.history, device)
+            optimizer.zero_grad(set_to_none=True)
+            predictions = forecast_train(model, batch, config)
+            loss = core.pinball(predictions, batch["y"], batch["y_observed"])
+            if not torch.isfinite(loss):
+                raise RuntimeError("Nonfinite downstream loss.")
+            loss.backward()
+            torch.nn.utils.clip_grad_norm_(
+                parameters, config.gradient_clip, error_if_nonfinite=True
+            )
+            optimizer.step()
+            scheduler.step()
+            state["sequence"].append(
+                {
+                    "step": state["step"],
+                    "indices": ids.tolist(),
+                    "row_ids": train["row_id"][ids].tolist(),
+                    "sha256": core.sequence_hash(ids),
+                }
+            )
+            state["step"] += 1
+            resources.check()
+            if (
+                not correctness_smoke
+                and resources.snapshot()["elapsed_seconds"] - resources.elapsed
+                >= _json(inputs.execution)["deadline_seconds"]
+            ):
+                raise RuntimeError("Owned CF attempt deadline reached; root charges full attempt")
+            if frozen_state is not None and any(
+                not torch.equal(v, model.encoder.state_dict()[k].detach().cpu())
+                for k, v in frozen_state.items()
+            ):
+                raise RuntimeError("Frozen encoder parameters/buffers changed.")
+            if state["step"] % config.cadence == 0 or state["step"] == config.updates:
+                values = core.predict(model, dev, scalers, inference_config, device)
+                metrics = core.daily_metrics(
+                    values,
+                    dev["y"],
+                    dev["y_observed"],
+                    dev["target_dates"],
+                    dev["deployment"],
+                    min_anchors=config.min_daily_anchors,
+                )
+                score = metrics["primary_pinball"]
+                if score is None:
+                    raise ValueError(
+                        "Development has insufficient shared native daily support for selection."
+                    )
+                improved = state["best_score"] is None or score < state["best_score"]
+                if improved:
+                    state.update(
+                        best_score=score,
+                        best_step=state["step"],
+                        best_model=core.cpu_state(model),
+                        bad_checks=0,
+                    )
+                else:
+                    state["bad_checks"] += 1
+                state["records"].append(
+                    {"step": state["step"], "daily_dev_pinball": score, "selected": improved}
+                )
+                state["stopped"] = state["bad_checks"] >= config.patience
+                save(f"supervised-{state['step']:06d}.pt")
+            if stop_after is not None and state["step"] >= stop_after:
+                save()
+                return {
+                    "status": "INTERRUPTED_CORRECTNESS_CHECK",
+                    "supervised_updates": state["step"],
+                }
+        if state["best_model"] is None:
+            raise ValueError("No selected downstream checkpoint.")
+        save("complete.pt")
+        model.load_state_dict(state["best_model"], strict=True)
+        model.eval()
+        model.requires_grad_(False)
+        bindings = identities["bindings"]
+        ancestry = {
+            "mode": config.mode,
+            "ssl_only": False,
+            "supervised_updates": state["step"],
+            "selected_supervised_step": state["best_step"],
+            "ancestor_encoder_sha256": None,
+            "ancestor_run_sha256": None,
+            "ssl_updates": 0,
+            "encoder_supervised_updates": 0
+            if config.method == "cf_random_frozen"
+            else state["step"],
+            "initialization_seed": config.seed,
+            "readout_initialization_seed": config.seed + 100000,
+        }
+        inference = {
+            "kind": INFERENCE_KIND,
+            "model": core.cpu_state(model),
+            "config": config.to_dict(),
+            "core_config": inference_config.to_dict(),
+            "scalers": scalers.to_dict(),
+            "bindings": bindings,
+            "supervised_ancestry": ancestry,
+            "review_sha256": identities["review_sha256"],
+            "evidence_kind": identities["evidence_kind"],
+        }
+        _write_weights(output / "inference.pt", inference)
+        _write_weights(
+            output / "selected_encoder.pt",
+            {
+                "kind": ENCODER_KINDS[config.method],
+                "encoder": core.cpu_state(model.encoder),
+                "config": config.to_dict(),
+                "core_config": inference_config.to_dict(),
+                "scalers": scalers.to_dict(),
+                "bindings": bindings,
+                "supervised_ancestry": ancestry,
+                "review_sha256": identities["review_sha256"],
+                "evidence_kind": identities["evidence_kind"],
+            },
+        )
+        _write_json(output / "scalers.json", scalers.to_dict())
+        values = core.predict(model, dev, scalers, inference_config, device)
+        np.savez_compressed(
+            output / "predictions.npz",
+            predictions=values,
+            targets=dev["y"],
+            target_observed=dev["y_observed"],
+            target_dates=dev["target_dates"],
+            row_id=dev["row_id"],
+            deployment=dev["deployment"],
+            archive_sha256=dev["archive_sha256"],
+            cutoff=dev["cutoff"],
+            query=dev["query"],
+            metadata=dev["metadata"],
+            context_observed=dev["observed"],
+            assessment_support=np.ones_like(dev["y_observed"]),
+            query_native_bounds_m=dev["query"][:, :, 3:5] * 250,
+            query_frequency_hz=dev["query"][:, :, 0] * 455000,
+            query_interval_seconds=dev["query"][:, :, 1] * 3600,
+            quantiles=np.asarray(core.QUANTILES),
+            horizons=np.asarray([1, 3, 6]),
+        )
+        metrics = core.daily_metrics(
+            values,
+            dev["y"],
+            dev["y_observed"],
+            dev["target_dates"],
+            dev["deployment"],
+            min_anchors=config.min_daily_anchors,
+        )
+        _write_json(output / "metrics.json", metrics)
+        sequence = state["sequence"]
+        membership = {
+            "train_row_ids": train["row_id"].tolist(),
+            "train_deployments": train["deployment"].tolist(),
+            "train_archive_sha256": train["archive_sha256"].tolist(),
+            "supervised_indices": pool.tolist(),
+            "sequence": sequence,
+            "ssl_eligible_indices": [],
+            "ssl_updates": 0,
+            "sequence_sha256": hashlib.sha256(
+                json.dumps(sequence, sort_keys=True, separators=(",", ":")).encode()
+            ).hexdigest(),
+        }
+        _write_json(output / "membership.json", membership)
+        report = {
+            "status": "COMPLETED",
+            "evidence_kind": identities["evidence_kind"],
+            "mode": config.mode,
+            "config": config.to_dict(),
+            "core_config": inference_config.to_dict(),
+            "supervised_updates": state["step"],
+            "optimizer_steps_total": state["step"],
+            "selected_supervised_step": state["best_step"],
+            "unique_observed_labels": int(
+                train["y_observed"][
+                    np.unique(
+                        np.concatenate([np.asarray(e["indices"], dtype=int) for e in sequence])
+                    )
+                ].sum()
+            ),
+            "sample_sequence_seed": config.seed,
+            "label_observations_processed": int(
+                sum(train["y_observed"][entry["indices"]].sum() for entry in sequence)
+            ),
+            "sample_presentations": sum(len(entry["indices"]) for entry in sequence),
+            "parameters_total": sum(p.numel() for p in model.parameters()),
+            "parameters_optimized": sum(p.numel() for p in parameters),
+            "parameters_encoder": sum(p.numel() for p in model.encoder.parameters()),
+            "parameters_head": sum(p.numel() for p in model.readout.parameters()),
+            "resources_additional_downstream": resources.snapshot(),
+            "selection_records": state["records"],
+            "selected_daily_dev_pinball": state["best_score"],
+            "bindings": bindings,
+            "review_sha256": identities["review_sha256"],
+            "reviewer_session_id": review["reviewer_session_id"],
+            "membership_sha256": sha256(output / "membership.json"),
+            "scalers_sha256": sha256(output / "scalers.json"),
+            "inference_sha256": sha256(output / "inference.pt"),
+            "selected_encoder_sha256": sha256(output / "selected_encoder.pt"),
+            "supervised_ancestry": ancestry,
+            "initialization": "source_cf_factory_fresh_branch_and_seed_plus100000_head",
+            "training_kind": TRAINING_KINDS[config.method],
+            "ssl_updates": 0,
+            "fitted_weight_ancestors": [],
+            "encoder_frozen_parameters_and_buffers": config.method == "cf_random_frozen",
+            "selection_policy": config.selection_policy,
+            "stopping_patience": config.patience,
+            "test_access": "NOT_RUN",
+            "scientific_claim": "NOT_ESTABLISHED",
+        }
+        _write_json(output / "run.json", report)
+        return report
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    for name in (
+        "train",
+        "dev",
+        "train-cohort",
+        "dev-cohort",
+        "split",
+        "adr0016",
+        "protocol",
+        "config",
+        "review",
+        "executor",
+        "budget",
+        "execution",
+        "output",
+    ):
+        parser.add_argument("--" + name, required=True, type=Path)
+    parser.add_argument("--resume", type=Path)
+    parser.add_argument("--device", choices=("cuda:0",), default="cuda:0")
+    args = parser.parse_args()
+    inputs = RunInputs(**{key: getattr(args, key) for key in RunInputs.__dataclass_fields__})
+    config = Config(**_json(args.config))
+    report = run(inputs, config, output=args.output, device=args.device, resume=args.resume)
+    print(
+        json.dumps(
+            {
+                key: report[key]
+                for key in ("status", "mode", "supervised_updates", "inference_sha256")
+            }
+        )
+    )
+
+
+if __name__ == "__main__":
+    main()

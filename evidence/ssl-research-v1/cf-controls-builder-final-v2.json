@@ -1,0 +1,50 @@
+{
+  "status": "CLOSED_ENGINEERING_DELIVERY",
+  "files_sha256": {
+    "src/marine_echo/training/native_cf_controls.py": "adecec6a669e43254b129e69e1dca94ade7ccf10ff1a9369e2b872cd85685ed7",
+    "src/marine_echo/inference/native_cf_controls.py": "9a6e17002fe8944bfc7965c7d4389bc4aea120cd0bfe78d5bfa52ab23e260a7d",
+    "tests/unit/test_native_cf_controls.py": "1c677ffea0a034eb02fb177d82b99858c17a0ff335eb93b98efaf853a1cb2b01",
+    "tests/integration/test_native_cf_controls.py": "aa04cfeb7e66b764ff70d602c61af6b6b2ca80f3a84f43ee0ef68be4d43c1461"
+  },
+  "verification": {
+    "behavioral_red_exit": 1,
+    "focused_tests": "65 passed, 4 ROOT-only skipped; exit 0",
+    "ruff_check_exit": 0,
+    "ruff_format_check_exit": 0,
+    "physical_unicode_synthetic_replay": "PASSED",
+    "protected_dependencies_unchanged": 26
+  },
+  "parameters": {
+    "encoder": 412800,
+    "head": 18565,
+    "total": 431365
+  },
+  "evidence": {
+    "directory": "evidence/ssl-cf-controls-builder-v1",
+    "handoff": {
+      "path": "handoff-v1.json",
+      "sha256": "5a1f1a6132061b5d58cd1ac482de48300d4ff95fc46099eaac05518213bb9321"
+    },
+    "report": {
+      "path": "NATIVE_CF_CONTROLS_IMPLEMENTATION_V1.md",
+      "sha256": "20d8a9b2006002046c78f969efc49aa158326b8439128fc9499198919a5ea92a"
+    },
+    "dependency_and_source_proof": {
+      "path": "source-proof-final-v1.json",
+      "sha256": "2540394570e36b31fefc607474f344894f931de8f33f571aa5a2626a27059f19"
+    },
+    "contents": "Exact dependency/evidence hashes, executed commands/exits, preserved failures and ROOT instructions."
+  },
+  "root_check_commands": [
+    "set NATIVE_CF_CONTROLS_ROOT_RUNNER_CHECKS=1",
+    ".venv\\Scripts\\python.exe -m pytest --import-mode=importlib -q -p no:cacheprovider tests/unit/test_native_cf_controls.py tests/integration/test_native_cf_controls.py"
+  ],
+  "remaining_limits": {
+    "actual_optimizer_resume_cases": "NOT_RUN; retained builder cache restriction, no retry",
+    "guarded_root_executor_and_configs": "Separate ROOT work",
+    "independent_source_prefit_review": "NOT_RUN",
+    "real_control_fits": "NOT_RUN",
+    "held_out_evaluation": "NOT_RUN",
+    "scientific_claims": "NOT_ESTABLISHED"
+  }
+}

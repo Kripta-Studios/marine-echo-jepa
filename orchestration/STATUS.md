@@ -1,3 +1,39 @@
+## Native SSL continuation — engineering delivered, scientific review unavailable
+
+Updated 2026-10-01T10:24:58.459165+00:00. Existing branch `research/marine-jepa-vnext` continues
+from HEAD2d51c43; dd012f0 is a checkpoint reference only. Newer work is preserved.
+The adopted brief is `native_ssl_continuation_dd012f0/CODEX_CONTINUE_NATIVE_SSL.md`.
+App, meeting, browser and release work remain frozen.
+
+The unchanged verified GPT-6.1 Sol/high builder session delivered the separately
+versioned CF controls (actual CLI7721 exit0). Four source/test files were integrated
+by exact hashes; all26 protected source dependencies are unchanged. ROOT passed
+123 focused CPU correctness tests, including all4 actual optimizer/resume checks,
+then7 prospective-review preparation tests. Lint and actual six-config/six-proposal
+registration commands exited0. Failure evidence is preserved. These130 checks
+are synthetic software correctness, not independent scientific approval.
+
+CF_MATCHED_CONTROLS has six fixed seed7/13/23 direct/random-frozen cells with
+3000/2000 supervised updates, original encoder/head initialization, TRAIN scalers,
+sampling and scheduled DEV selection. Distinct control kinds, reusable inference,
+owned resource execution and failed-attempt accounting are implemented. ADR0025
+records the owner-authorized12h extension inside96h with12h reserved for evaluation.
+The original47-method/43-neural guard and original Band limits are unchanged.
+No new real fit or reserved numerical access occurred. Ledger bytes are unchanged:
+aggregate17.802355808369175/96h; Band8.318836388888881/12h; CF extension0/12h.
+
+Original campaign still40/43 neural endpoints; independently reconstructed
+comparison still28 methods, with5 newer completed scores unreconstructed.
+The three existing missing fits retain their exact identities and seed23 SSL parent.
+Final selection, reserved AEON2 evaluations and prefix adaptation remain pending.
+The original distinct reviewer was not retried or replaced. Existing automatic
+service rejections occurred before inspection; genuine reviews remain unavailable.
+Supported feedback/admin/service restoration and exact receipts are recorded in
+`docs/NATIVE_SSL_REVIEW_SERVICE_DEPENDENCY_V1.md`. See the engineering report
+`docs/NATIVE_SSL_CONTINUATION_IMPLEMENTATION_V1.md` and machine-readable
+`orchestration/native_ssl_continuation_state_v1.json`. Full research incomplete;
+SOTA NOT_ESTABLISHED. No active builder, scientific process or publication.
+
 ## Active model-first research — native acoustic SSL
 
 Owner-requested direct coordinator review completed on 2026-10-01 without

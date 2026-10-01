@@ -1,0 +1,12 @@
+{
+  "started_utc": "2026-10-01T10:20:13.010167+00:00",
+  "finished_utc": "2026-10-01T10:20:15.428979+00:00",
+  "command": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+    "-B",
+    "tools/prepare_native_cf_control_configs_v1.py"
+  ],
+  "exit_code": 0,
+  "log": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-cf-controls-root-v1\\register-control-configs-01.log",
+  "evidence_kind": "CPU_SOFTWARE_CORRECTNESS_NOT_SCIENTIFIC_REVIEW"
+}

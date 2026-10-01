@@ -1,0 +1,17 @@
+{
+  "kind": "native_cf_control_owner_budget_resolution_v1",
+  "status": "ROOT_RESOLVED",
+  "study": "CF_MATCHED_CONTROLS",
+  "fits": 6,
+  "cf_gpu_hours": 12,
+  "aggregate_gpu_hours": 96,
+  "evaluation_reserve_hours": 12,
+  "seeds": [7, 13, 23],
+  "owner_scope_path": "orchestration/native_cf_control_owner_scope_v1.json",
+  "prefit_source_review": "REQUIRED_NOT_GRANTED_BY_OWNER_SCOPE",
+  "new_ssl_pretraining": false,
+  "original_47_method_campaign_unchanged": true,
+  "band_budget_unchanged": true,
+  "cloud_or_paid_resource_approval": false,
+  "reserved_site_numeric_access": false
+}

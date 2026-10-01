@@ -1,0 +1,21 @@
+{
+  "kind": "native_cf_matched_controls_owner_scope_v1",
+  "status": "OWNER_AUTHORIZED_SCOPE_NOT_PREFIT_APPROVAL",
+  "study": "CF_MATCHED_CONTROLS",
+  "protocol": "docs/adr/0025-cf-matched-controls-continuation.md",
+  "owner_instruction": "2026-10-01 continuation request adopting native_ssl_continuation_dd012f0/CODEX_CONTINUE_NATIVE_SSL.md",
+  "control_methods": ["cf_random_frozen", "cf_direct_supervised"],
+  "seeds": [7, 13, 23],
+  "maximum_default_fits": 6,
+  "maximum_full_owned_gpu_hours": 12,
+  "aggregate_gpu_hours_limit": 96,
+  "evaluation_reserve_hours": 12,
+  "new_ssl_pretraining": false,
+  "original_campaign_neural_methods": 43,
+  "original_campaign_total_methods": 47,
+  "original_campaign_modified": false,
+  "band_budget_modified": false,
+  "independent_prefit": "REQUIRED_NOT_GRANTED_BY_OWNER_SCOPE",
+  "reserved_numeric_access": false,
+  "cloud_or_paid_resource_approval": false
+}

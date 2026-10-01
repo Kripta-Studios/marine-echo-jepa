@@ -1,0 +1,13 @@
+
+=================================== ERRORS ====================================
+_________ ERROR collecting tests/unit/test_native_seed_summary_v1.py __________
+ImportError while importing test module 'C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tests\unit\test_native_seed_summary_v1.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+tests\unit\test_native_seed_summary_v1.py:8: in <module>
+    from marine_echo.evaluation.native_seed_summary_v1 import (
+E   ModuleNotFoundError: No module named 'marine_echo.evaluation.native_seed_summary_v1'
+=========================== short test summary info ===========================
+ERROR tests/unit/test_native_seed_summary_v1.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 1.32s

@@ -1,0 +1,13 @@
+
+=================================== ERRORS ====================================
+_____ ERROR collecting tests/unit/test_native_cf_control_execution_v1.py ______
+ImportError while importing test module 'C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tests\unit\test_native_cf_control_execution_v1.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+tests\unit\test_native_cf_control_execution_v1.py:10: in <module>
+    import execute_native_cf_control_job_v1 as executor
+E   ModuleNotFoundError: No module named 'execute_native_cf_control_job_v1'
+=========================== short test summary info ===========================
+ERROR tests/unit/test_native_cf_control_execution_v1.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 1.93s

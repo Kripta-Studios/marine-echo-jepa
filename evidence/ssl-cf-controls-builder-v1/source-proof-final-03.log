@@ -1,0 +1,1 @@
+{"protected_dependencies": 26, "source_closure": 24, "parameters": {"cf_random_frozen": {"encoder": 412800, "head": 18565, "total": 431365, "optimized": 18565}, "cf_direct_supervised": {"encoder": 412800, "head": 18565, "total": 431365, "optimized": 431365}}, "protected_sources_unchanged": true}

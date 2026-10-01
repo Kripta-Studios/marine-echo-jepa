@@ -1,0 +1,1114 @@
+..............................FFFFFFFFFFFFFFFFFFFFFFFFFFssss             [100%]
+================================== FAILURES ===================================
+_ test_all_current_sources_and_private_smoke_bindings_admitted_without_decode _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C45FCB2570>
+
+    def test_all_current_sources_and_private_smoke_bindings_admitted_without_decode(monkeypatch):
+>       inputs, cfg, output, review = make_fixture()
+                                      ^^^^^^^^^^^^^^
+
+tests\integration\test_native_cf_controls.py:88: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\integration\test_native_cf_controls.py:59: in make_fixture
+    "bindings": {str(p): controls.sha256(p) for p in controls.required_paths(inputs, cfg)},
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:188: in required_paths
+    paths = [*source_paths(config), *(getattr(inputs, key) for key in ("train", "dev", "train_cohort", "dev_cohort", "split", "adr0016", "protocol", "config", "executor", "budget")), ROOT / "docs/adr/0022-cf-backbone-matched-controls.md", ROOT / "docs/adr/0025-cf-matched-controls-continuation.md", ROOT / "orchestration/ssl_vnext_cf_matched_controls_builder_contract.txt", ROOT / "tools/native_reference_supervisor.py"]
+              ^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:168: in source_paths
+    path = regular(pending.pop())
+           ^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:118: in regular
+    info = item.lstat()
+           ^^^^^^^^^^^^
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:847: in lstat
+    return self.stat(follow_symlinks=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/src/marine_echo/evaluation/native_product.py')
+follow_symlinks = False
+
+    def stat(self, *, follow_symlinks=True):
+        """
+        Return the result of the stat() system call on this path, like
+        os.stat() does.
+        """
+>       return os.stat(self, follow_symlinks=follow_symlinks)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [WinError 2] El sistema no puede encontrar el archivo especificado: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\evaluation\\native_product.py'
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:840: FileNotFoundError
+_ test_invalid_admission_fails_before_decode_model_optimizer_or_output[missing_source] _
+
+defect = 'missing_source'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C45FD61370>
+
+    @pytest.mark.parametrize("defect", ["missing_source", "stale_source", "empty_bindings", "config", "role", "cohort_role", "split_role", "data_identity", "output", "device", "budget", "status", "seed", "synthetic_escape"])
+    def test_invalid_admission_fails_before_decode_model_optimizer_or_output(defect, monkeypatch):
+>       inputs, cfg, output, review = make_fixture()
+                                      ^^^^^^^^^^^^^^
+
+tests\integration\test_native_cf_controls.py:100: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\integration\test_native_cf_controls.py:59: in make_fixture
+    "bindings": {str(p): controls.sha256(p) for p in controls.required_paths(inputs, cfg)},
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:188: in required_paths
+    paths = [*source_paths(config), *(getattr(inputs, key) for key in ("train", "dev", "train_cohort", "dev_cohort", "split", "adr0016", "protocol", "config", "executor", "budget")), ROOT / "docs/adr/0022-cf-backbone-matched-controls.md", ROOT / "docs/adr/0025-cf-matched-controls-continuation.md", ROOT / "orchestration/ssl_vnext_cf_matched_controls_builder_contract.txt", ROOT / "tools/native_reference_supervisor.py"]
+              ^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:168: in source_paths
+    path = regular(pending.pop())
+           ^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:118: in regular
+    info = item.lstat()
+           ^^^^^^^^^^^^
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:847: in lstat
+    return self.stat(follow_symlinks=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/src/marine_echo/evaluation/native_product.py')
+follow_symlinks = False
+
+    def stat(self, *, follow_symlinks=True):
+        """
+        Return the result of the stat() system call on this path, like
+        os.stat() does.
+        """
+>       return os.stat(self, follow_symlinks=follow_symlinks)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [WinError 2] El sistema no puede encontrar el archivo especificado: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\evaluation\\native_product.py'
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:840: FileNotFoundError
+_ test_invalid_admission_fails_before_decode_model_optimizer_or_output[stale_source] _
+
+defect = 'stale_source'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C45FD63860>
+
+    @pytest.mark.parametrize("defect", ["missing_source", "stale_source", "empty_bindings", "config", "role", "cohort_role", "split_role", "data_identity", "output", "device", "budget", "status", "seed", "synthetic_escape"])
+    def test_invalid_admission_fails_before_decode_model_optimizer_or_output(defect, monkeypatch):
+>       inputs, cfg, output, review = make_fixture()
+                                      ^^^^^^^^^^^^^^
+
+tests\integration\test_native_cf_controls.py:100: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\integration\test_native_cf_controls.py:59: in make_fixture
+    "bindings": {str(p): controls.sha256(p) for p in controls.required_paths(inputs, cfg)},
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:188: in required_paths
+    paths = [*source_paths(config), *(getattr(inputs, key) for key in ("train", "dev", "train_cohort", "dev_cohort", "split", "adr0016", "protocol", "config", "executor", "budget")), ROOT / "docs/adr/0022-cf-backbone-matched-controls.md", ROOT / "docs/adr/0025-cf-matched-controls-continuation.md", ROOT / "orchestration/ssl_vnext_cf_matched_controls_builder_contract.txt", ROOT / "tools/native_reference_supervisor.py"]
+              ^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:168: in source_paths
+    path = regular(pending.pop())
+           ^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:118: in regular
+    info = item.lstat()
+           ^^^^^^^^^^^^
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:847: in lstat
+    return self.stat(follow_symlinks=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/src/marine_echo/evaluation/native_product.py')
+follow_symlinks = False
+
+    def stat(self, *, follow_symlinks=True):
+        """
+        Return the result of the stat() system call on this path, like
+        os.stat() does.
+        """
+>       return os.stat(self, follow_symlinks=follow_symlinks)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [WinError 2] El sistema no puede encontrar el archivo especificado: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\evaluation\\native_product.py'
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:840: FileNotFoundError
+_ test_invalid_admission_fails_before_decode_model_optimizer_or_output[empty_bindings] _
+
+defect = 'empty_bindings'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C45FD60F20>
+
+    @pytest.mark.parametrize("defect", ["missing_source", "stale_source", "empty_bindings", "config", "role", "cohort_role", "split_role", "data_identity", "output", "device", "budget", "status", "seed", "synthetic_escape"])
+    def test_invalid_admission_fails_before_decode_model_optimizer_or_output(defect, monkeypatch):
+>       inputs, cfg, output, review = make_fixture()
+                                      ^^^^^^^^^^^^^^
+
+tests\integration\test_native_cf_controls.py:100: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\integration\test_native_cf_controls.py:59: in make_fixture
+    "bindings": {str(p): controls.sha256(p) for p in controls.required_paths(inputs, cfg)},
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:188: in required_paths
+    paths = [*source_paths(config), *(getattr(inputs, key) for key in ("train", "dev", "train_cohort", "dev_cohort", "split", "adr0016", "protocol", "config", "executor", "budget")), ROOT / "docs/adr/0022-cf-backbone-matched-controls.md", ROOT / "docs/adr/0025-cf-matched-controls-continuation.md", ROOT / "orchestration/ssl_vnext_cf_matched_controls_builder_contract.txt", ROOT / "tools/native_reference_supervisor.py"]
+              ^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:168: in source_paths
+    path = regular(pending.pop())
+           ^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:118: in regular
+    info = item.lstat()
+           ^^^^^^^^^^^^
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:847: in lstat
+    return self.stat(follow_symlinks=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/src/marine_echo/evaluation/native_product.py')
+follow_symlinks = False
+
+    def stat(self, *, follow_symlinks=True):
+        """
+        Return the result of the stat() system call on this path, like
+        os.stat() does.
+        """
+>       return os.stat(self, follow_symlinks=follow_symlinks)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [WinError 2] El sistema no puede encontrar el archivo especificado: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\evaluation\\native_product.py'
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:840: FileNotFoundError
+_ test_invalid_admission_fails_before_decode_model_optimizer_or_output[config] _
+
+defect = 'config'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C45FD63740>
+
+    @pytest.mark.parametrize("defect", ["missing_source", "stale_source", "empty_bindings", "config", "role", "cohort_role", "split_role", "data_identity", "output", "device", "budget", "status", "seed", "synthetic_escape"])
+    def test_invalid_admission_fails_before_decode_model_optimizer_or_output(defect, monkeypatch):
+>       inputs, cfg, output, review = make_fixture()
+                                      ^^^^^^^^^^^^^^
+
+tests\integration\test_native_cf_controls.py:100: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\integration\test_native_cf_controls.py:59: in make_fixture
+    "bindings": {str(p): controls.sha256(p) for p in controls.required_paths(inputs, cfg)},
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:188: in required_paths
+    paths = [*source_paths(config), *(getattr(inputs, key) for key in ("train", "dev", "train_cohort", "dev_cohort", "split", "adr0016", "protocol", "config", "executor", "budget")), ROOT / "docs/adr/0022-cf-backbone-matched-controls.md", ROOT / "docs/adr/0025-cf-matched-controls-continuation.md", ROOT / "orchestration/ssl_vnext_cf_matched_controls_builder_contract.txt", ROOT / "tools/native_reference_supervisor.py"]
+              ^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:168: in source_paths
+    path = regular(pending.pop())
+           ^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:118: in regular
+    info = item.lstat()
+           ^^^^^^^^^^^^
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:847: in lstat
+    return self.stat(follow_symlinks=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/src/marine_echo/evaluation/native_product.py')
+follow_symlinks = False
+
+    def stat(self, *, follow_symlinks=True):
+        """
+        Return the result of the stat() system call on this path, like
+        os.stat() does.
+        """
+>       return os.stat(self, follow_symlinks=follow_symlinks)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [WinError 2] El sistema no puede encontrar el archivo especificado: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\evaluation\\native_product.py'
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:840: FileNotFoundError
+_ test_invalid_admission_fails_before_decode_model_optimizer_or_output[role] __
+
+defect = 'role'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C45FD62000>
+
+    @pytest.mark.parametrize("defect", ["missing_source", "stale_source", "empty_bindings", "config", "role", "cohort_role", "split_role", "data_identity", "output", "device", "budget", "status", "seed", "synthetic_escape"])
+    def test_invalid_admission_fails_before_decode_model_optimizer_or_output(defect, monkeypatch):
+>       inputs, cfg, output, review = make_fixture()
+                                      ^^^^^^^^^^^^^^
+
+tests\integration\test_native_cf_controls.py:100: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\integration\test_native_cf_controls.py:59: in make_fixture
+    "bindings": {str(p): controls.sha256(p) for p in controls.required_paths(inputs, cfg)},
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:188: in required_paths
+    paths = [*source_paths(config), *(getattr(inputs, key) for key in ("train", "dev", "train_cohort", "dev_cohort", "split", "adr0016", "protocol", "config", "executor", "budget")), ROOT / "docs/adr/0022-cf-backbone-matched-controls.md", ROOT / "docs/adr/0025-cf-matched-controls-continuation.md", ROOT / "orchestration/ssl_vnext_cf_matched_controls_builder_contract.txt", ROOT / "tools/native_reference_supervisor.py"]
+              ^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:168: in source_paths
+    path = regular(pending.pop())
+           ^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:118: in regular
+    info = item.lstat()
+           ^^^^^^^^^^^^
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:847: in lstat
+    return self.stat(follow_symlinks=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/src/marine_echo/evaluation/native_product.py')
+follow_symlinks = False
+
+    def stat(self, *, follow_symlinks=True):
+        """
+        Return the result of the stat() system call on this path, like
+        os.stat() does.
+        """
+>       return os.stat(self, follow_symlinks=follow_symlinks)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [WinError 2] El sistema no puede encontrar el archivo especificado: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\evaluation\\native_product.py'
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:840: FileNotFoundError
+_ test_invalid_admission_fails_before_decode_model_optimizer_or_output[cohort_role] _
+
+defect = 'cohort_role'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C45FD61BE0>
+
+    @pytest.mark.parametrize("defect", ["missing_source", "stale_source", "empty_bindings", "config", "role", "cohort_role", "split_role", "data_identity", "output", "device", "budget", "status", "seed", "synthetic_escape"])
+    def test_invalid_admission_fails_before_decode_model_optimizer_or_output(defect, monkeypatch):
+>       inputs, cfg, output, review = make_fixture()
+                                      ^^^^^^^^^^^^^^
+
+tests\integration\test_native_cf_controls.py:100: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\integration\test_native_cf_controls.py:59: in make_fixture
+    "bindings": {str(p): controls.sha256(p) for p in controls.required_paths(inputs, cfg)},
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:188: in required_paths
+    paths = [*source_paths(config), *(getattr(inputs, key) for key in ("train", "dev", "train_cohort", "dev_cohort", "split", "adr0016", "protocol", "config", "executor", "budget")), ROOT / "docs/adr/0022-cf-backbone-matched-controls.md", ROOT / "docs/adr/0025-cf-matched-controls-continuation.md", ROOT / "orchestration/ssl_vnext_cf_matched_controls_builder_contract.txt", ROOT / "tools/native_reference_supervisor.py"]
+              ^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:168: in source_paths
+    path = regular(pending.pop())
+           ^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:118: in regular
+    info = item.lstat()
+           ^^^^^^^^^^^^
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:847: in lstat
+    return self.stat(follow_symlinks=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/src/marine_echo/evaluation/native_product.py')
+follow_symlinks = False
+
+    def stat(self, *, follow_symlinks=True):
+        """
+        Return the result of the stat() system call on this path, like
+        os.stat() does.
+        """
+>       return os.stat(self, follow_symlinks=follow_symlinks)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [WinError 2] El sistema no puede encontrar el archivo especificado: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\evaluation\\native_product.py'
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:840: FileNotFoundError
+_ test_invalid_admission_fails_before_decode_model_optimizer_or_output[split_role] _
+
+defect = 'split_role'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C45FD61E80>
+
+    @pytest.mark.parametrize("defect", ["missing_source", "stale_source", "empty_bindings", "config", "role", "cohort_role", "split_role", "data_identity", "output", "device", "budget", "status", "seed", "synthetic_escape"])
+    def test_invalid_admission_fails_before_decode_model_optimizer_or_output(defect, monkeypatch):
+>       inputs, cfg, output, review = make_fixture()
+                                      ^^^^^^^^^^^^^^
+
+tests\integration\test_native_cf_controls.py:100: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\integration\test_native_cf_controls.py:59: in make_fixture
+    "bindings": {str(p): controls.sha256(p) for p in controls.required_paths(inputs, cfg)},
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:188: in required_paths
+    paths = [*source_paths(config), *(getattr(inputs, key) for key in ("train", "dev", "train_cohort", "dev_cohort", "split", "adr0016", "protocol", "config", "executor", "budget")), ROOT / "docs/adr/0022-cf-backbone-matched-controls.md", ROOT / "docs/adr/0025-cf-matched-controls-continuation.md", ROOT / "orchestration/ssl_vnext_cf_matched_controls_builder_contract.txt", ROOT / "tools/native_reference_supervisor.py"]
+              ^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:168: in source_paths
+    path = regular(pending.pop())
+           ^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:118: in regular
+    info = item.lstat()
+           ^^^^^^^^^^^^
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:847: in lstat
+    return self.stat(follow_symlinks=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/src/marine_echo/evaluation/native_product.py')
+follow_symlinks = False
+
+    def stat(self, *, follow_symlinks=True):
+        """
+        Return the result of the stat() system call on this path, like
+        os.stat() does.
+        """
+>       return os.stat(self, follow_symlinks=follow_symlinks)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [WinError 2] El sistema no puede encontrar el archivo especificado: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\evaluation\\native_product.py'
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:840: FileNotFoundError
+_ test_invalid_admission_fails_before_decode_model_optimizer_or_output[data_identity] _
+
+defect = 'data_identity'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C45FD8AE70>
+
+    @pytest.mark.parametrize("defect", ["missing_source", "stale_source", "empty_bindings", "config", "role", "cohort_role", "split_role", "data_identity", "output", "device", "budget", "status", "seed", "synthetic_escape"])
+    def test_invalid_admission_fails_before_decode_model_optimizer_or_output(defect, monkeypatch):
+>       inputs, cfg, output, review = make_fixture()
+                                      ^^^^^^^^^^^^^^
+
+tests\integration\test_native_cf_controls.py:100: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\integration\test_native_cf_controls.py:59: in make_fixture
+    "bindings": {str(p): controls.sha256(p) for p in controls.required_paths(inputs, cfg)},
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:188: in required_paths
+    paths = [*source_paths(config), *(getattr(inputs, key) for key in ("train", "dev", "train_cohort", "dev_cohort", "split", "adr0016", "protocol", "config", "executor", "budget")), ROOT / "docs/adr/0022-cf-backbone-matched-controls.md", ROOT / "docs/adr/0025-cf-matched-controls-continuation.md", ROOT / "orchestration/ssl_vnext_cf_matched_controls_builder_contract.txt", ROOT / "tools/native_reference_supervisor.py"]
+              ^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:168: in source_paths
+    path = regular(pending.pop())
+           ^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:118: in regular
+    info = item.lstat()
+           ^^^^^^^^^^^^
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:847: in lstat
+    return self.stat(follow_symlinks=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/src/marine_echo/evaluation/native_product.py')
+follow_symlinks = False
+
+    def stat(self, *, follow_symlinks=True):
+        """
+        Return the result of the stat() system call on this path, like
+        os.stat() does.
+        """
+>       return os.stat(self, follow_symlinks=follow_symlinks)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [WinError 2] El sistema no puede encontrar el archivo especificado: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\evaluation\\native_product.py'
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:840: FileNotFoundError
+_ test_invalid_admission_fails_before_decode_model_optimizer_or_output[output] _
+
+defect = 'output'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C45FD89FA0>
+
+    @pytest.mark.parametrize("defect", ["missing_source", "stale_source", "empty_bindings", "config", "role", "cohort_role", "split_role", "data_identity", "output", "device", "budget", "status", "seed", "synthetic_escape"])
+    def test_invalid_admission_fails_before_decode_model_optimizer_or_output(defect, monkeypatch):
+>       inputs, cfg, output, review = make_fixture()
+                                      ^^^^^^^^^^^^^^
+
+tests\integration\test_native_cf_controls.py:100: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\integration\test_native_cf_controls.py:59: in make_fixture
+    "bindings": {str(p): controls.sha256(p) for p in controls.required_paths(inputs, cfg)},
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:188: in required_paths
+    paths = [*source_paths(config), *(getattr(inputs, key) for key in ("train", "dev", "train_cohort", "dev_cohort", "split", "adr0016", "protocol", "config", "executor", "budget")), ROOT / "docs/adr/0022-cf-backbone-matched-controls.md", ROOT / "docs/adr/0025-cf-matched-controls-continuation.md", ROOT / "orchestration/ssl_vnext_cf_matched_controls_builder_contract.txt", ROOT / "tools/native_reference_supervisor.py"]
+              ^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:168: in source_paths
+    path = regular(pending.pop())
+           ^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:118: in regular
+    info = item.lstat()
+           ^^^^^^^^^^^^
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:847: in lstat
+    return self.stat(follow_symlinks=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/src/marine_echo/evaluation/native_product.py')
+follow_symlinks = False
+
+    def stat(self, *, follow_symlinks=True):
+        """
+        Return the result of the stat() system call on this path, like
+        os.stat() does.
+        """
+>       return os.stat(self, follow_symlinks=follow_symlinks)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [WinError 2] El sistema no puede encontrar el archivo especificado: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\evaluation\\native_product.py'
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:840: FileNotFoundError
+_ test_invalid_admission_fails_before_decode_model_optimizer_or_output[device] _
+
+defect = 'device'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C45FD625D0>
+
+    @pytest.mark.parametrize("defect", ["missing_source", "stale_source", "empty_bindings", "config", "role", "cohort_role", "split_role", "data_identity", "output", "device", "budget", "status", "seed", "synthetic_escape"])
+    def test_invalid_admission_fails_before_decode_model_optimizer_or_output(defect, monkeypatch):
+>       inputs, cfg, output, review = make_fixture()
+                                      ^^^^^^^^^^^^^^
+
+tests\integration\test_native_cf_controls.py:100: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\integration\test_native_cf_controls.py:59: in make_fixture
+    "bindings": {str(p): controls.sha256(p) for p in controls.required_paths(inputs, cfg)},
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:188: in required_paths
+    paths = [*source_paths(config), *(getattr(inputs, key) for key in ("train", "dev", "train_cohort", "dev_cohort", "split", "adr0016", "protocol", "config", "executor", "budget")), ROOT / "docs/adr/0022-cf-backbone-matched-controls.md", ROOT / "docs/adr/0025-cf-matched-controls-continuation.md", ROOT / "orchestration/ssl_vnext_cf_matched_controls_builder_contract.txt", ROOT / "tools/native_reference_supervisor.py"]
+              ^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:168: in source_paths
+    path = regular(pending.pop())
+           ^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:118: in regular
+    info = item.lstat()
+           ^^^^^^^^^^^^
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:847: in lstat
+    return self.stat(follow_symlinks=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/src/marine_echo/evaluation/native_product.py')
+follow_symlinks = False
+
+    def stat(self, *, follow_symlinks=True):
+        """
+        Return the result of the stat() system call on this path, like
+        os.stat() does.
+        """
+>       return os.stat(self, follow_symlinks=follow_symlinks)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [WinError 2] El sistema no puede encontrar el archivo especificado: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\evaluation\\native_product.py'
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:840: FileNotFoundError
+_ test_invalid_admission_fails_before_decode_model_optimizer_or_output[budget] _
+
+defect = 'budget'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C45FCB17F0>
+
+    @pytest.mark.parametrize("defect", ["missing_source", "stale_source", "empty_bindings", "config", "role", "cohort_role", "split_role", "data_identity", "output", "device", "budget", "status", "seed", "synthetic_escape"])
+    def test_invalid_admission_fails_before_decode_model_optimizer_or_output(defect, monkeypatch):
+>       inputs, cfg, output, review = make_fixture()
+                                      ^^^^^^^^^^^^^^
+
+tests\integration\test_native_cf_controls.py:100: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\integration\test_native_cf_controls.py:59: in make_fixture
+    "bindings": {str(p): controls.sha256(p) for p in controls.required_paths(inputs, cfg)},
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:188: in required_paths
+    paths = [*source_paths(config), *(getattr(inputs, key) for key in ("train", "dev", "train_cohort", "dev_cohort", "split", "adr0016", "protocol", "config", "executor", "budget")), ROOT / "docs/adr/0022-cf-backbone-matched-controls.md", ROOT / "docs/adr/0025-cf-matched-controls-continuation.md", ROOT / "orchestration/ssl_vnext_cf_matched_controls_builder_contract.txt", ROOT / "tools/native_reference_supervisor.py"]
+              ^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:168: in source_paths
+    path = regular(pending.pop())
+           ^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:118: in regular
+    info = item.lstat()
+           ^^^^^^^^^^^^
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:847: in lstat
+    return self.stat(follow_symlinks=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/src/marine_echo/evaluation/native_product.py')
+follow_symlinks = False
+
+    def stat(self, *, follow_symlinks=True):
+        """
+        Return the result of the stat() system call on this path, like
+        os.stat() does.
+        """
+>       return os.stat(self, follow_symlinks=follow_symlinks)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [WinError 2] El sistema no puede encontrar el archivo especificado: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\evaluation\\native_product.py'
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:840: FileNotFoundError
+_ test_invalid_admission_fails_before_decode_model_optimizer_or_output[status] _
+
+defect = 'status'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C45FD611C0>
+
+    @pytest.mark.parametrize("defect", ["missing_source", "stale_source", "empty_bindings", "config", "role", "cohort_role", "split_role", "data_identity", "output", "device", "budget", "status", "seed", "synthetic_escape"])
+    def test_invalid_admission_fails_before_decode_model_optimizer_or_output(defect, monkeypatch):
+>       inputs, cfg, output, review = make_fixture()
+                                      ^^^^^^^^^^^^^^
+
+tests\integration\test_native_cf_controls.py:100: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\integration\test_native_cf_controls.py:59: in make_fixture
+    "bindings": {str(p): controls.sha256(p) for p in controls.required_paths(inputs, cfg)},
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:188: in required_paths
+    paths = [*source_paths(config), *(getattr(inputs, key) for key in ("train", "dev", "train_cohort", "dev_cohort", "split", "adr0016", "protocol", "config", "executor", "budget")), ROOT / "docs/adr/0022-cf-backbone-matched-controls.md", ROOT / "docs/adr/0025-cf-matched-controls-continuation.md", ROOT / "orchestration/ssl_vnext_cf_matched_controls_builder_contract.txt", ROOT / "tools/native_reference_supervisor.py"]
+              ^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:168: in source_paths
+    path = regular(pending.pop())
+           ^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:118: in regular
+    info = item.lstat()
+           ^^^^^^^^^^^^
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:847: in lstat
+    return self.stat(follow_symlinks=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/src/marine_echo/evaluation/native_product.py')
+follow_symlinks = False
+
+    def stat(self, *, follow_symlinks=True):
+        """
+        Return the result of the stat() system call on this path, like
+        os.stat() does.
+        """
+>       return os.stat(self, follow_symlinks=follow_symlinks)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [WinError 2] El sistema no puede encontrar el archivo especificado: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\evaluation\\native_product.py'
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:840: FileNotFoundError
+_ test_invalid_admission_fails_before_decode_model_optimizer_or_output[seed] __
+
+defect = 'seed'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C45FD606E0>
+
+    @pytest.mark.parametrize("defect", ["missing_source", "stale_source", "empty_bindings", "config", "role", "cohort_role", "split_role", "data_identity", "output", "device", "budget", "status", "seed", "synthetic_escape"])
+    def test_invalid_admission_fails_before_decode_model_optimizer_or_output(defect, monkeypatch):
+>       inputs, cfg, output, review = make_fixture()
+                                      ^^^^^^^^^^^^^^
+
+tests\integration\test_native_cf_controls.py:100: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\integration\test_native_cf_controls.py:59: in make_fixture
+    "bindings": {str(p): controls.sha256(p) for p in controls.required_paths(inputs, cfg)},
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:188: in required_paths
+    paths = [*source_paths(config), *(getattr(inputs, key) for key in ("train", "dev", "train_cohort", "dev_cohort", "split", "adr0016", "protocol", "config", "executor", "budget")), ROOT / "docs/adr/0022-cf-backbone-matched-controls.md", ROOT / "docs/adr/0025-cf-matched-controls-continuation.md", ROOT / "orchestration/ssl_vnext_cf_matched_controls_builder_contract.txt", ROOT / "tools/native_reference_supervisor.py"]
+              ^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:168: in source_paths
+    path = regular(pending.pop())
+           ^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:118: in regular
+    info = item.lstat()
+           ^^^^^^^^^^^^
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:847: in lstat
+    return self.stat(follow_symlinks=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/src/marine_echo/evaluation/native_product.py')
+follow_symlinks = False
+
+    def stat(self, *, follow_symlinks=True):
+        """
+        Return the result of the stat() system call on this path, like
+        os.stat() does.
+        """
+>       return os.stat(self, follow_symlinks=follow_symlinks)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [WinError 2] El sistema no puede encontrar el archivo especificado: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\evaluation\\native_product.py'
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:840: FileNotFoundError
+_ test_invalid_admission_fails_before_decode_model_optimizer_or_output[synthetic_escape] _
+
+defect = 'synthetic_escape'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C45FD8AF00>
+
+    @pytest.mark.parametrize("defect", ["missing_source", "stale_source", "empty_bindings", "config", "role", "cohort_role", "split_role", "data_identity", "output", "device", "budget", "status", "seed", "synthetic_escape"])
+    def test_invalid_admission_fails_before_decode_model_optimizer_or_output(defect, monkeypatch):
+>       inputs, cfg, output, review = make_fixture()
+                                      ^^^^^^^^^^^^^^
+
+tests\integration\test_native_cf_controls.py:100: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\integration\test_native_cf_controls.py:59: in make_fixture
+    "bindings": {str(p): controls.sha256(p) for p in controls.required_paths(inputs, cfg)},
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:188: in required_paths
+    paths = [*source_paths(config), *(getattr(inputs, key) for key in ("train", "dev", "train_cohort", "dev_cohort", "split", "adr0016", "protocol", "config", "executor", "budget")), ROOT / "docs/adr/0022-cf-backbone-matched-controls.md", ROOT / "docs/adr/0025-cf-matched-controls-continuation.md", ROOT / "orchestration/ssl_vnext_cf_matched_controls_builder_contract.txt", ROOT / "tools/native_reference_supervisor.py"]
+              ^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:168: in source_paths
+    path = regular(pending.pop())
+           ^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:118: in regular
+    info = item.lstat()
+           ^^^^^^^^^^^^
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:847: in lstat
+    return self.stat(follow_symlinks=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/src/marine_echo/evaluation/native_product.py')
+follow_symlinks = False
+
+    def stat(self, *, follow_symlinks=True):
+        """
+        Return the result of the stat() system call on this path, like
+        os.stat() does.
+        """
+>       return os.stat(self, follow_symlinks=follow_symlinks)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [WinError 2] El sistema no puede encontrar el archivo especificado: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\evaluation\\native_product.py'
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:840: FileNotFoundError
+___ test_real_review_identity_gates_only_in_memory_no_signed_fixture[self] ____
+
+identity = 'self'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C45FD61820>
+
+    @pytest.mark.parametrize("identity", ["self", "root", "missing", "wrong_status", "synthetic_as_real"])
+    def test_real_review_identity_gates_only_in_memory_no_signed_fixture(identity, monkeypatch):
+>       inputs, _, output, review = make_fixture()
+                                    ^^^^^^^^^^^^^^
+
+tests\integration\test_native_cf_controls.py:155: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\integration\test_native_cf_controls.py:59: in make_fixture
+    "bindings": {str(p): controls.sha256(p) for p in controls.required_paths(inputs, cfg)},
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:188: in required_paths
+    paths = [*source_paths(config), *(getattr(inputs, key) for key in ("train", "dev", "train_cohort", "dev_cohort", "split", "adr0016", "protocol", "config", "executor", "budget")), ROOT / "docs/adr/0022-cf-backbone-matched-controls.md", ROOT / "docs/adr/0025-cf-matched-controls-continuation.md", ROOT / "orchestration/ssl_vnext_cf_matched_controls_builder_contract.txt", ROOT / "tools/native_reference_supervisor.py"]
+              ^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:168: in source_paths
+    path = regular(pending.pop())
+           ^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:118: in regular
+    info = item.lstat()
+           ^^^^^^^^^^^^
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:847: in lstat
+    return self.stat(follow_symlinks=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/src/marine_echo/evaluation/native_product.py')
+follow_symlinks = False
+
+    def stat(self, *, follow_symlinks=True):
+        """
+        Return the result of the stat() system call on this path, like
+        os.stat() does.
+        """
+>       return os.stat(self, follow_symlinks=follow_symlinks)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [WinError 2] El sistema no puede encontrar el archivo especificado: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\evaluation\\native_product.py'
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:840: FileNotFoundError
+___ test_real_review_identity_gates_only_in_memory_no_signed_fixture[root] ____
+
+identity = 'root'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C45FD89D30>
+
+    @pytest.mark.parametrize("identity", ["self", "root", "missing", "wrong_status", "synthetic_as_real"])
+    def test_real_review_identity_gates_only_in_memory_no_signed_fixture(identity, monkeypatch):
+>       inputs, _, output, review = make_fixture()
+                                    ^^^^^^^^^^^^^^
+
+tests\integration\test_native_cf_controls.py:155: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\integration\test_native_cf_controls.py:59: in make_fixture
+    "bindings": {str(p): controls.sha256(p) for p in controls.required_paths(inputs, cfg)},
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:188: in required_paths
+    paths = [*source_paths(config), *(getattr(inputs, key) for key in ("train", "dev", "train_cohort", "dev_cohort", "split", "adr0016", "protocol", "config", "executor", "budget")), ROOT / "docs/adr/0022-cf-backbone-matched-controls.md", ROOT / "docs/adr/0025-cf-matched-controls-continuation.md", ROOT / "orchestration/ssl_vnext_cf_matched_controls_builder_contract.txt", ROOT / "tools/native_reference_supervisor.py"]
+              ^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:168: in source_paths
+    path = regular(pending.pop())
+           ^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:118: in regular
+    info = item.lstat()
+           ^^^^^^^^^^^^
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:847: in lstat
+    return self.stat(follow_symlinks=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/src/marine_echo/evaluation/native_product.py')
+follow_symlinks = False
+
+    def stat(self, *, follow_symlinks=True):
+        """
+        Return the result of the stat() system call on this path, like
+        os.stat() does.
+        """
+>       return os.stat(self, follow_symlinks=follow_symlinks)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [WinError 2] El sistema no puede encontrar el archivo especificado: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\evaluation\\native_product.py'
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:840: FileNotFoundError
+__ test_real_review_identity_gates_only_in_memory_no_signed_fixture[missing] __
+
+identity = 'missing'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C45FD8B4A0>
+
+    @pytest.mark.parametrize("identity", ["self", "root", "missing", "wrong_status", "synthetic_as_real"])
+    def test_real_review_identity_gates_only_in_memory_no_signed_fixture(identity, monkeypatch):
+>       inputs, _, output, review = make_fixture()
+                                    ^^^^^^^^^^^^^^
+
+tests\integration\test_native_cf_controls.py:155: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\integration\test_native_cf_controls.py:59: in make_fixture
+    "bindings": {str(p): controls.sha256(p) for p in controls.required_paths(inputs, cfg)},
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:188: in required_paths
+    paths = [*source_paths(config), *(getattr(inputs, key) for key in ("train", "dev", "train_cohort", "dev_cohort", "split", "adr0016", "protocol", "config", "executor", "budget")), ROOT / "docs/adr/0022-cf-backbone-matched-controls.md", ROOT / "docs/adr/0025-cf-matched-controls-continuation.md", ROOT / "orchestration/ssl_vnext_cf_matched_controls_builder_contract.txt", ROOT / "tools/native_reference_supervisor.py"]
+              ^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:168: in source_paths
+    path = regular(pending.pop())
+           ^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:118: in regular
+    info = item.lstat()
+           ^^^^^^^^^^^^
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:847: in lstat
+    return self.stat(follow_symlinks=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/src/marine_echo/evaluation/native_product.py')
+follow_symlinks = False
+
+    def stat(self, *, follow_symlinks=True):
+        """
+        Return the result of the stat() system call on this path, like
+        os.stat() does.
+        """
+>       return os.stat(self, follow_symlinks=follow_symlinks)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [WinError 2] El sistema no puede encontrar el archivo especificado: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\evaluation\\native_product.py'
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:840: FileNotFoundError
+_ test_real_review_identity_gates_only_in_memory_no_signed_fixture[wrong_status] _
+
+identity = 'wrong_status'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C45FD8A8A0>
+
+    @pytest.mark.parametrize("identity", ["self", "root", "missing", "wrong_status", "synthetic_as_real"])
+    def test_real_review_identity_gates_only_in_memory_no_signed_fixture(identity, monkeypatch):
+>       inputs, _, output, review = make_fixture()
+                                    ^^^^^^^^^^^^^^
+
+tests\integration\test_native_cf_controls.py:155: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\integration\test_native_cf_controls.py:59: in make_fixture
+    "bindings": {str(p): controls.sha256(p) for p in controls.required_paths(inputs, cfg)},
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:188: in required_paths
+    paths = [*source_paths(config), *(getattr(inputs, key) for key in ("train", "dev", "train_cohort", "dev_cohort", "split", "adr0016", "protocol", "config", "executor", "budget")), ROOT / "docs/adr/0022-cf-backbone-matched-controls.md", ROOT / "docs/adr/0025-cf-matched-controls-continuation.md", ROOT / "orchestration/ssl_vnext_cf_matched_controls_builder_contract.txt", ROOT / "tools/native_reference_supervisor.py"]
+              ^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:168: in source_paths
+    path = regular(pending.pop())
+           ^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:118: in regular
+    info = item.lstat()
+           ^^^^^^^^^^^^
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:847: in lstat
+    return self.stat(follow_symlinks=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/src/marine_echo/evaluation/native_product.py')
+follow_symlinks = False
+
+    def stat(self, *, follow_symlinks=True):
+        """
+        Return the result of the stat() system call on this path, like
+        os.stat() does.
+        """
+>       return os.stat(self, follow_symlinks=follow_symlinks)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [WinError 2] El sistema no puede encontrar el archivo especificado: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\evaluation\\native_product.py'
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:840: FileNotFoundError
+_ test_real_review_identity_gates_only_in_memory_no_signed_fixture[synthetic_as_real] _
+
+identity = 'synthetic_as_real'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C45FCC66F0>
+
+    @pytest.mark.parametrize("identity", ["self", "root", "missing", "wrong_status", "synthetic_as_real"])
+    def test_real_review_identity_gates_only_in_memory_no_signed_fixture(identity, monkeypatch):
+>       inputs, _, output, review = make_fixture()
+                                    ^^^^^^^^^^^^^^
+
+tests\integration\test_native_cf_controls.py:155: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\integration\test_native_cf_controls.py:59: in make_fixture
+    "bindings": {str(p): controls.sha256(p) for p in controls.required_paths(inputs, cfg)},
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:188: in required_paths
+    paths = [*source_paths(config), *(getattr(inputs, key) for key in ("train", "dev", "train_cohort", "dev_cohort", "split", "adr0016", "protocol", "config", "executor", "budget")), ROOT / "docs/adr/0022-cf-backbone-matched-controls.md", ROOT / "docs/adr/0025-cf-matched-controls-continuation.md", ROOT / "orchestration/ssl_vnext_cf_matched_controls_builder_contract.txt", ROOT / "tools/native_reference_supervisor.py"]
+              ^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:168: in source_paths
+    path = regular(pending.pop())
+           ^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:118: in regular
+    info = item.lstat()
+           ^^^^^^^^^^^^
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:847: in lstat
+    return self.stat(follow_symlinks=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/src/marine_echo/evaluation/native_product.py')
+follow_symlinks = False
+
+    def stat(self, *, follow_symlinks=True):
+        """
+        Return the result of the stat() system call on this path, like
+        os.stat() does.
+        """
+>       return os.stat(self, follow_symlinks=follow_symlinks)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [WinError 2] El sistema no puede encontrar el archivo especificado: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\evaluation\\native_product.py'
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:840: FileNotFoundError
+____________ test_private_smoke_cannot_claim_real_fit_or_run_cuda _____________
+
+    def test_private_smoke_cannot_claim_real_fit_or_run_cuda():
+>       inputs, cfg, output, _ = make_fixture()
+                                 ^^^^^^^^^^^^^^
+
+tests\integration\test_native_cf_controls.py:179: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\integration\test_native_cf_controls.py:59: in make_fixture
+    "bindings": {str(p): controls.sha256(p) for p in controls.required_paths(inputs, cfg)},
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:188: in required_paths
+    paths = [*source_paths(config), *(getattr(inputs, key) for key in ("train", "dev", "train_cohort", "dev_cohort", "split", "adr0016", "protocol", "config", "executor", "budget")), ROOT / "docs/adr/0022-cf-backbone-matched-controls.md", ROOT / "docs/adr/0025-cf-matched-controls-continuation.md", ROOT / "orchestration/ssl_vnext_cf_matched_controls_builder_contract.txt", ROOT / "tools/native_reference_supervisor.py"]
+              ^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:168: in source_paths
+    path = regular(pending.pop())
+           ^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:118: in regular
+    info = item.lstat()
+           ^^^^^^^^^^^^
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:847: in lstat
+    return self.stat(follow_symlinks=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/src/marine_echo/evaluation/native_product.py')
+follow_symlinks = False
+
+    def stat(self, *, follow_symlinks=True):
+        """
+        Return the result of the stat() system call on this path, like
+        os.stat() does.
+        """
+>       return os.stat(self, follow_symlinks=follow_symlinks)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [WinError 2] El sistema no puede encontrar el archivo especificado: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\evaluation\\native_product.py'
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:840: FileNotFoundError
+_ test_physical_unicode_weights_only_replay_and_exclusive_output[cf_random_frozen] _
+
+method = 'cf_random_frozen'
+
+    @pytest.mark.parametrize("method", controls.METHODS)
+    def test_physical_unicode_weights_only_replay_and_exclusive_output(method):
+>       inputs, _, output, _ = make_fixture(method)
+                               ^^^^^^^^^^^^^^^^^^^^
+
+tests\integration\test_native_cf_controls.py:189: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\integration\test_native_cf_controls.py:59: in make_fixture
+    "bindings": {str(p): controls.sha256(p) for p in controls.required_paths(inputs, cfg)},
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:188: in required_paths
+    paths = [*source_paths(config), *(getattr(inputs, key) for key in ("train", "dev", "train_cohort", "dev_cohort", "split", "adr0016", "protocol", "config", "executor", "budget")), ROOT / "docs/adr/0022-cf-backbone-matched-controls.md", ROOT / "docs/adr/0025-cf-matched-controls-continuation.md", ROOT / "orchestration/ssl_vnext_cf_matched_controls_builder_contract.txt", ROOT / "tools/native_reference_supervisor.py"]
+              ^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:168: in source_paths
+    path = regular(pending.pop())
+           ^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:118: in regular
+    info = item.lstat()
+           ^^^^^^^^^^^^
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:847: in lstat
+    return self.stat(follow_symlinks=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/src/marine_echo/evaluation/native_product.py')
+follow_symlinks = False
+
+    def stat(self, *, follow_symlinks=True):
+        """
+        Return the result of the stat() system call on this path, like
+        os.stat() does.
+        """
+>       return os.stat(self, follow_symlinks=follow_symlinks)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [WinError 2] El sistema no puede encontrar el archivo especificado: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\evaluation\\native_product.py'
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:840: FileNotFoundError
+_ test_physical_unicode_weights_only_replay_and_exclusive_output[cf_direct_supervised] _
+
+method = 'cf_direct_supervised'
+
+    @pytest.mark.parametrize("method", controls.METHODS)
+    def test_physical_unicode_weights_only_replay_and_exclusive_output(method):
+>       inputs, _, output, _ = make_fixture(method)
+                               ^^^^^^^^^^^^^^^^^^^^
+
+tests\integration\test_native_cf_controls.py:189: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\integration\test_native_cf_controls.py:59: in make_fixture
+    "bindings": {str(p): controls.sha256(p) for p in controls.required_paths(inputs, cfg)},
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:188: in required_paths
+    paths = [*source_paths(config), *(getattr(inputs, key) for key in ("train", "dev", "train_cohort", "dev_cohort", "split", "adr0016", "protocol", "config", "executor", "budget")), ROOT / "docs/adr/0022-cf-backbone-matched-controls.md", ROOT / "docs/adr/0025-cf-matched-controls-continuation.md", ROOT / "orchestration/ssl_vnext_cf_matched_controls_builder_contract.txt", ROOT / "tools/native_reference_supervisor.py"]
+              ^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:168: in source_paths
+    path = regular(pending.pop())
+           ^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:118: in regular
+    info = item.lstat()
+           ^^^^^^^^^^^^
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:847: in lstat
+    return self.stat(follow_symlinks=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/src/marine_echo/evaluation/native_product.py')
+follow_symlinks = False
+
+    def stat(self, *, follow_symlinks=True):
+        """
+        Return the result of the stat() system call on this path, like
+        os.stat() does.
+        """
+>       return os.stat(self, follow_symlinks=follow_symlinks)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [WinError 2] El sistema no puede encontrar el archivo especificado: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\evaluation\\native_product.py'
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:840: FileNotFoundError
+________ test_output_collision_refused_before_arrays[empty_directory] _________
+
+collision = 'empty_directory'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C45FCC6ED0>
+
+    @pytest.mark.parametrize("collision", ["empty_directory", "nonempty_directory", "completed_run"])
+    def test_output_collision_refused_before_arrays(collision, monkeypatch):
+>       inputs, cfg, output, _ = make_fixture()
+                                 ^^^^^^^^^^^^^^
+
+tests\integration\test_native_cf_controls.py:206: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\integration\test_native_cf_controls.py:59: in make_fixture
+    "bindings": {str(p): controls.sha256(p) for p in controls.required_paths(inputs, cfg)},
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:188: in required_paths
+    paths = [*source_paths(config), *(getattr(inputs, key) for key in ("train", "dev", "train_cohort", "dev_cohort", "split", "adr0016", "protocol", "config", "executor", "budget")), ROOT / "docs/adr/0022-cf-backbone-matched-controls.md", ROOT / "docs/adr/0025-cf-matched-controls-continuation.md", ROOT / "orchestration/ssl_vnext_cf_matched_controls_builder_contract.txt", ROOT / "tools/native_reference_supervisor.py"]
+              ^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:168: in source_paths
+    path = regular(pending.pop())
+           ^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:118: in regular
+    info = item.lstat()
+           ^^^^^^^^^^^^
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:847: in lstat
+    return self.stat(follow_symlinks=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/src/marine_echo/evaluation/native_product.py')
+follow_symlinks = False
+
+    def stat(self, *, follow_symlinks=True):
+        """
+        Return the result of the stat() system call on this path, like
+        os.stat() does.
+        """
+>       return os.stat(self, follow_symlinks=follow_symlinks)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [WinError 2] El sistema no puede encontrar el archivo especificado: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\evaluation\\native_product.py'
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:840: FileNotFoundError
+_______ test_output_collision_refused_before_arrays[nonempty_directory] _______
+
+collision = 'nonempty_directory'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C45FCC7E30>
+
+    @pytest.mark.parametrize("collision", ["empty_directory", "nonempty_directory", "completed_run"])
+    def test_output_collision_refused_before_arrays(collision, monkeypatch):
+>       inputs, cfg, output, _ = make_fixture()
+                                 ^^^^^^^^^^^^^^
+
+tests\integration\test_native_cf_controls.py:206: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\integration\test_native_cf_controls.py:59: in make_fixture
+    "bindings": {str(p): controls.sha256(p) for p in controls.required_paths(inputs, cfg)},
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:188: in required_paths
+    paths = [*source_paths(config), *(getattr(inputs, key) for key in ("train", "dev", "train_cohort", "dev_cohort", "split", "adr0016", "protocol", "config", "executor", "budget")), ROOT / "docs/adr/0022-cf-backbone-matched-controls.md", ROOT / "docs/adr/0025-cf-matched-controls-continuation.md", ROOT / "orchestration/ssl_vnext_cf_matched_controls_builder_contract.txt", ROOT / "tools/native_reference_supervisor.py"]
+              ^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:168: in source_paths
+    path = regular(pending.pop())
+           ^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:118: in regular
+    info = item.lstat()
+           ^^^^^^^^^^^^
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:847: in lstat
+    return self.stat(follow_symlinks=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/src/marine_echo/evaluation/native_product.py')
+follow_symlinks = False
+
+    def stat(self, *, follow_symlinks=True):
+        """
+        Return the result of the stat() system call on this path, like
+        os.stat() does.
+        """
+>       return os.stat(self, follow_symlinks=follow_symlinks)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [WinError 2] El sistema no puede encontrar el archivo especificado: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\evaluation\\native_product.py'
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:840: FileNotFoundError
+_________ test_output_collision_refused_before_arrays[completed_run] __________
+
+collision = 'completed_run'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C45FCC7680>
+
+    @pytest.mark.parametrize("collision", ["empty_directory", "nonempty_directory", "completed_run"])
+    def test_output_collision_refused_before_arrays(collision, monkeypatch):
+>       inputs, cfg, output, _ = make_fixture()
+                                 ^^^^^^^^^^^^^^
+
+tests\integration\test_native_cf_controls.py:206: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\integration\test_native_cf_controls.py:59: in make_fixture
+    "bindings": {str(p): controls.sha256(p) for p in controls.required_paths(inputs, cfg)},
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:188: in required_paths
+    paths = [*source_paths(config), *(getattr(inputs, key) for key in ("train", "dev", "train_cohort", "dev_cohort", "split", "adr0016", "protocol", "config", "executor", "budget")), ROOT / "docs/adr/0022-cf-backbone-matched-controls.md", ROOT / "docs/adr/0025-cf-matched-controls-continuation.md", ROOT / "orchestration/ssl_vnext_cf_matched_controls_builder_contract.txt", ROOT / "tools/native_reference_supervisor.py"]
+              ^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:168: in source_paths
+    path = regular(pending.pop())
+           ^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_cf_controls.py:118: in regular
+    info = item.lstat()
+           ^^^^^^^^^^^^
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:847: in lstat
+    return self.stat(follow_symlinks=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/�lvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/src/marine_echo/evaluation/native_product.py')
+follow_symlinks = False
+
+    def stat(self, *, follow_symlinks=True):
+        """
+        Return the result of the stat() system call on this path, like
+        os.stat() does.
+        """
+>       return os.stat(self, follow_symlinks=follow_symlinks)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [WinError 2] El sistema no puede encontrar el archivo especificado: 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\evaluation\\native_product.py'
+
+..\..\..\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\pathlib.py:840: FileNotFoundError
+=========================== short test summary info ===========================
+FAILED tests/integration/test_native_cf_controls.py::test_all_current_sources_and_private_smoke_bindings_admitted_without_decode
+FAILED tests/integration/test_native_cf_controls.py::test_invalid_admission_fails_before_decode_model_optimizer_or_output[missing_source]
+FAILED tests/integration/test_native_cf_controls.py::test_invalid_admission_fails_before_decode_model_optimizer_or_output[stale_source]
+FAILED tests/integration/test_native_cf_controls.py::test_invalid_admission_fails_before_decode_model_optimizer_or_output[empty_bindings]
+FAILED tests/integration/test_native_cf_controls.py::test_invalid_admission_fails_before_decode_model_optimizer_or_output[config]
+FAILED tests/integration/test_native_cf_controls.py::test_invalid_admission_fails_before_decode_model_optimizer_or_output[role]
+FAILED tests/integration/test_native_cf_controls.py::test_invalid_admission_fails_before_decode_model_optimizer_or_output[cohort_role]
+FAILED tests/integration/test_native_cf_controls.py::test_invalid_admission_fails_before_decode_model_optimizer_or_output[split_role]
+FAILED tests/integration/test_native_cf_controls.py::test_invalid_admission_fails_before_decode_model_optimizer_or_output[data_identity]
+FAILED tests/integration/test_native_cf_controls.py::test_invalid_admission_fails_before_decode_model_optimizer_or_output[output]
+FAILED tests/integration/test_native_cf_controls.py::test_invalid_admission_fails_before_decode_model_optimizer_or_output[device]
+FAILED tests/integration/test_native_cf_controls.py::test_invalid_admission_fails_before_decode_model_optimizer_or_output[budget]
+FAILED tests/integration/test_native_cf_controls.py::test_invalid_admission_fails_before_decode_model_optimizer_or_output[status]
+FAILED tests/integration/test_native_cf_controls.py::test_invalid_admission_fails_before_decode_model_optimizer_or_output[seed]
+FAILED tests/integration/test_native_cf_controls.py::test_invalid_admission_fails_before_decode_model_optimizer_or_output[synthetic_escape]
+FAILED tests/integration/test_native_cf_controls.py::test_real_review_identity_gates_only_in_memory_no_signed_fixture[self]
+FAILED tests/integration/test_native_cf_controls.py::test_real_review_identity_gates_only_in_memory_no_signed_fixture[root]
+FAILED tests/integration/test_native_cf_controls.py::test_real_review_identity_gates_only_in_memory_no_signed_fixture[missing]
+FAILED tests/integration/test_native_cf_controls.py::test_real_review_identity_gates_only_in_memory_no_signed_fixture[wrong_status]
+FAILED tests/integration/test_native_cf_controls.py::test_real_review_identity_gates_only_in_memory_no_signed_fixture[synthetic_as_real]
+FAILED tests/integration/test_native_cf_controls.py::test_private_smoke_cannot_claim_real_fit_or_run_cuda
+FAILED tests/integration/test_native_cf_controls.py::test_physical_unicode_weights_only_replay_and_exclusive_output[cf_random_frozen]
+FAILED tests/integration/test_native_cf_controls.py::test_physical_unicode_weights_only_replay_and_exclusive_output[cf_direct_supervised]
+FAILED tests/integration/test_native_cf_controls.py::test_output_collision_refused_before_arrays[empty_directory]
+FAILED tests/integration/test_native_cf_controls.py::test_output_collision_refused_before_arrays[nonempty_directory]
+FAILED tests/integration/test_native_cf_controls.py::test_output_collision_refused_before_arrays[completed_run]
+26 failed, 30 passed, 4 skipped in 5.25s

@@ -1,0 +1,13 @@
+
+=================================== ERRORS ====================================
+________ ERROR collecting tests/integration/test_native_cf_controls.py ________
+import file mismatch:
+imported module 'test_native_cf_controls' has this __file__ attribute:
+  C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-jepa-vnext-builder\tests\unit\test_native_cf_controls.py
+which is not the same as the test file we want to collect:
+  C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-jepa-vnext-builder\tests\integration\test_native_cf_controls.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+=========================== short test summary info ===========================
+ERROR tests/integration/test_native_cf_controls.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 4.70s

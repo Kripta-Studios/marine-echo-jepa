@@ -1,0 +1,14 @@
+# ADR 0022: CF backbone matched controls
+
+Status: PROPOSED; implementation and prefit review are separate from real execution.
+Date: 2026-09-30.
+
+The completed CF frozen/full results cannot isolate SSL learning from its different CNN architecture and128-dimensional features. Shared random and supervised features use another backbone. Close this comparison gap with the original CF encoder and two predeclared controls: a fresh untrained encoder with a2,000-update frozen readout, and a fresh directly supervised CF encoder/readout with3,000 updates. Neither control runs an SSL objective, updates an EMA teacher, inherits a fitted encoder, or changes the existing CF source/model implementation.
+
+Use the same CF backbone dimensions, initialization tensors, fresh head seed+100000, native TRAIN statistics, numerical targets, masks and sample-index stream as the corresponding CF strong downstream endpoints. Preserve the existing batch64, AdamW0.0003/0.0001, gradient clip1, warmup10%/cosine floor10%, readout cadence500 or direct cadence750, patience4, daily-floor18 and four development selection opportunities. Random encoder parameters and buffers must remain identical to initialization; supervised encoder parameters must actually update. Report total measured compute separately from equal downstream supervision.
+
+There are six existing seed7 screening recipes, including original controls. These two additional CF control configurations would bring the total to eight, within the original ceiling. This proposal does not reinterpret controls as free screens, authorize further configurations, or resolve the pending ADR0020 question. Adding all five proposed band recipes after these controls would require thirteen total recipes, so the older eleven-recipe proposal would need reconciliation before any band fit. No band fitting follows from this document.
+
+The final replication plan remains to be reviewed before fitting these controls. A fair final CF comparison needs three-seed matched direct evidence; do not silently expand the number of replicated reference families or replace the already approved shared direct plan. Freeze the exact choice and any supersession explicitly through independent review before execution. No final-site numerical access or selection based on its outcomes is permitted.
+
+Control encoder artifacts must use explicitly distinct supervised/untrained control kinds; they must never be exposed by the SSL encoder API as pretrained CF weights. Forecast artifacts must retain accurate training identity, zero SSL updates and complete TRAIN/scaler/local ancestry. Preserve context-only safe inference, original native geometry, strict target support, exact resume and protected outputs. The distinct reviewer must approve exact code, control contract, configurations, source pins, data, parent-free initialization, budgets and resource executors before the first numerical control fit.

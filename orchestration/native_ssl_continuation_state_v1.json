@@ -1,0 +1,120 @@
+{
+  "updated_utc": "2026-10-01T10:24:17.635137+00:00",
+  "status": "ENGINEERING_DELIVERED_RESEARCH_BLOCKED_BY_REVIEW_SERVICE",
+  "branch": "research/marine-jepa-vnext",
+  "preserved_head_before_changes": "2d51c43dbb624f980c3a964d51bff6d413bde1f7",
+  "checkpoint_reference_only": "dd012f0",
+  "reset": false,
+  "builder": {
+    "session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+    "route": "unchanged GPT-6.1 Sol/high workspace-write/never",
+    "actual_exec_session": 7721,
+    "exit_code": 0,
+    "handoff": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-cf-controls-builder-v1\\handoff-v1.json",
+    "handoff_sha256": "5a1f1a6132061b5d58cd1ac482de48300d4ff95fc46099eaac05518213bb9321"
+  },
+  "verification": {
+    "unique_cpu_checks_passed": 130,
+    "integrated_checks": 123,
+    "prospective_review_checks": 7,
+    "root_optimizer_resume_checks": 4,
+    "evidence_kind": "SYNTHETIC_SOFTWARE_CORRECTNESS",
+    "checks": {
+      "integrated-correctness-02": {
+        "receipt": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-cf-controls-root-v1\\integrated-correctness-02.json",
+        "sha256": "74c44b478296445360ea1fdd5feea95037214c934ca99da14d82b4bce66a0b77",
+        "log_sha256": "3689b82c32a7307e65805767bb3bf05ab951be98c9309c85c3fd884f34ecaf6d"
+      },
+      "integrated-lint-01": {
+        "receipt": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-cf-controls-root-v1\\integrated-lint-01.json",
+        "sha256": "1d3eafd3726c2f991a3371d473b36ea459ba349a72890c580206a02658494446",
+        "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+      },
+      "prefit-preparation-checks-01": {
+        "receipt": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-cf-controls-root-v1\\prefit-preparation-checks-01.json",
+        "sha256": "095283bc03efd005d6c49a364aa997632afaa67435d36a65b7de3115826a95a7",
+        "log_sha256": "ec1704c34b0a48aec2cb5ee385ccc57f3c397cc6b33da2564b180523fda37f43"
+      },
+      "prefit-preparation-lint-01": {
+        "receipt": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-cf-controls-root-v1\\prefit-preparation-lint-01.json",
+        "sha256": "6067b8a98b9335620ef470242d95c9daa941600fade6c333983e7edf17fcde3d",
+        "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+      },
+      "register-control-configs-01": {
+        "receipt": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-cf-controls-root-v1\\register-control-configs-01.json",
+        "sha256": "c12b385d099f53e300b0d6eb870a65fcbaeaf81f5f74a7dee55ca04f6ffd3253",
+        "log_sha256": "3b1ac5947b1c6f4cc9f3ea7093b7eac8ef79d6ac64b2fb3ffbb68f63ba2e7940"
+      },
+      "register-control-prefit-01": {
+        "receipt": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-cf-controls-root-v1\\register-control-prefit-01.json",
+        "sha256": "454d6712d21fbbbc58437ca534ad9c2358df07f273831da5291886bd332cb43d",
+        "log_sha256": "40804b5d19b221ad709f25a5f08c7098ba070f345f4573b0a2922085f8ec8051"
+      }
+    },
+    "preserved_integrated_initial_failure": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-cf-controls-root-v1\\integrated-correctness-01.json"
+  },
+  "original_campaign": {
+    "completed_neural_endpoints": 40,
+    "required_neural_endpoints": 43,
+    "required_methods": 47,
+    "independently_reconstructed_methods": 28,
+    "recent_completed_unreconstructed": 5,
+    "missing_fits": [
+      "band_direct_end_to_end_seed13_h96_replication_v2_ownership_retry01",
+      "band_shared_ssl_frozen_readout_seed23_h96_replication_v3",
+      "band_shared_ssl_full_finetune_seed23_h96_replication_v3"
+    ]
+  },
+  "control_extension": {
+    "study": "CF_MATCHED_CONTROLS",
+    "registered_configs": 6,
+    "planned_supervised_updates": 15000,
+    "new_ssl_updates": 0,
+    "real_fits_completed": 0,
+    "independent_prefits": 0,
+    "manifest": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_cf_matched_controls_v1.json",
+    "proposals": [
+      "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\cf_direct_supervised_seed13_v1-prefit-proposal-v1.json",
+      "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\cf_direct_supervised_seed23_v1-prefit-proposal-v1.json",
+      "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\cf_direct_supervised_seed7_v1-prefit-proposal-v1.json",
+      "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\cf_random_frozen_seed13_v1-prefit-proposal-v1.json",
+      "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\cf_random_frozen_seed23_v1-prefit-proposal-v1.json",
+      "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\cf_random_frozen_seed7_v1-prefit-proposal-v1.json"
+    ]
+  },
+  "accounting": {
+    "ledger_sha256_before_after": "91bf4dcbedc6a603d019c28bb058549f2f39e95befc8d81de5ca6448dec2c5b0",
+    "ledger_unchanged": true,
+    "aggregate_full_owned_gpu_hours": 17.802355808369175,
+    "band_full_owned_gpu_hours": 8.318836388888881,
+    "cf_extension_full_owned_gpu_hours": 0,
+    "aggregate_cap": 96,
+    "band_cap": 12,
+    "cf_extension_cap": 12,
+    "evaluation_reserve": 12
+  },
+  "scientific_gates": {
+    "independent_review_retry": "NOT_RUN",
+    "real_training": "NOT_RUN",
+    "expanded_numeric_reconstruction": "NOT_RUN",
+    "finalist_freeze": "PENDING_COMPLETE_DEV_AND_CONTROLS",
+    "reserved_numeric_access": "NOT_RUN",
+    "prefix_adaptation": "NOT_RUN",
+    "sota": "NOT_ESTABLISHED"
+  },
+  "remaining_dependency": {
+    "operation": "Existing distinct independent prefit/source/access/numerical review path",
+    "record": "docs/NATIVE_SSL_REVIEW_SERVICE_DEPENDENCY_V1.md",
+    "remediation": "Supported feedback with preserved session/receipts; workspace/admin/service inspection and escalation; recorded legitimate restoration required",
+    "automatic_rejection_is_scientific_approval": false
+  },
+  "frozen": [
+    "app",
+    "meeting",
+    "browser",
+    "release"
+  ],
+  "publication": "NOT_RUN",
+  "historical_outputs_preserved": true,
+  "protected_source_bindings_unchanged": 26
+}

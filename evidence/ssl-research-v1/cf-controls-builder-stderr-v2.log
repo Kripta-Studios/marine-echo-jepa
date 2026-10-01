@@ -1,0 +1,2 @@
+2026-10-01T09:36:18.110889Z ERROR codex_rmcp_client::oauth::refresh_transaction: error=failed to refresh OAuth tokens for server exa: OAuth refresh token was rejected: Server returned error response: invalid_grant: Refresh token has been revoked
+2026-10-01T09:36:20.332476Z ERROR codex_rmcp_client::oauth::refresh_transaction: error=failed to refresh OAuth tokens for server exa: OAuth refresh token was rejected: Server returned error response: invalid_grant: Refresh token has been revoked

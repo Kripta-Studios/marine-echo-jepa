@@ -1,0 +1,17 @@
+{
+  "started_utc": "2026-10-01T10:22:02.955694+00:00",
+  "finished_utc": "2026-10-01T10:22:03.677304+00:00",
+  "command": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+    "-B",
+    "-m",
+    "pytest",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "tests/unit/test_native_cf_control_prefit_v1.py"
+  ],
+  "exit_code": 0,
+  "log": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-cf-controls-root-v1\\prefit-preparation-checks-01.log",
+  "evidence_kind": "CPU_SOFTWARE_CORRECTNESS_NOT_SCIENTIFIC_REVIEW"
+}

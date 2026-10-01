@@ -1,0 +1,385 @@
+"""SYNTHETIC_CORRECTNESS_ONLY guards/codecs; optimizer cases explicitly ROOT-only."""
+
+from __future__ import annotations
+
+import json
+import os
+import sys
+import uuid
+from dataclasses import replace
+from pathlib import Path
+
+import numpy as np
+import pytest
+import torch
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "unit"))
+from test_native_cf_controls import (
+    BUILDER,
+    MAIN,
+    api,
+    artifact,
+    codec,
+    context,
+    controls,
+    core,
+    small_config,
+)
+
+
+def write_json(path, value):
+    with path.open("w", encoding="utf-8") as stream:
+        json.dump(value, stream, allow_nan=False)
+
+
+def make_fixture(method="cf_random_frozen", *, numeric=False, seed=7):
+    cfg = small_config(method, seed)
+    folder = (
+        BUILDER
+        / "evidence/ssl-cf-controls-builder-v1"
+        / (controls.SYNTHETIC + "-" + uuid.uuid4().hex)
+    )
+    folder.mkdir()
+    paths = {
+        key: folder / (key + (".npz" if key in ("train", "dev") else ".json"))
+        for key in controls.RunInputs.__dataclass_fields__
+        if key != "execution"
+    }
+    split = {
+        "schema_version": "native_acoustic_ssl_v1",
+        "sources": [
+            {"role": role, "deployment": "synthetic-" + role, "archive_sha256": digit * 64}
+            for role, digit in (("train", "1"), ("development", "2"), ("final_test", "3"))
+        ],
+    }
+    write_json(paths["split"], split)
+    for key, role in (("train", "train"), ("dev", "development")):
+        if numeric:
+            data = corpus(role, core.sha256(paths["split"]))
+            with paths[key].open("xb") as stream:
+                np.savez_compressed(stream, **data)
+        else:
+            paths[key].write_bytes(b"SYNTHETIC_CORRECTNESS_ONLY opaque; no numerical decoding")
+        write_json(
+            paths[key + "_cohort"],
+            {
+                "role": role,
+                "npz_sha256": controls.sha256(paths[key]),
+                "split_sha256": controls.sha256(paths["split"]),
+                "issued": 24,
+                "source_reports": [{"deployment": "synthetic-" + role, "issued": 24}],
+            },
+        )
+    write_json(paths["config"], cfg.to_dict())
+    write_json(
+        paths["budget"], {"evidence_kind": controls.SYNTHETIC, "fixture_identity": folder.name}
+    )
+    for key in ("adr0016", "protocol", "executor"):
+        write_json(
+            paths[key], {"evidence_kind": controls.SYNTHETIC, "fixture_identity": folder.name}
+        )
+    paths["review"].write_text("{}", encoding="utf-8")
+    inputs = controls.RunInputs(**paths)
+    output = folder / "output"
+    review = {
+        "status": controls.SYNTHETIC,
+        "evidence_kind": controls.SYNTHETIC,
+        "fixture_identity": folder.name,
+        "reviewer_session_id": "SYNTHETIC_NOT_A_REVIEW",
+        "allowed_roles": ["train", "development"],
+        "allowed_methods": [cfg.method],
+        "allowed_modes": [cfg.mode],
+        "allowed_seeds": [cfg.seed],
+        "bindings": {str(p): controls.sha256(p) for p in controls.required_paths(inputs, cfg)},
+        "train_npz_sha256": controls.sha256(inputs.train),
+        "dev_npz_sha256": controls.sha256(inputs.dev),
+        "split_sha256": controls.sha256(inputs.split),
+        "runtime": {
+            "output": str(output),
+            "device": "cpu",
+            "executor": str(inputs.executor),
+            "budget": str(inputs.budget),
+        },
+    }
+    write_json(inputs.review, review)
+    return inputs, cfg, output, review
+
+
+def corpus(role, split_hash):
+    x, observed, metadata, query = context(24)
+    cutoff = np.arange(24, dtype=np.int64) * 120 + 96
+    targets = np.stack([x[:, -1, 0] + h for h in (1, 3, 6)], axis=1)
+    masks = np.ones((24, 3), bool)
+    masks[:2, 1] = False
+    targets[~masks] = 0
+    return {
+        "x": x,
+        "observed": observed,
+        "metadata": metadata,
+        "query": query,
+        "y": targets,
+        "y_observed": masks,
+        "future": np.zeros((24, 3, 4, 4), np.float32),
+        "future_observed": np.ones((24, 3, 4, 4), bool),
+        "target_dates": np.full((24, 3), "2020-01-01"),
+        "row_id": np.array([f"synthetic-{role}-{i}" for i in range(24)]),
+        "deployment": np.full(24, "synthetic-" + role),
+        "archive_sha256": np.full(24, ("1" if role == "train" else "2") * 64),
+        "cutoff": cutoff,
+        "context_ids": cutoff[:, None] - np.arange(95, -1, -1),
+        "future_ids": cutoff[:, None, None] + np.array([1, 3, 6])[None, :, None] + np.arange(4),
+        "ssl_eligible": np.ones(24, bool),
+        "corpus_role": np.array(role),
+        "split_sha256": np.array(split_hash),
+    }
+
+
+def test_all_current_sources_and_private_smoke_bindings_admitted_without_decode(monkeypatch):
+    inputs, cfg, output, review = make_fixture()
+    monkeypatch.setattr(
+        np, "load", lambda *a, **k: pytest.fail("No numerical decode during admission")
+    )
+    monkeypatch.setattr(
+        torch, "load", lambda *a, **k: pytest.fail("No checkpoint decode during admission")
+    )
+    before = torch.get_rng_state().clone()
+    assert (
+        controls.check_prefit(inputs, cfg, output=output, device="cpu", correctness_smoke=True)
+        == review
+    )
+    assert torch.equal(before, torch.get_rng_state())
+    assert not output.exists()
+    assert Path(core.__file__).is_relative_to(MAIN)
+    assert Path(controls.core_config(cfg).cf_source).is_relative_to(MAIN)
+    assert all(
+        p.is_relative_to(MAIN) or p == Path(controls.__file__) or p == Path(api.__file__)
+        for p in controls.source_paths(cfg)
+    )
+
+
+@pytest.mark.parametrize(
+    "defect",
+    [
+        "missing_source",
+        "stale_source",
+        "empty_bindings",
+        "config",
+        "role",
+        "cohort_role",
+        "split_role",
+        "data_identity",
+        "output",
+        "device",
+        "budget",
+        "status",
+        "seed",
+        "synthetic_escape",
+    ],
+)
+def test_invalid_admission_fails_before_decode_model_optimizer_or_output(defect, monkeypatch):
+    inputs, cfg, output, review = make_fixture()
+    if defect == "missing_source":
+        review["bindings"].pop(str(Path(core.__file__)))
+    elif defect == "stale_source":
+        review["bindings"][str(Path(core.__file__))] = "0" * 64
+    elif defect == "empty_bindings":
+        review["bindings"] = {}
+    elif defect == "config":
+        wrong = cfg.to_dict()
+        wrong["seed"] = 13
+        write_json(inputs.config, wrong)
+        review["bindings"][str(inputs.config)] = controls.sha256(inputs.config)
+    elif defect == "role":
+        review["allowed_roles"] = ["train", "final_test"]
+    elif defect == "cohort_role":
+        cohort = json.loads(inputs.dev_cohort.read_text())
+        cohort["role"] = "final_test"
+        write_json(inputs.dev_cohort, cohort)
+        review["bindings"][str(inputs.dev_cohort)] = controls.sha256(inputs.dev_cohort)
+    elif defect == "split_role":
+        split = json.loads(inputs.split.read_text())
+        split["sources"][0]["role"] = "final_test"
+        write_json(inputs.split, split)
+        review["bindings"][str(inputs.split)] = review["split_sha256"] = controls.sha256(
+            inputs.split
+        )
+    elif defect == "data_identity":
+        review["train_npz_sha256"] = "0" * 64
+    elif defect == "output":
+        review["runtime"]["output"] = str(output.parent / "other")
+    elif defect == "device":
+        review["runtime"]["device"] = "cuda:0"
+    elif defect == "budget":
+        inputs.budget.write_text("{}", encoding="utf-8")
+        review["bindings"][str(inputs.budget)] = controls.sha256(inputs.budget)
+    elif defect == "status":
+        review["status"] = "APPROVED_PREFIT"
+    elif defect == "seed":
+        cfg = replace(cfg, seed=9)
+    else:
+        output = BUILDER / "evidence/ssl-cf-controls-builder-v1" / "NOT_A_PRIVATE_FIXTURE"
+    write_json(inputs.review, review)
+
+    def forbidden(*a, **k):
+        pytest.fail("Admission must precede numerical/tensor/model/optimizer access")
+
+    monkeypatch.setattr(core, "load_corpus", forbidden)
+    monkeypatch.setattr(torch, "load", forbidden)
+    monkeypatch.setattr(controls, "prepare_model", forbidden)
+    monkeypatch.setattr(torch.optim, "AdamW", forbidden)
+    before = torch.get_rng_state().clone()
+    with pytest.raises(ValueError):
+        controls.run(inputs, cfg, output=output, correctness_smoke=True)
+    assert torch.equal(before, torch.get_rng_state())
+    assert not output.exists()
+
+
+@pytest.mark.parametrize(
+    "identity", ["self", "root", "missing", "wrong_status", "synthetic_as_real"]
+)
+def test_real_review_identity_gates_only_in_memory_no_signed_fixture(identity, monkeypatch):
+    inputs, _, output, review = make_fixture()
+    cfg = controls.Config()
+    # Fictional policy inputs only; deliberately rejected before any real-fit gate.
+    review.update(
+        status="APPROVED_CF_CONTROL_PREFIT",
+        evidence_kind=controls.REAL,
+        reviewer_session_id="FICTIONAL_POLICY_REVIEWER",
+        root_coordinator_session_id="FICTIONAL_POLICY_ROOT",
+        implementer_session_id=controls.IMPLEMENTER_SESSION_ID,
+    )
+    if identity == "self":
+        review["reviewer_session_id"] = controls.IMPLEMENTER_SESSION_ID
+    elif identity == "root":
+        review["reviewer_session_id"] = review["root_coordinator_session_id"]
+    elif identity == "missing":
+        review.pop("root_coordinator_session_id")
+    elif identity == "wrong_status":
+        review["status"] = "APPROVED_PREFIT"
+    else:
+        review["evidence_kind"] = controls.SYNTHETIC
+    read = controls._json
+    monkeypatch.setattr(controls, "_json", lambda p: review if p == inputs.review else read(p))
+    with pytest.raises(ValueError):
+        controls.check_prefit(inputs, cfg, output=output, device="cuda:0")
+    assert not output.exists()
+
+
+def test_private_smoke_cannot_claim_real_fit_or_run_cuda():
+    inputs, cfg, output, _ = make_fixture()
+    with pytest.raises(ValueError):
+        controls.check_prefit(inputs, cfg, output=output, device="cuda:0", correctness_smoke=True)
+    with pytest.raises(ValueError):
+        controls.check_prefit(inputs, controls.Config(), output=output, device="cuda:0")
+    assert not torch.cuda.is_initialized()
+
+
+@pytest.mark.parametrize("method", controls.METHODS)
+def test_physical_unicode_weights_only_replay_and_exclusive_output(method):
+    inputs, _, output, _ = make_fixture(method)
+    weights = inputs.review.parent / "SYNTHETIC_CORRECTNESS_ONLY_230m_Á_weights.pt"
+    with weights.open("xb") as stream:
+        torch.save(artifact(method), stream)
+    with pytest.raises(FileExistsError), weights.open("xb"):
+        pass
+    before = torch.get_rng_state().clone()
+    loaded = api.load_inference(weights)
+    x, mask, metadata, query = context(5)
+    np.testing.assert_array_equal(
+        loaded.forecast(x, mask, metadata, query),
+        api.load_inference(codec(artifact(method))).forecast(x, mask, metadata, query),
+    )
+    assert torch.equal(before, torch.get_rng_state())
+    assert not output.exists()
+
+
+@pytest.mark.parametrize("collision", ["empty_directory", "nonempty_directory", "completed_run"])
+def test_output_collision_refused_before_arrays(collision, monkeypatch):
+    inputs, cfg, output, _ = make_fixture()
+    output.mkdir()
+    if collision != "empty_directory":
+        (output / ("run.json" if collision == "completed_run" else "keep.txt")).write_text(
+            "untouched"
+        )
+    monkeypatch.setattr(core, "load_corpus", lambda *a, **k: pytest.fail("Collision before decode"))
+    with pytest.raises(ValueError):
+        controls.run(inputs, cfg, output=output, correctness_smoke=True)
+    if collision != "empty_directory":
+        assert next(output.iterdir()).read_text() == "untouched"
+
+
+ROOT_RUNNER = os.environ.get("NATIVE_CF_CONTROLS_ROOT_RUNNER_CHECKS") == "1" and BUILDER == MAIN
+
+
+@pytest.mark.skipif(
+    not ROOT_RUNNER,
+    reason="NOT_RUN: retained builder optimizer/cache restriction; ROOT-only CPU fixture",
+)
+@pytest.mark.parametrize("method", controls.METHODS)
+def test_root_actual_optimizer_exact_resume_and_saved_replay(method):
+    inputs, cfg, output, review = make_fixture(method, numeric=True)
+    report = controls.run(inputs, cfg, output=output, correctness_smoke=True)
+    uninterrupted = torch.load(output / "complete.pt", weights_only=True)
+    other = output.parent / "resume"
+    review["runtime"]["output"] = str(other)
+    write_json(inputs.review, review)
+    interrupted = controls.run(inputs, cfg, output=other, correctness_smoke=True, stop_after=2)
+    assert interrupted["supervised_updates"] == 2
+    resumed = controls.run(
+        inputs, cfg, output=other, resume=other / "latest.pt", correctness_smoke=True
+    )
+    final = torch.load(other / "complete.pt", weights_only=True)
+    assert report["supervised_updates"] == resumed["supervised_updates"] == 4
+    assert len(report["selection_records"]) == 4
+    assert uninterrupted["state"]["sequence"] == final["state"]["sequence"]
+    assert all(torch.equal(v, final["model"][k]) for k, v in uninterrupted["model"].items())
+    for key, state in uninterrupted["optimizer"]["state"].items():
+        for name, value in state.items():
+            assert torch.equal(value, final["optimizer"]["state"][key][name])
+    assert torch.equal(uninterrupted["rng"]["torch"], final["rng"]["torch"])
+    assert uninterrupted["scheduler"] == final["scheduler"]
+    initial = core.cpu_state(controls.prepare_model(cfg).encoder)
+    changed = any(not torch.equal(v, final["model"]["encoder." + k]) for k, v in initial.items())
+    assert changed == (method == "cf_direct_supervised")
+    assert report["ssl_updates"] == 0 and report["fitted_weight_ancestors"] == []
+    with np.load(output / "predictions.npz", allow_pickle=False) as predictions:
+        dev = core.load_corpus(
+            inputs.dev,
+            role="development",
+            split_hash=controls.sha256(inputs.split),
+            correctness_smoke=True,
+        )
+        actual = api.load_inference(output / "inference.pt").forecast(
+            dev["x"], dev["observed"], dev["metadata"], dev["query"]
+        )
+        np.testing.assert_array_equal(actual, predictions["predictions"])
+        np.testing.assert_array_equal(predictions["target_observed"], dev["y_observed"])
+    assert not torch.cuda.is_initialized()
+
+
+@pytest.mark.skipif(
+    not ROOT_RUNNER,
+    reason="NOT_RUN: retained builder optimizer/cache restriction; ROOT-only CPU fixture",
+)
+@pytest.mark.parametrize("tamper", ["sampler", "frozen_encoder"])
+def test_root_resume_guard_before_optimizer(tamper, monkeypatch):
+    inputs, cfg, output, _ = make_fixture(numeric=True)
+    controls.run(inputs, cfg, output=output, correctness_smoke=True, stop_after=2)
+    state = torch.load(output / "latest.pt", weights_only=True)
+    if tamper == "sampler":
+        state["state"]["sequence"][0]["row_ids"][0] = "synthetic-forged-row"
+    else:
+        key = next(
+            k
+            for k in state["model"]
+            if k.startswith("encoder.") and state["model"][k].is_floating_point()
+        )
+        state["model"][key].add_(1)
+    torch.save(state, output / "latest.pt")
+    monkeypatch.setattr(
+        torch.optim, "AdamW", lambda *a, **k: pytest.fail("Tamper rejected before optimizer")
+    )
+    with pytest.raises(ValueError):
+        controls.run(
+            inputs, cfg, output=output, resume=output / "latest.pt", correctness_smoke=True
+        )

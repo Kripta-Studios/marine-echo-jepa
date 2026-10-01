@@ -1,0 +1,12 @@
+
+=================================== ERRORS ====================================
+___________ ERROR collecting tests/unit/test_native_cf_controls.py ____________
+tests\unit\test_native_cf_controls.py:26: in <module>
+    package.__path__.insert(0, str(BUILDER / "src/marine_echo" / folder))
+    ^^^^^^^^^^^^^^^^^^^^^^^
+E   AttributeError: '_NamespacePath' object has no attribute 'insert'
+=========================== short test summary info ===========================
+ERROR tests/unit/test_native_cf_controls.py - AttributeError: '_NamespacePath...
+1 error in 9.22s
+ERROR: found no collectors for C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-jepa-vnext-builder\tests\unit\test_native_cf_controls.py::test_frozen_encoder_and_batchnorm_buffers_never_change
+

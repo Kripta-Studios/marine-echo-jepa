@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-jepa-vnext-builder\evidence\ssl-cf-controls-builder-v1\close_source_proof_v1.py", line 34, in <module>
+    assert all(str(MAIN) in path or path in (str(BUILDER / files[0]), str(BUILDER / files[1])) for path in closure)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

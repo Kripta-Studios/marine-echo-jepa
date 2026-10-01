@@ -1,0 +1,13 @@
+{
+  "command": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "tests/unit/test_native_cf_controls.py::test_frozen_encoder_and_batchnorm_buffers_never_change"
+  ],
+  "exit_code": 1,
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY"
+}

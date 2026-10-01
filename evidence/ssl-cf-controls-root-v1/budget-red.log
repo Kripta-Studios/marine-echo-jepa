@@ -1,0 +1,13 @@
+
+=================================== ERRORS ====================================
+_______ ERROR collecting tests/unit/test_native_cf_control_budget_v1.py _______
+ImportError while importing test module 'C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tests\unit\test_native_cf_control_budget_v1.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+tests\unit\test_native_cf_control_budget_v1.py:10: in <module>
+    from native_cf_control_budget_v1 import limits
+E   ModuleNotFoundError: No module named 'native_cf_control_budget_v1'
+=========================== short test summary info ===========================
+ERROR tests/unit/test_native_cf_control_budget_v1.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 0.19s

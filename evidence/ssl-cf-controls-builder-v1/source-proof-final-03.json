@@ -1,0 +1,8 @@
+{
+  "command": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+    "evidence/ssl-cf-controls-builder-v1/close_source_proof_v1.py"
+  ],
+  "exit_code": 0,
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY"
+}

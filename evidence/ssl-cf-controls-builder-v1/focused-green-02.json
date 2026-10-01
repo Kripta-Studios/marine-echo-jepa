@@ -1,0 +1,14 @@
+{
+  "command": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "tests/unit/test_native_cf_controls.py",
+    "tests/integration/test_native_cf_controls.py"
+  ],
+  "exit_code": 2,
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY"
+}

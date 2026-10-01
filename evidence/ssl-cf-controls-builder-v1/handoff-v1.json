@@ -1,0 +1,478 @@
+{
+  "behavioral_red": {
+    "exit_code": 1,
+    "invariant": "frozen encoder BatchNorm buffers",
+    "witness": "red-frozen-bn-02.json"
+  },
+  "dependencies_sha256": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0022-cf-backbone-matched-controls.md": "56cdc959de75240f9036ea8d26877380c483bbcad4b5b82dbec4900fa29fd800",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0025-cf-matched-controls-continuation.md": "2f04d5aa785cfcc3fac66ffe125aadeb3b34d653e0a698bf70ff1ecd135b6f6d",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\external\\cf-jepa-vnext\\LICENSE": "b58978a4e2f6c5c3cfe0e8755cc08775ba4d57a79364398aa6bc3bc969b8ea2c",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\external\\cf-jepa-vnext\\baselines\\cf_jepa\\cf_jepa.py": "3f344b53a210f778d367d733cadff1eb08bd8409e6ed97f43d90a1027771a220",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\external\\cf-jepa-vnext\\baselines\\cf_jepa\\encoder.py": "d91301710147ff1c47158675b1c487ea7e2fa8782150a6a58cc7e25e5047df0f",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\external\\cf-jepa-vnext\\baselines\\cf_jepa\\losses.py": "f5220761a0b4ea2bab60dea4d889062e06a9e501260f9ed48c4e918a9625b8ee",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\external\\cf-jepa-vnext\\baselines\\cf_jepa\\trainer.py": "0c9b8f51208681a384274edd8117a0a179f0f79c63b8cd1019c4f816d6e2fc01",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\ssl_vnext_cf_matched_controls_builder_contract.txt": "418b7eacc17e7736c606a216f82000a7b3390f14022931ecf3c8a3112b74564f",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\__init__.py": "3fcc1878588f5a89775363e099fab7d7323acebccae26d10db4a6da627425b68",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\native_ssl_corpus.py": "ebda9d460fa14df749b8f774bcb02a6622f0d69402443098a6100670a4c8f7ba",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_product.py": "fd1c643fde93494a21d560794f886056e58031f1ef6dd41ebe53662750bab314",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_acoustic.py": "ed7f50ebebcb630ce484a6eeeefdc3e51343ba42d0ea79c04fa733cbbc59a213",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_band_acoustic.py": "6181baf22b75be73767f4b76370c65bfc37fdeb189da3deabcabe8a7c2dcd1bf",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_encoder.py": "6cc07a15ea93427d6628f1b317945f6e38ff3008894a31cab2173c0b666c0f7f",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\__init__.py": "5bdc97a6119b2dd3d519df36406c8bcb9e801be81c8b6c3f44e4a527db1f87a3",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_band_temporal.py": "1550bb3f130e3981f57b46031e39d0d42ce7dac4738aea9280362210dfaca96b",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_temporal.py": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\sigreg.py": "2cf5dc8e6fc610fbe167339a8750f5e2d9ddf9a48f416717b8310500536469a3",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\__init__.py": "c98c60178f566d43dd60641704ccd9c652d406487b4838cbf5a9df49ea5dd735",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\aeon_corpus.py": "398e021a5807ab8068ceef03dd692f3b688c744751cd4e65d3efbee94d9a3efd",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_downstream.py": "95becf2cd01a7ab07c67a4da8d26c8e8bf58297f56513a439b0ab2b2be776619",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_ssl.py": "ca33bf3141ea17c5adb3d0a4cd2ed0d186be8efb846a5b581003f2088a105e4f",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_downstream.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_resources.py": "c9ca3fbd0759ae00824774ed61a08185361234430d5ed63f09fa3885545c7c38",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_ssl.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\native_reference_supervisor.py": "ec5456584ca6f6a805e13f4137365c2c0a785b2dbc52782b191c1528befb30dd"
+  },
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "evidence_sha256": {
+    "NATIVE_CF_CONTROLS_IMPLEMENTATION_V1.md": "20d8a9b2006002046c78f969efc49aa158326b8439128fc9499198919a5ea92a",
+    "baseline-01.log": "5a615878d68082f7d2588caba6f24cd161b0b8d793ce73c67e66379b98858c12",
+    "capture_dependencies_v1.py": "0bbda8c3edb1a25a74cf3f456a13f3d662268f56b2b3ff6b81ae1cb08dafc076",
+    "close_handoff_v1.py": "33d0bec07149acbdf386a2713da3dc7673250b65317b505b25dae3856a767765",
+    "close_source_proof_v1.py": "03090bf62d3ab20bbf21b97af49abca8722ca28907ed0d4802aa192ad95973e1",
+    "focused-green-02.json": "7d13b5f7d39d46260747ab218434cac6c5c5e5091f5663163ef5b2b8530ff6ae",
+    "focused-green-02.log": "5373e63eeee20bac5d46a0109aa432c55dbb2d51bcd182f25eeae71a9f574388",
+    "focused-green-03.json": "0d0c4eaf76a914819f4373ee26325df6d326c956c15f906f61840d511ffc9788",
+    "focused-green-03.log": "53ca30cf3777507d80761609e4f18138af3a2151ff3a42c491bf6334fc39fc44",
+    "focused-green-04.json": "8315fa99e2be1039507c4316e7afd958224e5cf633d00db671d135f3c7a9ad3e",
+    "focused-green-04.log": "64c90410cf5ab3ffac173a0af292ce5087051f9e76f2af0ee52647570ece3cef",
+    "focused-green-05.json": "b0f4f93637efb0744173d13fe43d520dc9548f4dba9f451bcffb1abf1d5ef9b1",
+    "focused-green-05.log": "67f7d09a2fade4e04f37c9f2786c669ab76631d85352f0240d5a01ea18eac4c3",
+    "focused-green-06.json": "b0f4f93637efb0744173d13fe43d520dc9548f4dba9f451bcffb1abf1d5ef9b1",
+    "focused-green-06.log": "b3a78de6c75b4f4bd999e81608bed4086e0c44ed3398dcc91525dc411d7bf7b2",
+    "focused-green-07.json": "8315fa99e2be1039507c4316e7afd958224e5cf633d00db671d135f3c7a9ad3e",
+    "focused-green-07.log": "73064cee5c289ec3a4ca93bfc65a9246b1eb40442ab37f6f2839eb6344bca628",
+    "focused-green-08.json": "b0f4f93637efb0744173d13fe43d520dc9548f4dba9f451bcffb1abf1d5ef9b1",
+    "focused-green-08.log": "b438159d3eb7e5aa82c01303a088edafc00e1c99e5f72bac58e3f087a6569d9d",
+    "lint-check-final-01.json": "6eb48661819fd6730ab98f7b87755529222fc3fc82cfd26596a5b0034e7d3168",
+    "lint-check-final-01.log": "a4443afdcfb6d7363adb285762515ccf7cf50473b1a05c20c1a50f6bed4d26b0",
+    "lint-check-final-02.json": "6eb48661819fd6730ab98f7b87755529222fc3fc82cfd26596a5b0034e7d3168",
+    "lint-check-final-02.log": "a4443afdcfb6d7363adb285762515ccf7cf50473b1a05c20c1a50f6bed4d26b0",
+    "lint-check-final-03.json": "6eb48661819fd6730ab98f7b87755529222fc3fc82cfd26596a5b0034e7d3168",
+    "lint-check-final-03.log": "a4443afdcfb6d7363adb285762515ccf7cf50473b1a05c20c1a50f6bed4d26b0",
+    "lint-format-final-01.json": "44477887dc60914dd837717a2281edd54c269c6ab0f7d1748fa39b2c9579adc3",
+    "lint-format-final-01.log": "55b5a2cb0bdd55641f1b6dad60805a4c29520e41d507781e75aa8ec8d6ed9a10",
+    "lint-format-final-02.json": "44477887dc60914dd837717a2281edd54c269c6ab0f7d1748fa39b2c9579adc3",
+    "lint-format-final-02.log": "55b5a2cb0bdd55641f1b6dad60805a4c29520e41d507781e75aa8ec8d6ed9a10",
+    "lint-format-final-03.json": "44477887dc60914dd837717a2281edd54c269c6ab0f7d1748fa39b2c9579adc3",
+    "lint-format-final-03.log": "55b5a2cb0bdd55641f1b6dad60805a4c29520e41d507781e75aa8ec8d6ed9a10",
+    "protected-baseline-v1.json": "7e68caae8be275442ffecab9d0bbc0ef97779805843d0479d81e1688327fabac",
+    "red-frozen-bn-01.json": "85fec84728defb8fbb7ef97aff8f1a64c27c6e4e2954157aff6c29bd7561b9a8",
+    "red-frozen-bn-01.log": "fe571594d0b1e53a128d4b951d53fe1d9b937235db730da6f93b2af724b78224",
+    "red-frozen-bn-02.json": "d2a5e3cbb67838b61e8ff28f7cd72c43792ba2090acc80f95faf5e7efd1d3563",
+    "red-frozen-bn-02.log": "b262d5641c07bd2bb9ca3017668f191ca76861d53d7f102e4b851a5b51d1d351",
+    "run_check_v1.py": "167bfd7f7aec2596302cc565649871ce8e6b4678a791e7fcf7cca526cdba7af0",
+    "source-proof-final-01.json": "6380e509dd86db211284889215450dd663daf4008b15de680756790ac0297b5d",
+    "source-proof-final-01.log": "189c1852f1cd0c27d76da0366f7208449e200f813357a17b1a4527f208932375",
+    "source-proof-final-02.json": "6380e509dd86db211284889215450dd663daf4008b15de680756790ac0297b5d",
+    "source-proof-final-02.log": "189c1852f1cd0c27d76da0366f7208449e200f813357a17b1a4527f208932375",
+    "source-proof-final-03.json": "fd22abb8c876e1cca6779dad7b501df04a0965e104b7e70cf913c4745043ee75",
+    "source-proof-final-03.log": "9cce6077836f23d112526624f32e07496cc2b23ee80005e419a1fe5c194a9a2d",
+    "source-proof-final-v1.json": "2540394570e36b31fefc607474f344894f931de8f33f571aa5a2626a27059f19",
+    "src__marine_echo__inference__native_cf_controls.py.closed-v1.txt": "9a6e17002fe8944bfc7965c7d4389bc4aea120cd0bfe78d5bfa52ab23e260a7d",
+    "src__marine_echo__inference__native_cf_controls.py.closed-v3.txt": "9a6e17002fe8944bfc7965c7d4389bc4aea120cd0bfe78d5bfa52ab23e260a7d",
+    "src__marine_echo__inference__native_cf_controls.py.final.txt": "9a6e17002fe8944bfc7965c7d4389bc4aea120cd0bfe78d5bfa52ab23e260a7d",
+    "src__marine_echo__training__native_cf_controls.py.closed-v1.txt": "7a5a237fc11fc541417fd44ba9fffd907e7bfee48b731d39cdfd68389bdfb9ce",
+    "src__marine_echo__training__native_cf_controls.py.closed-v3.txt": "adecec6a669e43254b129e69e1dca94ade7ccf10ff1a9369e2b872cd85685ed7",
+    "src__marine_echo__training__native_cf_controls.py.final.txt": "d48f3e5c9c97837ace9a01a343c3be51090a6b5d7b161e51c64e42c49ffcccee",
+    "tests__integration__test_native_cf_controls.py.closed-v1.txt": "aa04cfeb7e66b764ff70d602c61af6b6b2ca80f3a84f43ee0ef68be4d43c1461",
+    "tests__integration__test_native_cf_controls.py.closed-v3.txt": "aa04cfeb7e66b764ff70d602c61af6b6b2ca80f3a84f43ee0ef68be4d43c1461",
+    "tests__integration__test_native_cf_controls.py.final.txt": "52617e3d37c88745e8fddcc619e446763a68467854a00e70c739e5d0cd722765",
+    "tests__unit__test_native_cf_controls.py.closed-v1.txt": "1c677ffea0a034eb02fb177d82b99858c17a0ff335eb93b98efaf853a1cb2b01",
+    "tests__unit__test_native_cf_controls.py.closed-v3.txt": "1c677ffea0a034eb02fb177d82b99858c17a0ff335eb93b98efaf853a1cb2b01",
+    "tests__unit__test_native_cf_controls.py.final.txt": "1c677ffea0a034eb02fb177d82b99858c17a0ff335eb93b98efaf853a1cb2b01",
+    "unit-green-01.json": "dc91e2d6fa4ddfed2129b2042426d4daac87f46771138b17e7c59faf29b367d7",
+    "unit-green-01.log": "bd587ce61116ea1d2e7df8fd44dc50721f4b3346dff48b04edd8ae87ff819e39"
+  },
+  "executed_checks": [
+    {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/unit/test_native_cf_controls.py",
+        "tests/integration/test_native_cf_controls.py"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit_code": 2,
+      "witness": "focused-green-02.json"
+    },
+    {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "--import-mode=importlib",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/unit/test_native_cf_controls.py",
+        "tests/integration/test_native_cf_controls.py"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit_code": 1,
+      "witness": "focused-green-03.json"
+    },
+    {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "--import-mode=importlib",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/unit/test_native_cf_controls.py",
+        "tests/integration/test_native_cf_controls.py",
+        "--tb=short"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit_code": 1,
+      "witness": "focused-green-04.json"
+    },
+    {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "--import-mode=importlib",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/unit/test_native_cf_controls.py",
+        "tests/integration/test_native_cf_controls.py",
+        "--tb=short"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit_code": 0,
+      "witness": "focused-green-05.json"
+    },
+    {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "--import-mode=importlib",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/unit/test_native_cf_controls.py",
+        "tests/integration/test_native_cf_controls.py",
+        "--tb=short"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit_code": 0,
+      "witness": "focused-green-06.json"
+    },
+    {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "--import-mode=importlib",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/unit/test_native_cf_controls.py",
+        "tests/integration/test_native_cf_controls.py",
+        "--tb=short"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit_code": 1,
+      "witness": "focused-green-07.json"
+    },
+    {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "--import-mode=importlib",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/unit/test_native_cf_controls.py",
+        "tests/integration/test_native_cf_controls.py",
+        "--tb=short"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit_code": 0,
+      "witness": "focused-green-08.json"
+    },
+    {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "check",
+        "src/marine_echo/training/native_cf_controls.py",
+        "src/marine_echo/inference/native_cf_controls.py",
+        "tests/unit/test_native_cf_controls.py",
+        "tests/integration/test_native_cf_controls.py",
+        "--no-cache"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit_code": 0,
+      "witness": "lint-check-final-01.json"
+    },
+    {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "check",
+        "src/marine_echo/training/native_cf_controls.py",
+        "src/marine_echo/inference/native_cf_controls.py",
+        "tests/unit/test_native_cf_controls.py",
+        "tests/integration/test_native_cf_controls.py",
+        "--no-cache"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit_code": 0,
+      "witness": "lint-check-final-02.json"
+    },
+    {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "check",
+        "src/marine_echo/training/native_cf_controls.py",
+        "src/marine_echo/inference/native_cf_controls.py",
+        "tests/unit/test_native_cf_controls.py",
+        "tests/integration/test_native_cf_controls.py",
+        "--no-cache"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit_code": 0,
+      "witness": "lint-check-final-03.json"
+    },
+    {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "src/marine_echo/training/native_cf_controls.py",
+        "src/marine_echo/inference/native_cf_controls.py",
+        "tests/unit/test_native_cf_controls.py",
+        "tests/integration/test_native_cf_controls.py",
+        "--no-cache"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit_code": 0,
+      "witness": "lint-format-final-01.json"
+    },
+    {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "src/marine_echo/training/native_cf_controls.py",
+        "src/marine_echo/inference/native_cf_controls.py",
+        "tests/unit/test_native_cf_controls.py",
+        "tests/integration/test_native_cf_controls.py",
+        "--no-cache"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit_code": 0,
+      "witness": "lint-format-final-02.json"
+    },
+    {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "src/marine_echo/training/native_cf_controls.py",
+        "src/marine_echo/inference/native_cf_controls.py",
+        "tests/unit/test_native_cf_controls.py",
+        "tests/integration/test_native_cf_controls.py",
+        "--no-cache"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit_code": 0,
+      "witness": "lint-format-final-03.json"
+    },
+    {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/unit/test_native_cf_controls.py::test_frozen_encoder_and_batchnorm_buffers_never_change"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit_code": 4,
+      "witness": "red-frozen-bn-01.json"
+    },
+    {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/unit/test_native_cf_controls.py::test_frozen_encoder_and_batchnorm_buffers_never_change"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit_code": 1,
+      "witness": "red-frozen-bn-02.json"
+    },
+    {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "evidence/ssl-cf-controls-builder-v1/close_source_proof_v1.py"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit_code": 1,
+      "witness": "source-proof-final-01.json"
+    },
+    {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "evidence/ssl-cf-controls-builder-v1/close_source_proof_v1.py"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit_code": 1,
+      "witness": "source-proof-final-02.json"
+    },
+    {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "evidence/ssl-cf-controls-builder-v1/close_source_proof_v1.py"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit_code": 0,
+      "witness": "source-proof-final-03.json"
+    },
+    {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/unit/test_native_cf_controls.py"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit_code": 0,
+      "witness": "unit-green-01.json"
+    }
+  ],
+  "files_sha256": {
+    "src/marine_echo/inference/native_cf_controls.py": "9a6e17002fe8944bfc7965c7d4389bc4aea120cd0bfe78d5bfa52ab23e260a7d",
+    "src/marine_echo/training/native_cf_controls.py": "adecec6a669e43254b129e69e1dca94ade7ccf10ff1a9369e2b872cd85685ed7",
+    "tests/integration/test_native_cf_controls.py": "aa04cfeb7e66b764ff70d602c61af6b6b2ca80f3a84f43ee0ef68be4d43c1461",
+    "tests/unit/test_native_cf_controls.py": "1c677ffea0a034eb02fb177d82b99858c17a0ff335eb93b98efaf853a1cb2b01"
+  },
+  "final_lint": {
+    "check_exit": 0,
+    "format_exit": 0,
+    "witnesses": [
+      "lint-check-final-03.json",
+      "lint-format-final-03.json"
+    ]
+  },
+  "final_tests": {
+    "exit_code": 0,
+    "passed": 65,
+    "seconds": 11.8,
+    "skipped_root_only": 4,
+    "witness": "focused-green-08.json"
+  },
+  "handoff_policy": "Four source/tests plus top-level small evidence only; exclude private fixture directories/bytecode",
+  "held_out_evaluation": "NOT_RUN",
+  "implementer_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "independent_source_prefit_review": "NOT_RUN",
+  "limits": [
+    "No distinct source/prefit review or approval",
+    "No public numerical/tensor/prediction access; no CUDA initialization",
+    "No real fitting or held-out evaluation",
+    "ROOT guarded executor/configs/budget receipt are separate prospective work",
+    "Existing Resources and its ownership classifier remain unchanged",
+    "Existing SSL/assessment/prefix loaders reject new control artifact kinds",
+    "Root optimizer/resume fixtures remain NOT_RUN",
+    "No scientific quality/transfer/SOTA claim"
+  ],
+  "parameters": {
+    "cf_direct_supervised": {
+      "encoder": 412800,
+      "head": 18565,
+      "optimized": 431365,
+      "total": 431365
+    },
+    "cf_random_frozen": {
+      "encoder": 412800,
+      "head": 18565,
+      "optimized": 18565,
+      "total": 431365
+    }
+  },
+  "protected_sources_unchanged": true,
+  "real_control_fits": "NOT_RUN",
+  "root_check_commands": [
+    "set NATIVE_CF_CONTROLS_ROOT_RUNNER_CHECKS=1",
+    ".venv/Scripts/python.exe -m pytest --import-mode=importlib -q -p no:cacheprovider tests/unit/test_native_cf_controls.py tests/integration/test_native_cf_controls.py",
+    ".venv/Scripts/python.exe -m ruff check --no-cache src/marine_echo/training/native_cf_controls.py src/marine_echo/inference/native_cf_controls.py tests/unit/test_native_cf_controls.py tests/integration/test_native_cf_controls.py"
+  ],
+  "root_only_checks": {
+    "cases": [
+      "random-frozen AdamW exact resume/physical forecast replay",
+      "direct AdamW encoder/moments exact resume/physical forecast replay",
+      "sampler resume tamper",
+      "frozen tensor resume tamper"
+    ],
+    "reason": "Retained builder optimizer/cache restriction; no retry",
+    "status": "NOT_RUN"
+  },
+  "runtime_source_closure_sha256": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\external\\cf-jepa-vnext\\LICENSE": "b58978a4e2f6c5c3cfe0e8755cc08775ba4d57a79364398aa6bc3bc969b8ea2c",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\external\\cf-jepa-vnext\\baselines\\cf_jepa\\cf_jepa.py": "3f344b53a210f778d367d733cadff1eb08bd8409e6ed97f43d90a1027771a220",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\external\\cf-jepa-vnext\\baselines\\cf_jepa\\encoder.py": "d91301710147ff1c47158675b1c487ea7e2fa8782150a6a58cc7e25e5047df0f",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\external\\cf-jepa-vnext\\baselines\\cf_jepa\\losses.py": "f5220761a0b4ea2bab60dea4d889062e06a9e501260f9ed48c4e918a9625b8ee",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\external\\cf-jepa-vnext\\baselines\\cf_jepa\\trainer.py": "0c9b8f51208681a384274edd8117a0a179f0f79c63b8cd1019c4f816d6e2fc01",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\__init__.py": "3fcc1878588f5a89775363e099fab7d7323acebccae26d10db4a6da627425b68",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\native_ssl_corpus.py": "ebda9d460fa14df749b8f774bcb02a6622f0d69402443098a6100670a4c8f7ba",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_product.py": "fd1c643fde93494a21d560794f886056e58031f1ef6dd41ebe53662750bab314",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_acoustic.py": "ed7f50ebebcb630ce484a6eeeefdc3e51343ba42d0ea79c04fa733cbbc59a213",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_band_acoustic.py": "6181baf22b75be73767f4b76370c65bfc37fdeb189da3deabcabe8a7c2dcd1bf",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_encoder.py": "6cc07a15ea93427d6628f1b317945f6e38ff3008894a31cab2173c0b666c0f7f",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\__init__.py": "5bdc97a6119b2dd3d519df36406c8bcb9e801be81c8b6c3f44e4a527db1f87a3",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_band_temporal.py": "1550bb3f130e3981f57b46031e39d0d42ce7dac4738aea9280362210dfaca96b",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_temporal.py": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\sigreg.py": "2cf5dc8e6fc610fbe167339a8750f5e2d9ddf9a48f416717b8310500536469a3",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\__init__.py": "c98c60178f566d43dd60641704ccd9c652d406487b4838cbf5a9df49ea5dd735",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\aeon_corpus.py": "398e021a5807ab8068ceef03dd692f3b688c744751cd4e65d3efbee94d9a3efd",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_downstream.py": "95becf2cd01a7ab07c67a4da8d26c8e8bf58297f56513a439b0ab2b2be776619",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_ssl.py": "ca33bf3141ea17c5adb3d0a4cd2ed0d186be8efb846a5b581003f2088a105e4f",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_downstream.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_resources.py": "c9ca3fbd0759ae00824774ed61a08185361234430d5ed63f09fa3885545c7c38",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_ssl.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\inference\\native_cf_controls.py": "9a6e17002fe8944bfc7965c7d4389bc4aea120cd0bfe78d5bfa52ab23e260a7d",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\src\\marine_echo\\training\\native_cf_controls.py": "adecec6a669e43254b129e69e1dca94ade7ccf10ff1a9369e2b872cd85685ed7"
+  },
+  "selection_matching": "original eligible-source-date then horizon then deployment DEV pinball floor18",
+  "source_proof": "source-proof-final-v1.json",
+  "status": "CLOSED_ENGINEERING_DELIVERY",
+  "training_loss_matching": "original equal-observed-horizon TRAIN pinball"
+}

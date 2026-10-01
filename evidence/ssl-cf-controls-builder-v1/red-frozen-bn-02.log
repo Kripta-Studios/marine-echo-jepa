@@ -1,0 +1,19 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+___________ test_frozen_encoder_and_batchnorm_buffers_never_change ____________
+
+    def test_frozen_encoder_and_batchnorm_buffers_never_change():
+        cfg = small_config()
+        model = controls.prepare_model(cfg)
+        before = core.cpu_state(model.encoder)
+        data = batch()
+        predictions = controls.forecast_train(model, data, cfg)
+        core.pinball(predictions, data["y"], data["y_observed"]).backward()
+>       assert all(torch.equal(value, model.encoder.state_dict()[key]) for key, value in before.items())
+E       assert False
+E        +  where False = all(<generator object test_frozen_encoder_and_batchnorm_buffers_never_change.<locals>.<genexpr> at 0x0000028499CBFD30>)
+
+tests\unit\test_native_cf_controls.py:103: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_cf_controls.py::test_frozen_encoder_and_batchnorm_buffers_never_change
+1 failed in 3.34s

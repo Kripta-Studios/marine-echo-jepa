@@ -1,0 +1,18 @@
+{
+  "method": "cf_direct_supervised",
+  "seed": 23,
+  "history": 96,
+  "updates": 3000,
+  "cadence": 750,
+  "batch_size": 64,
+  "width": 256,
+  "latent": 128,
+  "blocks": 5,
+  "heads": 4,
+  "lr": 0.0003,
+  "weight_decay": 0.0001,
+  "gradient_clip": 1.0,
+  "patience": 4,
+  "min_daily_anchors": 18,
+  "selection_policy": "scheduled_native_daily_pinball_earliest_strict_improvement_v1"
+}

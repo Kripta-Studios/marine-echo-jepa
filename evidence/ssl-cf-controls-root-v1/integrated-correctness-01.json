@@ -1,0 +1,24 @@
+{
+  "started_utc": "2026-10-01T10:18:08.231398+00:00",
+  "finished_utc": "2026-10-01T10:18:30.749414+00:00",
+  "command": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+    "-B",
+    "-m",
+    "pytest",
+    "--import-mode=importlib",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "tests/unit/test_native_cf_controls.py",
+    "tests/integration/test_native_cf_controls.py",
+    "tests/unit/test_native_cf_control_budget_v1.py",
+    "tests/unit/test_native_cf_control_execution_v1.py",
+    "tests/unit/test_native_seed_summary_v1.py",
+    "tests/unit/test_native_cf_control_registration_v1.py",
+    "--tb=short"
+  ],
+  "exit_code": 1,
+  "log": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-cf-controls-root-v1\\integrated-correctness-01.log",
+  "evidence_kind": "CPU_SOFTWARE_CORRECTNESS_NOT_SCIENTIFIC_REVIEW"
+}

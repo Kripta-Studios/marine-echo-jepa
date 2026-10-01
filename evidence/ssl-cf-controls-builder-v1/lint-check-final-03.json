@@ -1,0 +1,15 @@
+{
+  "command": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+    "-m",
+    "ruff",
+    "check",
+    "src/marine_echo/training/native_cf_controls.py",
+    "src/marine_echo/inference/native_cf_controls.py",
+    "tests/unit/test_native_cf_controls.py",
+    "tests/integration/test_native_cf_controls.py",
+    "--no-cache"
+  ],
+  "exit_code": 0,
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY"
+}

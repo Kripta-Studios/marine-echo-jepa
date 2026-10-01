@@ -1,0 +1,31 @@
+........................................................................ [ 59%]
+.....................F........F...............F...                       [100%]
+================================== FAILURES ===================================
+_ test_owned_reservation_precedes_spawn_and_failed_spawn_remains_unreconciled _
+tests\unit\test_native_cf_control_execution_v1.py:99: in test_owned_reservation_precedes_spawn_and_failed_spawn_remains_unreconciled
+    executor.execute_plan(plan, popen=denied_spawn)
+tools\execute_native_cf_control_job_v1.py:422: in execute_plan
+    raise RuntimeError("Executor exceeded its reserved RAM allowance")
+E   RuntimeError: Executor exceeded its reserved RAM allowance
+_____ test_failed_child_is_charged_and_preserves_original_budget_families _____
+tests\unit\test_native_cf_control_execution_v1.py:289: in test_failed_child_is_charged_and_preserves_original_budget_families
+    assert executor.execute_plan(plan, popen=lambda *a, **k: Child(), supervisor=supervise) == 2
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tools\execute_native_cf_control_job_v1.py:422: in execute_plan
+    raise RuntimeError("Executor exceeded its reserved RAM allowance")
+E   RuntimeError: Executor exceeded its reserved RAM allowance
+_____________ test_executor_source_closure_covers_actual_trainer ______________
+tests\unit\test_native_cf_control_registration_v1.py:27: in test_executor_source_closure_covers_actual_trainer
+    assert set(source_paths(config)) <= set(executor.source_paths(executor.ROOT))
+E   AssertionError: assert {WindowsPath(...t__.py'), ...} <= {WindowsPath(...t__.py'), ...}
+E     
+E     Extra items in the left set:
+E     WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/src/marine_echo/training/aeon_corpus.py')
+E     WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/src/marine_echo/data/native_ssl_corpus.py')
+E     WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/src/marine_echo/evaluation/native_product.py')
+E     WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-echo-jepa/src/marine_echo/inference/native_acoustic.py')
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_cf_control_execution_v1.py::test_owned_reservation_precedes_spawn_and_failed_spawn_remains_unreconciled
+FAILED tests/unit/test_native_cf_control_execution_v1.py::test_failed_child_is_charged_and_preserves_original_budget_families
+FAILED tests/unit/test_native_cf_control_registration_v1.py::test_executor_source_closure_covers_actual_trainer
+3 failed, 119 passed in 20.98s

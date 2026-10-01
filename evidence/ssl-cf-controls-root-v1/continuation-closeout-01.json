@@ -1,0 +1,12 @@
+{
+  "started_utc": "2026-10-01T10:24:17.265704+00:00",
+  "finished_utc": "2026-10-01T10:24:17.643866+00:00",
+  "command": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+    "-B",
+    "tools/close_native_ssl_continuation_v1.py"
+  ],
+  "exit_code": 0,
+  "log": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-cf-controls-root-v1\\continuation-closeout-01.log",
+  "evidence_kind": "CPU_SOFTWARE_CORRECTNESS_NOT_SCIENTIFIC_REVIEW"
+}

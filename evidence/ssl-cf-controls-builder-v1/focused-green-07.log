@@ -1,0 +1,10 @@
+.......................................F.........................ssss    [100%]
+================================== FAILURES ===================================
+_ test_all_current_sources_and_private_smoke_bindings_admitted_without_decode _
+tests\integration\test_native_cf_controls.py:154: in test_all_current_sources_and_private_smoke_bindings_admitted_without_decode
+    assert all(
+E   assert False
+E    +  where False = all(<generator object test_all_current_sources_and_private_smoke_bindings_admitted_without_decode.<locals>.<genexpr> at 0x000001A42E71A500>)
+=========================== short test summary info ===========================
+FAILED tests/integration/test_native_cf_controls.py::test_all_current_sources_and_private_smoke_bindings_admitted_without_decode
+1 failed, 64 passed, 4 skipped in 13.37s
