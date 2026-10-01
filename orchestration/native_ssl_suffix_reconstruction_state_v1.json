@@ -1,0 +1,88 @@
+{
+  "kind": "native_ssl_suffix_reconstruction_state_v1",
+  "status": "AUTHOR_VALIDATED_ENGINEERING_SCIENCE_INCOMPLETE",
+  "source_head_before_delivery": "51739b3",
+  "checkpoint_reference_only": "dd012f0",
+  "author_validation": true,
+  "independent_scientific_approval": false,
+  "independent_scoring_implementation": true,
+  "real_numeric_execution": "NOT_RUN",
+  "real_weight_replay": "NOT_RUN",
+  "reviewer_retry": false,
+  "source_hashes": {
+    "src\\marine_echo\\evaluation\\native_suffix_reconstruction_v1.py": "fd0bebb8b5b5f4cc3b8f081468aa11aadacc6b7c851b983dd9faba282bb2ed3b",
+    "tests\\unit\\test_native_suffix_reconstruction_v1.py": "ccfb2348a2cf06022790f41782a37841ce5e46b0f7530a3c6912d4cfa82bdad7"
+  },
+  "checks_passed": 26,
+  "checks_skipped": 0,
+  "receipts": {
+    "red-04": {
+      "path": "evidence\\ssl-transfer-integration-root-v1\\suffix-reconstruction-red-04.json",
+      "sha256": "3858687f229bbc7e9000c0cb87ae917b25a353103e3685203e5c08e263937374",
+      "exit_code": 2
+    },
+    "green-05": {
+      "path": "evidence\\ssl-transfer-integration-root-v1\\suffix-reconstruction-green-05.json",
+      "sha256": "4f90dd3b0c24939944e2c9d010a2263a521e3a1148e65e41103ee8a6e4d0f43b",
+      "exit_code": 0
+    },
+    "hardening-red-06": {
+      "path": "evidence\\ssl-transfer-integration-root-v1\\suffix-reconstruction-hardening-red-06.json",
+      "sha256": "55ac71fb5e59526a229f0290dd419c0820eddeae99001373932a6126aee72067",
+      "exit_code": 1
+    },
+    "green-07": {
+      "path": "evidence\\ssl-transfer-integration-root-v1\\suffix-reconstruction-green-07.json",
+      "sha256": "6928447cd609773e2c4af601f2f6ad76544e6e85501c4a65b14fd35c065c5747",
+      "exit_code": 0
+    },
+    "final-08": {
+      "path": "evidence\\ssl-transfer-integration-root-v1\\suffix-reconstruction-final-08.json",
+      "sha256": "eb6e71b72122e24d57c8c80f8ca17599d6acb36fa6eebf96eef88ee635c04ef5",
+      "exit_code": 0
+    },
+    "lint-09": {
+      "path": "evidence\\ssl-transfer-integration-root-v1\\suffix-reconstruction-lint-09.json",
+      "sha256": "81e690b07494b601b29b796f301cdb08bbc80ee540ba25c7be8ce7bff9617534",
+      "exit_code": 0
+    },
+    "format-10": {
+      "path": "evidence\\ssl-transfer-integration-root-v1\\suffix-reconstruction-format-10.json",
+      "sha256": "d6549adeefaaf3976ecb782361bbfa678aa18190a1738193e26c99e5ce01efee",
+      "exit_code": 0
+    }
+  },
+  "scientific_ledger_sha256_unchanged": "91bf4dcbedc6a603d019c28bb058549f2f39e95befc8d81de5ca6448dec2c5b0",
+  "campaign": {
+    "completed_neural": 40,
+    "required_neural": 43,
+    "required_methods": 47,
+    "independently_reconstructed_methods": 28,
+    "newer_provisional_scores": 5
+  },
+  "pending": {
+    "band_fits": 3,
+    "cf_control_fits": 6,
+    "finalists_frozen": false,
+    "reserved_zero_shot": "NOT_RUN",
+    "prefix_adaptation": "NOT_RUN"
+  },
+  "gpu_budget": {
+    "aggregate_used_hours": 17.802355808369175,
+    "aggregate_cap_hours": 96,
+    "band_used_hours": 8.318836388888881,
+    "band_cap_hours": 12,
+    "cf_controls_used_hours": 0,
+    "cf_controls_cap_hours": 12,
+    "evaluation_reserve_hours": 12,
+    "failure_attempts_retained": true
+  },
+  "frozen_work": [
+    "app",
+    "meeting",
+    "browser",
+    "release"
+  ],
+  "remediation": "docs/NATIVE_SSL_REVIEW_SERVICE_DEPENDENCY_V1.md",
+  "report": "docs/NATIVE_SSL_SUFFIX_RECONSTRUCTION_ENGINEERING_V1.md"
+}

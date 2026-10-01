@@ -1,0 +1,36 @@
+{
+  "command": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+    "-B",
+    "-m",
+    "pytest",
+    "tests/unit/test_native_suffix_reconstruction_v1.py",
+    "-q"
+  ],
+  "started_utc": "2026-10-01T13:27:37.583142+00:00",
+  "finished_utc": "2026-10-01T13:28:17.021005+00:00",
+  "exit_code": 0,
+  "resources": {
+    "exit_code": 0,
+    "stopped_for": null,
+    "peak_process_rss_bytes": 66818048,
+    "elapsed_full_attempt_seconds": 39.219000000011874,
+    "poll_seconds": 0.1,
+    "rss_limit_bytes": 23601557504,
+    "deadline_seconds": 600,
+    "owned_process_pids": [
+      13116,
+      36048
+    ],
+    "peak_each_process_rss_bytes": {
+      "36048": 5414912,
+      "13116": 61403136
+    },
+    "peak_definition": "Conservative sum of each owned process OS peak working set; sampled RSS fallback",
+    "owned_tree_cleanup_verified": true
+  },
+  "launcher_peak_rss_bytes": 20762624,
+  "evidence_kind": "CPU_ENGINEERING_ONLY",
+  "ledger_sha256_before": "91bf4dcbedc6a603d019c28bb058549f2f39e95befc8d81de5ca6448dec2c5b0",
+  "ledger_sha256_after": "91bf4dcbedc6a603d019c28bb058549f2f39e95befc8d81de5ca6448dec2c5b0"
+}

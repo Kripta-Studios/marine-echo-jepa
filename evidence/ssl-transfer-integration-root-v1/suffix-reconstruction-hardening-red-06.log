@@ -1,0 +1,16 @@
+.................F........                                               [100%]
+================================== FAILURES ===================================
+____________ test_nonfinite_reconstructed_scalar_is_rejected[nan] _____________
+
+value = nan
+
+    @pytest.mark.parametrize("value", [float("nan"), float("inf"), -float("inf")])
+    def test_nonfinite_reconstructed_scalar_is_rejected(value):
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\unit\test_native_suffix_reconstruction_v1.py:345: Failed
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_suffix_reconstruction_v1.py::test_nonfinite_reconstructed_scalar_is_rejected[nan]
+1 failed, 25 passed in 47.30s

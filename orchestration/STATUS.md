@@ -1,3 +1,25 @@
+## Native SSL adapted-suffix reconstruction V1 — author validated
+
+Updated 2026-10-01 from `51739b3`; `dd012f0` remains a reference. An additive,
+separately gated reconstruction module now recalculates saved adapted-suffix daily
+losses and paired calendar bootstrap with independent mathematics. It retains
+original execution/software/access approvals, prospective selection freeze,
+adaptation labels, exact common rows/cutoffs and native 230m geometry. The historical
+comparison and 47/43 guard are unchanged. All 26 CPU checks passed without skips;
+lint/format passed. Initial import and NaN-comparison failures are preserved.
+See `docs/NATIVE_SSL_SUFFIX_RECONSTRUCTION_ENGINEERING_V1.md` and
+`orchestration/native_ssl_suffix_reconstruction_state_v1.json`.
+
+This is author validation, not scientific approval or real numerical execution.
+No reviewer retry, real fit, reserved value read or weight replay occurred. Science
+remains 40/43 neural endpoints, 28 reconstructed methods and five provisional newer
+scores; three Band fits, six CF fits, selection and reserved/prefix studies remain
+incomplete. Scientific ledger bytes are unchanged: aggregate 17.802355808369175/96,
+Band 8.318836388888881/12, CF 0/12 hours, including failures. Evaluation reserve 12h
+retained. App/meeting/browser/release frozen. Gated work still needs genuine
+approvals following supported external service remediation; see
+`docs/NATIVE_SSL_REVIEW_SERVICE_DEPENDENCY_V1.md`.
+
 ## Native SSL transfer integration V4 — engineering validated, research incomplete
 
 Updated 2026-10-01. Separate CF-control zero-shot, matched-prefix and adapted-suffix
