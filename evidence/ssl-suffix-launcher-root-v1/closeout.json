@@ -1,0 +1,58 @@
+{
+  "kind": "native_ssl_suffix_launcher_state_v1",
+  "status": "AUTHOR_VALIDATED_ENGINEERING",
+  "source_head_before_delivery": "8621b23",
+  "checkpoint_reference_only": "dd012f0",
+  "checks_passed": 36,
+  "checks_skipped": 0,
+  "actual_synthetic_owned_workers": 2,
+  "real_execution": "NOT_RUN",
+  "independent_scientific_approval": false,
+  "reviewer_retry": false,
+  "scientific_ledger_sha256_unchanged": "91bf4dcbedc6a603d019c28bb058549f2f39e95befc8d81de5ca6448dec2c5b0",
+  "receipts": {
+    "red-11": {
+      "path": "evidence\\ssl-transfer-integration-root-v1\\suffix-launcher-red-11.json",
+      "exit_code": 2,
+      "sha256": "cf86066f8dc39b650cc359c66e5d9f30bf9e21db867191d339ffddf771f30e13"
+    },
+    "green-12": {
+      "path": "evidence\\ssl-transfer-integration-root-v1\\suffix-launcher-green-12.json",
+      "exit_code": 0,
+      "sha256": "9ba52ded16035023438b942b7c1cf1c800a6c797d69ea3532fc48689e8d06bce"
+    },
+    "hardening-red-13": {
+      "path": "evidence\\ssl-transfer-integration-root-v1\\suffix-launcher-hardening-red-13.json",
+      "exit_code": 1,
+      "sha256": "ff8641b0f78994aa9190f116290db1a63381c14828d6e86cd86d97b710655a81"
+    },
+    "green-14": {
+      "path": "evidence\\ssl-transfer-integration-root-v1\\suffix-launcher-green-14.json",
+      "exit_code": 0,
+      "sha256": "abf028cc25f9c0fa9ec5060a63d4cb1ff7462f74feedbc010d43176716770b68"
+    },
+    "worker-red-15": {
+      "path": "evidence\\ssl-transfer-integration-root-v1\\suffix-launcher-worker-red-15.json",
+      "exit_code": 1,
+      "sha256": "9e5f6725000227d86285ca754249a7c93142cd1fba63d024e94448f90bf4073e"
+    },
+    "final-16": {
+      "path": "evidence\\ssl-transfer-integration-root-v1\\suffix-launcher-final-16.json",
+      "exit_code": 0,
+      "sha256": "30fedf003a53265307346df557cbdd22af0a9ce939cbe13c718cc9524bf9c158"
+    }
+  },
+  "source_hashes": {
+    "tools\\execute_bounded_native_suffix_reconstruction_v1.py": "aa26d3104c2b3edb86e4670e26031b28c8670c65513a09fbdcb122f8de3030dc",
+    "tests\\unit\\test_native_suffix_reconstruction_execution_v1.py": "08e13b9beae07c38541aca8716bbec3745132d443703b8ac607a7d68e5a4991c"
+  },
+  "production_cpu_counter": "cpu_reconstruction_hours_owned",
+  "gpu_hours_unchanged": {
+    "aggregate": 17.802355808369175,
+    "band": 8.318836388888881,
+    "cf": 0
+  },
+  "research_complete": false,
+  "finalists_frozen": false,
+  "report": "docs/NATIVE_SSL_SUFFIX_RECONSTRUCTION_LAUNCHER_V1.md"
+}

@@ -1,0 +1,29 @@
+................................FF                                       [100%]
+================================== FAILURES ===================================
+__________ test_destination_cannot_escape_named_root_through_dotdot ___________
+
+tmp_path = WindowsPath('C:/Users/Álvaro Schwiedop/AppData/Local/Temp/pytest-of-Álvaro Schwiedop/pytest-4251/test_destination_cannot_escape0')
+
+    def test_destination_cannot_escape_named_root_through_dotdot(tmp_path):
+        named_root = tmp_path / "outputs"
+        named_root.mkdir()
+        with pytest.raises(ValueError):
+>           wrapper.destination(named_root / ".." / "foreign.json", named_root)
+            ^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module 'suffix_reconstruction_wrapper' has no attribute 'destination'
+
+tests\unit\test_native_suffix_reconstruction_execution_v1.py:181: AttributeError
+_________ test_owned_spawn_failure_has_closed_cpu_receipt_and_charge __________
+
+    def test_owned_spawn_failure_has_closed_cpu_receipt_and_charge():
+        ledger = {"gpu_hours_spent_owned_scientific_jobs": 17.802355808369175}
+        record = {"status": "RUNNING_CPU_RECONSTRUCTION"}
+>       wrapper.close_spawn_failure(ledger, record, 3, OSError("synthetic spawn refusal"))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'suffix_reconstruction_wrapper' has no attribute 'close_spawn_failure'
+
+tests\unit\test_native_suffix_reconstruction_execution_v1.py:188: AttributeError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_suffix_reconstruction_execution_v1.py::test_destination_cannot_escape_named_root_through_dotdot
+FAILED tests/unit/test_native_suffix_reconstruction_execution_v1.py::test_owned_spawn_failure_has_closed_cpu_receipt_and_charge
+2 failed, 32 passed in 0.21s

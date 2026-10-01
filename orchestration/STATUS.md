@@ -1,3 +1,22 @@
+## Native SSL bounded reconstruction launcher — author validated
+
+Updated 2026-10-01 from `8621b23`. The additive CPU launcher supplies full-owned
+600-second/22GiB supervision, immutable output/receipt checks, separate CPU time,
+failure receipts and idle/pending-state checks for adapted-suffix reconstruction.
+All 36 focused checks passed, including two actual synthetic owned workers. No
+production reconstruction, real fit, reviewer retry or reserved numerical read
+occurred. See `docs/NATIVE_SSL_SUFFIX_RECONSTRUCTION_LAUNCHER_V1.md` and
+`orchestration/native_ssl_suffix_launcher_state_v1.json`.
+
+Science remains 40/43 neural endpoints, 28 reconstructed methods and five provisional
+newer scores. Three Band fits, six CF fits, finalists and reserved/prefix results
+remain incomplete. Ledger bytes are unchanged: aggregate 17.802355808369175/96,
+Band 8.318836388888881/12, CF 0/12 including failures; evaluation reserve 12h retained.
+App/meeting/browser/release frozen. Existing GPT-6.1 Sol builder is implementing
+pure in-memory CF seed/ensemble contrasts in its own worktree; no real data or
+fitting is authorized by that engineering assignment. Genuine scientific gates
+remain required after supported external service remediation.
+
 ## Native SSL adapted-suffix reconstruction V1 — author validated
 
 Updated 2026-10-01 from `51739b3`; `dd012f0` remains a reference. An additive,

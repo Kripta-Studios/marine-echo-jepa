@@ -1,0 +1,52 @@
+FF                                                                       [100%]
+================================== FAILURES ===================================
+_________ test_actual_numpy_worker_owned_exit_and_saved_result[False] _________
+
+tmp_path = WindowsPath('C:/Users/Álvaro Schwiedop/AppData/Local/Temp/pytest-of-Álvaro Schwiedop/pytest-4253/test_actual_numpy_worker_owned0')
+damage = False
+
+    @pytest.mark.parametrize("damage", [False, True])
+    def test_actual_numpy_worker_owned_exit_and_saved_result(tmp_path, damage):
+        from test_native_suffix_reconstruction_v1 import case as reconstruction_case
+    
+        folder, _ = reconstruction_case(tmp_path)
+        manifest_path, review_path = folder / "manifest.json", folder / "review.json"
+        if damage:
+            review = json.loads(review_path.read_text())
+            review["status"] = "PENDING"
+            review_path.write_text(json.dumps(review), encoding="utf-8")
+        manifest = json.loads(manifest_path.read_text())
+        review = json.loads(review_path.read_text())
+        output = folder / "owned-worker-result.json"
+>       command = wrapper.worker_command(manifest_path, review_path, output)
+                  ^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'suffix_reconstruction_wrapper' has no attribute 'worker_command'
+
+tests\unit\test_native_suffix_reconstruction_execution_v1.py:211: AttributeError
+_________ test_actual_numpy_worker_owned_exit_and_saved_result[True] __________
+
+tmp_path = WindowsPath('C:/Users/Álvaro Schwiedop/AppData/Local/Temp/pytest-of-Álvaro Schwiedop/pytest-4253/test_actual_numpy_worker_owned1')
+damage = True
+
+    @pytest.mark.parametrize("damage", [False, True])
+    def test_actual_numpy_worker_owned_exit_and_saved_result(tmp_path, damage):
+        from test_native_suffix_reconstruction_v1 import case as reconstruction_case
+    
+        folder, _ = reconstruction_case(tmp_path)
+        manifest_path, review_path = folder / "manifest.json", folder / "review.json"
+        if damage:
+            review = json.loads(review_path.read_text())
+            review["status"] = "PENDING"
+            review_path.write_text(json.dumps(review), encoding="utf-8")
+        manifest = json.loads(manifest_path.read_text())
+        review = json.loads(review_path.read_text())
+        output = folder / "owned-worker-result.json"
+>       command = wrapper.worker_command(manifest_path, review_path, output)
+                  ^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'suffix_reconstruction_wrapper' has no attribute 'worker_command'
+
+tests\unit\test_native_suffix_reconstruction_execution_v1.py:211: AttributeError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_suffix_reconstruction_execution_v1.py::test_actual_numpy_worker_owned_exit_and_saved_result[False]
+FAILED tests/unit/test_native_suffix_reconstruction_execution_v1.py::test_actual_numpy_worker_owned_exit_and_saved_result[True]
+2 failed, 34 deselected in 1.37s
