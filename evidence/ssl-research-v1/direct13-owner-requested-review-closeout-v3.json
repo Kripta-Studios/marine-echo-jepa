@@ -1,0 +1,20 @@
+{
+  "status": "OWNER_REQUESTED_INDEPENDENT_REVIEW_LAUNCHED_AUTOMATICALLY_REJECTED_NO_APPROVAL",
+  "recorded_at": "2026-10-01T08:36:16.293701+00:00",
+  "reviewer_session_id": "01a0ef27-876b-7692-917e-3975afc6893d",
+  "actual_cli_session_id": 64553,
+  "actual_exit_code": 1,
+  "actual_exit_chunk": "b5880a",
+  "reason": "This request was blocked by our safety systems. Reason: Potentially unintended activity.",
+  "reviewer_inspected_files": false,
+  "prefit_approval": false,
+  "fitting_launched": false,
+  "owner_authorization_retained": true,
+  "routing_or_permissions_changed": false,
+  "bindings": {
+    "evidence/ssl-research-v1/direct13-owner-requested-review-events-v3.jsonl": "800fd98f406b9b2b1a49578ea54e4278617a0eddface36ee9fc2fafea3b2b349",
+    "evidence/ssl-research-v1/direct13-owner-requested-review-stderr-v3.log": "f833df89d7b7e2a9365654fca7ac3c5a5b39557734509c8c38c67f34a773fda4",
+    "orchestration/ssl_vnext_direct13_owner_requested_review_v3.txt": "3ce0d9e73cf9ce6e3ec6847a65c4e2f56edb70076aaf9ab3aef94c539a01f04f",
+    "orchestration/native_band_direct13_ownership_retry_admission_v2.json": "4698b3a7fe1e14dffb5cd5ce8a87d5e7b24d8b74e66dfd9ac7c847e23c3e4698"
+  }
+}

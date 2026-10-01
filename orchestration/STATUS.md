@@ -1,6 +1,6 @@
 ## Active model-first research — native acoustic SSL
 
-Updated 2026-10-01T02:42:00+00:00.
+Updated 2026-10-01T08:36:00+00:00.
 
 Branch `research/marine-jepa-vnext`; owner-authorized local model research.
 Scientific programme BLOCKED by required independent reviews automatically
@@ -67,6 +67,11 @@ with26 proposed aliases (chunkb068c7). No model/scaler/acoustic values decoded.
 All40 protected dependencies unchanged; actual43/47 production preparation NOT_RUN.
 The approved r3 archive hash was reverified during the recurrent-impasse audit.
 No active agent/training handle remains. See NATIVE_SSL_RESEARCH_BLOCKED_CHECKPOINT_V5.
+The owner explicitly requested another independent-review launch. The unchanged
+distinct read-only reviewer was launched on the exact direct13 retry proposal;
+CLI64553 exited1 (chunkb5880a) before file inspection. Automatic safety review
+again returned "Potentially unintended activity." No approval or training followed.
+Exact task/events/closeout are retained; routing and permissions were not changed.
 Original serial queue: COMPLETED_REVIEWED_SERIAL_QUEUE; 9/9 reports inspected.
 Charged owned GPU-hours at ledger snapshot: 14.953011/96.
 The active wrappers own ledger writes; coordinator does not overwrite live accounting.
