@@ -1,0 +1,16 @@
+F
+================================== FAILURES ===================================
+_____ test_mixed_band_versions_use_lesser_full_owned_allowance[95-2-3600] _____
+tests\unit\test_native_control_assessment_inherited_v3.py:40: in test_mixed_band_versions_use_lesser_full_owned_allowance
+    f = helper.resource_case(sys.modules[__name__], monkeypatch, cuda=True, band=True)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+evidence\ssl-replication-assessment-prefix-builder-v4\resource_test_support.py:140: in resource_case
+    for p in wrapper.required_sources(package=root / "src/marine_echo")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tools\execute_bounded_native_control_assessment_v3.py:162: in required_sources
+    raise ValueError(f"Missing required source: {p}")
+E   ValueError: Missing required source: C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\evidence\ssl-replication-assessment-prefix-builder-v4\SYNTHETIC_CORRECTNESS_ONLY_virtual\SYNTHETIC_CORRECTNESS_ONLY_root\tools\execute_native_control_assessment_worker_v3.py
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_control_assessment_inherited_v3.py::test_mixed_band_versions_use_lesser_full_owned_allowance[95-2-3600]
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!
+1 failed in 2.76s

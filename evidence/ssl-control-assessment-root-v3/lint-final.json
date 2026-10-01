@@ -1,0 +1,24 @@
+{
+  "command": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+    "-B",
+    "-m",
+    "ruff",
+    "check",
+    "src/marine_echo/evaluation/native_assessment_controls_v3.py",
+    "tools/execute_bounded_native_control_assessment_v3.py",
+    "tools/execute_native_control_assessment_worker_v3.py",
+    "tools/version_native_control_assessment_v3.py",
+    "tests/unit/test_native_control_assessment_v3.py",
+    "tests/unit/test_native_control_assessment_inherited_v3.py",
+    "tests/integration/test_native_control_assessment_inherited_v3.py",
+    "evidence/ssl-control-assessment-root-v3/run_check.py",
+    "evidence/ssl-control-assessment-root-v3/resource_test_support.py"
+  ],
+  "started_utc": "2026-10-01T11:42:57.946517+00:00",
+  "finished_utc": "2026-10-01T11:42:58.134331+00:00",
+  "exit_code": 0,
+  "evidence_kind": "CPU_ENGINEERING_ONLY",
+  "ledger_sha256_before": "91bf4dcbedc6a603d019c28bb058549f2f39e95befc8d81de5ca6448dec2c5b0",
+  "ledger_sha256_after": "91bf4dcbedc6a603d019c28bb058549f2f39e95befc8d81de5ca6448dec2c5b0"
+}

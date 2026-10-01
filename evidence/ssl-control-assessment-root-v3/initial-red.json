@@ -1,0 +1,8 @@
+{
+  "evidence_kind": "CPU_ENGINEERING_ONLY",
+  "command": [".venv/Scripts/python.exe", "-B", "-m", "pytest", "--import-mode=importlib", "-q", "-p", "no:cacheprovider", "tests/unit/test_native_control_assessment_v3.py", "--tb=short"],
+  "actual_tool_chunk": "7b32c7",
+  "exit_code": 1,
+  "result": "Collection failed: ModuleNotFoundError for execute_bounded_native_control_assessment_v3 before implementation",
+  "scientific_fit": false
+}

@@ -1,0 +1,21 @@
+{
+  "command": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+    "-B",
+    "-m",
+    "pytest",
+    "--import-mode=importlib",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "tests/unit/test_native_control_assessment_inherited_v3.py",
+    "-x",
+    "--tb=short"
+  ],
+  "started_utc": "2026-10-01T11:36:34.854892+00:00",
+  "finished_utc": "2026-10-01T11:36:38.774037+00:00",
+  "exit_code": 1,
+  "evidence_kind": "CPU_ENGINEERING_ONLY",
+  "ledger_sha256_before": "91bf4dcbedc6a603d019c28bb058549f2f39e95befc8d81de5ca6448dec2c5b0",
+  "ledger_sha256_after": "91bf4dcbedc6a603d019c28bb058549f2f39e95befc8d81de5ca6448dec2c5b0"
+}

@@ -1,0 +1,259 @@
+.....................FFFFFFFFFFFFFFFFFFFFFFF............................ [ 45%]
+........................................................................ [ 91%]
+.............                                                            [100%]
+================================== FAILURES ===================================
+_____ test_mixed_band_versions_use_lesser_full_owned_allowance[95-2-3600] _____
+tests\unit\test_native_control_assessment_inherited_v3.py:40: in test_mixed_band_versions_use_lesser_full_owned_allowance
+    f = helper.resource_case(sys.modules[__name__], monkeypatch, cuda=True, band=True)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+evidence\ssl-replication-assessment-prefix-builder-v4\resource_test_support.py:140: in resource_case
+    for p in wrapper.required_sources(package=root / "src/marine_echo")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tools\execute_bounded_native_control_assessment_v3.py:162: in required_sources
+    raise ValueError(f"Missing required source: {p}")
+E   ValueError: Missing required source: C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\evidence\ssl-replication-assessment-prefix-builder-v4\SYNTHETIC_CORRECTNESS_ONLY_virtual\SYNTHETIC_CORRECTNESS_ONLY_root\tools\execute_native_control_assessment_worker_v3.py
+___ test_mixed_band_versions_use_lesser_full_owned_allowance[12-11.5-1800] ____
+tests\unit\test_native_control_assessment_inherited_v3.py:40: in test_mixed_band_versions_use_lesser_full_owned_allowance
+    f = helper.resource_case(sys.modules[__name__], monkeypatch, cuda=True, band=True)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+evidence\ssl-replication-assessment-prefix-builder-v4\resource_test_support.py:140: in resource_case
+    for p in wrapper.required_sources(package=root / "src/marine_echo")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tools\execute_bounded_native_control_assessment_v3.py:162: in required_sources
+    raise ValueError(f"Missing required source: {p}")
+E   ValueError: Missing required source: C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\evidence\ssl-replication-assessment-prefix-builder-v4\SYNTHETIC_CORRECTNESS_ONLY_virtual\SYNTHETIC_CORRECTNESS_ONLY_root\tools\execute_native_control_assessment_worker_v3.py
+______ test_resource_or_admission_damage_refuses_before_mutation[active] ______
+tests\unit\test_native_control_assessment_inherited_v3.py:74: in test_resource_or_admission_damage_refuses_before_mutation
+    f = helper.resource_case(sys.modules[__name__], monkeypatch, cuda=True, band=True)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+evidence\ssl-replication-assessment-prefix-builder-v4\resource_test_support.py:140: in resource_case
+    for p in wrapper.required_sources(package=root / "src/marine_echo")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tools\execute_bounded_native_control_assessment_v3.py:162: in required_sources
+    raise ValueError(f"Missing required source: {p}")
+E   ValueError: Missing required source: C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\evidence\ssl-replication-assessment-prefix-builder-v4\SYNTHETIC_CORRECTNESS_ONLY_virtual\SYNTHETIC_CORRECTNESS_ONLY_root\tools\execute_native_control_assessment_worker_v3.py
+_____ test_resource_or_admission_damage_refuses_before_mutation[pending] ______
+tests\unit\test_native_control_assessment_inherited_v3.py:74: in test_resource_or_admission_damage_refuses_before_mutation
+    f = helper.resource_case(sys.modules[__name__], monkeypatch, cuda=True, band=True)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+evidence\ssl-replication-assessment-prefix-builder-v4\resource_test_support.py:140: in resource_case
+    for p in wrapper.required_sources(package=root / "src/marine_echo")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tools\execute_bounded_native_control_assessment_v3.py:162: in required_sources
+    raise ValueError(f"Missing required source: {p}")
+E   ValueError: Missing required source: C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\evidence\ssl-replication-assessment-prefix-builder-v4\SYNTHETIC_CORRECTNESS_ONLY_virtual\SYNTHETIC_CORRECTNESS_ONLY_root\tools\execute_native_control_assessment_worker_v3.py
+_______ test_resource_or_admission_damage_refuses_before_mutation[lock] _______
+tests\unit\test_native_control_assessment_inherited_v3.py:74: in test_resource_or_admission_damage_refuses_before_mutation
+    f = helper.resource_case(sys.modules[__name__], monkeypatch, cuda=True, band=True)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+evidence\ssl-replication-assessment-prefix-builder-v4\resource_test_support.py:140: in resource_case
+    for p in wrapper.required_sources(package=root / "src/marine_echo")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tools\execute_bounded_native_control_assessment_v3.py:162: in required_sources
+    raise ValueError(f"Missing required source: {p}")
+E   ValueError: Missing required source: C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\evidence\ssl-replication-assessment-prefix-builder-v4\SYNTHETIC_CORRECTNESS_ONLY_virtual\SYNTHETIC_CORRECTNESS_ONLY_root\tools\execute_native_control_assessment_worker_v3.py
+____ test_resource_or_admission_damage_refuses_before_mutation[bool_time] _____
+tests\unit\test_native_control_assessment_inherited_v3.py:74: in test_resource_or_admission_damage_refuses_before_mutation
+    f = helper.resource_case(sys.modules[__name__], monkeypatch, cuda=True, band=True)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+evidence\ssl-replication-assessment-prefix-builder-v4\resource_test_support.py:140: in resource_case
+    for p in wrapper.required_sources(package=root / "src/marine_echo")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tools\execute_bounded_native_control_assessment_v3.py:162: in required_sources
+    raise ValueError(f"Missing required source: {p}")
+E   ValueError: Missing required source: C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\evidence\ssl-replication-assessment-prefix-builder-v4\SYNTHETIC_CORRECTNESS_ONLY_virtual\SYNTHETIC_CORRECTNESS_ONLY_root\tools\execute_native_control_assessment_worker_v3.py
+__ test_resource_or_admission_damage_refuses_before_mutation[negative_time] ___
+tests\unit\test_native_control_assessment_inherited_v3.py:74: in test_resource_or_admission_damage_refuses_before_mutation
+    f = helper.resource_case(sys.modules[__name__], monkeypatch, cuda=True, band=True)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+evidence\ssl-replication-assessment-prefix-builder-v4\resource_test_support.py:140: in resource_case
+    for p in wrapper.required_sources(package=root / "src/marine_echo")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tools\execute_bounded_native_control_assessment_v3.py:162: in required_sources
+    raise ValueError(f"Missing required source: {p}")
+E   ValueError: Missing required source: C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\evidence\ssl-replication-assessment-prefix-builder-v4\SYNTHETIC_CORRECTNESS_ONLY_virtual\SYNTHETIC_CORRECTNESS_ONLY_root\tools\execute_native_control_assessment_worker_v3.py
+___ test_resource_or_admission_damage_refuses_before_mutation[unknown_band] ___
+tests\unit\test_native_control_assessment_inherited_v3.py:74: in test_resource_or_admission_damage_refuses_before_mutation
+    f = helper.resource_case(sys.modules[__name__], monkeypatch, cuda=True, band=True)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+evidence\ssl-replication-assessment-prefix-builder-v4\resource_test_support.py:140: in resource_case
+    for p in wrapper.required_sources(package=root / "src/marine_echo")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tools\execute_bounded_native_control_assessment_v3.py:162: in required_sources
+    raise ValueError(f"Missing required source: {p}")
+E   ValueError: Missing required source: C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\evidence\ssl-replication-assessment-prefix-builder-v4\SYNTHETIC_CORRECTNESS_ONLY_virtual\SYNTHETIC_CORRECTNESS_ONLY_root\tools\execute_native_control_assessment_worker_v3.py
+___ test_resource_or_admission_damage_refuses_before_mutation[unaccounted] ____
+tests\unit\test_native_control_assessment_inherited_v3.py:74: in test_resource_or_admission_damage_refuses_before_mutation
+    f = helper.resource_case(sys.modules[__name__], monkeypatch, cuda=True, band=True)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+evidence\ssl-replication-assessment-prefix-builder-v4\resource_test_support.py:140: in resource_case
+    for p in wrapper.required_sources(package=root / "src/marine_echo")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tools\execute_bounded_native_control_assessment_v3.py:162: in required_sources
+    raise ValueError(f"Missing required source: {p}")
+E   ValueError: Missing required source: C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\evidence\ssl-replication-assessment-prefix-builder-v4\SYNTHETIC_CORRECTNESS_ONLY_virtual\SYNTHETIC_CORRECTNESS_ONLY_root\tools\execute_native_control_assessment_worker_v3.py
+__ test_resource_or_admission_damage_refuses_before_mutation[band_exhausted] __
+tests\unit\test_native_control_assessment_inherited_v3.py:74: in test_resource_or_admission_damage_refuses_before_mutation
+    f = helper.resource_case(sys.modules[__name__], monkeypatch, cuda=True, band=True)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+evidence\ssl-replication-assessment-prefix-builder-v4\resource_test_support.py:140: in resource_case
+    for p in wrapper.required_sources(package=root / "src/marine_echo")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tools\execute_bounded_native_control_assessment_v3.py:162: in required_sources
+    raise ValueError(f"Missing required source: {p}")
+E   ValueError: Missing required source: C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\evidence\ssl-replication-assessment-prefix-builder-v4\SYNTHETIC_CORRECTNESS_ONLY_virtual\SYNTHETIC_CORRECTNESS_ONLY_root\tools\execute_native_control_assessment_worker_v3.py
+_ test_resource_or_admission_damage_refuses_before_mutation[aggregate_exhausted] _
+tests\unit\test_native_control_assessment_inherited_v3.py:74: in test_resource_or_admission_damage_refuses_before_mutation
+    f = helper.resource_case(sys.modules[__name__], monkeypatch, cuda=True, band=True)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+evidence\ssl-replication-assessment-prefix-builder-v4\resource_test_support.py:140: in resource_case
+    for p in wrapper.required_sources(package=root / "src/marine_echo")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tools\execute_bounded_native_control_assessment_v3.py:162: in required_sources
+    raise ValueError(f"Missing required source: {p}")
+E   ValueError: Missing required source: C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\evidence\ssl-replication-assessment-prefix-builder-v4\SYNTHETIC_CORRECTNESS_ONLY_virtual\SYNTHETIC_CORRECTNESS_ONLY_root\tools\execute_native_control_assessment_worker_v3.py
+__ test_resource_or_admission_damage_refuses_before_mutation[missing_source] __
+tests\unit\test_native_control_assessment_inherited_v3.py:74: in test_resource_or_admission_damage_refuses_before_mutation
+    f = helper.resource_case(sys.modules[__name__], monkeypatch, cuda=True, band=True)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+evidence\ssl-replication-assessment-prefix-builder-v4\resource_test_support.py:140: in resource_case
+    for p in wrapper.required_sources(package=root / "src/marine_echo")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tools\execute_bounded_native_control_assessment_v3.py:162: in required_sources
+    raise ValueError(f"Missing required source: {p}")
+E   ValueError: Missing required source: C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\evidence\ssl-replication-assessment-prefix-builder-v4\SYNTHETIC_CORRECTNESS_ONLY_virtual\SYNTHETIC_CORRECTNESS_ONLY_root\tools\execute_native_control_assessment_worker_v3.py
+___ test_resource_or_admission_damage_refuses_before_mutation[self_review] ____
+tests\unit\test_native_control_assessment_inherited_v3.py:74: in test_resource_or_admission_damage_refuses_before_mutation
+    f = helper.resource_case(sys.modules[__name__], monkeypatch, cuda=True, band=True)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+evidence\ssl-replication-assessment-prefix-builder-v4\resource_test_support.py:140: in resource_case
+    for p in wrapper.required_sources(package=root / "src/marine_echo")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tools\execute_bounded_native_control_assessment_v3.py:162: in required_sources
+    raise ValueError(f"Missing required source: {p}")
+E   ValueError: Missing required source: C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\evidence\ssl-replication-assessment-prefix-builder-v4\SYNTHETIC_CORRECTNESS_ONLY_virtual\SYNTHETIC_CORRECTNESS_ONLY_root\tools\execute_native_control_assessment_worker_v3.py
+___ test_resource_or_admission_damage_refuses_before_mutation[owner_limit] ____
+tests\unit\test_native_control_assessment_inherited_v3.py:74: in test_resource_or_admission_damage_refuses_before_mutation
+    f = helper.resource_case(sys.modules[__name__], monkeypatch, cuda=True, band=True)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+evidence\ssl-replication-assessment-prefix-builder-v4\resource_test_support.py:140: in resource_case
+    for p in wrapper.required_sources(package=root / "src/marine_echo")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tools\execute_bounded_native_control_assessment_v3.py:162: in required_sources
+    raise ValueError(f"Missing required source: {p}")
+E   ValueError: Missing required source: C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\evidence\ssl-replication-assessment-prefix-builder-v4\SYNTHETIC_CORRECTNESS_ONLY_virtual\SYNTHETIC_CORRECTNESS_ONLY_root\tools\execute_native_control_assessment_worker_v3.py
+_ test_virtual_failure_full_time_is_charged_and_no_false_completion[0-True-0] _
+tests\unit\test_native_control_assessment_inherited_v3.py:135: in test_virtual_failure_full_time_is_charged_and_no_false_completion
+    f = helper.resource_case(sys.modules[__name__], monkeypatch, cuda=True, band=True)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+evidence\ssl-replication-assessment-prefix-builder-v4\resource_test_support.py:140: in resource_case
+    for p in wrapper.required_sources(package=root / "src/marine_echo")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tools\execute_bounded_native_control_assessment_v3.py:162: in required_sources
+    raise ValueError(f"Missing required source: {p}")
+E   ValueError: Missing required source: C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\evidence\ssl-replication-assessment-prefix-builder-v4\SYNTHETIC_CORRECTNESS_ONLY_virtual\SYNTHETIC_CORRECTNESS_ONLY_root\tools\execute_native_control_assessment_worker_v3.py
+_ test_virtual_failure_full_time_is_charged_and_no_false_completion[17-False-17] _
+tests\unit\test_native_control_assessment_inherited_v3.py:135: in test_virtual_failure_full_time_is_charged_and_no_false_completion
+    f = helper.resource_case(sys.modules[__name__], monkeypatch, cuda=True, band=True)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+evidence\ssl-replication-assessment-prefix-builder-v4\resource_test_support.py:140: in resource_case
+    for p in wrapper.required_sources(package=root / "src/marine_echo")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tools\execute_bounded_native_control_assessment_v3.py:162: in required_sources
+    raise ValueError(f"Missing required source: {p}")
+E   ValueError: Missing required source: C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\evidence\ssl-replication-assessment-prefix-builder-v4\SYNTHETIC_CORRECTNESS_ONLY_virtual\SYNTHETIC_CORRECTNESS_ONLY_root\tools\execute_native_control_assessment_worker_v3.py
+_ test_virtual_failure_full_time_is_charged_and_no_false_completion[0-False-1] _
+tests\unit\test_native_control_assessment_inherited_v3.py:135: in test_virtual_failure_full_time_is_charged_and_no_false_completion
+    f = helper.resource_case(sys.modules[__name__], monkeypatch, cuda=True, band=True)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+evidence\ssl-replication-assessment-prefix-builder-v4\resource_test_support.py:140: in resource_case
+    for p in wrapper.required_sources(package=root / "src/marine_echo")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tools\execute_bounded_native_control_assessment_v3.py:162: in required_sources
+    raise ValueError(f"Missing required source: {p}")
+E   ValueError: Missing required source: C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\evidence\ssl-replication-assessment-prefix-builder-v4\SYNTHETIC_CORRECTNESS_ONLY_virtual\SYNTHETIC_CORRECTNESS_ONLY_root\tools\execute_native_control_assessment_worker_v3.py
+____ test_virtual_parent_exception_keeps_active_charge_and_reconciliation _____
+tests\unit\test_native_control_assessment_inherited_v3.py:152: in test_virtual_parent_exception_keeps_active_charge_and_reconciliation
+    f = helper.resource_case(sys.modules[__name__], monkeypatch, cuda=True, band=True)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+evidence\ssl-replication-assessment-prefix-builder-v4\resource_test_support.py:140: in resource_case
+    for p in wrapper.required_sources(package=root / "src/marine_echo")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tools\execute_bounded_native_control_assessment_v3.py:162: in required_sources
+    raise ValueError(f"Missing required source: {p}")
+E   ValueError: Missing required source: C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\evidence\ssl-replication-assessment-prefix-builder-v4\SYNTHETIC_CORRECTNESS_ONLY_virtual\SYNTHETIC_CORRECTNESS_ONLY_root\tools\execute_native_control_assessment_worker_v3.py
+_______ test_virtual_cleanup_is_only_exact_dead_owned_tree[owned-True] ________
+tests\unit\test_native_control_assessment_inherited_v3.py:166: in test_virtual_cleanup_is_only_exact_dead_owned_tree
+    f = helper.resource_case(sys.modules[__name__], monkeypatch, cuda=True, band=True)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+evidence\ssl-replication-assessment-prefix-builder-v4\resource_test_support.py:140: in resource_case
+    for p in wrapper.required_sources(package=root / "src/marine_echo")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tools\execute_bounded_native_control_assessment_v3.py:162: in required_sources
+    raise ValueError(f"Missing required source: {p}")
+E   ValueError: Missing required source: C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\evidence\ssl-replication-assessment-prefix-builder-v4\SYNTHETIC_CORRECTNESS_ONLY_virtual\SYNTHETIC_CORRECTNESS_ONLY_root\tools\execute_native_control_assessment_worker_v3.py
+______ test_virtual_cleanup_is_only_exact_dead_owned_tree[unknown-False] ______
+tests\unit\test_native_control_assessment_inherited_v3.py:166: in test_virtual_cleanup_is_only_exact_dead_owned_tree
+    f = helper.resource_case(sys.modules[__name__], monkeypatch, cuda=True, band=True)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+evidence\ssl-replication-assessment-prefix-builder-v4\resource_test_support.py:140: in resource_case
+    for p in wrapper.required_sources(package=root / "src/marine_echo")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tools\execute_bounded_native_control_assessment_v3.py:162: in required_sources
+    raise ValueError(f"Missing required source: {p}")
+E   ValueError: Missing required source: C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\evidence\ssl-replication-assessment-prefix-builder-v4\SYNTHETIC_CORRECTNESS_ONLY_virtual\SYNTHETIC_CORRECTNESS_ONLY_root\tools\execute_native_control_assessment_worker_v3.py
+______________ test_virtual_cpu_identity_is_not_cuda_or_fitting _______________
+tests\unit\test_native_control_assessment_inherited_v3.py:173: in test_virtual_cpu_identity_is_not_cuda_or_fitting
+    f = helper.resource_case(sys.modules[__name__], monkeypatch)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+evidence\ssl-replication-assessment-prefix-builder-v4\resource_test_support.py:140: in resource_case
+    for p in wrapper.required_sources(package=root / "src/marine_echo")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tools\execute_bounded_native_control_assessment_v3.py:162: in required_sources
+    raise ValueError(f"Missing required source: {p}")
+E   ValueError: Missing required source: C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\evidence\ssl-replication-assessment-prefix-builder-v4\SYNTHETIC_CORRECTNESS_ONLY_virtual\SYNTHETIC_CORRECTNESS_ONLY_root\tools\execute_native_control_assessment_worker_v3.py
+___________ test_worker_resource_exit_preserves_unknown_lock[False] ___________
+tests\unit\test_native_control_assessment_inherited_v3.py:189: in test_worker_resource_exit_preserves_unknown_lock
+    f = helper.resource_case(sys.modules[__name__], monkeypatch)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+evidence\ssl-replication-assessment-prefix-builder-v4\resource_test_support.py:140: in resource_case
+    for p in wrapper.required_sources(package=root / "src/marine_echo")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tools\execute_bounded_native_control_assessment_v3.py:162: in required_sources
+    raise ValueError(f"Missing required source: {p}")
+E   ValueError: Missing required source: C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\evidence\ssl-replication-assessment-prefix-builder-v4\SYNTHETIC_CORRECTNESS_ONLY_virtual\SYNTHETIC_CORRECTNESS_ONLY_root\tools\execute_native_control_assessment_worker_v3.py
+___________ test_worker_resource_exit_preserves_unknown_lock[True] ____________
+tests\unit\test_native_control_assessment_inherited_v3.py:189: in test_worker_resource_exit_preserves_unknown_lock
+    f = helper.resource_case(sys.modules[__name__], monkeypatch)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+evidence\ssl-replication-assessment-prefix-builder-v4\resource_test_support.py:140: in resource_case
+    for p in wrapper.required_sources(package=root / "src/marine_echo")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tools\execute_bounded_native_control_assessment_v3.py:162: in required_sources
+    raise ValueError(f"Missing required source: {p}")
+E   ValueError: Missing required source: C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\evidence\ssl-replication-assessment-prefix-builder-v4\SYNTHETIC_CORRECTNESS_ONLY_virtual\SYNTHETIC_CORRECTNESS_ONLY_root\tools\execute_native_control_assessment_worker_v3.py
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_control_assessment_inherited_v3.py::test_mixed_band_versions_use_lesser_full_owned_allowance[95-2-3600]
+FAILED tests/unit/test_native_control_assessment_inherited_v3.py::test_mixed_band_versions_use_lesser_full_owned_allowance[12-11.5-1800]
+FAILED tests/unit/test_native_control_assessment_inherited_v3.py::test_resource_or_admission_damage_refuses_before_mutation[active]
+FAILED tests/unit/test_native_control_assessment_inherited_v3.py::test_resource_or_admission_damage_refuses_before_mutation[pending]
+FAILED tests/unit/test_native_control_assessment_inherited_v3.py::test_resource_or_admission_damage_refuses_before_mutation[lock]
+FAILED tests/unit/test_native_control_assessment_inherited_v3.py::test_resource_or_admission_damage_refuses_before_mutation[bool_time]
+FAILED tests/unit/test_native_control_assessment_inherited_v3.py::test_resource_or_admission_damage_refuses_before_mutation[negative_time]
+FAILED tests/unit/test_native_control_assessment_inherited_v3.py::test_resource_or_admission_damage_refuses_before_mutation[unknown_band]
+FAILED tests/unit/test_native_control_assessment_inherited_v3.py::test_resource_or_admission_damage_refuses_before_mutation[unaccounted]
+FAILED tests/unit/test_native_control_assessment_inherited_v3.py::test_resource_or_admission_damage_refuses_before_mutation[band_exhausted]
+FAILED tests/unit/test_native_control_assessment_inherited_v3.py::test_resource_or_admission_damage_refuses_before_mutation[aggregate_exhausted]
+FAILED tests/unit/test_native_control_assessment_inherited_v3.py::test_resource_or_admission_damage_refuses_before_mutation[missing_source]
+FAILED tests/unit/test_native_control_assessment_inherited_v3.py::test_resource_or_admission_damage_refuses_before_mutation[self_review]
+FAILED tests/unit/test_native_control_assessment_inherited_v3.py::test_resource_or_admission_damage_refuses_before_mutation[owner_limit]
+FAILED tests/unit/test_native_control_assessment_inherited_v3.py::test_virtual_failure_full_time_is_charged_and_no_false_completion[0-True-0]
+FAILED tests/unit/test_native_control_assessment_inherited_v3.py::test_virtual_failure_full_time_is_charged_and_no_false_completion[17-False-17]
+FAILED tests/unit/test_native_control_assessment_inherited_v3.py::test_virtual_failure_full_time_is_charged_and_no_false_completion[0-False-1]
+FAILED tests/unit/test_native_control_assessment_inherited_v3.py::test_virtual_parent_exception_keeps_active_charge_and_reconciliation
+FAILED tests/unit/test_native_control_assessment_inherited_v3.py::test_virtual_cleanup_is_only_exact_dead_owned_tree[owned-True]
+FAILED tests/unit/test_native_control_assessment_inherited_v3.py::test_virtual_cleanup_is_only_exact_dead_owned_tree[unknown-False]
+FAILED tests/unit/test_native_control_assessment_inherited_v3.py::test_virtual_cpu_identity_is_not_cuda_or_fitting
+FAILED tests/unit/test_native_control_assessment_inherited_v3.py::test_worker_resource_exit_preserves_unknown_lock[False]
+FAILED tests/unit/test_native_control_assessment_inherited_v3.py::test_worker_resource_exit_preserves_unknown_lock[True]
+23 failed, 134 passed in 61.83s (0:01:01)

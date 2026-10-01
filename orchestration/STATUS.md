@@ -1,3 +1,18 @@
+## Native SSL CF-control assessment engineering V3
+
+Updated 2026-10-01. Additive zero-shot CF-control evaluator, worker and bounded
+launcher implemented; 161 CPU synthetic checks and lint passed. Saved-weight
+replay, exact control recipes, native geometry, reserved-ancestry exclusion and
+resource accounting are covered. Historical evaluator and scientific ledger
+remain unchanged. This is author validation, not independent approval or real
+prediction reconstruction. See `docs/NATIVE_SSL_CONTROL_ASSESSMENT_ENGINEERING_V3.md`
+and `evidence/ssl-control-assessment-root-v3/closeout.json`.
+
+Existing GPT-6.1 Sol builder session continues matched-prefix/suffix engineering
+in its separate worktree. No reviewer retry, real fit or reserved access occurred.
+Research remains incomplete; aggregate17.802355808369175/96, Band8.318836388888881/12,
+CF0/12 hours. Original43/47 guard and all historical results are preserved.
+
 ## Native SSL coordinator code inspection — transfer integration gaps
 
 Updated 2026-10-01 after the owner's explicit request for direct code inspection.

@@ -1,0 +1,46 @@
+{
+  "kind": "native_control_assessment_engineering_closeout_v3",
+  "status": "AUTHOR_VALIDATED_CPU_ENGINEERING_ONLY",
+  "recorded_utc": "2026-10-01T11:43:58.052137+00:00",
+  "implementer_session_id": "01a0f72d-927a-77a3-8b62-21d456f7ed85",
+  "requested_delegated_model": "gpt-6.1-sol",
+  "independent_review": false,
+  "tests": {
+    "passed": 161,
+    "failed": 0,
+    "seconds": 52.44,
+    "receipt": "evidence/ssl-control-assessment-root-v3/assessment-checks-final.json"
+  },
+  "lint": "evidence/ssl-control-assessment-root-v3/lint-final.json",
+  "sources": {
+    "src/marine_echo/evaluation/native_assessment_controls_v3.py": "cc900b4e55e203b4bb548a326dae2549695bbf49de3d2b42dec204ad0ab68015",
+    "tools/execute_bounded_native_control_assessment_v3.py": "1082b014aeb79b9b89f92573fab3e0da4593a4ad95e8190ce8b3d019bcd78a08",
+    "tools/execute_native_control_assessment_worker_v3.py": "8daab3617a41554bb5cf96cdc6e164126079b4854d13be4fcb86f3d8f9042cd8",
+    "tools/version_native_control_assessment_v3.py": "859cdf15b77cc0f8df4fa33e7ce4422927df46b3cb41e93d01ef75859c58e0e6",
+    "tests/unit/test_native_control_assessment_v3.py": "b4c63f2a14c053c84bf770a2f3d5012ba1252ad2774762dbbec92fc4337f3baf",
+    "tests/unit/test_native_control_assessment_inherited_v3.py": "5154fe8cf33a2b8e4b981e2236b30f323e264eac81dd71522716a7d9f64a2da3",
+    "tests/integration/test_native_control_assessment_inherited_v3.py": "24e4d3067a4fb38750171a0915143a4aab62d034083e7274e27a44a3dd96d1b6"
+  },
+  "preserved_originals": {
+    "src/marine_echo/evaluation/native_assessment_replication.py": "f8c7e9272c9ecbbb68d60695e9e4e92494f42ca9420989500b7c3f409778c9ef",
+    "tools/execute_bounded_native_replication_assessment.py": "d431c5ec642821c8906a2b8c09d45ffb6ce9d4a52d8e4fdb5138b7778b5161da",
+    "tools/execute_native_replication_assessment_worker.py": "802168ec645a82ec322cefbea430e2bffcf3707b254e038efca19c5b037379e4",
+    "orchestration/native_ssl_run_ledger_v1.json": "91bf4dcbedc6a603d019c28bb058549f2f39e95befc8d81de5ca6448dec2c5b0"
+  },
+  "real_fits": "NOT_RUN",
+  "reserved_numerical_access": "NOT_RUN",
+  "scientific_reconstruction": "NOT_RUN",
+  "reviewer_retry": false,
+  "budgets": {
+    "aggregate_hours": 17.802355808369175,
+    "aggregate_cap": 96,
+    "band_hours": 8.318836388888881,
+    "band_cap": 12,
+    "cf_fit_hours": 0,
+    "cf_fit_cap": 12
+  },
+  "remaining_engineering": [
+    "matched prefix integration in existing builder worktree",
+    "separate adaptation suffix evaluator and bounded integration"
+  ]
+}
