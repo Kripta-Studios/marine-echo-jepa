@@ -1,0 +1,40 @@
+{
+  "status": "ROOT58_CHECKS_AND_ACTUAL40_METADATA_RESERVATIONS_VERIFIED",
+  "recorded_at": "2026-10-01T02:39:11.738882+00:00",
+  "actual_commands": [
+    {
+      "operation": "integrate_closed_builder_bytes",
+      "exit_code": 0,
+      "chunk": "f7af5c"
+    },
+    {
+      "operation": "root_focused58_tests",
+      "exit_code": 0,
+      "chunk": "85f611"
+    },
+    {
+      "operation": "root_ruff_check",
+      "exit_code": 0,
+      "chunk": "c63a37"
+    },
+    {
+      "operation": "actual40_metadata_reservation",
+      "exit_code": 0,
+      "chunk": "b068c7"
+    }
+  ],
+  "protected_dependency_count": 40,
+  "test_count": 58,
+  "metadata_endpoint_count": 40,
+  "proposed_scaler_alias_count": 26,
+  "actual43_47_production_preparation": "NOT_RUN",
+  "tensor_or_acoustic_decode": false,
+  "fitting": false,
+  "independent_review": "NOT_RUN",
+  "bindings": {
+    "evidence\\ssl-native-scaler-reservation-builder-v1\\root-integration-v1.json": "140815b6786f6ff4b07343a78ad42a7f3200fda96f90fffbc2f9ace5f5092d22",
+    "evidence\\ssl-native-scaler-reservation-builder-v1\\root-contract-v1.log": "705f7c5ae0333ae88c3b24da87fb85ba68420339fe1f085fb35ba31321ddfbf2",
+    "evidence\\ssl-native-scaler-reservation-builder-v1\\root-lint-v1.log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "evidence\\ssl-native-scaler-reservation-builder-v1\\root-actual40-metadata-v1.json": "30a6ae4fd16c1d22bb392caaef5df92191589becf3e182639c2dc547de38c7b2"
+  }
+}

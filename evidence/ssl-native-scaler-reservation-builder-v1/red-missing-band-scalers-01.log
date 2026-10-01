@@ -1,0 +1,202 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+________ test_band_missing_duplicate_scalers_is_reserved_not_approved _________
+
+case = namespace(root=WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/evidence/ssl-nat...NTHETIC_CORRECTNESS_ONLY-Á-Metadata-de2dcd9f-9812-4176-9daa-444b225f3c31/tools/prepare_native_research_inventory.py')])
+
+    def test_band_missing_duplicate_scalers_is_reserved_not_approved(case):
+        paths = destinations(case)
+>       facts = prepare(case, paths)
+                ^^^^^^^^^^^^^^^^^^^^
+
+tests\unit\test_native_train_scaler_reservation_v1.py:283: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\unit\test_native_train_scaler_reservation_v1.py:271: in prepare
+    return prep.prepare(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+root = WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/evidence/ssl-native-scaler-reservation-builder-v1/SYNTHETIC_CORRECTNESS_ONLY-Á-Metadata-de2dcd9f-9812-4176-9daa-444b225f3c31')
+matrix_path = WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/evidence/ssl-native-scaler-rese..._CORRECTNESS_ONLY-Á-Metadata-de2dcd9f-9812-4176-9daa-444b225f3c31/orchestration/native_development_comparison_v4.json')
+manifest_path = WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/evidence/ssl-native-scaler-rese...ONLY-Á-Metadata-de2dcd9f-9812-4176-9daa-444b225f3c31/orchestration/fcf4e97d-0273-4dcc-a7ce-da40d9e0549e-manifest.json')
+snapshot_path = WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/evidence/ssl-native-scaler-rese...CTNESS_ONLY-Á-Metadata-de2dcd9f-9812-4176-9daa-444b225f3c31/evidence/fcf4e97d-0273-4dcc-a7ce-da40d9e0549e-ledger.json')
+output_path = WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/evidence/ssl-native-scaler-rese...CORRECTNESS_ONLY-Á-Metadata-de2dcd9f-9812-4176-9daa-444b225f3c31/evidence/fcf4e97d-0273-4dcc-a7ce-da40d9e0549e-output')
+source_paths = [WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/tools/prepare_completed_native...YNTHETIC_CORRECTNESS_ONLY-Á-Metadata-de2dcd9f-9812-4176-9daa-444b225f3c31/tools/prepare_native_research_inventory.py')]
+
+    def prepare(root, matrix_path, manifest_path, snapshot_path, output_path, *, source_paths=None):
+        """Metadata-only helper; production CLI fixes root to its actual checkout."""
+        from marine_echo.evaluation.native_ancestry_inventory import (
+            _config,
+            resolve_original_source_binding,
+            validate_parent_graph,
+        )
+    
+        root = Path(root).absolute()
+        manifest_path = fresh(manifest_path, root, "orchestration")
+        snapshot_path = fresh(snapshot_path, root, "evidence")
+        output_path = fresh(output_path, root, "evidence")
+        reservation = fresh(reservation_path(snapshot_path), root, "evidence")
+        if len({manifest_path, snapshot_path, output_path, reservation}) != 4:
+            raise ValueError("Separate fresh manifest/snapshot/output/reservation required")
+        before, ledger = idle_ledger(root)
+        matrix_path = regular(matrix_path)
+        matrix = document(matrix_path)
+        methods = matrix.get("methods")
+        if (
+            matrix.get("role") != "development"
+            or not isinstance(methods, dict)
+            or len(methods) != 47
+            or not set(REFERENCES) <= methods.keys()
+        ):
+            raise ValueError(
+                "Exactly47 explicit development methods including four named references required"
+            )
+        neural = {name: path for name, path in methods.items() if name not in REFERENCES}
+        if len(neural) != 43 or any(not isinstance(n, str) or not n for n in neural):
+            raise ValueError("Exactly43 explicit neural identities required")
+        if any(not isinstance(p, str) for p in methods.values()) or len(set(methods.values())) != 47:
+            raise ValueError("Unique exact prediction reservations required")
+        bindings = {
+            str(regular(p)): digest(p)
+            for p in (dependencies(root) if source_paths is None else source_paths)
+        }
+        bindings[str(matrix_path)] = digest(matrix_path)
+        ledger_path = root / "orchestration/native_ssl_run_ledger_v1.json"
+        index_path = root / "evidence/ssl-research-v1/original-source-archives-v3/index.json"
+        index = document(index_path)
+        catalogs = index.get("catalogs")
+        if (
+            index.get("runs_inspected") != 35
+            or index.get("scientific_approval") is not False
+            or not isinstance(catalogs, list)
+            or len(catalogs) != 3
+            or len(set(catalogs)) != 3
+        ):
+            raise ValueError("Three preserved non-approving historical source catalogs required")
+        bindings[str(index_path)] = digest(index_path)
+        archives = []
+        for name in catalogs:
+            catalog = regular(name)
+            record = document(catalog)
+            if record.get("status") != "ORIGINAL_SOURCE_PRESERVED_NOT_COMPATIBILITY_APPROVAL" or digest(
+                record["path"]
+            ) != record.get("sha256"):
+                raise ValueError("Historical source catalog byte identity differs")
+            for p in (catalog, regular(record["path"]), regular(record["original_path"])):
+                bindings[str(p)] = digest(p)
+            archives.append(record)
+        entries, reports = {}, {}
+        producer_cache, config_cache, original_binding_cache = {}, set(), {}
+        folders = set()
+        base = root / "outputs/native_acoustic_ssl_v1"
+        for name, prediction in neural.items():
+            prediction = regular(prediction)  # Presence/identity only, never decode forecasts.
+            folder = prediction.parent
+            if (
+                not folder.is_relative_to(root / "outputs")
+                or folder in folders
+                or prediction.name != "predictions.npz"
+            ):
+                raise ValueError("One distinct explicitly completed endpoint directory required")
+            folders.add(folder)
+            run_path = folder / "run.json"
+            run = document(run_path)
+            if (
+                run.get("status") != "COMPLETED"
+                or run.get("evidence_kind") != REAL
+                or run.get("test_access") != "NOT_RUN"
+                or run.get("historical_initial_weights", False) is not False
+            ):
+                raise ValueError(f"Actual complete locally fitted endpoint required: {name}")
+            if not isinstance(run.get("bindings"), dict) or not run["bindings"]:
+                raise ValueError("Original report bindings required")
+            reviews = set()
+            for record in ledger["runs"]:
+                if (
+                    record.get("output")
+                    and record.get("review")
+                    and (root / record["output"]).absolute() == folder
+                ):
+                    path = regular(root / record["review"])
+                    if digest(path) == run.get("review_sha256"):
+                        reviews.add(path)
+            configs = [
+                regular(p)
+                for p, h in run["bindings"].items()
+                if Path(p).is_relative_to(root / "configs")
+                and Path(p).suffix == ".json"
+                and digest(p) == h
+                and document(p) == run["config"]
+            ]
+            if len(reviews) != 1 or len(configs) != 1:
+                raise ValueError(f"One exact original completed review/config must resolve: {name}")
+            review_path = next(iter(reviews))
+            review = document(review_path)
+            mode = run.get("mode", "core_frozen_readout")
+            if review.get("status") != (
+                "APPROVED_PREFIT" if mode == "core_frozen_readout" else "APPROVED_DOWNSTREAM_PREFIT"
+            ):
+                raise ValueError("Actual typed original prefit status required")
+            reviewer = review.get("reviewer_session_id")
+            if not reviewer or reviewer.casefold() in {
+                str(review.get("implementer_session_id")).casefold(),
+                "01a0ef1a-b166-7f83-91b7-2a2aff7c1b10",
+            }:
+                raise ValueError("Distinct original reviewer required")
+            if not isinstance(review.get("bindings"), dict) or any(
+                review["bindings"].get(p) != h for p, h in run["bindings"].items()
+            ):
+                raise ValueError("Original review/report bindings conflict")
+            kind = declared_kind(root, run, cache=producer_cache)
+            core = run.get("core_config", run["config"])
+            entry = {
+                "directory": str(folder),
+                "kind": kind,
+                "method": core["method"],
+                "seed": core["seed"],
+                "mode": mode,
+                "parent": None,
+                "config_path": str(configs[0]),
+                "review_path": str(review_path),
+            }
+            for config, downstream in [(core, False)] + (
+                [(run["config"], True)] if mode != "core_frozen_readout" else []
+            ):
+                config_key = (
+                    kind,
+                    core["method"],
+                    core["seed"],
+                    mode,
+                    downstream,
+                    json.dumps(config, sort_keys=True, allow_nan=False),
+                )
+                if config_key not in config_cache:
+                    _config(config, entry, downstream=downstream)
+                    config_cache.add(config_key)
+            for group in (run["bindings"], review["bindings"]):
+                for p, expected in group.items():
+                    if Path(p) == ledger_path:
+                        raise ValueError(
+                            "Mutable ledger in original immutable review requires an original receipt; no alias rewriting"
+                        )
+                    key = (p, expected, core["method"])
+                    if key not in original_binding_cache:
+                        original_binding_cache[key] = resolve_original_source_binding(
+                            p, expected, core["method"], archives
+                        )
+                    resolved = original_binding_cache[key]
+                    bindings[str(resolved)] = expected
+                    bindings[str(regular(p))] = digest(p)
+            scalers = folder / "scalers.json"
+            if not scalers.exists():
+                if kind != PRODUCERS[0][2] or mode not in (
+                    "frozen_readout",
+                    "full_finetune",
+                    "direct_end_to_end",
+                ):
+>                   raise ValueError("Only original strong endpoints may reuse original TRAIN scalers")
+E                   ValueError: Only original strong endpoints may reuse original TRAIN scalers
+
+tools\prepare_completed_native_inventory_v6.py:365: ValueError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_train_scaler_reservation_v1.py::test_band_missing_duplicate_scalers_is_reserved_not_approved
+1 failed in 2.37s

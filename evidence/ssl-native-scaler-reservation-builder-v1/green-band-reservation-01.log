@@ -1,0 +1,20 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+________ test_band_missing_duplicate_scalers_is_reserved_not_approved _________
+
+case = namespace(root=WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/evidence/ssl-nat...NTHETIC_CORRECTNESS_ONLY-Á-Metadata-4845700a-0001-432d-99ab-140a77b78e2b/tools/prepare_native_research_inventory.py')])
+
+    def test_band_missing_duplicate_scalers_is_reserved_not_approved(case):
+        paths = destinations(case)
+        facts = prepare(case, paths)
+        manifest = prep.document(paths.manifest)
+        item = manifest["endpoints"]["neural06"]
+>       assert item["scalers_path"].endswith("shared_ssl_seed7_h96_cuda0/scalers.json")
+E       AssertionError: assert False
+E        +  where False = <built-in method endswith of str object at 0x0000013C7FE69FD0>('shared_ssl_seed7_h96_cuda0/scalers.json')
+E        +    where <built-in method endswith of str object at 0x0000013C7FE69FD0> = 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-jepa-vnext-builder\\evidence\\ssl-native-scaler-reservati...tadata-4845700a-0001-432d-99ab-140a77b78e2b\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\scalers.json'.endswith
+
+tests\unit\test_native_train_scaler_reservation_v1.py:286: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_train_scaler_reservation_v1.py::test_band_missing_duplicate_scalers_is_reserved_not_approved
+1 failed in 2.15s

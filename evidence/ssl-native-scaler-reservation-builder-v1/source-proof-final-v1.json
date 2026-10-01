@@ -1,0 +1,89 @@
+{
+  "approval": false,
+  "authored": {
+    "tests/unit/test_native_train_scaler_reservation_v1.py": "d2d7b8654cb64f8fb4a74d04be349c25741de7b455c099748849f20527bb19ff",
+    "tools/execute_completed_native_inventory_owned_v6.py": "aa0c0efcc613ccd673ced0f815425e5bd6b7b3fdab2002fb662f4615e309fef3",
+    "tools/native_train_scaler_reservation_v1.py": "9a60e026d4f68b42efd3521988da29f0d33b80dbed9ec5656bf60034d0fbf307",
+    "tools/prepare_completed_native_inventory_v6.py": "833f73d71ce94485f643ee1f4a132cd42cdae1a2a02d49a844bdd205c91df0e9",
+    "tools/prepare_native_development_comparison_v5.py": "c73e875a0b9d2cdb57f32eada1386119a55850fbd8ff474890139f18da474875"
+  },
+  "embedded_scaler_state_equality": "NOT_ESTABLISHED_EXISTING_ROOT_BOUNDED_TENSOR_AUDIT_REQUIRED",
+  "intended_semantic_changes": [
+    "Shared explicit TRAIN scaler reservation for typed completed downstream endpoints",
+    "Pinned own/aliased TRAIN JSON identity and both saved tensor bindings",
+    "V5/V6 fresh metadata names and current source closure",
+    "Development named-reference/role/idle/safe-path guards"
+  ],
+  "kind": "native_train_scaler_reservation_source_proof_v1",
+  "original_admission_guard_ast": {
+    "development": {
+      "original_if_guards_preserved": 5,
+      "replaced_old_scaler_restriction_if_nodes": 0
+    },
+    "inventory": {
+      "original_if_guards_preserved": 32,
+      "replaced_old_scaler_restriction_if_nodes": 2
+    }
+  },
+  "owned_execute_exact_ast_except_version_names_and_required_helper_binding": true,
+  "owner_named_metadata_pins_checked_by_hash_only": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_direct_end_to_end_seed23_h96_replication_v2\\run.json": "26da50474786a4c6ea4c9d593575dc6608e811872f6022fa6101dbe3f0ff4e55",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\scalers.json": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed"
+  },
+  "protected_baseline_sha256": "da19367bff44039e4e0e5efa2c497496a9f3bf4894cfacd6889ee61f5df32e87",
+  "protected_current_dependencies": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\original-source-archives-v3\\execute_native_ssl_job_dd688444fa48b95e.py": "dd688444fa48b95e40ccb8b29b260550cc998b805273aa196f35909ff0175f9d",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\original-source-archives-v3\\execute_native_ssl_job_dd688444fa48b95e.py.manifest.json": "91b2d5a0457e2eebb942fc1743dd72848a6bcb270c4e9e6c653134e6f7269483",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\original-source-archives-v3\\index.json": "d74dd51e32e4b8c1244f31ad2ac35d38a75b6e3971f51d8e73628451451b96ac",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\original-source-archives-v3\\native_references_b692368053501ca9.py": "b692368053501ca946978a3c583d649356584e91c1e020597397e669d8aa1d7b",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\original-source-archives-v3\\native_references_b692368053501ca9.py.manifest.json": "0c9d8e7a9027e9c650faeef21cd57d607995c0dd42113db98a4b5b745cca0348",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\original-source-archives-v3\\native_temporal_85c4af6c67acb661.py": "85c4af6c67acb661359cde8bcf22de479e4da6a499cc7843bce0fee6c155e422",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\original-source-archives-v3\\native_temporal_85c4af6c67acb661.py.manifest.json": "73be103db6be41ad15df880cd00a8624f79697dbdb24c2bb55c1f16aede1d87c",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\__init__.py": "3fcc1878588f5a89775363e099fab7d7323acebccae26d10db4a6da627425b68",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\__init__.py": "011583e04b7f119ffcc2ae18712a4af2e613cff87bcbeb5435fbfb10dcd01508",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\native_ssl_corpus.py": "ebda9d460fa14df749b8f774bcb02a6622f0d69402443098a6100670a4c8f7ba",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\native_transfer_corpus.py": "758b0615ef7d6fcce7cbd7e7b8d42d0b535a06eab17aafa96c1fb53cfbc0c034",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\__init__.py": "dddaccd3cb0c952e88796d75e7a15966cfab87f98c2cfe8452a5fff4c3138c68",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_ancestry_inventory.py": "3463ee20cd89d3f4c5d8ab44282f6277b012ebfa15d59232a32bfcc738430488",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_assessment_replication.py": "f8c7e9272c9ecbbb68d60695e9e4e92494f42ca9420989500b7c3f409778c9ef",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_product.py": "fd1c643fde93494a21d560794f886056e58031f1ef6dd41ebe53662750bab314",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_band_acoustic.py": "6181baf22b75be73767f4b76370c65bfc37fdeb189da3deabcabe8a7c2dcd1bf",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_band_replication_acoustic.py": "e689d80077152b4c784966426846bfb154eb4e16a46494f2140129c003288149",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_encoder.py": "6cc07a15ea93427d6628f1b317945f6e38ff3008894a31cab2173c0b666c0f7f",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\__init__.py": "5bdc97a6119b2dd3d519df36406c8bcb9e801be81c8b6c3f44e4a527db1f87a3",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_band_temporal.py": "1550bb3f130e3981f57b46031e39d0d42ce7dac4738aea9280362210dfaca96b",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_temporal.py": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\sigreg.py": "2cf5dc8e6fc610fbe167339a8750f5e2d9ddf9a48f416717b8310500536469a3",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\__init__.py": "c98c60178f566d43dd60641704ccd9c652d406487b4838cbf5a9df49ea5dd735",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\aeon_corpus.py": "398e021a5807ab8068ceef03dd692f3b688c744751cd4e65d3efbee94d9a3efd",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_downstream.py": "95becf2cd01a7ab07c67a4da8d26c8e8bf58297f56513a439b0ab2b2be776619",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_replication_downstream.py": "f5a6747b3a37dcd8856b617a95cd939862ba716a1d7e50fe7ef9090a08d4084d",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_replication_ssl.py": "94c04d2d585c39d49e849f4b86375e201898ae104e8a808341363a2f22518f72",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_ssl.py": "ca33bf3141ea17c5adb3d0a4cd2ed0d186be8efb846a5b581003f2088a105e4f",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_downstream.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_prefix_transfer.py": "844159d11a1d9a410f7cb7f1a83c782360427e04aae965c19cb94a74d5a28d38",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_references.py": "0d6583644ab1fce8d87a4194048f2176237b47deb57f0fa8494df6aa9012d584",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_resources.py": "c9ca3fbd0759ae00824774ed61a08185361234430d5ed63f09fa3885545c7c38",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_ssl.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_completed_native_inventory_owned_v4.py": "e55e0c16e8aa10da695290b30472ff2612c7c2b9f5dab4f23b47e940da360d01",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_native_ssl_job.py": "1ac9b66bc564f8b8424ef2cf89f8a5f9b2bd9f3f06a8d9f961c077f84d72e47c",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\native_reference_supervisor.py": "ec5456584ca6f6a805e13f4137365c2c0a785b2dbc52782b191c1528befb30dd",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\prepare_completed_native_inventory_v4.py": "67c032781e3ac6c40e971e06e8d8620ad2111dafa565e7c468489e905c113b97",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\prepare_native_development_comparison_v4.py": "fa5a90b6eebc103af8973fe87800e8434bc7635b451f3ddcc96975528cff1833",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\prepare_native_research_inventory.py": "cc161a98f239666b28a27b8064b078ba27756c261873311a98a0891369e61137",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\prepare_native_seed7_assessment_metadata.py": "829e6e8307eb8f5e8f66012558a9bcaa8904da84aae93253d43a5da02d9f8f50"
+  },
+  "protected_sources_unchanged": true,
+  "scientific_sources_modified": [],
+  "tensor_or_corpus_decoding": false,
+  "unaltered_inventory_functions_exact_ast": [
+    "digest",
+    "regular",
+    "json_bytes",
+    "document",
+    "fresh",
+    "idle_ledger",
+    "reservation_path",
+    "declared_kind"
+  ]
+}

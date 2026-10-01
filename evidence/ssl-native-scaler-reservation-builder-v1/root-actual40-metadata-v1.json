@@ -1,0 +1,975 @@
+{
+  "status": "ALL40_CURRENT_COMPLETED_METADATA_SCALER_RESERVATIONS_PASSED",
+  "records": {
+    "band_direct_end_to_end": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_band_ssl_weights_only_inference_v1",
+      "method": "direct",
+      "seed": 7,
+      "mode": "direct_end_to_end",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_direct_end_to_end_seed7_h96_reviewed",
+      "standalone_scalers_present": false,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": "ORIGINAL_SHARED7_TRAIN_SCALERS_PENDING_EMBEDDED_EQUALITY_AUDIT",
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_direct_end_to_end_seed7_h96_reviewed\\inference.pt": "329b3aab5d52cbb2f9b2a2a98a896a8e44f7d73ed9175ba0bc454b8212a4e673",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_direct_end_to_end_seed7_h96_reviewed\\selected_encoder.pt": "9eaec6771e1d710e0415a32010d28a0ab263f035f832dc0e692a5a3f95b75474"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_downstream.py": "95becf2cd01a7ab07c67a4da8d26c8e8bf58297f56513a439b0ab2b2be776619"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "band_direct_end_to_end_seed23": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_band_replication_ssl_weights_only_inference_v2",
+      "method": "direct",
+      "seed": 23,
+      "mode": "direct_end_to_end",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_direct_end_to_end_seed23_h96_replication_v2",
+      "standalone_scalers_present": false,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": "ORIGINAL_SHARED7_TRAIN_SCALERS_PENDING_EMBEDDED_EQUALITY_AUDIT",
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_direct_end_to_end_seed23_h96_replication_v2\\inference.pt": "8f68cef5b6334b632b9576c8becd065a270704588551534d3f67fc7d6d1546e0",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_direct_end_to_end_seed23_h96_replication_v2\\selected_encoder.pt": "ad59c70c1fd3596969c023d8b681822540b53df10ca37851d1ff7817cdf9080f"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_replication_downstream.py": "f5a6747b3a37dcd8856b617a95cd939862ba716a1d7e50fe7ef9090a08d4084d"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "band_masked_ssl_frozen_readout": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_band_ssl_weights_only_inference_v1",
+      "method": "masked_ssl",
+      "seed": 7,
+      "mode": "frozen_readout",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_masked_ssl_frozen_readout_seed7_h96",
+      "standalone_scalers_present": false,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": "ORIGINAL_SHARED7_TRAIN_SCALERS_PENDING_EMBEDDED_EQUALITY_AUDIT",
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_masked_ssl_frozen_readout_seed7_h96\\inference.pt": "de129736b7576b20e47741a89e0d978f74eb8957000dd6049a24af13f33f5266",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_masked_ssl_frozen_readout_seed7_h96\\selected_encoder.pt": "3910de3e2aab729189009d6ed7021d7f43b5445cd2bcdd94d805e1738a3fc461"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_downstream.py": "95becf2cd01a7ab07c67a4da8d26c8e8bf58297f56513a439b0ab2b2be776619"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "band_masked_ssl_full_finetune": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_band_ssl_weights_only_inference_v1",
+      "method": "masked_ssl",
+      "seed": 7,
+      "mode": "full_finetune",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_masked_ssl_full_finetune_seed7_h96",
+      "standalone_scalers_present": false,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": "ORIGINAL_SHARED7_TRAIN_SCALERS_PENDING_EMBEDDED_EQUALITY_AUDIT",
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_masked_ssl_full_finetune_seed7_h96\\inference.pt": "03326a9fa37652104cf9ed4e659a0c6fe1a9d0fc6698d95d6270077cdd228c02",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_masked_ssl_full_finetune_seed7_h96\\selected_encoder.pt": "345b9f211e470b75fcd0ddfc7b8ead52a15e196f8c2a7317df6431740ef4e383"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_downstream.py": "95becf2cd01a7ab07c67a4da8d26c8e8bf58297f56513a439b0ab2b2be776619"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "band_masked_ssl_short_probe": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_band_ssl_weights_only_inference_v1",
+      "method": "masked_ssl",
+      "seed": 7,
+      "mode": "core_frozen_readout",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_masked_ssl_seed7_h96_reviewed",
+      "standalone_scalers_present": true,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_masked_ssl_seed7_h96_reviewed\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": null,
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_masked_ssl_seed7_h96_reviewed\\inference.pt": "4b27e30f858fde0211bcbed799ae9b6fbed93a24ae650ff271e223cada662a8b",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_masked_ssl_seed7_h96_reviewed\\selected_encoder.pt": "3910de3e2aab729189009d6ed7021d7f43b5445cd2bcdd94d805e1738a3fc461"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_ssl.py": "ca33bf3141ea17c5adb3d0a4cd2ed0d186be8efb846a5b581003f2088a105e4f"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "band_permuted_ssl_frozen_readout": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_band_ssl_weights_only_inference_v1",
+      "method": "permuted_ssl",
+      "seed": 7,
+      "mode": "frozen_readout",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_permuted_ssl_frozen_readout_seed7_h96",
+      "standalone_scalers_present": false,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": "ORIGINAL_SHARED7_TRAIN_SCALERS_PENDING_EMBEDDED_EQUALITY_AUDIT",
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_permuted_ssl_frozen_readout_seed7_h96\\inference.pt": "775beaf85932d4d67deae7abad8b754ccfe87d0415810b166900312b1e9091e1",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_permuted_ssl_frozen_readout_seed7_h96\\selected_encoder.pt": "309f3d48380e28c03b7d5788c711e56de330af0a264ecb065df3b586d5827395"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_downstream.py": "95becf2cd01a7ab07c67a4da8d26c8e8bf58297f56513a439b0ab2b2be776619"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "band_permuted_ssl_short_probe": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_band_ssl_weights_only_inference_v1",
+      "method": "permuted_ssl",
+      "seed": 7,
+      "mode": "core_frozen_readout",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_permuted_ssl_seed7_h96_reviewed",
+      "standalone_scalers_present": true,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_permuted_ssl_seed7_h96_reviewed\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": null,
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_permuted_ssl_seed7_h96_reviewed\\inference.pt": "00e099f30eab9c1a49748b7b79587c55324d70543003bbebf897307f98da60dd",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_permuted_ssl_seed7_h96_reviewed\\selected_encoder.pt": "309f3d48380e28c03b7d5788c711e56de330af0a264ecb065df3b586d5827395"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_ssl.py": "ca33bf3141ea17c5adb3d0a4cd2ed0d186be8efb846a5b581003f2088a105e4f"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "band_random_frozen_frozen_readout": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_band_ssl_weights_only_inference_v1",
+      "method": "random_frozen",
+      "seed": 7,
+      "mode": "frozen_readout",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_random_frozen_frozen_readout_seed7_h96_native_retry01",
+      "standalone_scalers_present": false,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": "ORIGINAL_SHARED7_TRAIN_SCALERS_PENDING_EMBEDDED_EQUALITY_AUDIT",
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_random_frozen_frozen_readout_seed7_h96_native_retry01\\inference.pt": "bed6d0cfe99d2740fe224e7b87a1ab1f7b1e7a4e74f833acf4bf731364cf995b",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_random_frozen_frozen_readout_seed7_h96_native_retry01\\selected_encoder.pt": "944571f0fadbe09cef39b0d474fcc5e793a70399880032933fc05dac6c6b0c1a"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_downstream.py": "95becf2cd01a7ab07c67a4da8d26c8e8bf58297f56513a439b0ab2b2be776619"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "band_random_frozen_short_probe": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_band_ssl_weights_only_inference_v1",
+      "method": "random_frozen",
+      "seed": 7,
+      "mode": "core_frozen_readout",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_random_frozen_seed7_h96_reviewed",
+      "standalone_scalers_present": true,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_random_frozen_seed7_h96_reviewed\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": null,
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_random_frozen_seed7_h96_reviewed\\inference.pt": "0cd9ac14601a990c78d9b671177f1cc648ca75814105558ad87236b08aed1d21",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_random_frozen_seed7_h96_reviewed\\selected_encoder.pt": "944571f0fadbe09cef39b0d474fcc5e793a70399880032933fc05dac6c6b0c1a"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_ssl.py": "ca33bf3141ea17c5adb3d0a4cd2ed0d186be8efb846a5b581003f2088a105e4f"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "band_shared_ssl_frozen_readout": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_band_ssl_weights_only_inference_v1",
+      "method": "shared_ssl",
+      "seed": 7,
+      "mode": "frozen_readout",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_frozen_readout_seed7_h96",
+      "standalone_scalers_present": false,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": "ORIGINAL_SHARED7_TRAIN_SCALERS_PENDING_EMBEDDED_EQUALITY_AUDIT",
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_frozen_readout_seed7_h96\\inference.pt": "189890be95c257e06cc212a5202108fb5b9763ebe000c25a566a6804eeb0d72d",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_frozen_readout_seed7_h96\\selected_encoder.pt": "fbe4736dcb65a597392f7b307f21e3785b9320c07cd82bd73d2ecba9b5becdf1"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_downstream.py": "95becf2cd01a7ab07c67a4da8d26c8e8bf58297f56513a439b0ab2b2be776619"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "band_shared_ssl_frozen_readout_seed13": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_band_replication_ssl_weights_only_inference_v2",
+      "method": "shared_ssl",
+      "seed": 13,
+      "mode": "frozen_readout",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_frozen_readout_seed13_h96_replication_v3",
+      "standalone_scalers_present": false,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": "ORIGINAL_SHARED7_TRAIN_SCALERS_PENDING_EMBEDDED_EQUALITY_AUDIT",
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_frozen_readout_seed13_h96_replication_v3\\inference.pt": "d23768316bd76dca3bbbe4950f0c30c0f932166f035d9385bd64fdc9f80d5eaf",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_frozen_readout_seed13_h96_replication_v3\\selected_encoder.pt": "1169402701f6cada2db4e46c314eae016e5f51d0d21d48b4422a501e30ba1dbb"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_replication_downstream.py": "f5a6747b3a37dcd8856b617a95cd939862ba716a1d7e50fe7ef9090a08d4084d"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "band_shared_ssl_full_finetune": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_band_ssl_weights_only_inference_v1",
+      "method": "shared_ssl",
+      "seed": 7,
+      "mode": "full_finetune",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_full_finetune_seed7_h96",
+      "standalone_scalers_present": false,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": "ORIGINAL_SHARED7_TRAIN_SCALERS_PENDING_EMBEDDED_EQUALITY_AUDIT",
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_full_finetune_seed7_h96\\inference.pt": "1e9a173366097f865fdad4fb624e8b9b7139e2379c820f40cd5fc114e4ea2316",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_full_finetune_seed7_h96\\selected_encoder.pt": "52006338f96566c1e7000ba889bb15af55e51bd1ee0f4f844f446e94a27f1cb7"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_downstream.py": "95becf2cd01a7ab07c67a4da8d26c8e8bf58297f56513a439b0ab2b2be776619"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "band_shared_ssl_full_finetune_seed13": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_band_replication_ssl_weights_only_inference_v2",
+      "method": "shared_ssl",
+      "seed": 13,
+      "mode": "full_finetune",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_full_finetune_seed13_h96_replication_v3",
+      "standalone_scalers_present": false,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": "ORIGINAL_SHARED7_TRAIN_SCALERS_PENDING_EMBEDDED_EQUALITY_AUDIT",
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_full_finetune_seed13_h96_replication_v3\\inference.pt": "f0de8f3002668f45209e3c236d3640fa1adc415ea0eddfefdb304b4e8569931a",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_full_finetune_seed13_h96_replication_v3\\selected_encoder.pt": "68dddd2e47a2f6e51b19e5b7f0230e9527118739e88da3e72aa021a7d29239ab"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_replication_downstream.py": "f5a6747b3a37dcd8856b617a95cd939862ba716a1d7e50fe7ef9090a08d4084d"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "band_shared_ssl_short_probe": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_band_ssl_weights_only_inference_v1",
+      "method": "shared_ssl",
+      "seed": 7,
+      "mode": "core_frozen_readout",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed7_h96_reviewed",
+      "standalone_scalers_present": true,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed7_h96_reviewed\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": null,
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed7_h96_reviewed\\inference.pt": "57fbb4ea652484dc9a63b895d116badaf8039dd51972633f7a345fcd56618bc7",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed7_h96_reviewed\\selected_encoder.pt": "fbe4736dcb65a597392f7b307f21e3785b9320c07cd82bd73d2ecba9b5becdf1"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_ssl.py": "ca33bf3141ea17c5adb3d0a4cd2ed0d186be8efb846a5b581003f2088a105e4f"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "band_shared_ssl_short_probe_seed13": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_band_replication_ssl_weights_only_inference_v2",
+      "method": "shared_ssl",
+      "seed": 13,
+      "mode": "core_frozen_readout",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed13_h96_replication_v2",
+      "standalone_scalers_present": true,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed13_h96_replication_v2\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": null,
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed13_h96_replication_v2\\inference.pt": "9bf6878c452c24b22b75c919b6cc8b0fea008c3652298746669708c1c1a8dd34",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed13_h96_replication_v2\\selected_encoder.pt": "1169402701f6cada2db4e46c314eae016e5f51d0d21d48b4422a501e30ba1dbb"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_replication_ssl.py": "94c04d2d585c39d49e849f4b86375e201898ae104e8a808341363a2f22518f72"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "band_shared_ssl_short_probe_seed23": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_band_replication_ssl_weights_only_inference_v2",
+      "method": "shared_ssl",
+      "seed": 23,
+      "mode": "core_frozen_readout",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed23_h96_replication_v2",
+      "standalone_scalers_present": true,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed23_h96_replication_v2\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": null,
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed23_h96_replication_v2\\inference.pt": "50a669dba613a7f5af39f6fe25bb5685ff48c8ede3e3f645e061a942c6dc40e5",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed23_h96_replication_v2\\selected_encoder.pt": "903d608a9656969dd5aecc4ad2a8baf56d718c698b820dca5cfdf0d821268d30"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_replication_ssl.py": "94c04d2d585c39d49e849f4b86375e201898ae104e8a808341363a2f22518f72"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "cf_jepa_frozen_readout": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_ssl_weights_only_inference_v1",
+      "method": "cf_jepa",
+      "seed": 7,
+      "mode": "frozen_readout",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_frozen_readout_seed7_h96",
+      "standalone_scalers_present": false,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": "ORIGINAL_SHARED7_TRAIN_SCALERS_PENDING_EMBEDDED_EQUALITY_AUDIT",
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_frozen_readout_seed7_h96\\inference.pt": "c563659e12d6375bbfd2171e6a38d2d0308f3159f1f93b313c34dd1f62832f83",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_frozen_readout_seed7_h96\\selected_encoder.pt": "2f34c61a4e0d7937a56b97ec1a51ea5f50d45802ec0eff31057fa243e55d386a"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_downstream.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "cf_jepa_frozen_readout_seed13": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_ssl_weights_only_inference_v1",
+      "method": "cf_jepa",
+      "seed": 13,
+      "mode": "frozen_readout",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_frozen_readout_seed13_h96_runtime_retry01",
+      "standalone_scalers_present": false,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": "ORIGINAL_SHARED7_TRAIN_SCALERS_PENDING_EMBEDDED_EQUALITY_AUDIT",
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_frozen_readout_seed13_h96_runtime_retry01\\inference.pt": "8657ec11eaa193115cf58a1f3377aacb98ce9c4d726dace9510bfa36b2c852af",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_frozen_readout_seed13_h96_runtime_retry01\\selected_encoder.pt": "d310943c7c3471e22e0de61cb6a60eb4228a501144ef0f61e9ee021a00c690d6"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_downstream.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "cf_jepa_frozen_readout_seed23": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_ssl_weights_only_inference_v1",
+      "method": "cf_jepa",
+      "seed": 23,
+      "mode": "frozen_readout",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_frozen_readout_seed23_h96",
+      "standalone_scalers_present": false,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": "ORIGINAL_SHARED7_TRAIN_SCALERS_PENDING_EMBEDDED_EQUALITY_AUDIT",
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_frozen_readout_seed23_h96\\inference.pt": "61d0ba7cf21d760b551a8174c57795f0aa6583eb898b662c2099d5163efd03fc",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_frozen_readout_seed23_h96\\selected_encoder.pt": "2f9320a45c8a9e00082a07c63347f9b85581ef3d5e8ab1664063000b1a26014a"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_downstream.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "cf_jepa_full_finetune": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_ssl_weights_only_inference_v1",
+      "method": "cf_jepa",
+      "seed": 7,
+      "mode": "full_finetune",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_full_finetune_seed7_h96",
+      "standalone_scalers_present": false,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": "ORIGINAL_SHARED7_TRAIN_SCALERS_PENDING_EMBEDDED_EQUALITY_AUDIT",
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_full_finetune_seed7_h96\\inference.pt": "0e8dec2ee91a3c18e4bfdf7f4b291e6038d2665e059d3a2cf18f6c1bed57c53b",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_full_finetune_seed7_h96\\selected_encoder.pt": "8d9f8cf891a17f56e6a7d0d29079e9fa147a57e27ea2cf153a418d7f1748b22a"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_downstream.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "cf_jepa_full_finetune_seed13": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_ssl_weights_only_inference_v1",
+      "method": "cf_jepa",
+      "seed": 13,
+      "mode": "full_finetune",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_full_finetune_seed13_h96",
+      "standalone_scalers_present": false,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": "ORIGINAL_SHARED7_TRAIN_SCALERS_PENDING_EMBEDDED_EQUALITY_AUDIT",
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_full_finetune_seed13_h96\\inference.pt": "96be448cea29659d2a6665087055fe67961ab0d827d6fad3470dad7dbedf5478",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_full_finetune_seed13_h96\\selected_encoder.pt": "53eed946be8ecca728261155a460b9f40b12110f4dc64af34b3176eb290330ae"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_downstream.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "cf_jepa_full_finetune_seed23": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_ssl_weights_only_inference_v1",
+      "method": "cf_jepa",
+      "seed": 23,
+      "mode": "full_finetune",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_full_finetune_seed23_h96",
+      "standalone_scalers_present": false,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": "ORIGINAL_SHARED7_TRAIN_SCALERS_PENDING_EMBEDDED_EQUALITY_AUDIT",
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_full_finetune_seed23_h96\\inference.pt": "bffba377c49edc0e2ab288c5dfb4a703de62c07bdae5c235834b56e61633585e",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_full_finetune_seed23_h96\\selected_encoder.pt": "6982950b163af6afd692da9a5ffa704ee9f98592be104470e255f50556b5c5e4"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_downstream.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "cf_short_probe": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_ssl_weights_only_inference_v1",
+      "method": "cf_jepa",
+      "seed": 7,
+      "mode": "core_frozen_readout",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed7_h96_deterministic",
+      "standalone_scalers_present": true,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed7_h96_deterministic\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": null,
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed7_h96_deterministic\\inference.pt": "d6eef2c06807843848c029a0655ddb8b2694d9f1802141daace0c8c41a1812cc",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed7_h96_deterministic\\selected_encoder.pt": "2f34c61a4e0d7937a56b97ec1a51ea5f50d45802ec0eff31057fa243e55d386a"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_ssl.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "cf_short_probe_seed13": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_ssl_weights_only_inference_v1",
+      "method": "cf_jepa",
+      "seed": 13,
+      "mode": "core_frozen_readout",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed13_h96_replication",
+      "standalone_scalers_present": true,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed13_h96_replication\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": null,
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed13_h96_replication\\inference.pt": "fa7250e1c7f988431b9032ed65eceea8021b8de96d037f5d935203f1c4bb8df3",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed13_h96_replication\\selected_encoder.pt": "d310943c7c3471e22e0de61cb6a60eb4228a501144ef0f61e9ee021a00c690d6"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_ssl.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "cf_short_probe_seed23": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_ssl_weights_only_inference_v1",
+      "method": "cf_jepa",
+      "seed": 23,
+      "mode": "core_frozen_readout",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed23_h96_replication",
+      "standalone_scalers_present": true,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed23_h96_replication\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": null,
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed23_h96_replication\\inference.pt": "556c69fe366713d11e64023fe1a4460ec235a7381e4065d263edc7fed3b2b113",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed23_h96_replication\\selected_encoder.pt": "2f9320a45c8a9e00082a07c63347f9b85581ef3d5e8ab1664063000b1a26014a"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_ssl.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "direct_end_to_end": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_ssl_weights_only_inference_v1",
+      "method": "direct",
+      "seed": 7,
+      "mode": "direct_end_to_end",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_direct_end_to_end_seed7_h96",
+      "standalone_scalers_present": false,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": "ORIGINAL_SHARED7_TRAIN_SCALERS_PENDING_EMBEDDED_EQUALITY_AUDIT",
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_direct_end_to_end_seed7_h96\\inference.pt": "8ce9184f0af3ac5bc53f0565e02a772c54bd59ec7632c80b561d76d9e6ccc92a",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_direct_end_to_end_seed7_h96\\selected_encoder.pt": "9725d7ef33ccf21321d47be99d8989248ca24ca8a23856b15fd00b2367f0d44c"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_downstream.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "direct_end_to_end_seed13": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_ssl_weights_only_inference_v1",
+      "method": "direct",
+      "seed": 13,
+      "mode": "direct_end_to_end",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_direct_end_to_end_seed13_h96_replication",
+      "standalone_scalers_present": false,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": "ORIGINAL_SHARED7_TRAIN_SCALERS_PENDING_EMBEDDED_EQUALITY_AUDIT",
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_direct_end_to_end_seed13_h96_replication\\inference.pt": "f973ccdd162a4327358140097724128099eb0b98334a8081a7a7f37ccd6cbde1",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_direct_end_to_end_seed13_h96_replication\\selected_encoder.pt": "44c9eed81fd18eeeec01abafb3e7f3184ed2282465dff3ece338401ddfc4c508"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_downstream.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "direct_end_to_end_seed23": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_ssl_weights_only_inference_v1",
+      "method": "direct",
+      "seed": 23,
+      "mode": "direct_end_to_end",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_direct_end_to_end_seed23_h96_replication",
+      "standalone_scalers_present": false,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": "ORIGINAL_SHARED7_TRAIN_SCALERS_PENDING_EMBEDDED_EQUALITY_AUDIT",
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_direct_end_to_end_seed23_h96_replication\\inference.pt": "f13317fc8737fae58eb52aceb0a531875cfd936604b8997f0a8435138980224e",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_direct_end_to_end_seed23_h96_replication\\selected_encoder.pt": "eb02b7cc048ccd460db2cd3495c229629e9291a7387c95afeb38c91c29d7a1aa"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_downstream.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "direct_frozen_readout": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_ssl_weights_only_inference_v1",
+      "method": "direct",
+      "seed": 7,
+      "mode": "frozen_readout",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_frozen_readout_seed7_h96",
+      "standalone_scalers_present": false,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": "ORIGINAL_SHARED7_TRAIN_SCALERS_PENDING_EMBEDDED_EQUALITY_AUDIT",
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_frozen_readout_seed7_h96\\inference.pt": "340f2eed779c112bf8ee5baa6b8d36f361988151f55b0a6f3b28669e3adb6910",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_frozen_readout_seed7_h96\\selected_encoder.pt": "52fc8494300c1e82cbf0d873d99e96f373c3777fe4d00d2b7f707aa75c8f9cd4"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_downstream.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "direct_short_probe": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_ssl_weights_only_inference_v1",
+      "method": "direct",
+      "seed": 7,
+      "mode": "core_frozen_readout",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_seed7_h96_reviewed",
+      "standalone_scalers_present": true,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_seed7_h96_reviewed\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": null,
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_seed7_h96_reviewed\\inference.pt": "1c701e346c8e326f900cb92d3269b87202c36ca6548d8d545c66d2b55b19d6aa",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_seed7_h96_reviewed\\selected_encoder.pt": "52fc8494300c1e82cbf0d873d99e96f373c3777fe4d00d2b7f707aa75c8f9cd4"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_ssl.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "masked_ssl_frozen_readout": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_ssl_weights_only_inference_v1",
+      "method": "masked_ssl",
+      "seed": 7,
+      "mode": "frozen_readout",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\masked_ssl_frozen_readout_seed7_h96",
+      "standalone_scalers_present": false,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": "ORIGINAL_SHARED7_TRAIN_SCALERS_PENDING_EMBEDDED_EQUALITY_AUDIT",
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\masked_ssl_frozen_readout_seed7_h96\\inference.pt": "19e6900f9b8be10c6b28cd6348df415cb50daac3cc58a271e4d87ce635f05d39",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\masked_ssl_frozen_readout_seed7_h96\\selected_encoder.pt": "84343dbfd93f4f05592ad242acaa4497543399921e10e1f4e32e5013baaae5d2"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_downstream.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "masked_ssl_full_finetune": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_ssl_weights_only_inference_v1",
+      "method": "masked_ssl",
+      "seed": 7,
+      "mode": "full_finetune",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\masked_ssl_full_finetune_seed7_h96",
+      "standalone_scalers_present": false,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": "ORIGINAL_SHARED7_TRAIN_SCALERS_PENDING_EMBEDDED_EQUALITY_AUDIT",
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\masked_ssl_full_finetune_seed7_h96\\inference.pt": "5fbf3375913361a135279dc1f009f6fb8552636c3cb571d2bb081f8003741a5b",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\masked_ssl_full_finetune_seed7_h96\\selected_encoder.pt": "7eabb905b6e32c9ed513733e1b2f9702fecb871d93108e7ccde995e739d94747"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_downstream.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "masked_ssl_short_probe": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_ssl_weights_only_inference_v1",
+      "method": "masked_ssl",
+      "seed": 7,
+      "mode": "core_frozen_readout",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\masked_ssl_seed7_h96_reviewed",
+      "standalone_scalers_present": true,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\masked_ssl_seed7_h96_reviewed\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": null,
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\masked_ssl_seed7_h96_reviewed\\inference.pt": "7414288a009040d5143284a20254fc50833defeb1516a6c7cdd01c280a79a1c9",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\masked_ssl_seed7_h96_reviewed\\selected_encoder.pt": "84343dbfd93f4f05592ad242acaa4497543399921e10e1f4e32e5013baaae5d2"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_ssl.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "permuted_ssl_frozen_readout": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_ssl_weights_only_inference_v1",
+      "method": "permuted_ssl",
+      "seed": 7,
+      "mode": "frozen_readout",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\permuted_ssl_frozen_readout_seed7_h96",
+      "standalone_scalers_present": false,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": "ORIGINAL_SHARED7_TRAIN_SCALERS_PENDING_EMBEDDED_EQUALITY_AUDIT",
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\permuted_ssl_frozen_readout_seed7_h96\\inference.pt": "4d543b7499a800ef44618e52a070ac8e3f524029648e54dedb499c1d6363a4ac",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\permuted_ssl_frozen_readout_seed7_h96\\selected_encoder.pt": "b2b8d4e7558e92f07eebf790f7e899fbb8b8318814057cbc377bd993ed66b691"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_downstream.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "permuted_ssl_short_probe": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_ssl_weights_only_inference_v1",
+      "method": "permuted_ssl",
+      "seed": 7,
+      "mode": "core_frozen_readout",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\permuted_ssl_seed7_h96_reviewed",
+      "standalone_scalers_present": true,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\permuted_ssl_seed7_h96_reviewed\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": null,
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\permuted_ssl_seed7_h96_reviewed\\inference.pt": "12ad28ed6a94d017591a86c13e14447ce70492185f32608eb40c44c7a2a27984",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\permuted_ssl_seed7_h96_reviewed\\selected_encoder.pt": "b2b8d4e7558e92f07eebf790f7e899fbb8b8318814057cbc377bd993ed66b691"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_ssl.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "random_frozen_frozen_readout": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_ssl_weights_only_inference_v1",
+      "method": "random_frozen",
+      "seed": 7,
+      "mode": "frozen_readout",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\random_frozen_frozen_readout_seed7_h96",
+      "standalone_scalers_present": false,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": "ORIGINAL_SHARED7_TRAIN_SCALERS_PENDING_EMBEDDED_EQUALITY_AUDIT",
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\random_frozen_frozen_readout_seed7_h96\\inference.pt": "8493f4bcc24191c302b617b0d749ae422644cb155ca8661d193b34e84bfe3cb9",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\random_frozen_frozen_readout_seed7_h96\\selected_encoder.pt": "123a8f3548541bf499976cf715882b5b82cfe75618deb528206f0bc7d99d102b"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_downstream.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "random_frozen_short_probe": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_ssl_weights_only_inference_v1",
+      "method": "random_frozen",
+      "seed": 7,
+      "mode": "core_frozen_readout",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\random_frozen_seed7_h96_reviewed",
+      "standalone_scalers_present": true,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\random_frozen_seed7_h96_reviewed\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": null,
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\random_frozen_seed7_h96_reviewed\\inference.pt": "748b9cebded1323b373e187f4ec4d74873d07157a817bafa535a4bccca9747d7",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\random_frozen_seed7_h96_reviewed\\selected_encoder.pt": "123a8f3548541bf499976cf715882b5b82cfe75618deb528206f0bc7d99d102b"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_ssl.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "shared_frozen_readout": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_ssl_weights_only_inference_v1",
+      "method": "shared_ssl",
+      "seed": 7,
+      "mode": "frozen_readout",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_frozen_readout_seed7_h96",
+      "standalone_scalers_present": false,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": "ORIGINAL_SHARED7_TRAIN_SCALERS_PENDING_EMBEDDED_EQUALITY_AUDIT",
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_frozen_readout_seed7_h96\\inference.pt": "56393249f18c042fa0c6eaa5680921097b7a8ada88869d510ebea978be3884ef",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_frozen_readout_seed7_h96\\selected_encoder.pt": "a9f332f080201dccd99bccc25ba658b4136ba760df08a3b29f6c4f1bdc164141"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_downstream.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "shared_full_finetune": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_ssl_weights_only_inference_v1",
+      "method": "shared_ssl",
+      "seed": 7,
+      "mode": "full_finetune",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_full_finetune_seed7_h96",
+      "standalone_scalers_present": false,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": "ORIGINAL_SHARED7_TRAIN_SCALERS_PENDING_EMBEDDED_EQUALITY_AUDIT",
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_full_finetune_seed7_h96\\inference.pt": "d0fcbdaf5f0c43c4c9a5b4f5bc763302344afd6a3b159d7720b221da1180edc2",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_full_finetune_seed7_h96\\selected_encoder.pt": "0f055c6ed35373d98214988183796b3b4bd6c16081af784919483c8289099265"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_downstream.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    },
+    "shared_short_probe": {
+      "kind": "native_train_scaler_reservation_v1",
+      "status": "PROPOSED_METADATA_RESERVATION_NOT_APPROVAL",
+      "producer_kind": "native_ssl_weights_only_inference_v1",
+      "method": "shared_ssl",
+      "seed": 7,
+      "mode": "core_frozen_readout",
+      "endpoint_directory": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0",
+      "standalone_scalers_present": true,
+      "scalers_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\scalers.json",
+      "scalers_sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed",
+      "alias": null,
+      "saved_tensor_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\inference.pt": "b085583862f9b69e153bc041d9a07277bea70cac8e891ccaa859facc3fddd4d8",
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\selected_encoder.pt": "a9f332f080201dccd99bccc25ba658b4136ba760df08a3b29f6c4f1bdc164141"
+      },
+      "producer_source_bindings": {
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_ssl.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744"
+      },
+      "embedded_selected_and_inference_scaler_equality": "NOT_ESTABLISHED_REQUIRES_EXISTING_BOUNDED_TENSOR_AUDIT",
+      "numeric_access_authority": false,
+      "fit_authority": false,
+      "approval": false
+    }
+  },
+  "model_tensors_decoded": false,
+  "acoustic_arrays_decoded": false,
+  "scaler_values_decoded": false,
+  "models_constructed": false,
+  "embedded_scaler_equality_assessed": false,
+  "fitting": false,
+  "approval": false,
+  "elapsed_seconds": 0.625,
+  "manifest_sha256": "1d2ea7ddab1205a4fecf1fe24eae96037b7ac76cd307d5116885eb55642d18f9",
+  "helper_sha256": "9a60e026d4f68b42efd3521988da29f0d33b80dbed9ec5656bf60034d0fbf307"
+}

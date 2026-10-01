@@ -1,8 +1,12 @@
 ## Active model-first research — native acoustic SSL
 
-Updated 2026-10-01T01:12:00+00:00.
+Updated 2026-10-01T02:42:00+00:00.
 
 Branch `research/marine-jepa-vnext`; owner-authorized local model research.
+Scientific programme BLOCKED by required independent reviews automatically
+rejected before inspection across three consecutive goal turns. The full
+objective is incomplete; latest authoritative gate audit and checkpointV5
+identify the missing3 fits, expanded comparison, final freeze/access and transfer.
 App/release work is frozen; historical protocols, evidence and approved r3 are preserved.
 AEON2 whole-site final-test values remain unopened. Native geometry is retained.
 TRAIN18,593 issued/18,312 SSL eligible; DEV7,593 issued at native0–225m.
@@ -55,6 +59,14 @@ The first distinct review of the new package was automatically rejected before
 file inspection (actual CLI exit1, chunkb5c73a), "Potentially unintended activity."
 Its exact events/task/closeout are preserved. Package independent approval is
 absent; local correctness remains verified. No alternate review route was used.
+New separately versioned TRAIN-scaler metadata tooling repaired the missing
+duplicate-JSON obstruction while preserving full47/43 guards and historical outputs.
+Builder CLI91097 exited0 (chunkdfe784); ROOT58 tests passed7.12s (chunk85f611),
+lint passed (chunkc63a37), and all40 actual metadata reservations passed0.625s
+with26 proposed aliases (chunkb068c7). No model/scaler/acoustic values decoded.
+All40 protected dependencies unchanged; actual43/47 production preparation NOT_RUN.
+The approved r3 archive hash was reverified during the recurrent-impasse audit.
+No active agent/training handle remains. See NATIVE_SSL_RESEARCH_BLOCKED_CHECKPOINT_V5.
 Original serial queue: COMPLETED_REVIEWED_SERIAL_QUEUE; 9/9 reports inspected.
 Charged owned GPU-hours at ledger snapshot: 14.953011/96.
 The active wrappers own ledger writes; coordinator does not overwrite live accounting.

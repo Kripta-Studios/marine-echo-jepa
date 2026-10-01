@@ -1,0 +1,84 @@
+{
+  "actual_production_execution": "NOT_RUN",
+  "checks": [
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest tests\\unit\\test_native_train_scaler_reservation_v1.py -q --import-mode=importlib -p no:cacheprovider",
+      "exit_code": 1,
+      "log": "red-missing-band-scalers-01.log",
+      "log_sha256": "3deac8ead26bc4c248d0f3922602a2b54890e47ce02e57bd5f1cf675f56f595d",
+      "result": "1 genuine failure at the preserved original/Band scaler restriction",
+      "witness": "90ba8d"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest tests\\unit\\test_native_train_scaler_reservation_v1.py -q --import-mode=importlib -p no:cacheprovider",
+      "exit_code": 1,
+      "log": "green-band-reservation-01.log",
+      "log_sha256": "35e99985cd1d7c6286d3737c6340acbb5f4493a0b17bd2ad6bef44421685f208",
+      "result": "Implementation accepted alias; private test used POSIX path suffix on Windows, corrected to Path.parts",
+      "witness": "49b6d7"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest tests\\unit\\test_native_train_scaler_reservation_v1.py -q --import-mode=importlib -p no:cacheprovider",
+      "exit_code": 0,
+      "log": "green-helper-and-inventory-02.log",
+      "log_sha256": "de61deb2790e378b2cb214344cd6289893b111dc960b73d744a42258e9b551d8",
+      "witness": "6185fd"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest tests\\unit\\test_native_train_scaler_reservation_v1.py -q --import-mode=importlib -p no:cacheprovider",
+      "exit_code": 0,
+      "log": "green-all-routes-03.log",
+      "log_sha256": "aaec6d0bde471f42ed43c9e38ad86a1ce9addb8a20325932436687d4a14cf330",
+      "witness": "b142a6"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest tests\\unit\\test_native_train_scaler_reservation_v1.py -q --import-mode=importlib -p no:cacheprovider",
+      "exit_code": 0,
+      "log": "green-complete-contract-04.log",
+      "log_sha256": "f92235fe65ca676366ead51a9241fe737ce593e8ad1e158cf9afc9ae807693e5",
+      "result": "58 passed in 7.59s",
+      "witness": "ba9b8a"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest tests\\unit\\test_native_train_scaler_reservation_v1.py -q --import-mode=importlib -p no:cacheprovider",
+      "exit_code": 0,
+      "log": "green-final-05.log",
+      "log_sha256": "b3099f08f30a85dd669ef7ce29a658f21f6ef515721cc19c3f63446652a27fbe",
+      "result": "58 passed in 7.33s",
+      "witness": "17385d"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff check --no-cache tools\\native_train_scaler_reservation_v1.py tools\\prepare_native_development_comparison_v5.py tools\\prepare_completed_native_inventory_v6.py tools\\execute_completed_native_inventory_owned_v6.py tests\\unit\\test_native_train_scaler_reservation_v1.py",
+      "exit_code": 1,
+      "log": "lint-check-01.log",
+      "log_sha256": "75231fcf09854abc41cd93d7b2de453751e43e85de36bf7d1aadd243a8cfbb1e",
+      "result": "Import formatting and combined-with style; corrected",
+      "witness": "88e4cf"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff format --no-cache tools\\native_train_scaler_reservation_v1.py tools\\prepare_native_development_comparison_v5.py tools\\prepare_completed_native_inventory_v6.py tools\\execute_completed_native_inventory_owned_v6.py tests\\unit\\test_native_train_scaler_reservation_v1.py",
+      "exit_code": 0,
+      "log": "format-01.log",
+      "log_sha256": "8e2386a91e134d7c59880fba6492f92667e157bfb1bbece84b5f0b61066c4964",
+      "witness": "26ff3f"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff check --no-cache tools\\native_train_scaler_reservation_v1.py tools\\prepare_native_development_comparison_v5.py tools\\prepare_completed_native_inventory_v6.py tools\\execute_completed_native_inventory_owned_v6.py tests\\unit\\test_native_train_scaler_reservation_v1.py",
+      "exit_code": 0,
+      "log": "lint-check-02.log",
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "result": "All checks passed",
+      "witness": "f3b8a1"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff format --check --no-cache tools\\native_train_scaler_reservation_v1.py tools\\prepare_native_development_comparison_v5.py tools\\prepare_completed_native_inventory_v6.py tools\\execute_completed_native_inventory_owned_v6.py tests\\unit\\test_native_train_scaler_reservation_v1.py",
+      "exit_code": 0,
+      "log": "lint-format-final-02.log",
+      "log_sha256": "f114d83b30c5c657ee43a847a45bafccaea255d82673feb87c26d252c61e29c1",
+      "witness": "f66458"
+    }
+  ],
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "physical_codecs": "Private JSON/opaque-byte fixtures only",
+  "virtual_owned_wrapper_tests": "Mock child/supervisor, not actual processes/resources/cleanup"
+}

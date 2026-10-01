@@ -1,0 +1,34 @@
+{
+  "status": "CLOSED_ENGINEERING_DELIVERY",
+  "files": {
+    "tools/native_train_scaler_reservation_v1.py": "9a60e026d4f68b42efd3521988da29f0d33b80dbed9ec5656bf60034d0fbf307",
+    "tools/prepare_native_development_comparison_v5.py": "c73e875a0b9d2cdb57f32eada1386119a55850fbd8ff474890139f18da474875",
+    "tools/prepare_completed_native_inventory_v6.py": "833f73d71ce94485f643ee1f4a132cd42cdae1a2a02d49a844bdd205c91df0e9",
+    "tools/execute_completed_native_inventory_owned_v6.py": "aa0c0efcc613ccd673ced0f815425e5bd6b7b3fdab2002fb662f4615e309fef3",
+    "tests/unit/test_native_train_scaler_reservation_v1.py": "d2d7b8654cb64f8fb4a74d04be349c25741de7b455c099748849f20527bb19ff"
+  },
+  "checks": {
+    "meaningful_red": "exit 1: reproduced missing Band scaler restriction",
+    "final_pytest": "exit 0: 58 passed in 7.33s",
+    "ruff_check": 0,
+    "ruff_format_check": 0,
+    "source_and_ast_proof": 0,
+    "protected_dependencies_unchanged": 40
+  },
+  "evidence": {
+    "directory": "evidence/ssl-native-scaler-reservation-builder-v1",
+    "handoff-v1.json": "6728e72b2b2c4bfe44f546b30ec1d1154fe76b19a61055b5981360a7df047419",
+    "NATIVE_TRAIN_SCALER_RESERVATION_V1.md": "d185f3ea998e4ded7c2e3722be3ffe6af707ffcd4aa1d7f1246ab34d3d83cc03",
+    "source-proof-final-v1.json": "224beed8892b16b984f389922c4fd4de90d36a4d5213e39715bd69e7aa30750e",
+    "contents": "Exact dependency/evidence hashes, executed commands and exits, preserved failures, bounded diff, snapshots and prospective ROOT commands."
+  },
+  "protected_sources_unchanged": true,
+  "production_status": "NOT_RUN",
+  "limitations": [
+    "Aliases do not establish embedded tensor-scaler equality or approval.",
+    "All 47 methods and 43 neural endpoints remain mandatory.",
+    "No historical scaler files were created.",
+    "No tensor/acoustic decoding, fitting, CUDA initialization or ROOT writes.",
+    "Actual bounded tensor audit and distinct review remain ROOT-only."
+  ]
+}

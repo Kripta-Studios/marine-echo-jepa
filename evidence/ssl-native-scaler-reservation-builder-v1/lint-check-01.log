@@ -1,0 +1,74 @@
+I001 [*] Import block is un-sorted or un-formatted
+  --> tests\unit\test_native_train_scaler_reservation_v1.py:3:1
+   |
+ 1 |   """SYNTHETIC_CORRECTNESS_ONLY metadata guards; no real tensors or processes."""
+ 2 |
+ 3 | / from __future__ import annotations
+ 4 | |
+ 5 | | import ast
+ 6 | | import copy
+ 7 | | import importlib
+ 8 | | import json
+ 9 | | import stat
+10 | | import sys
+11 | | import uuid
+12 | | from contextlib import contextmanager
+13 | | from pathlib import Path
+14 | | from types import SimpleNamespace
+15 | |
+16 | | import pytest
+   | |_____________^
+help: Organize imports
+   |
+17 |
+   -
+18 | BUILDER = Path(__file__).resolve().parents[2]
+   |
+
+SIM117 Use a single `with` statement with multiple contexts instead of nested `with` statements
+   --> tests\unit\test_native_train_scaler_reservation_v1.py:607:5
+    |
+605 |       def remove(value):
+606 |           value["bindings"].pop(str(Path(scaler.__file__).resolve()))
+607 | /     with changed(paths.manifest, remove):
+608 | |         # Restage the private reservation hash so the helper gate itself is tested.
+609 | |         with changed(prep.reservation_path(paths.snapshot), lambda value: value.update(manifest_sha256=prep.digest(paths.manifest))), pytest.raises(ValueError, match="bindings"):
+    | |__________________________________________________________________________________________________________________________________________________________________________________^
+610 |               owned.execute(case.root, paths.manifest, paths.snapshot, paths.output, paths.receipt, launcher=lambda *a, **k: pytest.fail("Must not launch"))
+611 |       assert not paths.receipt.exists()
+    |
+help: Combine `with` statements
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> tools\prepare_native_development_comparison_v5.py:3:1
+   |
+ 1 |   """Reserve all 47 completed endpoints without selecting seeds or decoding values."""
+ 2 |
+ 3 | / import hashlib
+ 4 | | import json
+ 5 | | from pathlib import Path
+ 6 | |
+ 7 | | from native_train_scaler_reservation_v1 import reserve_train_scalers
+ 8 | | from prepare_completed_native_inventory_v6 import (
+ 9 | |     REFERENCES, declared_kind, dependencies, document, fresh, idle_ledger, regular,
+10 | | )
+   | |_^
+11 |
+12 |   ROOT = Path(__file__).resolve().parents[1]
+   |
+help: Organize imports
+   |
+8  | from prepare_completed_native_inventory_v6 import (
+   -     REFERENCES, declared_kind, dependencies, document, fresh, idle_ledger, regular,
+9  +     REFERENCES,
+10 +     declared_kind,
+11 +     dependencies,
+12 +     document,
+13 +     fresh,
+14 +     idle_ledger,
+15 +     regular,
+16 | )
+   |
+
+Found 3 errors.
+[*] 2 fixable with the `--fix` option.
