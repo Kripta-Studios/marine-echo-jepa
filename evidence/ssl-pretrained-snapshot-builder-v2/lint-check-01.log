@@ -1,0 +1,13 @@
+RUF012 Mutable default value for class attribute
+   --> tests\unit\test_native_pretrained_snapshot_v2_contract.py:253:27
+    |
+251 |     class SyntheticAdapter:
+252 |         artifact_kind = kind
+253 |         config_metadata = {"method": item["method"], "seed": item["seed"], "history": 96}
+    |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+254 |
+255 |         def encode(self, x, observed, metadata):
+    |
+help: Consider initializing in `__init__` or annotating with `typing.ClassVar`
+
+Found 1 error.

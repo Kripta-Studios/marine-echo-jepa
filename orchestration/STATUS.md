@@ -1,6 +1,6 @@
 ## Active model-first research — native acoustic SSL
 
-Updated 2026-10-01T00:47:00+00:00.
+Updated 2026-10-01T01:10:00+00:00.
 
 Branch `research/marine-jepa-vnext`; owner-authorized local model research.
 App/release work is frozen; historical protocols, evidence and approved r3 are preserved.
@@ -41,8 +41,16 @@ and strong23 frozen/full prefits were automatically rejected; no fits launched.
 Approved strong13 frozen2000/full3000 and random7 frozen2000 completed under the
 original guard: CLI9450 exit0, chunkcbfe2a, all resource/cleanup checks passed.
 Closed Band8.318836/12 and aggregate17.802356/96 full-owned GPU-hours include failures.
-The immutable seven-model snapshot is in the existing isolated builder lane;
-production packaging/QA NOT_RUN. See the new scientific report addendumV3.
+The immutable seven-model snapshotV2 is packaged at109616204 bytes; all97 ZIP
+entries match the copied directory and recorded hashes. Root54 contract tests
+passed; production packaging exited0; isolated copied-source CPU inference on
+all7 real encoders passed in4.125s at628912128-byte owned RAM with cleanup.
+Archive SHA22f116a426dbba384610b0bd60e9d450660dcf50d4111a56040989dd4e2d2d48.
+Synthetic-input correctness grants no scientific performance or independent review.
+Native230-to-200 relabeling is rejected by all applicable shared query interfaces.
+Independent package review, expanded numeric comparison, public prefix transfer
+and final-site numerical access remain NOT_RUN. See report addendumV4 and the
+separate package closeout. App/release work remains frozen.
 Original serial queue: COMPLETED_REVIEWED_SERIAL_QUEUE; 9/9 reports inspected.
 Charged owned GPU-hours at ledger snapshot: 14.953011/96.
 The active wrappers own ledger writes; coordinator does not overwrite live accounting.

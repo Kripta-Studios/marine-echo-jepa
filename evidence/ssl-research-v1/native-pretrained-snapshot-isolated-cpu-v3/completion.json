@@ -1,0 +1,136 @@
+{
+  "status": "COPIED_SEVEN_MODEL_PACKAGE_ISOLATED_CPU_CORRECTNESS_PASSED",
+  "evidence_kind": "SYNTHETIC_INPUT_CORRECTNESS_ONLY_REAL_PRETRAINED_WEIGHTS",
+  "records": [
+    {
+      "id": "shared_ssl_seed7_h96_cuda0",
+      "inference_kind": "native_ssl_weights_only_inference_v1",
+      "embedding_shape": [
+        2,
+        64
+      ],
+      "latent_shape": [
+        2,
+        3,
+        64
+      ],
+      "embedding_sha256": "cc5433a873a93ce45fcc937b61f5b02c5dc1107a674a9b01e4b8c4050c7cefd1",
+      "selected_and_latent_encoder_cpu_replay": "BITIDENTICAL",
+      "latent_semantics": "NATIVE_OFFSETS_1_3_6_FOUR_INTERVAL_LATENT_BLOCKS",
+      "native230_query_guard": "PASSED"
+    },
+    {
+      "id": "cf_jepa_seed7_h96_deterministic",
+      "inference_kind": "native_ssl_weights_only_inference_v1",
+      "embedding_shape": [
+        2,
+        128
+      ],
+      "latent_shape": [
+        2,
+        96,
+        3,
+        128
+      ],
+      "embedding_sha256": "4a4a8e67bdbe37166ea938bfb8f7f016863911481bd030f36bdb8c14c526060d",
+      "selected_and_latent_encoder_cpu_replay": "BITIDENTICAL",
+      "latent_semantics": "ONLINE_ORDINAL_ZONES_EMA_ENCODING_FULL_H96_OUTSIDE_CROP_SUPPORT",
+      "native230_query_guard": "NOT_APPLICABLE_TO_CF_ORDINAL_ZONES"
+    },
+    {
+      "id": "cf_jepa_seed13_h96_replication",
+      "inference_kind": "native_ssl_weights_only_inference_v1",
+      "embedding_shape": [
+        2,
+        128
+      ],
+      "latent_shape": [
+        2,
+        96,
+        3,
+        128
+      ],
+      "embedding_sha256": "03a05a360dffae02e09d2d510af0c4326a00dc2d1c0222996fe78b5a4ec65420",
+      "selected_and_latent_encoder_cpu_replay": "BITIDENTICAL",
+      "latent_semantics": "ONLINE_ORDINAL_ZONES_EMA_ENCODING_FULL_H96_OUTSIDE_CROP_SUPPORT",
+      "native230_query_guard": "NOT_APPLICABLE_TO_CF_ORDINAL_ZONES"
+    },
+    {
+      "id": "cf_jepa_seed23_h96_replication",
+      "inference_kind": "native_ssl_weights_only_inference_v1",
+      "embedding_shape": [
+        2,
+        128
+      ],
+      "latent_shape": [
+        2,
+        96,
+        3,
+        128
+      ],
+      "embedding_sha256": "677a0b3d041fd5e991b286f86162a9a89992bba468faaa7764346969a9e02130",
+      "selected_and_latent_encoder_cpu_replay": "BITIDENTICAL",
+      "latent_semantics": "ONLINE_ORDINAL_ZONES_EMA_ENCODING_FULL_H96_OUTSIDE_CROP_SUPPORT",
+      "native230_query_guard": "NOT_APPLICABLE_TO_CF_ORDINAL_ZONES"
+    },
+    {
+      "id": "band_shared_ssl_seed7_h96_reviewed",
+      "inference_kind": "native_band_ssl_weights_only_inference_v1",
+      "embedding_shape": [
+        2,
+        64
+      ],
+      "latent_shape": [
+        2,
+        3,
+        64
+      ],
+      "embedding_sha256": "ad3559fbc26f36f77b7385552ec0cdae1fd4f6fa4eab1a22e1391e3f6229f161",
+      "selected_and_latent_encoder_cpu_replay": "BITIDENTICAL",
+      "latent_semantics": "NATIVE_OFFSETS_1_3_6_FOUR_INTERVAL_LATENT_BLOCKS",
+      "native230_query_guard": "PASSED"
+    },
+    {
+      "id": "band_shared_ssl_seed13_h96_replication_v2",
+      "inference_kind": "native_band_replication_ssl_weights_only_inference_v2",
+      "embedding_shape": [
+        2,
+        64
+      ],
+      "latent_shape": [
+        2,
+        3,
+        64
+      ],
+      "embedding_sha256": "0547bfdb92632f01579c2e22916d8b9022dd0429a1e9bd91c92a75348887797e",
+      "selected_and_latent_encoder_cpu_replay": "BITIDENTICAL",
+      "latent_semantics": "NATIVE_OFFSETS_1_3_6_FOUR_INTERVAL_LATENT_BLOCKS",
+      "native230_query_guard": "PASSED"
+    },
+    {
+      "id": "band_shared_ssl_seed23_h96_replication_v2",
+      "inference_kind": "native_band_replication_ssl_weights_only_inference_v2",
+      "embedding_shape": [
+        2,
+        64
+      ],
+      "latent_shape": [
+        2,
+        3,
+        64
+      ],
+      "embedding_sha256": "a8e6c4ccb8990d8b66121e2f0a2a379ac3927c0c06f98d2ad4f82f028f65c93d",
+      "selected_and_latent_encoder_cpu_replay": "BITIDENTICAL",
+      "latent_semantics": "NATIVE_OFFSETS_1_3_6_FOUR_INTERVAL_LATENT_BLOCKS",
+      "native230_query_guard": "PASSED"
+    }
+  ],
+  "manifest_sha256": "2db39f4d47a4f6cfd61b582e20308d247af7f633dbc346776d42fd08f60e397b",
+  "all_imports_from_copied_source": true,
+  "fitting": false,
+  "public_numerical_corpus_decoded": false,
+  "scientific_performance_assessment": false,
+  "cuda_initialized": false,
+  "rng_unchanged": true,
+  "independent_package_review": "NOT_RUN"
+}

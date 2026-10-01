@@ -1,0 +1,25 @@
+UP017 [*] Use `datetime.UTC` alias
+   --> tools\close_native_pretrained_snapshot_v2.py:103:37
+    |
+101 |     record = {
+102 |         "status": "SEVEN_REAL_PRETRAINED_MODELS_PACKAGED_LOCAL_CORRECTNESS_VERIFIED",
+103 |         "recorded_at": datetime.now(timezone.utc).isoformat(),
+    |                                     ^^^^^^^^^^^^
+104 |         "models": [row["id"] for row in receipt["models"]],
+105 |         "archive": str(archive.relative_to(ROOT)),
+    |
+help: Convert to `datetime.UTC` alias
+    |
+5   | import zipfile
+    - from datetime import datetime, timezone
+6   + from datetime import datetime, timezone, UTC
+7   | from pathlib import Path, PurePosixPath
+--------------------------------------------------------------------------------
+102 |         "status": "SEVEN_REAL_PRETRAINED_MODELS_PACKAGED_LOCAL_CORRECTNESS_VERIFIED",
+    -         "recorded_at": datetime.now(timezone.utc).isoformat(),
+103 +         "recorded_at": datetime.now(UTC).isoformat(),
+104 |         "models": [row["id"] for row in receipt["models"]],
+    |
+
+Found 1 error.
+[*] 1 fixable with the `--fix` option.

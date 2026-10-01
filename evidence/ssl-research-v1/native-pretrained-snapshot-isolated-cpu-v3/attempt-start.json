@@ -1,0 +1,24 @@
+{
+  "kind": "native_pretrained_snapshot_owned_qa_receipt_v3",
+  "status": "STARTING_CPU_QA",
+  "command": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+    "-I",
+    "-B",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\check_native_pretrained_snapshot_worker_v3.py",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_pretrained_model_snapshot_v2",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\native-pretrained-snapshot-isolated-cpu-v3\\completion.json"
+  ],
+  "snapshot_sha256": "22f2332236fc28a9f6b4d6d07be22ea02446deac6964955af6d5e64475ef6e8b",
+  "manifest_sha256": "2db39f4d47a4f6cfd61b582e20308d247af7f633dbc346776d42fd08f60e397b",
+  "archive_sha256": "22f116a426dbba384610b0bd60e9d450660dcf50d4111a56040989dd4e2d2d48",
+  "device": "cpu",
+  "fitting": false,
+  "scientific_assessment": false,
+  "source_bindings": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\check_native_pretrained_snapshot_owned_v3.py": "0627faf573fccd9aac4a26296652a9c346e4714b70450ef89246ece682f65efb",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\check_native_pretrained_snapshot_worker_v3.py": "392ad579912fe913ae843bd1cfb63210431117025a15b864d40efadcca5c6863",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\package_native_pretrained_snapshot_v2.py": "7eb09d7630ff3a242579f59150547434dee9142cd2046e0cdca9329b5b1bfb49",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\native_reference_supervisor.py": "ec5456584ca6f6a805e13f4137365c2c0a785b2dbc52782b191c1528befb30dd"
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "checks": [
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest tests\\unit\\test_native_pretrained_snapshot_v2_contract.py -q --import-mode=importlib -p no:cacheprovider -k band_v1_routes",
+      "exit_code": 1,
+      "log": "red-band-v1-route-01.log",
+      "log_sha256": "ea5b2698cb340b3fa16e0268057acdba606f910359b7c3b0156b3f86b1d449e3",
+      "result": "1 meaningful failure: Band V1 routed to legacy; 48 deselected",
+      "witness": "5de8d6"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest tests\\unit\\test_native_pretrained_snapshot_v2_contract.py -q --import-mode=importlib -p no:cacheprovider",
+      "exit_code": 1,
+      "log": "green-contract-01.log",
+      "log_sha256": "e82cd6480326f24cb37ab31c10ee211aee570c00fb6044336e293ea77098409e",
+      "result": "48 passed; 1 fixture assertion matched an earlier byte guard instead of membership identity guard; corrected private fixture only",
+      "witness": "3a9d95"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest tests\\unit\\test_native_pretrained_snapshot_v2_contract.py -q --import-mode=importlib -p no:cacheprovider",
+      "exit_code": 0,
+      "log": "green-contract-02.log",
+      "log_sha256": "b931f6f2e133296a44efd7942408a48d81c46ca0ea64037478d21b2c51691690",
+      "result": "54 passed in 15.48s",
+      "witness": "c514e2"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m pytest tests\\unit\\test_native_pretrained_snapshot_v2_contract.py -q --import-mode=importlib -p no:cacheprovider",
+      "exit_code": 0,
+      "log": "green-contract-final-03.log",
+      "log_sha256": "39c1ca3271b2f849a14e1e4ca1c1f3bcc4fd4bc01f71413c6944e854cc7b522c",
+      "result": "54 passed in 15.82s; includes added immutable V1 tooling bindings",
+      "witness": "f94e5d"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff check --no-cache tools\\package_native_pretrained_snapshot_v2.py tools\\check_native_pretrained_snapshot_worker_v3.py tools\\check_native_pretrained_snapshot_owned_v3.py tests\\unit\\test_native_pretrained_snapshot_v2_contract.py",
+      "exit_code": 1,
+      "log": "lint-check-01.log",
+      "log_sha256": "9669b607bcd7747d25c5b4b3868e015397eb191d3a941e5df7d4b02716c70da1",
+      "result": "RUF012 in synthetic adapter; fixed instance metadata",
+      "witness": "93c478"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff format --no-cache tools\\package_native_pretrained_snapshot_v2.py tools\\check_native_pretrained_snapshot_worker_v3.py tools\\check_native_pretrained_snapshot_owned_v3.py tests\\unit\\test_native_pretrained_snapshot_v2_contract.py",
+      "exit_code": 0,
+      "log": "format-final-03.log",
+      "log_sha256": "a9c322be5811cf4bd7ab6927ecb6751d36851790b8b4de75d87f0c39a56d2c8d",
+      "witness": "50d7eb"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff check --no-cache tools\\package_native_pretrained_snapshot_v2.py tools\\check_native_pretrained_snapshot_worker_v3.py tools\\check_native_pretrained_snapshot_owned_v3.py tests\\unit\\test_native_pretrained_snapshot_v2_contract.py",
+      "exit_code": 0,
+      "log": "lint-check-final-03.log",
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "result": "All checks passed",
+      "witness": "139a3d"
+    },
+    {
+      "command": "..\\marine-echo-jepa\\.venv\\Scripts\\python.exe -B -m ruff format --check --no-cache tools\\package_native_pretrained_snapshot_v2.py tools\\check_native_pretrained_snapshot_worker_v3.py tools\\check_native_pretrained_snapshot_owned_v3.py tests\\unit\\test_native_pretrained_snapshot_v2_contract.py",
+      "exit_code": 0,
+      "log": "lint-format-final-03.log",
+      "log_sha256": "177f260a5645724013185e4b140c7045cc39e56c0c97b120f5cb23599f85f0de",
+      "result": "4 files already formatted",
+      "witness": "9bdeb4"
+    }
+  ],
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "unicode_codec": "Physical ZIP/JSON opaque synthetic byte-copy roundtrip; no trained tensor decoding",
+  "virtual_process_checks": "Test doubles, NOT actual supervised child execution"
+}

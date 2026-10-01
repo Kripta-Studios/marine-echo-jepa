@@ -1,0 +1,42 @@
+{
+  "status": "SEVEN_MODEL_PACKAGING_ENGINEERING_INTEGRATED_ROOT_QA_PENDING",
+  "actual_builder_cli_session_id": 68045,
+  "actual_builder_exit_code": 0,
+  "actual_builder_exit_chunk": "b5af89",
+  "handoff_sha256": "e8619f884cc76450ed800148d390b7b73e01f0b5d4151da42100c516914d3bf9",
+  "copied_files": {
+    "tests/unit/test_native_pretrained_snapshot_v2_contract.py": "0c34d08fddcf49aa4d0be8ba53d94a68de7354e447048e0bb9f8c161d8db8d88",
+    "tools/check_native_pretrained_snapshot_owned_v3.py": "0627faf573fccd9aac4a26296652a9c346e4714b70450ef89246ece682f65efb",
+    "tools/check_native_pretrained_snapshot_worker_v3.py": "392ad579912fe913ae843bd1cfb63210431117025a15b864d40efadcca5c6863",
+    "tools/package_native_pretrained_snapshot_v2.py": "7eb09d7630ff3a242579f59150547434dee9142cd2046e0cdca9329b5b1bfb49",
+    "evidence/ssl-pretrained-snapshot-builder-v2/NATIVE_PRETRAINED_SNAPSHOT_V2.md": "fb747f1cc0942fc1c08e3c1f68062e7ccd637af04476b04c57fc27f800a12513",
+    "evidence/ssl-pretrained-snapshot-builder-v2/close_delivery_v2.py": "3494e18a0ab1140fb1d849659132f0576ed8cb2aa48cc715c202140b75f07b92",
+    "evidence/ssl-pretrained-snapshot-builder-v2/closed-check_native_pretrained_snapshot_owned_v3.py": "0627faf573fccd9aac4a26296652a9c346e4714b70450ef89246ece682f65efb",
+    "evidence/ssl-pretrained-snapshot-builder-v2/closed-check_native_pretrained_snapshot_worker_v3.py": "392ad579912fe913ae843bd1cfb63210431117025a15b864d40efadcca5c6863",
+    "evidence/ssl-pretrained-snapshot-builder-v2/closed-package_native_pretrained_snapshot_v2.py": "7eb09d7630ff3a242579f59150547434dee9142cd2046e0cdca9329b5b1bfb49",
+    "evidence/ssl-pretrained-snapshot-builder-v2/closed-test_native_pretrained_snapshot_v2_contract.py": "0c34d08fddcf49aa4d0be8ba53d94a68de7354e447048e0bb9f8c161d8db8d88",
+    "evidence/ssl-pretrained-snapshot-builder-v2/executed-checks-v2.json": "6c2f35acc507b136822eddd51cd7605df857c3ae24f9ce8a314103b5b5f20fde",
+    "evidence/ssl-pretrained-snapshot-builder-v2/format-01.log": "779cd08be038ac289c50927416d74769a286b3d89191260af669534feb28cf68",
+    "evidence/ssl-pretrained-snapshot-builder-v2/format-02.log": "a9c322be5811cf4bd7ab6927ecb6751d36851790b8b4de75d87f0c39a56d2c8d",
+    "evidence/ssl-pretrained-snapshot-builder-v2/format-final-03.log": "a9c322be5811cf4bd7ab6927ecb6751d36851790b8b4de75d87f0c39a56d2c8d",
+    "evidence/ssl-pretrained-snapshot-builder-v2/green-contract-01.log": "e82cd6480326f24cb37ab31c10ee211aee570c00fb6044336e293ea77098409e",
+    "evidence/ssl-pretrained-snapshot-builder-v2/green-contract-02.log": "b931f6f2e133296a44efd7942408a48d81c46ca0ea64037478d21b2c51691690",
+    "evidence/ssl-pretrained-snapshot-builder-v2/green-contract-final-03.log": "39c1ca3271b2f849a14e1e4ca1c1f3bcc4fd4bc01f71413c6944e854cc7b522c",
+    "evidence/ssl-pretrained-snapshot-builder-v2/lint-check-01.log": "9669b607bcd7747d25c5b4b3868e015397eb191d3a941e5df7d4b02716c70da1",
+    "evidence/ssl-pretrained-snapshot-builder-v2/lint-check-final-02.log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "evidence/ssl-pretrained-snapshot-builder-v2/lint-check-final-03.log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "evidence/ssl-pretrained-snapshot-builder-v2/lint-format-final-02.log": "177f260a5645724013185e4b140c7045cc39e56c0c97b120f5cb23599f85f0de",
+    "evidence/ssl-pretrained-snapshot-builder-v2/lint-format-final-03.log": "177f260a5645724013185e4b140c7045cc39e56c0c97b120f5cb23599f85f0de",
+    "evidence/ssl-pretrained-snapshot-builder-v2/protected-baseline-v2.json": "c2d2131d49874bbf794ccd7c961ccc8726dd8e4d27efa90c9f7ef976eed5319d",
+    "evidence/ssl-pretrained-snapshot-builder-v2/read_dependency_baseline.py": "575e3ec48f2ce48f9db74eb45295849918304c97f3aa0fca92c33b0a679c2010",
+    "evidence/ssl-pretrained-snapshot-builder-v2/read_membership_schema.py": "42f3924465d5d5fc7d7b0d1eb214bdbd2e6843e516fa1e715a0e78712c8391b8",
+    "evidence/ssl-pretrained-snapshot-builder-v2/red-band-v1-route-01.log": "ea5b2698cb340b3fa16e0268057acdba606f910359b7c3b0156b3f86b1d449e3",
+    "evidence/ssl-pretrained-snapshot-builder-v2/source-proof-final-v2.json": "c01b65359f016bc925e5b9df59bfcbd631e607132df9b8fad12b512407038928",
+    "evidence/ssl-pretrained-snapshot-builder-v2/handoff-v2.json": "e8619f884cc76450ed800148d390b7b73e01f0b5d4151da42100c516914d3bf9"
+  },
+  "fixture_trees_copied": false,
+  "scientific_authority": false,
+  "source_bindings": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\integrate_native_pretrained_snapshot_v2.py": "ba6e689f6c9c8b37ec3c5f60acf65ba8bde2836cc164f47275fc6fd61dedf02a"
+  }
+}

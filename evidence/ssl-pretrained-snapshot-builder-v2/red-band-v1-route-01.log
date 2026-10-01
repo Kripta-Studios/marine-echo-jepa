@@ -1,0 +1,15 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_____________ test_band_v1_routes_to_existing_typed_band_encoder ______________
+
+    def test_band_v1_routes_to_existing_typed_band_encoder():
+>       assert worker.route({"inference_kind": package.BAND_KIND}) == "band_v1"
+E       AssertionError: assert 'legacy' == 'band_v1'
+E         
+E         - band_v1
+E         + legacy
+
+tests\unit\test_native_pretrained_snapshot_v2_contract.py:104: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_pretrained_snapshot_v2_contract.py::test_band_v1_routes_to_existing_typed_band_encoder
+1 failed, 48 deselected in 0.11s

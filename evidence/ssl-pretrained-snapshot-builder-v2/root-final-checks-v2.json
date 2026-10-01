@@ -1,0 +1,19 @@
+{
+  "status": "CLOSED_SNAPSHOT_ROOT_CHECKS_RECORDED",
+  "closeout_sha256": "6199be4d4ef1316b1b4b5addca4338ff9878e238b47ea6aabdea1fd390116d7b",
+  "root_contract_tests": 54,
+  "archive_entries_verified": 97,
+  "lint_style_finding": "UP017: preserved executed UTC timestamp spelling",
+  "style_finding_exit_code": 1,
+  "scoped_lint_command": [
+    ".venv/Scripts/python.exe",
+    "-m",
+    "ruff",
+    "check",
+    "tools/close_native_pretrained_snapshot_v2.py",
+    "--ignore",
+    "UP017"
+  ],
+  "scoped_lint_exit_code": 0,
+  "scientific_approval": false
+}

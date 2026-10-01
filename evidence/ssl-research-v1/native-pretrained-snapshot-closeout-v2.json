@@ -1,0 +1,71 @@
+{
+  "status": "SEVEN_REAL_PRETRAINED_MODELS_PACKAGED_LOCAL_CORRECTNESS_VERIFIED",
+  "recorded_at": "2026-10-01T01:08:06.206668+00:00",
+  "models": [
+    "shared_ssl_seed7_h96_cuda0",
+    "cf_jepa_seed7_h96_deterministic",
+    "cf_jepa_seed13_h96_replication",
+    "cf_jepa_seed23_h96_replication",
+    "band_shared_ssl_seed7_h96_reviewed",
+    "band_shared_ssl_seed13_h96_replication_v2",
+    "band_shared_ssl_seed23_h96_replication_v2"
+  ],
+  "archive": "outputs\\native_pretrained_model_snapshot_v2.zip",
+  "archive_sha256": "22f116a426dbba384610b0bd60e9d450660dcf50d4111a56040989dd4e2d2d48",
+  "archive_size_bytes": 109616204,
+  "archive_entries_verified": 97,
+  "directory_and_zip_entry_sha256_identical": true,
+  "protected_packaging_inputs_unchanged": true,
+  "preserved_v1_archive_sha256": "ed1ba345a6fe3f04642d5bb2d8c32ef33f67132009295a6bca38cd73d8a3994b",
+  "actual_cli_exit_observations": [
+    {
+      "operation": "root_54_contract_checks",
+      "session_id": 87453,
+      "exit_code": 0,
+      "chunk": "b68693"
+    },
+    {
+      "operation": "production_packaging",
+      "exit_code": 0,
+      "chunk": "2d71f1"
+    },
+    {
+      "operation": "owned_isolated_cpu_qa",
+      "exit_code": 0,
+      "chunk": "8d6dc6"
+    }
+  ],
+  "owned_cpu_resources": {
+    "exit_code": 0,
+    "stopped_for": null,
+    "peak_process_rss_bytes": 628912128,
+    "elapsed_full_attempt_seconds": 4.125,
+    "poll_seconds": 0.1,
+    "rss_limit_bytes": 23622320128,
+    "deadline_seconds": 600,
+    "owned_process_pids": [
+      22996,
+      64796
+    ],
+    "peak_each_process_rss_bytes": {
+      "22996": 5414912,
+      "64796": 623497216
+    },
+    "peak_definition": "Conservative sum of each owned process OS peak working set; sampled RSS fallback",
+    "owned_tree_cleanup_verified": true
+  },
+  "evidence_kind": "SYNTHETIC_INPUT_CORRECTNESS_ONLY_REAL_PRETRAINED_WEIGHTS",
+  "fitting": false,
+  "final_site_values_accessed": false,
+  "public_prefix_transfer": "NOT_RUN",
+  "independent_package_review": "NOT_RUN",
+  "scientific_performance_assessment": false,
+  "sota": "NOT_ESTABLISHED",
+  "bindings": {
+    "evidence\\ssl-research-v1\\native-pretrained-model-snapshot-v2.json": "22f2332236fc28a9f6b4d6d07be22ea02446deac6964955af6d5e64475ef6e8b",
+    "evidence\\ssl-research-v1\\native-pretrained-snapshot-isolated-cpu-v3\\resources.json": "5e37d0dd08adc148224489a5ebffcd182efc2228ef873381847c7aa2537e2339",
+    "evidence\\ssl-research-v1\\native-pretrained-snapshot-isolated-cpu-v3\\completion.json": "01a82b9356de3101076a3f163703d044a86ee2eeefd649b86012ef1c8fef6528",
+    "evidence\\ssl-pretrained-snapshot-builder-v2\\root-contract-closed-v2.log": "a4e803ebc3ebc7c5741d5f3fa033064b55c9f5c5b538f50a5703f37a68a8a3de",
+    "tools\\close_native_pretrained_snapshot_v2.py": "27537edcf75c20c2484219ee65be2c47616410537f6d52bdfb46b89691b98ee0"
+  }
+}

@@ -1,0 +1,21 @@
+..................F..............................                        [100%]
+================================== FAILURES ===================================
+___________________ test_membership_identity_cannot_change ____________________
+
+fixture = namespace(root=WindowsPath('C:/Users/Álvaro Schwiedop/Desktop/KriptaStudios/marine-jepa-vnext-builder/evidence/ssl-pre...napshot-builder-v2/synthetic-Álvaro-a91dc6ce006f4601b037113f901fda52/outputs/native_pretrained_model_snapshot_v1.zip'))
+
+    def test_membership_identity_cannot_change(fixture):
+        path = fixture.root / "outputs/native_acoustic_ssl_v1" / package.SPECS[4][0] / "membership.json"
+        members = package.document(path)
+        members["train_deployments"] = ["foreign-site"]
+        replace_json(path, members)
+>       with pytest.raises(ValueError, match="TRAIN membership"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'TRAIN membership'
+E         Actual message: 'Exact completed pretrained endpoint required: band_shared_ssl_seed7_h96_reviewed'
+
+tests\unit\test_native_pretrained_snapshot_v2_contract.py:162: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_pretrained_snapshot_v2_contract.py::test_membership_identity_cannot_change
+1 failed, 48 passed in 13.50s
