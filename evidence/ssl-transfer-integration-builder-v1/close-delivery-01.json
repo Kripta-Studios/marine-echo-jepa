@@ -1,0 +1,8 @@
+{
+  "command": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+    "evidence\\ssl-transfer-integration-builder-v1\\close_delivery.py"
+  ],
+  "exit": 0,
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY"
+}

@@ -1,0 +1,15 @@
+{
+  "command": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "--import-mode=importlib",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "tests/integration/test_native_prefix_suffix_assessment_v1.py::test_actual_saved_weights_suffix_scores_and_protected_output",
+    "--tb=short"
+  ],
+  "exit": 0,
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY"
+}

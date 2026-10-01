@@ -1,0 +1,74 @@
+{
+  "kind": "native_prefix_matched_policy_registration_v4",
+  "status": "PREPARED_PENDING_GENUINE_REVIEW",
+  "study": "PREFIX_ADAPTATION_MATCHED_V4",
+  "not_original_47_method_campaign": true,
+  "zero_shot": false,
+  "source_clock": "source_calendar_not_verified_UTC",
+  "history": 96,
+  "warmup_source_days": 4,
+  "prefix_label_days": [
+    1,
+    7,
+    30
+  ],
+  "common_suffix_start_source_day": 41,
+  "prefix_labels": "all observed target intervals must be contained in own deployment prefix",
+  "future_context": "never borrow from future or suffix to satisfy H96",
+  "pretrained_scalers": "original source-bound TRAIN scalers; preserve prior-year archive ancestry where consumed",
+  "neural": {
+    "seeds": [
+      7,
+      13,
+      23
+    ],
+    "updates": 2000,
+    "cadence": 500,
+    "batch_size": 64,
+    "fresh_head_seed_offset": 100000,
+    "selection": "four original AEON4 DEV checkpoints; earliest strict improvement; no reserved selection",
+    "arms": [
+      "frozen pretrained features",
+      "matched random frozen features",
+      "matched supervised frozen features",
+      "fresh scratch supervised"
+    ]
+  },
+  "lightgbm": {
+    "kind": "native_prefix_lightgbm_policy_v1",
+    "method": "lightgbm",
+    "history": 96,
+    "objective": "quantile",
+    "n_estimators": 300,
+    "learning_rate": 0.03,
+    "num_leaves": 31,
+    "min_child_samples": 64,
+    "colsample_bytree": 0.9,
+    "reg_lambda": 1.0,
+    "n_jobs": 4,
+    "dev_iteration_choices": [
+      75,
+      150,
+      225,
+      300
+    ],
+    "feature_source_sha256": "0d6583644ab1fce8d87a4194048f2176237b47deb57f0fa8494df6aa9012d584",
+    "aggregation": "equal_target_source_date_then_horizon_then_deployment",
+    "floor": 18
+  },
+  "lightgbm_seeds": [
+    7,
+    13,
+    23
+  ],
+  "lightgbm_seed_binding": "each exact per-cell policy adds seed, no other policy changes",
+  "lightgbm_scaling": "existing raw-dB features/targets; no prefix or suffix scaler fitting",
+  "unfitted_references": [
+    "persistence",
+    "seasonal24"
+  ],
+  "finalists_frozen": false,
+  "reserved_outcomes_inspected_in_this_work": false,
+  "independent_approval": false,
+  "real_execution": "NOT_RUN"
+}

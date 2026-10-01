@@ -1,3 +1,27 @@
+## Native SSL transfer integration V4 — engineering validated, research incomplete
+
+Updated 2026-10-01. Separate CF-control zero-shot, matched-prefix and adapted-suffix
+implementations are integrated. Existing GPT-6.1 Sol builder exited 0; six exact
+source/test files were copied, preserving 41 dependencies. ROOT passed 110 transfer
+and launcher checks plus both actual optimizer/resume cases separately; no required
+skip. The earlier CF zero-shot adapter passed 161 checks. Lint passed. The combined
+ROOT native Windows crash and initial stale-hash refusal remain in the evidence.
+No system/safety/credential change or reviewer retry occurred. See
+`docs/NATIVE_SSL_TRANSFER_INTEGRATION_ENGINEERING_V4.md` and
+`orchestration/native_ssl_transfer_integration_state_v4.json`.
+
+ADR0026 records the prospective matched LightGBM prefix policy. New wrappers
+separate CPU fit/assessment time, include launcher RAM and retain readable full-owned
+Band/aggregate accounting. This is author validation, not scientific approval.
+Original 40/43 endpoints, 47-method guard, 28 reconstructed methods and five provisional
+newer scores remain unchanged. Three Band fits, six CF fits, final selection,
+reserved evaluation and real prefix adaptation remain incomplete. No new numerical
+reserved access or real fit occurred. Ledger bytes remain unchanged: aggregate
+17.802355808369175/96h; Band 8.318836388888881/12h; CF 0/12h. App/meeting/browser/release
+remain frozen. Further gated science requires legitimate service restoration and
+genuine approvals; supported remediation is documented in
+`docs/NATIVE_SSL_REVIEW_SERVICE_DEPENDENCY_V1.md`.
+
 ## Native SSL CF-control assessment engineering V3
 
 Updated 2026-10-01. Additive zero-shot CF-control evaluator, worker and bounded

@@ -1,0 +1,11 @@
+{
+  "status": "REFUSED_BEFORE_COPY",
+  "exit_code": 1,
+  "exit_chunk": "d015fd",
+  "reason": "Authored source proof is stale for one integration test",
+  "path": "tests/integration/test_native_prefix_matched_transfer_v4.py",
+  "proof_sha256": "71e6945e08f8a7cd9ecb08963c7ea8cc25f5692af25cbcb92c8f8e7a860bebf7",
+  "observed_sha256": "6f50078361a22c1a54021e469f3d16aedd07ca2c65fa50e81b2cc2c85b062fb3",
+  "new_sources_copied": 0,
+  "scientific_permission_change": false
+}

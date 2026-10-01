@@ -1,0 +1,29 @@
+.............F........ss..F.........                                     [100%]
+================================== FAILURES ===================================
+_____ test_native_multiconfiguration_partitions_stay_byte_semantic_equal ______
+tests\unit\test_native_prefix_matched_transfer_v4.py:101: in test_native_multiconfiguration_partitions_stay_byte_semantic_equal
+    assert prefix.partitions(raw, days) == legacy.partitions(raw, days)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_prefix_matched_transfer_v4.py:430: in partitions
+    if metadata.get("complete") is not True:
+       ^^^^^^^^^^^^
+E   AttributeError: 'tuple' object has no attribute 'get'
+________ test_actual_saved_weights_suffix_scores_and_protected_output _________
+tests\integration\test_native_prefix_suffix_assessment_v1.py:17: in test_actual_saved_weights_suffix_scores_and_protected_output
+    report = suffix.run(c.folder / "suffix-manifest.json", c.folder / "suffix-review.json", c.folder / "suffix-output")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\evaluation\native_prefix_suffix_assessment_v1.py:334: in execute_assessment
+    admitted = admit(manifest_path, review_path, output_path)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\evaluation\native_prefix_suffix_assessment_v1.py:158: in admit
+    bound(manifest_path)
+src\marine_echo\evaluation\native_prefix_suffix_assessment_v1.py:143: in bound
+    path = regular(prefix._path(value, base))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\training\native_prefix_matched_transfer_v4.py:1180: in _path
+    raise ValueError("Explicit immutable path required.")
+E   ValueError: Explicit immutable path required.
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_prefix_matched_transfer_v4.py::test_native_multiconfiguration_partitions_stay_byte_semantic_equal
+FAILED tests/integration/test_native_prefix_suffix_assessment_v1.py::test_actual_saved_weights_suffix_scores_and_protected_output
+2 failed, 32 passed, 2 skipped in 107.86s (0:01:47)

@@ -1,0 +1,19 @@
+unformatted: File would be reformatted
+   --> tests\integration\test_native_prefix_matched_transfer_v4.py:101:30
+    |
+100 |     c = physical_case()
+    -     admission = prefix.admit(c.folder / "manifest.json", c.folder / "review.json", c.folder / "fresh")
+101 +     admission = prefix.admit(
+102 +         c.folder / "manifest.json", c.folder / "review.json", c.folder / "fresh"
+103 +     )
+104 |     admission.manifest["_base"] = str(c.folder)
+--------------------------------------------------------------------------------
+112 |     # The suffix corpus was never admitted for fitting and cannot supply labels.
+    -     (c.folder / "suffix.npz").write_bytes(b"SYNTHETIC perturbed reserved values; intentionally undecodable")
+113 +     (c.folder / "suffix.npz").write_bytes(
+114 +         b"SYNTHETIC perturbed reserved values; intentionally undecodable"
+115 +     )
+116 |     second = prefix._decode(admission, "prefix_npz", "prefix")
+    |
+
+1 file would be reformatted, 5 files already formatted

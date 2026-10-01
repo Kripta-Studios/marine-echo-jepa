@@ -1,0 +1,13 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+______ test_actual_control_synthetic_parent_status_is_not_real_approval _______
+tests\unit\test_native_prefix_matched_transfer_v4.py:180: in test_actual_control_synthetic_parent_status_is_not_real_approval
+    admit_control_metadata(value)
+tests\unit\test_native_prefix_matched_transfer_v4.py:166: in admit_control_metadata
+    prefix._admit_cf_parent(
+src\marine_echo\training\native_prefix_matched_transfer_v4.py:1135: in _admit_cf_parent
+    raise ValueError("Completed genuinely reviewed CF control parent identities differ.")
+E   ValueError: Completed genuinely reviewed CF control parent identities differ.
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_prefix_matched_transfer_v4.py::test_actual_control_synthetic_parent_status_is_not_real_approval
+1 failed in 39.58s

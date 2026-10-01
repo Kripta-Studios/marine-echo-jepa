@@ -1,0 +1,12 @@
+unformatted: File would be reformatted
+  --> tests\integration\test_native_prefix_matched_transfer_v4.py:86:22
+   |
+85 |     with pytest.raises(ValueError):
+   -         api.forecast(nonfinite, c.suffix["context_observed"], c.suffix["metadata"], c.suffix["query"])
+86 +         api.forecast(
+87 +             nonfinite, c.suffix["context_observed"], c.suffix["metadata"], c.suffix["query"]
+88 +         )
+89 |     with pytest.raises(TypeError):
+   |
+
+1 file would be reformatted, 5 files already formatted

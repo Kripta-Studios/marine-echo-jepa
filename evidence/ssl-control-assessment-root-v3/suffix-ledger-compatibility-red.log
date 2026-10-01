@@ -1,0 +1,16 @@
+FF                                                                       [100%]
+================================== FAILURES ===================================
+____ test_closed_band_suffix_retains_readable_historical_accounting[False] ____
+tests\unit\test_native_prefix_suffix_execution_v1.py:143: in test_closed_band_suffix_retains_readable_historical_accounting
+    "status": wrapper.closed_status("cuda:0", completed),
+              ^^^^^^^^^^^^^^^^^^^^^
+E   AttributeError: module 'suffix_wrapper' has no attribute 'closed_status'
+____ test_closed_band_suffix_retains_readable_historical_accounting[True] _____
+tests\unit\test_native_prefix_suffix_execution_v1.py:143: in test_closed_band_suffix_retains_readable_historical_accounting
+    "status": wrapper.closed_status("cuda:0", completed),
+              ^^^^^^^^^^^^^^^^^^^^^
+E   AttributeError: module 'suffix_wrapper' has no attribute 'closed_status'
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_prefix_suffix_execution_v1.py::test_closed_band_suffix_retains_readable_historical_accounting[False]
+FAILED tests/unit/test_native_prefix_suffix_execution_v1.py::test_closed_band_suffix_retains_readable_historical_accounting[True]
+2 failed, 18 deselected in 1.75s

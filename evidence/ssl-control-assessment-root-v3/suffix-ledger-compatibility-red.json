@@ -1,0 +1,22 @@
+{
+  "command": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+    "-B",
+    "-m",
+    "pytest",
+    "--import-mode=importlib",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "tests/unit/test_native_prefix_suffix_execution_v1.py",
+    "-k",
+    "historical_accounting",
+    "--tb=short"
+  ],
+  "started_utc": "2026-10-01T12:12:47.052444+00:00",
+  "finished_utc": "2026-10-01T12:12:53.344852+00:00",
+  "exit_code": 1,
+  "evidence_kind": "CPU_ENGINEERING_ONLY",
+  "ledger_sha256_before": "91bf4dcbedc6a603d019c28bb058549f2f39e95befc8d81de5ca6448dec2c5b0",
+  "ledger_sha256_after": "91bf4dcbedc6a603d019c28bb058549f2f39e95befc8d81de5ca6448dec2c5b0"
+}

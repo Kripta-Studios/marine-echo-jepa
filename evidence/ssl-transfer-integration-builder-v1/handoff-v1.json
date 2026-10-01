@@ -1,0 +1,592 @@
+{
+  "actual_checks": {
+    "conventional-codec-resume-01.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "--import-mode=importlib",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/integration/test_native_prefix_matched_transfer_v4.py::test_actual_conventional_features_fifteen_boosters_and_resume",
+        "--tb=short"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 0
+    },
+    "focused-01.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "--import-mode=importlib",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/unit/test_native_prefix_matched_transfer_v4.py",
+        "tests/integration/test_native_prefix_matched_transfer_v4.py",
+        "tests/unit/test_native_prefix_suffix_assessment_v1.py",
+        "tests/integration/test_native_prefix_suffix_assessment_v1.py",
+        "--tb=short"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 1
+    },
+    "focused-final-02.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "--import-mode=importlib",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/unit/test_native_prefix_matched_transfer_v4.py",
+        "tests/integration/test_native_prefix_matched_transfer_v4.py",
+        "tests/unit/test_native_prefix_suffix_assessment_v1.py",
+        "tests/integration/test_native_prefix_suffix_assessment_v1.py",
+        "--tb=short"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 0
+    },
+    "format-close-refactor-01.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "format",
+        "tests/integration/test_native_prefix_matched_transfer_v4.py"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 0
+    },
+    "format-close-verified-01.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "src/marine_echo/training/native_prefix_matched_transfer_v4.py",
+        "src/marine_echo/evaluation/native_prefix_suffix_assessment_v1.py",
+        "tests/unit/test_native_prefix_matched_transfer_v4.py",
+        "tests/integration/test_native_prefix_matched_transfer_v4.py",
+        "tests/unit/test_native_prefix_suffix_assessment_v1.py",
+        "tests/integration/test_native_prefix_suffix_assessment_v1.py"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 0
+    },
+    "format-closed-02.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "src/marine_echo/training/native_prefix_matched_transfer_v4.py",
+        "src/marine_echo/evaluation/native_prefix_suffix_assessment_v1.py",
+        "tests/unit/test_native_prefix_matched_transfer_v4.py",
+        "tests/integration/test_native_prefix_matched_transfer_v4.py",
+        "tests/unit/test_native_prefix_suffix_assessment_v1.py",
+        "tests/integration/test_native_prefix_suffix_assessment_v1.py"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 1
+    },
+    "format-closeout-01.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "src/marine_echo/training/native_prefix_matched_transfer_v4.py",
+        "src/marine_echo/evaluation/native_prefix_suffix_assessment_v1.py",
+        "tests/unit/test_native_prefix_matched_transfer_v4.py",
+        "tests/integration/test_native_prefix_matched_transfer_v4.py",
+        "tests/unit/test_native_prefix_suffix_assessment_v1.py",
+        "tests/integration/test_native_prefix_suffix_assessment_v1.py"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 1
+    },
+    "format-final-01.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "src/marine_echo/training/native_prefix_matched_transfer_v4.py",
+        "src/marine_echo/evaluation/native_prefix_suffix_assessment_v1.py",
+        "tests/unit/test_native_prefix_matched_transfer_v4.py",
+        "tests/integration/test_native_prefix_matched_transfer_v4.py",
+        "tests/unit/test_native_prefix_suffix_assessment_v1.py",
+        "tests/integration/test_native_prefix_suffix_assessment_v1.py"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 0
+    },
+    "format-refactor-02.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "format",
+        "src/marine_echo/training/native_prefix_matched_transfer_v4.py",
+        "src/marine_echo/evaluation/native_prefix_suffix_assessment_v1.py",
+        "tests/unit/test_native_prefix_matched_transfer_v4.py",
+        "tests/integration/test_native_prefix_matched_transfer_v4.py",
+        "tests/unit/test_native_prefix_suffix_assessment_v1.py",
+        "tests/integration/test_native_prefix_suffix_assessment_v1.py"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 0
+    },
+    "green-config-01.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "--import-mode=importlib",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/unit/test_native_prefix_matched_transfer_v4.py",
+        "--tb=short"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 0
+    },
+    "lint-closed-02.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "check",
+        "src/marine_echo/training/native_prefix_matched_transfer_v4.py",
+        "src/marine_echo/evaluation/native_prefix_suffix_assessment_v1.py",
+        "tests/unit/test_native_prefix_matched_transfer_v4.py",
+        "tests/integration/test_native_prefix_matched_transfer_v4.py",
+        "tests/unit/test_native_prefix_suffix_assessment_v1.py",
+        "tests/integration/test_native_prefix_suffix_assessment_v1.py"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 0
+    },
+    "lint-closeout-01.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "check",
+        "src/marine_echo/training/native_prefix_matched_transfer_v4.py",
+        "src/marine_echo/evaluation/native_prefix_suffix_assessment_v1.py",
+        "tests/unit/test_native_prefix_matched_transfer_v4.py",
+        "tests/integration/test_native_prefix_matched_transfer_v4.py",
+        "tests/unit/test_native_prefix_suffix_assessment_v1.py",
+        "tests/integration/test_native_prefix_suffix_assessment_v1.py"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 0
+    },
+    "lint-final-01.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "check",
+        "src/marine_echo/training/native_prefix_matched_transfer_v4.py",
+        "src/marine_echo/evaluation/native_prefix_suffix_assessment_v1.py",
+        "tests/unit/test_native_prefix_matched_transfer_v4.py",
+        "tests/integration/test_native_prefix_matched_transfer_v4.py",
+        "tests/unit/test_native_prefix_suffix_assessment_v1.py",
+        "tests/integration/test_native_prefix_suffix_assessment_v1.py"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 0
+    },
+    "native-geometry-final-01.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "--import-mode=importlib",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/unit/test_native_prefix_matched_transfer_v4.py::test_matched_cf_alternatives_admitted",
+        "tests/integration/test_native_prefix_matched_transfer_v4.py::test_actual_weight_codec_context_only_replay_and_original_train_scaling",
+        "--tb=short"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 0
+    },
+    "prefix-decode-perturbation-01.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "--import-mode=importlib",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/unit/test_native_prefix_matched_transfer_v4.py::test_matched_cf_alternatives_admitted",
+        "tests/integration/test_native_prefix_matched_transfer_v4.py::test_actual_prefix_decoder_ignores_future_and_never_reads_suffix_values",
+        "--tb=short"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 1
+    },
+    "prefix-decode-perturbation-02.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "--import-mode=importlib",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/unit/test_native_prefix_matched_transfer_v4.py::test_matched_cf_alternatives_admitted",
+        "tests/integration/test_native_prefix_matched_transfer_v4.py::test_actual_prefix_decoder_ignores_future_and_never_reads_suffix_values",
+        "--tb=short"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 0
+    },
+    "red-01.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "--import-mode=importlib",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/unit/test_native_prefix_matched_transfer_v4.py",
+        "--tb=short"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 1
+    },
+    "red-control-parent-01.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "--import-mode=importlib",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/unit/test_native_prefix_matched_transfer_v4.py::test_actual_control_synthetic_parent_status_is_not_real_approval",
+        "--tb=short"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 1
+    },
+    "red-suffix-01.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "--import-mode=importlib",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/unit/test_native_prefix_suffix_assessment_v1.py",
+        "--tb=short"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 1
+    },
+    "scientific-source-proof-01.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "evidence\\ssl-transfer-integration-builder-v1\\close_source_proof.py"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 1
+    },
+    "scientific-source-proof-02.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "evidence\\ssl-transfer-integration-builder-v1\\close_source_proof.py"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 0
+    },
+    "semantic-suffix-01.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "--import-mode=importlib",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/integration/test_native_prefix_suffix_assessment_v1.py::test_guarded_suffix_admission_rejects_before_any_decode",
+        "--tb=short"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 0
+    },
+    "suffix-codec-debug-01.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "--import-mode=importlib",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/integration/test_native_prefix_suffix_assessment_v1.py::test_actual_saved_weights_suffix_scores_and_protected_output",
+        "--tb=short"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 1
+    },
+    "suffix-codec-debug-02.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "--import-mode=importlib",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/integration/test_native_prefix_suffix_assessment_v1.py::test_actual_saved_weights_suffix_scores_and_protected_output",
+        "--tb=short"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 0
+    },
+    "units-final-01.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "--import-mode=importlib",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/unit/test_native_prefix_matched_transfer_v4.py",
+        "tests/unit/test_native_prefix_suffix_assessment_v1.py",
+        "--tb=short"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 1
+    }
+  },
+  "authored": {
+    "src/marine_echo/evaluation/native_prefix_suffix_assessment_v1.py": "3d31725f753679e5d30467ec173b4b1614b94057382789dfb8a05f418e629dae",
+    "src/marine_echo/training/native_prefix_matched_transfer_v4.py": "29613d837b60b88fae3c74b9d0865241d47973d303c78b173feb8cd827c9a822",
+    "tests/integration/test_native_prefix_matched_transfer_v4.py": "0720f2b06170acb126c37324ea9d5e2dc5afe09da058d58369f85b42a28d1166",
+    "tests/integration/test_native_prefix_suffix_assessment_v1.py": "77372fb4dc4a361946d4281104830d7b4dc46e3220e59e0aa6c3b2d46d797d6a",
+    "tests/unit/test_native_prefix_matched_transfer_v4.py": "f34c148b85f457b94eaf8d10ef75ccae20f3b251be9ea91c00725c327ac55851",
+    "tests/unit/test_native_prefix_suffix_assessment_v1.py": "42d5a9f9c6efe2b72cb4224571742ca8679b522fcb16da2372f154bbcb051fd5"
+  },
+  "dependency_hashes": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\NATIVE_SSL_COORDINATOR_CODE_REVIEW_V2.md": "5835504d6f5e869ed146cdc7157cc1ebf72dd08a643304b582b72835dc2df6db",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0021-native-prefix-transfer-assessment.md": "aee2aa04b9ac40e335df8a274801122a1d3b763a6e709c02e7baea4ea2650d34",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0024-owner-authorized-vlc-desktop-coexecution.md": "11d5f3e31bb88d269d70872509d86dd06ed87b94fd1b51c6e949560bf036325d",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0025-cf-matched-controls-continuation.md": "2f04d5aa785cfcc3fac66ffe125aadeb3b34d653e0a698bf70ff1ecd135b6f6d",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-prefix-native-config-builder-v3\\prefix_test_support.py": "34b4b114ffa27a406aa256893dc309ffae6dadd3605dca4566cc44413a7f6782",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_band_budget_owner_resolution_v1.json": "d13cc7875bba5400cfe0761a371dcf69bb743e4914f9449d288ecaee9b5d15db",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_vlc_desktop_owner_resolution_v1.json": "18e29745c7595a9ea50bccf23e3124b06c57106929ac20c40a8f04776ff598e4",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\__init__.py": "3fcc1878588f5a89775363e099fab7d7323acebccae26d10db4a6da627425b68",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\__init__.py": "dddaccd3cb0c952e88796d75e7a15966cfab87f98c2cfe8452a5fff4c3138c68",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_assessment_replication.py": "f8c7e9272c9ecbbb68d60695e9e4e92494f42ca9420989500b7c3f409778c9ef",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_comparison.py": "51c5374e188bd3c7f2b00d5f1b5887f33b456c291cb0290e8b8e020ff28df020",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_product.py": "fd1c643fde93494a21d560794f886056e58031f1ef6dd41ebe53662750bab314",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_band_acoustic.py": "6181baf22b75be73767f4b76370c65bfc37fdeb189da3deabcabe8a7c2dcd1bf",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_band_replication_acoustic.py": "e689d80077152b4c784966426846bfb154eb4e16a46494f2140129c003288149",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_cf_controls.py": "9a6e17002fe8944bfc7965c7d4389bc4aea120cd0bfe78d5bfa52ab23e260a7d",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_encoder.py": "6cc07a15ea93427d6628f1b317945f6e38ff3008894a31cab2173c0b666c0f7f",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\__init__.py": "5bdc97a6119b2dd3d519df36406c8bcb9e801be81c8b6c3f44e4a527db1f87a3",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_band_temporal.py": "1550bb3f130e3981f57b46031e39d0d42ce7dac4738aea9280362210dfaca96b",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_temporal.py": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\sigreg.py": "2cf5dc8e6fc610fbe167339a8750f5e2d9ddf9a48f416717b8310500536469a3",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\__init__.py": "c98c60178f566d43dd60641704ccd9c652d406487b4838cbf5a9df49ea5dd735",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_downstream.py": "95becf2cd01a7ab07c67a4da8d26c8e8bf58297f56513a439b0ab2b2be776619",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_replication_downstream.py": "f5a6747b3a37dcd8856b617a95cd939862ba716a1d7e50fe7ef9090a08d4084d",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_replication_ssl.py": "94c04d2d585c39d49e849f4b86375e201898ae104e8a808341363a2f22518f72",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_ssl.py": "ca33bf3141ea17c5adb3d0a4cd2ed0d186be8efb846a5b581003f2088a105e4f",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_cf_controls.py": "adecec6a669e43254b129e69e1dca94ade7ccf10ff1a9369e2b872cd85685ed7",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_desktop_resources_v2.py": "f364340c471f2d0bbdc4b541dd44a5f1d669750f2de7978961ade63fe94d8662",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_desktop_runtime_v3.py": "94d69cfb194b0169093fb13e8f7ad0f59160c7e93dd8899ed0de0298e027b1e1",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_downstream.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_prefix_desktop_transfer_v3.py": "a7b90e49fee2866363877f4f6c236c99867ce77ca451f90801ee573b5ec2fca0",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_prefix_transfer.py": "844159d11a1d9a410f7cb7f1a83c782360427e04aae965c19cb94a74d5a28d38",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_references.py": "0d6583644ab1fce8d87a4194048f2176237b47deb57f0fa8494df6aa9012d584",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_resources.py": "c9ca3fbd0759ae00824774ed61a08185361234430d5ed63f09fa3885545c7c38",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_ssl.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_native_band_job.py": "d66e2fb990ecff500e8927e52aad69afce4937bbeb5fdc6a198efc3493e4e816",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_native_prefix_desktop_job_v3.py": "e2ea9c3db47ebbcd6f6e83585a951b535b225f6a00bbf18f92a8c91f81fa87fb",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_native_prefix_desktop_worker_v3.py": "4a9e3277542cd0b6b98033bd0cb2b0c0e810a6e987d164bd2e0e2a6915c1a019",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_native_prefix_job_v2.py": "38bb28c1580a09805bcba56f2180a9b8e55001229b1974451ba16a51fafe8b21",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_native_prefix_worker.py": "39ab2ecdd8cc8d6843289c384f05bd61436d4bf1c3a4ecbe4033653d47c04ca6",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\native_band_budget_history_v2.py": "ac05992bfb21126d1f27eff1122ee198522346c23e45c47225287b55243c9e13",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\native_reference_supervisor.py": "ec5456584ca6f6a805e13f4137365c2c0a785b2dbc52782b191c1528befb30dd"
+  },
+  "evidence": {
+    "CONVENTIONAL_PREFIX_POLICY_PROPOSAL_V1.md": "acf7a5e5d16268b82e8467ea19b878b5c9c4ca572f8499b425d683e9027f8a15",
+    "IMPLEMENTATION_REPORT_V1.md": "891c0064330db88179645d36046b8955078d8426e0ff466d1a01138593b85c67",
+    "authored-source-proof-final-v1.json": "a2ed8c15af29f6b175380db2d128d571bc8829a1138cc3ff88dd04e20cb51b40",
+    "build_prefix.py": "af5a8ad8d4afe3fd5b175fa9ba66a25888f629053d59939539b9c662efc6520a",
+    "close_delivery.py": "6ebdd9b59ad44f8ce6b7ca4102925f3326eb4bcb3ca66ab7efbca5b8cce31f18",
+    "close_source_proof.py": "84bd3088ffe77e5ec81de48c2bc1721c9ab15262d771fa5001c56d8cd65a0e47",
+    "closed-source-proof-v2.json": "233cff2f431906004120076ef855b9b3233bb3f2ea74198c8c5257f0c7a3555f",
+    "conventional-codec-resume-01.json": "34615993e2823b804e34f9ce5c3436783b86a365aabe04232b60413df7d1353d",
+    "conventional-codec-resume-01.log": "1052061f1fb16e2e2ef988b99deecdf3716f8882bd39d65141f3ea5750aad3ed",
+    "focused-01.json": "d4eb8845225cda36492c715c6f95a6a858a229dc580983612f4f9d1acf7dea0c",
+    "focused-01.log": "9b76b3e59e5f48d51a6c4b8a85b2cdc4e9c4761a8f62e8d987b98a28c6a452c3",
+    "focused-final-02.json": "9d7dd5f63dbdab22ae9ff2401ead68a112b79bd6a621243c0f546c5fcb29bba5",
+    "focused-final-02.log": "e35431c30a3242b6239d5f18d4c45982cdf113de0924b4c6d3c66ebfa65ce6ca",
+    "format-close-refactor-01.json": "991546e5de48e2e9d7f1240cf03582988d59b2a68a17a1d0403de37ce4b695e3",
+    "format-close-refactor-01.log": "413a709001976657cb743636fd34e48fc41d8d302d665460d3f874b3313da127",
+    "format-close-verified-01.json": "6f018d2f6e62676fe29a534bddf61fcc913190158ad0929b9b171fe0caafc218",
+    "format-close-verified-01.log": "ef7d13d02214e98ca902b05257cdbe6a8e84f3b4714508efdc19766460b54209",
+    "format-closed-02.json": "02ade3ab2a00fdaadc6c42f00d7a0cbfc872f10696cc849997c2f34da86dfdc4",
+    "format-closed-02.log": "eca8ef3dde4f1d769c28c3b83713b506ab3ba75665126616f9b68970d19728ae",
+    "format-closeout-01.json": "02ade3ab2a00fdaadc6c42f00d7a0cbfc872f10696cc849997c2f34da86dfdc4",
+    "format-closeout-01.log": "c0c7a65b9940dc0ad4581e0f7ec038cf87397f7b04887becf307ade7b728e47b",
+    "format-final-01.json": "6f018d2f6e62676fe29a534bddf61fcc913190158ad0929b9b171fe0caafc218",
+    "format-final-01.log": "ef7d13d02214e98ca902b05257cdbe6a8e84f3b4714508efdc19766460b54209",
+    "format-refactor-02.json": "d4f56547466b07d3638cdd8cfbf057a54b463ff08eec705fe18483cbf267f4c4",
+    "format-refactor-02.log": "662c4b8fd005c98e454d08bf79ba483c74acf02df425eb8aac3a4cd06192e63b",
+    "green-config-01.json": "be5c8c7ea6691238f3931eafd275fa523374de3256d0f02c9463351f2b1b760f",
+    "green-config-01.log": "cb5d2c1876fefa2f2d26238e6392160790f86584eb11d30940c24e11c0fc5f4e",
+    "lint-closed-02.json": "efa1b17fa55f501ca1c08777008f34007520f96f8c39f768768ec9da206c1d47",
+    "lint-closed-02.log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "lint-closeout-01.json": "efa1b17fa55f501ca1c08777008f34007520f96f8c39f768768ec9da206c1d47",
+    "lint-closeout-01.log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "lint-final-01.json": "efa1b17fa55f501ca1c08777008f34007520f96f8c39f768768ec9da206c1d47",
+    "lint-final-01.log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "native-geometry-final-01.json": "3d6aeeecb4054bdbd3f90e39f9f95f81619a5f74be46ea6c110f375baad3acf8",
+    "native-geometry-final-01.log": "4c097ceadbb3f066783de0cabe0c12fd3d2eb792de0f1d66e67cb36b8064befb",
+    "prefix-baseline-source.txt": "a7b90e49fee2866363877f4f6c236c99867ce77ca451f90801ee573b5ec2fca0",
+    "prefix-bounded-diff-final-v1.patch": "301ac8df1a4c33e236db76869d400522690e534b33d49fe02fef92ec21d428b7",
+    "prefix-copy-proof.json": "a53508249d4871b827d5c7cf3221b1f26295a33d6d6bc259a41ec474fd1243c8",
+    "prefix-decode-perturbation-01.json": "c36c6e7bc73c3eedf23126a3a933d6a63c7d8cd51995c27f2db21243fc805d13",
+    "prefix-decode-perturbation-01.log": "5250e27f4cda68a9e6c25f3338ae9361eb61bfb9ebde4cb8cfd4588d12e4c4cf",
+    "prefix-decode-perturbation-02.json": "318d98ed32da3a81b9893174abb7ddb5300e4ad97e6fad07842a67b4f89b6b5f",
+    "prefix-decode-perturbation-02.log": "ed7ec65293a8fedc61dcff817f28ca84c427ee293f45c112f29a9f013e913b53",
+    "prefix_helpers.txt": "4fa17284b639e470d86d353a6f24ab3ba149da9e6c9adb634c1eaab8e68b6815",
+    "protected-source-00.md": "aee2aa04b9ac40e335df8a274801122a1d3b763a6e709c02e7baea4ea2650d34",
+    "protected-source-01.md": "11d5f3e31bb88d269d70872509d86dd06ed87b94fd1b51c6e949560bf036325d",
+    "protected-source-02.md": "2f04d5aa785cfcc3fac66ffe125aadeb3b34d653e0a698bf70ff1ecd135b6f6d",
+    "protected-source-03.md": "5835504d6f5e869ed146cdc7157cc1ebf72dd08a643304b582b72835dc2df6db",
+    "protected-source-04.py": "34b4b114ffa27a406aa256893dc309ffae6dadd3605dca4566cc44413a7f6782",
+    "protected-source-05.json": "d13cc7875bba5400cfe0761a371dcf69bb743e4914f9449d288ecaee9b5d15db",
+    "protected-source-06.json": "18e29745c7595a9ea50bccf23e3124b06c57106929ac20c40a8f04776ff598e4",
+    "protected-source-07.py": "3fcc1878588f5a89775363e099fab7d7323acebccae26d10db4a6da627425b68",
+    "protected-source-08.py": "dddaccd3cb0c952e88796d75e7a15966cfab87f98c2cfe8452a5fff4c3138c68",
+    "protected-source-09.py": "f8c7e9272c9ecbbb68d60695e9e4e92494f42ca9420989500b7c3f409778c9ef",
+    "protected-source-10.py": "51c5374e188bd3c7f2b00d5f1b5887f33b456c291cb0290e8b8e020ff28df020",
+    "protected-source-11.py": "fd1c643fde93494a21d560794f886056e58031f1ef6dd41ebe53662750bab314",
+    "protected-source-12.py": "6181baf22b75be73767f4b76370c65bfc37fdeb189da3deabcabe8a7c2dcd1bf",
+    "protected-source-13.py": "e689d80077152b4c784966426846bfb154eb4e16a46494f2140129c003288149",
+    "protected-source-14.py": "9a6e17002fe8944bfc7965c7d4389bc4aea120cd0bfe78d5bfa52ab23e260a7d",
+    "protected-source-15.py": "6cc07a15ea93427d6628f1b317945f6e38ff3008894a31cab2173c0b666c0f7f",
+    "protected-source-16.py": "5bdc97a6119b2dd3d519df36406c8bcb9e801be81c8b6c3f44e4a527db1f87a3",
+    "protected-source-17.py": "1550bb3f130e3981f57b46031e39d0d42ce7dac4738aea9280362210dfaca96b",
+    "protected-source-18.py": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32",
+    "protected-source-19.py": "2cf5dc8e6fc610fbe167339a8750f5e2d9ddf9a48f416717b8310500536469a3",
+    "protected-source-20.py": "c98c60178f566d43dd60641704ccd9c652d406487b4838cbf5a9df49ea5dd735",
+    "protected-source-21.py": "95becf2cd01a7ab07c67a4da8d26c8e8bf58297f56513a439b0ab2b2be776619",
+    "protected-source-22.py": "f5a6747b3a37dcd8856b617a95cd939862ba716a1d7e50fe7ef9090a08d4084d",
+    "protected-source-23.py": "94c04d2d585c39d49e849f4b86375e201898ae104e8a808341363a2f22518f72",
+    "protected-source-24.py": "ca33bf3141ea17c5adb3d0a4cd2ed0d186be8efb846a5b581003f2088a105e4f",
+    "protected-source-25.py": "adecec6a669e43254b129e69e1dca94ade7ccf10ff1a9369e2b872cd85685ed7",
+    "protected-source-26.py": "f364340c471f2d0bbdc4b541dd44a5f1d669750f2de7978961ade63fe94d8662",
+    "protected-source-27.py": "94d69cfb194b0169093fb13e8f7ad0f59160c7e93dd8899ed0de0298e027b1e1",
+    "protected-source-28.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a",
+    "protected-source-29.py": "a7b90e49fee2866363877f4f6c236c99867ce77ca451f90801ee573b5ec2fca0",
+    "protected-source-30.py": "844159d11a1d9a410f7cb7f1a83c782360427e04aae965c19cb94a74d5a28d38",
+    "protected-source-31.py": "0d6583644ab1fce8d87a4194048f2176237b47deb57f0fa8494df6aa9012d584",
+    "protected-source-32.py": "c9ca3fbd0759ae00824774ed61a08185361234430d5ed63f09fa3885545c7c38",
+    "protected-source-33.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744",
+    "protected-source-34.py": "d66e2fb990ecff500e8927e52aad69afce4937bbeb5fdc6a198efc3493e4e816",
+    "protected-source-35.py": "e2ea9c3db47ebbcd6f6e83585a951b535b225f6a00bbf18f92a8c91f81fa87fb",
+    "protected-source-36.py": "4a9e3277542cd0b6b98033bd0cb2b0c0e810a6e987d164bd2e0e2a6915c1a019",
+    "protected-source-37.py": "38bb28c1580a09805bcba56f2180a9b8e55001229b1974451ba16a51fafe8b21",
+    "protected-source-38.py": "39ab2ecdd8cc8d6843289c384f05bd61436d4bf1c3a4ecbe4033653d47c04ca6",
+    "protected-source-39.py": "ac05992bfb21126d1f27eff1122ee198522346c23e45c47225287b55243c9e13",
+    "protected-source-40.py": "ec5456584ca6f6a805e13f4137365c2c0a785b2dbc52782b191c1528befb30dd",
+    "protected-source-proof-final-v1.json": "d21201ae35e277e17f2416a33dfdc566beda52265e8abadd01cb04182d88ae6f",
+    "red-01.json": "45463c99a6b5dc4f161d1ab084728638190c0a92c801552d6588b4b382bb2acd",
+    "red-01.log": "88099e3f79a3ae6b042f8ec0d5065a7b4911019bf847432f50f70cddc0949774",
+    "red-control-parent-01.json": "8740c17af15c0ea02af9739c4f43f5b5b58c34772a9e8c4a630b113a01a3e74a",
+    "red-control-parent-01.log": "581f1d50b6f88dc88a5610bde31cb1059d7a38cba539a548705b6080ade97702",
+    "red-suffix-01.json": "a2f32d321ec7be4c6ce1ef3039a574135a423e5ad88925ec7995fd6550d9bde8",
+    "red-suffix-01.log": "45344bf280aae0cb9848007fb8975902765843bca7b7f429366fc810f09a456d",
+    "run_check.py": "4e06d6fdfb1ec1c1a1ba9f5bf4e62676d3bb26182fc3198f7305391bd054804f",
+    "scientific-ast-proof-final-v1.json": "50c2b4e297ee408d0dd3a65b1f5da955885b8a2a7833c95ce99c64a49278b4b8",
+    "scientific-source-proof-01.json": "25d801e174b4273f198d65c7d8b96b9d13a724abbb2f0570d388273de6648c5a",
+    "scientific-source-proof-01.log": "3b7711b34e1419ddc16af11d9a427552cdb0c23f099e951da1dbffef0f023041",
+    "scientific-source-proof-02.json": "2065887eb44715236443f453edeb83b07cd269ed68bdd72303923755f1580549",
+    "scientific-source-proof-02.log": "101af9119df9a79639424546edb6b8a819e2bfbbd11b67b4db57aa633e9e49e6",
+    "semantic-suffix-01.json": "f59431bfa3a733d4de6dd0d352e0f13c01c8313418c49797535fb2db379a2cba",
+    "semantic-suffix-01.log": "67ec8ca9ef91e8f92c25133a52d1498f767038a05923db489aa8fe4f0fbee83d",
+    "suffix-codec-debug-01.json": "ec402cd5917574799b30904d3035a2b1ac44e11dfb9673973f41ba622f243c8b",
+    "suffix-codec-debug-01.log": "47b3f1bab3912e7963062ebe71a97cdf45bdf4fcaa0c2b52d4cf865926563544",
+    "suffix-codec-debug-02.json": "4fe55e029d01173e5a610c96504dd18a9564cac6497fa3f0528e01978b204d1f",
+    "suffix-codec-debug-02.log": "5a014063ad40cd956c670a78bbbc8a4aea6ef9f938effa1932e1d5881a8db338",
+    "test_support.py": "e50d27a0634ee6be2f8080d2d8940d006a230cee6af6d6274de830d35f2cdbb2",
+    "units-final-01.json": "08a7672c967395df6f8b7f981e7a3d5c1f87052554c8bd73960c9e797eac4a33",
+    "units-final-01.log": "4cb408e924db5935029e600f2fe982e56b21dcbf6067c6cf1321df71be4c3608"
+  },
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "handoff_scope": "Only listed top-level files; private SYNTHETIC_CORRECTNESS_ONLY-* fixture trees and bytecode excluded",
+  "implementer_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "integration_support": {
+    "test_support.py": "e50d27a0634ee6be2f8080d2d8940d006a230cee6af6d6274de830d35f2cdbb2"
+  },
+  "parameter_counts": {
+    "cf": {
+      "encoder": 412800,
+      "head": 18565,
+      "original_tensor_shapes_equal": true,
+      "total": 431365
+    },
+    "shared": {
+      "encoder": 2424448,
+      "head": 5189,
+      "original_tensor_shapes_equal": true,
+      "total": 2429637
+    }
+  },
+  "production_status": {
+    "GPU": "NOT_RUN",
+    "held_out_evaluation": "NOT_RUN",
+    "independent_review": "NOT_RUN",
+    "numeric_access": "NOT_RUN",
+    "public_artifact_decode": "NOT_RUN",
+    "real_source_prefit": "NOT_RUN",
+    "scientific_fit": "NOT_RUN"
+  },
+  "protected_sources_unchanged": true,
+  "root_only_not_run": [
+    "actual CF frozen/scratch Torch optimizer moments and exact continuation/inference fixture (two cases)",
+    "production owner wrapper/routing/accounting integration",
+    "actual completed public CF-control/prefix ancestor admission and replay"
+  ],
+  "root_required_commands": [
+    "set NATIVE_PREFIX_MATCHED_ROOT_CHECKS=1",
+    "set PYTHONPATH=src",
+    ".venv\\Scripts\\python.exe -m pytest --import-mode=importlib -q -p no:cacheprovider tests/unit/test_native_prefix_matched_transfer_v4.py tests/integration/test_native_prefix_matched_transfer_v4.py tests/unit/test_native_prefix_suffix_assessment_v1.py tests/integration/test_native_prefix_suffix_assessment_v1.py --tb=short"
+  ],
+  "root_required_policy": "CPU-only private synthetic fixtures after exact integration; coordinator supervises lifetime600s/full-treeRAM22GiB. No scientific authority inherited.",
+  "scientific_or_improvement_claim": null,
+  "status": "CLOSED_ENGINEERING_DELIVERY",
+  "unresolved_limits": [
+    "Conventional four-tree-check policy is proposed, requires coordinator ADR before reserved outcomes and distinct exact prefit",
+    "New ROOT bounded process routing/accounting is coordinator-owned and not implemented here",
+    "Original CF full-H96 pooled feature use is not claimed equivalent to sampled forward-zone training",
+    "Small site counts/source-clock proxies limit intervals; unsupported support remains null",
+    "Test fixtures use synthetic identities, never reviewer signatures or scientific approval"
+  ]
+}

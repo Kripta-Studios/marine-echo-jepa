@@ -1,0 +1,10 @@
+..............................F.                                         [100%]
+================================== FAILURES ===================================
+___ test_native_daily_floor_unsupported_support_never_fabricates_intervals ____
+tests\unit\test_native_prefix_suffix_assessment_v1.py:88: in test_native_daily_floor_unsupported_support_never_fabricates_intervals
+    assert draws is None and uncertainty["status"] == "NOT_ASSESSABLE"
+                             ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'status'
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_prefix_suffix_assessment_v1.py::test_native_daily_floor_unsupported_support_never_fabricates_intervals
+1 failed, 31 passed in 53.04s

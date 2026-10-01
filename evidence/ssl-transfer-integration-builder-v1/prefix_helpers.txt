@@ -1,0 +1,177 @@
+def _private_manifest(path, manifest, output):
+    if manifest["evidence_kind"] != EVIDENCE:
+        return
+    allowed = Path(__file__).resolve().parents[3] / "evidence/ssl-transfer-integration-builder-v1"
+    if not path.parent.is_relative_to(allowed) or not path.parent.name.startswith(EVIDENCE + "-") or not output.is_relative_to(path.parent):
+        raise ValueError("Synthetic admission is confined to private labeled evidence fixtures.")
+    for key in ("prefix_npz", "dev_npz", "encoder", "parent_inference", "numeric_access_review", "scaler_ancestry", "encoder_ancestry"):
+        if manifest.get(key) is not None and not _path(manifest[key], path.parent).is_relative_to(path.parent):
+            raise ValueError("Synthetic flag never admits public numerical or tensor paths.")
+
+
+def validate_control_ancestry(value, config, backbone):
+    cfg = cf_controls.Config(**backbone)
+    cfg.validate(correctness_smoke=config.correctness_smoke)
+    expected = {"mode": cfg.mode, "ssl_only": False, "ssl_updates": 0,
+                "ancestor_encoder_sha256": None, "ancestor_run_sha256": None,
+                "initialization_seed": config.seed, "readout_initialization_seed": config.seed + 100000}
+    if not isinstance(value, dict) or any(value.get(k) != v or type(value.get(k)) is not type(v) for k, v in expected.items()):
+        raise ValueError("Exact zero-SSL control/readout/scaler ancestry required.")
+    steps, selected, encoder_steps = [value.get(k) for k in ("supervised_updates", "selected_supervised_step", "encoder_supervised_updates")]
+    if any(type(v) is not int for v in (steps, selected, encoder_steps)) or not 1 <= selected <= steps <= cfg.updates or selected % cfg.cadence or encoder_steps != (0 if cfg.method == "cf_random_frozen" else steps):
+        raise ValueError("Control actual fitted head/encoder label counts differ.")
+    return copy.deepcopy(value)
+
+
+def _admit_cf_parent(config, manifest, parent, backbone, encoder_raw, inference_raw, membership_raw, artifacts, ancestor_inputs, ancestor_members, split_path, base, bound, doc):
+    cfg = cf_controls.Config(**backbone)
+    cfg.validate(correctness_smoke=config.correctness_smoke)
+    _, original_config = doc(manifest["parent_config"])
+    review_path, review = doc(manifest["parent_review"])
+    _, paths = doc(manifest["parent_inputs"])
+    inputs = cf_controls.RunInputs(**{k: _path(v, base) if v is not None else None for k, v in paths.items()})
+    evidence = EVIDENCE if config.correctness_smoke else "REAL_TRAIN_DEVELOPMENT_FIT"
+    excluded = {IMPLEMENTER_SESSION_ID, manifest["implementer_session_id"], manifest["coordinator_session_id"], review.get("implementer_session_id"), review.get("root_coordinator_session_id")}
+    reviewer = review.get("reviewer_session_id")
+    if (cfg.method != config.method or cfg.seed != config.seed or original_config != backbone
+        or parent.get("config") != backbone or parent.get("status") != "COMPLETED"
+        or parent.get("evidence_kind") != evidence or parent.get("test_access") != "NOT_RUN"
+        or parent.get("ssl_updates") != 0 or parent.get("fitted_weight_ancestors") != []
+        or parent.get("training_kind") != cf_controls.TRAINING_KINDS[config.method]
+        or parent.get("mode") != cfg.mode or parent.get("core_config") != cf_controls.core_config(cfg).to_dict()
+        or not isinstance(reviewer, str) or reviewer.casefold() in {v.casefold() for v in excluded if isinstance(v, str)}
+        or review.get("status") != "APPROVED_CF_CONTROL_PREFIT" or review.get("evidence_kind") != evidence
+        or review.get("allowed_roles") != ["train", "development"]
+        or cfg.method not in review.get("allowed_methods", []) or cfg.mode not in review.get("allowed_modes", []) or cfg.seed not in review.get("allowed_seeds", [])
+        or parent.get("review_sha256") != sha(bound(review_path)) or parent.get("reviewer_session_id") != reviewer
+        or parent.get("selected_encoder_sha256") != sha(encoder_raw)
+        or inputs.config != _path(manifest["parent_config"], base) or inputs.review != review_path
+        or inputs.dev != _path(manifest["dev_npz"], base) or inputs.split != split_path
+        or sha(bound(inputs.train)) not in ancestor_inputs):
+        raise ValueError("Completed genuinely reviewed CF control parent identities differ.")
+    lineage = validate_control_ancestry(parent.get("supervised_ancestry"), config, backbone)
+    if any(parent.get(k) != lineage[k] for k in ("supervised_updates", "selected_supervised_step")):
+        raise ValueError("Control supervised update/selection ancestry differs.")
+    original_bindings = parent.get("bindings")
+    if not isinstance(original_bindings, dict) or not original_bindings:
+        raise ValueError("CF control complete original bindings required.")
+    aliases = manifest.get("parent_source_snapshots", {})
+    for p, digest in original_bindings.items():
+        if review.get("bindings", {}).get(p) != digest or sha(bound(_path(aliases.get(p, p), base))) != digest:
+            raise ValueError("Original control source/data/config review binding differs.")
+    if any(str(p) not in original_bindings for p in cf_controls.required_paths(inputs, cfg)):
+        raise ValueError("Control review must include every original runtime/source/data binding.")
+    for name, p in (("train_npz_sha256", inputs.train), ("dev_npz_sha256", inputs.dev), ("split_sha256", inputs.split)):
+        if review.get(name) != sha(bound(p)):
+            raise ValueError("Original control TRAIN/DEV/split identity differs.")
+    membership = _json(membership_raw)
+    rows, deps, archives = [membership.get(k) for k in ("train_row_ids", "train_deployments", "train_archive_sha256")]
+    if (not isinstance(rows, list) or not rows or not isinstance(deps, list) or not isinstance(archives, list)
+        or len(rows) != len(deps) or len(rows) != len(archives) or len(set(zip(deps, rows))) != len(rows)
+        or any((d, a) not in ancestor_members for d, a in zip(deps, archives))
+        or membership.get("ssl_updates") != 0 or membership.get("ssl_eligible_indices") != []):
+        raise ValueError("Control TRAIN membership or zero SSL sampling differs.")
+    pool, sequence = membership.get("supervised_indices"), membership.get("sequence")
+    if not isinstance(pool, list) or not pool or len(set(pool)) != len(pool) or any(type(i) is not int or not 0 <= i < len(rows) for i in pool) or not isinstance(sequence, list) or len(sequence) != lineage["supervised_updates"]:
+        raise ValueError("Actual control observed-label sampler membership required.")
+    for step, entry in enumerate(sequence):
+        ids = cf_controls.supervised_indices(pool, cfg, step)
+        if entry != {"step": step, "indices": ids.tolist(), "row_ids": [rows[i] for i in ids], "sha256": core.sequence_hash(ids)}:
+            raise ValueError("Actual control sample stream differs.")
+    if membership.get("sequence_sha256") != sha(json.dumps(sequence, sort_keys=True, separators=(",", ":")).encode()):
+        raise ValueError("Control sampling sequence digest differs.")
+
+
+def _check_control_artifacts(selected, inference, parent, config, backbone, statistics):
+    from marine_echo.inference.native_cf_controls import NativeCFControlEncoder, NativeCFControlPredictor
+    if any(a.get("config") != backbone or a.get("scalers") != statistics or a.get("bindings") != parent["bindings"] or a.get("supervised_ancestry") != parent["supervised_ancestry"] for a in (selected, inference)):
+        raise ValueError("Typed control tensor/scaler/supervised ancestry differs.")
+    encoder = NativeCFControlEncoder(io.BytesIO(encode_checkpoint(selected)))
+    full = NativeCFControlPredictor(io.BytesIO(encode_checkpoint(inference)))
+    if config.method != encoder.method or encoder.method != full.method or any(not torch.equal(v, full.encoder.state_dict()[k]) for k, v in encoder.encoder.state_dict().items()):
+        raise ValueError("Control selected encoder differs from actual saved forecast features.")
+
+
+REFERENCE_POLICY = {"kind": "native_prefix_lightgbm_policy_v1", "method": "lightgbm", "history": 96,
+    "objective": "quantile", "n_estimators": 300, "learning_rate": 0.03, "num_leaves": 31,
+    "min_child_samples": 64, "colsample_bytree": 0.9, "reg_lambda": 1.0, "n_jobs": 4,
+    "dev_iteration_choices": [75, 150, 225, 300], "feature_source_sha256": sha(Path(references.__file__).read_bytes()),
+    "aggregation": "equal_target_source_date_then_horizon_then_deployment", "floor": 18}
+
+
+def validate_reference_policy(value):
+    if not isinstance(value, dict) or set(value) != set(REFERENCE_POLICY) | {"seed"} or type(value.get("seed")) is not int or value["seed"] not in (7, 13, 23) or any(value.get(k) != v or type(value.get(k)) is not type(v) for k, v in REFERENCE_POLICY.items()):
+        raise ValueError("Exact source-pinned proposed LightGBM prefix policy required.")
+
+
+class ReferencePredictor:
+    """Owned JSON/text boosters only, native context-only load-only forecasting."""
+    def __init__(self, artifact):
+        import lightgbm as lgb
+        if isinstance(artifact, (str, Path)):
+            artifact = _json(Path(artifact).read_bytes())
+        if artifact.get("kind") != "native_prefix_lightgbm_inference_v1" or artifact.get("zero_shot") is not False:
+            raise ValueError("Distinct adapted conventional kind required.")
+        self.config = PrefixConfig(**artifact["config"])
+        self.config.validate(EVIDENCE if self.config.correctness_smoke else "REVIEWED_PREFIX_TRANSFER")
+        validate_reference_policy(artifact["policy"])
+        if artifact["selected_iteration"] not in REFERENCE_POLICY["dev_iteration_choices"] or not artifact.get("identities") or len(artifact.get("boosters", [])) != 15:
+            raise ValueError("Frozen original-DEV selected fifteen-booster artifact required.")
+        self.iteration = artifact["selected_iteration"]
+        self.boosters = [lgb.Booster(model_str=value) for value in artifact["boosters"]]
+
+    def forecast(self, x, observed, metadata, query):
+        x, observed, metadata = _inputs(x, observed, metadata, 96)
+        from marine_echo.inference.native_band_acoustic import _query
+        _query(query, metadata)
+        if not np.allclose(metadata[:, 0, 3:5] * 250, [0, 230], atol=1e-5, rtol=0):
+            raise ValueError("Conventional suffix retains native230 geometry.")
+        features = references.feature_matrix({"x": x, "observed": observed, "metadata": metadata}, 96)
+        values = np.stack([b.predict(features, num_iteration=self.iteration, num_threads=4) for b in self.boosters], axis=1).reshape(len(x), 3, 5)
+        if not np.isfinite(values).all():
+            raise ValueError("Finite conventional forecasts required.")
+        return np.sort(values, axis=-1)
+
+
+def _fit_reference(admission, prefix, dev, output, policy, statistics):
+    import lightgbm as lgb
+    if admission.config.device != "cpu":
+        raise ValueError("Fixed LightGBM reference uses CPU only.")
+    validate_reference_policy(policy)
+    params = {k: policy[k] for k in ("objective", "n_estimators", "learning_rate", "num_leaves", "min_child_samples", "colsample_bytree", "reg_lambda", "n_jobs")}
+    params.update(random_state=admission.config.seed, verbosity=-1)
+    features = lambda data: references.feature_matrix({"x": data["x"], "observed": data["context_observed"], "metadata": data["metadata"]}, 96)
+    tx, dx, boosters = features(prefix), features(dev), []
+    with desktop_runtime.Resources("cpu", output) as resources:
+        for h in range(3):
+            eligible = prefix["target_observed"][:, h]
+            for quantile in core.QUANTILES:
+                model = lgb.LGBMRegressor(**params, alpha=float(quantile))
+                model.fit(tx[eligible], prefix["targets"][eligible, h])
+                boosters.append(model.booster_)
+                resources.check()
+        candidates, best, selected = [], None, None
+        for iteration in policy["dev_iteration_choices"]:
+            values = np.sort(np.stack([b.predict(dx, num_iteration=iteration, num_threads=4) for b in boosters], axis=1).reshape(len(dx), 3, 5), axis=-1)
+            metrics = native_scores(values, dev["targets"], dev["target_observed"], dev["target_dates"], dev["deployment"], minimum_daily_rows=18)
+            score = metrics["primary_pinball_db"]
+            candidates.append({"iteration": iteration, "role": "original_development", "metrics": metrics})
+            if score is not None and (best is None or score < best):
+                best, selected = score, iteration
+        receipt = {"kind": "native_prefix_matched_transfer_completion_v4", "status": "COMPLETED" if selected is not None else "NOT_ASSESSABLE",
+            "config": admission.config.to_dict(), "partition": admission.partition, "bindings": admission.identities,
+            "evidence_kind": admission.manifest["evidence_kind"], "zero_shot": False, "suffix_numerical_access": False,
+            "label_counts": prefix["target_observed"].sum(0).tolist(), "unique_prefix_rows": len(tx),
+            "support_sha256": sha(prefix["target_observed"].tobytes()), "observed_prefix_target_values_sha256": sha(np.where(prefix["target_observed"], prefix["targets"], 0).astype(np.float32).tobytes()),
+            "original_train_scalers": statistics, "scaling_semantics": "pinned original raw-dB features/targets; transported TRAIN scalers not refitted",
+            "candidates": candidates, "selected_iteration": selected, "resources": resources.snapshot(), "scientific_claim": None}
+        if selected is not None:
+            artifact = {"kind": "native_prefix_lightgbm_inference_v1", "config": admission.config.to_dict(), "policy": policy,
+                "boosters": [b.model_to_string() for b in boosters], "selected_iteration": selected,
+                "identities": admission.identities, "scalers": statistics, "zero_shot": False}
+            with (output / "inference.json").open("x", encoding="utf-8") as stream:
+                json.dump(artifact, stream, allow_nan=False)
+        with (output / "completion.json").open("x", encoding="utf-8") as stream:
+            json.dump(receipt, stream, allow_nan=False)
+        return receipt
+

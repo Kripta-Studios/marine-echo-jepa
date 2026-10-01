@@ -1,0 +1,8 @@
+{
+  "src/marine_echo/evaluation/native_prefix_suffix_assessment_v1.py": "3d31725f753679e5d30467ec173b4b1614b94057382789dfb8a05f418e629dae",
+  "src/marine_echo/training/native_prefix_matched_transfer_v4.py": "29613d837b60b88fae3c74b9d0865241d47973d303c78b173feb8cd827c9a822",
+  "tests/integration/test_native_prefix_matched_transfer_v4.py": "71e6945e08f8a7cd9ecb08963c7ea8cc25f5692af25cbcb92c8f8e7a860bebf7",
+  "tests/integration/test_native_prefix_suffix_assessment_v1.py": "77372fb4dc4a361946d4281104830d7b4dc46e3220e59e0aa6c3b2d46d797d6a",
+  "tests/unit/test_native_prefix_matched_transfer_v4.py": "f34c148b85f457b94eaf8d10ef75ccae20f3b251be9ea91c00725c327ac55851",
+  "tests/unit/test_native_prefix_suffix_assessment_v1.py": "42d5a9f9c6efe2b72cb4224571742ca8679b522fcb16da2372f154bbcb051fd5"
+}

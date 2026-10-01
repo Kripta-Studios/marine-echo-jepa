@@ -1,0 +1,10 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_________________ test_owned_ram_cap_includes_launcher_memory _________________
+tests\unit\test_native_prefix_matched_execution_v4.py:147: in test_owned_ram_cap_includes_launcher_memory
+    assert wrapper.owned_child_ram_allowance(2 * 2**30) == 20 * 2**30
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AttributeError: module 'matched_prefix_wrapper' has no attribute 'owned_child_ram_allowance'
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_prefix_matched_execution_v4.py::test_owned_ram_cap_includes_launcher_memory
+1 failed, 17 deselected in 1.32s

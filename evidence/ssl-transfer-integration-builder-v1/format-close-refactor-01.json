@@ -1,0 +1,11 @@
+{
+  "command": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+    "-m",
+    "ruff",
+    "format",
+    "tests/integration/test_native_prefix_matched_transfer_v4.py"
+  ],
+  "exit": 0,
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY"
+}

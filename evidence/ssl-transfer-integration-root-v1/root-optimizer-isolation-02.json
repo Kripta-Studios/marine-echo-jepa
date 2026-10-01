@@ -1,0 +1,42 @@
+{
+  "command": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+    "-B",
+    "-m",
+    "pytest",
+    "--import-mode=importlib",
+    "-vv",
+    "-p",
+    "no:cacheprovider",
+    "tests/integration/test_native_prefix_matched_transfer_v4.py",
+    "-k",
+    "root_actual_cf_optimizer_exact_resume",
+    "--tb=short"
+  ],
+  "started_utc": "2026-10-01T12:48:13.464319+00:00",
+  "finished_utc": "2026-10-01T12:49:20.567245+00:00",
+  "exit_code": 0,
+  "resources": {
+    "exit_code": 0,
+    "stopped_for": null,
+    "peak_process_rss_bytes": 635924480,
+    "elapsed_full_attempt_seconds": 66.78100000001723,
+    "poll_seconds": 0.1,
+    "rss_limit_bytes": 23601565696,
+    "deadline_seconds": 600,
+    "owned_process_pids": [
+      25208,
+      33272
+    ],
+    "peak_each_process_rss_bytes": {
+      "33272": 5414912,
+      "25208": 630509568
+    },
+    "peak_definition": "Conservative sum of each owned process OS peak working set; sampled RSS fallback",
+    "owned_tree_cleanup_verified": true
+  },
+  "launcher_peak_rss_bytes": 20754432,
+  "evidence_kind": "CPU_ENGINEERING_ONLY",
+  "ledger_sha256_before": "91bf4dcbedc6a603d019c28bb058549f2f39e95befc8d81de5ca6448dec2c5b0",
+  "ledger_sha256_after": "91bf4dcbedc6a603d019c28bb058549f2f39e95befc8d81de5ca6448dec2c5b0"
+}

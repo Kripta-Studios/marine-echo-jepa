@@ -1,0 +1,32 @@
+FFFF                                                                     [100%]
+================================== FAILURES ===================================
+___ test_matched_cf_alternatives_admitted[cf_random_frozen-frozen_readout] ____
+tests\unit\test_native_prefix_matched_transfer_v4.py:15: in test_matched_cf_alternatives_admitted
+    config.validate("REVIEWED_PREFIX_TRANSFER")
+..\marine-echo-jepa\src\marine_echo\training\native_prefix_desktop_transfer_v3.py:134: in validate
+    raise ValueError("Unknown native method/family.")
+E   ValueError: Unknown native method/family.
+_ test_matched_cf_alternatives_admitted[cf_direct_supervised-frozen_readout] __
+tests\unit\test_native_prefix_matched_transfer_v4.py:15: in test_matched_cf_alternatives_admitted
+    config.validate("REVIEWED_PREFIX_TRANSFER")
+..\marine-echo-jepa\src\marine_echo\training\native_prefix_desktop_transfer_v3.py:134: in validate
+    raise ValueError("Unknown native method/family.")
+E   ValueError: Unknown native method/family.
+________ test_matched_cf_alternatives_admitted[direct-scratch_direct] _________
+tests\unit\test_native_prefix_matched_transfer_v4.py:15: in test_matched_cf_alternatives_admitted
+    config.validate("REVIEWED_PREFIX_TRANSFER")
+..\marine-echo-jepa\src\marine_echo\training\native_prefix_desktop_transfer_v3.py:136: in validate
+    raise ValueError("CF family/method identity differs.")
+E   ValueError: CF family/method identity differs.
+_________ test_conventional_cell_is_explicit_separate_feature_recipe __________
+tests\unit\test_native_prefix_matched_transfer_v4.py:19: in test_conventional_cell_is_explicit_separate_feature_recipe
+    prefix.PrefixConfig(method="lightgbm", family="reference", mode="conventional").validate("REVIEWED_PREFIX_TRANSFER")
+..\marine-echo-jepa\src\marine_echo\training\native_prefix_desktop_transfer_v3.py:134: in validate
+    raise ValueError("Unknown native method/family.")
+E   ValueError: Unknown native method/family.
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_prefix_matched_transfer_v4.py::test_matched_cf_alternatives_admitted[cf_random_frozen-frozen_readout]
+FAILED tests/unit/test_native_prefix_matched_transfer_v4.py::test_matched_cf_alternatives_admitted[cf_direct_supervised-frozen_readout]
+FAILED tests/unit/test_native_prefix_matched_transfer_v4.py::test_matched_cf_alternatives_admitted[direct-scratch_direct]
+FAILED tests/unit/test_native_prefix_matched_transfer_v4.py::test_conventional_cell_is_explicit_separate_feature_recipe
+4 failed in 2.80s

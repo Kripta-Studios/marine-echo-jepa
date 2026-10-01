@@ -1,0 +1,43 @@
+{
+  "main_before_sha256": "a7b90e49fee2866363877f4f6c236c99867ce77ca451f90801ee573b5ec2fca0",
+  "unchanged_ast": [
+    "Admission",
+    "PrefixModel",
+    "_batch",
+    "_configuration_at",
+    "_configuration_map",
+    "_decode",
+    "_distinct",
+    "_json",
+    "_native_gap",
+    "_pairs",
+    "_path",
+    "_safe_cpu",
+    "_split_members",
+    "_strict_state",
+    "_supervised_ancestry",
+    "_target_view",
+    "_timestamp",
+    "boundaries",
+    "decode_checkpoint",
+    "encode_checkpoint",
+    "main",
+    "partitions",
+    "predict",
+    "sample_indices",
+    "sha"
+  ],
+  "changed_ast": [
+    "PrefixConfig",
+    "PrefixPredictor",
+    "_Trajectory",
+    "_backbone",
+    "_validate_backbone",
+    "admit",
+    "fit",
+    "prepare_model",
+    "required_sources",
+    "selected_kind"
+  ],
+  "runtime_rewriting": false
+}

@@ -1,0 +1,17 @@
+{
+  "command": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+    "-m",
+    "ruff",
+    "format",
+    "--check",
+    "src/marine_echo/training/native_prefix_matched_transfer_v4.py",
+    "src/marine_echo/evaluation/native_prefix_suffix_assessment_v1.py",
+    "tests/unit/test_native_prefix_matched_transfer_v4.py",
+    "tests/integration/test_native_prefix_matched_transfer_v4.py",
+    "tests/unit/test_native_prefix_suffix_assessment_v1.py",
+    "tests/integration/test_native_prefix_suffix_assessment_v1.py"
+  ],
+  "exit": 1,
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY"
+}

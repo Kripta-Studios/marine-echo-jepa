@@ -1,0 +1,11 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.13, pytest-9.1.1, pluggy-1.6.0 -- C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\.venv\Scripts\python.exe
+rootdir: C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa
+configfile: pyproject.toml
+plugins: anyio-4.15.1, cov-7.1.0
+collecting ... collected 12 items / 10 deselected / 2 selected
+
+tests/integration/test_native_prefix_matched_transfer_v4.py::test_root_actual_cf_optimizer_exact_resume[frozen_readout] PASSED [ 50%]
+tests/integration/test_native_prefix_matched_transfer_v4.py::test_root_actual_cf_optimizer_exact_resume[scratch_direct] PASSED [100%]
+
+====================== 2 passed, 10 deselected in 57.04s ======================

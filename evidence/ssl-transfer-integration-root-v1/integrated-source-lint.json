@@ -1,0 +1,52 @@
+{
+  "command": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+    "-B",
+    "-m",
+    "ruff",
+    "check",
+    "src/marine_echo/training/native_prefix_matched_transfer_v4.py",
+    "src/marine_echo/evaluation/native_prefix_suffix_assessment_v1.py",
+    "tools/execute_native_prefix_matched_job_v4.py",
+    "tools/execute_native_prefix_matched_worker_v4.py",
+    "tools/execute_native_prefix_suffix_job_v1.py",
+    "tools/execute_native_prefix_suffix_worker_v1.py",
+    "tests/unit/test_native_prefix_matched_transfer_v4.py",
+    "tests/integration/test_native_prefix_matched_transfer_v4.py",
+    "tests/unit/test_native_prefix_suffix_assessment_v1.py",
+    "tests/integration/test_native_prefix_suffix_assessment_v1.py",
+    "tests/unit/test_native_prefix_matched_execution_v4.py",
+    "tests/unit/test_native_prefix_matched_execution_inherited_v4.py",
+    "tests/unit/test_native_prefix_suffix_execution_v1.py",
+    "evidence/ssl-transfer-integration-root-v1/run_check.py",
+    "evidence/ssl-transfer-integration-root-v1/integrate_builder.py"
+  ],
+  "started_utc": "2026-10-01T12:43:52.409769+00:00",
+  "finished_utc": "2026-10-01T12:43:54.373157+00:00",
+  "exit_code": 0,
+  "resources": {
+    "exit_code": 0,
+    "stopped_for": null,
+    "peak_process_rss_bytes": 41336832,
+    "elapsed_full_attempt_seconds": 1.6410000000032596,
+    "poll_seconds": 0.1,
+    "rss_limit_bytes": 23601549312,
+    "deadline_seconds": 600,
+    "owned_process_pids": [
+      34424,
+      34768,
+      44436
+    ],
+    "peak_each_process_rss_bytes": {
+      "44436": 5423104,
+      "34768": 13545472,
+      "34424": 22368256
+    },
+    "peak_definition": "Conservative sum of each owned process OS peak working set; sampled RSS fallback",
+    "owned_tree_cleanup_verified": true
+  },
+  "launcher_peak_rss_bytes": 20770816,
+  "evidence_kind": "CPU_ENGINEERING_ONLY",
+  "ledger_sha256_before": "91bf4dcbedc6a603d019c28bb058549f2f39e95befc8d81de5ca6448dec2c5b0",
+  "ledger_sha256_after": "91bf4dcbedc6a603d019c28bb058549f2f39e95befc8d81de5ca6448dec2c5b0"
+}

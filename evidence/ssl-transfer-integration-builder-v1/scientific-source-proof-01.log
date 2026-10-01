@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-jepa-vnext-builder\evidence\ssl-transfer-integration-builder-v1\close_source_proof.py", line 56, in <module>
+    assert old[name] == new[name], "Numerical trajectory changed: " + name
+           ^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Numerical trajectory changed: _Trajectory.restore

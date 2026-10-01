@@ -1,0 +1,9 @@
+...F                                                                     [100%]
+================================== FAILURES ===================================
+___ test_actual_prefix_decoder_ignores_future_and_never_reads_suffix_values ___
+tests\integration\test_native_prefix_matched_transfer_v4.py:106: in test_actual_prefix_decoder_ignores_future_and_never_reads_suffix_values
+    np.savez_compressed(transport, **c.prefix, future=np.array(["FORBIDDEN_FUTURE"], dtype=object))
+E   TypeError: numpy.savez_compressed() got multiple values for keyword argument 'future'
+=========================== short test summary info ===========================
+FAILED tests/integration/test_native_prefix_matched_transfer_v4.py::test_actual_prefix_decoder_ignores_future_and_never_reads_suffix_values
+1 failed, 3 passed in 33.80s

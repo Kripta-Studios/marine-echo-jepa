@@ -1,0 +1,765 @@
+--- C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\src\marine_echo\training\native_prefix_desktop_transfer_v3.py
++++ C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-jepa-vnext-builder\src\marine_echo\training\native_prefix_matched_transfer_v4.py
+@@ -29,8 +29,16 @@
+ from marine_echo.inference.native_encoder import TRAINING_KINDS, _inputs, _scalers
+ from marine_echo.models.native_band_temporal import NativeBandEncoder
+ from marine_echo.models.native_temporal import CFTemporalEncoder, QueryHead, SharedTemporalEncoder
++from marine_echo.training import native_cf_controls as cf_controls
+ from marine_echo.training import native_desktop_runtime_v3 as desktop_runtime
++from marine_echo.training import native_references as references
+ from marine_echo.training import native_ssl as core
++
++TRAINING_KINDS = {
++    **TRAINING_KINDS,
++    **cf_controls.TRAINING_KINDS,
++    "lightgbm": "prefix_supervised_conventional",
++}
+ 
+ IMPLEMENTER_SESSION_ID = "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1"
+ EVIDENCE = "SYNTHETIC_CORRECTNESS_ONLY"
+@@ -48,6 +56,7 @@
+     "core": "shared_temporal_v1",
+     "band": "nonlinear_frequency_conditioned_v1",
+     "cf": "cf_jepa_multiscale_v1",
++    "reference": "native_lightgbm_prefix_fixed_v1",
+ }
+ HORIZONS = (1, 3, 6)
+ 
+@@ -132,11 +141,20 @@
+             raise ValueError("Exact integer budgets and Boolean smoke guard required.")
+         if self.method not in TRAINING_KINDS or self.family not in ARCHITECTURES:
+             raise ValueError("Unknown native method/family.")
+-        if (self.method == "cf_jepa") != (self.family == "cf"):
++        if (self.method == "lightgbm") != (
++            self.family == "reference" and self.mode == "conventional"
++        ) or (self.mode == "conventional" and self.method != "lightgbm"):
++            raise ValueError("Typed fixed conventional cell required.")
++        if self.method in cf_controls.METHODS and self.mode != "frozen_readout":
++            raise ValueError("CF control features are frozen; scratch uses direct/cf identity.")
++        if (
++            self.method in ("cf_jepa", *cf_controls.METHODS)
++            or (self.method == "direct" and self.mode == "scratch_direct" and self.family == "cf")
++        ) != (self.family == "cf"):
+             raise ValueError("CF family/method identity differs.")
+-        if self.mode not in ("frozen_readout", "scratch_direct"):
++        if self.mode not in ("frozen_readout", "scratch_direct", "conventional"):
+             raise ValueError("No SSL full fine-tuning or future-crop adaptation.")
+-        if self.mode == "scratch_direct" and (self.method != "direct" or self.family == "cf"):
++        if self.mode == "scratch_direct" and self.method != "direct":
+             raise ValueError("Scratch is a fresh directly supervised shared backbone.")
+         if self.seed not in (7, 13, 23) or self.history != 96 or self.prefix_days not in (1, 7, 30):
+             raise ValueError("Frozen seed/history/prefix recipe differs.")
+@@ -826,12 +844,15 @@
+     """Static local source closure, including lazy factories; no manifest imports."""
+     root = Path(core.__file__).resolve().parents[1]
+     desktop_runtime.validate_operational_authority()
+-    checkout = Path(__file__).resolve().parents[3]
++    checkout = Path(core.__file__).resolve().parents[3]
+     operational_root = Path(core.__file__).resolve().parents[3]
+     pending = [
+         Path(__file__).resolve(),
+         root / "__init__.py",
+         root / "training/native_prefix_transfer.py",
++        root / "training/native_prefix_desktop_transfer_v3.py",
++        Path(cf_controls.__file__),
++        Path(references.__file__),
+         *desktop_runtime.operational_sources(),
+         checkout / "tools/execute_native_prefix_desktop_job_v3.py",
+         checkout / "tools/execute_native_prefix_desktop_worker_v3.py",
+@@ -875,6 +896,15 @@
+ def _backbone(raw, family, band_artifact_version=1):
+     """Preserve original config bytes; adapt only the band Config field wrapper."""
+     fields = dict(raw)
++    if family == "reference":
++        validate_reference_policy(raw)
++        return core.Config(method="direct", seed=raw["seed"], history=96)
++    if raw.get("method") in cf_controls.METHODS:
++        c = cf_controls.Config(**raw)
++        c.validate(
++            correctness_smoke=(c.width, c.latent, c.blocks, c.batch_size) != (256, 128, 5, 64)
++        )
++        return cf_controls.core_config(c)
+     if family == "band":
+         if fields.pop("architecture", None) != ARCHITECTURES["band"]:
+             raise ValueError("Original band config architecture required.")
+@@ -891,9 +921,21 @@
+ 
+ def _validate_backbone(config, backbone):
+     c = _backbone(backbone, config.family, config.band_artifact_version)
+-    if config.family == "band" and c.seed != config.seed:
++    if (
++        config.family == "band"
++        or config.method in cf_controls.METHODS
++        or config.family == "reference"
++    ) and c.seed != config.seed:
+         raise ValueError("Band parent and prefix seeds must match exactly.")
+-    if c.method != config.method or c.history != 96:
++    expected_method = (
++        "cf_jepa"
++        if config.method in cf_controls.METHODS
++        or (config.family == "cf" and config.mode == "scratch_direct")
++        else "direct"
++        if config.family == "reference"
++        else config.method
++    )
++    if c.method != expected_method or c.history != 96:
+         raise ValueError("Exact saved backbone method/history differs.")
+     d = core.model_dimensions(c)
+     expected = (
+@@ -911,6 +953,8 @@
+ 
+ 
+ def selected_kind(config):
++    if config.method in cf_controls.METHODS:
++        return cf_controls.ENCODER_KINDS[config.method]
+     if config.family == "band" and config.band_artifact_version == 2:
+         return REPLICATION_SUPERVISED_KIND if config.method == "direct" else REPLICATION_KIND
+     family = "band" if config.family == "band" else "core"
+@@ -970,6 +1014,434 @@
+     return members
+ 
+ 
++def _private_manifest(path, manifest, output):
++    if manifest["evidence_kind"] != EVIDENCE:
++        return
++    allowed = Path(__file__).resolve().parents[3] / "evidence/ssl-transfer-integration-builder-v1"
++    if (
++        not path.parent.is_relative_to(allowed)
++        or not path.parent.name.startswith(EVIDENCE + "-")
++        or not output.is_relative_to(path.parent)
++    ):
++        raise ValueError("Synthetic admission is confined to private labeled evidence fixtures.")
++    for key in (
++        "prefix_npz",
++        "dev_npz",
++        "encoder",
++        "parent_inference",
++        "numeric_access_review",
++        "scaler_ancestry",
++        "encoder_ancestry",
++    ):
++        if manifest.get(key) is not None and not _path(manifest[key], path.parent).is_relative_to(
++            path.parent
++        ):
++            raise ValueError("Synthetic flag never admits public numerical or tensor paths.")
++
++
++def validate_control_ancestry(value, config, backbone):
++    cfg = cf_controls.Config(**backbone)
++    cfg.validate(correctness_smoke=config.correctness_smoke)
++    expected = {
++        "mode": cfg.mode,
++        "ssl_only": False,
++        "ssl_updates": 0,
++        "ancestor_encoder_sha256": None,
++        "ancestor_run_sha256": None,
++        "initialization_seed": config.seed,
++        "readout_initialization_seed": config.seed + 100000,
++    }
++    if not isinstance(value, dict) or any(
++        value.get(k) != v or type(value.get(k)) is not type(v) for k, v in expected.items()
++    ):
++        raise ValueError("Exact zero-SSL control/readout/scaler ancestry required.")
++    steps, selected, encoder_steps = [
++        value.get(k)
++        for k in ("supervised_updates", "selected_supervised_step", "encoder_supervised_updates")
++    ]
++    if (
++        any(type(v) is not int for v in (steps, selected, encoder_steps))
++        or not 1 <= selected <= steps <= cfg.updates
++        or selected % cfg.cadence
++        or encoder_steps != (0 if cfg.method == "cf_random_frozen" else steps)
++    ):
++        raise ValueError("Control actual fitted head/encoder label counts differ.")
++    return copy.deepcopy(value)
++
++
++def _admit_cf_parent(
++    config,
++    manifest,
++    parent,
++    backbone,
++    encoder_raw,
++    inference_raw,
++    membership_raw,
++    artifacts,
++    ancestor_inputs,
++    ancestor_members,
++    split_path,
++    base,
++    bound,
++    doc,
++):
++    cfg = cf_controls.Config(**backbone)
++    cfg.validate(correctness_smoke=config.correctness_smoke)
++    _, original_config = doc(manifest["parent_config"])
++    review_path, review = doc(manifest["parent_review"])
++    _, paths = doc(manifest["parent_inputs"])
++    inputs = cf_controls.RunInputs(
++        **{k: _path(v, base) if v is not None else None for k, v in paths.items()}
++    )
++    evidence = EVIDENCE if config.correctness_smoke else "REAL_TRAIN_DEVELOPMENT_FIT"
++    excluded = {
++        IMPLEMENTER_SESSION_ID,
++        manifest["implementer_session_id"],
++        manifest["coordinator_session_id"],
++        review.get("implementer_session_id"),
++        review.get("root_coordinator_session_id"),
++    }
++    reviewer = review.get("reviewer_session_id")
++    if (
++        cfg.method != config.method
++        or cfg.seed != config.seed
++        or original_config != backbone
++        or parent.get("config") != backbone
++        or parent.get("status") != "COMPLETED"
++        or parent.get("evidence_kind") != evidence
++        or parent.get("test_access") != "NOT_RUN"
++        or parent.get("ssl_updates") != 0
++        or parent.get("fitted_weight_ancestors") != []
++        or parent.get("training_kind") != cf_controls.TRAINING_KINDS[config.method]
++        or parent.get("mode") != cfg.mode
++        or parent.get("core_config") != cf_controls.core_config(cfg).to_dict()
++        or not isinstance(reviewer, str)
++        or reviewer.casefold() in {v.casefold() for v in excluded if isinstance(v, str)}
++        or review.get("status")
++        != (EVIDENCE if config.correctness_smoke else "APPROVED_CF_CONTROL_PREFIT")
++        or review.get("evidence_kind") != evidence
++        or review.get("allowed_roles") != ["train", "development"]
++        or cfg.method not in review.get("allowed_methods", [])
++        or cfg.mode not in review.get("allowed_modes", [])
++        or cfg.seed not in review.get("allowed_seeds", [])
++        or parent.get("review_sha256") != sha(bound(review_path))
++        or parent.get("reviewer_session_id") != reviewer
++        or parent.get("selected_encoder_sha256") != sha(encoder_raw)
++        or inputs.config != _path(manifest["parent_config"], base)
++        or inputs.review != review_path
++        or inputs.dev != _path(manifest["dev_npz"], base)
++        or inputs.split != split_path
++        or sha(bound(inputs.train)) not in ancestor_inputs
++    ):
++        raise ValueError("Completed genuinely reviewed CF control parent identities differ.")
++    lineage = validate_control_ancestry(parent.get("supervised_ancestry"), config, backbone)
++    if any(parent.get(k) != lineage[k] for k in ("supervised_updates", "selected_supervised_step")):
++        raise ValueError("Control supervised update/selection ancestry differs.")
++    original_bindings = parent.get("bindings")
++    if not isinstance(original_bindings, dict) or not original_bindings:
++        raise ValueError("CF control complete original bindings required.")
++    aliases = manifest.get("parent_source_snapshots", {})
++    for p, digest in original_bindings.items():
++        if (
++            review.get("bindings", {}).get(p) != digest
++            or sha(bound(_path(aliases.get(p, p), base))) != digest
++        ):
++            raise ValueError("Original control source/data/config review binding differs.")
++    if any(str(p) not in original_bindings for p in cf_controls.required_paths(inputs, cfg)):
++        raise ValueError("Control review must include every original runtime/source/data binding.")
++    for name, p in (
++        ("train_npz_sha256", inputs.train),
++        ("dev_npz_sha256", inputs.dev),
++        ("split_sha256", inputs.split),
++    ):
++        if review.get(name) != sha(bound(p)):
++            raise ValueError("Original control TRAIN/DEV/split identity differs.")
++    membership = _json(membership_raw)
++    rows, deps, archives = [
++        membership.get(k) for k in ("train_row_ids", "train_deployments", "train_archive_sha256")
++    ]
++    if (
++        not isinstance(rows, list)
++        or not rows
++        or not isinstance(deps, list)
++        or not isinstance(archives, list)
++        or len(rows) != len(deps)
++        or len(rows) != len(archives)
++        or len(set(zip(deps, rows))) != len(rows)
++        or any((d, a) not in ancestor_members for d, a in zip(deps, archives))
++        or membership.get("ssl_updates") != 0
++        or membership.get("ssl_eligible_indices") != []
++    ):
++        raise ValueError("Control TRAIN membership or zero SSL sampling differs.")
++    pool, sequence = membership.get("supervised_indices"), membership.get("sequence")
++    if (
++        not isinstance(pool, list)
++        or not pool
++        or len(set(pool)) != len(pool)
++        or any(type(i) is not int or not 0 <= i < len(rows) for i in pool)
++        or not isinstance(sequence, list)
++        or len(sequence) != lineage["supervised_updates"]
++    ):
++        raise ValueError("Actual control observed-label sampler membership required.")
++    for step, entry in enumerate(sequence):
++        ids = cf_controls.supervised_indices(pool, cfg, step)
++        if entry != {
++            "step": step,
++            "indices": ids.tolist(),
++            "row_ids": [rows[i] for i in ids],
++            "sha256": core.sequence_hash(ids),
++        }:
++            raise ValueError("Actual control sample stream differs.")
++    if membership.get("sequence_sha256") != sha(
++        json.dumps(sequence, sort_keys=True, separators=(",", ":")).encode()
++    ):
++        raise ValueError("Control sampling sequence digest differs.")
++
++
++def _check_control_artifacts(selected, inference, parent, config, backbone, statistics):
++    from marine_echo.inference.native_cf_controls import (
++        NativeCFControlEncoder,
++        NativeCFControlPredictor,
++    )
++
++    if any(
++        a.get("config") != backbone
++        or a.get("scalers") != statistics
++        or a.get("bindings") != parent["bindings"]
++        or a.get("supervised_ancestry") != parent["supervised_ancestry"]
++        for a in (selected, inference)
++    ):
++        raise ValueError("Typed control tensor/scaler/supervised ancestry differs.")
++    encoder = NativeCFControlEncoder(io.BytesIO(encode_checkpoint(selected)))
++    full = NativeCFControlPredictor(io.BytesIO(encode_checkpoint(inference)))
++    if (
++        config.method != encoder.method
++        or encoder.method != full.method
++        or any(
++            not torch.equal(v, full.encoder.state_dict()[k])
++            for k, v in encoder.encoder.state_dict().items()
++        )
++    ):
++        raise ValueError("Control selected encoder differs from actual saved forecast features.")
++
++
++REFERENCE_POLICY = {
++    "kind": "native_prefix_lightgbm_policy_v1",
++    "method": "lightgbm",
++    "history": 96,
++    "objective": "quantile",
++    "n_estimators": 300,
++    "learning_rate": 0.03,
++    "num_leaves": 31,
++    "min_child_samples": 64,
++    "colsample_bytree": 0.9,
++    "reg_lambda": 1.0,
++    "n_jobs": 4,
++    "dev_iteration_choices": [75, 150, 225, 300],
++    "feature_source_sha256": sha(Path(references.__file__).read_bytes()),
++    "aggregation": "equal_target_source_date_then_horizon_then_deployment",
++    "floor": 18,
++}
++
++
++def validate_reference_policy(value):
++    if (
++        not isinstance(value, dict)
++        or set(value) != set(REFERENCE_POLICY) | {"seed"}
++        or type(value.get("seed")) is not int
++        or value["seed"] not in (7, 13, 23)
++        or any(
++            value.get(k) != v or type(value.get(k)) is not type(v)
++            for k, v in REFERENCE_POLICY.items()
++        )
++    ):
++        raise ValueError("Exact source-pinned proposed LightGBM prefix policy required.")
++
++
++class ReferencePredictor:
++    """Owned JSON/text boosters only, native context-only load-only forecasting."""
++
++    def __init__(self, artifact):
++        import lightgbm as lgb
++
++        if isinstance(artifact, (str, Path)):
++            artifact = _json(Path(artifact).read_bytes())
++        if (
++            artifact.get("kind") != "native_prefix_lightgbm_inference_v1"
++            or artifact.get("zero_shot") is not False
++        ):
++            raise ValueError("Distinct adapted conventional kind required.")
++        self.config = PrefixConfig(**artifact["config"])
++        self.config.validate(
++            EVIDENCE if self.config.correctness_smoke else "REVIEWED_PREFIX_TRANSFER"
++        )
++        validate_reference_policy(artifact["policy"])
++        _scalers(artifact["scalers"])
++        if (
++            artifact["selected_iteration"] not in REFERENCE_POLICY["dev_iteration_choices"]
++            or not artifact.get("identities")
++            or len(artifact.get("boosters", [])) != 15
++        ):
++            raise ValueError("Frozen original-DEV selected fifteen-booster artifact required.")
++        self.iteration = artifact["selected_iteration"]
++        self.boosters = [lgb.Booster(model_str=value) for value in artifact["boosters"]]
++
++    def forecast(self, x, observed, metadata, query):
++        x, observed, metadata = _inputs(x, observed, metadata, 96)
++        from marine_echo.inference.native_band_acoustic import _query
++
++        _query(query, metadata)
++        if not np.allclose(metadata[:, 0, 3:5] * 250, [0, 230], atol=1e-5, rtol=0):
++            raise ValueError("Conventional suffix retains native230 geometry.")
++        features = references.feature_matrix(
++            {"x": x, "observed": observed, "metadata": metadata}, 96
++        )
++        values = np.stack(
++            [
++                b.predict(features, num_iteration=self.iteration, num_threads=4)
++                for b in self.boosters
++            ],
++            axis=1,
++        ).reshape(len(x), 3, 5)
++        if not np.isfinite(values).all():
++            raise ValueError("Finite conventional forecasts required.")
++        return np.sort(values, axis=-1)
++
++
++def _fit_reference(admission, prefix, dev, output, policy, statistics, resume=None):
++    import lightgbm as lgb
++
++    if admission.config.device != "cpu":
++        raise ValueError("Fixed LightGBM reference uses CPU only.")
++    validate_reference_policy(policy)
++    params = {
++        k: policy[k]
++        for k in (
++            "objective",
++            "n_estimators",
++            "learning_rate",
++            "num_leaves",
++            "min_child_samples",
++            "colsample_bytree",
++            "reg_lambda",
++            "n_jobs",
++        )
++    }
++    params.update(random_state=admission.config.seed, verbosity=-1)
++    features = lambda data: references.feature_matrix(
++        {"x": data["x"], "observed": data["context_observed"], "metadata": data["metadata"]}, 96
++    )
++    tx, dx, boosters = features(prefix), features(dev), []
++    saved = None
++    if resume is not None:
++        saved = decode_checkpoint(admission.snapshots[Path(resume).resolve()])
++        expected = {
++            "kind": "native_prefix_lightgbm_resume_v1",
++            "config": admission.config.to_dict(),
++            "policy": policy,
++            "scalers": statistics,
++            "identities": admission.identities,
++        }
++        if (
++            any(saved.get(k) != v for k, v in expected.items())
++            or not isinstance(saved.get("boosters"), list)
++            or len(saved["boosters"]) > 15
++            or any(not isinstance(v, str) for v in saved["boosters"])
++        ):
++            raise ValueError("Exact reference resume model/policy/data/source identities required.")
++        boosters = [lgb.Booster(model_str=text) for text in saved["boosters"]]
++        if any(b.num_feature() != tx.shape[1] for b in boosters):
++            raise ValueError("Saved reference feature dimensions differ.")
++    with desktop_runtime.Resources("cpu", output) as resources:
++        if saved is not None:
++            resources.elapsed = saved["resources"]["elapsed_seconds"]
++        for index in range(len(boosters), 15):
++            h, q_index = divmod(index, 5)
++            quantile = core.QUANTILES[q_index]
++            eligible = prefix["target_observed"][:, h]
++            model = lgb.LGBMRegressor(**params, alpha=float(quantile))
++            model.fit(tx[eligible], prefix["targets"][eligible, h])
++            boosters.append(model.booster_)
++            resources.check()
++            core.atomic_checkpoint(
++                output / "latest.pt",
++                {
++                    "kind": "native_prefix_lightgbm_resume_v1",
++                    "config": admission.config.to_dict(),
++                    "policy": policy,
++                    "scalers": statistics,
++                    "identities": admission.identities,
++                    "boosters": [b.model_to_string() for b in boosters],
++                    "resources": resources.snapshot(),
++                },
++            )
++        candidates, best, selected = [], None, None
++        for iteration in policy["dev_iteration_choices"]:
++            values = np.sort(
++                np.stack(
++                    [b.predict(dx, num_iteration=iteration, num_threads=4) for b in boosters],
++                    axis=1,
++                ).reshape(len(dx), 3, 5),
++                axis=-1,
++            )
++            metrics = native_scores(
++                values,
++                dev["targets"],
++                dev["target_observed"],
++                dev["target_dates"],
++                dev["deployment"],
++                minimum_daily_rows=18,
++            )
++            score = metrics["primary_pinball_db"]
++            candidates.append(
++                {"iteration": iteration, "role": "original_development", "metrics": metrics}
++            )
++            if score is not None and (best is None or score < best):
++                best, selected = score, iteration
++        receipt = {
++            "kind": "native_prefix_matched_transfer_completion_v4",
++            "status": "COMPLETED" if selected is not None else "NOT_ASSESSABLE",
++            "config": admission.config.to_dict(),
++            "partition": admission.partition,
++            "bindings": admission.identities,
++            "evidence_kind": admission.manifest["evidence_kind"],
++            "zero_shot": False,
++            "suffix_numerical_access": False,
++            "label_counts": prefix["target_observed"].sum(0).tolist(),
++            "unique_prefix_rows": len(tx),
++            "support_sha256": sha(prefix["target_observed"].tobytes()),
++            "observed_prefix_target_values_sha256": sha(
++                np.where(prefix["target_observed"], prefix["targets"], 0)
++                .astype(np.float32)
++                .tobytes()
++            ),
++            "original_train_scalers": statistics,
++            "scaling_semantics": "pinned original raw-dB features/targets; transported TRAIN scalers not refitted",
++            "candidates": candidates,
++            "selected_iteration": selected,
++            "resources": resources.snapshot(),
++            "scientific_claim": None,
++        }
++        receipt["booster_iterations_actual"] = [b.current_iteration() for b in boosters]
++        receipt["supervised_optimizer_updates"] = 0
++        if selected is not None:
++            artifact = {
++                "kind": "native_prefix_lightgbm_inference_v1",
++                "config": admission.config.to_dict(),
++                "policy": policy,
++                "boosters": [b.model_to_string() for b in boosters],
++                "selected_iteration": selected,
++                "identities": admission.identities,
++                "scalers": statistics,
++                "zero_shot": False,
++            }
++            with (output / "inference.json").open("x", encoding="utf-8") as stream:
++                json.dump(artifact, stream, allow_nan=False)
++        with (output / "completion.json").open("x", encoding="utf-8") as stream:
++            json.dump(receipt, stream, allow_nan=False)
++        return receipt
++
++
+ LOADED_SOURCE_HASHES = {str(p): sha(p.read_bytes()) for p in required_sources()}
+ 
+ 
+@@ -1032,12 +1504,13 @@
+     manifest = _json(manifest_path.read_bytes())
+     review = _json(review_path.read_bytes())
+     if (
+-        manifest.get("kind") != "native_prefix_transfer_manifest_v1"
++        manifest.get("kind") != "native_prefix_matched_transfer_manifest_v4"
+         or manifest.get("role") != "prefix_transfer"
+     ):
+         raise ValueError("Explicit separately versioned prefix-transfer role required.")
+     config = PrefixConfig(**manifest["config"])
+     config.validate(manifest["evidence_kind"])
++    _private_manifest(manifest_path, manifest, output)
+     if manifest["evidence_kind"] not in (EVIDENCE, "REVIEWED_PREFIX_TRANSFER"):
+         raise ValueError("Unsupported evidence identity.")
+     if manifest.get("suffix_numeric_path") is not None:
+@@ -1061,6 +1534,14 @@
+ 
+     def bound(path):
+         path = Path(path).resolve()
++        if (
++            config.correctness_smoke
++            and path.suffix in (".pt", ".npz")
++            and not path.is_relative_to(base)
++        ):
++            raise ValueError(
++                "Private synthetic flag cannot admit any public fitted/input artifact."
++            )
+         raw = path.read_bytes()
+         if bindings.get(str(path)) != sha(raw):
+             raise ValueError(f"Missing/stale exact binding: {path}")
+@@ -1092,7 +1573,7 @@
+         raise ValueError("Frozen config file/runtime mismatch.")
+     _, architecture = doc(manifest["backbone_config"])
+     method_cfg = _validate_backbone(config, architecture)
+-    if method_cfg.method != config.method or method_cfg.history != 96:
++    if method_cfg.history != 96:
+         raise ValueError("Original selected architecture/method identity differs.")
+     dims = core.model_dimensions(method_cfg)
+     expected = (
+@@ -1116,6 +1597,8 @@
+     if not config.correctness_smoke and metadata.get("kind") != "native_prefix_raw_intervals_v2":
+         raise ValueError("Real native prefix fitting requires the versioned configuration map.")
+     partition = partitions(metadata, config.prefix_days)
++    if len(metadata["sources"]) != 1:
++        raise ValueError("One true deployment per adapted trajectory; no pooling.")
+     if metadata.get("configuration_map") is not None:
+         _, configuration_receipt = doc(manifest["configuration_map"])
+         if configuration_receipt != metadata["configuration_map"]:
+@@ -1198,6 +1681,17 @@
+         or selection.get("aggregation") != "equal_target_source_date_then_horizon_then_deployment"
+     ):
+         raise ValueError("Frozen original-development selection recipe differs.")
++    if config.family == "reference":
++        _, policy = doc(manifest["conventional_policy"])
++        validate_reference_policy(policy)
++        if policy != architecture:
++            raise ValueError("Bound conventional feature/policy identity differs.")
++        if not config.correctness_smoke and (
++            manifest.get("conventional_policy_status") != "ADOPTED_BEFORE_RESERVED_VALUES"
++            or review.get("conventional_policy_sha256")
++            != sha(snapshots[_path(manifest["conventional_policy"], base)])
++        ):
++            raise ValueError("Prospective conventional ADR adoption and exact review required.")
+     _, statistics = doc(manifest["scalers"])
+     _scalers(statistics)
+     reserved = metadata["sources"]
+@@ -1288,7 +1782,24 @@
+             or sha(parent_membership) not in artifacts
+         ):
+             raise ValueError("Selected parent run configuration/scalers differ.")
+-        if config.method == "direct":
++        if config.method in cf_controls.METHODS:
++            _admit_cf_parent(
++                config,
++                manifest,
++                parent_run,
++                architecture,
++                raw,
++                parent_inference,
++                parent_membership,
++                artifacts,
++                ancestor_inputs,
++                ancestor_members,
++                split_path,
++                base,
++                bound,
++                doc,
++            )
++        elif config.method == "direct":
+             _, original_config = doc(manifest["parent_config"])
+             review_path, original_review = doc(manifest["parent_review"])
+             _, original_input_paths = doc(manifest["parent_inputs"])
+@@ -1702,6 +2213,8 @@
+             raise ValueError("Band selected architecture mismatch.")
+         if config.method == "direct":
+             _supervised_ancestry(selected.get("supervised_ancestry"))
++        elif config.method in cf_controls.METHODS:
++            validate_control_ancestry(selected.get("supervised_ancestry"), config, backbone)
+         elif selected.get("supervised_ancestry") is not None:
+             raise ValueError("SSL/control parent cannot hide supervised feature ancestry.")
+         with torch.device("meta"):
+@@ -2002,7 +2515,7 @@
+ 
+     def checkpoint(self):
+         return {
+-            "kind": "native_prefix_transfer_resume_v1",
++            "kind": "native_prefix_matched_transfer_resume_v4",
+             "config": self.config.to_dict(),
+             "backbone_config": self.backbone,
+             "architecture": ARCHITECTURES[self.config.family],
+@@ -2024,7 +2537,7 @@
+         }
+ 
+     def restore(self, checkpoint):
+-        if checkpoint.get("kind") != "native_prefix_transfer_resume_v1" or any(
++        if checkpoint.get("kind") != "native_prefix_matched_transfer_resume_v4" or any(
+             checkpoint.get(k) != v
+             for k, v in {
+                 "config": self.config.to_dict(),
+@@ -2069,7 +2582,7 @@
+         if self.selected_state is None:
+             raise ValueError("NOT_ASSESSABLE: no eligible original-DEV selected checkpoint.")
+         return {
+-            "kind": "native_prefix_transfer_inference_v1",
++            "kind": "native_prefix_matched_transfer_inference_v4",
+             "config": self.config.to_dict(),
+             "backbone_config": self.backbone,
+             "architecture": ARCHITECTURES[self.config.family],
+@@ -2090,7 +2603,7 @@
+ 
+     def __init__(self, weights, *, device="cpu"):
+         artifact = torch.load(weights, weights_only=True, map_location="cpu")
+-        if artifact.get("kind") != "native_prefix_transfer_inference_v1":
++        if artifact.get("kind") != "native_prefix_matched_transfer_inference_v4":
+             raise ValueError("Distinct owned prefix inference kind required.")
+         self.config = PrefixConfig(**artifact["config"])
+         self.config.validate(
+@@ -2147,7 +2660,7 @@
+         or admission.partition["suffix_support_status"] == "NOT_ASSESSABLE"
+     ):
+         return {
+-            "kind": "native_prefix_transfer_completion_v1",
++            "kind": "native_prefix_matched_transfer_completion_v4",
+             "evidence_kind": admission.manifest["evidence_kind"],
+             "status": "NOT_ASSESSABLE",
+             "reason": "fixed metadata prefix/suffix support insufficient",
+@@ -2163,6 +2676,15 @@
+     )
+     parent = admission.documents[_path(m["parent_run"], base)] if selected is not None else None
+     if selected is not None:
++        if config.method in cf_controls.METHODS:
++            _check_control_artifacts(
++                selected,
++                decode_checkpoint(admission.snapshots[_path(m["parent_inference"], base)]),
++                parent,
++                config,
++                backbone,
++                statistics,
++            )
+         expected_selected_kind = selected_kind(config)
+         if (
+             selected.get("kind") != expected_selected_kind
+@@ -2176,13 +2698,17 @@
+         _strict_state(template.encoder, selected.get("encoder"))
+         parent_artifact = decode_checkpoint(admission.snapshots[_path(m["parent_inference"], base)])
+         inference_kind = (
+-            (
+-                "native_band_replication_ssl_weights_only_inference_v2"
+-                if config.band_artifact_version == 2
+-                else "native_band_ssl_weights_only_inference_v1"
++            cf_controls.INFERENCE_KIND
++            if config.method in cf_controls.METHODS
++            else (
++                (
++                    "native_band_replication_ssl_weights_only_inference_v2"
++                    if config.band_artifact_version == 2
++                    else "native_band_ssl_weights_only_inference_v1"
++                )
++                if config.family == "band"
++                else "native_ssl_weights_only_inference_v1"
+             )
+-            if config.family == "band"
+-            else "native_ssl_weights_only_inference_v1"
+         )
+         if (
+             parent_artifact.get("kind") != inference_kind
+@@ -2239,7 +2765,7 @@
+         raise ValueError("Original DEV must be outside the adapted deployment.")
+     if not len(prefix["x"]) or not prefix["target_observed"].any(0).all():
+         return {
+-            "kind": "native_prefix_transfer_completion_v1",
++            "kind": "native_prefix_matched_transfer_completion_v4",
+             "evidence_kind": admission.manifest["evidence_kind"],
+             "status": "NOT_ASSESSABLE",
+             "reason": "no admissible prefix row per horizon",
+@@ -2247,6 +2773,8 @@
+         }
+     if resume is None:
+         output.mkdir(parents=False, exist_ok=False)
++    if config.family == "reference":
++        return _fit_reference(admission, prefix, dev, output, backbone, statistics, resume=resume)
+     with desktop_runtime.Resources(config.device, output) as resources:
+         trajectory = _Trajectory(
+             config,
+@@ -2268,7 +2796,7 @@
+             resources.check()
+             core.atomic_checkpoint(output / "latest.pt", trajectory.checkpoint())
+         receipt = {
+-            "kind": "native_prefix_transfer_completion_v1",
++            "kind": "native_prefix_matched_transfer_completion_v4",
+             "evidence_kind": admission.manifest["evidence_kind"],
+             "status": "COMPLETED" if trajectory.selected_state is not None else "NOT_ASSESSABLE",
+             "config": config.to_dict(),

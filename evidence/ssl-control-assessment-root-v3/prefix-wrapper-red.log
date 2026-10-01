@@ -1,0 +1,24 @@
+F.........FF                                                             [100%]
+================================== FAILURES ===================================
+_________________ test_conventional_prefix_cpu_cell_admitted __________________
+tests\unit\test_native_prefix_matched_execution_v4.py:35: in test_conventional_prefix_cpu_cell_admitted
+    assert wrapper.validate_scope(*args) == args[0]["config"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tools\execute_native_prefix_desktop_job_v3.py:50: in validate_scope
+    raise ValueError("Exact real one-cell prefix-only CUDA admission required")
+E   ValueError: Exact real one-cell prefix-only CUDA admission required
+______________ test_cpu_full_attempt_does_not_inflate_gpu_budget ______________
+tests\unit\test_native_prefix_matched_execution_v4.py:59: in test_cpu_full_attempt_does_not_inflate_gpu_budget
+    wrapper.charge_attempt(ledger, device="cpu", elapsed_seconds=720, spent=17.802355808369175,
+    ^^^^^^^^^^^^^^^^^^^^^^
+E   AttributeError: module 'matched_prefix_wrapper' has no attribute 'charge_attempt'
+______ test_failed_gpu_attempt_includes_full_band_and_aggregate_lifetime ______
+tests\unit\test_native_prefix_matched_execution_v4.py:67: in test_failed_gpu_attempt_includes_full_band_and_aggregate_lifetime
+    wrapper.charge_attempt(ledger, device="cuda:0", elapsed_seconds=720,
+    ^^^^^^^^^^^^^^^^^^^^^^
+E   AttributeError: module 'matched_prefix_wrapper' has no attribute 'charge_attempt'
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_prefix_matched_execution_v4.py::test_conventional_prefix_cpu_cell_admitted
+FAILED tests/unit/test_native_prefix_matched_execution_v4.py::test_cpu_full_attempt_does_not_inflate_gpu_budget
+FAILED tests/unit/test_native_prefix_matched_execution_v4.py::test_failed_gpu_attempt_includes_full_band_and_aggregate_lifetime
+3 failed, 9 passed in 0.18s

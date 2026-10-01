@@ -1,0 +1,12 @@
+{
+  "status": "EXISTING_GPT_6_1_SOL_BUILDER_COMPLETED",
+  "session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "cli_session_id": 51587,
+  "exit_code": 0,
+  "exit_chunk": "1f5c36",
+  "independent_review": false,
+  "reviewer_launch_or_retry": false,
+  "report_sha256": "891c0064330db88179645d36046b8955078d8426e0ff466d1a01138593b85c67",
+  "final_message_sha256": "254a83f49ae94d08e0af205a87a192c87feda3a1626454fcdc2db5e62e895494",
+  "event_log_sha256": "d69042f68403070a26b2cf9f9e73bbc3bd256d441f8367436d92c100a39f11ab"
+}

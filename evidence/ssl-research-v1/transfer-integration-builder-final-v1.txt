@@ -1,0 +1,51 @@
+{
+  "status": "CLOSED_ENGINEERING_DELIVERY",
+  "authored_sha256": {
+    "src/marine_echo/training/native_prefix_matched_transfer_v4.py": "29613d837b60b88fae3c74b9d0865241d47973d303c78b173feb8cd827c9a822",
+    "src/marine_echo/evaluation/native_prefix_suffix_assessment_v1.py": "3d31725f753679e5d30467ec173b4b1614b94057382789dfb8a05f418e629dae",
+    "tests/unit/test_native_prefix_matched_transfer_v4.py": "f34c148b85f457b94eaf8d10ef75ccae20f3b251be9ea91c00725c327ac55851",
+    "tests/integration/test_native_prefix_matched_transfer_v4.py": "0720f2b06170acb126c37324ea9d5e2dc5afe09da058d58369f85b42a28d1166",
+    "tests/unit/test_native_prefix_suffix_assessment_v1.py": "42d5a9f9c6efe2b72cb4224571742ca8679b522fcb16da2372f154bbcb051fd5",
+    "tests/integration/test_native_prefix_suffix_assessment_v1.py": "77372fb4dc4a361946d4281104830d7b4dc46e3220e59e0aa6c3b2d46d797d6a"
+  },
+  "verification": {
+    "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+    "combined_pytest": {
+      "exit": 0,
+      "passed": 51,
+      "root_only_skipped": 2,
+      "seconds": 243.89
+    },
+    "subsequent_geometry_checks": {"exit": 0, "passed": 4},
+    "subsequent_future_suffix_perturbation_checks": {"exit": 0, "passed": 4},
+    "ruff_check": 0,
+    "ruff_format_check": 0,
+    "protected_dependencies_unchanged": 41,
+    "exact_unchanged_AST_definitions": 31,
+    "red_failures_and_command_receipts_preserved": true
+  },
+  "handoff": {
+    "path": "evidence/ssl-transfer-integration-builder-v1/handoff-v1.json",
+    "sha256": "ae2566a6da744c5c87b9e99d371fcf28d768bb5657653f108f80d16476e87ffb",
+    "contents": "Exact dependency/evidence hashes, commands/exits, source snapshots, bounded diff, ROOT instructions and limits."
+  },
+  "report": {
+    "path": "evidence/ssl-transfer-integration-builder-v1/IMPLEMENTATION_REPORT_V1.md",
+    "sha256": "891c0064330db88179645d36046b8955078d8426e0ff466d1a01138593b85c67"
+  },
+  "remaining": [
+    "ROOT-only actual Torch optimizer/resume cases: NOT_RUN; retained cache restriction was not retried.",
+    "Conventional DEV checkpoint policy requires prospective coordinator ADR adoption and distinct review.",
+    "Coordinator-owned bounded worker routing/accounting integration remains required."
+  ],
+  "root_checks": [
+    "Integrate six authored files plus the handoff-listed test_support.py.",
+    "Set NATIVE_PREFIX_MATCHED_ROOT_CHECKS=1 and PYTHONPATH=src.",
+    "Run the exact four-file CPU pytest command recorded in handoff-v1.json."
+  ],
+  "real_fit": "NOT_RUN",
+  "public_numeric_access": "NOT_RUN",
+  "GPU": "NOT_RUN",
+  "independent_review": "NOT_RUN",
+  "scientific_claim": null
+}

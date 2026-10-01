@@ -1,0 +1,15 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+________ test_actual_saved_weights_suffix_scores_and_protected_output _________
+tests\integration\test_native_prefix_suffix_assessment_v1.py:17: in test_actual_saved_weights_suffix_scores_and_protected_output
+    report = suffix.run(c.folder / "suffix-manifest.json", c.folder / "suffix-review.json", c.folder / "suffix-output")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\evaluation\native_prefix_suffix_assessment_v1.py:334: in execute_assessment
+    admitted = admit(manifest_path, review_path, output_path)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\marine_echo\evaluation\native_prefix_suffix_assessment_v1.py:241: in admit
+    raise ValueError("Raw fitted/suffix IDs, source configuration and fixed boundaries differ.")
+E   ValueError: Raw fitted/suffix IDs, source configuration and fixed boundaries differ.
+=========================== short test summary info ===========================
+FAILED tests/integration/test_native_prefix_suffix_assessment_v1.py::test_actual_saved_weights_suffix_scores_and_protected_output
+1 failed in 38.48s

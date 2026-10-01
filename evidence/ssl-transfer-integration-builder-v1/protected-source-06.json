@@ -1,0 +1,20 @@
+{
+  "kind": "native_desktop_process_owner_resolution_v1",
+  "status": "OWNER_AUTHORIZED_OPERATIONAL_EXCEPTION_PREFIT_REQUIRED",
+  "owner_statement": "continue the work even when VLC is open, it doesnt use much GPU is barely noticeable",
+  "coordinator_session_id": "01a0ef1a-b166-7f83-91b7-2a2aff7c1b10",
+  "allowed_additional_desktop_executables": ["vlc.exe"],
+  "allowed_driver_model": "WDDM",
+  "single_scientific_training_process_tree": true,
+  "unknown_or_other_ml_runtimes_blocked": true,
+  "gpu_allocated_reserved_bytes_strictly_less_than": 10737418240,
+  "owned_tree_ram_bytes_strictly_less_than": 23622320128,
+  "band_full_owned_gpu_hours": 12,
+  "aggregate_full_owned_gpu_hours": 96,
+  "hardware_exclusivity": "UNVERIFIABLE_WDDM",
+  "vlc_gpu_consumption": "UNMEASURED_OWNER_DESCRIPTION_NOT_VERIFIED",
+  "foreign_process_termination_authorized": false,
+  "historical_fitted_source_changes_authorized": false,
+  "independent_prefit": "REQUIRED",
+  "final_numeric_access_or_paid_resources_authorized": false
+}
