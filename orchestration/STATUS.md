@@ -1,3 +1,46 @@
+## Native SSL continuation — coordinator identity and remaining dependency
+
+Updated 2026-10-01T10:39:26Z. Coordinator session
+`01a0f707-fec5-70e3-8a9a-7a70f8a421c2` inspected the actual branch
+`research/marine-jepa-vnext` at `6b5e78f9f5d65e06ac1f11ca63f1dc314a1bf304`.
+The exposed CLI version is 0.159.3; the exact runtime model variant is not
+exposed. Repository-configured role names are not runtime identity proof.
+The historical builder/reviewer bindings remain preserved. This new coordinator
+session is neither service restoration nor independent review.
+
+Before the handoff record, there were no tracked changes and 10,752 untracked
+files. All 24 worktrees and existing outputs are preserved. No native scientific
+trainer, GPU-owner lock or pending scientific journal was observed. Existing
+r2/r3 offline servers and foreign processes remain untouched; WDDM memory
+reports of N/A do not establish exclusive GPU availability.
+
+The delivered engineering contracts identify no unfinished unblocked task.
+The previous 130 CPU checks, including four optimizer/resume checks, remain
+engineering evidence and were not rerun. No fit, numerical reconstruction,
+review retry or reserved numerical access occurred. Original campaign40/43,
+required47 methods, independent reconstruction28 methods, and five newer
+unreconstructed scores remain unchanged. CF controls remain six registered
+recipes with zero fits and zero independent prefits. Final freeze, reserved
+evaluation and prefix adaptation remain pending; SOTA NOT_ESTABLISHED.
+
+Scientific ledger SHA256 remains
+`91bf4dcbedc6a603d019c28bb058549f2f39e95befc8d81de5ca6448dec2c5b0`:
+aggregate17.802355808369175/96 hours, Band8.318836388888881/12 hours,
+CF extension0/12 hours. Remaining aggregate78.19764419163083 hours includes
+the preserved12-hour evaluation reserve; remaining Band3.681163611111119 hours.
+No historical ledger, protocol, run directory or routing record was rewritten.
+
+The next dependency is recorded legitimate external restoration of existing
+reviewer `01a0ef27-876b-7692-917e-3975afc6893d`, followed by genuine exact
+source/prefit approvals. No restoration evidence was provided or found in the
+current continuation records. Its automatic rejection before inspection,
+"Potentially unintended activity," is not a scientific verdict. A support
+submission alone does not restore this path. No gated next command is presently
+permitted. See `docs/NATIVE_SSL_REVIEW_SERVICE_DEPENDENCY_V1.md` and the separate
+machine-readable handoff
+`orchestration/native_ssl_coordinator_handoff_01a0f707_20261001.json`.
+App, meeting, browser and release work remain frozen; full research incomplete.
+
 ## Native SSL continuation — engineering delivered, scientific review unavailable
 
 Updated 2026-10-01T10:24:58.459165+00:00. Existing branch `research/marine-jepa-vnext` continues
