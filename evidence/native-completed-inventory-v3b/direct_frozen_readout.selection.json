@@ -1,0 +1,14 @@
+{
+  "actual_run_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_frozen_readout_seed7_h96\\run.json",
+  "actual_run_sha256": "bfc33d9cfcb7c760cc84b9d3371a3da5360750c4d9b7f8f514670b1693856762",
+  "config_sha256": "957cbdd5eaeede9d85150a65f9ed6000da999e7247b5319e5ff6b752f14efc15",
+  "derivation_note": "Completed endpoint identity only; not an owner freeze or access approval",
+  "frozen_before_numeric_access": true,
+  "is_finalist_selection": false,
+  "model_sha256": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_frozen_readout_seed7_h96\\inference.pt": "340f2eed779c112bf8ee5baa6b8d36f361988151f55b0a6f3b28669e3adb6910"
+  },
+  "selection_role": "development",
+  "statistics_sha256": "9034eb254ca78cad26b27a42a88286b266cffe724a69f93e301c5e2aa30044ef",
+  "status": "NOT_FINAL_SELECTION"
+}

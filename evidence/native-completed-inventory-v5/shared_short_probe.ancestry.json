@@ -1,0 +1,65 @@
+{
+  "artifacts": [
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\inference.pt",
+      "sha256": "b085583862f9b69e153bc041d9a07277bea70cac8e891ccaa859facc3fddd4d8"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\selected_encoder.pt",
+      "sha256": "a9f332f080201dccd99bccc25ba658b4136ba760df08a3b29f6c4f1bdc164141"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\run.json",
+      "sha256": "c4a5453e187b69356acf6d37c44878639dde4d99dc4b82822f356c493a9525b0"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\membership.json",
+      "sha256": "bdfe9115b3904356f43d78069561e048cd740a718c69eef97c42ce08613a948d"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_ssl_shared_ssl_seed7_h96_v1.json",
+      "sha256": "c9a37a3ac2948e6703dd1f15b18e13f713b91ec02845e9a3b9a1304503371be3"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\prefit-review-final-02.json",
+      "sha256": "4115ff2a2a2cb0fcafbd5273288c762efdaa15e106f7361f9352917a69ee85a3"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\scalers.json",
+      "sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed"
+    }
+  ],
+  "completeness": "COMPLETE_LOCAL_ANCESTRY",
+  "config_sha256": "49f94c0134e5ba764ffda06890643636be7b4d3b9111b3fe33e63f07924396d3",
+  "encoder_parent_relation": "ROOT_ENCODER_NO_FITTED_PARENT",
+  "feature_training_kind": "SSL pretrained features",
+  "fit_inputs": [
+    {
+      "cohort_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\train_cohort.json",
+      "config_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\shared_short_probe.config.json",
+      "input_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\data\\processed\\native_ssl_v1\\train.npz",
+      "manifest_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\shared_short_probe.fit_input.json",
+      "split_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\whole_deployment_split.json",
+      "statistics_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\shared_short_probe.statistics.json"
+    }
+  ],
+  "historical_initial_weights": false,
+  "historical_source_resolution_is_compatibility_approval": false,
+  "kind": "native_assessment_ancestry_v1",
+  "locally_fitted": true,
+  "original_run_kind": "core_frozen_readout",
+  "parents": [],
+  "preserved_original_source_versions": [
+    {
+      "methods": [
+        "shared_ssl"
+      ],
+      "original_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_temporal.py",
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\original-source-archives-v3\\native_temporal_85c4af6c67acb661.py",
+      "sha256": "85c4af6c67acb661359cde8bcf22de479e4da6a499cc7843bce0fee6c155e422",
+      "status": "ORIGINAL_SOURCE_PRESERVED_NOT_COMPATIBILITY_APPROVAL"
+    }
+  ],
+  "scientific_quality": "NOT_ESTABLISHED",
+  "statistics_sha256": "9034eb254ca78cad26b27a42a88286b266cffe724a69f93e301c5e2aa30044ef"
+}

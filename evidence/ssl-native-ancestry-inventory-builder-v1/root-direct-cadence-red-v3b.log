@@ -1,0 +1,194 @@
+FFFF.                                                                    [100%]
+================================== FAILURES ===================================
+_ test_actual_approved_supervised_ancestor_750_cadence_is_admitted[direct_short_probe] _
+
+name = 'direct_short_probe'
+
+    @pytest.mark.parametrize("name", ["direct_short_probe", "direct_frozen_readout"])
+    def test_actual_approved_supervised_ancestor_750_cadence_is_admitted(name):
+        config, entry = original(name)
+        assert config["pretrain_cadence"] == 750
+>       _config(config, entry)
+
+tests\unit\test_native_inventory_direct_cadence.py:25: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+config = {'method': 'direct', 'seed': 7, 'history': 96, 'pretrain_updates': 3000, ...}
+entry = {'config_path': 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_ssl_direct_see...e_acoustic_ssl_v1\\direct_seed7_h96_reviewed', 'kind': 'native_ssl_weights_only_inference_v1', 'method': 'direct', ...}
+downstream = False
+
+    def _config(config, entry, *, downstream=False):
+        modules = KINDS[entry["kind"]]
+        cls, module = ("DownstreamConfig", modules[3]) if downstream else ("Config", modules[2])
+        if not isinstance(config, dict) or set(config) != _fields(module, cls):
+            raise ValueError("Exact saved config schema required; no unknown/default fields.")
+        for value in config.values():
+            if type(value) not in (str, int, float) or (
+                type(value) is float and not math.isfinite(value)
+            ):
+                raise ValueError("Unsafe or nonfinite config metadata.")
+        for name in _integer_fields(module, cls):
+            if type(config[name]) is not int:
+                raise ValueError("Exact integer config dimensions required.")
+        if (
+            config["method"] != entry["method"]
+            or config["seed"] != entry["seed"]
+            or config["history"] != 96
+        ):
+            raise ValueError("Typed method/seed/history mismatch.")
+        if entry["seed"] not in (7, 13, 23) or type(entry["seed"]) is not int:
+            raise ValueError("Unadmitted fixed seed.")
+        band = entry["kind"] != "native_ssl_weights_only_inference_v1"
+        if band and (config["architecture"] != ARCHITECTURE or entry["method"] == "cf_jepa"):
+            raise ValueError("Band architecture/method mismatch.")
+        if entry["kind"] == "native_band_ssl_weights_only_inference_v1" and entry["seed"] != 7:
+            raise ValueError("Band V1 has seed7 only; preserve typed V2 distinction.")
+        if (
+            config["batch_size"],
+            config["lr"],
+            config["weight_decay"],
+            config["patience"],
+            config["min_daily_anchors"],
+        ) != (64, 0.0003, 0.0001, 4, 18):
+            raise ValueError("Unknown fixed optimizer/selection variant.")
+        if downstream:
+            frozen = entry["mode"] == "frozen_readout"
+            if (
+                config["mode"],
+                config["updates"],
+                config["cadence"],
+                config["gradient_clip"],
+                config["selection_policy"],
+            ) != (
+                entry["mode"],
+                2000 if frozen else 3000,
+                500 if frozen else 750,
+                1.0,
+                "scheduled_native_daily_pinball_earliest_strict_improvement_v1",
+            ):
+                raise ValueError("Downstream configuration variant or wrong mode.")
+        elif (
+            config["width"],
+            config["latent"],
+            config["blocks"],
+            config["heads"],
+            config["sigreg_weight"],
+            config["pretrain_cadence"],
+            config["readout_cadence"],
+        ) != (192, 64, 4, 4, 0.03, 1500, 250):
+>           raise ValueError("Unknown backbone/objective/schedule variant.")
+E           ValueError: Unknown backbone/objective/schedule variant.
+
+src\marine_echo\evaluation\native_ancestry_inventory.py:354: ValueError
+_ test_actual_approved_supervised_ancestor_750_cadence_is_admitted[direct_frozen_readout] _
+
+name = 'direct_frozen_readout'
+
+    @pytest.mark.parametrize("name", ["direct_short_probe", "direct_frozen_readout"])
+    def test_actual_approved_supervised_ancestor_750_cadence_is_admitted(name):
+        config, entry = original(name)
+        assert config["pretrain_cadence"] == 750
+>       _config(config, entry)
+
+tests\unit\test_native_inventory_direct_cadence.py:25: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+config = {'batch_size': 64, 'blocks': 4, 'cf_blocks': 5, 'cf_latent': 128, ...}
+entry = {'config_path': 'C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_downstream_dir...stic_ssl_v1\\direct_frozen_readout_seed7_h96', 'kind': 'native_ssl_weights_only_inference_v1', 'method': 'direct', ...}
+downstream = False
+
+    def _config(config, entry, *, downstream=False):
+        modules = KINDS[entry["kind"]]
+        cls, module = ("DownstreamConfig", modules[3]) if downstream else ("Config", modules[2])
+        if not isinstance(config, dict) or set(config) != _fields(module, cls):
+            raise ValueError("Exact saved config schema required; no unknown/default fields.")
+        for value in config.values():
+            if type(value) not in (str, int, float) or (
+                type(value) is float and not math.isfinite(value)
+            ):
+                raise ValueError("Unsafe or nonfinite config metadata.")
+        for name in _integer_fields(module, cls):
+            if type(config[name]) is not int:
+                raise ValueError("Exact integer config dimensions required.")
+        if (
+            config["method"] != entry["method"]
+            or config["seed"] != entry["seed"]
+            or config["history"] != 96
+        ):
+            raise ValueError("Typed method/seed/history mismatch.")
+        if entry["seed"] not in (7, 13, 23) or type(entry["seed"]) is not int:
+            raise ValueError("Unadmitted fixed seed.")
+        band = entry["kind"] != "native_ssl_weights_only_inference_v1"
+        if band and (config["architecture"] != ARCHITECTURE or entry["method"] == "cf_jepa"):
+            raise ValueError("Band architecture/method mismatch.")
+        if entry["kind"] == "native_band_ssl_weights_only_inference_v1" and entry["seed"] != 7:
+            raise ValueError("Band V1 has seed7 only; preserve typed V2 distinction.")
+        if (
+            config["batch_size"],
+            config["lr"],
+            config["weight_decay"],
+            config["patience"],
+            config["min_daily_anchors"],
+        ) != (64, 0.0003, 0.0001, 4, 18):
+            raise ValueError("Unknown fixed optimizer/selection variant.")
+        if downstream:
+            frozen = entry["mode"] == "frozen_readout"
+            if (
+                config["mode"],
+                config["updates"],
+                config["cadence"],
+                config["gradient_clip"],
+                config["selection_policy"],
+            ) != (
+                entry["mode"],
+                2000 if frozen else 3000,
+                500 if frozen else 750,
+                1.0,
+                "scheduled_native_daily_pinball_earliest_strict_improvement_v1",
+            ):
+                raise ValueError("Downstream configuration variant or wrong mode.")
+        elif (
+            config["width"],
+            config["latent"],
+            config["blocks"],
+            config["heads"],
+            config["sigreg_weight"],
+            config["pretrain_cadence"],
+            config["readout_cadence"],
+        ) != (192, 64, 4, 4, 0.03, 1500, 250):
+>           raise ValueError("Unknown backbone/objective/schedule variant.")
+E           ValueError: Unknown backbone/objective/schedule variant.
+
+src\marine_echo\evaluation\native_ancestry_inventory.py:354: ValueError
+_ test_supervised_ancestor_cadence_cannot_be_relabelled_as_ssl[direct_short_probe] _
+
+name = 'direct_short_probe'
+
+    @pytest.mark.parametrize("name", ["direct_short_probe", "direct_frozen_readout"])
+    def test_supervised_ancestor_cadence_cannot_be_relabelled_as_ssl(name):
+        config, entry = original(name)
+        config["pretrain_cadence"] = 1500
+>       with pytest.raises(ValueError, match="backbone/objective/schedule"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\unit\test_native_inventory_direct_cadence.py:32: Failed
+_ test_supervised_ancestor_cadence_cannot_be_relabelled_as_ssl[direct_frozen_readout] _
+
+name = 'direct_frozen_readout'
+
+    @pytest.mark.parametrize("name", ["direct_short_probe", "direct_frozen_readout"])
+    def test_supervised_ancestor_cadence_cannot_be_relabelled_as_ssl(name):
+        config, entry = original(name)
+        config["pretrain_cadence"] = 1500
+>       with pytest.raises(ValueError, match="backbone/objective/schedule"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\unit\test_native_inventory_direct_cadence.py:32: Failed
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_inventory_direct_cadence.py::test_actual_approved_supervised_ancestor_750_cadence_is_admitted[direct_short_probe]
+FAILED tests/unit/test_native_inventory_direct_cadence.py::test_actual_approved_supervised_ancestor_750_cadence_is_admitted[direct_frozen_readout]
+FAILED tests/unit/test_native_inventory_direct_cadence.py::test_supervised_ancestor_cadence_cannot_be_relabelled_as_ssl[direct_short_probe]
+FAILED tests/unit/test_native_inventory_direct_cadence.py::test_supervised_ancestor_cadence_cannot_be_relabelled_as_ssl[direct_frozen_readout]
+4 failed, 1 passed in 0.26s

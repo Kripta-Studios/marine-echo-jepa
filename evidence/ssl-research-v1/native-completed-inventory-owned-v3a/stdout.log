@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tools\prepare_native_research_inventory.py", line 29, in <module>
+    main()
+  File "C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tools\prepare_native_research_inventory.py", line 16, in main
+    result = derive_inventory(args.manifest, args.output)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\src\marine_echo\evaluation\native_ancestry_inventory.py", line 1030, in derive_inventory
+    admitted = _admit(manifest_path, output_path)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\src\marine_echo\evaluation\native_ancestry_inventory.py", line 739, in _admit
+    _config(config, entry)
+  File "C:\Users\Álvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\src\marine_echo\evaluation\native_ancestry_inventory.py", line 354, in _config
+    raise ValueError("Unknown backbone/objective/schedule variant.")
+ValueError: Unknown backbone/objective/schedule variant.

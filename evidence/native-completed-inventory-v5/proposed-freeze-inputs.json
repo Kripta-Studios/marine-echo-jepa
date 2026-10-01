@@ -1,0 +1,406 @@
+{
+  "kind": "native_proposed_freeze_inputs_v1",
+  "methods": {
+    "band_direct_end_to_end": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_direct_end_to_end.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_direct_end_to_end_seed7_h96_reviewed\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_direct_end_to_end.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_direct_end_to_end_seed7_h96_reviewed\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_direct_end_to_end_seed7_h96_reviewed\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_direct_end_to_end.statistics.json",
+      "status": "COMPLETED"
+    },
+    "band_direct_end_to_end_seed23": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_direct_end_to_end_seed23.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_direct_end_to_end_seed23_h96_replication_v2\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_direct_end_to_end_seed23.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_direct_end_to_end_seed23_h96_replication_v2\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_direct_end_to_end_seed23_h96_replication_v2\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_direct_end_to_end_seed23.statistics.json",
+      "status": "COMPLETED"
+    },
+    "band_masked_ssl_frozen_readout": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_masked_ssl_frozen_readout.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_masked_ssl_frozen_readout_seed7_h96\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_masked_ssl_frozen_readout.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_masked_ssl_frozen_readout_seed7_h96\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_masked_ssl_frozen_readout_seed7_h96\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_masked_ssl_frozen_readout.statistics.json",
+      "status": "COMPLETED"
+    },
+    "band_masked_ssl_full_finetune": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_masked_ssl_full_finetune.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_masked_ssl_full_finetune_seed7_h96\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_masked_ssl_full_finetune.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_masked_ssl_full_finetune_seed7_h96\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_masked_ssl_full_finetune_seed7_h96\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_masked_ssl_full_finetune.statistics.json",
+      "status": "COMPLETED"
+    },
+    "band_masked_ssl_short_probe": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_masked_ssl_short_probe.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_masked_ssl_seed7_h96_reviewed\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_masked_ssl_short_probe.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_masked_ssl_seed7_h96_reviewed\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_masked_ssl_seed7_h96_reviewed\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_masked_ssl_short_probe.statistics.json",
+      "status": "COMPLETED"
+    },
+    "band_permuted_ssl_frozen_readout": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_permuted_ssl_frozen_readout.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_permuted_ssl_frozen_readout_seed7_h96\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_permuted_ssl_frozen_readout.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_permuted_ssl_frozen_readout_seed7_h96\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_permuted_ssl_frozen_readout_seed7_h96\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_permuted_ssl_frozen_readout.statistics.json",
+      "status": "COMPLETED"
+    },
+    "band_permuted_ssl_short_probe": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_permuted_ssl_short_probe.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_permuted_ssl_seed7_h96_reviewed\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_permuted_ssl_short_probe.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_permuted_ssl_seed7_h96_reviewed\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_permuted_ssl_seed7_h96_reviewed\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_permuted_ssl_short_probe.statistics.json",
+      "status": "COMPLETED"
+    },
+    "band_random_frozen_frozen_readout": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_random_frozen_frozen_readout.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_random_frozen_frozen_readout_seed7_h96_native_retry01\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_random_frozen_frozen_readout.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_random_frozen_frozen_readout_seed7_h96_native_retry01\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_random_frozen_frozen_readout_seed7_h96_native_retry01\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_random_frozen_frozen_readout.statistics.json",
+      "status": "COMPLETED"
+    },
+    "band_random_frozen_short_probe": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_random_frozen_short_probe.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_random_frozen_seed7_h96_reviewed\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_random_frozen_short_probe.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_random_frozen_seed7_h96_reviewed\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_random_frozen_seed7_h96_reviewed\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_random_frozen_short_probe.statistics.json",
+      "status": "COMPLETED"
+    },
+    "band_shared_ssl_frozen_readout": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_shared_ssl_frozen_readout.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_frozen_readout_seed7_h96\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_shared_ssl_frozen_readout.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_frozen_readout_seed7_h96\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_frozen_readout_seed7_h96\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_shared_ssl_frozen_readout.statistics.json",
+      "status": "COMPLETED"
+    },
+    "band_shared_ssl_frozen_readout_seed13": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_shared_ssl_frozen_readout_seed13.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_frozen_readout_seed13_h96_replication_v3\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_shared_ssl_frozen_readout_seed13.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_frozen_readout_seed13_h96_replication_v3\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_frozen_readout_seed13_h96_replication_v3\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_shared_ssl_frozen_readout_seed13.statistics.json",
+      "status": "COMPLETED"
+    },
+    "band_shared_ssl_full_finetune": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_shared_ssl_full_finetune.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_full_finetune_seed7_h96\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_shared_ssl_full_finetune.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_full_finetune_seed7_h96\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_full_finetune_seed7_h96\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_shared_ssl_full_finetune.statistics.json",
+      "status": "COMPLETED"
+    },
+    "band_shared_ssl_full_finetune_seed13": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_shared_ssl_full_finetune_seed13.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_full_finetune_seed13_h96_replication_v3\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_shared_ssl_full_finetune_seed13.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_full_finetune_seed13_h96_replication_v3\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_full_finetune_seed13_h96_replication_v3\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_shared_ssl_full_finetune_seed13.statistics.json",
+      "status": "COMPLETED"
+    },
+    "band_shared_ssl_short_probe": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_shared_ssl_short_probe.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed7_h96_reviewed\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_shared_ssl_short_probe.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed7_h96_reviewed\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed7_h96_reviewed\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_shared_ssl_short_probe.statistics.json",
+      "status": "COMPLETED"
+    },
+    "band_shared_ssl_short_probe_seed13": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_shared_ssl_short_probe_seed13.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed13_h96_replication_v2\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_shared_ssl_short_probe_seed13.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed13_h96_replication_v2\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed13_h96_replication_v2\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_shared_ssl_short_probe_seed13.statistics.json",
+      "status": "COMPLETED"
+    },
+    "band_shared_ssl_short_probe_seed23": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_shared_ssl_short_probe_seed23.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed23_h96_replication_v2\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_shared_ssl_short_probe_seed23.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed23_h96_replication_v2\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed23_h96_replication_v2\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_shared_ssl_short_probe_seed23.statistics.json",
+      "status": "COMPLETED"
+    },
+    "cf_jepa_frozen_readout": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\cf_jepa_frozen_readout.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_frozen_readout_seed7_h96\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\cf_jepa_frozen_readout.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_frozen_readout_seed7_h96\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_frozen_readout_seed7_h96\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\cf_jepa_frozen_readout.statistics.json",
+      "status": "COMPLETED"
+    },
+    "cf_jepa_frozen_readout_seed13": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\cf_jepa_frozen_readout_seed13.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_frozen_readout_seed13_h96_runtime_retry01\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\cf_jepa_frozen_readout_seed13.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_frozen_readout_seed13_h96_runtime_retry01\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_frozen_readout_seed13_h96_runtime_retry01\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\cf_jepa_frozen_readout_seed13.statistics.json",
+      "status": "COMPLETED"
+    },
+    "cf_jepa_frozen_readout_seed23": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\cf_jepa_frozen_readout_seed23.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_frozen_readout_seed23_h96\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\cf_jepa_frozen_readout_seed23.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_frozen_readout_seed23_h96\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_frozen_readout_seed23_h96\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\cf_jepa_frozen_readout_seed23.statistics.json",
+      "status": "COMPLETED"
+    },
+    "cf_jepa_full_finetune": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\cf_jepa_full_finetune.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_full_finetune_seed7_h96\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\cf_jepa_full_finetune.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_full_finetune_seed7_h96\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_full_finetune_seed7_h96\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\cf_jepa_full_finetune.statistics.json",
+      "status": "COMPLETED"
+    },
+    "cf_jepa_full_finetune_seed13": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\cf_jepa_full_finetune_seed13.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_full_finetune_seed13_h96\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\cf_jepa_full_finetune_seed13.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_full_finetune_seed13_h96\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_full_finetune_seed13_h96\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\cf_jepa_full_finetune_seed13.statistics.json",
+      "status": "COMPLETED"
+    },
+    "cf_jepa_full_finetune_seed23": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\cf_jepa_full_finetune_seed23.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_full_finetune_seed23_h96\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\cf_jepa_full_finetune_seed23.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_full_finetune_seed23_h96\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_full_finetune_seed23_h96\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\cf_jepa_full_finetune_seed23.statistics.json",
+      "status": "COMPLETED"
+    },
+    "cf_short_probe": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\cf_short_probe.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed7_h96_deterministic\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\cf_short_probe.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed7_h96_deterministic\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed7_h96_deterministic\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\cf_short_probe.statistics.json",
+      "status": "COMPLETED"
+    },
+    "cf_short_probe_seed13": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\cf_short_probe_seed13.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed13_h96_replication\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\cf_short_probe_seed13.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed13_h96_replication\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed13_h96_replication\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\cf_short_probe_seed13.statistics.json",
+      "status": "COMPLETED"
+    },
+    "cf_short_probe_seed23": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\cf_short_probe_seed23.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed23_h96_replication\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\cf_short_probe_seed23.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed23_h96_replication\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\cf_jepa_seed23_h96_replication\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\cf_short_probe_seed23.statistics.json",
+      "status": "COMPLETED"
+    },
+    "direct_end_to_end": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\direct_end_to_end.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_direct_end_to_end_seed7_h96\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\direct_end_to_end.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_direct_end_to_end_seed7_h96\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_direct_end_to_end_seed7_h96\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\direct_end_to_end.statistics.json",
+      "status": "COMPLETED"
+    },
+    "direct_end_to_end_seed13": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\direct_end_to_end_seed13.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_direct_end_to_end_seed13_h96_replication\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\direct_end_to_end_seed13.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_direct_end_to_end_seed13_h96_replication\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_direct_end_to_end_seed13_h96_replication\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\direct_end_to_end_seed13.statistics.json",
+      "status": "COMPLETED"
+    },
+    "direct_end_to_end_seed23": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\direct_end_to_end_seed23.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_direct_end_to_end_seed23_h96_replication\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\direct_end_to_end_seed23.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_direct_end_to_end_seed23_h96_replication\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_direct_end_to_end_seed23_h96_replication\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\direct_end_to_end_seed23.statistics.json",
+      "status": "COMPLETED"
+    },
+    "direct_frozen_readout": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\direct_frozen_readout.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_frozen_readout_seed7_h96\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\direct_frozen_readout.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_frozen_readout_seed7_h96\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_frozen_readout_seed7_h96\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\direct_frozen_readout.statistics.json",
+      "status": "COMPLETED"
+    },
+    "direct_short_probe": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\direct_short_probe.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_seed7_h96_reviewed\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\direct_short_probe.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_seed7_h96_reviewed\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\direct_seed7_h96_reviewed\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\direct_short_probe.statistics.json",
+      "status": "COMPLETED"
+    },
+    "masked_ssl_frozen_readout": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\masked_ssl_frozen_readout.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\masked_ssl_frozen_readout_seed7_h96\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\masked_ssl_frozen_readout.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\masked_ssl_frozen_readout_seed7_h96\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\masked_ssl_frozen_readout_seed7_h96\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\masked_ssl_frozen_readout.statistics.json",
+      "status": "COMPLETED"
+    },
+    "masked_ssl_full_finetune": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\masked_ssl_full_finetune.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\masked_ssl_full_finetune_seed7_h96\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\masked_ssl_full_finetune.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\masked_ssl_full_finetune_seed7_h96\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\masked_ssl_full_finetune_seed7_h96\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\masked_ssl_full_finetune.statistics.json",
+      "status": "COMPLETED"
+    },
+    "masked_ssl_short_probe": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\masked_ssl_short_probe.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\masked_ssl_seed7_h96_reviewed\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\masked_ssl_short_probe.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\masked_ssl_seed7_h96_reviewed\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\masked_ssl_seed7_h96_reviewed\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\masked_ssl_short_probe.statistics.json",
+      "status": "COMPLETED"
+    },
+    "permuted_ssl_frozen_readout": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\permuted_ssl_frozen_readout.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\permuted_ssl_frozen_readout_seed7_h96\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\permuted_ssl_frozen_readout.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\permuted_ssl_frozen_readout_seed7_h96\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\permuted_ssl_frozen_readout_seed7_h96\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\permuted_ssl_frozen_readout.statistics.json",
+      "status": "COMPLETED"
+    },
+    "permuted_ssl_short_probe": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\permuted_ssl_short_probe.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\permuted_ssl_seed7_h96_reviewed\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\permuted_ssl_short_probe.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\permuted_ssl_seed7_h96_reviewed\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\permuted_ssl_seed7_h96_reviewed\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\permuted_ssl_short_probe.statistics.json",
+      "status": "COMPLETED"
+    },
+    "random_frozen_frozen_readout": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\random_frozen_frozen_readout.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\random_frozen_frozen_readout_seed7_h96\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\random_frozen_frozen_readout.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\random_frozen_frozen_readout_seed7_h96\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\random_frozen_frozen_readout_seed7_h96\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\random_frozen_frozen_readout.statistics.json",
+      "status": "COMPLETED"
+    },
+    "random_frozen_short_probe": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\random_frozen_short_probe.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\random_frozen_seed7_h96_reviewed\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\random_frozen_short_probe.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\random_frozen_seed7_h96_reviewed\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\random_frozen_seed7_h96_reviewed\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\random_frozen_short_probe.statistics.json",
+      "status": "COMPLETED"
+    },
+    "shared_frozen_readout": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\shared_frozen_readout.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_frozen_readout_seed7_h96\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\shared_frozen_readout.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_frozen_readout_seed7_h96\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_frozen_readout_seed7_h96\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\shared_frozen_readout.statistics.json",
+      "status": "COMPLETED"
+    },
+    "shared_full_finetune": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\shared_full_finetune.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_full_finetune_seed7_h96\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\shared_full_finetune.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_full_finetune_seed7_h96\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_full_finetune_seed7_h96\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\shared_full_finetune.statistics.json",
+      "status": "COMPLETED"
+    },
+    "shared_short_probe": {
+      "ancestry": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\shared_short_probe.ancestry.json",
+      "artifact_family": "native_neural",
+      "completion": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\run.json",
+      "config": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\shared_short_probe.config.json",
+      "model": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\inference.pt",
+      "readout": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\shared_ssl_seed7_h96_cuda0\\inference.pt",
+      "scalers": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\shared_short_probe.statistics.json",
+      "status": "COMPLETED"
+    }
+  },
+  "status": "PROPOSED_NOT_FINAL_SELECTION"
+}

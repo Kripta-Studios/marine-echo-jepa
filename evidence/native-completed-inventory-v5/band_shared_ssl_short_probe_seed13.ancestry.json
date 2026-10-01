@@ -1,0 +1,55 @@
+{
+  "artifacts": [
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed13_h96_replication_v2\\inference.pt",
+      "sha256": "9bf6878c452c24b22b75c919b6cc8b0fea008c3652298746669708c1c1a8dd34"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed13_h96_replication_v2\\selected_encoder.pt",
+      "sha256": "1169402701f6cada2db4e46c314eae016e5f51d0d21d48b4422a501e30ba1dbb"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed13_h96_replication_v2\\run.json",
+      "sha256": "dba03c7cf31bc357066975098642874252feb3860db057563cdea221e4b7d672"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed13_h96_replication_v2\\membership.json",
+      "sha256": "61bb9bf7e2b35f450aa152e2976d83e6759c3661cbf9bd4c3ea26dc79ae9d90e"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_band_replication_v2\\native_band_shared_ssl_seed13_v2.json",
+      "sha256": "9b8402027793dd46c0357d62a26ac173c2b93adade4cda714fddb3db88d37b13"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band_shared_ssl_seed13_h96_replication_v2-prefit-review-final.json",
+      "sha256": "b3961ead4bed2fb89f663af5d393d35af4eb6d4e44fc75e44307d4e56ed566db"
+    },
+    {
+      "path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed13_h96_replication_v2\\scalers.json",
+      "sha256": "5783edf9c57f0d5b402bcd1ed72317e049e19550beebd38708a554994395d9ed"
+    }
+  ],
+  "completeness": "COMPLETE_LOCAL_ANCESTRY",
+  "config_sha256": "d460a940ac0ddb0ae38ed2405370207411550f7a13fcc32e2d3c3f609f642493",
+  "encoder_parent_relation": "ROOT_ENCODER_NO_FITTED_PARENT",
+  "feature_training_kind": "SSL pretrained features",
+  "fit_inputs": [
+    {
+      "cohort_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\train_cohort.json",
+      "config_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_shared_ssl_short_probe_seed13.config.json",
+      "input_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\data\\processed\\native_ssl_v1\\train.npz",
+      "manifest_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_shared_ssl_short_probe_seed13.fit_input.json",
+      "split_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\whole_deployment_split.json",
+      "statistics_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\band_shared_ssl_short_probe_seed13.statistics.json"
+    }
+  ],
+  "historical_initial_weights": false,
+  "historical_source_resolution_is_compatibility_approval": false,
+  "kind": "native_assessment_ancestry_v1",
+  "locally_fitted": true,
+  "original_run_kind": "core_frozen_readout",
+  "parents": [],
+  "preserved_original_source_versions": [],
+  "scientific_quality": "NOT_ESTABLISHED",
+  "statistics_sha256": "9034eb254ca78cad26b27a42a88286b266cffe724a69f93e301c5e2aa30044ef"
+}

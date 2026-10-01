@@ -1,0 +1,43 @@
+{
+  "actual_membership_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\masked_ssl_frozen_readout_seed7_h96\\membership.json",
+  "actual_membership_sha256": "61eac39f7b8e8303d9214cef2554cbb78849be78ff5d00e701ed3373ada8ab45",
+  "actual_run_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\masked_ssl_frozen_readout_seed7_h96\\run.json",
+  "actual_run_sha256": "6949de4a1224b98f53b4ed8a6b9063adcba39d6d4e75577bf355d7d1d9caa466",
+  "cohort_sha256": "b5e6f0d09ae8b99e3061b86abfe2ff6faf8e8a0c97843627a6664e738bef245b",
+  "config_sha256": "fc14e585c028eb21dc233cfcade21ff2eadef672a6a2da367ad05b7aecda73b3",
+  "fitted_operations": [
+    "original_TRAIN_scalers",
+    "TRAIN_fresh_readout_labels"
+  ],
+  "input_sha256": "c2a529b6180b427ee7259a77ea0926919350cc42eb03f2067d0956138aa6461a",
+  "original_embedded_bindings": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_downstream_masked_ssl_frozen_readout_seed7_h96_v1.json": "76b9dd4c08abd803957a4bc30dea6edfb41011120dc019fc97e76000dfc51737",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_ssl_masked_ssl_seed7_h96_v1.json": "9540b5beee6a735b4565de0cae5d9055dffbc1c5b0ff0c5921e74ae179f791e6",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_ssl_split_v1.json": "3b4728e16da3c09c58d9316560283e19ecf79885bbf38a7c7025ce4b83e8993b",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\data\\processed\\native_ssl_v1\\development.json": "f72c18d1d9cf8fc4a0b84c026e019b5a5a71db1f4a000437fc0f33f04d2d90c3",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\data\\processed\\native_ssl_v1\\development.npz": "4ca59c6b3539e6e214ac949a3294408f59a28386b9731461f2f03881198f2023",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\data\\processed\\native_ssl_v1\\train.json": "0f9958a9048fe988a3577dc3d6063d1c0968d4b010faae9e177b49d9027ec180",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\data\\processed\\native_ssl_v1\\train.npz": "c2a529b6180b427ee7259a77ea0926919350cc42eb03f2067d0956138aa6461a",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0016-native-ssl-selection-and-source-baseline.md": "1e42b3aec76e6673e014ddc4894667ff7bcd786be0f59c84d33fa9d4b4ae7b1d",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0018-native-acoustic-downstream-transfer.md": "124e3a5834b45e52d1e70e7aff3fe5a6500b55b49abd5fac6df35a0f35ede91d",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\prefit-review-final-03.json": "21252c65d292f491124dee03de256fb2cf242a17468db1b29d4faf2d2454e462",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\masked_ssl_seed7_h96_reviewed\\inference.pt": "7414288a009040d5143284a20254fc50833defeb1516a6c7cdd01c280a79a1c9",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\masked_ssl_seed7_h96_reviewed\\membership.json": "bd2c780f4ca2c711941d30333a435801b9358242bdb28965d957faafd31f792e",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\masked_ssl_seed7_h96_reviewed\\run.json": "4e20b2f964a3a124ca003677b6451379efd71815ae983a152ce0fdd3ac573c88",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\masked_ssl_seed7_h96_reviewed\\selected_encoder.pt": "84343dbfd93f4f05592ad242acaa4497543399921e10e1f4e32e5013baaae5d2",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\__init__.py": "3fcc1878588f5a89775363e099fab7d7323acebccae26d10db4a6da627425b68",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\native_ssl_corpus.py": "ebda9d460fa14df749b8f774bcb02a6622f0d69402443098a6100670a4c8f7ba",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\__init__.py": "5bdc97a6119b2dd3d519df36406c8bcb9e801be81c8b6c3f44e4a527db1f87a3",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_temporal.py": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\sigreg.py": "2cf5dc8e6fc610fbe167339a8750f5e2d9ddf9a48f416717b8310500536469a3",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\__init__.py": "c98c60178f566d43dd60641704ccd9c652d406487b4838cbf5a9df49ea5dd735",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\aeon_corpus.py": "398e021a5807ab8068ceef03dd692f3b688c744751cd4e65d3efbee94d9a3efd",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_downstream.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_resources.py": "c9ca3fbd0759ae00824774ed61a08185361234430d5ed63f09fa3885545c7c38",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_ssl.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744"
+  },
+  "original_split_sha256": "3b4728e16da3c09c58d9316560283e19ecf79885bbf38a7c7025ce4b83e8993b",
+  "role": "train",
+  "split_sha256": "ca6ac6e10267b75e5ee8a28110fd16ddc21bc9ac1ff0392b9e2f41e8e4a794cc",
+  "statistics_sha256": "9034eb254ca78cad26b27a42a88286b266cffe724a69f93e301c5e2aa30044ef"
+}

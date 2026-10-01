@@ -1,0 +1,41 @@
+{
+  "actual_membership_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed7_h96_reviewed\\membership.json",
+  "actual_membership_sha256": "80c10115e5816c2000f4156ccee1da42db2c3e3f706b65192476948c24c97997",
+  "actual_run_path": "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed7_h96_reviewed\\run.json",
+  "actual_run_sha256": "3c54abcf1732386110167d95b1aa8eaf4de7ec768e4c8dc81bbfaad24df10dcc",
+  "cohort_sha256": "b5e6f0d09ae8b99e3061b86abfe2ff6faf8e8a0c97843627a6664e738bef245b",
+  "config_sha256": "4d7b409083ff804b2ceb2cad4b9f1cfb6eaa314a4581cc8dc9aad43aa3910d7e",
+  "fitted_operations": [
+    "TRAIN_scalers",
+    "pretraining_or_supervised_features",
+    "TRAIN_probe_or_readout_labels"
+  ],
+  "input_sha256": "c2a529b6180b427ee7259a77ea0926919350cc42eb03f2067d0956138aa6461a",
+  "original_embedded_bindings": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_band_execution_v1\\native_band_shared_ssl_screen_v1.json": "71d2da0662aaf4e351bf0c3befc82c12be18fe6fa763623834f137e4bca9c2e9",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\configs\\native_ssl_split_v1.json": "3b4728e16da3c09c58d9316560283e19ecf79885bbf38a7c7025ce4b83e8993b",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\data\\processed\\native_ssl_v1\\development.npz": "4ca59c6b3539e6e214ac949a3294408f59a28386b9731461f2f03881198f2023",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\data\\processed\\native_ssl_v1\\train.npz": "c2a529b6180b427ee7259a77ea0926919350cc42eb03f2067d0956138aa6461a",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\docs\\adr\\0016-native-ssl-selection-and-source-baseline.md": "1e42b3aec76e6673e014ddc4894667ff7bcd786be0f59c84d33fa9d4b4ae7b1d",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_band_budget_owner_resolution_v1.json": "d13cc7875bba5400cfe0761a371dcf69bb743e4914f9449d288ecaee9b5d15db",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\__init__.py": "3fcc1878588f5a89775363e099fab7d7323acebccae26d10db4a6da627425b68",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\__init__.py": "011583e04b7f119ffcc2ae18712a4af2e613cff87bcbeb5435fbfb10dcd01508",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\data\\native_ssl_corpus.py": "ebda9d460fa14df749b8f774bcb02a6622f0d69402443098a6100670a4c8f7ba",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_band_acoustic.py": "6181baf22b75be73767f4b76370c65bfc37fdeb189da3deabcabe8a7c2dcd1bf",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_encoder.py": "6cc07a15ea93427d6628f1b317945f6e38ff3008894a31cab2173c0b666c0f7f",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\__init__.py": "5bdc97a6119b2dd3d519df36406c8bcb9e801be81c8b6c3f44e4a527db1f87a3",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_band_temporal.py": "1550bb3f130e3981f57b46031e39d0d42ce7dac4738aea9280362210dfaca96b",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\native_temporal.py": "b7d6b9de5221643871c0f21dbfa440a2c6763600ff3dff5818dfb8918e661a32",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\models\\sigreg.py": "2cf5dc8e6fc610fbe167339a8750f5e2d9ddf9a48f416717b8310500536469a3",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\__init__.py": "c98c60178f566d43dd60641704ccd9c652d406487b4838cbf5a9df49ea5dd735",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\aeon_corpus.py": "398e021a5807ab8068ceef03dd692f3b688c744751cd4e65d3efbee94d9a3efd",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_downstream.py": "95becf2cd01a7ab07c67a4da8d26c8e8bf58297f56513a439b0ab2b2be776619",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_band_ssl.py": "ca33bf3141ea17c5adb3d0a4cd2ed0d186be8efb846a5b581003f2088a105e4f",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_resources.py": "c9ca3fbd0759ae00824774ed61a08185361234430d5ed63f09fa3885545c7c38",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\training\\native_ssl.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744"
+  },
+  "original_split_sha256": "3b4728e16da3c09c58d9316560283e19ecf79885bbf38a7c7025ce4b83e8993b",
+  "role": "train",
+  "split_sha256": "ca6ac6e10267b75e5ee8a28110fd16ddc21bc9ac1ff0392b9e2f41e8e4a794cc",
+  "statistics_sha256": "9034eb254ca78cad26b27a42a88286b266cffe724a69f93e301c5e2aa30044ef"
+}

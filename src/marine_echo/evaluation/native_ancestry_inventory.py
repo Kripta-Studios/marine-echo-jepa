@@ -350,7 +350,11 @@ def _config(config, entry, *, downstream=False):
         config["sigreg_weight"],
         config["pretrain_cadence"],
         config["readout_cadence"],
-    ) != (192, 64, 4, 4, 0.03, 1500, 250):
+    ) != (
+        192, 64, 4, 4, 0.03,
+        750 if entry["method"] == "direct" and entry["mode"] != "direct_end_to_end" else 1500,
+        250,
+    ):
         raise ValueError("Unknown backbone/objective/schedule variant.")
     if not downstream and (
         config["selection_policy"] != "train_only_frozen_probe_per_candidate_daily_dev_patience4"

@@ -1,0 +1,23 @@
+{
+  "status": "AUTOMATIC_COMPLETED_PARENT_PREFIT_REJECTED_NO_AUTHORITY",
+  "reviewer_session_id": "01a0ef27-876b-7692-917e-3975afc6893d",
+  "actual_cli_session_id": 24354,
+  "actual_exit_code": 1,
+  "actual_exit_chunk": "a22862",
+  "reason": "This request was blocked by our safety systems. Reason: Potentially unintended activity.",
+  "rejected_job_ids": [
+    "band_shared_ssl_frozen_readout_seed23_h96_replication_v3",
+    "band_shared_ssl_full_finetune_seed23_h96_replication_v3"
+  ],
+  "scientific_prefit": false,
+  "fitting_authorized": false,
+  "existing_approvals_changed": false,
+  "bindings": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-seed23-strong-prefit-events-v3.jsonl": "800fd98f406b9b2b1a49578ea54e4278617a0eddface36ee9fc2fafea3b2b349",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_band_replication_downstream_seed23_v3.json": "e407d0d8303e22850d0d10181ea58e8b75968e3254413c0e4dca375a56c5869b",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_band_downstream_references_seed23_v3.json": "628ee2be016976d252a30b84b1dd14e63cd78405b3083c4d05f1822da7b11be6",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\ssl_vnext_band_seed23_strong_prefit_v3.txt": "78b49a8b7e4343729ae68a0182a1485ba9c6194daeb1f8b3dad159061e45d02e",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-seed23-strong-prefit-stderr-v3.log": "271b254d50f7bce0bc8226065f2f547fd59ae9b4a39bbd4ac57356db2434d859",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\close_native_seed23_strong_prefit_rejection_v3.py": "3e6c5a8ec640dbfc46fc4bba0a05a459df639d0ac2906646792114ba2ea3c617"
+  }
+}

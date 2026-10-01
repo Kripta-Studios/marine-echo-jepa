@@ -1,0 +1,115 @@
+{
+  "status": "FIVE_REAL_JOBS_AND_CURRENT40_NEURAL_ANCESTRY_VERIFIED_PROGRAMME_INCOMPLETE",
+  "queue_actual_exit_witnesses": [
+    {
+      "session_id": 33144,
+      "exit_code": 0,
+      "chunk": "eb4538"
+    },
+    {
+      "session_id": 9450,
+      "exit_code": 0,
+      "chunk": "cbfe2a"
+    }
+  ],
+  "audit_actual_exit_witness": {
+    "session_id": 81165,
+    "exit_code": 0,
+    "chunk": "320c8b"
+  },
+  "jobs": [
+    {
+      "id": "band_shared_ssl_seed23_h96_replication_v2",
+      "actual_exit_code": 0,
+      "run_sha256": "46f918e02923b715757fec0e036b622c05d25f4ad5554e69ee2b49e745aabcc5",
+      "attempt_sha256": "66ca8f748757e70164476c95caabf8a3f0b85b9be267d8b4528f5c3a527c7ab1",
+      "development_pinball_db": 0.7238881532025498,
+      "status": "VERIFIED_COMPLETED",
+      "full_owned_seconds": 4060.7969999999914,
+      "native_geometry_preserved": true,
+      "metric_scope": "RUNNER_DEVELOPMENT_NOT_INDEPENDENT_RECONSTRUCTION"
+    },
+    {
+      "id": "band_direct_end_to_end_seed23_h96_replication_v2",
+      "actual_exit_code": 0,
+      "run_sha256": "26da50474786a4c6ea4c9d593575dc6608e811872f6022fa6101dbe3f0ff4e55",
+      "attempt_sha256": "630c4f4e98d45a1226facb7262f78c94b00f1a3794227d846a87e3e7173a2a1e",
+      "development_pinball_db": 0.5653769374066471,
+      "status": "VERIFIED_COMPLETED",
+      "full_owned_seconds": 686.4690000000119,
+      "native_geometry_preserved": true,
+      "metric_scope": "RUNNER_DEVELOPMENT_NOT_INDEPENDENT_RECONSTRUCTION"
+    },
+    {
+      "id": "band_shared_ssl_frozen_readout_seed13_h96_replication_v3",
+      "actual_exit_code": 0,
+      "run_sha256": "3272c3cbde51c2abbee88e280febcd9f6984e9eab3063df01b848fe30f198d2d",
+      "attempt_sha256": "9f635db3f3559ae6200646b8d2e8087ce59cb2f399e3e851748746c027d74e9b",
+      "development_pinball_db": 0.8117195559833191,
+      "status": "VERIFIED_COMPLETED",
+      "full_owned_seconds": 5372.453000000009,
+      "native_geometry_preserved": true,
+      "metric_scope": "RUNNER_DEVELOPMENT_NOT_INDEPENDENT_RECONSTRUCTION"
+    },
+    {
+      "id": "band_shared_ssl_full_finetune_seed13_h96_replication_v3",
+      "actual_exit_code": 0,
+      "run_sha256": "7d28c7205b4a1f32bdce67c543666ffb15d1c93a5bb57918696894c9ec863193",
+      "attempt_sha256": "b41785a04692c827d221ec17179d977149ee5d6104c86fc1d7d481cd35de875d",
+      "development_pinball_db": 0.5614580360456384,
+      "status": "VERIFIED_COMPLETED",
+      "full_owned_seconds": 60.655999999988126,
+      "native_geometry_preserved": true,
+      "metric_scope": "RUNNER_DEVELOPMENT_NOT_INDEPENDENT_RECONSTRUCTION"
+    },
+    {
+      "id": "band_random_frozen_frozen_readout_seed7_h96_native_retry01",
+      "actual_exit_code": 0,
+      "run_sha256": "7eb1146d272c4163bd9d69a3e3c3d91a9e0aa9e291fdcb03546983bb323f135a",
+      "attempt_sha256": "c353158b4029b861fbbae3762801bce67dbd4a38a6321bac0ec95995eb38b86b",
+      "development_pinball_db": 0.8260830879438311,
+      "status": "VERIFIED_COMPLETED",
+      "full_owned_seconds": 77.26599999997416,
+      "native_geometry_preserved": true,
+      "metric_scope": "RUNNER_DEVELOPMENT_NOT_INDEPENDENT_RECONSTRUCTION"
+    }
+  ],
+  "neural_endpoints": 40,
+  "fitted_parent_links": 21,
+  "planned_missing_neural_endpoints": [
+    "band_direct_end_to_end_seed13_ownership_retry01",
+    "band_shared_ssl_frozen_readout_seed23",
+    "band_shared_ssl_full_finetune_seed23"
+  ],
+  "band_full_owned_gpu_hours": 8.318836388888881,
+  "aggregate_full_owned_gpu_hours": 17.802355808369175,
+  "final_site_numeric_access": "NOT_RUN",
+  "public_prefix_transfer": "NOT_RUN",
+  "sota": "NOT_ESTABLISHED",
+  "expanded_numeric_reconstruction": "NOT_RUN",
+  "independent_ancestry_review": "NOT_RUN",
+  "bindings": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-fixed-replication-remaining-queue-attempt-01\\queue.json": "4c630f8c5458de3a46d2d00ad2752face7d02230345794a1d11b32ec966dc096",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_seed23_h96_replication_v2\\run.json": "46f918e02923b715757fec0e036b622c05d25f4ad5554e69ee2b49e745aabcc5",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band_shared_ssl_seed23_h96_replication_v2-attempt-01\\attempt.json": "66ca8f748757e70164476c95caabf8a3f0b85b9be267d8b4528f5c3a527c7ab1",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band_shared_ssl_seed23_h96_replication_v2-prefit-review-final.json": "1df899f541ef3507afa83ad8f236679fdb62b8c5865f070c9bd6c9c62d3b57f2",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_direct_end_to_end_seed23_h96_replication_v2\\run.json": "26da50474786a4c6ea4c9d593575dc6608e811872f6022fa6101dbe3f0ff4e55",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band_direct_end_to_end_seed23_h96_replication_v2-attempt-01\\attempt.json": "630c4f4e98d45a1226facb7262f78c94b00f1a3794227d846a87e3e7173a2a1e",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band_direct_end_to_end_seed23_h96_replication_v2-prefit-review-final.json": "1911b79e675a97bd334ebb884198740ba8ea34f9b5cce3ace72c221488d46e8f",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band-remaining-original-controls-queue-attempt-01\\queue.json": "f0d5af39f9295c234596f867143907c13c0ec347a29e6383f83ffde0b4ea5747",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_frozen_readout_seed13_h96_replication_v3\\run.json": "3272c3cbde51c2abbee88e280febcd9f6984e9eab3063df01b848fe30f198d2d",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band_shared_ssl_frozen_readout_seed13_h96_replication_v3-attempt-01\\attempt.json": "9f635db3f3559ae6200646b8d2e8087ce59cb2f399e3e851748746c027d74e9b",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band_shared_ssl_frozen_readout_seed13_h96_replication_v3-prefit-review-final.json": "00ebe6ae35cb77b66102286ba87fb562acb0ec10757a50e0b6140a951369cec0",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_shared_ssl_full_finetune_seed13_h96_replication_v3\\run.json": "7d28c7205b4a1f32bdce67c543666ffb15d1c93a5bb57918696894c9ec863193",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band_shared_ssl_full_finetune_seed13_h96_replication_v3-attempt-01\\attempt.json": "b41785a04692c827d221ec17179d977149ee5d6104c86fc1d7d481cd35de875d",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band_shared_ssl_full_finetune_seed13_h96_replication_v3-prefit-review-final.json": "bc15843f7b2e168c7b7674171843c7b0c786c09269fb1d1ce23a9cc308a7a195",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\outputs\\native_acoustic_ssl_v1\\band_random_frozen_frozen_readout_seed7_h96_native_retry01\\run.json": "7eb1146d272c4163bd9d69a3e3c3d91a9e0aa9e291fdcb03546983bb323f135a",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band_random_frozen_frozen_readout_seed7_h96_native_retry01-attempt-01\\attempt.json": "c353158b4029b861fbbae3762801bce67dbd4a38a6321bac0ec95995eb38b86b",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\band_random_frozen_frozen_readout_seed7_h96_native_retry01-prefit-review-final.json": "e87c2e0f25b239b23059d2005afdb2522c22531ea7d662545088b0369e5ab9e1",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v5\\inventory.json": "f8793692ed009971595ae9ea308836e814737edfe129387149ce033280fd29c2",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\native-completed-inventory-owned-v5\\resources.json": "0c295db017c2d6c44e8702a1fadbb6f20bf411214c48054b84f8b1fda35f2d19",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_completed_inventory_v5.json": "1d2ea7ddab1205a4fecf1fe24eae96037b7ac76cd307d5116885eb55642d18f9",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_ssl_run_ledger_v1.json": "91bf4dcbedc6a603d019c28bb058549f2f39e95befc8d81de5ca6448dec2c5b0",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\close_native_band_research_progress_v5.py": "62f15fd1d1ff2182e29ba0489b461f539ceff554db10975e269a633cc7597c08"
+  }
+}

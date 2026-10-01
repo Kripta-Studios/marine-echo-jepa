@@ -1,6 +1,6 @@
 ## Active model-first research — native acoustic SSL
 
-Updated 2026-09-30T22:37:04+00:00.
+Updated 2026-10-01T00:47:00+00:00.
 
 Branch `research/marine-jepa-vnext`; owner-authorized local model research.
 App/release work is frozen; historical protocols, evidence and approved r3 are preserved.
@@ -16,25 +16,33 @@ LightGBM15 quantile boosters and deterministic persistence/seasonal references c
 Shared/CF encoder CPU replay and LightGBM all15-booster CPU replay passed.
 Independent learning-path audit found no defect within inspected scope.
 
-Active scientific job: original reviewed Band shared SSL seed23, H96, 6000 updates
-and four fresh 500-update development readouts; wrapper PID11412, trainer PID57172.
-The remaining original queue next runs matched scratch supervised seed23 only after
-successful SSL closure. The unchanged original GPU classifier passed after VLC ceased
+Active scientific job: none. Original Band SSL23 completed6000 plus four fresh500
+readouts; selected6000. Matched scratch supervised23 completed3000. Both original
+queue records verified exit0/cleanup (CLI33144 exit0, chunkeb4538). The unchanged
+original GPU classifier passed after VLC ceased
 appearing in its process inventory; no foreign process was terminated. The proposed
 VLC policy remains unapproved. Live accounting belongs exclusively to the active wrapper.
 The corrected direct13 retry prefit was automatically rejected before review on the
 new continuation (CLI77167 exit1, chunkc37b6d): no approval or launch authority.
-The 35-completed-neural manifest reserves 394 exact bindings and 18 parent links;
-the full owned artifact audit is NOT_RUN while training owns the scientific tree.
+All40 actual completed neural endpoints passed a bounded owned CPU artifact audit:
+TRAIN18593 rows,21 parent links,29.953s,2349920256-byte peak owned RAM, exit0 and
+cleanup verified (CLI81165, chunk320c8b). This is metadata, not final freeze/access.
+The prior35 audit failed on incorrectly enforcing SSL cadence1500 on two original
+supervised cadence750 artifacts. The decoder correction passed focused5 and
+combined128 checks; failure and collection-error evidence remain preserved.
 Three changed historical Python source versions were recovered by exact Git-blob
 hash and preserved separately; recovery grants no compatibility or review authority.
 Focused inventory checks passed73 tests, followed by10 archive-scope checks.
 The isolated builder delivered versioned immutable ledger snapshots for the final
 43-neural/47-method inventory; ROOT48 tests passed with actual exit0 (CLI87149,
 chunk2c6560). The four non-neural references need separate ancestry audit metadata.
-The actual complete inventory is NOT_RUN; missing methods remain required.
-SSL23 has saved its6000-update encoder checkpoint; the final fresh readout and
-artifact export are active. Completion requires actual wrapper exit and cleanup.
+The full planned43-neural/47-method inventory remains incomplete: direct13 retry
+and strong23 frozen/full prefits were automatically rejected; no fits launched.
+Approved strong13 frozen2000/full3000 and random7 frozen2000 completed under the
+original guard: CLI9450 exit0, chunkcbfe2a, all resource/cleanup checks passed.
+Closed Band8.318836/12 and aggregate17.802356/96 full-owned GPU-hours include failures.
+The immutable seven-model snapshot is in the existing isolated builder lane;
+production packaging/QA NOT_RUN. See the new scientific report addendumV3.
 Original serial queue: COMPLETED_REVIEWED_SERIAL_QUEUE; 9/9 reports inspected.
 Charged owned GPU-hours at ledger snapshot: 14.953011/96.
 The active wrappers own ledger writes; coordinator does not overwrite live accounting.

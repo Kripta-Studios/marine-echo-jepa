@@ -1,0 +1,15 @@
+{
+  "status": "FIXED35_METADATA_RESERVATION_NOT_COMPLETE_PROGRAMME_FREEZE",
+  "endpoint_count": 35,
+  "ledger_snapshot_sha256": "e031f2a18b8c05577f1e78948ad6987c2753bf36ceced1aaa4af7c117fdd408f",
+  "previous_live_ledger_binding_sha256": "d8ef8225d1d11b684df39fd5bba9df620b71347ac9b01b4120bf51327dfeed5e",
+  "fitting_authorized": false,
+  "selection_authorized": false,
+  "final_numeric_access": false,
+  "newer_completed_endpoints_included": false,
+  "bindings": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_completed_inventory_v3.json": "d64218a157519b309c1a27c46db6ee2d2080a9a02defdf4e6cbb74598fe1bffe",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\ssl-research-v1\\native-fixed35-reservation-v3a\\closed-ledger.json": "e031f2a18b8c05577f1e78948ad6987c2753bf36ceced1aaa4af7c117fdd408f",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\prepare_closed_native_inventory_v3a.py": "ff2041608a02bb466e058622b073dff30993f4d8d78f45c6b3f557e3bdafe19f"
+  }
+}

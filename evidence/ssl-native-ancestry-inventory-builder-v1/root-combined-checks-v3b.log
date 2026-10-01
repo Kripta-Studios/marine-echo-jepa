@@ -1,0 +1,13 @@
+
+=================================== ERRORS ====================================
+____ ERROR collecting tests/integration/test_native_ancestry_inventory.py _____
+import file mismatch:
+imported module 'test_native_ancestry_inventory' has this __file__ attribute:
+  C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tests\unit\test_native_ancestry_inventory.py
+which is not the same as the test file we want to collect:
+  C:\Users\�lvaro Schwiedop\Desktop\KriptaStudios\marine-echo-jepa\tests\integration\test_native_ancestry_inventory.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+=========================== short test summary info ===========================
+ERROR tests/integration/test_native_ancestry_inventory.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 23.56s

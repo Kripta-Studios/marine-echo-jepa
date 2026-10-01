@@ -1,0 +1,22 @@
+{
+  "status": "COMPLETED_TWO_ORIGINAL_SEED23_REPLICATIONS",
+  "original_queue_preserved": true,
+  "jobs": [
+    {
+      "id": "band_shared_ssl_seed23_h96_replication_v2",
+      "actual_exit_code": 0,
+      "run_sha256": "46f918e02923b715757fec0e036b622c05d25f4ad5554e69ee2b49e745aabcc5",
+      "attempt_sha256": "66ca8f748757e70164476c95caabf8a3f0b85b9be267d8b4528f5c3a527c7ab1",
+      "development_pinball_db": 0.7238881532025498,
+      "status": "VERIFIED_COMPLETED"
+    },
+    {
+      "id": "band_direct_end_to_end_seed23_h96_replication_v2",
+      "actual_exit_code": 0,
+      "run_sha256": "26da50474786a4c6ea4c9d593575dc6608e811872f6022fa6101dbe3f0ff4e55",
+      "attempt_sha256": "630c4f4e98d45a1226facb7262f78c94b00f1a3794227d846a87e3e7173a2a1e",
+      "development_pinball_db": 0.5653769374066471,
+      "status": "VERIFIED_COMPLETED"
+    }
+  ]
+}

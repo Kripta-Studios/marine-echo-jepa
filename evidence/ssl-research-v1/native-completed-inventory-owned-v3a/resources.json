@@ -1,0 +1,40 @@
+{
+  "status": "CLOSED_CPU_FIXED35_ARTIFACT_AUDIT",
+  "command": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+    "-B",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\prepare_native_research_inventory.py",
+    "--manifest",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\orchestration\\native_completed_inventory_v3a.json",
+    "--output",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\evidence\\native-completed-inventory-v3a"
+  ],
+  "resources": {
+    "exit_code": 1,
+    "stopped_for": null,
+    "peak_process_rss_bytes": 949612544,
+    "elapsed_full_attempt_seconds": 112.51600000000326,
+    "poll_seconds": 0.1,
+    "rss_limit_bytes": 23622320128,
+    "deadline_seconds": 600,
+    "owned_process_pids": [
+      35224,
+      42512
+    ],
+    "peak_each_process_rss_bytes": {
+      "35224": 5414912,
+      "42512": 944197632
+    },
+    "peak_definition": "Conservative sum of each owned process OS peak working set; sampled RSS fallback",
+    "owned_tree_cleanup_verified": true
+  },
+  "manifest_sha256": "d45dcedcb1a28c8b2c1faec11bcf8f8e582c488c48bbfcf0f0006a072b19e5c8",
+  "device": "cpu",
+  "fitting": false,
+  "scientific_prefit": false,
+  "complete_programme_freeze": false,
+  "source_bindings": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_closed_native_inventory_owned_v3a.py": "bbbdba09c20026e8a98d220fc6d7e0c28911911c1e7cb259a6c32fc16edb6539",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\native_reference_supervisor.py": "ec5456584ca6f6a805e13f4137365c2c0a785b2dbc52782b191c1528befb30dd"
+  }
+}
