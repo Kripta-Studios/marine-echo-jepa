@@ -1,0 +1,12 @@
+{
+  "status": "CLOSED_BUILDER_SOURCE_INTEGRATED",
+  "source_only": true,
+  "authored": {
+    "src/marine_echo/evaluation/native_cf_matched_contrasts_v1.py": "2a01b703c7381950f52c6743b6850530c346abf19c48829feba0a7d3448dd435",
+    "tests/unit/test_native_cf_matched_contrasts_v1.py": "6e71cdfd68356076f5c55d2f70a2d8a63e8d869e6c822453211f3cb3b34acdc7"
+  },
+  "copied_files": 41,
+  "protected_dependencies": 7,
+  "independent_approval": false,
+  "real_numeric_access": false
+}

@@ -1,0 +1,29 @@
+"""Temporary numerical red baseline; replaced after preserving the failure."""
+
+import numpy as np
+
+SEEDS = (7, 13, 23)
+ARMS = ("learned_frozen", "learned_full", "random_frozen", "scratch")
+
+
+def prespecified_specs():
+    result = {}
+    for arm in ARMS:
+        for seed in SEEDS:
+            result[f"cf_{arm}_seed{seed}"] = {
+                "arm": arm, "seed": seed, "backbone": "CFTemporalEncoder", "history": 96,
+                "mode": "frozen_readout" if arm in ("learned_frozen", "random_frozen") else "full_finetune" if arm == "learned_full" else "direct_end_to_end",
+                "supervised_updates": 2000 if arm in ("learned_frozen", "random_frozen") else 3000,
+                "head_policy": "fresh_seed_plus_100000_query_head",
+                "forecast_extraction": "original_full_H96_pooled_features",
+            }
+    result["lightgbm"] = {"arm": "lightgbm", "seed": 7}
+    return result
+
+
+def compute_cf_matched_contrasts(records, *, role, original_campaign_modified):
+    values = [float(np.mean(np.abs(r["arrays"]["predictions"][..., 2] - r["arrays"]["targets"])) / 2)
+              for r in records if r["spec"]["arm"] == "learned_frozen"]
+    mean = float(np.mean(values))
+    return {"arm_statistics": {"learned_frozen": {"seed_score_mean_db": mean}},
+            "ensembles": {"cf_learned_frozen_forecast_mean_ensemble": {"metrics": {"primary_pinball_db": mean}}}}

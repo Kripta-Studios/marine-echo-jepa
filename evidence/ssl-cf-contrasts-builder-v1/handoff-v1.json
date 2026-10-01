@@ -1,0 +1,266 @@
+{
+  "actual_checks": {
+    "format-close-01.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "format",
+        "tests/unit/test_native_cf_matched_contrasts_v1.py"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 0
+    },
+    "format-closed-01.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "src/marine_echo/evaluation/native_cf_matched_contrasts_v1.py",
+        "tests/unit/test_native_cf_matched_contrasts_v1.py"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 0
+    },
+    "format-final-01.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "src/marine_echo/evaluation/native_cf_matched_contrasts_v1.py",
+        "tests/unit/test_native_cf_matched_contrasts_v1.py"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 0
+    },
+    "format-refactor-01.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "format",
+        "src/marine_echo/evaluation/native_cf_matched_contrasts_v1.py",
+        "tests/unit/test_native_cf_matched_contrasts_v1.py"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 0
+    },
+    "green-01.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "--import-mode=importlib",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/unit/test_native_cf_matched_contrasts_v1.py",
+        "--tb=short"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 0
+    },
+    "green-closed-01.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "--import-mode=importlib",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/unit/test_native_cf_matched_contrasts_v1.py",
+        "--tb=short"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 0
+    },
+    "green-expanded-01.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "--import-mode=importlib",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/unit/test_native_cf_matched_contrasts_v1.py",
+        "--tb=short"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 0
+    },
+    "green-final-01.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "--import-mode=importlib",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/unit/test_native_cf_matched_contrasts_v1.py",
+        "--tb=short"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 0
+    },
+    "lint-closed-01.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "check",
+        "src/marine_echo/evaluation/native_cf_matched_contrasts_v1.py",
+        "tests/unit/test_native_cf_matched_contrasts_v1.py"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 0
+    },
+    "lint-final-01.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "check",
+        "src/marine_echo/evaluation/native_cf_matched_contrasts_v1.py",
+        "tests/unit/test_native_cf_matched_contrasts_v1.py"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 0
+    },
+    "lint-initial-01.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "check",
+        "src/marine_echo/evaluation/native_cf_matched_contrasts_v1.py",
+        "tests/unit/test_native_cf_matched_contrasts_v1.py"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 1
+    },
+    "red-01.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "--import-mode=importlib",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/unit/test_native_cf_matched_contrasts_v1.py::test_nonlinear_seed_score_mean_is_not_forecast_ensemble_score",
+        "--tb=short"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 1
+    },
+    "source-baseline-01.json": {
+      "command": [
+        "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+        "evidence\\ssl-cf-contrasts-builder-v1\\capture_sources.py"
+      ],
+      "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+      "exit": 0
+    }
+  },
+  "api": {
+    "function": "compute_cf_matched_contrasts(records, *, role='development', original_campaign_modified=False)",
+    "module": "marine_echo.evaluation.native_cf_matched_contrasts_v1",
+    "raw_output": "independently copied in-memory arrays; no filesystem serialization or CLI",
+    "record_count": 13,
+    "record_fields": [
+      "name",
+      "spec",
+      "arrays",
+      "lineage"
+    ],
+    "specs": "prespecified_specs()"
+  },
+  "authored": {
+    "src/marine_echo/evaluation/native_cf_matched_contrasts_v1.py": "2a01b703c7381950f52c6743b6850530c346abf19c48829feba0a7d3448dd435",
+    "tests/unit/test_native_cf_matched_contrasts_v1.py": "6e71cdfd68356076f5c55d2f70a2d8a63e8d869e6c822453211f3cb3b34acdc7"
+  },
+  "dependency_hashes": {
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\pyproject.toml": "2fd75de20d002f718bd1c621e0692671f7b3e59314f6890a15c5b6d8d4d5d64b",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\__init__.py": "3fcc1878588f5a89775363e099fab7d7323acebccae26d10db4a6da627425b68",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\__init__.py": "dddaccd3cb0c952e88796d75e7a15966cfab87f98c2cfe8452a5fff4c3138c68",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_comparison.py": "51c5374e188bd3c7f2b00d5f1b5887f33b456c291cb0290e8b8e020ff28df020",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_product.py": "fd1c643fde93494a21d560794f886056e58031f1ef6dd41ebe53662750bab314",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_suffix_reconstruction_v1.py": "fd0bebb8b5b5f4cc3b8f081468aa11aadacc6b7c851b983dd9faba282bb2ed3b",
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\uv.lock": "980c87913ed3dd0c28692a0c9e6d4b297d7994092fce6a1763d833f80699aa9a"
+  },
+  "evidence": {
+    "IMPLEMENTATION_REPORT_V1.md": "63a34b46191d58530cd5ac61476a0bf745b642051fb12645822bf716e2af848a",
+    "capture_sources.py": "1b130de7f3ce511aaf934457829a3f9bf20d11377b0640fc096378e7f413af2a",
+    "close_delivery.py": "352a94bd6af5190b9c1e37eb4b64b80ca6f9279defd63eb0feac22c6cfb6ecd6",
+    "format-close-01.json": "ce1fb829390df44527d29f98086ed8a9fcf21fd4f466278220df7041fc4715db",
+    "format-close-01.log": "413a709001976657cb743636fd34e48fc41d8d302d665460d3f874b3313da127",
+    "format-closed-01.json": "05e6aeea863c13c2959d59e39df70da00332f0bb4ffc5f3eba3c93c1ea98117c",
+    "format-closed-01.log": "3bc53bf3e981a98a34a852e175bf9b77af841edea74fca595d9aedcbaf9a4938",
+    "format-final-01.json": "05e6aeea863c13c2959d59e39df70da00332f0bb4ffc5f3eba3c93c1ea98117c",
+    "format-final-01.log": "3bc53bf3e981a98a34a852e175bf9b77af841edea74fca595d9aedcbaf9a4938",
+    "format-refactor-01.json": "7fa8c558b7ee28f1aecfb6e2cfeec066c9fc4bf3181a1cc1ac91429129cddeb2",
+    "format-refactor-01.log": "96a977f329ec3c59092d40e041a019b49dcf03ca04055e177aa0ccb8c27234df",
+    "green-01.json": "bc860e5ed348de139b005f81bfdd68dead73be8c70f9ce23c9bf4c906f62bfdc",
+    "green-01.log": "cf690676e342b01513f9ed7bd576d6008cf53f1e4332dc6f36c9b633678d461a",
+    "green-closed-01.json": "bc860e5ed348de139b005f81bfdd68dead73be8c70f9ce23c9bf4c906f62bfdc",
+    "green-closed-01.log": "0865c3468c79d13a8f6953d5cd8cbe841b8a28e999547aebc1da68ec08891a23",
+    "green-expanded-01.json": "bc860e5ed348de139b005f81bfdd68dead73be8c70f9ce23c9bf4c906f62bfdc",
+    "green-expanded-01.log": "0dea486a7fbafe179b6e82ab2d9d3bd82e56866f15925f005836517b74769e5d",
+    "green-final-01.json": "bc860e5ed348de139b005f81bfdd68dead73be8c70f9ce23c9bf4c906f62bfdc",
+    "green-final-01.log": "d48f1b4cdc77595b38ffdff80e90638045058c4ccc6ec117d48aff3e446993c0",
+    "lint-closed-01.json": "2a71e494368fe4091d170d11f0d0c9a930406cbda1b2b7acbadb4256e22abec8",
+    "lint-closed-01.log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "lint-final-01.json": "2a71e494368fe4091d170d11f0d0c9a930406cbda1b2b7acbadb4256e22abec8",
+    "lint-final-01.log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "lint-initial-01.json": "6abbd3e1019fd93787246085a71098f3bb103eeeebdcd2fa284213bd5206e5d1",
+    "lint-initial-01.log": "64ba858612079eb19ff9a92f50b0b7ab0b8d96726a2155afaaa39d46cc4daed0",
+    "protected-baseline-v1.json": "f73e00a9bd6706e3a895a5ec0acc5952aa57238408304713997f22fd90262d25",
+    "protected-source-00.txt": "fd0bebb8b5b5f4cc3b8f081468aa11aadacc6b7c851b983dd9faba282bb2ed3b",
+    "protected-source-01.txt": "51c5374e188bd3c7f2b00d5f1b5887f33b456c291cb0290e8b8e020ff28df020",
+    "protected-source-02.txt": "fd1c643fde93494a21d560794f886056e58031f1ef6dd41ebe53662750bab314",
+    "protected-source-03.txt": "3fcc1878588f5a89775363e099fab7d7323acebccae26d10db4a6da627425b68",
+    "protected-source-04.txt": "dddaccd3cb0c952e88796d75e7a15966cfab87f98c2cfe8452a5fff4c3138c68",
+    "red-01.json": "2e006d9ddb534dd5148bd40f634617ee3ec49a9807b23417ebf2f18d7c710920",
+    "red-01.log": "d8fa0b0ba8a6420fe78b26efa57f417c1f46115b6a8eef41dd4958ddc9d5c598",
+    "red-baseline-source.txt": "74e2cf2b8bd9ba661ff94a544074974bbf135f031e1d3aa73b48e3609b7a904f",
+    "run_check.py": "f2ec9109f132a53121d5cd9e6af38f81a264cdbcd1c3988b34a33c2f346ec97d",
+    "source-baseline-01.json": "ef5b64d2965ce5009f670ee6af08058ff2aa64946f7aa0b944fe3de8d95aeab8",
+    "source-baseline-01.log": "c283c816b10107768ccc8934047d1c0e4cd9e18eae8f43a9c8de173b10fb6802",
+    "source-proof-final-v1.json": "9d2929473f3b73f6e543983a3122721b565f67c47e495d0d171d661ec6e53dd0"
+  },
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY",
+  "implementer_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "limits": [
+    "Specs cannot authenticate actual model/head/scaler/ancestor/source lineage or approvals",
+    "Pure numeric function expects already-legitimately-admitted data; it creates no access authority",
+    "CF sampled-crop/full-H96 mismatch and residual head RNG confound unchanged",
+    "Fixed-seed SD is descriptive; deployment/date bootstrap is not a seed population interval",
+    "Nominal48 source-hour blocks and limited deployment/site identities constrain interpretation",
+    "Original43/47 campaign remains separately required and unchanged"
+  ],
+  "lineage_status": "CALLER_AUTHORED_UNVERIFIED",
+  "owner_supplied_root_head": "8621b23",
+  "production_status": {
+    "CUDA": "NOT_RUN",
+    "fitting": "NOT_RUN",
+    "independent_review": "NOT_RUN",
+    "public_data_or_weights": "NOT_RUN",
+    "real_saved_prediction_reconstruction": "NOT_RUN",
+    "source_prefit_numeric_approval": "NOT_RUN"
+  },
+  "protected_sources_unchanged": true,
+  "root_check_commands": [
+    ".venv\\Scripts\\python.exe -m pytest --import-mode=importlib -q -p no:cacheprovider tests/unit/test_native_cf_matched_contrasts_v1.py --tb=short",
+    ".venv\\Scripts\\python.exe -m ruff check src/marine_echo/evaluation/native_cf_matched_contrasts_v1.py tests/unit/test_native_cf_matched_contrasts_v1.py",
+    ".venv\\Scripts\\python.exe -m ruff format --check src/marine_echo/evaluation/native_cf_matched_contrasts_v1.py tests/unit/test_native_cf_matched_contrasts_v1.py"
+  ],
+  "scientific_claim": null,
+  "status": "CLOSED_ENGINEERING_DELIVERY"
+}

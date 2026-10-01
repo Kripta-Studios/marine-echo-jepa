@@ -1,0 +1,36 @@
+SIM102 Use a single `if` statement instead of nested `if` statements
+   --> src\marine_echo\evaluation\native_cf_matched_contrasts_v1.py:412:9
+    |
+410 |       for name, (a, _) in supplied.items():
+411 |           comparison._common(common, a)
+412 | /         if name != "lightgbm" or "cutoff" in a:
+413 | |             if not np.array_equal(common["cutoff"], a["cutoff"]):
+    | |_________________________________________________________________^
+414 |                   raise ValueError(
+415 |                       "Identical canonical cutoff identities required from all CF records."
+    |
+help: Combine `if` statements using `and`
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> tests\unit\test_native_cf_saved_schema_v1.py:3:1
+  |
+1 |   """Synthetic actual-writer schemas; no saved real prediction or model access."""
+2 |
+3 | / import copy
+4 | |
+5 | | import numpy as np
+6 | | import pytest
+7 | |
+8 | | from test_native_cf_matched_contrasts_v1 import api, fixture
+  | |____________________________________________________________^
+help: Organize imports
+  |
+6 | import pytest
+  -
+7 | from test_native_cf_matched_contrasts_v1 import api, fixture
+  -
+8 |
+  |
+
+Found 2 errors.
+[*] 1 fixable with the `--fix` option.

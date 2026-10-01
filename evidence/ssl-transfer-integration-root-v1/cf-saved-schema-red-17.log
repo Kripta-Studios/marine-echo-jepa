@@ -1,0 +1,836 @@
+FFFFFFFFFFFFFFFFFF                                                       [100%]
+================================== FAILURES ===================================
+__ test_actual_schemas_preserved_and_cutoff_alias_declared_without_mutation ___
+
+    def test_actual_schemas_preserved_and_cutoff_alias_declared_without_mutation():
+        records = actual_schemas()
+        original = copy.deepcopy(records)
+>       result = run(records)
+                 ^^^^^^^^^^^^
+
+tests\unit\test_native_cf_saved_schema_v1.py:44: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+records = [{'name': 'cf_learned_frozen_seed7', 'spec': {'role': 'development', 'arm': 'learned_frozen', 'method': 'cf_jepa', 'se...'<U8'), ...}, 'lineage': {'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', 'source': 'caller-authored-unverified'}}, ...]
+policy = 'alias_from_all_twelve_aligned_cf_records'
+
+    def run(records, policy=POLICY):
+>       return api.compute_cf_matched_contrasts(records, role="development",
+            original_campaign_modified=False, lightgbm_cutoff_policy=policy)
+E       TypeError: compute_cf_matched_contrasts() got an unexpected keyword argument 'lightgbm_cutoff_policy'
+
+tests\unit\test_native_cf_saved_schema_v1.py:37: TypeError
+_________________ test_no_implicit_lightgbm_cutoff_imputation _________________
+
+    def test_no_implicit_lightgbm_cutoff_imputation():
+        with pytest.raises(ValueError):
+>           run(actual_schemas(), policy=None)
+
+tests\unit\test_native_cf_saved_schema_v1.py:59: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+records = [{'name': 'cf_learned_frozen_seed7', 'spec': {'role': 'development', 'arm': 'learned_frozen', 'method': 'cf_jepa', 'se...'<U8'), ...}, 'lineage': {'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', 'source': 'caller-authored-unverified'}}, ...]
+policy = None
+
+    def run(records, policy=POLICY):
+>       return api.compute_cf_matched_contrasts(records, role="development",
+            original_campaign_modified=False, lightgbm_cutoff_policy=policy)
+E       TypeError: compute_cf_matched_contrasts() got an unexpected keyword argument 'lightgbm_cutoff_policy'
+
+tests\unit\test_native_cf_saved_schema_v1.py:37: TypeError
+_ test_alias_never_corrects_data_or_hides_optional_provenance_mismatch[one_cutoff] _
+
+damage = 'one_cutoff'
+
+    @pytest.mark.parametrize("damage", ["one_cutoff", "missing_cf", "lightgbm_truth", "lightgbm_row",
+        "bounds", "frequency", "interval", "quantiles", "horizons", "object", "context", "metadata",
+        "archive", "support"])
+    def test_alias_never_corrects_data_or_hides_optional_provenance_mismatch(damage):
+        records = actual_schemas()
+        a = records[0]["arrays"]
+        if damage == "one_cutoff":
+            a["cutoff"][0] += 1
+        elif damage == "missing_cf":
+            del a["cutoff"]
+        elif damage == "lightgbm_truth":
+            records[-1]["arrays"]["targets"][0, 0] += 1
+        elif damage == "lightgbm_row":
+            records[-1]["arrays"]["row_id"][0] = "different"
+        elif damage == "bounds":
+            a["query_native_bounds_m"][0, 0, 1] = 200
+        elif damage == "frequency":
+            a["query_frequency_hz"][0, 0] = 120000
+        elif damage == "interval":
+            a["query_interval_seconds"][0, 0] = 1
+        elif damage == "quantiles":
+            a["quantiles"][0] = 0.1
+        elif damage == "horizons":
+            a["horizons"][0] = 2
+        elif damage == "object":
+            a["archive_sha256"] = a["archive_sha256"].astype(object)
+        elif damage == "context":
+            a["context_observed"][0, 0, 0] = False
+        elif damage == "metadata":
+            a["metadata"][0, 0, 0] = 1
+        elif damage == "archive":
+            a["archive_sha256"][0] = "b" * 64
+        else:
+            a["assessment_support"][0, 0] = False
+        with pytest.raises(ValueError):
+>           run(records)
+
+tests\unit\test_native_cf_saved_schema_v1.py:97: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+records = [{'name': 'cf_learned_frozen_seed7', 'spec': {'role': 'development', 'arm': 'learned_frozen', 'method': 'cf_jepa', 'se...'<U8'), ...}, 'lineage': {'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', 'source': 'caller-authored-unverified'}}, ...]
+policy = 'alias_from_all_twelve_aligned_cf_records'
+
+    def run(records, policy=POLICY):
+>       return api.compute_cf_matched_contrasts(records, role="development",
+            original_campaign_modified=False, lightgbm_cutoff_policy=policy)
+E       TypeError: compute_cf_matched_contrasts() got an unexpected keyword argument 'lightgbm_cutoff_policy'
+
+tests\unit\test_native_cf_saved_schema_v1.py:37: TypeError
+_ test_alias_never_corrects_data_or_hides_optional_provenance_mismatch[missing_cf] _
+
+damage = 'missing_cf'
+
+    @pytest.mark.parametrize("damage", ["one_cutoff", "missing_cf", "lightgbm_truth", "lightgbm_row",
+        "bounds", "frequency", "interval", "quantiles", "horizons", "object", "context", "metadata",
+        "archive", "support"])
+    def test_alias_never_corrects_data_or_hides_optional_provenance_mismatch(damage):
+        records = actual_schemas()
+        a = records[0]["arrays"]
+        if damage == "one_cutoff":
+            a["cutoff"][0] += 1
+        elif damage == "missing_cf":
+            del a["cutoff"]
+        elif damage == "lightgbm_truth":
+            records[-1]["arrays"]["targets"][0, 0] += 1
+        elif damage == "lightgbm_row":
+            records[-1]["arrays"]["row_id"][0] = "different"
+        elif damage == "bounds":
+            a["query_native_bounds_m"][0, 0, 1] = 200
+        elif damage == "frequency":
+            a["query_frequency_hz"][0, 0] = 120000
+        elif damage == "interval":
+            a["query_interval_seconds"][0, 0] = 1
+        elif damage == "quantiles":
+            a["quantiles"][0] = 0.1
+        elif damage == "horizons":
+            a["horizons"][0] = 2
+        elif damage == "object":
+            a["archive_sha256"] = a["archive_sha256"].astype(object)
+        elif damage == "context":
+            a["context_observed"][0, 0, 0] = False
+        elif damage == "metadata":
+            a["metadata"][0, 0, 0] = 1
+        elif damage == "archive":
+            a["archive_sha256"][0] = "b" * 64
+        else:
+            a["assessment_support"][0, 0] = False
+        with pytest.raises(ValueError):
+>           run(records)
+
+tests\unit\test_native_cf_saved_schema_v1.py:97: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+records = [{'name': 'cf_learned_frozen_seed7', 'spec': {'role': 'development', 'arm': 'learned_frozen', 'method': 'cf_jepa', 'se...'<U8'), ...}, 'lineage': {'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', 'source': 'caller-authored-unverified'}}, ...]
+policy = 'alias_from_all_twelve_aligned_cf_records'
+
+    def run(records, policy=POLICY):
+>       return api.compute_cf_matched_contrasts(records, role="development",
+            original_campaign_modified=False, lightgbm_cutoff_policy=policy)
+E       TypeError: compute_cf_matched_contrasts() got an unexpected keyword argument 'lightgbm_cutoff_policy'
+
+tests\unit\test_native_cf_saved_schema_v1.py:37: TypeError
+_ test_alias_never_corrects_data_or_hides_optional_provenance_mismatch[lightgbm_truth] _
+
+damage = 'lightgbm_truth'
+
+    @pytest.mark.parametrize("damage", ["one_cutoff", "missing_cf", "lightgbm_truth", "lightgbm_row",
+        "bounds", "frequency", "interval", "quantiles", "horizons", "object", "context", "metadata",
+        "archive", "support"])
+    def test_alias_never_corrects_data_or_hides_optional_provenance_mismatch(damage):
+        records = actual_schemas()
+        a = records[0]["arrays"]
+        if damage == "one_cutoff":
+            a["cutoff"][0] += 1
+        elif damage == "missing_cf":
+            del a["cutoff"]
+        elif damage == "lightgbm_truth":
+            records[-1]["arrays"]["targets"][0, 0] += 1
+        elif damage == "lightgbm_row":
+            records[-1]["arrays"]["row_id"][0] = "different"
+        elif damage == "bounds":
+            a["query_native_bounds_m"][0, 0, 1] = 200
+        elif damage == "frequency":
+            a["query_frequency_hz"][0, 0] = 120000
+        elif damage == "interval":
+            a["query_interval_seconds"][0, 0] = 1
+        elif damage == "quantiles":
+            a["quantiles"][0] = 0.1
+        elif damage == "horizons":
+            a["horizons"][0] = 2
+        elif damage == "object":
+            a["archive_sha256"] = a["archive_sha256"].astype(object)
+        elif damage == "context":
+            a["context_observed"][0, 0, 0] = False
+        elif damage == "metadata":
+            a["metadata"][0, 0, 0] = 1
+        elif damage == "archive":
+            a["archive_sha256"][0] = "b" * 64
+        else:
+            a["assessment_support"][0, 0] = False
+        with pytest.raises(ValueError):
+>           run(records)
+
+tests\unit\test_native_cf_saved_schema_v1.py:97: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+records = [{'name': 'cf_learned_frozen_seed7', 'spec': {'role': 'development', 'arm': 'learned_frozen', 'method': 'cf_jepa', 'se...'<U8'), ...}, 'lineage': {'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', 'source': 'caller-authored-unverified'}}, ...]
+policy = 'alias_from_all_twelve_aligned_cf_records'
+
+    def run(records, policy=POLICY):
+>       return api.compute_cf_matched_contrasts(records, role="development",
+            original_campaign_modified=False, lightgbm_cutoff_policy=policy)
+E       TypeError: compute_cf_matched_contrasts() got an unexpected keyword argument 'lightgbm_cutoff_policy'
+
+tests\unit\test_native_cf_saved_schema_v1.py:37: TypeError
+_ test_alias_never_corrects_data_or_hides_optional_provenance_mismatch[lightgbm_row] _
+
+damage = 'lightgbm_row'
+
+    @pytest.mark.parametrize("damage", ["one_cutoff", "missing_cf", "lightgbm_truth", "lightgbm_row",
+        "bounds", "frequency", "interval", "quantiles", "horizons", "object", "context", "metadata",
+        "archive", "support"])
+    def test_alias_never_corrects_data_or_hides_optional_provenance_mismatch(damage):
+        records = actual_schemas()
+        a = records[0]["arrays"]
+        if damage == "one_cutoff":
+            a["cutoff"][0] += 1
+        elif damage == "missing_cf":
+            del a["cutoff"]
+        elif damage == "lightgbm_truth":
+            records[-1]["arrays"]["targets"][0, 0] += 1
+        elif damage == "lightgbm_row":
+            records[-1]["arrays"]["row_id"][0] = "different"
+        elif damage == "bounds":
+            a["query_native_bounds_m"][0, 0, 1] = 200
+        elif damage == "frequency":
+            a["query_frequency_hz"][0, 0] = 120000
+        elif damage == "interval":
+            a["query_interval_seconds"][0, 0] = 1
+        elif damage == "quantiles":
+            a["quantiles"][0] = 0.1
+        elif damage == "horizons":
+            a["horizons"][0] = 2
+        elif damage == "object":
+            a["archive_sha256"] = a["archive_sha256"].astype(object)
+        elif damage == "context":
+            a["context_observed"][0, 0, 0] = False
+        elif damage == "metadata":
+            a["metadata"][0, 0, 0] = 1
+        elif damage == "archive":
+            a["archive_sha256"][0] = "b" * 64
+        else:
+            a["assessment_support"][0, 0] = False
+        with pytest.raises(ValueError):
+>           run(records)
+
+tests\unit\test_native_cf_saved_schema_v1.py:97: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+records = [{'name': 'cf_learned_frozen_seed7', 'spec': {'role': 'development', 'arm': 'learned_frozen', 'method': 'cf_jepa', 'se...'<U8'), ...}, 'lineage': {'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', 'source': 'caller-authored-unverified'}}, ...]
+policy = 'alias_from_all_twelve_aligned_cf_records'
+
+    def run(records, policy=POLICY):
+>       return api.compute_cf_matched_contrasts(records, role="development",
+            original_campaign_modified=False, lightgbm_cutoff_policy=policy)
+E       TypeError: compute_cf_matched_contrasts() got an unexpected keyword argument 'lightgbm_cutoff_policy'
+
+tests\unit\test_native_cf_saved_schema_v1.py:37: TypeError
+_ test_alias_never_corrects_data_or_hides_optional_provenance_mismatch[bounds] _
+
+damage = 'bounds'
+
+    @pytest.mark.parametrize("damage", ["one_cutoff", "missing_cf", "lightgbm_truth", "lightgbm_row",
+        "bounds", "frequency", "interval", "quantiles", "horizons", "object", "context", "metadata",
+        "archive", "support"])
+    def test_alias_never_corrects_data_or_hides_optional_provenance_mismatch(damage):
+        records = actual_schemas()
+        a = records[0]["arrays"]
+        if damage == "one_cutoff":
+            a["cutoff"][0] += 1
+        elif damage == "missing_cf":
+            del a["cutoff"]
+        elif damage == "lightgbm_truth":
+            records[-1]["arrays"]["targets"][0, 0] += 1
+        elif damage == "lightgbm_row":
+            records[-1]["arrays"]["row_id"][0] = "different"
+        elif damage == "bounds":
+            a["query_native_bounds_m"][0, 0, 1] = 200
+        elif damage == "frequency":
+            a["query_frequency_hz"][0, 0] = 120000
+        elif damage == "interval":
+            a["query_interval_seconds"][0, 0] = 1
+        elif damage == "quantiles":
+            a["quantiles"][0] = 0.1
+        elif damage == "horizons":
+            a["horizons"][0] = 2
+        elif damage == "object":
+            a["archive_sha256"] = a["archive_sha256"].astype(object)
+        elif damage == "context":
+            a["context_observed"][0, 0, 0] = False
+        elif damage == "metadata":
+            a["metadata"][0, 0, 0] = 1
+        elif damage == "archive":
+            a["archive_sha256"][0] = "b" * 64
+        else:
+            a["assessment_support"][0, 0] = False
+        with pytest.raises(ValueError):
+>           run(records)
+
+tests\unit\test_native_cf_saved_schema_v1.py:97: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+records = [{'name': 'cf_learned_frozen_seed7', 'spec': {'role': 'development', 'arm': 'learned_frozen', 'method': 'cf_jepa', 'se...'<U8'), ...}, 'lineage': {'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', 'source': 'caller-authored-unverified'}}, ...]
+policy = 'alias_from_all_twelve_aligned_cf_records'
+
+    def run(records, policy=POLICY):
+>       return api.compute_cf_matched_contrasts(records, role="development",
+            original_campaign_modified=False, lightgbm_cutoff_policy=policy)
+E       TypeError: compute_cf_matched_contrasts() got an unexpected keyword argument 'lightgbm_cutoff_policy'
+
+tests\unit\test_native_cf_saved_schema_v1.py:37: TypeError
+_ test_alias_never_corrects_data_or_hides_optional_provenance_mismatch[frequency] _
+
+damage = 'frequency'
+
+    @pytest.mark.parametrize("damage", ["one_cutoff", "missing_cf", "lightgbm_truth", "lightgbm_row",
+        "bounds", "frequency", "interval", "quantiles", "horizons", "object", "context", "metadata",
+        "archive", "support"])
+    def test_alias_never_corrects_data_or_hides_optional_provenance_mismatch(damage):
+        records = actual_schemas()
+        a = records[0]["arrays"]
+        if damage == "one_cutoff":
+            a["cutoff"][0] += 1
+        elif damage == "missing_cf":
+            del a["cutoff"]
+        elif damage == "lightgbm_truth":
+            records[-1]["arrays"]["targets"][0, 0] += 1
+        elif damage == "lightgbm_row":
+            records[-1]["arrays"]["row_id"][0] = "different"
+        elif damage == "bounds":
+            a["query_native_bounds_m"][0, 0, 1] = 200
+        elif damage == "frequency":
+            a["query_frequency_hz"][0, 0] = 120000
+        elif damage == "interval":
+            a["query_interval_seconds"][0, 0] = 1
+        elif damage == "quantiles":
+            a["quantiles"][0] = 0.1
+        elif damage == "horizons":
+            a["horizons"][0] = 2
+        elif damage == "object":
+            a["archive_sha256"] = a["archive_sha256"].astype(object)
+        elif damage == "context":
+            a["context_observed"][0, 0, 0] = False
+        elif damage == "metadata":
+            a["metadata"][0, 0, 0] = 1
+        elif damage == "archive":
+            a["archive_sha256"][0] = "b" * 64
+        else:
+            a["assessment_support"][0, 0] = False
+        with pytest.raises(ValueError):
+>           run(records)
+
+tests\unit\test_native_cf_saved_schema_v1.py:97: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+records = [{'name': 'cf_learned_frozen_seed7', 'spec': {'role': 'development', 'arm': 'learned_frozen', 'method': 'cf_jepa', 'se...'<U8'), ...}, 'lineage': {'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', 'source': 'caller-authored-unverified'}}, ...]
+policy = 'alias_from_all_twelve_aligned_cf_records'
+
+    def run(records, policy=POLICY):
+>       return api.compute_cf_matched_contrasts(records, role="development",
+            original_campaign_modified=False, lightgbm_cutoff_policy=policy)
+E       TypeError: compute_cf_matched_contrasts() got an unexpected keyword argument 'lightgbm_cutoff_policy'
+
+tests\unit\test_native_cf_saved_schema_v1.py:37: TypeError
+_ test_alias_never_corrects_data_or_hides_optional_provenance_mismatch[interval] _
+
+damage = 'interval'
+
+    @pytest.mark.parametrize("damage", ["one_cutoff", "missing_cf", "lightgbm_truth", "lightgbm_row",
+        "bounds", "frequency", "interval", "quantiles", "horizons", "object", "context", "metadata",
+        "archive", "support"])
+    def test_alias_never_corrects_data_or_hides_optional_provenance_mismatch(damage):
+        records = actual_schemas()
+        a = records[0]["arrays"]
+        if damage == "one_cutoff":
+            a["cutoff"][0] += 1
+        elif damage == "missing_cf":
+            del a["cutoff"]
+        elif damage == "lightgbm_truth":
+            records[-1]["arrays"]["targets"][0, 0] += 1
+        elif damage == "lightgbm_row":
+            records[-1]["arrays"]["row_id"][0] = "different"
+        elif damage == "bounds":
+            a["query_native_bounds_m"][0, 0, 1] = 200
+        elif damage == "frequency":
+            a["query_frequency_hz"][0, 0] = 120000
+        elif damage == "interval":
+            a["query_interval_seconds"][0, 0] = 1
+        elif damage == "quantiles":
+            a["quantiles"][0] = 0.1
+        elif damage == "horizons":
+            a["horizons"][0] = 2
+        elif damage == "object":
+            a["archive_sha256"] = a["archive_sha256"].astype(object)
+        elif damage == "context":
+            a["context_observed"][0, 0, 0] = False
+        elif damage == "metadata":
+            a["metadata"][0, 0, 0] = 1
+        elif damage == "archive":
+            a["archive_sha256"][0] = "b" * 64
+        else:
+            a["assessment_support"][0, 0] = False
+        with pytest.raises(ValueError):
+>           run(records)
+
+tests\unit\test_native_cf_saved_schema_v1.py:97: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+records = [{'name': 'cf_learned_frozen_seed7', 'spec': {'role': 'development', 'arm': 'learned_frozen', 'method': 'cf_jepa', 'se...'<U8'), ...}, 'lineage': {'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', 'source': 'caller-authored-unverified'}}, ...]
+policy = 'alias_from_all_twelve_aligned_cf_records'
+
+    def run(records, policy=POLICY):
+>       return api.compute_cf_matched_contrasts(records, role="development",
+            original_campaign_modified=False, lightgbm_cutoff_policy=policy)
+E       TypeError: compute_cf_matched_contrasts() got an unexpected keyword argument 'lightgbm_cutoff_policy'
+
+tests\unit\test_native_cf_saved_schema_v1.py:37: TypeError
+_ test_alias_never_corrects_data_or_hides_optional_provenance_mismatch[quantiles] _
+
+damage = 'quantiles'
+
+    @pytest.mark.parametrize("damage", ["one_cutoff", "missing_cf", "lightgbm_truth", "lightgbm_row",
+        "bounds", "frequency", "interval", "quantiles", "horizons", "object", "context", "metadata",
+        "archive", "support"])
+    def test_alias_never_corrects_data_or_hides_optional_provenance_mismatch(damage):
+        records = actual_schemas()
+        a = records[0]["arrays"]
+        if damage == "one_cutoff":
+            a["cutoff"][0] += 1
+        elif damage == "missing_cf":
+            del a["cutoff"]
+        elif damage == "lightgbm_truth":
+            records[-1]["arrays"]["targets"][0, 0] += 1
+        elif damage == "lightgbm_row":
+            records[-1]["arrays"]["row_id"][0] = "different"
+        elif damage == "bounds":
+            a["query_native_bounds_m"][0, 0, 1] = 200
+        elif damage == "frequency":
+            a["query_frequency_hz"][0, 0] = 120000
+        elif damage == "interval":
+            a["query_interval_seconds"][0, 0] = 1
+        elif damage == "quantiles":
+            a["quantiles"][0] = 0.1
+        elif damage == "horizons":
+            a["horizons"][0] = 2
+        elif damage == "object":
+            a["archive_sha256"] = a["archive_sha256"].astype(object)
+        elif damage == "context":
+            a["context_observed"][0, 0, 0] = False
+        elif damage == "metadata":
+            a["metadata"][0, 0, 0] = 1
+        elif damage == "archive":
+            a["archive_sha256"][0] = "b" * 64
+        else:
+            a["assessment_support"][0, 0] = False
+        with pytest.raises(ValueError):
+>           run(records)
+
+tests\unit\test_native_cf_saved_schema_v1.py:97: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+records = [{'name': 'cf_learned_frozen_seed7', 'spec': {'role': 'development', 'arm': 'learned_frozen', 'method': 'cf_jepa', 'se...'<U8'), ...}, 'lineage': {'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', 'source': 'caller-authored-unverified'}}, ...]
+policy = 'alias_from_all_twelve_aligned_cf_records'
+
+    def run(records, policy=POLICY):
+>       return api.compute_cf_matched_contrasts(records, role="development",
+            original_campaign_modified=False, lightgbm_cutoff_policy=policy)
+E       TypeError: compute_cf_matched_contrasts() got an unexpected keyword argument 'lightgbm_cutoff_policy'
+
+tests\unit\test_native_cf_saved_schema_v1.py:37: TypeError
+_ test_alias_never_corrects_data_or_hides_optional_provenance_mismatch[horizons] _
+
+damage = 'horizons'
+
+    @pytest.mark.parametrize("damage", ["one_cutoff", "missing_cf", "lightgbm_truth", "lightgbm_row",
+        "bounds", "frequency", "interval", "quantiles", "horizons", "object", "context", "metadata",
+        "archive", "support"])
+    def test_alias_never_corrects_data_or_hides_optional_provenance_mismatch(damage):
+        records = actual_schemas()
+        a = records[0]["arrays"]
+        if damage == "one_cutoff":
+            a["cutoff"][0] += 1
+        elif damage == "missing_cf":
+            del a["cutoff"]
+        elif damage == "lightgbm_truth":
+            records[-1]["arrays"]["targets"][0, 0] += 1
+        elif damage == "lightgbm_row":
+            records[-1]["arrays"]["row_id"][0] = "different"
+        elif damage == "bounds":
+            a["query_native_bounds_m"][0, 0, 1] = 200
+        elif damage == "frequency":
+            a["query_frequency_hz"][0, 0] = 120000
+        elif damage == "interval":
+            a["query_interval_seconds"][0, 0] = 1
+        elif damage == "quantiles":
+            a["quantiles"][0] = 0.1
+        elif damage == "horizons":
+            a["horizons"][0] = 2
+        elif damage == "object":
+            a["archive_sha256"] = a["archive_sha256"].astype(object)
+        elif damage == "context":
+            a["context_observed"][0, 0, 0] = False
+        elif damage == "metadata":
+            a["metadata"][0, 0, 0] = 1
+        elif damage == "archive":
+            a["archive_sha256"][0] = "b" * 64
+        else:
+            a["assessment_support"][0, 0] = False
+        with pytest.raises(ValueError):
+>           run(records)
+
+tests\unit\test_native_cf_saved_schema_v1.py:97: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+records = [{'name': 'cf_learned_frozen_seed7', 'spec': {'role': 'development', 'arm': 'learned_frozen', 'method': 'cf_jepa', 'se...'<U8'), ...}, 'lineage': {'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', 'source': 'caller-authored-unverified'}}, ...]
+policy = 'alias_from_all_twelve_aligned_cf_records'
+
+    def run(records, policy=POLICY):
+>       return api.compute_cf_matched_contrasts(records, role="development",
+            original_campaign_modified=False, lightgbm_cutoff_policy=policy)
+E       TypeError: compute_cf_matched_contrasts() got an unexpected keyword argument 'lightgbm_cutoff_policy'
+
+tests\unit\test_native_cf_saved_schema_v1.py:37: TypeError
+_ test_alias_never_corrects_data_or_hides_optional_provenance_mismatch[object] _
+
+damage = 'object'
+
+    @pytest.mark.parametrize("damage", ["one_cutoff", "missing_cf", "lightgbm_truth", "lightgbm_row",
+        "bounds", "frequency", "interval", "quantiles", "horizons", "object", "context", "metadata",
+        "archive", "support"])
+    def test_alias_never_corrects_data_or_hides_optional_provenance_mismatch(damage):
+        records = actual_schemas()
+        a = records[0]["arrays"]
+        if damage == "one_cutoff":
+            a["cutoff"][0] += 1
+        elif damage == "missing_cf":
+            del a["cutoff"]
+        elif damage == "lightgbm_truth":
+            records[-1]["arrays"]["targets"][0, 0] += 1
+        elif damage == "lightgbm_row":
+            records[-1]["arrays"]["row_id"][0] = "different"
+        elif damage == "bounds":
+            a["query_native_bounds_m"][0, 0, 1] = 200
+        elif damage == "frequency":
+            a["query_frequency_hz"][0, 0] = 120000
+        elif damage == "interval":
+            a["query_interval_seconds"][0, 0] = 1
+        elif damage == "quantiles":
+            a["quantiles"][0] = 0.1
+        elif damage == "horizons":
+            a["horizons"][0] = 2
+        elif damage == "object":
+            a["archive_sha256"] = a["archive_sha256"].astype(object)
+        elif damage == "context":
+            a["context_observed"][0, 0, 0] = False
+        elif damage == "metadata":
+            a["metadata"][0, 0, 0] = 1
+        elif damage == "archive":
+            a["archive_sha256"][0] = "b" * 64
+        else:
+            a["assessment_support"][0, 0] = False
+        with pytest.raises(ValueError):
+>           run(records)
+
+tests\unit\test_native_cf_saved_schema_v1.py:97: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+records = [{'name': 'cf_learned_frozen_seed7', 'spec': {'role': 'development', 'arm': 'learned_frozen', 'method': 'cf_jepa', 'se...'<U8'), ...}, 'lineage': {'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', 'source': 'caller-authored-unverified'}}, ...]
+policy = 'alias_from_all_twelve_aligned_cf_records'
+
+    def run(records, policy=POLICY):
+>       return api.compute_cf_matched_contrasts(records, role="development",
+            original_campaign_modified=False, lightgbm_cutoff_policy=policy)
+E       TypeError: compute_cf_matched_contrasts() got an unexpected keyword argument 'lightgbm_cutoff_policy'
+
+tests\unit\test_native_cf_saved_schema_v1.py:37: TypeError
+_ test_alias_never_corrects_data_or_hides_optional_provenance_mismatch[context] _
+
+damage = 'context'
+
+    @pytest.mark.parametrize("damage", ["one_cutoff", "missing_cf", "lightgbm_truth", "lightgbm_row",
+        "bounds", "frequency", "interval", "quantiles", "horizons", "object", "context", "metadata",
+        "archive", "support"])
+    def test_alias_never_corrects_data_or_hides_optional_provenance_mismatch(damage):
+        records = actual_schemas()
+        a = records[0]["arrays"]
+        if damage == "one_cutoff":
+            a["cutoff"][0] += 1
+        elif damage == "missing_cf":
+            del a["cutoff"]
+        elif damage == "lightgbm_truth":
+            records[-1]["arrays"]["targets"][0, 0] += 1
+        elif damage == "lightgbm_row":
+            records[-1]["arrays"]["row_id"][0] = "different"
+        elif damage == "bounds":
+            a["query_native_bounds_m"][0, 0, 1] = 200
+        elif damage == "frequency":
+            a["query_frequency_hz"][0, 0] = 120000
+        elif damage == "interval":
+            a["query_interval_seconds"][0, 0] = 1
+        elif damage == "quantiles":
+            a["quantiles"][0] = 0.1
+        elif damage == "horizons":
+            a["horizons"][0] = 2
+        elif damage == "object":
+            a["archive_sha256"] = a["archive_sha256"].astype(object)
+        elif damage == "context":
+            a["context_observed"][0, 0, 0] = False
+        elif damage == "metadata":
+            a["metadata"][0, 0, 0] = 1
+        elif damage == "archive":
+            a["archive_sha256"][0] = "b" * 64
+        else:
+            a["assessment_support"][0, 0] = False
+        with pytest.raises(ValueError):
+>           run(records)
+
+tests\unit\test_native_cf_saved_schema_v1.py:97: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+records = [{'name': 'cf_learned_frozen_seed7', 'spec': {'role': 'development', 'arm': 'learned_frozen', 'method': 'cf_jepa', 'se...'<U8'), ...}, 'lineage': {'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', 'source': 'caller-authored-unverified'}}, ...]
+policy = 'alias_from_all_twelve_aligned_cf_records'
+
+    def run(records, policy=POLICY):
+>       return api.compute_cf_matched_contrasts(records, role="development",
+            original_campaign_modified=False, lightgbm_cutoff_policy=policy)
+E       TypeError: compute_cf_matched_contrasts() got an unexpected keyword argument 'lightgbm_cutoff_policy'
+
+tests\unit\test_native_cf_saved_schema_v1.py:37: TypeError
+_ test_alias_never_corrects_data_or_hides_optional_provenance_mismatch[metadata] _
+
+damage = 'metadata'
+
+    @pytest.mark.parametrize("damage", ["one_cutoff", "missing_cf", "lightgbm_truth", "lightgbm_row",
+        "bounds", "frequency", "interval", "quantiles", "horizons", "object", "context", "metadata",
+        "archive", "support"])
+    def test_alias_never_corrects_data_or_hides_optional_provenance_mismatch(damage):
+        records = actual_schemas()
+        a = records[0]["arrays"]
+        if damage == "one_cutoff":
+            a["cutoff"][0] += 1
+        elif damage == "missing_cf":
+            del a["cutoff"]
+        elif damage == "lightgbm_truth":
+            records[-1]["arrays"]["targets"][0, 0] += 1
+        elif damage == "lightgbm_row":
+            records[-1]["arrays"]["row_id"][0] = "different"
+        elif damage == "bounds":
+            a["query_native_bounds_m"][0, 0, 1] = 200
+        elif damage == "frequency":
+            a["query_frequency_hz"][0, 0] = 120000
+        elif damage == "interval":
+            a["query_interval_seconds"][0, 0] = 1
+        elif damage == "quantiles":
+            a["quantiles"][0] = 0.1
+        elif damage == "horizons":
+            a["horizons"][0] = 2
+        elif damage == "object":
+            a["archive_sha256"] = a["archive_sha256"].astype(object)
+        elif damage == "context":
+            a["context_observed"][0, 0, 0] = False
+        elif damage == "metadata":
+            a["metadata"][0, 0, 0] = 1
+        elif damage == "archive":
+            a["archive_sha256"][0] = "b" * 64
+        else:
+            a["assessment_support"][0, 0] = False
+        with pytest.raises(ValueError):
+>           run(records)
+
+tests\unit\test_native_cf_saved_schema_v1.py:97: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+records = [{'name': 'cf_learned_frozen_seed7', 'spec': {'role': 'development', 'arm': 'learned_frozen', 'method': 'cf_jepa', 'se...'<U8'), ...}, 'lineage': {'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', 'source': 'caller-authored-unverified'}}, ...]
+policy = 'alias_from_all_twelve_aligned_cf_records'
+
+    def run(records, policy=POLICY):
+>       return api.compute_cf_matched_contrasts(records, role="development",
+            original_campaign_modified=False, lightgbm_cutoff_policy=policy)
+E       TypeError: compute_cf_matched_contrasts() got an unexpected keyword argument 'lightgbm_cutoff_policy'
+
+tests\unit\test_native_cf_saved_schema_v1.py:37: TypeError
+_ test_alias_never_corrects_data_or_hides_optional_provenance_mismatch[archive] _
+
+damage = 'archive'
+
+    @pytest.mark.parametrize("damage", ["one_cutoff", "missing_cf", "lightgbm_truth", "lightgbm_row",
+        "bounds", "frequency", "interval", "quantiles", "horizons", "object", "context", "metadata",
+        "archive", "support"])
+    def test_alias_never_corrects_data_or_hides_optional_provenance_mismatch(damage):
+        records = actual_schemas()
+        a = records[0]["arrays"]
+        if damage == "one_cutoff":
+            a["cutoff"][0] += 1
+        elif damage == "missing_cf":
+            del a["cutoff"]
+        elif damage == "lightgbm_truth":
+            records[-1]["arrays"]["targets"][0, 0] += 1
+        elif damage == "lightgbm_row":
+            records[-1]["arrays"]["row_id"][0] = "different"
+        elif damage == "bounds":
+            a["query_native_bounds_m"][0, 0, 1] = 200
+        elif damage == "frequency":
+            a["query_frequency_hz"][0, 0] = 120000
+        elif damage == "interval":
+            a["query_interval_seconds"][0, 0] = 1
+        elif damage == "quantiles":
+            a["quantiles"][0] = 0.1
+        elif damage == "horizons":
+            a["horizons"][0] = 2
+        elif damage == "object":
+            a["archive_sha256"] = a["archive_sha256"].astype(object)
+        elif damage == "context":
+            a["context_observed"][0, 0, 0] = False
+        elif damage == "metadata":
+            a["metadata"][0, 0, 0] = 1
+        elif damage == "archive":
+            a["archive_sha256"][0] = "b" * 64
+        else:
+            a["assessment_support"][0, 0] = False
+        with pytest.raises(ValueError):
+>           run(records)
+
+tests\unit\test_native_cf_saved_schema_v1.py:97: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+records = [{'name': 'cf_learned_frozen_seed7', 'spec': {'role': 'development', 'arm': 'learned_frozen', 'method': 'cf_jepa', 'se...'<U8'), ...}, 'lineage': {'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', 'source': 'caller-authored-unverified'}}, ...]
+policy = 'alias_from_all_twelve_aligned_cf_records'
+
+    def run(records, policy=POLICY):
+>       return api.compute_cf_matched_contrasts(records, role="development",
+            original_campaign_modified=False, lightgbm_cutoff_policy=policy)
+E       TypeError: compute_cf_matched_contrasts() got an unexpected keyword argument 'lightgbm_cutoff_policy'
+
+tests\unit\test_native_cf_saved_schema_v1.py:37: TypeError
+_ test_alias_never_corrects_data_or_hides_optional_provenance_mismatch[support] _
+
+damage = 'support'
+
+    @pytest.mark.parametrize("damage", ["one_cutoff", "missing_cf", "lightgbm_truth", "lightgbm_row",
+        "bounds", "frequency", "interval", "quantiles", "horizons", "object", "context", "metadata",
+        "archive", "support"])
+    def test_alias_never_corrects_data_or_hides_optional_provenance_mismatch(damage):
+        records = actual_schemas()
+        a = records[0]["arrays"]
+        if damage == "one_cutoff":
+            a["cutoff"][0] += 1
+        elif damage == "missing_cf":
+            del a["cutoff"]
+        elif damage == "lightgbm_truth":
+            records[-1]["arrays"]["targets"][0, 0] += 1
+        elif damage == "lightgbm_row":
+            records[-1]["arrays"]["row_id"][0] = "different"
+        elif damage == "bounds":
+            a["query_native_bounds_m"][0, 0, 1] = 200
+        elif damage == "frequency":
+            a["query_frequency_hz"][0, 0] = 120000
+        elif damage == "interval":
+            a["query_interval_seconds"][0, 0] = 1
+        elif damage == "quantiles":
+            a["quantiles"][0] = 0.1
+        elif damage == "horizons":
+            a["horizons"][0] = 2
+        elif damage == "object":
+            a["archive_sha256"] = a["archive_sha256"].astype(object)
+        elif damage == "context":
+            a["context_observed"][0, 0, 0] = False
+        elif damage == "metadata":
+            a["metadata"][0, 0, 0] = 1
+        elif damage == "archive":
+            a["archive_sha256"][0] = "b" * 64
+        else:
+            a["assessment_support"][0, 0] = False
+        with pytest.raises(ValueError):
+>           run(records)
+
+tests\unit\test_native_cf_saved_schema_v1.py:97: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+records = [{'name': 'cf_learned_frozen_seed7', 'spec': {'role': 'development', 'arm': 'learned_frozen', 'method': 'cf_jepa', 'se...'<U8'), ...}, 'lineage': {'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', 'source': 'caller-authored-unverified'}}, ...]
+policy = 'alias_from_all_twelve_aligned_cf_records'
+
+    def run(records, policy=POLICY):
+>       return api.compute_cf_matched_contrasts(records, role="development",
+            original_campaign_modified=False, lightgbm_cutoff_policy=policy)
+E       TypeError: compute_cf_matched_contrasts() got an unexpected keyword argument 'lightgbm_cutoff_policy'
+
+tests\unit\test_native_cf_saved_schema_v1.py:37: TypeError
+_____________ test_declared_alias_handles_lightgbm_row_reordering _____________
+
+    def test_declared_alias_handles_lightgbm_row_reordering():
+        records = actual_schemas()
+        records[-1]["arrays"] = {k: v[::-1].copy() for k, v in records[-1]["arrays"].items()}
+>       result = run(records)
+                 ^^^^^^^^^^^^
+
+tests\unit\test_native_cf_saved_schema_v1.py:103: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+records = [{'name': 'cf_learned_frozen_seed7', 'spec': {'role': 'development', 'arm': 'learned_frozen', 'method': 'cf_jepa', 'se...'<U8'), ...}, 'lineage': {'evidence_kind': 'SYNTHETIC_CORRECTNESS_ONLY', 'source': 'caller-authored-unverified'}}, ...]
+policy = 'alias_from_all_twelve_aligned_cf_records'
+
+    def run(records, policy=POLICY):
+>       return api.compute_cf_matched_contrasts(records, role="development",
+            original_campaign_modified=False, lightgbm_cutoff_policy=policy)
+E       TypeError: compute_cf_matched_contrasts() got an unexpected keyword argument 'lightgbm_cutoff_policy'
+
+tests\unit\test_native_cf_saved_schema_v1.py:37: TypeError
+_____ test_float32_arithmetic_policy_is_explicit_and_applied_to_every_arm _____
+
+    def test_float32_arithmetic_policy_is_explicit_and_applied_to_every_arm():
+        records = fixture()
+        for record in records:
+            for key in ("targets", "predictions"):
+                record["arrays"][key] = record["arrays"][key].astype(np.float32)
+        result = api.compute_cf_matched_contrasts(records, role="development",
+                                                original_campaign_modified=False)
+>       assert result["loss_arithmetic_dtype"] == "float64_all_records_and_ensembles"
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'loss_arithmetic_dtype'
+
+tests\unit\test_native_cf_saved_schema_v1.py:115: KeyError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_cf_saved_schema_v1.py::test_actual_schemas_preserved_and_cutoff_alias_declared_without_mutation
+FAILED tests/unit/test_native_cf_saved_schema_v1.py::test_no_implicit_lightgbm_cutoff_imputation
+FAILED tests/unit/test_native_cf_saved_schema_v1.py::test_alias_never_corrects_data_or_hides_optional_provenance_mismatch[one_cutoff]
+FAILED tests/unit/test_native_cf_saved_schema_v1.py::test_alias_never_corrects_data_or_hides_optional_provenance_mismatch[missing_cf]
+FAILED tests/unit/test_native_cf_saved_schema_v1.py::test_alias_never_corrects_data_or_hides_optional_provenance_mismatch[lightgbm_truth]
+FAILED tests/unit/test_native_cf_saved_schema_v1.py::test_alias_never_corrects_data_or_hides_optional_provenance_mismatch[lightgbm_row]
+FAILED tests/unit/test_native_cf_saved_schema_v1.py::test_alias_never_corrects_data_or_hides_optional_provenance_mismatch[bounds]
+FAILED tests/unit/test_native_cf_saved_schema_v1.py::test_alias_never_corrects_data_or_hides_optional_provenance_mismatch[frequency]
+FAILED tests/unit/test_native_cf_saved_schema_v1.py::test_alias_never_corrects_data_or_hides_optional_provenance_mismatch[interval]
+FAILED tests/unit/test_native_cf_saved_schema_v1.py::test_alias_never_corrects_data_or_hides_optional_provenance_mismatch[quantiles]
+FAILED tests/unit/test_native_cf_saved_schema_v1.py::test_alias_never_corrects_data_or_hides_optional_provenance_mismatch[horizons]
+FAILED tests/unit/test_native_cf_saved_schema_v1.py::test_alias_never_corrects_data_or_hides_optional_provenance_mismatch[object]
+FAILED tests/unit/test_native_cf_saved_schema_v1.py::test_alias_never_corrects_data_or_hides_optional_provenance_mismatch[context]
+FAILED tests/unit/test_native_cf_saved_schema_v1.py::test_alias_never_corrects_data_or_hides_optional_provenance_mismatch[metadata]
+FAILED tests/unit/test_native_cf_saved_schema_v1.py::test_alias_never_corrects_data_or_hides_optional_provenance_mismatch[archive]
+FAILED tests/unit/test_native_cf_saved_schema_v1.py::test_alias_never_corrects_data_or_hides_optional_provenance_mismatch[support]
+FAILED tests/unit/test_native_cf_saved_schema_v1.py::test_declared_alias_handles_lightgbm_row_reordering
+FAILED tests/unit/test_native_cf_saved_schema_v1.py::test_float32_arithmetic_policy_is_explicit_and_applied_to_every_arm
+18 failed in 0.68s

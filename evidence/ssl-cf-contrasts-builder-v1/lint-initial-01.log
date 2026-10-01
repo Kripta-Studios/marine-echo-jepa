@@ -1,0 +1,13 @@
+UP031 Use format specifiers instead of percent format
+  --> tests\unit\test_native_cf_matched_contrasts_v1.py:46:63
+   |
+44 |     query[..., 4], query[..., 9] = 225 / 250, [1, 3, 6]
+45 |     base = {"targets": np.asarray(truth, np.float64), "observed": np.array(masks),
+46 |         "deployment": np.asarray(deps), "row_id": np.asarray(["row-%04d" % i for i in range(n)]),
+   |                                                               ^^^^^^^^^^
+47 |         "target_dates": np.asarray(dates), "query": query, "cutoff": np.arange(n, dtype=np.int64)}
+48 |     offsets = {"learned_frozen": [-6, 0, 6], "learned_full": [-3, 0, 3],
+   |
+help: Replace with format specifiers
+
+Found 1 error.

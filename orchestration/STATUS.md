@@ -1,3 +1,27 @@
+## Native SSL CF numerical preparation — coauthored, science incomplete
+
+Updated 2026-10-01 from `f36aa8e`. Existing GPT-6.1 Sol builder exited 0 with 58
+synthetic checks. ROOT integrated two hash-closed files, preserved seven original
+dependencies, and corrected actual CF/LightGBM saved-schema handling without
+rewriting historical artifacts. Final 76 CF numerical/schema checks passed without
+skips; lint passed. Seed-score means/sample SD and aligned scored ensembles stay
+distinct. A LightGBM cutoff alias is refused by default and explicitly declared
+only after all 12 CF cutoff vectors and all 13 common supports agree; real use
+requires genuine source/numerical approval. See
+`docs/NATIVE_SSL_CF_NUMERICAL_PREPARATION_V1.md` and
+`orchestration/native_ssl_cf_numerical_preparation_state_v1.json`.
+
+No real comparison, fit, weight replay, finalist selection, reviewer retry or
+reserved/prefix numerical access occurred. The V2 builder follow-up was not
+dispatched; the coordinator resolved its issue after the V1 handoff. Science remains
+40/43 neural endpoints, 47 required methods, 28 independently reconstructed methods
+and five provisional newer scores. Three Band fits and six CF fits remain pending.
+Aggregate 17.802355808369175/96h, Band 8.318836388888881/12h and CF 0/12h remain unchanged,
+including failures; 12h evaluation reserve retained. App/meeting/browser/release
+remain frozen. Exact approvals and source/fit records still depend on supported
+external restoration of the existing reviewer path; no substitute approval was
+created. This delivery grants no access authority and makes no scientific claim.
+
 ## Native SSL bounded reconstruction launcher — author validated
 
 Updated 2026-10-01 from `8621b23`. The additive CPU launcher supplies full-owned

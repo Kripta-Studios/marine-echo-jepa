@@ -1,0 +1,583 @@
+"""Pure in-memory DEV contrasts for the separately labeled CF control extension.
+
+No filesystem, decoding, inference, fitting, access admission or CLI is provided.
+The caller supplies thirteen already legitimately admitted saved-array records.
+Specs express a prespecified comparison; they cannot verify fitted lineage.
+
+Returned raw_records retain independent copies in caller order. Scoring uses
+deployment/row canonical order and ignores only unobserved target fill values.
+An ensemble scores the aligned mean forecasts, not the mean of seed scores.
+Bootstrap seeds/models are fixed: resampling concerns deployments and source-
+calendar blocks, never model selection or omission of an unfavorable seed.
+"""
+
+from __future__ import annotations
+
+from datetime import date
+from types import MappingProxyType
+
+import numpy as np
+
+from marine_echo.evaluation import native_comparison as comparison
+from marine_echo.evaluation import native_suffix_reconstruction_v1 as reconstruction
+
+SEEDS = (7, 13, 23)
+ARMS = ("learned_frozen", "learned_full", "random_frozen", "scratch")
+HORIZONS = (1, 3, 6)
+QUANTILES = (0.05, 0.25, 0.5, 0.75, 0.95)
+RECIPE = MappingProxyType(
+    {
+        "bootstrap_seed": 20260929,
+        "bootstrap_replicates": 2000,
+        "block_hours": 48,
+        "block_days": 2,
+        "floor": 18,
+    }
+)
+LIMITATIONS = (
+    "Caller-authored specs/lineage are unverified until genuine source, prefit and numerical approvals; this function grants none.",
+    "CF sampled SSL crops differ from original full-H96 pooled forecasting extraction; these arrays do not resolve that mismatch.",
+    "Fresh seed+100000 head policy is prescribed, not state-verified here; head RNG trajectories remain a residual confound.",
+    "Contrasts do not establish SSL objective specificity, SOTA, causal effects or transfer benefit.",
+    "Three fixed seeds provide descriptive sample SD; bootstrap resamples deployments and calendar blocks, not seeds.",
+    "Source-calendar two-day blocks represent 48 nominal source-hour intervals, not verified UTC/absolute-time durations.",
+    "Few deployment groups need not be independent sites; repeated blocks retain multiplicity and eligible day counts can vary.",
+    "These are development reconstructions, not held-out assessment or changes to the original43-neural/47-total campaign.",
+)
+
+
+def prespecified_specs():
+    """Return fresh exact specs for twelve CF endpoints and fixed LightGBM7.
+
+    These are assertions to validate numerically, not verified source lineage.
+    Updates describe the prescribed complete supervised exposure, not the step
+    selected on DEV or a claim established by prediction arrays alone.
+    """
+    result = {}
+    methods = {
+        "learned_frozen": "cf_jepa",
+        "learned_full": "cf_jepa",
+        "random_frozen": "cf_random_frozen",
+        "scratch": "cf_direct_supervised",
+    }
+    identities = {
+        "learned_frozen": "cf_ssl_pretrained_frozen_features_fresh_supervised_readout",
+        "learned_full": "cf_ssl_pretrained_then_full_supervised_finetuning",
+        "random_frozen": "zero_ssl_random_frozen_features_fresh_supervised_readout",
+        "scratch": "zero_ssl_fresh_cf_encoder_direct_supervised",
+    }
+    for arm in ARMS:
+        frozen = arm in ("learned_frozen", "random_frozen")
+        for seed in SEEDS:
+            result[f"cf_{arm}_seed{seed}"] = {
+                "role": "development",
+                "arm": arm,
+                "method": methods[arm],
+                "seed": seed,
+                "backbone": "CFTemporalEncoder",
+                "cf_width": 256,
+                "cf_latent": 128,
+                "cf_blocks": 5,
+                "mode": "frozen_readout"
+                if frozen
+                else "full_finetune"
+                if arm == "learned_full"
+                else "direct_end_to_end",
+                "supervised_updates": 2000 if frozen else 3000,
+                "history": 96,
+                "horizons": list(HORIZONS),
+                "quantiles": list(QUANTILES),
+                "forecast_extraction": "original_full_H96_pooled_features",
+                "head_policy": "fresh_seed_plus_100000_query_head",
+                "head_seed": seed + 100000,
+                "zero_ssl": arm in ("random_frozen", "scratch"),
+                "training_identity": identities[arm],
+            }
+    result["lightgbm"] = {
+        "role": "development",
+        "arm": "lightgbm",
+        "method": "lightgbm",
+        "seed": 7,
+        "backbone": "conventional_fifteen_quantile_boosters",
+        "cf_width": None,
+        "cf_latent": None,
+        "cf_blocks": None,
+        "mode": "fixed_original_train_reference",
+        "supervised_updates": None,
+        "history": 96,
+        "horizons": list(HORIZONS),
+        "quantiles": list(QUANTILES),
+        "forecast_extraction": "original_native_references_feature_matrix_H96",
+        "head_policy": "not_applicable_conventional_reference",
+        "head_seed": None,
+        "zero_ssl": True,
+        "training_identity": "conventional_local_train_reference_no_ssl",
+    }
+    return result
+
+
+def _typed_equal(value, expected):
+    if type(value) is not type(expected):
+        return False
+    if isinstance(expected, dict):
+        return value.keys() == expected.keys() and all(
+            _typed_equal(value[k], v) for k, v in expected.items()
+        )
+    if isinstance(expected, list):
+        return len(value) == len(expected) and all(
+            _typed_equal(a, b) for a, b in zip(value, expected, strict=True)
+        )
+    return value == expected
+
+
+def _metadata_copy(value):
+    """Plain caller metadata only: paths remain inert strings, never executed."""
+    if type(value) is dict:
+        if any(type(k) is not str for k in value):
+            raise ValueError("Plain string metadata keys required.")
+        return {k: _metadata_copy(v) for k, v in value.items()}
+    if type(value) is list:
+        return [_metadata_copy(v) for v in value]
+    if value is None or type(value) in (str, bool, int):
+        return value
+    if type(value) is float and np.isfinite(value):
+        return value
+    raise ValueError("Lineage must be plain finite caller-authored metadata, never code/objects.")
+
+
+def _canonical(arrays, *, allow_missing_cutoff=False):
+    required = {"predictions", "targets", "row_id", "deployment", "target_dates", "query", "cutoff"}
+    optional = {
+        "observed",
+        "target_observed",
+        "context_observed",
+        "role",
+        "corpus_role",
+        "evidence_kind",
+        "cutoff",
+        "metadata",
+        "archive_sha256",
+        "assessment_support",
+        "query_native_bounds_m",
+        "query_frequency_hz",
+        "query_interval_seconds",
+        "quantiles",
+        "horizons",
+    }
+    if allow_missing_cutoff:
+        required.remove("cutoff")
+    if (
+        type(arrays) is not dict
+        or not required.issubset(arrays)
+        or set(arrays) - required - optional
+    ):
+        raise ValueError("Saved forecast arrays only; no future/context values or hidden inputs.")
+    if any(type(v) is not np.ndarray for v in arrays.values()):
+        raise ValueError("Actual NumPy arrays required; no loaders, paths or array callbacks.")
+    if any(v.dtype.kind not in "biufUS" for v in arrays.values()):
+        raise ValueError("Safe numeric/string provenance only; object arrays forbidden.")
+    truth, forecast = arrays["targets"], arrays["predictions"]
+    if (
+        truth.ndim != 2
+        or truth.shape[1:] != (3,)
+        or not len(truth)
+        or truth.dtype.kind != "f"
+        or forecast.shape != (*truth.shape, 5)
+        or forecast.dtype.kind != "f"
+    ):
+        raise ValueError("Floating targets[N,3] and forecasts[N,3,5] required.")
+    n = len(truth)
+    fields = [k for k in ("observed", "target_observed") if k in arrays]
+    if not fields or any(arrays[k].shape != (n, 3) or arrays[k].dtype != np.bool_ for k in fields):
+        raise ValueError(
+            "Boolean forecast label mask[N,3] required; context masks cannot replace it."
+        )
+    mask = arrays[fields[0]]
+    if any(not np.array_equal(arrays[k], mask) for k in fields):
+        raise ValueError("Conflicting forecast mask aliases.")
+    if "context_observed" in arrays and (
+        arrays["context_observed"].shape != (n, 96, 4)
+        or arrays["context_observed"].dtype != np.bool_
+    ):
+        raise ValueError("Optional context-mask provenance must be Boolean[N,96,4].")
+    if (
+        not np.isfinite(forecast).all()
+        or not np.isfinite(truth[mask]).all()
+        or np.any(forecast[..., 1:] < forecast[..., :-1])
+    ):
+        raise ValueError("Finite ordered forecasts and finite observed truth required.")
+    for key in ("deployment", "row_id"):
+        value = arrays[key]
+        if value.shape != (n,) or value.dtype.kind != "U" or any(not v for v in value):
+            raise ValueError("Nonempty Unicode row/deployment identities required.")
+    rows = list(zip(arrays["deployment"].tolist(), arrays["row_id"].tolist(), strict=True))
+    if len(set(rows)) != n:
+        raise ValueError("Duplicate deployment+row identity.")
+    dates = arrays["target_dates"]
+    if dates.shape != (n, 3) or dates.dtype.kind != "U" or np.any(dates[mask] == ""):
+        raise ValueError("Unicode source-calendar dates required, including every observed label.")
+    for day in set(dates.ravel().tolist()) - {""}:
+        if date.fromisoformat(day).isoformat() != day:
+            raise ValueError("Exact source-calendar YYYY-MM-DD dates required.")
+    cutoff = arrays.get("cutoff")
+    if cutoff is not None and (
+        cutoff.shape != (n,) or cutoff.dtype.kind not in "iu" or np.any(cutoff < 0)
+    ):
+        raise ValueError("Explicit nonnegative integer cutoff identities required.")
+    comparison._query(arrays["query"], n)
+    if not np.allclose(arrays["query"][..., 3:5] * 250, [0, 225], rtol=0, atol=1e-5):
+        raise ValueError("Original native0-225m DEV geometry required; no relabeling/rescaling.")
+    _validate_saved_provenance(arrays, n)
+    for key in ("role", "corpus_role"):
+        if key in arrays and (
+            arrays[key].shape != ()
+            or arrays[key].dtype.kind != "U"
+            or arrays[key].item() != "development"
+        ):
+            raise ValueError("Forecast artifact role must remain development.")
+    if "evidence_kind" in arrays and (
+        arrays["evidence_kind"].shape != () or arrays["evidence_kind"].dtype.kind != "U"
+    ):
+        raise ValueError("Scalar Unicode evidence provenance required.")
+    order = np.asarray(sorted(range(n), key=rows.__getitem__))
+    row_fields = required | {
+        "cutoff",
+        "metadata",
+        "context_observed",
+        "archive_sha256",
+        "assessment_support",
+        "query_native_bounds_m",
+        "query_frequency_hz",
+        "query_interval_seconds",
+    }
+    canonical = {k: arrays[k][order].copy() for k in row_fields if k in arrays}
+    canonical["observed"] = mask[order].copy()
+    provenance = {
+        "original_fields": fields,
+        "canonical_field": "observed",
+        "canonicalized_from": "target_observed" if "observed" not in arrays else None,
+        "equal_dual_masks": len(fields) == 2,
+    }
+    return canonical, provenance
+
+
+def _validate_saved_provenance(arrays, n):
+    """Check enumerated actual writer fields; never treat context as truth."""
+    metadata = arrays.get("metadata")
+    if metadata is not None and (
+        metadata.shape != (n, 4, 9) or metadata.dtype.kind != "f" or not np.isfinite(metadata).all()
+    ):
+        raise ValueError("Saved finite channel metadata[N,4,9] required.")
+    archive = arrays.get("archive_sha256")
+    if archive is not None and (
+        archive.shape != (n,)
+        or archive.dtype.kind != "U"
+        or any(
+            len(v) != 64 or any(c not in "0123456789abcdef" for c in v) for v in archive.tolist()
+        )
+    ):
+        raise ValueError("Saved per-row archive SHA256 provenance required.")
+    support = arrays.get("assessment_support")
+    if support is not None and (
+        support.shape != (n, 3) or support.dtype != np.bool_ or not support.all()
+    ):
+        raise ValueError("Saved complete assessment-support field cannot shrink forecast support.")
+    for key, expected, tolerance in (
+        ("query_native_bounds_m", arrays["query"][..., 3:5] * 250, 1e-5),
+        ("query_frequency_hz", arrays["query"][..., 0] * 455000, 1e-2),
+        ("query_interval_seconds", arrays["query"][..., 1] * 3600, 1e-5),
+        ("quantiles", np.asarray(QUANTILES), 1e-7),
+        ("horizons", np.asarray(HORIZONS), 0),
+    ):
+        if key in arrays and (
+            arrays[key].shape != expected.shape
+            or arrays[key].dtype.kind not in "fi"
+            or not np.isfinite(arrays[key]).all()
+            or not np.allclose(arrays[key], expected, rtol=0, atol=tolerance)
+        ):
+            raise ValueError("Saved query/quantile/horizon alias differs: " + key)
+
+
+def _score(arrays):
+    # Preserve the raw arrays separately. Floating64 math avoids float32
+    # subtraction overflow; ignored masked fills never enter residuals.
+    scoring = {
+        **arrays,
+        "predictions": arrays["predictions"].astype(np.float64),
+        "targets": np.where(arrays["observed"], arrays["targets"], 0).astype(np.float64),
+    }
+    try:
+        with np.errstate(over="raise", invalid="raise"):
+            metrics = reconstruction.independent_scores(scoring)
+    except FloatingPointError as exc:
+        raise ValueError("Finite inputs overflowed numerical pinball arithmetic.") from exc
+    values = [r["pinball_db"] for r in metrics["daily_rows"]]
+    if metrics["primary_pinball_db"] is not None:
+        values.append(metrics["primary_pinball_db"])
+    if not np.isfinite(values).all():
+        raise ValueError("Nonfinite computed losses are not valid scores.")
+    return metrics
+
+
+def _difference(left, right):
+    return None if left is None or right is None else float(left - right)
+
+
+def _interval(draws):
+    return None if draws is None else np.percentile(draws, [2.5, 97.5], method="linear").tolist()
+
+
+def _mean_sd(values):
+    if None in values:
+        return None, None
+    try:
+        with np.errstate(over="raise", invalid="raise"):
+            mean, sd = float(np.mean(values)), float(np.std(values, ddof=1))
+    except FloatingPointError as exc:
+        raise ValueError("Computed seed statistics overflowed.") from exc
+    if not np.isfinite([mean, sd]).all():
+        raise ValueError("Computed seed statistics must be finite.")
+    return mean, sd
+
+
+def _variation(predictions, deployment):
+    try:
+        with np.errstate(over="raise", invalid="raise"):
+            return comparison._variation(predictions.astype(np.float64), deployment)
+    except FloatingPointError as exc:
+        raise ValueError("Computed forecast variation overflowed.") from exc
+
+
+def compute_cf_matched_contrasts(
+    records, *, role, original_campaign_modified, lightgbm_cutoff_policy=None
+):
+    """Calculate the fixed13-record DEV extension from already-admitted arrays.
+
+    records is a list/tuple of {name, spec, arrays, lineage}. Use
+    prespecified_specs() for exact keys/values; lineage may be an empty plain
+    dict, because this numerical function cannot authenticate its assertions.
+    Returned arrays are independent copies. No caller array is rewritten.
+    """
+    if (
+        role != "development"
+        or type(original_campaign_modified) is not bool
+        or original_campaign_modified
+    ):
+        raise ValueError(
+            "Development-only separately labeled extension; original campaign unchanged."
+        )
+    if reconstruction.RECIPE != dict(RECIPE) or comparison.RECIPE != dict(RECIPE):
+        raise ValueError("Immutable scorer/bootstrap recipe changed; no runtime recipe overrides.")
+    alias_policy = "alias_from_all_twelve_aligned_cf_records"
+    if lightgbm_cutoff_policy not in (None, alias_policy):
+        raise ValueError("Only explicit declared LightGBM cutoff alias policy is supported.")
+    specs = prespecified_specs()
+    if type(records) not in (list, tuple) or len(records) != 13:
+        raise ValueError("Exactly twelve prespecified CF records plus LightGBM required.")
+    supplied, raw = {}, {}
+    for record in records:
+        if type(record) is not dict or set(record) != {"name", "spec", "arrays", "lineage"}:
+            raise ValueError("Exact named spec/array/caller-lineage record required.")
+        name = record["name"]
+        if (
+            type(name) is not str
+            or name not in specs
+            or name in supplied
+            or not _typed_equal(record["spec"], specs[name])
+        ):
+            raise ValueError(
+                "Missing/duplicate/changed prespecified CF arm, seed, backbone or exposure."
+            )
+        if type(record["lineage"]) is not dict:
+            raise ValueError("Caller-authored lineage metadata object required.")
+        lineage = _metadata_copy(record["lineage"])
+        a, masks = _canonical(
+            record["arrays"],
+            allow_missing_cutoff=(name == "lightgbm" and lightgbm_cutoff_policy == alias_policy),
+        )
+        supplied[name] = (a, masks)
+        raw[name] = {
+            "spec": _metadata_copy(record["spec"]),
+            "lineage": lineage,
+            "lineage_status": "CALLER_AUTHORED_UNVERIFIED",
+            "array_order": "as_supplied",
+            "arrays": {k: v.copy() for k, v in record["arrays"].items()},
+        }
+    if set(supplied) != set(specs):
+        raise ValueError("Every prespecified record required; no partial inventories.")
+    common = supplied[next(iter(specs))][0]
+    # Check all12 CF vectors and common labels/queries before creating any alias.
+    for name, (a, _) in supplied.items():
+        comparison._common(common, a)
+        if (name != "lightgbm" or "cutoff" in a) and not np.array_equal(
+            common["cutoff"], a["cutoff"]
+        ):
+            raise ValueError("Identical canonical cutoff identities required from all CF records.")
+    cutoff_provenance = {
+        name: {
+            "original_field_absent": "cutoff" not in raw[name]["arrays"],
+            "original_artifact_modified": False,
+            "policy": "saved_original_field",
+            "source_records": [name],
+        }
+        for name in specs
+    }
+    if "cutoff" not in supplied["lightgbm"][0]:
+        supplied["lightgbm"][0]["cutoff"] = common["cutoff"].copy()
+        cutoff_provenance["lightgbm"].update(
+            policy=alias_policy,
+            source_records=[name for name in specs if name != "lightgbm"],
+            canonical_rows_masks_truth_dates_queries_verified=True,
+            all_twelve_cutoff_vectors_identical=True,
+            lineage_status="DECLARED_ALIAS_PENDING_GENUINE_SOURCE_NUMERICAL_APPROVAL",
+        )
+    for key in ("metadata", "context_observed", "archive_sha256", "assessment_support"):
+        available = [(name, a[key]) for name, (a, _) in supplied.items() if key in a]
+        if available and any(
+            not np.array_equal(available[0][1], value) for _, value in available[1:]
+        ):
+            raise ValueError("Common saved CF provenance differs: " + key)
+    methods = {}
+    for name, spec in specs.items():
+        a, masks = supplied[name]
+        comparison._common(common, a)
+        if not np.array_equal(common["cutoff"], a["cutoff"]):
+            raise ValueError("Identical canonical cutoff identities required.")
+        methods[name] = {
+            "spec": _metadata_copy(spec),
+            "metrics": _score(a),
+            "lineage_status": "CALLER_AUTHORED_UNVERIFIED",
+            "mask_provenance": masks,
+            "forecast_variation": _variation(a["predictions"], a["deployment"]),
+        }
+    arm_statistics, ensembles = {}, {}
+    for arm in ARMS:
+        names = [f"cf_{arm}_seed{seed}" for seed in SEEDS]
+        scores = [methods[name]["metrics"]["primary_pinball_db"] for name in names]
+        score_mean, score_sd = _mean_sd(scores)
+        arm_statistics[arm] = {
+            "seeds": list(SEEDS),
+            "record_names": names,
+            "seed_scores": [
+                {"seed": seed, "record_name": name, "primary_pinball_db": score}
+                for seed, name, score in zip(SEEDS, names, scores, strict=True)
+            ],
+            "seed_score_mean_db": score_mean,
+            "seed_score_sample_sd_db": score_sd,
+            "sample_sd_ddof": 1,
+            "estimand": "arithmetic_mean_of_three_seed_scores_not_scored_ensemble",
+        }
+        ensemble_name = f"cf_{arm}_forecast_mean_ensemble"
+        try:
+            with np.errstate(over="raise", invalid="raise"):
+                predictions = np.mean(
+                    np.stack([supplied[n][0]["predictions"] for n in names]).astype(np.float64),
+                    axis=0,
+                )
+        except FloatingPointError as exc:
+            raise ValueError("Finite input forecasts overflowed ensemble arithmetic.") from exc
+        ensemble = {**common, "predictions": predictions}
+        metrics = _score(ensemble)
+        ensembles[ensemble_name] = {
+            "arm": arm,
+            "seeds": list(SEEDS),
+            "record_names": names,
+            "estimand": "score_of_aligned_mean_forecasts_distinct_from_seed_score_mean",
+            "predictions": predictions.copy(),
+            "metrics": metrics,
+            "forecast_variation": _variation(predictions, common["deployment"]),
+        }
+    bootstrap_methods = {**methods, **ensembles}
+    uncertainty, draws = reconstruction.independent_bootstrap(common, bootstrap_methods)
+    if draws is not None and not np.isfinite(draws).all():
+        raise ValueError("Computed paired bootstrap draws must be finite.")
+    block_records, _ = comparison._blocks(common, list(bootstrap_methods), bootstrap_methods)
+    uncertainty["blocks"] = block_records
+    uncertainty["seed_resampling"] = False
+    lookup = {name: i for i, name in enumerate(bootstrap_methods)}
+    paired = {}
+    for left_arm, right_arm in (("learned_frozen", "random_frozen"), ("learned_full", "scratch")):
+        per_seed, seed_draws = [], []
+        for seed in SEEDS:
+            left, right = f"cf_{left_arm}_seed{seed}", f"cf_{right_arm}_seed{seed}"
+            values = None if draws is None else draws[:, lookup[left]] - draws[:, lookup[right]]
+            seed_draws.append(values)
+            per_seed.append(
+                {
+                    "seed": seed,
+                    "left_record": left,
+                    "right_record": right,
+                    "difference_db": _difference(
+                        methods[left]["metrics"]["primary_pinball_db"],
+                        methods[right]["metrics"]["primary_pinball_db"],
+                    ),
+                    "interval95_db": _interval(values),
+                }
+            )
+        points = [r["difference_db"] for r in per_seed]
+        point_mean, point_sd = _mean_sd(points)
+        paired[f"{left_arm}_minus_{right_arm}"] = {
+            "direction": "left_minus_right",
+            "scope": "paired_fixed_seed_scores_on_identical_development_support",
+            "left_arm": left_arm,
+            "right_arm": right_arm,
+            "seeds": list(SEEDS),
+            "per_seed": per_seed,
+            "mean_difference_db": point_mean,
+            "mean_difference_ci95_db": _interval(
+                None if draws is None else np.mean(seed_draws, axis=0)
+            ),
+            "seed_difference_sample_sd_db": point_sd,
+            "seed_sd_ddof": 1,
+            "bootstrap_seed_policy": "fixed_seed_pairings_not_resampled",
+        }
+    ensemble_contrasts = {}
+    for name, ensemble in ensembles.items():
+        values = None if draws is None else draws[:, lookup[name]] - draws[:, lookup["lightgbm"]]
+        ensemble_contrasts[name] = {
+            "left_record": name,
+            "right_record": "lightgbm",
+            "direction": "ensemble_minus_lightgbm",
+            "scope": "scored_forecast_ensemble_development_same_support",
+            "difference_db": _difference(
+                ensemble["metrics"]["primary_pinball_db"],
+                methods["lightgbm"]["metrics"]["primary_pinball_db"],
+            ),
+            "interval95_db": _interval(values),
+        }
+    return {
+        "kind": "native_cf_matched_contrasts_v1",
+        "extension": "CF_MATCHED_CONTROLS",
+        "status": "CALCULATED"
+        if all(m["metrics"]["primary_pinball_db"] is not None for m in methods.values())
+        else "NOT_ASSESSABLE",
+        "role": "development",
+        "original_campaign_modified": False,
+        "original_campaign_requirements_unchanged": {"neural_endpoints": 43, "total_methods": 47},
+        "recipe": dict(RECIPE),
+        "loss_arithmetic_dtype": "float64_all_records_and_ensembles",
+        "cutoff_provenance": cutoff_provenance,
+        "specs": specs,
+        "raw_records": raw,
+        "records": methods,
+        "arm_statistics": arm_statistics,
+        "ensembles": ensembles,
+        "paired_seed_contrasts": paired,
+        "ensemble_minus_lightgbm": ensemble_contrasts,
+        "bootstrap": uncertainty,
+        "native_geometry": comparison._geometry(common["query"]),
+        "common_support": {
+            "canonical_order": "deployment_then_row_id",
+            **{
+                k: common[k].copy()
+                for k in ("row_id", "deployment", "target_dates", "observed", "query", "cutoff")
+            },
+            "targets_observed_db": np.where(common["observed"], common["targets"], np.nan),
+            "issued_rows": len(common["targets"]),
+        },
+        "lineage_status": "CALLER_AUTHORED_UNVERIFIED",
+        "access_authority": False,
+        "independent_scientific_approval": False,
+        "scientific_claim": None,
+        "limitations": list(LIMITATIONS),
+    }

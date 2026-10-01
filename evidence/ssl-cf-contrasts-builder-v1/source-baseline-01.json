@@ -1,0 +1,8 @@
+{
+  "command": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+    "evidence\\ssl-cf-contrasts-builder-v1\\capture_sources.py"
+  ],
+  "exit": 0,
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY"
+}

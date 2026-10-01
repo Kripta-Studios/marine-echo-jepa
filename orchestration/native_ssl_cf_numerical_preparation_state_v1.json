@@ -1,0 +1,96 @@
+{
+  "kind": "native_ssl_cf_numerical_preparation_state_v1",
+  "status": "COAUTHORED_ENGINEERING_VALIDATED_SCIENCE_INCOMPLETE",
+  "source_head_before_delivery": "f36aa8e",
+  "checkpoint_reference_only": "dd012f0",
+  "builder_session_id": "01a0ef20-7397-7ba1-a98c-f59bc38ddcc1",
+  "builder_requested_model": "gpt-6.1-sol",
+  "builder_cli_exit": 0,
+  "builder_cli_exit_witness": "session75499 chunka2c63c exit0",
+  "builder_checks": 58,
+  "root_checks": 76,
+  "root_skips": 0,
+  "protected_dependencies_unchanged": 7,
+  "source_hashes": {
+    "src\\marine_echo\\evaluation\\native_cf_matched_contrasts_v1.py": "72099ad8a5a849df92ebfb16326d0f7cddf1c06a7262b9ef2ff24309528ba37b",
+    "tests\\unit\\test_native_cf_matched_contrasts_v1.py": "6e71cdfd68356076f5c55d2f70a2d8a63e8d869e6c822453211f3cb3b34acdc7",
+    "tests\\unit\\test_native_cf_saved_schema_v1.py": "8dc4d0c5367095b065ce68410edd6d6e70e60375d15e65e5f1e63e1a49a7535c"
+  },
+  "receipts": {
+    "cf-saved-schema-red-17": {
+      "path": "evidence\\ssl-transfer-integration-root-v1\\cf-saved-schema-red-17.json",
+      "exit_code": 1,
+      "sha256": "47199cb5193addd36c6ea139b1bfb439b4f104b067cacda59a2d6faf3638de42"
+    },
+    "cf-contrasts-schema-green-18": {
+      "path": "evidence\\ssl-transfer-integration-root-v1\\cf-contrasts-schema-green-18.json",
+      "exit_code": 0,
+      "sha256": "b0b907ef245c2583fa1612d27fe9f8f70dda594dc5a288f43d78af5398cba6b3"
+    },
+    "cf-contrasts-lint-19": {
+      "path": "evidence\\ssl-transfer-integration-root-v1\\cf-contrasts-lint-19.json",
+      "exit_code": 1,
+      "sha256": "84bdaf61f50e2c4951016bf1a4baa4368ae27bb692fe4db7c665a003a58bc415"
+    },
+    "cf-contrasts-format-20": {
+      "path": "evidence\\ssl-transfer-integration-root-v1\\cf-contrasts-format-20.json",
+      "exit_code": 0,
+      "sha256": "55ce2dd84f0b8c6212015fd7f40bb88365211d1e9b8f5321319a44897a79cb1c"
+    },
+    "cf-contrasts-final-21": {
+      "path": "evidence\\ssl-transfer-integration-root-v1\\cf-contrasts-final-21.json",
+      "exit_code": 0,
+      "sha256": "d69dbba712758b9918e7c4c725bce68747282e0538e539b5bdbcc8abdfe40601"
+    },
+    "cf-contrasts-lint-final-22": {
+      "path": "evidence\\ssl-transfer-integration-root-v1\\cf-contrasts-lint-final-22.json",
+      "exit_code": 0,
+      "sha256": "92230c462a6737f3cfa7ea74515d242c603c5210f92d722071d4e7e8afe1356c"
+    }
+  },
+  "pure_in_memory": true,
+  "real_numeric_execution": "NOT_RUN",
+  "real_fitting": "NOT_RUN",
+  "independent_approval": false,
+  "source_lineage": "CALLER_AUTHORED_UNVERIFIED",
+  "lightgbm_cutoff_alias": "EXPLICIT_PROSPECTIVE_POLICY_PENDING_GENUINE_REVIEW",
+  "reviewer_retry": false,
+  "builder_v2_followup_dispatched": false,
+  "original_campaign": {
+    "completed_neural": 40,
+    "required_neural": 43,
+    "required_methods": 47,
+    "independently_reconstructed_methods": 28,
+    "newer_provisional_scores": 5
+  },
+  "pending": {
+    "band_fits": 3,
+    "cf_control_fits": 6,
+    "finalists_frozen": false,
+    "reserved_zero_shot": "NOT_RUN",
+    "prefix_adaptation": "NOT_RUN"
+  },
+  "scientific_ledger_sha256_unchanged": "91bf4dcbedc6a603d019c28bb058549f2f39e95befc8d81de5ca6448dec2c5b0",
+  "gpu_hours_used": {
+    "aggregate": 17.802355808369175,
+    "band": 8.318836388888881,
+    "cf_controls": 0
+  },
+  "gpu_caps_hours": {
+    "aggregate": 96,
+    "band": 12,
+    "cf_controls_inside_aggregate": 12
+  },
+  "evaluation_reserve_hours": 12,
+  "failure_attempts_retained": true,
+  "frozen_work": [
+    "app",
+    "meeting",
+    "browser",
+    "release"
+  ],
+  "scientific_claim": null,
+  "research_complete": false,
+  "report": "docs/NATIVE_SSL_CF_NUMERICAL_PREPARATION_V1.md",
+  "remaining_external_dependency": "docs/NATIVE_SSL_REVIEW_SERVICE_DEPENDENCY_V1.md"
+}

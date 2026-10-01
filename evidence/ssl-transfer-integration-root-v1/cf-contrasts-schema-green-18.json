@@ -1,0 +1,37 @@
+{
+  "command": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+    "-B",
+    "-m",
+    "pytest",
+    "tests/unit/test_native_cf_matched_contrasts_v1.py",
+    "tests/unit/test_native_cf_saved_schema_v1.py",
+    "-q"
+  ],
+  "started_utc": "2026-10-01T14:57:13.079974+00:00",
+  "finished_utc": "2026-10-01T14:57:15.644892+00:00",
+  "exit_code": 0,
+  "resources": {
+    "exit_code": 0,
+    "stopped_for": null,
+    "peak_process_rss_bytes": 76922880,
+    "elapsed_full_attempt_seconds": 2.5310000000172295,
+    "poll_seconds": 0.1,
+    "rss_limit_bytes": 23601500160,
+    "deadline_seconds": 600,
+    "owned_process_pids": [
+      33520,
+      48664
+    ],
+    "peak_each_process_rss_bytes": {
+      "33520": 5419008,
+      "48664": 71503872
+    },
+    "peak_definition": "Conservative sum of each owned process OS peak working set; sampled RSS fallback",
+    "owned_tree_cleanup_verified": true
+  },
+  "launcher_peak_rss_bytes": 20819968,
+  "evidence_kind": "CPU_ENGINEERING_ONLY",
+  "ledger_sha256_before": "91bf4dcbedc6a603d019c28bb058549f2f39e95befc8d81de5ca6448dec2c5b0",
+  "ledger_sha256_after": "91bf4dcbedc6a603d019c28bb058549f2f39e95befc8d81de5ca6448dec2c5b0"
+}

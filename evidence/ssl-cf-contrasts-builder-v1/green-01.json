@@ -1,0 +1,15 @@
+{
+  "command": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "--import-mode=importlib",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "tests/unit/test_native_cf_matched_contrasts_v1.py",
+    "--tb=short"
+  ],
+  "exit": 0,
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY"
+}

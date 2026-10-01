@@ -1,0 +1,30 @@
+{
+  "status": "CLOSED_ENGINEERING_DELIVERY",
+  "files_sha256": {
+    "src/marine_echo/evaluation/native_cf_matched_contrasts_v1.py": "2a01b703c7381950f52c6743b6850530c346abf19c48829feba0a7d3448dd435",
+    "tests/unit/test_native_cf_matched_contrasts_v1.py": "6e71cdfd68356076f5c55d2f70a2d8a63e8d869e6c822453211f3cb3b34acdc7"
+  },
+  "checks": {
+    "synthetic_cpu_tests": {"passed": 58, "seconds": 1.50, "exit": 0},
+    "ruff_check_exit": 0,
+    "ruff_format_check_exit": 0,
+    "closeout_exit": 0,
+    "meaningful_red_failure_preserved": true,
+    "protected_dependencies_unchanged": 7
+  },
+  "handoff": {
+    "path": "evidence/ssl-cf-contrasts-builder-v1/handoff-v1.json",
+    "sha256": "136cf6a4c3bbd97211596139920dc5b3d88f9792d1dc8bdd4ce6f21b56ed2597",
+    "contains": "Exact dependency/evidence hashes, executed commands/exits, source proof and ROOT check commands."
+  },
+  "report": {
+    "path": "evidence/ssl-cf-contrasts-builder-v1/IMPLEMENTATION_REPORT_V1.md",
+    "sha256": "63a34b46191d58530cd5ac61476a0bf745b642051fb12645822bf716e2af848a"
+  },
+  "scope": "Pure in-memory DEV calculation; fixed thirteen records, separate seed-score means and scored ensembles, paired frozen bootstrap, unchanged43/47 campaign.",
+  "lineage_status": "CALLER_AUTHORED_UNVERIFIED",
+  "real_results": "NOT_RUN",
+  "fitting_or_CUDA": "NOT_RUN",
+  "review_or_access_approval": "NOT_RUN",
+  "scientific_claim": null
+}

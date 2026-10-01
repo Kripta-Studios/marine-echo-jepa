@@ -1,0 +1,13 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+________ test_nonlinear_seed_score_mean_is_not_forecast_ensemble_score ________
+tests\unit\test_native_cf_matched_contrasts_v1.py:69: in test_nonlinear_seed_score_mean_is_not_forecast_ensemble_score
+    assert ensemble["metrics"]["primary_pinball_db"] == pytest.approx(0.0)
+E   assert 2.0 == 0.0 ± 1.0e-12
+E     
+E     comparison failed
+E     Obtained: 2.0
+E     Expected: 0.0 ± 1.0e-12
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_cf_matched_contrasts_v1.py::test_nonlinear_seed_score_mean_is_not_forecast_ensemble_score
+1 failed in 0.21s

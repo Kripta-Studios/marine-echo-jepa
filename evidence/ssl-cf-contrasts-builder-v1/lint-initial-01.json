@@ -1,0 +1,12 @@
+{
+  "command": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+    "-m",
+    "ruff",
+    "check",
+    "src/marine_echo/evaluation/native_cf_matched_contrasts_v1.py",
+    "tests/unit/test_native_cf_matched_contrasts_v1.py"
+  ],
+  "exit": 1,
+  "evidence_kind": "SYNTHETIC_CORRECTNESS_ONLY"
+}
