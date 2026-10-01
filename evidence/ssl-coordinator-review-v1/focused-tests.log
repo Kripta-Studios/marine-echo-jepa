@@ -1,0 +1,98 @@
+FFFF.................................................................... [ 37%]
+........................................................................ [ 75%]
+..............................................                           [100%]
+================================== FAILURES ===================================
+___ test_actual_proposed_leaf_binds_both_trainers_required_source_paths[0] ____
+
+index = 0
+
+    @pytest.mark.parametrize("index", range(4))
+    def test_actual_proposed_leaf_binds_both_trainers_required_source_paths(index):
+        version = os.environ.get("NATIVE_REPLICATION_SOURCE_PROPOSAL_VERSION", "v2")
+        assert version in ("v2", "v3")
+        path = ROOT / f"orchestration/native_band_replication_admission_{version}.json"
+        job = json.loads(path.read_bytes())["jobs"][index]
+        approved = job["approval"]
+        config = core.Config(method=approved["approved_config"]["method"])
+        inputs = downstream.RunInputs(**{field: ROOT / "SYNTHETIC_METADATA_ONLY_ABSENT" / field
+            for field in ("train", "dev", "train_cohort", "dev_cohort", "split", "adr0016", "protocol", "config", "review")})
+        required = set(core.required_sources(config))
+        required.update(p for p in downstream.required_paths(inputs, config) if p.is_relative_to(ROOT / "src"))
+        missing = [str(p) for p in required if str(p) not in approved["bindings"]]
+>       assert not missing, f"Trainer-required source bindings missing before decode: {missing}"
+E       AssertionError: Trainer-required source bindings missing before decode: ['C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_latent.py']
+E       assert not ['C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_latent.py']
+
+tests\unit\test_native_band_replication_source_closure.py:28: AssertionError
+___ test_actual_proposed_leaf_binds_both_trainers_required_source_paths[1] ____
+
+index = 1
+
+    @pytest.mark.parametrize("index", range(4))
+    def test_actual_proposed_leaf_binds_both_trainers_required_source_paths(index):
+        version = os.environ.get("NATIVE_REPLICATION_SOURCE_PROPOSAL_VERSION", "v2")
+        assert version in ("v2", "v3")
+        path = ROOT / f"orchestration/native_band_replication_admission_{version}.json"
+        job = json.loads(path.read_bytes())["jobs"][index]
+        approved = job["approval"]
+        config = core.Config(method=approved["approved_config"]["method"])
+        inputs = downstream.RunInputs(**{field: ROOT / "SYNTHETIC_METADATA_ONLY_ABSENT" / field
+            for field in ("train", "dev", "train_cohort", "dev_cohort", "split", "adr0016", "protocol", "config", "review")})
+        required = set(core.required_sources(config))
+        required.update(p for p in downstream.required_paths(inputs, config) if p.is_relative_to(ROOT / "src"))
+        missing = [str(p) for p in required if str(p) not in approved["bindings"]]
+>       assert not missing, f"Trainer-required source bindings missing before decode: {missing}"
+E       AssertionError: Trainer-required source bindings missing before decode: ['C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_latent.py']
+E       assert not ['C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_latent.py']
+
+tests\unit\test_native_band_replication_source_closure.py:28: AssertionError
+___ test_actual_proposed_leaf_binds_both_trainers_required_source_paths[2] ____
+
+index = 2
+
+    @pytest.mark.parametrize("index", range(4))
+    def test_actual_proposed_leaf_binds_both_trainers_required_source_paths(index):
+        version = os.environ.get("NATIVE_REPLICATION_SOURCE_PROPOSAL_VERSION", "v2")
+        assert version in ("v2", "v3")
+        path = ROOT / f"orchestration/native_band_replication_admission_{version}.json"
+        job = json.loads(path.read_bytes())["jobs"][index]
+        approved = job["approval"]
+        config = core.Config(method=approved["approved_config"]["method"])
+        inputs = downstream.RunInputs(**{field: ROOT / "SYNTHETIC_METADATA_ONLY_ABSENT" / field
+            for field in ("train", "dev", "train_cohort", "dev_cohort", "split", "adr0016", "protocol", "config", "review")})
+        required = set(core.required_sources(config))
+        required.update(p for p in downstream.required_paths(inputs, config) if p.is_relative_to(ROOT / "src"))
+        missing = [str(p) for p in required if str(p) not in approved["bindings"]]
+>       assert not missing, f"Trainer-required source bindings missing before decode: {missing}"
+E       AssertionError: Trainer-required source bindings missing before decode: ['C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_latent.py']
+E       assert not ['C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_latent.py']
+
+tests\unit\test_native_band_replication_source_closure.py:28: AssertionError
+___ test_actual_proposed_leaf_binds_both_trainers_required_source_paths[3] ____
+
+index = 3
+
+    @pytest.mark.parametrize("index", range(4))
+    def test_actual_proposed_leaf_binds_both_trainers_required_source_paths(index):
+        version = os.environ.get("NATIVE_REPLICATION_SOURCE_PROPOSAL_VERSION", "v2")
+        assert version in ("v2", "v3")
+        path = ROOT / f"orchestration/native_band_replication_admission_{version}.json"
+        job = json.loads(path.read_bytes())["jobs"][index]
+        approved = job["approval"]
+        config = core.Config(method=approved["approved_config"]["method"])
+        inputs = downstream.RunInputs(**{field: ROOT / "SYNTHETIC_METADATA_ONLY_ABSENT" / field
+            for field in ("train", "dev", "train_cohort", "dev_cohort", "split", "adr0016", "protocol", "config", "review")})
+        required = set(core.required_sources(config))
+        required.update(p for p in downstream.required_paths(inputs, config) if p.is_relative_to(ROOT / "src"))
+        missing = [str(p) for p in required if str(p) not in approved["bindings"]]
+>       assert not missing, f"Trainer-required source bindings missing before decode: {missing}"
+E       AssertionError: Trainer-required source bindings missing before decode: ['C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_latent.py']
+E       assert not ['C:\\Users\\�lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\inference\\native_latent.py']
+
+tests\unit\test_native_band_replication_source_closure.py:28: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_native_band_replication_source_closure.py::test_actual_proposed_leaf_binds_both_trainers_required_source_paths[0]
+FAILED tests/unit/test_native_band_replication_source_closure.py::test_actual_proposed_leaf_binds_both_trainers_required_source_paths[1]
+FAILED tests/unit/test_native_band_replication_source_closure.py::test_actual_proposed_leaf_binds_both_trainers_required_source_paths[2]
+FAILED tests/unit/test_native_band_replication_source_closure.py::test_actual_proposed_leaf_binds_both_trainers_required_source_paths[3]
+4 failed, 186 passed in 37.30s

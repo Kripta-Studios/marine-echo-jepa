@@ -1,5 +1,17 @@
 ## Active model-first research — native acoustic SSL
 
+Owner-requested direct coordinator review completed on 2026-10-01 without
+a subagent. See `docs/NATIVE_SSL_COORDINATOR_REVIEW_V1.md` and
+`evidence/ssl-coordinator-review-v1/`: all three current proposals passed
+77 unique hash bindings, exact runtime/source/parent/membership checks, and
+fresh destination checks. Across three CPU correctness test commands,
+260 checks passed and four preserved historical v2 source-closure checks failed;
+the explicit v3 source-closure checks passed. The old v2 proposals cannot
+authorize fitting against current sources. This is coordinator review,
+not independent approval. All three distinct prefits remain absent;
+no scientific fit or final numeric access occurred and the run ledger stayed
+byte-identical. The review process is complete within that documented scope.
+
 Updated 2026-10-01T08:36:00+00:00.
 
 Branch `research/marine-jepa-vnext`; owner-authorized local model research.

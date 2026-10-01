@@ -1,0 +1,1 @@
+{"status": "COORDINATOR_REVIEW_COMPLETED_NOT_INDEPENDENT_APPROVAL", "jobs": 3, "unique_verified_bindings": 77, "budget": {"aggregate_hours": 17.802355808369175, "band_hours": 8.318836388888881, "remaining_band_seconds": 13252.189000000028, "ledger_sha256": "91bf4dcbedc6a603d019c28bb058549f2f39e95befc8d81de5ca6448dec2c5b0"}}

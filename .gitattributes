@@ -83,3 +83,4 @@ tools/execute_completed_native_inventory_owned_v6.py -text whitespace=cr-at-eol
 tests/unit/test_native_train_scaler_reservation_v1.py -text whitespace=cr-at-eol
 orchestration/ssl_vnext_direct13_owner_requested_review_v3.txt -text whitespace=cr-at-eol
 evidence/ssl-research-v1/direct13-owner-requested-review-*v3.* -text whitespace=cr-at-eol
+evidence/ssl-coordinator-review-v1/** -text whitespace=-blank-at-eol,-blank-at-eof,cr-at-eol

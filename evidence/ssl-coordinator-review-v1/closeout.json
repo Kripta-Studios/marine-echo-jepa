@@ -1,0 +1,61 @@
+{
+  "status": "COMPLETED_COORDINATOR_REVIEW_NOT_INDEPENDENT_APPROVAL",
+  "timestamp": "2026-10-01T08:52:32.972978+00:00",
+  "independent": false,
+  "commands": [
+    {
+      "id": "focused-tests",
+      "command": ".venv/Scripts/python.exe -m pytest --import-mode=importlib -p no:cacheprovider -q tests/unit/test_native_band_replication_source_closure.py tests/unit/test_native_band_replication_review_metadata.py tests/unit/test_native_band_replication_execution.py tests/unit/test_native_band_replication_approval_transport_v3.py tests/unit/test_native_band_completed_parent_transport_v3.py tests/unit/test_native_band_replication_inference.py tests/integration/test_native_band_replication_downstream.py",
+      "environment": {
+        "NATIVE_BAND_ROOT_RUNNER_CHECKS": "1"
+      },
+      "exit_code": 1,
+      "passed": 186,
+      "failed": 4,
+      "log": "focused-tests.log",
+      "log_sha256": "2a4fdf704cffd118281ac8481eeb2762c6bc7015b42691905ddf002377ea1c1f"
+    },
+    {
+      "id": "source-closure-v3",
+      "command": ".venv/Scripts/python.exe -m pytest --import-mode=importlib -p no:cacheprovider -q tests/unit/test_native_band_replication_source_closure.py",
+      "environment": {
+        "NATIVE_REPLICATION_SOURCE_PROPOSAL_VERSION": "v3"
+      },
+      "exit_code": 0,
+      "passed": 4,
+      "failed": 0,
+      "log": "source-closure-v3-tests.log",
+      "log_sha256": "3db24ebb76c0f7fa1b65336b452dd750ca78c64b714240f4f70b4104bf3d48e4"
+    },
+    {
+      "id": "ssl-model-tests",
+      "command": ".venv/Scripts/python.exe -m pytest --import-mode=importlib -p no:cacheprovider -q tests/unit/test_native_band_replication.py tests/unit/test_native_band_replication_latent.py tests/integration/test_native_band_replication_ssl.py",
+      "environment": {
+        "NATIVE_BAND_ROOT_RUNNER_CHECKS": "1"
+      },
+      "exit_code": 0,
+      "passed": 70,
+      "failed": 0,
+      "log": "ssl-model-tests.log",
+      "log_sha256": "ec2b4137dbe1002ba8c88402453079924877f5b2d3be84aafcedece43351c0b2"
+    },
+    {
+      "id": "read-only-metadata-audit",
+      "command": ".venv/Scripts/python.exe evidence/ssl-coordinator-review-v1/audit.py",
+      "exit_code": 0,
+      "log": "audit-execution.log",
+      "log_sha256": "8bd71cbdf568fb6ce92a8bf1c0afc7890b950f47a480a176428b86bafb7be57f"
+    }
+  ],
+  "total_passed_check_executions": 260,
+  "total_failed_check_executions": 4,
+  "scientific_fitting": "NOT_RUN",
+  "approval_files_written": [],
+  "run_ledger_unchanged": true,
+  "closeout_tooling_note": "Initial log-summary read assumed UTF-16 and exited 1 before creating a closeout. Actual logs are UTF-8; corrected summary succeeded. Scientific checks were not rerun or altered.",
+  "artifacts": {
+    "evidence\\ssl-coordinator-review-v1\\audit.py": "c920b894646abbbef22b264ae809aaa61995a3b4ef2d2161ea37af7290cb6d8c",
+    "evidence\\ssl-coordinator-review-v1\\audit.json": "f3daa63372f86e71244f4c50c7afb168c80e2aa7f8693181923183d55e07b3e8",
+    "docs\\NATIVE_SSL_COORDINATOR_REVIEW_V1.md": "8a1e76e4f5acb8177dc9fbd212c11a1c2c0f20bbd3e86d72df9ad8484fa3b8ae"
+  }
+}
