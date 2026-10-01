@@ -71,3 +71,5 @@ tools/check_native_pretrained_snapshot_owned_v3.py -text whitespace=cr-at-eol
 tools/integrate_native_pretrained_snapshot_v2.py -text whitespace=cr-at-eol
 tools/close_native_pretrained_snapshot_v2.py -text whitespace=cr-at-eol
 tests/unit/test_native_pretrained_snapshot_v2_contract.py -text whitespace=cr-at-eol
+orchestration/ssl_vnext_pretrained_snapshot_v2_independent_review.txt -text whitespace=cr-at-eol
+evidence/ssl-research-v1/native-pretrained-snapshot-independent-review-*v2.* -text whitespace=cr-at-eol

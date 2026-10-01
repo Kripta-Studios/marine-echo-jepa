@@ -1,0 +1,6 @@
+{"type":"thread.started","thread_id":"01a0ef27-876b-7692-917e-3975afc6893d"}
+{"type":"item.completed","item":{"id":"item_0","type":"error","message":"Codex is ignoring 2 unrecognized configuration settings. Check for typos or deprecated settings.\n  user (C:\\Users\\Álvaro Schwiedop\\.codex\\config.toml): `profiles.ollama-launch.forced_login_method` is ignored.\n  user (C:\\Users\\Álvaro Schwiedop\\.codex\\config.toml): `profiles.ollama-launch.openai_base_url` is ignored."}}
+{"type":"item.completed","item":{"id":"item_1","type":"error","message":"Codex is ignoring 2 unrecognized configuration settings. Check for typos or deprecated settings.\n  user (C:\\Users\\Álvaro Schwiedop\\.codex\\config.toml): `profiles.ollama-launch.forced_login_method` is ignored.\n  user (C:\\Users\\Álvaro Schwiedop\\.codex\\config.toml): `profiles.ollama-launch.openai_base_url` is ignored."}}
+{"type":"turn.started"}
+{"type":"error","message":"This request was blocked by our safety systems. Reason: Potentially unintended activity."}
+{"type":"turn.failed","error":{"message":"This request was blocked by our safety systems. Reason: Potentially unintended activity."}}

@@ -1,0 +1,20 @@
+{
+  "status": "AUTOMATIC_NEW_PACKAGE_REVIEW_REJECTED_NO_INDEPENDENT_APPROVAL",
+  "recorded_at": "2026-10-01T01:12:51.214358+00:00",
+  "reviewer_session_id": "01a0ef27-876b-7692-917e-3975afc6893d",
+  "actual_exit_code": 1,
+  "actual_exit_chunk": "b5c73a",
+  "reason": "This request was blocked by our safety systems. Reason: Potentially unintended activity.",
+  "reviewer_file_inspection_performed": false,
+  "independent_package_approval": false,
+  "fitting_approval": false,
+  "numerical_access_approval": false,
+  "performance_or_sota_approval": false,
+  "existing_local_correctness_receipts_preserved": true,
+  "bindings": {
+    "evidence/ssl-research-v1/native-pretrained-snapshot-independent-review-events-v2.jsonl": "800fd98f406b9b2b1a49578ea54e4278617a0eddface36ee9fc2fafea3b2b349",
+    "evidence/ssl-research-v1/native-pretrained-snapshot-independent-review-stderr-v2.log": "069f47d0d110ddbc110557fb9e541f244f753731e9f4f1f24838346b2a7214db",
+    "orchestration/ssl_vnext_pretrained_snapshot_v2_independent_review.txt": "949ade67f5eb16e6b980814ec3afe8dcb30d20ac29647de126b42cc198ede9a7",
+    "evidence/ssl-research-v1/native-pretrained-snapshot-closeout-v2.json": "6199be4d4ef1316b1b4b5addca4338ff9878e238b47ea6aabdea1fd390116d7b"
+  }
+}

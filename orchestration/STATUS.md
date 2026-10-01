@@ -1,6 +1,6 @@
 ## Active model-first research — native acoustic SSL
 
-Updated 2026-10-01T01:10:00+00:00.
+Updated 2026-10-01T01:12:00+00:00.
 
 Branch `research/marine-jepa-vnext`; owner-authorized local model research.
 App/release work is frozen; historical protocols, evidence and approved r3 are preserved.
@@ -51,6 +51,10 @@ Native230-to-200 relabeling is rejected by all applicable shared query interface
 Independent package review, expanded numeric comparison, public prefix transfer
 and final-site numerical access remain NOT_RUN. See report addendumV4 and the
 separate package closeout. App/release work remains frozen.
+The first distinct review of the new package was automatically rejected before
+file inspection (actual CLI exit1, chunkb5c73a), "Potentially unintended activity."
+Its exact events/task/closeout are preserved. Package independent approval is
+absent; local correctness remains verified. No alternate review route was used.
 Original serial queue: COMPLETED_REVIEWED_SERIAL_QUEUE; 9/9 reports inspected.
 Charged owned GPU-hours at ledger snapshot: 14.953011/96.
 The active wrappers own ledger writes; coordinator does not overwrite live accounting.
