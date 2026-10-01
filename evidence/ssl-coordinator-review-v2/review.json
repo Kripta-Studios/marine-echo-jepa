@@ -1,0 +1,54 @@
+{
+  "schema_version": "native_ssl_coordinator_code_review_v2",
+  "recorded_utc": "2026-10-01T11:27:09.0478676Z",
+  "inspected_head": "0f8ec3c8dc14f6704ee0e7b3d2e84759fecec403",
+  "evidence_kind": "COORDINATOR_INSPECTION_NOT_INDEPENDENT_APPROVAL",
+  "status": "THREE_TRANSFER_INTEGRATION_GAPS_REPRODUCED",
+  "role": "coordinator",
+  "independent_approval": false,
+  "findings": [
+    "CF_CONTROL_RESERVED_ASSESSMENT_ADAPTER_MISSING",
+    "CF_MATCHED_PREFIX_ALTERNATIVES_MISSING",
+    "ADAPTED_SUFFIX_ASSESSMENT_PATH_MISSING"
+  ],
+  "existing_tests": {
+    "skipped": 0,
+    "exit_code": 0,
+    "failed": 0,
+    "seconds": 64.24,
+    "passed": 130
+  },
+  "requirement_probes": {
+    "exit_code": 1,
+    "failed": 6,
+    "seconds": 2.38,
+    "passed": 1
+  },
+  "checks": [
+    "existing-control-checks.json",
+    "transfer-integration-gaps.json"
+  ],
+  "inspected_source_bindings": {
+    "src/marine_echo/training/native_cf_controls.py": "adecec6a669e43254b129e69e1dca94ade7ccf10ff1a9369e2b872cd85685ed7",
+    "src/marine_echo/inference/native_cf_controls.py": "9a6e17002fe8944bfc7965c7d4389bc4aea120cd0bfe78d5bfa52ab23e260a7d",
+    "src/marine_echo/training/native_downstream.py": "e75f9b28f7339fad8057fb4c2a3ac1fb31588503e72f9835ca1a7c911b5b283a",
+    "src/marine_echo/training/native_ssl.py": "a5d4be8301169da6ec6d4693cb085395f1fcc94c10b0c13cf9c753975c741744",
+    "src/marine_echo/evaluation/native_seed_summary_v1.py": "143cc6082945f95a2854f8fee4ca935d4f1106e5b09af869643f1738c057dff4",
+    "src/marine_echo/evaluation/native_assessment_replication.py": "f8c7e9272c9ecbbb68d60695e9e4e92494f42ca9420989500b7c3f409778c9ef",
+    "src/marine_echo/training/native_prefix_desktop_transfer_v3.py": "a7b90e49fee2866363877f4f6c236c99867ce77ca451f90801ee573b5ec2fca0",
+    "tools/execute_native_cf_control_job_v1.py": "1a7fb77cc04fa0d42e131a836a89ac923e8d73f268c59afbbfc7a41c2e292dc6",
+    "tools/native_cf_control_budget_v1.py": "9069d46e892922f691900d681659cf9007b4c5e30ba78c3e62bab24b91db2fcc",
+    "tools/execute_bounded_native_replication_assessment.py": "d431c5ec642821c8906a2b8c09d45ffb6ce9d4a52d8e4fdb5138b7778b5161da",
+    "tools/native_train_scaler_reservation_v1.py": "9a60e026d4f68b42efd3521988da29f0d33b80dbed9ec5656bf60034d0fbf307",
+    "tools/prepare_native_development_comparison_v5.py": "c73e875a0b9d2cdb57f32eada1386119a55850fbd8ff474890139f18da474875",
+    "tools/prepare_completed_native_inventory_v6.py": "833f73d71ce94485f643ee1f4a132cd42cdae1a2a02d49a844bdd205c91df0e9"
+  },
+  "scientific_ledger_sha256": "91bf4dcbedc6a603d019c28bb058549f2f39e95befc8d81de5ca6448dec2c5b0",
+  "new_real_fits": 0,
+  "reserved_numeric_access": false,
+  "reviewer_launch": "NOT_RUN",
+  "implementation_changes": "NONE_REVIEW_ONLY",
+  "report": "docs/NATIVE_SSL_COORDINATOR_CODE_REVIEW_V2.md",
+  "unblocked_engineering": "Separate typed control assessment, matched prefix alternatives and suffix evaluator with synthetic verification",
+  "objective_complete": false
+}

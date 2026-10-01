@@ -1,3 +1,27 @@
+## Native SSL coordinator code inspection — transfer integration gaps
+
+Updated 2026-10-01 after the owner's explicit request for direct code inspection.
+Inspected HEAD `0f8ec3c`; newer and historical work remains preserved. This is a
+coordinator inspection, not independent approval. The focused CF CPU suite passed
+130 tests, including all four optimizer/resume cases, with no skips. Six new
+requirement probes failed and one boundary probe passed, documenting three
+unfinished integrations: CF controls in reserved assessment, matched CF controls
+in prefix adaptation, and a separate evaluator for prefix-adapted suffix forecasts.
+
+This supersedes the earlier handoff's conclusion that no unfinished unblocked
+engineering task remained. Separately versioned implementation and synthetic
+verification of these interfaces can proceed; real fits, independent numerical
+review and reserved access still require their genuine scientific gates. The
+zero-shot exclusion of reserved fitted ancestry must not be weakened to admit
+adapted models. See `docs/NATIVE_SSL_COORDINATOR_CODE_REVIEW_V2.md` and
+`evidence/ssl-coordinator-review-v2/review.json` for source findings and execution
+receipts. No implementation source or existing approval was changed in this review.
+
+No new real fit, reviewer launch, CUDA job, reconstruction or reserved numerical
+access occurred. The scientific ledger remains byte-identical: aggregate
+17.802355808369175/96 hours, Band8.318836388888881/12 hours, CF extension0/12 hours.
+App, meeting, browser and release remain frozen. Research remains incomplete.
+
 ## Native SSL continuation — coordinator identity and remaining dependency
 
 Updated 2026-10-01T10:39:26Z. Coordinator session

@@ -1,0 +1,29 @@
+{
+  "evidence_kind": "COORDINATOR_CPU_CHECKS_NOT_INDEPENDENT_APPROVAL",
+  "started_utc": "2026-10-01T11:24:11.905056+00:00",
+  "finished_utc": "2026-10-01T11:25:20.984770+00:00",
+  "command": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+    "-B",
+    "-m",
+    "pytest",
+    "--import-mode=importlib",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "tests/unit/test_native_cf_controls.py",
+    "tests/integration/test_native_cf_controls.py",
+    "tests/unit/test_native_cf_control_budget_v1.py",
+    "tests/unit/test_native_cf_control_execution_v1.py",
+    "tests/unit/test_native_seed_summary_v1.py",
+    "tests/unit/test_native_cf_control_registration_v1.py",
+    "tests/unit/test_native_cf_control_prefit_v1.py",
+    "--tb=short"
+  ],
+  "exit_code": 0,
+  "ledger_sha256_before": "91bf4dcbedc6a603d019c28bb058549f2f39e95befc8d81de5ca6448dec2c5b0",
+  "ledger_sha256_after": "91bf4dcbedc6a603d019c28bb058549f2f39e95befc8d81de5ca6448dec2c5b0",
+  "log_sha256": "c8f8972d19df91b6e9de57133169478f6859c31f6b8be75df216c1595024dcda",
+  "new_real_fits": 0,
+  "reserved_numerical_access": false
+}

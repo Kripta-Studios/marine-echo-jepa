@@ -1,0 +1,23 @@
+{
+  "evidence_kind": "COORDINATOR_CPU_CHECKS_NOT_INDEPENDENT_APPROVAL",
+  "started_utc": "2026-10-01T11:25:20.994586+00:00",
+  "finished_utc": "2026-10-01T11:25:24.491164+00:00",
+  "command": [
+    "C:\\Users\\\u00c1lvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\.venv\\Scripts\\python.exe",
+    "-B",
+    "-m",
+    "pytest",
+    "--import-mode=importlib",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "evidence/ssl-coordinator-review-v2/test_transfer_integration_gaps.py",
+    "--tb=short"
+  ],
+  "exit_code": 1,
+  "ledger_sha256_before": "91bf4dcbedc6a603d019c28bb058549f2f39e95befc8d81de5ca6448dec2c5b0",
+  "ledger_sha256_after": "91bf4dcbedc6a603d019c28bb058549f2f39e95befc8d81de5ca6448dec2c5b0",
+  "log_sha256": "a5e505432197c28175b57d55f90c1987959d1a22f2ca0edaf036325ff9ef5640",
+  "new_real_fits": 0,
+  "reserved_numerical_access": false
+}

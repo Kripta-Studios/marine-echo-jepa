@@ -1,0 +1,42 @@
+FFFFFF.                                                                  [100%]
+================================== FAILURES ===================================
+_ test_reserved_evaluator_accepts_distinct_matched_cf_artifact[marine_echo.evaluation.native_assessment_replication] _
+evidence\ssl-coordinator-review-v2\test_transfer_integration_gaps.py:22: in test_reserved_evaluator_accepts_distinct_matched_cf_artifact
+    assert "native_cf_control_weights_only_inference_v1" in module.NEURAL_KINDS
+E   AssertionError: assert 'native_cf_control_weights_only_inference_v1' in {'native_band_replication_ssl_weights_only_inference_v2', 'native_band_ssl_weights_only_inference_v1', 'native_ssl_weights_only_inference_v1'}
+E    +  where {'native_band_replication_ssl_weights_only_inference_v2', 'native_band_ssl_weights_only_inference_v1', 'native_ssl_weights_only_inference_v1'} = <module 'marine_echo.evaluation.native_assessment_replication' from 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_assessment_replication.py'>.NEURAL_KINDS
+_ test_reserved_evaluator_accepts_distinct_matched_cf_artifact[execute_bounded_native_replication_assessment] _
+evidence\ssl-coordinator-review-v2\test_transfer_integration_gaps.py:22: in test_reserved_evaluator_accepts_distinct_matched_cf_artifact
+    assert "native_cf_control_weights_only_inference_v1" in module.NEURAL_KINDS
+E   AssertionError: assert 'native_cf_control_weights_only_inference_v1' in {'native_band_replication_ssl_weights_only_inference_v2', 'native_band_ssl_weights_only_inference_v1', 'native_ssl_weights_only_inference_v1'}
+E    +  where {'native_band_replication_ssl_weights_only_inference_v2', 'native_band_ssl_weights_only_inference_v1', 'native_ssl_weights_only_inference_v1'} = <module 'execute_bounded_native_replication_assessment' from 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_bounded_native_replication_assessment.py'>.NEURAL_KINDS
+_ test_prefix_configuration_supports_same_cf_backbone_controls[cf_random_frozen-frozen_readout] _
+evidence\ssl-coordinator-review-v2\test_transfer_integration_gaps.py:31: in test_prefix_configuration_supports_same_cf_backbone_controls
+    prefix.PrefixConfig(method=method, family="cf", mode=mode).validate(
+src\marine_echo\training\native_prefix_desktop_transfer_v3.py:134: in validate
+    raise ValueError("Unknown native method/family.")
+E   ValueError: Unknown native method/family.
+_ test_prefix_configuration_supports_same_cf_backbone_controls[direct-scratch_direct] _
+evidence\ssl-coordinator-review-v2\test_transfer_integration_gaps.py:31: in test_prefix_configuration_supports_same_cf_backbone_controls
+    prefix.PrefixConfig(method=method, family="cf", mode=mode).validate(
+src\marine_echo\training\native_prefix_desktop_transfer_v3.py:136: in validate
+    raise ValueError("CF family/method identity differs.")
+E   ValueError: CF family/method identity differs.
+_ test_assessment_can_consume_saved_adaptation_artifact[marine_echo.evaluation.native_assessment_replication] _
+evidence\ssl-coordinator-review-v2\test_transfer_integration_gaps.py:38: in test_assessment_can_consume_saved_adaptation_artifact
+    assert "native_prefix_transfer_inference_v1" in module.NEURAL_KINDS
+E   AssertionError: assert 'native_prefix_transfer_inference_v1' in {'native_band_replication_ssl_weights_only_inference_v2', 'native_band_ssl_weights_only_inference_v1', 'native_ssl_weights_only_inference_v1'}
+E    +  where {'native_band_replication_ssl_weights_only_inference_v2', 'native_band_ssl_weights_only_inference_v1', 'native_ssl_weights_only_inference_v1'} = <module 'marine_echo.evaluation.native_assessment_replication' from 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\src\\marine_echo\\evaluation\\native_assessment_replication.py'>.NEURAL_KINDS
+_ test_assessment_can_consume_saved_adaptation_artifact[execute_bounded_native_replication_assessment] _
+evidence\ssl-coordinator-review-v2\test_transfer_integration_gaps.py:38: in test_assessment_can_consume_saved_adaptation_artifact
+    assert "native_prefix_transfer_inference_v1" in module.NEURAL_KINDS
+E   AssertionError: assert 'native_prefix_transfer_inference_v1' in {'native_band_replication_ssl_weights_only_inference_v2', 'native_band_ssl_weights_only_inference_v1', 'native_ssl_weights_only_inference_v1'}
+E    +  where {'native_band_replication_ssl_weights_only_inference_v2', 'native_band_ssl_weights_only_inference_v1', 'native_ssl_weights_only_inference_v1'} = <module 'execute_bounded_native_replication_assessment' from 'C:\\Users\\Álvaro Schwiedop\\Desktop\\KriptaStudios\\marine-echo-jepa\\tools\\execute_bounded_native_replication_assessment.py'>.NEURAL_KINDS
+=========================== short test summary info ===========================
+FAILED evidence/ssl-coordinator-review-v2/test_transfer_integration_gaps.py::test_reserved_evaluator_accepts_distinct_matched_cf_artifact[marine_echo.evaluation.native_assessment_replication]
+FAILED evidence/ssl-coordinator-review-v2/test_transfer_integration_gaps.py::test_reserved_evaluator_accepts_distinct_matched_cf_artifact[execute_bounded_native_replication_assessment]
+FAILED evidence/ssl-coordinator-review-v2/test_transfer_integration_gaps.py::test_prefix_configuration_supports_same_cf_backbone_controls[cf_random_frozen-frozen_readout]
+FAILED evidence/ssl-coordinator-review-v2/test_transfer_integration_gaps.py::test_prefix_configuration_supports_same_cf_backbone_controls[direct-scratch_direct]
+FAILED evidence/ssl-coordinator-review-v2/test_transfer_integration_gaps.py::test_assessment_can_consume_saved_adaptation_artifact[marine_echo.evaluation.native_assessment_replication]
+FAILED evidence/ssl-coordinator-review-v2/test_transfer_integration_gaps.py::test_assessment_can_consume_saved_adaptation_artifact[execute_bounded_native_replication_assessment]
+6 failed, 1 passed in 2.38s
